@@ -1,0 +1,430 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+}
+
+<section class="site-section" id="next-section">
+    <div class="container">
+        <div class="row">
+            <!-- 左欄-接案者資訊 -->
+            <div class="col-lg-4 sidebar pl-lg-5">
+                <div class="sidebar-box">
+                    <img src="~/Assets/images/person_1.jpg" alt="Image placeholder"
+                         class="img-fluid mb-4 w-50 rounded-circle">
+                    <h3>Author</h3>
+                    <div class="d-flex flex-column">
+                        <span class="m-2"><span class="icon-briefcase mr-2"></span>接案身分: {{個人兼職}}</span>
+                        <span class="m-2">
+                            <span class="icon-clock-o mr-2"></span><span class="text-primary">
+                                上線時間:
+                                {{3天前}}
+                            </span>
+                        </span>
+                        <span class="m-2"><span class="icon-room mr-2"></span>接案地點: {{台北市}}</span>
+                        <a class="btn btn-default" data-toggle="collapse" href="#multiCollapseExample1"
+                           role="button" aria-expanded="false" aria-controls="multiCollapseExample1">看更多↓</a>
+                    </div>
+                    <div class="collapse multi-collapse" id="multiCollapseExample1">
+                        <div class="body">
+                            <label class="readMoreBtn" for="workroomInfoReadMore"></label>
+                            <p class="designerDeal">
+                                成交件數:<a class="blueLink" href="javascript:;"
+                                        title="成交件數">{{0}}</a>
+                            </p>
+                            <p class="designerInvited">受邀次數: {{11}}</p>
+                            <p class="designerSkill">
+                                <span class="designerSkillTit">專長:</span>
+                                <a href="/talent?ca=dRL&amp;su=Z20J" target="_blank" title="網頁版型設計"># 網頁版型設計</a>
+                                <a href="/talent?ca=dRL&amp;su=dVOE" target="_blank" title="網頁切版製作"># 網頁切版製作</a>
+                                <a href="/talent?ca=dRL&amp;su=aob2" target="_blank" title="網站程式設計/網站架設">
+                                    #
+                                    網站程式設計/網站架設
+                                </a>
+                            </p>
+                            <div class="author-social mb-4">
+                                <a href="#"><span class="icon-facebook"></span></a>
+                                <a href="#"><span class="icon-twitter"></span></a>
+                                <a href="#"><span class="icon-instagram"></span></a>
+                                <a href="#"><span class="icon-linkedin"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="workroomMainBtn">
+                        <div class="row my-3">
+                            <div class="col-12 d-flex">
+                                <a type="button" href="#" class="btn btn-light btn-md m-auto text-nowrap">
+                                    <span class="icon-heart-o mr-2 text-danger"></span>收藏
+                                </a>
+                                <a type="button" href="#" class="btn btn-primary btn-md m-auto text-nowrap">
+                                    <span class="fas fa-phone-alt mr-2"></span>直接聯絡
+                                </a>
+                            </div>
+                            <div class="col-12 my-3">
+                                <button class="workroomContactNow ga_event btn btn-danger w-100" data-el="即時詢問"
+                                        type="button" data-token="" title="即時詢問">
+                                    即時詢問
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar-box">
+                        <p class="avatar lazy" data-src="">
+                            [連接首頁banner的廣告]
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- 右欄-報價細節 -->
+            <div class="col-lg-8  blog-content">
+                <section id="primary" class="content-area">
+                    <div class="container">
+                        <div class="row align-items-center mb-5">
+                            <div class="col-12 mb-4 mb-lg-0">
+                                <header id="backwork">
+                                    <h3>
+                                        <a href="@Url.Action("StudioHome", "Quotation")" class="fas fa-angle-double-left mr-2">回到工作室 </a>
+                                    </h3>
+                                </header>
+                                <div class="d-flex align-items-center">
+                                    <div class="col-6 border p-2 d-inline-block mr-3 rounded">
+                                        <figure>
+                                            <img src="~/Assets/images/job_single_img_1.jpg" alt="Image"
+                                                 class="img-fluid rounded">
+                                        </figure>
+                                        <!-- 作品集縮圖 -->
+                                        <div class="left-down">
+                                            <ul class="d-flex" style="overflow-y: auto;">
+                                                <li class="mx-2">
+                                                    <a href="#otherpicture-one" title="pre-Post">
+                                                        <img width="71" height="36"
+                                                             src="https://demo.colorlib.com/activello/wp-content/uploads/sites/57/2015/11/photo-1438109491414-7198515b166b-710x335.jpg"
+                                                             class="single-featured wp-post-image" alt=""
+                                                             sizes="(max-width: 710px) 25vw,178px" />
+                                                    </a>
+                                                </li>
+                                                <li class="mx-2">
+                                                    <a href="#otherpicture-two" title="pre-Post">
+                                                        <img width="71" height="36"
+                                                             src="https://demo.colorlib.com/activello/wp-content/uploads/sites/57/2015/11/photo-1438109491414-7198515b166b-710x335.jpg"
+                                                             class="single-featured wp-post-image" alt=""
+                                                             sizes="(max-width: 710px) 25vw,178px" />
+                                                    </a>
+                                                </li>
+                                                <li class="mx-2">
+                                                    <a href="#otherpicture-three" title="pre-Post">
+                                                        <img width="71" height="36"
+                                                             src="https://demo.colorlib.com/activello/wp-content/uploads/sites/57/2015/11/photo-1438109491414-7198515b166b-710x335.jpg"
+                                                             class="single-featured wp-post-image" alt=""
+                                                             sizes="(max-width: 710px) 25vw,178px" />
+                                                    </a>
+                                                </li>
+                                                <li class="mx-2">
+                                                    <a href="#otherpicture-four" title="pre-Post">
+                                                        <img width="71" height="36"
+                                                             src="https://demo.colorlib.com/activello/wp-content/uploads/sites/57/2015/11/photo-1438109491414-7198515b166b-710x335.jpg"
+                                                             class="single-featured wp-post-image" alt=""
+                                                             sizes="(max-width: 710px) 25vw,178px" />
+                                                    </a>
+                                                </li>
+                                                <li class="mx-2">
+                                                    <a href="#otherpicture-five" title="pre-Post">
+                                                        <img width="71" height="36"
+                                                             src="https://demo.colorlib.com/activello/wp-content/uploads/sites/57/2015/11/photo-1438109491414-7198515b166b-710x335.jpg"
+                                                             class="single-featured wp-post-image" alt=""
+                                                             sizes="(max-width: 710px) 25vw,178px" />
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div>
+                                            <span class="text-danger">
+                                                #<a class="text-danger"
+                                                    href="#">網頁切版製作</a>
+                                            </span>
+                                            <span class="m-2">
+                                                <span class="icon-clock-o mr-2"></span><span class="">{{接案日期}}更新</span>
+                                            </span>
+                                        </div>
+                                        <div class="mt-3">
+                                            <h2>網頁設計</h2>
+                                            <p>服務報價：</p>
+                                            <p>服務評分：</p>
+                                            <p>執行時間：</p>
+                                            <p>服務地點：</p>
+                                            <a class="btn btn-danger" href="#">即時詢問</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row servicebtn d-flex mb-5">
+                        <div class="col-6 text-center">
+                            <buttton id="showservice" class="btn btn-light d-block">服務內容</buttton>
+                        </div>
+                        <div class="col-6 text-center">
+                            <buttton id="showcomment" class="btn btn-light d-block">服務評價</buttton>
+                        </div>
+                    </div>
+                    <main id="main" class="site-main" role="main">
+                        <div class="service-content">
+                            <!-- 服務內容 -->
+                            <div class="mb-5">
+                                <h3 class="h5 d-flex align-items-center mb-4 text-primary">
+                                    <span class="icon-align-left mr-3"></span>服務內容
+                                </h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                </p>
+                                <p>Velit unde aliquam et voluptas reiciendis non sapiente labore,</p>
+                            </div>
+                            <!-- 其他服務 -->
+                            <div class="mb-5">
+                                <h3 class="h5 d-flex align-items-center mb-4 text-primary">
+                                    <span class="icon-rocket mr-3"></span>其他服務
+                                </h3>
+                                <div class="col-12">
+                                    <div class="work d-flex" style="overflow-y: auto;">
+                                        <div class="card m-2">
+                                            <img src="https://demo.colorlib.com/activello/wp-content/uploads/sites/57/2015/11/photo-1438109491414-7198515b166b-150x150.jpg"
+                                                 class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <span class="date">$20,000</span>/件
+                                                </h5>
+                                                <p class="card-text">歡迎訂購</p>
+                                                <a href="#" class="btn btn-danger">服務詳情</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 服務說明 -->
+                            <div class="mb-5">
+                                <h3 class="h5 d-flex align-items-center mb-4 text-primary">
+                                    <span class="icon-book mr-3"></span>服務說明
+                                </h3>
+                                <div class="col-lg-6 col-md-12 recent-posts-wrapper d-flex flex-column">
+                                    <figure id="otherpicture-one" class="mb-5">
+                                        <img src="~/Assets/images/job_single_img_1.jpg" alt="Image"
+                                             class="img-fluid rounded">
+                                    </figure>
+                                    <figure id="otherpicture-two" class="mb-5">
+                                        <img src="~/Assets/images/job_single_img_1.jpg" alt="Image"
+                                             class="img-fluid rounded">
+                                    </figure>
+                                    <figure id="otherpicture-three" class="mb-5">
+                                        <img src="~/Assets/images/job_single_img_1.jpg" alt="Image"
+                                             class="img-fluid rounded">
+                                    </figure>
+                                    <figure id="otherpicture-four" class="mb-5">
+                                        <img src="~/Assets/images/job_single_img_1.jpg" alt="Image"
+                                             class="img-fluid rounded">
+                                    </figure>
+                                    <figure id="otherpicture-five" class="mb-5">
+                                        <img src="~/Assets/images/job_single_img_1.jpg" alt="Image"
+                                             class="img-fluid rounded">
+                                    </figure>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 顯示評價 (如果評價太多要有分頁)-->
+                        <div class="comment-content" style="display:none;">
+                            <h3 class="h5 d-flex align-items-center mb-4 text-primary">
+                                <span class="icon-turned_in mr-3"></span>服務評價{{x則}}
+                            </h3>
+                            <div class="col-lg-8 mb-5">
+                                <div class="pt-3">
+                                    <p>暫無評價</p>
+                                    <ul class="comment-list">
+                                        <li class="comment">
+                                            <div class="vcard bio">
+                                                <img src="./images/person_2.jpg" alt="Image placeholder">
+                                            </div>
+                                            <div class="comment-body">
+                                                <h3>Jacob Smith</h3>
+                                                <div class="meta">{{January 9, 2018 at 2:21pm}}</div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                                </p>
+                                                <p><a href="#" class="reply">Reply</a></p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <!-- 給評價 -->
+                                    <div class="comment-form-wrap pt-5">
+                                        <h3 class="mb-5">Leave a comment</h3>
+                                        <form action="#" class="">
+                                            <div class="form-group">
+                                                <label for="name">Name *</label>
+                                                <input type="text" class="form-control" id="name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email">Email *</label>
+                                                <input type="email" class="form-control" id="email">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="website">Website</label>
+                                                <input type="url" class="form-control" id="website">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="message">Message</label>
+                                                <textarea name="" id="message" cols="30" rows="10"
+                                                          class="form-control"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="submit" value="Post Comment"
+                                                       class="btn btn-primary btn-md">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section topCSS
+    {
+    <style>
+        .btn {
+            border: none !important;
+        }
+
+        .author-social a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            position: relative;
+            background: #89ba16;
+            border-radius: 50%;
+            text-decoration: none !important;
+        }
+
+            .author-social a > span {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                color: white;
+                -webkit-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+            }
+
+            .author-social a:hover {
+                background: white;
+            }
+
+                .author-social a:hover span {
+                    color: #89ba16;
+                }
+
+        .left-down ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        .fixedHeader #backwork {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .servicebtn div:hover {
+            border-top: 2px solid #89ba16;
+        }
+
+            .servicebtn div:hover .btn:hover, .servicebtn div:hover .btn:focus {
+                background: none;
+            }
+
+        .site-footer .scroll-top {
+            position: absolute;
+            z-index: 5;
+            top: -50%;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #89ba16;
+            left: 95%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            -webkit-box-shadow: 0 0px 10px 0px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0px 10px 0px rgba(0, 0, 0, 0.1);
+        }
+     </style>
+    }
+
+@section endJS{
+    <script>
+        ; (function () {
+
+            const container = document.querySelector('.content-area .container');
+            const service = document.getElementById('showservice');
+            const comment = document.getElementById('showcomment');
+            const showsearch = document.querySelector('.showsearch');
+            const searchspan = document.querySelector('.search-span')
+            const searchform = document.querySelector('.search-form');
+            const blog_content = document.querySelector('.blog-content');
+            const backwork = document.getElementById('backwork');
+            let headerPosition = blog_content.offsetTop + backwork.offsetHeight;
+            const servicecont = document.querySelector('.service-content');
+            const commentcont = document.querySelector('.comment-content');
+
+
+            function showService() {
+
+            }
+
+            function showComment() {
+
+
+            }
+
+            function scrollHandler() {
+                if (window.srollY >= headerPosition) {
+                    document.body.classList.add('fixedHeader');
+                    document.body.style.paddingTop = blog_content.offsetHeight + 'px';
+                }
+                else {
+                    document.body.classList.remove('fixedHeader');
+                    document.body.style.paddingTop = "";
+                }
+            }
+
+            window.onload = function () {
+                service.addEventListener('click', function () {
+                    servicecont.style.display = "";
+                    commentcont.style.display = "none";
+                    showService();
+                });
+                comment.addEventListener('click', function () {
+                    servicecont.style.display = "none";
+                    commentcont.style.display = "";
+                    showComment();
+                });
+            }
+
+
+            window.addEventListener('scroll', function () {
+                //console.log(window.scrollY)
+                console.log(headerPosition);
+                scrollHandler();
+            });
+            window.addEventListener('resize', function () {
+                headerPosition = blog_content.offsetTop;
+                console.log(headerPosition)
+            })
+
+
+        })();
+
+    </script>
+    }
+

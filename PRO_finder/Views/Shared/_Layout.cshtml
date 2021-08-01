@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+          integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+
+    @Styles.Render("~/bundles/css")
+
+    @RenderSection("topCSS", required: false)
+    @RenderSection("topJS", required: false)
+</head>
+
+<body id="top">
+    
+    <div id="overlayer"></div>
+    <div class="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="site-wrap">
+
+        <div class="site-mobile-menu site-navbar-target">
+            <div class="site-mobile-menu-header">
+                <div class="site-mobile-menu-close mt-3">
+                    <span class="icon-close2 js-menu-toggle"></span>
+                </div>
+            </div>
+            <div class="site-mobile-menu-body"></div>
+        </div> <!-- .site-mobile-menu -->
+        @Html.Partial("_NavbarPartial")
+
+        @RenderBody()
+
+        <footer class="site-footer">
+            @Html.Partial("_FooterPartial")
+        </footer>
+
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @RenderSection("scripts", required: false)
+    @RenderSection("endCSS", required: false)
+    @RenderSection("endJS", required: false)
+</body>
+</html>
