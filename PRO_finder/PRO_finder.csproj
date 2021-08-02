@@ -339,6 +339,7 @@
     <Content Include="Views\FindQuotation\Detail.cshtml" />
     <Content Include="Views\Quotation\StudioHome.cshtml" />
     <Content Include="Views\Quotation\WorksPage.cshtml" />
+    <Content Include="Views\FindQuotation\test.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
