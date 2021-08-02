@@ -7,6 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4 sidebar pl-lg-5">
+
                 <div class="sidebar-box">
                     <img src="~/Assets/images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4 w-50 rounded-circle">
                     <h3>筑筑</h3>
@@ -28,11 +29,7 @@
                         <a href="/talent?ca=L35&amp;su=ao6p" target="_blank" title="影片/音效後製剪輯"># 影片/音效後製剪輯</a>
                     </p>
 
-                    <div class="contacts">
-                        <a href="#">收藏</a>
-                        <a href="#">直接連絡</a>
-                        <a href="#" class="btn btn-primary btn-md">邀請報價</a>
-                    </div>
+
 
                     <div class="contactp">
                         <p>
@@ -52,6 +49,8 @@
                     <li><a href="#03">報價</a></li>
                     <li><a href="#04">評價</a></li>
                 </ul>
+
+
 
                 <a name="01"></a>
                 <div id="about">
@@ -116,7 +115,7 @@
                                     <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
                                 </div>
                             </span>
-                            <img class="img-fluid"src="~/Assets/images/sq_img_1.jpg" />
+                            <img class="img-fluid" src="~/Assets/images/sq_img_1.jpg" />
 
                         </div>
                     </div>
@@ -575,10 +574,18 @@
                         <div class="comment-form-wrap pt-5">
 
                         </div>
+
+
                 </div>
                 </a>
             </div>
 
+        </div>
+
+        <div class="contacts">
+            <a href="#">收藏</a>
+            <a href="#">直接連絡</a>
+            <a href="#" class="btn btn-primary btn-md">邀請報價</a>
         </div>
 </section>
 
@@ -603,21 +610,25 @@
             list-style: none;
             display: inline;
         }
-      .sidebar-box{
-        text-align: center;
-      }
+        .sidebar-box {
+            text-align: center;
+            position: sticky;
+            top: 48px;
+            z-index: 1000;
+        }
       .contactp{
         display: none;
       }
 
-      .contacts{
-        width: 100%;
-        Z-index:1000;
-        position: fixed;
-        bottom: 0px;
-        background-color: rgb(186, 216, 186);
-        text-align: center;
-      }
+        .contacts {
+            width: 100%;
+            Z-index: 1100;
+            position: fixed;
+            bottom: 0px;
+            left:0px;
+            background-color: rgb(186, 216, 186);
+            text-align: center;
+        }
       .posticon{
         display: flex;
         justify-content: space-evenly;
@@ -652,11 +663,11 @@
         border-bottom: 1px solid rgb(214, 213, 213);
         z-index: 1000;
       }
-      
-      :target:before {
-        content: "";
-        display: block;
-        height:40px;
+
+        :target:before {
+            content: "";
+            display: block;
+            height: 85px;
         }
       #posts{
         border-bottom: 1px solid grey;
@@ -986,6 +997,7 @@
         .contactp {
             display: block;
         }
+
     }
 
     </style>
