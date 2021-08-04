@@ -33,8 +33,8 @@
 
                     <div class="contactp">
                         <p>
-                            <a href="#">收藏</a>
-                            <a href="#">直接連絡</a>
+                            <a href="#"><i class="icon-heart-o"></i>收藏</a>
+                            <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
                         </p>
                         <p><a href="#" class="btn btn-primary btn-md">邀請報價</a></p>
                     </div>
@@ -583,8 +583,8 @@
         </div>
 
         <div class="contacts">
-            <a href="#">收藏</a>
-            <a href="#">直接連絡</a>
+            <a href="#"><i class="icon-heart-o"></i>收藏</a>
+            <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
             <a href="#" class="btn btn-primary btn-md">邀請報價</a>
         </div>
 </section>
@@ -620,20 +620,26 @@
         display: none;
       }
 
-        .contacts {
+      .contacts {
             width: 100%;
             Z-index: 1100;
             position: fixed;
             bottom: 0px;
-            left:0px;
+            left: 0px;
             background-color: rgb(186, 216, 186);
             text-align: center;
         }
-      .posticon{
-        display: flex;
-        justify-content: space-evenly;
 
-      }
+        .contacts a {
+            padding-left: 10px;
+            padding-right: 10px;
+            color:black;
+        }
+
+       .posticon {
+                display: flex;
+                justify-content: space-evenly;
+            }
       .posticon i{
         color: white;
       }

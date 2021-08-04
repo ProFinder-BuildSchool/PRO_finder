@@ -24,7 +24,7 @@
                 </figure>
             </div>
 
-            <div class="col-lg-4 ml-auto h-100 jm-sticky-top">
+            <div class="col-lg-4 ml-auto h-100 jm-sticky-top" id="WorksDetail">
 
                 <div class="mb-4">
                     <h3 class="mb-4 h4 border-bottom">作品詳情</h3>
@@ -72,7 +72,7 @@
                             <a href="/talent?ca=L35&amp;su=ao6p" target="_blank" title="影片/音效後製剪輯"># 影片/音效後製剪輯</a>
                         </p>
                         <div class="contactp">
-                            <p><a href="#" class="btn btn-primary btn-md">回到工作室</a></p>
+                            <p><a href="@Url.Action("StudioHome", "Quotation")" class="btn btn-primary btn-md">回到工作室</a></p>
                         </div>
                 </div>
                 </blockquote>
@@ -111,6 +111,9 @@
 
         .designerSkillTit {
             font-size: 15px;
+        }
+        #WorksDetail {
+            top: 80px;
         }
 
     </style>
