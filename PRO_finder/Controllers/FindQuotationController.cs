@@ -16,7 +16,7 @@ namespace PRO_finder.Controllers
         public ActionResult Detail()
         {
             return View();
-        }public ActionResult test()
+        }public ActionResult Test()
         {
             return View();
         }
