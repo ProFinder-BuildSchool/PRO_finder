@@ -340,6 +340,7 @@
     <Content Include="Views\Quotation\StudioHome.cshtml" />
     <Content Include="Views\Quotation\WorksPage.cshtml" />
     <Content Include="Views\FindQuotation\test.cshtml" />
+    <Content Include="Views\Shared\_LayoutMemberCenter.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
