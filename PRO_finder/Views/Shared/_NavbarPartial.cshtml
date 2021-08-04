@@ -3,7 +3,8 @@
 
     <div class="container-fluid d-none d-xl-block bg-light">
         <div class="row justify-content-end">
-            <p class="m-0">您好，歡迎來到 Tasker出任務！ [<a href="">登入</a>] [<a href="">註冊</a>]</p>
+            @*<p class="m-0">您好，歡迎來到 Tasker出任務！ [<a href="">登入</a>] [<a href="">註冊</a>]</p>*@
+            @Html.Partial("_LoginPartial")
         </div>
     </div>
 
@@ -60,7 +61,7 @@
 
             <div class="right-cta-menu text-right d-flex   justify-content-end aligin-items-center col-6">
                 <div class="ml-auto d-none d-xl-block">
-                    <a href="post-job.html" class="btn text-white d-none d-lg-inline-block">
+                    <a href="@Url.Action("Index","Client")"class="btn text-white d-none d-lg-inline-block">
                         <span class="mr-2 fas fa-user "></span>我的帳戶
                     </a>
                     <!-- <a href="login.html"
