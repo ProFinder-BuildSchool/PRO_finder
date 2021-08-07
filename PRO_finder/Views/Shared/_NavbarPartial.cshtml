@@ -1,71 +1,78 @@
 ﻿
-    <header class="site-navbar">
-        <div class="container-fluid">
-            <div class="row align-items-center">
-                <div class="site-logo col-6"><a href="index.html">JobBoard</a></div>
-             
-                <nav class="mx-auto site-navigation">
-                    <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
-                        <li><a href="@Url.Action("Index", "Home")" dispaly-><i class="d-xl-none fas fa-home mr-2"></i>首頁</a></li>
-                        <li class="d-xl-none"><a href="#"><i class="fas fa-user mr-2"></i>登入/註冊</a></li>
-                        <li class="d-xl-none"><a href="#"><i class="fas fa-comment-dots mr-2"></i>我的詢問</a></li>
-                        <li class="d-xl-none imTalent">我是人才:</li>
-                        <li class="has-children">
-                            <a href="@Url.Action("Index", "FindQuotation")"><i class=" icon far fa-file-word mr-2"></i>我要接案</a>
-                            <ul class="dropdown">
-                                <li class="py-1"><a href="#">最新案件</a></li>
-                                <li class="py-1"><a href="#">平面設計</a></li>
-                                <li class="py-1"><a href="#">網頁設計</a></li>
-                                <li class="py-1"><a href="#">程式開發</a></li>
-                                <li class="py-1"><a href="#">翻譯寫作</a></li>
-                                <li class="py-1"><a href="#">商攝娛樂</a></li>
-                                <li class="py-1"><a href="#">影像製作</a></li>
-                                <li class="py-1"><a href="#">空間設計</a></li>
-                                <li class="py-1"><a href="#">生活服務</a></li>
-                                <li class="py-1"><a href="#">活動企劃</a></li>
-                                <li class="py-1"><a href="#">專業顧問</a></li>
-                                <li class="py-1"><a href="#">資訊工程</a></li>
-                            </ul>
-                        </li>
-                        <li class="d-xl-none"><a href="#"><i class="icon far fa-question-circle mr-2"></i>如何接案</a></li>
-                        <li class="d-xl-none imTalent">我是案主:</li>
-                        <li class="d-xl-none"><a href="#"><i class="icon fas fa-pencil-alt mr-2"></i>立即發案</a></li>
-                        <li class="d-xl-none"><a href="#"><i class="icon far fa-question-circle mr-2"></i>如何發案</a></li>
-                        <li class="has-children">
-                            <a href="@Url.Action("Index", "Quotation")"><i class="icon fas fa-search-dollar mr-2"></i>找報價</a>
-                            <ul class="dropdown">
-                                <li class="py-1"><a href="#">平面設計</a></li>
-                                <li class="py-1"><a href="#">網頁設計</a></li>
-                                <li class="py-1"><a href="#">程式開發</a></li>
-                                <li class="py-1"><a href="#">翻譯寫作</a></li>
-                                <li class="py-1"><a href="#">商攝娛樂</a></li>
-                                <li class="py-1"><a href="#">影像製作</a></li>
-                                <li class="py-1"><a href="#">空間設計</a></li>
-                                <li class="py-1"><a href="#">生活服務</a></li>
-                                <li class="py-1"><a href="#">活動企劃</a></li>
-                                <li class="py-1"><a href="#">專業顧問</a></li>
-                                <li class="py-1"><a href="#">資訊工程</a></li>
-                            </ul>
-                        </li>
-                        <li class="d-xl-none imTalent">　</li>
-                        <li class="d-xl-none"><a href="#"><i class="fas fa-question-circle mr-2"></i>我有建議</a></li>
-                    </ul>
-                </nav>
+<header class="site-navbar ">
 
-                <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
-                    <div class="ml-auto">
-                        <a href="post-job.html" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block">
-                            <span class="mr-2 icon-add"></span>立即發案
-                        </a>
-                        <a href="@Url.Action("Index", "Talent")" class="btn btn-primary btn-outline-white border-width-2 d-none d-lg-inline-block">
-                            <span class="mr-2 "></span><i class="fas fa-user mr-2"></i>我的帳戶
-                        </a>
-                    </div>
-                    <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3">
-                        <span class="icon-menu h3 m-0 p-0 mt-2"></span>
-                    </a>
-                </div>
+    <div class="container-fluid d-none d-xl-block bg-light">
+        <div class="row justify-content-end">
+            @*<p class="m-0">您好，歡迎來到 Tasker出任務！ [<a href="">登入</a>] [<a href="">註冊</a>]</p>*@
+            @Html.Partial("_LoginPartial")
+        </div>
+    </div>
 
+    <div class="container-fluid bg-white d-none d-xl-block">
+        <div class="row py-1">
+            <div class="col-6 logoimg pl-5">
+                <!-- 保留logo -->
+            </div>
+            <div class="col-6 btn-area text-right p-0">
+                <a href="" class="border-right px-2"><i class="icon fas fa-search mr-2"></i>搜尋</a>
+                <a href="" class="border-right px-2"><i class="icon far fa-question-circle mr-2 "></i>如何接案</a>
+                <a href="" class="border-right px-2"><i class="icon fas fa-pencil-alt mr-2 "></i>如何接案</a>
+                <button class="btn bg-success text-light">立即發案</button>
             </div>
         </div>
-    </header>
+    </div>
+
+
+
+    <div class="container-fluid list">
+        <div class="row align-items-center">
+            <div class="site-logo col-6"><a href="index.html">PRO FINDER</a></div>
+            <nav class=" site-navigation">
+                <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
+                    <li><a href="#"><i class="fas fa-home mr-2"></i>首頁</a></li>
+                    <li class="d-xl-none"><a href="#"><i class="fas fa-user mr-2"></i>登入/註冊</a></li>
+                    <li class="d-xl-none"><a href="#"><i class="fas fa-comment-dots mr-2"></i>我的詢問</a></li>
+                    <li class="d-xl-none imTalent">我是人才:</li>
+                    <li class=""><a href="#"><i class=" icon far fa-file-word mr-2"></i>我要接案</a></li>
+                    <li class="d-xl-none"><a href="#"><i class="icon far fa-question-circle mr-2"></i>如何接案</a></li>
+                    <li class="d-xl-none imTalent">我是案主:</li>
+                    <li class="d-xl-none"><a href="#"><i class="icon fas fa-pencil-alt mr-2"></i>立即發案</a></li>
+                    <li class="d-xl-none"><a href="#"><i class="icon far fa-question-circle mr-2"></i>如何發案</a></li>
+                    <li class="has-children">
+                        <a href="#"><i class="icon fas fa-search-dollar mr-2"></i>找報價</a>
+                        <ul class="dropdown">
+                            <li class="py-1"><a href="#">平面設計</a></li>
+                            <li class="py-1"><a href="#">網頁設計</a></li>
+                            <li class="py-1"><a href="#">程式開發</a></li>
+                            <li class="py-1"><a href="#">翻譯寫作</a></li>
+                            <li class="py-1"><a href="#">商攝娛樂</a></li>
+                            <li class="py-1"><a href="#">影像製作</a></li>
+                            <li class="py-1"><a href="#">空間設計</a></li>
+                            <li class="py-1"><a href="#">生活服務</a></li>
+                            <li class="py-1"><a href="#">活動企劃</a></li>
+                            <li class="py-1"><a href="#">專業顧問</a></li>
+                            <li class="py-1"><a href="#">資訊工程</a></li>
+                        </ul>
+                    </li>
+                    <li class="d-xl-none imTalent">　</li>
+                    <li class="d-xl-none"><a href="#"><i class="fas fa-question-circle mr-2"></i>我有建議</a></li>
+                </ul>
+            </nav>
+
+            <div class="right-cta-menu text-right d-flex   justify-content-end aligin-items-center col-6">
+                <div class="ml-auto d-none d-xl-block">
+                    <a href="@Url.Action("Index","Client")"class="btn text-white d-none d-lg-inline-block">
+                        <span class="mr-2 fas fa-user "></span>我的帳戶
+                    </a>
+                    <!-- <a href="login.html"
+                      class="btn btn-primary btn-outline-white border-width-2 d-none d-lg-inline-block"><span
+                        class="mr-2 "></span><i class="fas fa-user mr-2"></i>登入/註冊</a> -->
+                </div>
+                <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3">
+                    <span class="icon-menu h3 m-0 p-0 mt-2"></span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</header>
