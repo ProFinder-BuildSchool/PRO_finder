@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
+using PRO_finder.Models;
 
 namespace PRO_finder.Controllers
 {
+    
     public class QuotationController : Controller
     {
+        ProFinderModels ctx = new ProFinderModels();
         // GET: Quotation
         public ActionResult Index()
         {
-            return View();
+            var test = from p in ctx.Tests
+                           select p;
+            return View(test.ToList());
         }
         public ActionResult Detail()
         {

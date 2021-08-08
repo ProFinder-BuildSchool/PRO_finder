@@ -1,116 +1,27 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
-<section class="section-hero overlay inner-page bg-image" id="home-section">
-    <div class="container">
-        <div class="row  p-0">
-            <div class="col-md-12 mb-3">
-                <div class="category-area">
-                    <h3>找案件</h3>
-                    <span>多筆案件等你大展身手！</span>
-                    <div class="row  justify-content-around">
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="fas fa-pencil-ruler"></i></a>
-                                <p>平面設計</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="far fa-window-restore"></i></a>
-                                <p>網頁設計</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="fas fa-code"></i></a>
-                                <p>程式開發</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="far fa-file-alt"></i></a>
-                                <p>翻譯寫作</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="fas fa-camera-retro"></i></a>
-                                <p>商社娛樂</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="fas fa-photo-video"></i></a>
-                                <p>影像製作</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="fas fa-ruler-combined"></i></a>
-                                <p>空間設計</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="far fa-heart"></i></a>
-                                <p>生活服務</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="far fa-newspaper"></i></a>
-                                <p>活動企劃</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="fas fa-pencil-ruler"></i></a>
-                                <p>專業顧問</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="fas fa-cogs"></i></a>
-                                <p>資訊工程</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 ">
-                <div class="category-list">
-                    <select class="w-25">
-                        <option>地區</option>
-                        <option value="1">新竹市</option>
-                        <option value="12">台北市</option>
-                        <option value="13">台南市</option>
-                        <option value="1">新竹市</option>
-                    </select>
-                    <select class="w-25">
-                        <option>地區</option>
-                        <option value="1">新竹市</option>
-                        <option value="12">台北市</option>
-                        <option value="13">台南市</option>
-                        <option value="1">新竹市</option>
-                    </select>
-                    <input type="text" placeholder="請輸入關鍵字">
-                </div>
-            </div>
-        </div>
+@Html.Partial("_CategoryMenuPartial")
+<div class="col-md-6 mb-5 ml-5">
+    <div class="category-list ml-4">
+        <select class="w-25">
+            <option>地區</option>
+            <option value="1">新竹市</option>
+            <option value="12">台北市</option>
+            <option value="13">台南市</option>
+            <option value="1">新竹市</option>
+        </select>
+        <select class="w-25">
+            <option>地區</option>
+            <option value="1">新竹市</option>
+            <option value="12">台北市</option>
+            <option value="13">台南市</option>
+            <option value="1">新竹市</option>
+        </select>
+        <input type="text" placeholder="請輸入關鍵字">
     </div>
-</section>
+</div>
+
 
 <section class="site-section">
     <div class="container pt-5">
