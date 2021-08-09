@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+          integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+
+    @Styles.Render("~/bundles/css")
+
+    @RenderSection("topCSS", required: false)
+    @RenderSection("topJS", required: false)
+    <style>
+        .container-fluid.list {
+            background-color: #89ba16 !important;
+        }
+        .site-section#next-section {
+            min-height: 200vh;
+        }
+
+        .tab-content {
+            min-height: 150vh;
+            width: 100%;
+            position: relative;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            padding: 20px 10px;
+        }
+        .nav-item .card-header, .card-body {
+            padding: 5px;
+        }
+
+        .myHeader {
+            padding: 5px;
+        }
+        @@media screen and (min-width: 768px) {
+            .navbar-toggler {
+                display: none;
+            }
+
+            li.clientTabButton {
+                margin-left: 220px;
+            }
+
+            .myHeader {
+                width: 180px !important;
+            }
+
+        }
+    </style>
+</head>
+
+<body id="top">
+
+    <div id="overlayer"></div>
+    <div class="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="site-wrap">
+
+        <div class="site-mobile-menu site-navbar-target">
+            <div class="site-mobile-menu-header">
+                <div class="site-mobile-menu-close mt-3">
+                    <span class="icon-close2 js-menu-toggle"></span>
+                </div>
+            </div>
+            <div class="site-mobile-menu-body"></div>
+        </div> <!-- .site-mobile-menu -->
+        @Html.Partial("_NavbarPartial")
+        <section class="site-section block__18514" id="next-section">
+            <div class="container mt-5">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo"
+                            aria-controls="navbarTogglerDemo" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-angle-double-right"></i>
+                    </button>
+                    <li class="nav-item clientTabButton" role="presentation">
+                        <a class="nav-link" id="home-tab" href="@Url.Action("Index", "Client")"><i class="fas fa-briefcase"></i> 我是案主</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="profile-tab" href="@Url.Action("Index", "Talent")" role="tab" aria-controls="profile"
+                           aria-selected="false" data-toggle="tab"><i class="fas fa-book-reader"></i> 我是人才</a>
+                    </li>
+                </ul>
+                <div class="tab-content " id="myTabContent">
+                    <!-- 我是人才 -->
+                    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="row">
+                            <nav class="navbar navbar-expand-md navbar-light bg-white flex-column align-items-start text-center p-0">
+                                <div class="collapse navbar-collapse align-items-start" id="navbarTogglerDemo">
+                                    <ul class="nav flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                        <div class="accordion" id="accordionExample2">
+                                            <li class="nav-item">
+                                                <div class="card">
+                                                    <div class="card-header myHeader">
+                                                        <a class="nav-link" href="@Url.Action("Index", "Talent")"><i class="fas fa-house-user"></i> 人才主頁</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="nav-item">
+                                                <div class="card">
+                                                    <div class="card-header myHeader">
+                                                        <a class="nav-link" href="#post.html">
+                                                            <i class="fas fa-tools"
+                                                               style="font-size: 14px !important; line-height: 16px !important;"></i> 我的工作室
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <div class="card">
+                                                <div class="card-header myHeader" id="headingFour">
+                                                    <h2 class="mb-0">
+                                                        <button class="btn btn-link btn-block text-center" type="button" data-toggle="collapse"
+                                                                data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                                            <i class="fas fa-angle-down"></i> 工作室設定
+                                                        </button>
+                                                    </h2>
+                                                </div>
+                                                <div id="collapseFour" class="collapse show" aria-labelledby="headingFour"
+                                                     data-parent="#accordionExample2">
+                                                    <div class="card-body">
+
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="caseSetting.html">接案設定</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="#aboutMe.html">關於我</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="#works.html">作品專區</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="@Url.Action("NewService", "Talent")">刊登新服務</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="#myService.html">我的服務</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="#deal.html.html">服務評價管理</a>
+                                                        </li>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-header myHeader" id="headingFive">
+                                                    <h2 class="mb-0">
+                                                        <button class="btn btn-link btn-block text-center collapsed" type="button"
+                                                                data-toggle="collapse" data-target="#collapseFive" aria-expanded="false"
+                                                                aria-controls="collapseFive">
+                                                            <i class="fas fa-angle-down"></i> 服務記錄
+                                                        </button>
+                                                    </h2>
+                                                </div>
+                                                <div id="collapseFive" class="collapse" aria-labelledby="headingFive"
+                                                     data-parent="#accordionExample2">
+                                                    <div class="card-body">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="#propse.html">提案記錄</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="#deal.html.html">成交服務記錄</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="#inviteQuotation.html">邀請報價通知</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="savedFiles">已收藏案件</a>
+                                                        </li>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-header myHeader" id="headingSix">
+                                                    <h2 class="mb-0">
+                                                        <button class="btn btn-link btn-block text-center collapsed" type="button"
+                                                                data-toggle="collapse" data-target="#collapseSix" aria-expanded="false"
+                                                                aria-controls="collapseSix">
+                                                            <i class="fas fa-angle-down"></i> 帳戶管理
+                                                        </button>
+                                                    </h2>
+                                                </div>
+                                                <div id="collapseSix" class="collapse" aria-labelledby="headingSix"
+                                                     data-parent="#accordionExample2">
+                                                    <div class="card-body">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="#v-pills-AcountSetting">金融帳戶管理</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="#v-pills-edit">修改會籍帳戶</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="#ClientService.html">客服中心</a>
+                                                        </li>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ul>
+                                </div>
+                            </nav>
+                            <div class="col">
+                                <div class="tab-content pt-0" id="v-pills-tabContent">
+                                    <div class="tab-pane fade show active" id="v-pills-homeLancer" role="tabpanel"
+                                         aria-labelledby="v-pills-homeLancer-tab">
+                                        <!-- 我是人才主頁 -->
+                                        @RenderBody()
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+
+        <footer class="site-footer">
+            @Html.Partial("_FooterPartial")
+        </footer>
+
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @RenderSection("scripts", required: false)
+    @RenderSection("endCSS", required: false)
+    @RenderSection("endJS", required: false)
+</body>
+</html>
+

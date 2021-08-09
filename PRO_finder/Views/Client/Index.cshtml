@@ -1,212 +1,54 @@
 ﻿
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMemberClient.cshtml";
 }
-<section class="site-section block__18514" id="next-section">
-    <div class="container mt-5">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo"
-                    aria-controls="navbarTogglerDemo" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-angle-double-right"></i>
-            </button>
-            <li class="nav-item clientTabButton" role="presentation">
-                <a class="nav-link active" id="home-tab" href="@Url.Action("Index", "Client")" role="tab" aria-controls="home"
-                   aria-selected="true" data-toggle="tab"><i class="fas fa-briefcase"></i> 我是案主</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" id="profile-tab" href="@Url.Action("Index", "Talent")"><i class="fas fa-book-reader"></i> 我是人才</a>
-            </li>
-        </ul>
-        <div class="tab-content " id="myTabContent">
-            <!-- 我是案主 -->
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <div class="row">
-                    <nav class="navbar navbar-expand-md navbar-light bg-white flex-column align-items-start text-center  pl-0 pr-0 pt-0">
-                        <div class="collapse navbar-collapse align-items-start" id="navbarTogglerDemo">
-                            <ul class="nav flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                <div class="accordion" id="accordionExample">
-                                    <li class="nav-item">
-                                        <div class="card">
-                                            <div class="card-header myHeader">
-                                                <a class="nav-link" href="@Url.Action("Index", "Client")"><i class="fas fa-home"></i> 案主主頁</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item">
-                                        <div class="card">
-                                            <div class="card-header myHeader">
-                                                <a class="nav-link" href="post-job.html">
-                                                    <i class="fas fa-plus"
-                                                       style="font-size: 10px !important; line-height: 16px !important;"></i> 刊登新案件
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <!-- 案件管理 -->
-                                    <div class="card">
-                                        <div class="card-header myHeader" id="headingOne">
-                                            <h2 class="mb-0">
-                                                <button class="btn btn-link btn-block text-center" type="button" data-toggle="collapse"
-                                                        data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                    <i class="fas fa-chevron-down"></i> 案件管理
-                                                </button>
-                                            </h2>
-                                        </div>
-                                        <div id="collapseOne" class="collapse show multi-collapse" aria-labelledby="headingOne"
-                                             data-parent="#accordionExample">
-                                            <div class="card-body">
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#unsolvedcase.html">案件草稿</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#unsolvedcase.html">審核中的案件</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#caseOnProgress.html">進行中的案件</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#caseDealed.html">已成交的案件</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#caseClosed.html">評價成交案件</a>
-                                                </li>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header myHeader" id="headingTwo">
-                                            <h2 class="mb-0">
-                                                <button class="btn btn-link btn-block text-center collapsed" type="button"
-                                                        data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
-                                                        aria-controls="collapseTwo">
-                                                    <i class="fas fa-chevron-down"></i> 人才管理
-                                                </button>
-                                            </h2>
-                                        </div>
-                                        <div id="collapseTwo" class="collapse multi-collapse" aria-labelledby="headingTwo"
-                                             data-parent="#accordionExample">
-                                            <div class="card-body">
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#quotation.html">人才報價記錄</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#savedTelant.html">已收藏人才</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#invitingLog.html">邀請提案記錄</a>
-                                                </li>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header myHeader" id="headingThree">
-                                            <h2 class="mb-0">
-                                                <button class="btn btn-link btn-block text-center collapsed" type="button"
-                                                        data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
-                                                        aria-controls="collapseThree">
-                                                    <i class="fas fa-chevron-down"></i> 帳戶設定
-                                                </button>
-                                            </h2>
-                                        </div>
-                                        <div id="collapseThree" class="collapse multi-collapse" aria-labelledby="headingThree"
-                                             data-parent="#accordionExample">
-                                            <div class="card-body">
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#myAcount.html">金融帳戶管理</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#editAcount.html">修改會籍帳戶</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#clientService.html">客服中心</a>
-                                                </li>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </ul>
-                        </div>
-                    </nav>
-                    <div class="col">
-                        <div class="tab-content p-0" id="v-pills-tabContent">
-                            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
-                                 aria-labelledby="v-pills-home-tab">
-                                <!-- 我是案主主頁 -->
-                                <div class="myTabContent clientTab">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-12 mb-3 text-center">
-                                                <div class="card">
-                                                    <h5 class="card-header" style="font-size: 16px;">訊息與帳戶明細</h5>
-                                                    <div class="card-body">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-6 mb-3 text-center">
-                                                <div class="card mainMessage">
-                                                    <h5 class="card-header" style="font-size: 16px;">重要訊息通知</h5>
-                                                    <div class="card-body">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-6 mb-3 text-center">
-                                                <div class="card ">
-                                                    <h5 class="card-header" style="font-size: 16px;">刊登中案件</h5>
-                                                    <div class="card-body">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-6 mb-3 text-center">
-                                                <div class="card">
-                                                    <h5 class="card-header" style="font-size: 16px;">網站公告</h5>
-                                                    <div class="card-body">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-6 mb-3 text-center">
-                                                <div class="card">
-                                                    <h5 class="card-header" style="font-size: 16px;">最近查詢人才條件</h5>
-                                                    <div class="card-body">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+<div class="myTabContent clientTab">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-3 text-center">
+                <div class="card">
+                    <h5 class="card-header" style="font-size: 16px;">訊息與帳戶明細</h5>
+                    <div class="card-body">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 mb-3 text-center">
+                <div class="card mainMessage">
+                    <h5 class="card-header" style="font-size: 16px;">重要訊息通知</h5>
+                    <div class="card-body">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 mb-3 text-center">
+                <div class="card ">
+                    <h5 class="card-header" style="font-size: 16px;">刊登中案件</h5>
+                    <div class="card-body">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 mb-3 text-center">
+                <div class="card">
+                    <h5 class="card-header" style="font-size: 16px;">網站公告</h5>
+                    <div class="card-body">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 mb-3 text-center">
+                <div class="card">
+                    <h5 class="card-header" style="font-size: 16px;">最近查詢人才條件</h5>
+                    <div class="card-body">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
 
 @section TopCSS{
     <style>
-        .site-section#next-section {
-            min-height: 200vh;
-        }
-
-        .tab-content {
-            min-height: 150vh;
-            width: 100%;
-            position: relative;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            padding: 20px 10px;
-        }
-
-            .tab-content #myTabContent {
-                color: #abeb16;
-                width: 100%;
-                height: 100%;
-                text-align: center;
-                position: absolute;
-                font-size: 48px;
-                top: 0;
-                left: 0;
-            }
+        
 
         .myTabContent .card-header {
             color: black;
@@ -229,78 +71,7 @@
             flex-direction: row;
         }
 
-        .myTabContent img.talent-img {
-            width: 50px;
-            height: 50px;
-            margin: auto;
-        }
-
-        .nav-item .card-header, .card-body {
-            padding: 5px;
-        }
-
-        .myHeader {
-            padding: 5px;
-        }
-
-        .info-details .details {
-            color: black;
-            background-color: rgba(0, 0, 0, 0.125);
-            border-radius: 5px;
-            margin: 0px 5px 5px 0px;
-            padding: 0;
-        }
-
-        .info-details p {
-            margin-bottom: 0px;
-        }
-
-            .info-details p:first-child {
-                font-size: 16px;
-            }
-
-            .info-details p:nth-child(2) {
-                font-size: 8px !important;
-            }
-
         @@media screen and (min-width: 768px) {
-            .navbar-toggler {
-                display: none;
-            }
-
-            li.clientTabButton {
-                margin-left: 220px;
-            }
-
-            .myHeader {
-                width: 180px !important;
-            }
-
-            .info-details .details {
-                color: black;
-                background-color: rgba(0, 0, 0, 0.02);
-                border-radius: 5px;
-                margin: 0px 5px 5px 0px;
-                padding: 0;
-            }
-
-            .info-details p {
-                margin-bottom: 0px;
-            }
-
-                .info-details p:first-child {
-                    font-size: 18px !important;
-                }
-
-                .info-details p:nth-child(2) {
-                    font-size: 8px !important;
-                }
-
-            img.talent-img {
-                width: 100px !important;
-                height: 100px !important;
-                margin: auto;
-            }
 
             .myTabContent .card-header {
                 color: black;
