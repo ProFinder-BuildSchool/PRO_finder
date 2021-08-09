@@ -1678,7 +1678,6 @@ h1, h2, h3, h4 {
     background-color: #89ba16;
     top: 0px !important;
     position: sticky !important;
-    height: 50px;
     line-height: 2;
 }
 
@@ -1707,5 +1706,6 @@ h1, h2, h3, h4 {
 .icon {
     color: #89ba16;
 }
+
 
 /* NAVBAR END */
