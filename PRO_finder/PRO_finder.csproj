@@ -45,10 +45,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -60,6 +60,12 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Exchange.WebServices, Version=15.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Exchange.WebServices.2.2\lib\40\Microsoft.Exchange.WebServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Exchange.WebServices.Auth, Version=15.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Exchange.WebServices.2.2\lib\40\Microsoft.Exchange.WebServices.Auth.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.4.2.0\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
@@ -161,61 +167,50 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202108040717304_InitialCreate.cs" />
-    <Compile Include="Migrations\202108040717304_InitialCreate.Designer.cs">
-      <DependentUpon>202108040717304_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202108040812464_Init.cs" />
-    <Compile Include="Migrations\202108040812464_Init.Designer.cs">
-      <DependentUpon>202108040812464_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202108040823187_Init1.cs" />
-    <Compile Include="Migrations\202108040823187_Init1.Designer.cs">
-      <DependentUpon>202108040823187_Init1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AspNetRole.cs" />
-    <Compile Include="Models\AspNetUser.cs" />
-    <Compile Include="Models\AspNetUserClaim.cs" />
-    <Compile Include="Models\AspNetUserLogin.cs" />
-    <Compile Include="Models\Case.cs" />
-    <Compile Include="Models\CaseNotification.cs" />
-    <Compile Include="Models\CaseReference.cs" />
-    <Compile Include="Models\Cate.cs" />
-    <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\Enum\Category.cs" />
-    <Compile Include="Models\Enum\SubCategory.cs" />
-    <Compile Include="Models\Experience.cs" />
-    <Compile Include="Models\HostingDetail.cs" />
+    <Compile Include="Helper\Enum\Cate.cs" />
+    <Compile Include="Models\DBModel\AspNetRoles.cs" />
+    <Compile Include="Models\DBModel\AspNetUserClaims.cs" />
+    <Compile Include="Models\DBModel\AspNetUserLogins.cs" />
+    <Compile Include="Models\DBModel\AspNetUsers.cs" />
+    <Compile Include="Models\DBModel\Case.cs" />
+    <Compile Include="Models\DBModel\CaseNotification.cs" />
+    <Compile Include="Models\DBModel\CaseReference.cs" />
+    <Compile Include="Models\DBModel\Category.cs" />
+    <Compile Include="Models\DBModel\Experience.cs" />
+    <Compile Include="Models\DBModel\HostingDetail.cs" />
+    <Compile Include="Models\DBModel\Locations.cs" />
+    <Compile Include="Models\DBModel\MemberInfo.cs" />
+    <Compile Include="Models\DBModel\Message.cs" />
+    <Compile Include="Models\DBModel\Order.cs" />
+    <Compile Include="Models\DBModel\OtherPicture.cs" />
+    <Compile Include="Models\DBModel\ProFinderContext.cs" />
+    <Compile Include="Models\DBModel\ProposalRecord.cs" />
+    <Compile Include="Models\DBModel\Quotation.cs" />
+    <Compile Include="Models\DBModel\QuotationDetail.cs" />
+    <Compile Include="Models\DBModel\ReplyFrequency.cs" />
+    <Compile Include="Models\DBModel\SaveCase.cs" />
+    <Compile Include="Models\DBModel\SaveStaff.cs" />
+    <Compile Include="Models\DBModel\ServicePlus.cs" />
+    <Compile Include="Models\DBModel\ServiceRecord.cs" />
+    <Compile Include="Models\DBModel\SubCategory.cs" />
+    <Compile Include="Models\DBModel\SystemContent.cs" />
+    <Compile Include="Models\DBModel\ToolCategory.cs" />
+    <Compile Include="Models\DBModel\ToolSubCategory.cs" />
+    <Compile Include="Models\DBModel\WorkAttachment.cs" />
+    <Compile Include="Models\DBModel\WorkPictures.cs" />
+    <Compile Include="Models\DBModel\Works.cs" />
+    <Compile Include="Helper\Enum\Category.cs" />
+    <Compile Include="Helper\Enum\SubCategory.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Location.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\MemberInfo.cs" />
-    <Compile Include="Models\Message.cs" />
-    <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\OtherPicture.cs" />
-    <Compile Include="Models\ProFinderModels.cs" />
-    <Compile Include="Models\ProposalRecord.cs" />
-    <Compile Include="Models\Quotation.cs" />
-    <Compile Include="Models\QuotationDetail.cs" />
-    <Compile Include="Models\ReplyFrequency.cs" />
-    <Compile Include="Models\SaveCase.cs" />
-    <Compile Include="Models\SaveStaff.cs" />
-    <Compile Include="Models\ServicePlu.cs" />
-    <Compile Include="Models\ServiceRecord.cs" />
-    <Compile Include="Models\SubCategory.cs" />
-    <Compile Include="Models\SystemContent.cs" />
-    <Compile Include="Models\Test.cs" />
-    <Compile Include="Models\ToolCategory.cs" />
-    <Compile Include="Models\ToolSubCategory.cs" />
-    <Compile Include="Models\Work.cs" />
-    <Compile Include="Models\WorkAttachment.cs" />
-    <Compile Include="Models\WorkPicture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\CategoryService.cs" />
     <Compile Include="Settings\Setting.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\CategoryViewModel.cs" />
+    <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
+    <Compile Include="Models\ViewModels\TalentIndexViewModel.cs" />
+    <Compile Include="Models\ViewModels\CreateQuotationViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\css\animate.min.css" />
@@ -423,9 +418,13 @@
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Views\Shared\_LayoutMemberClient.cshtml" />
+    <Content Include="Views\Shared\_LayoutMemberTalent.cshtml" />
+    <Content Include="Views\Talent\CreateQuotation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -458,15 +457,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202108040717304_InitialCreate.resx">
-      <DependentUpon>202108040717304_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202108040812464_Init.resx">
-      <DependentUpon>202108040812464_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202108040823187_Init1.resx">
-      <DependentUpon>202108040823187_Init1.cs</DependentUpon>
-    </EmbeddedResource>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

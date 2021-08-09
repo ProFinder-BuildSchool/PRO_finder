@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+
 namespace PRO_finder.Settings
 {
     public static class Setting
@@ -20,6 +21,7 @@ namespace PRO_finder.Settings
             {Models.Enum.SubCategory.網站維護經營, "網站維護/經營" },{Models.Enum.SubCategory.網站行銷SEO, "網站行銷/SEO" },
             {Models.Enum.SubCategory.網站程式設計網站架設, "網站程式設計/網站架設" },{Models.Enum.SubCategory.UIUX設計, "UI/UX設計" },
         };
+
         public static List<Cate> Titles = new List<Cate>() {
             new Cate{ Category = Models.Enum.Category.平面設計, Icon="fas fa-pencil-ruler", SubCategories = new List<string>
             {
@@ -31,6 +33,7 @@ namespace PRO_finder.Settings
                 ConvertToName(Models.Enum.SubCategory.命名Slogan標語), ConvertToName(Models.Enum.SubCategory.ICON設計) ,
             } },
 
+
             new Cate{ Category = Models.Enum.Category.網頁設計, Icon="far fa-window-restore", SubCategories = new List<string>
             {
                 ConvertToName(Models.Enum.SubCategory.網頁版型設計), ConvertToName(Models.Enum.SubCategory.網頁切版製作) ,
@@ -40,11 +43,14 @@ namespace PRO_finder.Settings
                  ConvertToName(Models.Enum.SubCategory.UIUX設計),
             } },
 
+
             new Cate{ Category = Models.Enum.Category.程式開發, Icon="far fa-heart", SubCategories = new List<string>{ ConvertToName(Models.Enum.SubCategory.名片信封設計), ConvertToName(Models.Enum.SubCategory.LOGO商標設計) } }
         };
+
         private static string ConvertToName(Models.Enum.SubCategory subCategory)
         {
             return SubCategoryNameMapping.ContainsKey(subCategory) ? SubCategoryNameMapping[subCategory] : subCategory.ToString();
         }
+
     }
 }
