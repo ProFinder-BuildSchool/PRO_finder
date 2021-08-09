@@ -24,7 +24,7 @@ namespace PRO_finder.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("CodeFirstEntities", throwIfV1Schema: false)
+            : base("ProFinderContext", throwIfV1Schema: false)
         {
         }
 
