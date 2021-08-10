@@ -415,6 +415,7 @@
     <Content Include="Views\Shared\_LayoutMemberClient.cshtml" />
     <Content Include="Views\Shared\_LayoutMemberTalent.cshtml" />
     <Content Include="Views\Talent\CreateQuotation.cshtml" />
+    <Content Include="Views\Shared\_StaffPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
