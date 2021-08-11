@@ -3,61 +3,80 @@
 @{
     ViewBag.Title = "登入";
 }
-
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
+<div class="py-5 row justify-content-center text-center">
+    <div class="col-md-4 col-12">
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <h4>使用本機帳戶進行登入。</h4>
-                <hr />
+                <h4 class="text-center font-weight-bolder">會員登入</h4>
+                <p class="text-center">
+                    歡迎回來Pro Finder!
+                </p>
+                
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    
+                    <div class="col-md-10 col-8 mx-auto">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = " 帳號為您的 E-mail" })
                         @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+
+                
+                <div class="form-group ">
+                    <div class="col-md-10 col-8 mx-auto">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = " 請輸入您的密碼" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
+                    <div class="col-md-offset-2 col-md-10  mx-auto d-flex justify-content-between">
+                        <div class="checkbox ">
                             @Html.CheckBoxFor(m => m.RememberMe)
                             @Html.LabelFor(m => m.RememberMe)
                         </div>
+                        <p>
+                            @Html.ActionLink("忘記密碼?", "ForgotPassword")
+                        </p>
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="登入" class="btn btn-default" />
+                    <div class="col-md-offset-2 col-md-10 mx-auto">
+                        <input type="submit" value="登入" class="btn py-2 px-4"id="login" />
                     </div>
                 </div>
                 <p>
-                    @Html.ActionLink("以新使用者身分註冊", "Register")
+                    您沒有Pro Finder的帳號嗎？ @Html.ActionLink("立即註冊", "Register")
                 </p>
-                @* 只要您的密碼重設功能能夠進行帳戶確認，就啟用此項
-                    <p>
-                        @Html.ActionLink("忘記密碼?", "ForgotPassword")
-                    </p>*@
+                 
+                    
             }
+
+
+
+
+
+
+
         </section>
     </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>
+
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+@section topCSS{
+    <style>
+        #login {
+            background-color: #89ba16;
+            color:white;
+            font-weight:800;
+        }
+
+
+
+    </style>
+    
+    }
