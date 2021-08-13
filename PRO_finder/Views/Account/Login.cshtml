@@ -13,17 +13,17 @@
                 <p class="text-center">
                     歡迎回來Pro Finder!
                 </p>
-                
+
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
-                    
+
                     <div class="col-md-10 col-8 mx-auto">
                         @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = " 帳號為您的 E-mail" })
                         @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
-                
+
                 <div class="form-group ">
                     <div class="col-md-10 col-8 mx-auto">
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = " 請輸入您的密碼" })
@@ -43,23 +43,29 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10 mx-auto">
-                        <input type="submit" value="登入" class="btn py-2 px-4"id="login" />
+                        <input type="submit" value="登入" class="btn py-2 px-4" id="login" />
                     </div>
                 </div>
                 <p>
                     您沒有Pro Finder的帳號嗎？ @Html.ActionLink("立即註冊", "Register")
                 </p>
-                 
-                    
+
+
             }
 
 
 
 
 
-
-
         </section>
+
+
+
+        <section id="socialLoginForm">
+            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+        </section>
+
+
     </div>
 
 </div>
@@ -74,8 +80,21 @@
             color:white;
             font-weight:800;
         }
+        #Google {
+            background-color: red;
+            color: white;
+            transition: .3s;
+        }
 
+        #Facebook {
+            background-color: #2f6ce4;
+            color: white;
+            transition: .3s;
+        }
 
+        .loginbtn:hover {
+            transform: scale(1.03);
+        }
 
     </style>
     
