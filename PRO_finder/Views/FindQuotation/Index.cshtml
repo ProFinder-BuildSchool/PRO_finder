@@ -94,13 +94,7 @@
             </div>
             <div class="col-md-6 ">
                 <div class="category-list">
-                    <select class="w-25">
-                        <option>地區</option>
-                        <option value="1">新竹市</option>
-                        <option value="12">台北市</option>
-                        <option value="13">台南市</option>
-                        <option value="1">新竹市</option>
-                    </select>
+                    @Html.DropDownList("LocationID", (List<SelectListItem>)ViewBag.locationList, new { @class = "w-25" })
                     <select class="w-25">
                         <option>地區</option>
                         <option value="1">新竹市</option>
@@ -303,12 +297,12 @@
                                         <a href="#" class="btn btn-primary">我要報價</a>
                                     </div>
                                 </div>
-                            </div> }
-                     
+                            </div>}
 
-                
 
-                    
+
+
+
 
 
                     </div>
@@ -581,4 +575,14 @@
             text-align: center
         }
     </style>
+}
+@section endJS
+    {
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.querySelector("#LocationID").addEventListener("change", function () {
+            axios({ method: "post", url: "@Url.Action("getLocationID", "FindQuotation")", data:{ locationID: Number(this.value) }})
+            .then(res => { console.log(res) });
+        });
+    </script>
 }

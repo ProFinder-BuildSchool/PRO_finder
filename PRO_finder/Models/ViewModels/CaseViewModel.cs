@@ -19,7 +19,9 @@ namespace PRO_finder.Models.ViewModels
         public string title { get; set; }
         public int Price { get; set; }
 
-        public int Location { get; set; }
+        public int LocationID{ get; set; }
+
+        public string LocationName { get;  set; }
 
         public int SubCategoryID { get; set; }
 
