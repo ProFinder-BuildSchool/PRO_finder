@@ -16,119 +16,122 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    <div class="myContainer">
+        <div class="form-horizontal">
+            <h4>刊登新服務</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-horizontal">
-        <h4>刊登新服務</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        @*服務主類別選單*@
-        <div class="form-group">
-            <label for="Category" class="control-label col-md-10">服務類別</label>
-            <div class="row">
-                <div class="col-5">
-                    @Html.DropDownList("Catgeory", categoryList, new { @class = "form-control", @id = "categoryDropdown" })
-                </div>
-                <div class="col-5">
-                    <select class="form-control" id="subcategorySelect" name="SubCategoryID">
-                        <option>---選擇服務子類型---</option>
-                    </select>
-                    @*@Html.DropDownList("SubCategoryID", null, htmlAttributes: new { @class = "form-control" })*@
-                    @Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        @*服務子類別選單*@
-
-        @*服務名稱*@
-        <div class="form-group">
-            @Html.LabelFor(model => model.QuotationTitle, htmlAttributes: new { @class = "control-label col-md-10" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.QuotationTitle, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.QuotationTitle, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        @*服務定價*@
-        <div class="form-group">
-            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-10" })
-            <div class="col-md-10">
-                <div class="row">
-                    <div class="col-8">
-                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            @*服務主類別選單*@
+            <div class="form-group">
+                <label for="Category" class="control-label col-md-12">服務類別</label>
+                <div class="d-flex justify-content-around px-2">
+                    <div class="col-5 px-1">
+                        @Html.DropDownList("Catgeory", categoryList, new { @class = "form-control", @id = "categoryDropdown" })
                     </div>
-                    <div class="col-1" style="line-height:40px; padding:0px !important;"> 元&ensp;/&ensp;</div>
-                    <div class="col-3">
-                        @Html.EnumDropDownListFor(model => model.QuotationUnit, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.QuotationUnit, "", new { @class = "text-danger" })
+                    <div class="col-5 px-1">
+                        <select class="form-control" id="subcategorySelect" name="SubCategoryID">
+                            <option class="text-center">選擇服務子類型</option>
+                        </select>
+                        @*@Html.DropDownList("SubCategoryID", null, htmlAttributes: new { @class = "form-control" })*@
+                        @Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
-        </div>
 
-        @*製作天數*@
-        <div class="form-group">
-            @Html.LabelFor(model => model.ExecuteDate, htmlAttributes: new { @class = "control-label col-md-10" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.ExecuteDate, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ExecuteDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            @*服務子類別選單*@
 
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.MemberID, htmlAttributes: new { @class = "control-label col-md-10" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(model => model.MemberID, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MemberID, "", new { @class = "text-danger" })
+            @*服務名稱*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.QuotationTitle, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.QuotationTitle, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.QuotationTitle, "", new { @class = "text-danger" })
                 </div>
-            </div>*@
+            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-10" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+            @*服務定價*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-1" style="line-height:40px; padding:0px !important;"> 元&ensp;/&ensp;</div>
+                        <div class="col-3">
+                            @Html.EnumDropDownListFor(model => model.QuotationUnit, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.QuotationUnit, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*製作天數*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.ExecuteDate, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(model => model.ExecuteDate, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ExecuteDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.MemberID, htmlAttributes: new { @class = "control-label col-md-10" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.MemberID, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MemberID, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.OtherPictureID, "OtherPictureID", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("OtherPictureID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.OtherPictureID, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+            <div class="form-group">
+                <label for="upload">選擇上傳圖檔</label>
+                <input id="upload" type="file" accept="image/*">
+                <button class="btn btn-primary" type="button" id="submit">上傳</button>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-12">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
             </div>
         </div>
-
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.OtherPictureID, "OtherPictureID", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("OtherPictureID", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.OtherPictureID, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
-
-
-
-
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+        <div>
+            @Html.ActionLink("Back to List", "Index")
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
 @section endJS{
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
+        //服務類別轉換
        document.querySelector("#categoryDropdown").addEventListener("change", function () {
             console.log(this.value);
             axios({method:"post", url:"@Url.Action("getSubcategoryList", "Talent")", data: { categoryID: this.value }})
                 .then(result => {
                     let data = result.data;
                     let selector = document.querySelector("#subcategorySelect");
-                    selector.innerHTML = "<option>---選擇服務子類型---</option>"
+                    selector.innerHTML = "<option class='text - center'>選擇服務子類型</option>"
                     data.forEach(d => {
                         console.log(d);
                         let option = document.createElement("option");
@@ -137,9 +140,72 @@
                         selector.append(option);
                     });
                 });
-        })
-        
+       })
+
+        //imgur 圖檔上傳
+        const id = "c20b85a63157827";
+        const token = "9aa33cd84b3881ffd9354d38adc91e7fc06d8cba";
+        const album = 'Sv87YF';
+
+        let form = new FormData();
+        document.querySelector("#upload").addEventListener("change", function (e) {
+
+            form.append('image', e.target.files[0]);
+            form.append('title', 'test');
+            form.append('description', 'test');
+            form.append('album', album)
+            form.append('type', 'url')
+
+            console.log(form);
+        });
+        document.querySelector("#submit").addEventListener("click", function () {
+            axios({ method: "post", url: "https://api.imgur.com/3/image/", data: form, headers: { Authorization: `Client-ID ${id}` }, mimeType: 'multipart/form-data' })
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(e => console.log(e));
+
+        });
+
+        //document.querySelector("#upload").addEventListener("change", ev => {
+        //    const formdata = new FormData()
+        //    formdata.append("image", ev.target.files[0])
+        //    fetch("https://api.imgur.com/3/image/", {
+        //        method: "post",
+        //        headers: {
+        //            Authorization: `Client-ID ${id}`
+        //        },
+        //        body: formdata
+        //    }).then(data => data.json()).then(data => {
+        //        img.src = data.data.link
+        //        url.innerText = data.data.link
+        //    })
+        //})
 
     </script>
 
+}
+@section topCSS{
+    <style>
+        h4 {
+            color: #515A5A;
+            font-weight: 1000;
+        }
+
+        .myContainer {
+            /* max-width: 510px; */
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            padding: 30px;
+        }
+
+        hr {
+            margin: 10px 0px !important;
+        }
+
+        label {
+            font-weight: 700;
+        }
+    </style>
 }

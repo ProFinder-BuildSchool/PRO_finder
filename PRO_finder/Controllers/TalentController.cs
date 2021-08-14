@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
+using Microsoft.AspNet.Identity;
 using PRO_finder.Models.DBModel;
 using PRO_finder.ViewModels;
 
@@ -30,6 +32,7 @@ namespace PRO_finder.Controllers
         [HttpGet]
         public ActionResult CreateQuotation()
         {
+            //var currentUserId = User.Identity.GetUserId();
             return View();
         }
         [HttpPost]
