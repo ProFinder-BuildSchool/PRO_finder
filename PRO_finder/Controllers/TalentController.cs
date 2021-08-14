@@ -14,7 +14,11 @@ namespace PRO_finder.Controllers
     public class TalentController : Controller
     {
         // GET: AccountCenter
-        private ProFinderContext context = new ProFinderContext();
+        private readonly ProFinderContext _context;
+        public TalentController()
+        {
+            _context = new ProFinderContext();
+        }
         public ActionResult Index()
         {
             //List<TalentIndexViewModel> clientIndex = new List<TalentIndexViewModel>();
@@ -40,8 +44,8 @@ namespace PRO_finder.Controllers
         {
             if (ModelState.IsValid)
             {
-                context.Quotation.Add(quotation);
-                context.SaveChanges();
+                _context.Quotation.Add(quotation);
+                _context.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(quotation);
@@ -49,9 +53,15 @@ namespace PRO_finder.Controllers
         [HttpPost]
         public JsonResult getSubcategoryList(int categoryID)
         {
-            context.Configuration.ProxyCreationEnabled = false;
-            List<SubCategory> subcategoryList = context.SubCategory.Where(x => x.CategoryID == categoryID).ToList();
+            _context.Configuration.ProxyCreationEnabled = false;
+            List<SubCategory> subcategoryList = _context.SubCategory.Where(x => x.CategoryID == categoryID).ToList();
             return Json(subcategoryList, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult UploadMyWorks()
+        {
+
+            return View();
         }
     }
 }
