@@ -1,4 +1,4 @@
-﻿
+﻿@*@model IEnumerable<PRO_finder.Models.ViewModels.QuotationViewModel>*@
 <header class="site-navbar ">
 
     <div class="container-fluid d-none d-xl-block bg-light">
@@ -41,17 +41,17 @@
                     <li class="has-children">
                         <a href="#"><i class="icon fas fa-search-dollar mr-2"></i>找報價</a>
                         <ul class="dropdown">
-                            <li class="py-1"><a href="#">平面設計</a></li>
-                            <li class="py-1"><a href="#">網頁設計</a></li>
-                            <li class="py-1"><a href="#">程式開發</a></li>
-                            <li class="py-1"><a href="#">翻譯寫作</a></li>
-                            <li class="py-1"><a href="#">商攝娛樂</a></li>
-                            <li class="py-1"><a href="#">影像製作</a></li>
-                            <li class="py-1"><a href="#">空間設計</a></li>
-                            <li class="py-1"><a href="#">生活服務</a></li>
-                            <li class="py-1"><a href="#">活動企劃</a></li>
-                            <li class="py-1"><a href="#">專業顧問</a></li>
-                            <li class="py-1"><a href="#">資訊工程</a></li>
+                            <li class="py-1"><a href="/Quotation/Index?CategoryId=0">平面設計</a></li>
+                            <li class="py-1"><a href="/Quotation/Index?CategoryId=1">網頁設計</a></li>
+                            <li class="py-1"><a href="/Quotation/Index?CategoryId=2">程式開發</a></li>
+                            <li class="py-1"><a href="/Quotation/Index?CategoryId=3">翻譯寫作</a></li>
+                            <li class="py-1"><a href="/Quotation/Index?CategoryId=4">商攝娛樂</a></li>
+                            <li class="py-1"><a href="/Quotation/Index?CategoryId=5">影像製作</a></li>
+                            <li class="py-1"><a href="/Quotation/Index?CategoryId=6">空間設計</a></li>
+                            <li class="py-1"><a href="/Quotation/Index?CategoryId=7">生活服務</a></li>
+                            <li class="py-1"><a href="/Quotation/Index?CategoryId=8">活動企劃</a></li>
+                            <li class="py-1"><a href="/Quotation/Index?CategoryId=9">專業顧問</a></li>
+                            <li class="py-1"><a href="/Quotation/Index?CategoryId=10">資訊工程</a></li>
                         </ul>
                     </li>
                     <li class="d-xl-none imTalent">　</li>
@@ -61,7 +61,7 @@
 
             <div class="right-cta-menu text-right d-flex   justify-content-end aligin-items-center col-6">
                 <div class="ml-auto d-none d-xl-block">
-                    <a href="@Url.Action("Index","Client")"class="btn text-white d-none d-lg-inline-block">
+                    <a href="@Url.Action("Index","Client")" class="btn text-white d-none d-lg-inline-block">
                         <span class="mr-2 fas fa-user "></span>我的帳戶
                     </a>
                     <!-- <a href="login.html"

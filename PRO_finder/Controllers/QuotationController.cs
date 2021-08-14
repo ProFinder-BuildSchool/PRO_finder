@@ -5,19 +5,30 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using PRO_finder.Models;
+using PRO_finder.Models.ViewModels;
+using PRO_finder.Repositories;
+using PRO_finder.Service;
 
 namespace PRO_finder.Controllers
 {
     
     public class QuotationController : Controller
     {
-        ProFinderModels ctx = new ProFinderModels();
-        // GET: Quotation
-        public ActionResult Index()
+        private readonly QuotationRepository _quotRepo;
+        private readonly QuotationService _quotService;
+
+        public QuotationController()
         {
-            var test = from p in ctx.Tests
-                           select p;
-            return View(test.ToList());
+            _quotRepo = new QuotationRepository();
+            _quotService = new QuotationService();
+        }
+
+        //ProFinderModels ctx = new ProFinderModels();
+        // GET: Quotation
+        public ActionResult Index(int CategoryId)
+        {
+            List<QuotationViewModel> pageData = _quotService.GetCategoryPageData(CategoryId);
+            return View(pageData);
         }
         public ActionResult Detail()
         {
@@ -34,5 +45,10 @@ namespace PRO_finder.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult JSON()
+        {
+            return JSON();
+        }
     }
 }

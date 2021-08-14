@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PRO_finder.Models.Test>
+﻿@model List<QuotationViewModel>
 @{
     ViewBag.Title = "Index";
 }
@@ -99,8 +99,10 @@
                     </div>
                     <div class="border p-4 rounded serviceCategory">
                         <div class="list-unstyled block__47528">
-                            <label><input type="checkbox"> <span>LOGO/商標設計</span></label>
-                            <label><input type="checkbox"> <span>招牌設計</span></label>
+                            @foreach (var item in Model)
+                            {
+                            <label><input type="checkbox"> <span>@Html.DisplayFor(modelItem => item.SubcategoryName)</span></label>
+                            @*<label><input type="checkbox"> <span>招牌設計</span></label>
                             <label><input type="checkbox"> <span>名片/信封設計</span></label>
                             <label><input type="checkbox"> <span>企業形象/VI設計</span></label>
                             <label><input type="checkbox"> <span>DM/海報/卡片設計</span></label>
@@ -110,7 +112,8 @@
                             <label><input type="checkbox"> <span>插畫/漫畫</span></label>
                             <label><input type="checkbox"> <span>織品服裝設計</span></label>
                             <label><input type="checkbox"> <span>命名/Slogan標語</span></label>
-                            <label><input type="checkbox"> <span>ICON設計</span></label>
+                            <label><input type="checkbox"> <span>ICON設計</span></label>*@
+                            }
                         </div>
                     </div>
                 </div>
@@ -182,6 +185,37 @@
                         </li>
                     </ul>
                 </div>
+                @*<div class="row item_zone mb-5">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="listing__item">
+                                <div class="listing__item__pic">
+                                    <a href="@Url.Action("Detail", "Quotation")" target="_blank"><img src="~/Assets/images/sq_img_6.jpg" alt="Image" class="img-fluid rounded"></a>
+                                </div>
+                                <div class="listing__item__text">
+                                    <div class="listing__item__text__inside">
+                                        <h5>test</h5>
+                                        <span class="price">1200</span><span>/件</span>
+                                        <div class="listing__item__text__rating">
+                                            <div class="listing__item__rating__star mr-2">
+                                                <span class="icon_star"></span>
+                                                <span class="icon_star"></span>
+                                                <span class="icon_star"></span>
+                                                <span class="icon_star"></span>
+                                                <span class="icon_star-half_alt"></span>
+                                            </div>
+                                            <span>4</span><span>人訂購</span>
+                                        </div>
+                                        <div class="mb-2">
+                                            <a class="studioName" href="@Url.Action("Detail", "Quotation")" target="_blank">test<span class="pic_tag">VIP</span></a>
+                                        </div>
+                                    </div>
+                                    <div class="listing__item__text__info">
+                                        <a class="listing__item__text__info__right" href="@Url.Action("Detail", "Quotation")" target="_blank">服務詳情</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
                 <div class="row item_zone mb-5">
                     @foreach (var item in Model)
                     {
@@ -192,8 +226,8 @@
                                 </div>
                                 <div class="listing__item__text">
                                     <div class="listing__item__text__inside">
-                                        <h5>@Html.DisplayFor(modelItem => item.logoName)</h5>
-                                        <span class="price">@Html.DisplayFor(modelItem => item.Price)</span><span>/件</span>
+                                        <h5>@Html.DisplayFor(modelItem => item.CategoryName)</h5>
+                                        <span class="price">@Html.DisplayFor(modelItem => item.Price) </span><span>/ 件</span>
                                         <div class="listing__item__text__rating">
                                             <div class="listing__item__rating__star mr-2">
                                                 <span class="icon_star"></span>
@@ -202,10 +236,12 @@
                                                 <span class="icon_star"></span>
                                                 <span class="icon_star-half_alt"></span>
                                             </div>
-                                            <span>@Html.DisplayFor(modelItem => item.BuyPerson)</span><span>人訂購</span>
+                                            <span></span><span>人訂購</span>
                                         </div>
                                         <div class="mb-2">
-                                            <a class="studioName" href="@Url.Action("Detail", "Quotation")" target="_blank">@Html.DisplayFor(modelItem => item.StudioName)<span class="pic_tag">VIP</span></a>
+                                            <a class="studioName" href="@Url.Action("Detail", "Quotation")" target="_blank">@Html.DisplayFor(modelItem => item.StudioName)</a> <br>
+                                            <span class="pic_tag">CategoryId： @Html.DisplayFor(modelItem => item.CategoryId)</span>
+                                            <span class="pic_tag">SubcategoryId： @Html.DisplayFor(modelItem => item.SubcategoryId)</span>
                                         </div>
                                     </div>
                                     <div class="listing__item__text__info">
@@ -407,6 +443,7 @@
             padding: 2px 5px;
             color: white;
             border-radius: 6px;
+            margin-left: 10px;
         }
 
         .listing__item__pic__tag.top_rate {
@@ -797,6 +834,7 @@
 }
 
 @section endJS{
+    
     <script>
         let filtermodal = document.querySelector('.filtermodal');
         let html = document.querySelector('html');
@@ -838,6 +876,7 @@
                 $(this).removeClass("active");
             });
         }
+
 
     </script>
 }
