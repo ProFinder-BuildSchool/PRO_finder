@@ -1,33 +1,36 @@
 ﻿using PRO_finder.Models;
-using PRO_finder.Models.Enum;
 using PRO_finder.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using PRO_finder.Settings;
+using PRO_finder.Models.DBModel;
+using PRO_finder.Repositories;
+using PRO_finder.Service;
 
 namespace PRO_finder.Controllers
 {
     public class HomeController : Controller
     {
-            
-                                                          
+
+        private readonly ProFinderContext _ctx;
+        private CategoryService _CategoryService;
+
+        public HomeController()
+        {
+            _ctx = new ProFinderContext();
+            _CategoryService = new CategoryService();
+        }
         public ActionResult Index()                       
         {
-            var category = new CategoryViewModel() {
-                Categories = Setting.Titles
-            };
 
-            return View(category);                                
+            List<CategoryViewModel> categories = _CategoryService.Home_Index_GetCategoryItem();
+
+            return View(categories);                                
         }                                                 
                                                           
-        //public ActionResult FindQuotation()              
-        //{                                                 
-                                                         
-           // return View();
-        //}
+     
 
         public ActionResult Contact()
         {

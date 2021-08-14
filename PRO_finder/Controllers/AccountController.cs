@@ -60,7 +60,7 @@ namespace PRO_finder.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-
+        
         //
         // POST: /Account/Login
         [HttpPost]
@@ -392,6 +392,24 @@ namespace PRO_finder.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+
+
+ 
+
+            //清除所有的 session
+            Session.RemoveAll();
+
+           
+
+            // 建立 ASP.NET 的 Session Cookie 同樣是為了覆蓋
+            HttpCookie cookie2 = new HttpCookie("ASP.NET_SessionId", "");
+            cookie2.Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies.Add(cookie2);
+
+
+
+
+
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }

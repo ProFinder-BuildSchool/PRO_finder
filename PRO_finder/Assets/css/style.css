@@ -13,8 +13,8 @@
         padding-left: 15px;
         padding-right: 15px; } }
   .site-navbar .site-logo {
-    position: absolute;
-    left: 5%; }
+   /* position: absolute;
+    left: 5%;*/ }
     @media (max-width: 767.98px) {
       .site-navbar .site-logo {
         position: relative;
@@ -26,9 +26,9 @@
       text-transform: uppercase; }
       .site-navbar .site-logo a:hover {
         text-decoration: none; }
-  .site-navbar .site-burger-menu, .site-navbar .right-cta-menu {
+  /*.site-navbar .site-burger-menu, .site-navbar .right-cta-menu {
     position: absolute;
-    right: 5%; }
+    right: 5%; }*/
     @media (max-width: 767.98px) {
       .site-navbar .site-burger-menu, .site-navbar .right-cta-menu {
         position: relative;
@@ -41,13 +41,11 @@
     @media (max-width: 767.98px) {
       .site-navbar .site-menu-toggle {
         margin-left: 5px; } }
-  .site-navbar .site-navigation {
-    position: absolute;
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    transform: translateX(-50%);
-    z-index: 5; }
+ 
+
+
+
+
     .site-navbar .site-navigation .site-menu {
       margin-bottom: 0; }
       .site-navbar .site-navigation .site-menu .active {
@@ -59,14 +57,21 @@
         display: inline-block;
         position: relative; }
       .site-navbar .site-navigation .site-menu > li {
-        display: inline-block; }
+        display: inline-block;
+        margin-top:5px;
+      
+      }
         .site-navbar .site-navigation .site-menu > li > a {
-          padding: 20px 20px !important;
-          color: rgba(255, 255, 255, 0.5);
-          display: inline-block;
-          text-decoration: none !important; }
-          .site-navbar .site-navigation .site-menu > li > a:hover {
-            color: #fff; }
+            padding: 5px 20px !important;
+            color: rgba(255, 255, 255, 0.5);
+            display: inline-block;
+            text-decoration: none !important;
+            border-radius: 10px 10px 0px 0px;
+        }
+            .site-navbar .site-navigation .site-menu > li > a:hover {
+                color: #89ba16;
+                background-color: white;
+            }
       .site-navbar .site-navigation .site-menu .has-children {
         position: relative; }
         .site-navbar .site-navigation .site-menu .has-children > a {
@@ -431,11 +436,16 @@ h1, h2, h3, h4 {
   color: #000; }
 
 .site-section {
-  padding-top: 7rem;
-  padding-bottom: 7rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
   position: relative;
-  z-index: 2; }
-  @media (max-width: 991.98px) {
+  z-index: 2; 
+  
+
+}
+
+
+@media (max-width: 991.98px) {
     .site-section {
       padding-top: 3rem;
       padding-bottom: 3rem; } }
@@ -570,14 +580,14 @@ h1, h2, h3, h4 {
         
     }
     .bg-image.overlay-primary:before {
-      position: absolute;
+     /* position: absolute;
       content: "";
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
       background: rgba(137, 186, 22, 0.9);
-      z-index: 1; }
+      z-index: 1; */}
     .bg-image.overlay-primary > .container {
       position: relative;
       z-index: 2; }
@@ -762,7 +772,7 @@ h1, h2, h3, h4 {
   min-height: 100%;
   font-size: 100px;
   text-align: right;
-  filter: alpha(opacity=0);
+  
   opacity: 0;
   outline: none;
   background: white;
@@ -1394,21 +1404,21 @@ h1, h2, h3, h4 {
 .isotope .item {
   -webkit-transition-duration: 0.8s;
   -moz-transition-duration: 0.8s;
-  -ms-transition-duration: 0.8s;
+
   -o-transition-duration: 0.8s;
   transition-duration: 0.8s; }
 
 .isotope {
   -webkit-transition-property: height, width;
   -moz-transition-property: height, width;
-  -ms-transition-property: height, width;
+  
   -o-transition-property: height, width;
   transition-property: height, width; }
 
 .isotope .item {
   -webkit-transition-property: -webkit-transform, opacity;
   -moz-transition-property: -moz-transform, opacity;
-  -ms-transition-property: -ms-transform, opacity;
+ 
   -o-transition-property: top, left, opacity;
   -webkit-transition-property: opacity, -webkit-transform;
   transition-property: opacity, -webkit-transform;
@@ -1678,8 +1688,11 @@ h1, h2, h3, h4 {
     background-color: #89ba16;
     top: 0px !important;
     position: sticky !important;
-    line-height: 2;
+    
 }
+
+
+
 
 .site-mobile-menu .site-nav-wrap > li > a {
     font-size: 16px !important;
@@ -1706,6 +1719,9 @@ h1, h2, h3, h4 {
 .icon {
     color: #89ba16;
 }
-
+.logo {
+    line-height: 1.7 !important;
+    color: #89ba16 !important;
+}
 
 /* NAVBAR END */

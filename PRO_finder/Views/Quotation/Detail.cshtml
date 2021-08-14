@@ -7,73 +7,7 @@
     <div class="container">
         <div class="row">
             <!-- 左欄-接案者資訊 -->
-            <div class="col-lg-4 sidebar pl-lg-5">
-                <div class="sidebar-box">
-                    <img src="~/Assets/images/person_1.jpg" alt="Image placeholder"
-                         class="img-fluid mb-4 w-50 rounded-circle">
-                    <h3>Author</h3>
-                    <div class="d-flex flex-column">
-                        <span class="m-2"><span class="icon-briefcase mr-2"></span>接案身分: {{個人兼職}}</span>
-                        <span class="m-2">
-                            <span class="icon-clock-o mr-2"></span><span class="text-primary">
-                                上線時間:
-                                {{5天前}}
-                            </span>
-                        </span>
-                        <span class="m-2"><span class="icon-room mr-2"></span>接案地點: {{台北市}}</span>
-                        <a class="btn btn-default" data-toggle="collapse" href="#multiCollapseExample1"
-                           role="button" aria-expanded="false" aria-controls="multiCollapseExample1">看更多↓</a>
-                    </div>
-                    <div class="collapse multi-collapse" id="multiCollapseExample1">
-                        <div class="body">
-                            <label class="readMoreBtn" for="workroomInfoReadMore"></label>
-                            <p class="designerDeal">
-                                成交件數:<a class="blueLink" href="javascript:;"
-                                        title="成交件數">{{0}}</a>
-                            </p>
-                            <p class="designerInvited">受邀次數: {{11}}</p>
-                            <p class="designerSkill">
-                                <span class="designerSkillTit">專長:</span>
-                                <a href="/talent?ca=dRL&amp;su=Z20J" target="_blank" title="網頁版型設計"># 網頁版型設計</a>
-                                <a href="/talent?ca=dRL&amp;su=dVOE" target="_blank" title="網頁切版製作"># 網頁切版製作</a>
-                                <a href="/talent?ca=dRL&amp;su=aob2" target="_blank" title="網站程式設計/網站架設">
-                                    #
-                                    網站程式設計/網站架設
-                                </a>
-                            </p>
-                            <div class="author-social mb-4">
-                                <a href="#"><span class="icon-facebook"></span></a>
-                                <a href="#"><span class="icon-twitter"></span></a>
-                                <a href="#"><span class="icon-instagram"></span></a>
-                                <a href="#"><span class="icon-linkedin"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="workroomMainBtn">
-                        <div class="row my-3">
-                            <div class="col-12 d-flex">
-                                <a type="button" href="#" class="btn btn-light btn-md m-auto text-nowrap">
-                                    <span class="icon-heart-o mr-2 text-danger"></span>收藏
-                                </a>
-                                <a type="button" href="#" class="btn btn-primary btn-md m-auto text-nowrap">
-                                    <span class="fas fa-phone-alt mr-2"></span>直接聯絡
-                                </a>
-                            </div>
-                            <div class="col-12 my-3">
-                                <button class="workroomContactNow ga_event btn btn-danger w-100" data-el="即時詢問"
-                                        type="button" data-token="" title="即時詢問">
-                                    即時詢問
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sidebar-box">
-                        <p class="avatar lazy" data-src="">
-                            [連接首頁banner的廣告]
-                        </p>
-                    </div>
-                </div>
-            </div>
+            @Html.Partial("_StaffPartial")
             <!-- 右欄-報價細節 -->
             <div class="col-lg-8  blog-content">
                 <section id="primary" class="content-area">
