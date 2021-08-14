@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@*@{Html.RenderAction("Index", "Home");}*@
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -39,7 +40,7 @@
             <div class="site-mobile-menu-body"></div>
         </div> <!-- .site-mobile-menu -->
         @Html.Partial("_NavbarPartial")
-
+        @*@{Html.RenderAction("Index", "Home");}*@
         @RenderBody()
 
         <footer class="site-footer">
