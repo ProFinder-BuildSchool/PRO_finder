@@ -80,12 +80,12 @@
             </div>
 
             @*<div class="form-group">
-                    @Html.LabelFor(model => model.MemberID, htmlAttributes: new { @class = "control-label col-md-10" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(model => model.MemberID, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.MemberID, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
+            @Html.LabelFor(model => model.MemberID, htmlAttributes: new { @class = "control-label col-md-10" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.MemberID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MemberID, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-12" })
@@ -96,16 +96,31 @@
             </div>
 
             @*<div class="form-group">
-                    @Html.LabelFor(model => model.OtherPictureID, "OtherPictureID", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownList("OtherPictureID", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.OtherPictureID, "", new { @class = "text-danger" })
+            @Html.LabelFor(model => model.OtherPictureID, "OtherPictureID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("OtherPictureID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.OtherPictureID, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+            <div class="form-group mt-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 ">
+                            <label for="upload">
+                                <img src="https://image.flaticon.com/icons/png/512/568/568717.png"
+                                     alt=""><span class="uploadIcon">上傳作品</span>
+                            </label>
+                        </div>
+                        <div class="col-6 d-none">
+                            <input type="file" id="upload" multiple="multiple" class="w-100">
+                        </div>
                     </div>
-                </div>*@
-            <div class="form-group">
-                <label for="upload" class="col-md-12">選擇上傳圖檔</label>
-                <div class="col-12">
-                    <input id="upload" type="file" accept="image/*">
+                </div>
+            </div>
+            <div class="displayUploadArea">
+                <div class="container">
+                    <div class="row" id="displayUpload">
+                    </div>
                 </div>
             </div>
 
@@ -184,7 +199,39 @@
         //    formdata.append("image", ev.target.files[0])
             
         //})
+        //上傳圖檔呈現
+        let displayUpload = $g("#displayUpload");
+        $g("input#upload").addEventListener("change", function () {
+            let files = Array.from(this.files);
+            let count = 0;
+            files.forEach(file => {
 
+                let div = document.createElement("div");
+                let span = document.createElement("span");
+                let img = document.createElement("img");
+                div.classList.add("col-4");
+                span.innerHTML = "<i class='fas fa-trash-alt'></i>";
+                span.classList.add("btn");
+                span.classList.add("btn-outline-danger");
+                span.dataset.count = count;
+                div.setAttribute("id", `count${count}`);
+                img.src = URL.createObjectURL(file);
+                span.addEventListener("click", function () {
+                    let displayUpload = $g("#displayUpload");
+                    let theDiv = $g(`div#count${this.dataset.count}`);
+                    displayUpload.removeChild(theDiv);
+                    console.log(theDiv);
+                });
+                div.appendChild(span);
+                div.appendChild(img);
+                displayUpload.appendChild(div);
+                count++;
+            });
+        });
+        function $g(element) {
+            let temp = document.querySelectorAll(element);
+            return temp.length == 1 ? temp[0] : temp;
+        }
     </script>
 
 }
@@ -210,5 +257,52 @@
         label {
             font-weight: 700;
         }
+            label[for="upload"] {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 20vw;
+                height: 20vw;
+                background-color: #f2f2f2;
+                border: 2px #bebebe dashed;
+                margin: auto;
+            }
+
+                label[for="upload"] img {
+                    width: 30%;
+                }
+
+        #displayUpload img {
+            margin-top: auto auto;
+            width: 100%;
+            height: 100%;
+            max-height: 150px;
+            padding: 0px;
+        }
+
+        #displayUpload div {
+            position: relative;
+            width: 100%;
+            margin: 20px auto;
+        }
+
+            #displayUpload div::before {
+                content: "";
+                position: absolute;
+                width: calc(100% - 30px);
+                height: 100%;
+                z-index: 100;
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+
+            #displayUpload div span {
+                position: absolute;
+                z-index: 300;
+                display: block;
+                top: 0px;
+                right: 15px;
+                border: none !important;
+            }
     </style>
 }

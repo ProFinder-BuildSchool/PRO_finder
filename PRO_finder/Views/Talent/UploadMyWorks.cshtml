@@ -4,7 +4,7 @@
     ViewBag.Title = "UploadMyWorks";
     Layout = "~/Views/Shared/_LayoutMemberTalent.cshtml";
     var service = new CategoryService();
-    List<SelectListItem> categoryList = service.getCategorySelectList();
+    List<SelectListItem> categoryList = service.GetCategorySelectList();
 }
 
 @using (Html.BeginForm())

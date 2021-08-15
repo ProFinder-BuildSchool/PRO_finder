@@ -380,6 +380,8 @@ namespace PRO_finder.Controllers
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
+                        _context.MemberInfo.Add(new MemberInfo { UserId = model.Email, Email = model.Email });
+                        _context.SaveChanges();
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);
                     }
