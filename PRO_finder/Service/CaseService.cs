@@ -25,14 +25,14 @@ namespace PRO_finder.Service
 
             foreach(var i in result)
             {
+                var location = repository.GetAll<Locations>().ToList().Where(x => x.LocationID == i.Location).FirstOrDefault().LocationName;
                 List.Add(new CaseViewModel
                 {
-                    title =i.CaseTitle  ,
-                    Price=i.Price,
+                    title =i.CaseTitle,
+                    Price= (CaseViewModel.PriceEnum)i.Price,
                     LocationID= (int)i.Location,
-                    Description=i.Description
-
-
+                    Description=i.Description,
+                    LocationName = location
                 });
             }
 
