@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.UI;
 using Microsoft.AspNet.Identity;
 using PRO_finder.Models.DBModel;
+using PRO_finder.Service;
 using PRO_finder.ViewModels;
 
 namespace PRO_finder.Controllers
@@ -15,9 +16,11 @@ namespace PRO_finder.Controllers
     {
         // GET: AccountCenter
         private readonly ProFinderContext _context;
+        private readonly CategoryService _service;
         public TalentController()
         {
             _context = new ProFinderContext();
+            _service = new CategoryService();
         }
         public ActionResult Index()
         {
@@ -37,6 +40,8 @@ namespace PRO_finder.Controllers
         public ActionResult CreateQuotation()
         {
             //var currentUserId = User.Identity.GetUserId();
+
+            ViewBag.categoryList = _service.GetCategorySelectList();
             return View();
         }
         [HttpPost]

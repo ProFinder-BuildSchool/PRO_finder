@@ -7,8 +7,7 @@
 @{
     ViewBag.Title = "CreateQuotation";
     Layout = "~/Views/Shared/_LayoutMemberTalent.cshtml";
-    var service = new CategoryService();
-    List<SelectListItem> categoryList = service.getCategorySelectList();
+    
 
 }
 
@@ -28,7 +27,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-6">
-                            @Html.DropDownList("Catgeory", categoryList, new { @class = "form-control", @id = "categoryDropdown" })
+                            @Html.DropDownList("Catgeory", (List<SelectListItem>)ViewBag.categoryList, new { @class = "form-control", @id = "categoryDropdown" })
                         </div>
                         <div class="col-6">
                             <select class="form-control" id="subcategorySelect" name="SubCategoryID">
@@ -145,22 +144,32 @@
                 });
        })
 
-        ////imgur 圖檔上傳
-        //const id = "c20b85a63157827";
+        //imgur 圖檔上傳
+        const id = "c20b85a63157827";
         //const token = "9aa33cd84b3881ffd9354d38adc91e7fc06d8cba";
-        //const album = 'Sv87YF';
+        const album = 'Sv87YFL';
 
-        //let form = new FormData();
-        //document.querySelector("#upload").addEventListener("change", function (e) {
+        
+        document.querySelector("#upload").addEventListener("change", function (e) {
+            let form = new FormData();
+            form.append('image', e.target.files[0]);
+            //form.append('title', 'test');
+            //form.append('description', 'test');
+            /*form.append('album', album)*/
+            //form.append('type', 'url')
 
-        //    form.append('image', e.target.files[0]);
-        //    form.append('title', 'test');
-        //    form.append('description', 'test');
-        //    form.append('album', album)
-        //    form.append('type', 'url')
+            console.log(form);
 
-        //    console.log(form);
-        //});
+            fetch("https://api.imgur.com/3/image", {
+                method: "post",
+                headers: {
+                    Authorization: `Client-ID ${id}`
+                },
+                body: form
+            }).then(data => data.json()).then(data => {
+                console.log(data);
+            })
+        });
         //document.querySelector("#submit").addEventListener("click", function () {
         //    axios({ method: "post", url: "https://api.imgur.com/3/image/", data: form, headers: { Authorization: `Client-ID ${id}` }, mimeType: 'multipart/form-data' })
         //        .then(res => {
@@ -173,16 +182,7 @@
         //document.querySelector("#upload").addEventListener("change", ev => {
         //    const formdata = new FormData()
         //    formdata.append("image", ev.target.files[0])
-        //    fetch("https://api.imgur.com/3/image/", {
-        //        method: "post",
-        //        headers: {
-        //            Authorization: `Client-ID ${id}`
-        //        },
-        //        body: formdata
-        //    }).then(data => data.json()).then(data => {
-        //        img.src = data.data.link
-        //        url.innerText = data.data.link
-        //    })
+            
         //})
 
     </script>
@@ -192,7 +192,7 @@
     <style>
         h4 {
             color: #515A5A;
-            font-weight: 1000;
+            font-weight: 900;
         }
 
         .myContainer {
