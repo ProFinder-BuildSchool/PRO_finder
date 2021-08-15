@@ -40,6 +40,7 @@ namespace PRO_finder.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateQuotation([Bind(Include = "QuotationID, QuotationTitle, Price, QuotationUnit, ExecuteDate, Description, SubCategoryID")] Quotation quotation, [Bind(Include ="WorkAttachmentLink")] WorkAttachment workAttachment)
         {
             if (ModelState.IsValid)
@@ -58,9 +59,16 @@ namespace PRO_finder.Controllers
             return Json(subcategoryList, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public ActionResult UploadMyWorks()
         {
 
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UploadMyWorks([Bind(Include ="WorkPictureID, WorkID, WorkPicture, SortNumber")] WorkPictures newWorkPictures, [Bind(Include ="WorkID, WorkName, SubCategoryID")] Works newWorksInfo)
+        {
             return View();
         }
     }
