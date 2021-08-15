@@ -1,6 +1,14 @@
-﻿
+﻿@model PRO_finder.Model.ViewModels.WorkPageViewModel
+@using PRO_finder.Service
+@using PRO_finder.Models.DBModel;
 @{
     ViewBag.Title = "WorksPage";
+    var service = new WorksService();
+    var Memberservice = new MemberinfoService();
+    List<Works> worksList = service.getWorkItem();
+    List<MemberInfo> memberinfoList = Memberservice.getMemberInfoItem();
+    int workID = 0;
+    int MemberID = 0;
 }
 
 <section class="site-section pb-0 portfolio-single" id="next-section">
@@ -27,28 +35,28 @@
             <div class="col-lg-4 ml-auto h-100 jm-sticky-top" id="workdetail">
 
                 <div class="mb-4">
-                    <h3 class="mb-4 h4 border-bottom">作品詳情</h3>
+                    <h3 class="mb-4 h4 border-bottom">@worksList[workID].WorkName 作品詳情</h3>
 
-                    <p class="mb-0">政府補助案A+企業創新研發淬鍊計畫Nostrum iure atque enim quisquam minima distinctio omnis consequatur aliquam suscipit quidem esse aspernatur Libero excepturi animi repellendus porro impedit</p>
+                    <p class="mb-0">@worksList[workID].WorkDescription</p>
                 </div>
 
                 <div class="row mb-4">
 
                     <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
                         <strong class="d-block text-black">客戶</strong>
-                        Google, Inc.
+                        @worksList[workID].Client
                     </div>
                     <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
                         <strong class="d-block text-black">職責</strong>
-                        Design, Front-End and Back-End (WordPress)
+                        @worksList[workID].Role
                     </div>
                     <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
                         <strong class="d-block text-black">作品年份</strong>
-                        2019
+                        @worksList[workID].YearStarted
                     </div>
                     <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
                         <strong class="d-block text-black mb-3">網站連結/Website URL</strong>
-                        <a href="#" class="btn btn-outline-primary border-width-2">前往網站/Visit Website</a>
+                        <a href="@worksList[workID].WebsiteURLID" class="btn btn-outline-primary border-width-2">前往網站/Visit Website</a>
                     </div>
                 </div>
 
@@ -57,9 +65,9 @@
                     <blockquote>
 
                         <div class="block__91147 d-flex align-items-center">
-                            <figure class="mr-4"><img src="~/Assets/images/person_1.jpg" alt="Image" class="img-fluid"></figure>
+                            <figure class="mr-4"><img src="@memberinfoList[MemberID].ProfilePicture" alt="Image" class="img-fluid"></figure>
                             <div>
-                                <h3>筑筑</h3>
+                                <h3>@memberinfoList[MemberID].NickName </h3>
                                 <span class="designerType">接案身分: 工作室</span>
                                 <!-- <span class="position">Web Designer</span> -->
                             </div>
@@ -108,11 +116,11 @@
         .designerSkillTit {
             font-size: 15px;
         }
-        #workdetail{
-            position:sticky;
-            top:180px;
-        }
 
+        #workdetail {
+            position: sticky;
+            top: 180px;
+        }
     </style>
 
 }
