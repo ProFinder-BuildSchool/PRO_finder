@@ -220,6 +220,7 @@
     <Compile Include="Models\DBModel\Works.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModels\CaseViewModel.cs" />
     <Compile Include="Models\ViewModels\SubCategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\Workdetail.cs" />
     <Compile Include="Models\ViewModels\WorkPageViewModel.cs" />
@@ -227,6 +228,7 @@
     <Compile Include="Repositories\GeneralRepository.cs" />
     <Compile Include="Repositories\SubCategoryRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Service\CaseService.cs" />
     <Compile Include="Service\CategoryService.cs" />
     <Compile Include="Service\MemberinfoService.cs" />
     <Compile Include="Service\WorkPictureService.cs" />
