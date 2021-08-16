@@ -17,11 +17,11 @@ namespace PRO_finder.Service
             using (ProFinderContext context = new ProFinderContext())
             {
                 List<Category> categoriesList = context.Category.ToList();
-                List<SelectListItem> SelectCategory = new List<SelectListItem>();
-                SelectCategory.Add(new SelectListItem { Text = "---選擇服務類型---" });
+                List<SelectListItem> selectCategory = new List<SelectListItem>();
+                selectCategory.Add(new SelectListItem { Text = "選擇服務類型" });
                 foreach (var item in categoriesList)
                 {
-                    SelectCategory.Add(new SelectListItem { Value = item.CategoryID.ToString(), Text = item.CategoryName });
+                    selectCategory.Add(new SelectListItem { Value = item.CategoryID.ToString(), Text = item.CategoryName });
                 }
 
                 return SelectCategory;

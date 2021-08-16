@@ -169,6 +169,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202108141411495_memberID.cs" />
+    <Compile Include="Migrations\202108141411495_memberID.Designer.cs">
+      <DependentUpon>202108141411495_memberID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DBModel\AspNetRoles.cs" />
     <Compile Include="Models\DBModel\AspNetUserClaims.cs" />
@@ -395,6 +400,10 @@
     <Content Include="Assets\bs4\scss\_variables.scss" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - ReadOnly - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - ReadOnly - FTP1.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -427,6 +436,8 @@
     <Content Include="Views\Shared\_LayoutMemberClient.cshtml" />
     <Content Include="Views\Shared\_LayoutMemberTalent.cshtml" />
     <Content Include="Views\Talent\CreateQuotation.cshtml" />
+    <Content Include="Views\Talent\UploadMyWorks.cshtml" />
+    <Content Include="Views\Talent\CaseSetting.cshtml" />
     <Content Include="Views\FindQuotation\getLocationID.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -466,6 +477,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202108141411495_memberID.resx">
+      <DependentUpon>202108141411495_memberID.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

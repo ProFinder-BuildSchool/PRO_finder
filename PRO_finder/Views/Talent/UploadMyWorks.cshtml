@@ -1,0 +1,224 @@
+﻿@model PRO_finder.ViewModels.CreateQuotationViewModel
+@using PRO_finder.Service
+@{
+    ViewBag.Title = "UploadMyWorks";
+    Layout = "~/Views/Shared/_LayoutMemberTalent.cshtml";
+    
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="myContainer">
+        <div class="form-horizontal">
+            <h4>新增作品集</h4>
+            <hr>
+            <div class="form-group">
+                <label for="title" class="col-md-12 control-label">作品集名稱</label>
+                <div class="col-md-12">
+                    <input type="text" id="title" name="WorkName" class="form-control text-box single-line">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Category" class="control-label col-md-12">服務類別</label>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            @Html.DropDownList("Catgeory", (List<SelectListItem>)ViewBag.categoryList, new { @class = "form-control", @id = "categoryDropdown" })
+                        </div>
+                        <div class="col-6">
+                            <select class="form-control" id="subcategorySelect" name="SubCategoryID">
+                                <option class="text-center">選擇服務子類型</option>
+                            </select>
+                            @*@Html.DropDownList("SubCategoryID", null, htmlAttributes: new { @class = "form-control" })*@
+                            @Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mt-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 ">
+                            <label for="newWorks">
+                                <img src="https://image.flaticon.com/icons/png/512/568/568717.png"
+                                     alt=""><span class="uploadIcon">上傳作品</span>
+                            </label>
+                        </div>
+                        <div class="col-6 d-none">
+                            <input type="file" id="newWorks" multiple="multiple" class="w-100" name="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="displayUploadArea">
+                <div class="container">
+                    <div class="row" id="displayUpload">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-12">
+                    <input  value="儲存" class="btn btn-primary" id="submit"/>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section topJS
+    {
+    <script src="https://kit.fontawesome.com/de0f812dc0.js" crossorigin="anonymous"></script>
+}
+@section topCSS
+    {
+    <style>
+        h4 {
+            color: #515A5A;
+            font-weight: 900;
+        }
+
+        .myContainer {
+            @*max-width: 510px;*@
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            padding: 30px;
+        }
+
+        hr {
+            /* margin: 10px 0px !important; */
+        }
+
+        label {
+            font-weight: 700;
+        }
+
+        label[for="newWorks"] {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 20vw;
+            height: 20vw;
+            background-color: #f2f2f2;
+            border: 2px #bebebe dashed;
+            margin: auto;
+        }
+
+        label[for="newWorks"] img {
+            width: 30%;
+        }
+        #displayUpload img {
+            margin-top: auto auto;
+            width: 100%;
+            height: 100%;
+            max-height: 150px;
+            padding: 0px;
+        }
+
+        #displayUpload div {
+            position: relative;
+            width: 100%;
+            margin: 20px auto;
+        }
+
+            #displayUpload div::before {
+                content: "";
+                position: absolute;
+                width: calc(100% - 30px);
+                height: 100%;
+                z-index: 100;
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+
+            #displayUpload div span {
+                position: absolute;
+                z-index: 300;
+                display: block;
+                top: 0px;
+                right: 15px;
+                border: none !important;
+            }
+    </style>
+}
+@section endJS
+    {
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        //服務類別轉換
+       document.querySelector("#categoryDropdown").addEventListener("change", function () {
+            console.log(this.value);
+            axios({method:"post", url:"@Url.Action("getSubcategoryList", "Talent")", data: { categoryID: this.value }})
+                .then(result => {
+                    let data = result.data;
+                    let selector = document.querySelector("#subcategorySelect");
+                    selector.innerHTML = "<option class='text - center'>選擇服務子類型</option>"
+                    data.forEach(d => {
+                        console.log(d);
+                        let option = document.createElement("option");
+                        option.innerText = d.SubCategoryName;
+                        option.value = d.SubCategoryID;
+                        selector.append(option);
+                    });
+                });
+       })
+
+        //上傳圖檔呈現
+        let displayUpload = $g("#displayUpload");
+        $g("input#newWorks").addEventListener("change", function () {
+            let files = Array.from(this.files);
+            let count = 0;
+            files.forEach(file => {
+
+                let div = document.createElement("div");
+                let span = document.createElement("span");
+                let img = document.createElement("img");
+                div.classList.add("col-4");
+                span.innerHTML = "<i class='fas fa-trash-alt'></i>";
+                span.classList.add("btn");
+                span.classList.add("btn-outline-danger");
+                span.dataset.count = count;
+                div.setAttribute("id", `count${count}`);
+                img.src = URL.createObjectURL(file);
+                span.addEventListener("click", function () {
+                    let displayUpload = $g("#displayUpload");
+                    let theDiv = $g(`div#count${this.dataset.count}`);
+                    displayUpload.removeChild(theDiv);
+                    console.log(theDiv);
+                });
+                div.appendChild(span);
+                div.appendChild(img);
+                displayUpload.appendChild(div);
+                count++;
+            });
+        });
+        
+        //imgur 圖檔上傳
+        const id = "c20b85a63157827";
+        const album = 'Sv87YFL';
+
+
+        $g("input#newWorks").addEventListener("change", function (e) {
+            let form = new FormData();
+            form.append('image', e.target.files[0]);
+            /*form.append('album', album)*/
+            console.log(form);
+
+            fetch("https://api.imgur.com/3/image", {
+                method: "post",
+                headers: {
+                    Authorization: `Client-ID ${id}`
+                },
+                body: form
+            }).then(data => data.json()).then(data => {
+                console.log(data);
+            })
+        });
+
+        function $g(element) {
+            let temp = document.querySelectorAll(element);
+            return temp.length == 1 ? temp[0] : temp;
+        }
+    </script>
+}
+
