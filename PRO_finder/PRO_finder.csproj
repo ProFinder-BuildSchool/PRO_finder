@@ -210,6 +210,7 @@
     <Compile Include="Repositories\GeneralRepository.cs" />
     <Compile Include="Repositories\SubCategoryRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Service\CaseService.cs" />
     <Compile Include="Service\CategoryService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
@@ -426,6 +427,7 @@
     <Content Include="Views\Shared\_LayoutMemberClient.cshtml" />
     <Content Include="Views\Shared\_LayoutMemberTalent.cshtml" />
     <Content Include="Views\Talent\CreateQuotation.cshtml" />
+    <Content Include="Views\FindQuotation\getLocationID.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
