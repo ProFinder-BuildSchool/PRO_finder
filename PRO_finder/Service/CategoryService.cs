@@ -12,7 +12,7 @@ namespace PRO_finder.Service
     public class CategoryService
     {
 
-        public List<SelectListItem> getCategorySelectList()
+        public List<SelectListItem> GetCategorySelectList()
         {
             using (ProFinderContext context = new ProFinderContext())
             {
@@ -24,7 +24,7 @@ namespace PRO_finder.Service
                     selectCategory.Add(new SelectListItem { Value = item.CategoryID.ToString(), Text = item.CategoryName });
                 }
 
-                return SelectCategory;
+                return selectCategory;
 
             }
 
