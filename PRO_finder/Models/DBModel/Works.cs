@@ -19,23 +19,20 @@ namespace PRO_finder.Models.DBModel
         public int WorkID { get; set; }
 
         [Required]
-        [StringLength(10)]
         public string WorkName { get; set; }
 
         [Required]
         public string WorkDescription { get; set; }
 
         [Required]
-        [StringLength(10)]
         public string Client { get; set; }
 
         [Required]
-        [StringLength(10)]
         public string Role { get; set; }
 
         public int YearStarted { get; set; }
 
-        public string WebsiteURLID { get; set; }
+        public string WebsiteURL { get; set; }
 
         public int SubCategoryID { get; set; }
 
