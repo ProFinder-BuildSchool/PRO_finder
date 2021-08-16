@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using PRO_finder.Settings;
+
 
 namespace PRO_finder.Controllers
 {
@@ -16,11 +16,9 @@ namespace PRO_finder.Controllers
                                                           
         public ActionResult Index()                       
         {
-            var category = new CategoryViewModel() {
-                Categories = Setting.Titles
-            };
+            
 
-            return View(category);                                
+            return View();                                
         }                                                 
                                                           
         //public ActionResult FindQuotation()              
