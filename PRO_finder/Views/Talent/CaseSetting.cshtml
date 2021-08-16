@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewBag.Title = "CaseSetting";
+    Layout = "~/Views/Shared/_LayoutMemberTalent.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="myContainer">
+        <h4 class="text-dark fw-bold mb-2">接案設定</h4>
+        <hr>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label for="CaseStatus" class="col-md-12 control-label">接案狀態</label>
+                <div class="col-md-12">
+                    <input type="radio" name="CaseStatus" value="open" id="CaseStatus">
+                    <label for="CaseStatus" style="font-size: 14px;">開啓</label><br>
+                    <input type="radio" name="CaseStatus" value="open-without-info" id="CaseStatus">
+                    <label for="CaseStatus" style="font-size: 14px;">開啟，隱藏聯絡資訊【建議選項】</label><br>
+                    <input type="radio" name="CaseStatus" value="close" id="CaseStatus">
+                    <label for="CaseStatus" style="font-size: 14px;">關閉</label><br>
+                </div>
+            </div>
+            <hr />
+            <div class="form-group">
+                <label for="NickName" class="col-md-12 control-label">接案暱稱</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control text-box single-line" id="NickName" placeholder="tasker" name="NickName">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-12 control-label" for="Identity">接案身份</label>
+                <div class="col-md-12">
+                    <input type="radio" name="Identity" value="0" id="Identity">
+                    <label for="individual" style="font-size: 14px;">個人兼職</label>
+                    <input type="radio" name="Identity" value="1" id="Identity">
+                    <label for="solo" style="font-size: 14px;">專職SOHO</label>
+                    <input type="radio" name="Identity" value="2" id="Identity">
+                    <label for="workhouse" style="font-size: 14px;">工作室</label>
+                    <input type="radio" name="Identity" value="3" id="Identity">
+                    <label for="part-time" style="font-size: 14px;">兼職上班族</label>
+                    <input type="radio" name="Identity" value="4" id="Identity">
+                    <label for="close" style="font-size: 14px;">公司</label>
+                    <input type="radio" name="Identity" value="5" id="Identity">
+                    <label for="student" style="font-size: 14px;">學生</label>
+                </div>
+            </div>
+            
+
+            <div class="form-group">
+                <label for="Email" class="col-md-12 control-label">Email</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="Email" placeholder="you@yourdomain.com" name="Email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Cellphone" class="col-md-12 control-label">行動電話</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="Cellphone" placeholder="Product Designer" name="Cellphone">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="job-location" class="col-md-12 control-label">居住地</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="job-location" placeholder="e.g. 新北市">
+                </div>
+            </div>
+
+            <!-- <div class="form-group">
+              <label for="skill">擅長軟體工具</label>
+              <select class="selectpicker border rounded" id="skill" data-style="btn-black"
+                data-width="100%" data-live-search="true" title="Select Region">
+                <option></option>
+                <option>San Francisco</option>
+                <option>Palo Alto</option>
+                <option>New York</option>
+                <option>Manhattan</option>
+                <option>Ontario</option>
+                <option>Toronto</option>
+                <option>Kansas</option>
+                <option>Mountain View</option>
+              </select>
+            </div> -->
+            <!-- <div class="form-group">
+              <label for="job-description">Job Description</label>
+              <div class="editor" id="editor-1">
+                <p>Write Job Description!</p>
+              </div>
+            </div> -->
+        </div>
+    </div>
+}
+@section topCSS
+    {
+    <style>
+            h4 {
+                color: #515A5A;
+                font-weight: 900;
+            }
+
+            .myContainer {
+                @*max-width: 510px;
+                *@ margin: auto;
+                border-radius: 10px;
+                box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+                padding: 30px;
+            }
+
+            hr {
+                /* margin: 10px 0px !important; */
+            }
+
+            label {
+                font-weight: 700;
+            }
+    </style>
+}
+

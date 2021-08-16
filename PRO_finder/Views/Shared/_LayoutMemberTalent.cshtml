@@ -35,6 +35,11 @@
         .myHeader {
             padding: 5px;
         }
+        #myTabContent nav{
+            position: fixed;
+            z-index:2000;
+           
+        }
         @@media screen and (min-width: 768px) {
             .navbar-toggler {
                 display: none;
@@ -46,6 +51,9 @@
 
             .myHeader {
                 width: 180px !important;
+            }
+            #myTabContent nav {
+                position: unset;
             }
 
         }
@@ -131,10 +139,10 @@
                                                             <a class="nav-link" href="#aboutMe.html">關於我</a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link" href="#works.html">作品專區</a>
+                                                            <a class="nav-link" href="@Url.Action("UploadMyWorks", "Talent")"">作品專區</a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link" href="@Url.Action("NewService", "Talent")">刊登新服務</a>
+                                                            <a class="nav-link" href="@Url.Action("CreateQuotation", "Talent")">刊登新服務</a>
                                                         </li>
                                                         <li class="nav-item">
                                                             <a class="nav-link" href="#myService.html">我的服務</a>
