@@ -48,7 +48,7 @@ namespace PRO_finder.Repositories
 
         public List<SubCategory> ReadSubCateData()
         {
-            var subCateList = _ctx.SubCategory.ToList();
+            List<SubCategory> subCateList = _ctx.SubCategory.ToList();
 
             return subCateList;
         }

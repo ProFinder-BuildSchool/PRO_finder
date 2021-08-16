@@ -8,10 +8,11 @@ using PRO_finder.Models;
 using PRO_finder.Models.ViewModels;
 using PRO_finder.Repositories;
 using PRO_finder.Service;
+using PRO_finder.Models.DBModel;
 
 namespace PRO_finder.Controllers
 {
-    
+
     public class QuotationController : Controller
     {
         private readonly QuotationRepository _quotRepo;
@@ -19,15 +20,18 @@ namespace PRO_finder.Controllers
 
         public QuotationController()
         {
-            _quotRepo = new QuotationRepository();
+
             _quotService = new QuotationService();
         }
 
         //ProFinderModels ctx = new ProFinderModels();
         // GET: Quotation
-        public ActionResult Index(int CategoryId)
+        public ActionResult Index(int CategoryId = 0)
         {
+
             List<QuotationViewModel> pageData = _quotService.GetCategoryPageData(CategoryId);
+            ViewBag.cateNameList = _quotService.GetsubcatrgotyName(CategoryId);
+
             return View(pageData);
         }
         public ActionResult Detail()

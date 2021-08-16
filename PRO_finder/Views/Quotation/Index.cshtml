@@ -99,20 +99,9 @@
                     </div>
                     <div class="border p-4 rounded serviceCategory">
                         <div class="list-unstyled block__47528">
-                            @foreach (var item in Model)
+                            @foreach (var item in ViewBag.cateNameList)
                             {
-                            <label><input type="checkbox"> <span>@Html.DisplayFor(modelItem => item.SubcategoryName)</span></label>
-                            @*<label><input type="checkbox"> <span>招牌設計</span></label>
-                            <label><input type="checkbox"> <span>名片/信封設計</span></label>
-                            <label><input type="checkbox"> <span>企業形象/VI設計</span></label>
-                            <label><input type="checkbox"> <span>DM/海報/卡片設計</span></label>
-                            <label><input type="checkbox"> <span>封面設計</span></label>
-                            <label><input type="checkbox"> <span>書籍/手冊/簡報設計</span></label>
-                            <label><input type="checkbox"> <span>產品包裝設計</span></label>
-                            <label><input type="checkbox"> <span>插畫/漫畫</span></label>
-                            <label><input type="checkbox"> <span>織品服裝設計</span></label>
-                            <label><input type="checkbox"> <span>命名/Slogan標語</span></label>
-                            <label><input type="checkbox"> <span>ICON設計</span></label>*@
+                                <label><input type="checkbox"> <span>@item.SubCategoryName</span></label>
                             }
                         </div>
                     </div>
@@ -834,7 +823,7 @@
 }
 
 @section endJS{
-    
+
     <script>
         let filtermodal = document.querySelector('.filtermodal');
         let html = document.querySelector('html');
