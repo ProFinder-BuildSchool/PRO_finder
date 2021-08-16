@@ -8,11 +8,11 @@ namespace PRO_finder.Models.DBModel
 
     public partial class WorkPictures
     {
-        public int WorkID { get; set; }
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int WorkPictureID { get; set; }
+
+        public int WorkID { get; set; }
 
         [Column(TypeName = "image")]
         [Required]

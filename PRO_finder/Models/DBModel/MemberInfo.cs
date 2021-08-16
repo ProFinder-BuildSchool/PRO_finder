@@ -25,7 +25,6 @@ namespace PRO_finder.Models.DBModel
         }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MemberID { get; set; }
 
         [StringLength(50)]

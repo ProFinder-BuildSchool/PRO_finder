@@ -10,5 +10,7 @@ namespace PRO_finder
         {
             ConfigureAuth(app);
         }
+
+        
     }
 }

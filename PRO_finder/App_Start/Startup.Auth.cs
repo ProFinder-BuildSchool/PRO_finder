@@ -3,8 +3,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Google;
 using Owin;
 using PRO_finder.Models;
+
 
 namespace PRO_finder
 {
@@ -45,10 +47,6 @@ namespace PRO_finder
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             // 註銷下列各行以啟用利用協力廠商登入提供者登入
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
-
             //app.UseTwitterAuthentication(
             //   consumerKey: "",
             //   consumerSecret: "");
@@ -62,6 +60,19 @@ namespace PRO_finder
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "987401119481-raeteu9oa3lc15c39tg39m3oqhsu42np.apps.googleusercontent.com",
+                ClientSecret = "7Pl-k6yigsONCq1qpDDM5e2t"
+            });
+
+
+
+            app.UseFacebookAuthentication(
+            appId: "836392937269623",
+            appSecret: "3dbdafd7d7fb9320cbf5f6f213e6bc09");
+
         }
     }
 }
