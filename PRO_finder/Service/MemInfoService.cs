@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PRO_finder.Models.DBModel;
-using PRO_finder.Repository;
+using PRO_finder.Repositories;
 using PRO_finder.Models.ViewModels;
 
 namespace PRO_finder.Service
