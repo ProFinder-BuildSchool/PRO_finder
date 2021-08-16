@@ -208,6 +208,7 @@
     <Compile Include="Repositories\GeneralRepository.cs" />
     <Compile Include="Repositories\SubCategoryRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Service\CaseService.cs" />
     <Compile Include="Service\Home_IndexService .cs" />
     <Compile Include="Service\CategoryService.cs" />
     <Compile Include="Startup.cs" />

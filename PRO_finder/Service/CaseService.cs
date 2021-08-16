@@ -28,7 +28,7 @@ namespace PRO_finder.Service
                 {
                     title =i.CaseTitle  ,
                     Price=i.Price,
-                    Location= (int)i.Location,
+                    LocationID= (int)i.Location,
                     Description=i.Description
 
 
