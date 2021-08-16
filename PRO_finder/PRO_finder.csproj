@@ -161,6 +161,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\Enum\City.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Helper\Enum\Cate.cs" />
     <Compile Include="Models\DBModel\AspNetRoles.cs" />
@@ -198,7 +199,13 @@
     <Compile Include="Helper\Enum\SubCategory.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModels\MemberInfoViewModel.cs" />
+    <Compile Include="Models\ViewModels\QuotationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\QuotationRepository.cs" />
+    <Compile Include="Repository\MemInfoRepository.cs" />
+    <Compile Include="Service\QuotationService .cs" />
+    <Compile Include="Service\MemInfoService.cs" />
     <Compile Include="Service\CategoryService.cs" />
     <Compile Include="Settings\Setting.cs" />
     <Compile Include="Startup.cs" />
@@ -277,6 +284,7 @@
     <Content Include="Assets\js\jquery.waypoints.min.js" />
     <Content Include="Assets\js\owl.carousel.min.js" />
     <Content Include="Assets\js\quill.min.js" />
+    <Content Include="Assets\js\QuotationDetail.js" />
     <Content Include="Assets\js\stickyfill.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

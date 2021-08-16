@@ -15,8 +15,13 @@ namespace PRO_finder
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                url: "{controller}/{action}",
+                defaults: new { controller = "Home", action = "Index" }
+            );
+            routes.MapRoute(
+                name: "Detail",
+                url: "{controller}/{action}/{Memberid}",
+                defaults: new { controller = "Quotation", action = "Detail" }
             );
         }
     }

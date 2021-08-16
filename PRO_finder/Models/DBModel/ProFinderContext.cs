@@ -7,8 +7,7 @@ namespace PRO_finder.Models.DBModel
 {
     public partial class ProFinderContext : DbContext
     {
-        public ProFinderContext()
-            : base("name=ProFinderContext")
+        public ProFinderContext(): base("name=ProFinderContext")
         {
         }
 

@@ -1,36 +1,33 @@
-﻿
-<div class="col-lg-4 sidebar pl-lg-5">
-    <div class="sidebar-box">
+﻿@model MemberInfoViewModel
+
+<div class="col-lg-4 sidebar pl-lg-5 position-relative">
+    <div class="sidebar-box" style="position:sticky;top:155px;z-index:2;">
         <img src="~/Assets/images/person_1.jpg" alt="Image placeholder"
-                class="img-fluid mb-4 w-50 rounded-circle">
-        <h3>Author</h3>
+             class="img-fluid mb-4 w-50 rounded-circle">
+        <h3>@Model.NickName</h3>
         <div class="d-flex flex-column">
-            <span class="m-2"><span class="icon-briefcase mr-2"></span>接案身分: {{個人兼職}}</span>
+            <span class="m-2"><span class="icon-briefcase mr-2"></span>接案身分: @Model.Identity</span>
             <span class="m-2">
                 <span class="icon-clock-o mr-2"></span><span class="text-primary">
-                    上線時間:
-                    {{7天前}}
+                    上線時間:@Model.LogInTime
                 </span>
             </span>
-            <span class="m-2"><span class="icon-room mr-2"></span>接案地點: {{台北市}}</span>
+            <span class="m-2"><span class="icon-room mr-2"></span>接案地點: @Model.LocationID</span>
             <a class="btn btn-default" data-toggle="collapse" href="#multiCollapseExample1"
-                role="button" aria-expanded="false" aria-controls="multiCollapseExample1">看更多↓</a>
+               role="button" aria-expanded="false" aria-controls="multiCollapseExample1">看更多↓</a>
         </div>
         <div class="collapse multi-collapse" id="multiCollapseExample1">
             <div class="body">
                 <label class="readMoreBtn" for="workroomInfoReadMore"></label>
                 <p class="designerDeal">
-                    成交件數:<a class="blueLink" href="@Url.Action("StudioHome", "Quotation")"
-                            title="成交件數">{{0}}</a>
+                    成交件數:{{0}}
                 </p>
                 <p class="designerInvited">受邀次數: {{11}}</p>
                 <p class="designerSkill">
                     <span class="designerSkillTit">專長:</span>
-                    <a href="/talent?ca=dRL&amp;su=Z20J" target="_blank" title="網頁版型設計"># 網頁版型設計</a>
-                    <a href="/talent?ca=dRL&amp;su=dVOE" target="_blank" title="網頁切版製作"># 網頁切版製作</a>
-                    <a href="/talent?ca=dRL&amp;su=aob2" target="_blank" title="網站程式設計/網站架設">
-                        # 網站程式設計/網站架設
-                    </a>
+                    <a href=""># SubCategoryID</a>
+                    <a href=""># 網頁切版製作SubCategoryID</a>
+                    <a href=""># 網站程式設計/網站架設SubCategoryID</a>
                 </p>
                 <div class="author-social mb-4">
                     <a href="#"><span class="icon-facebook"></span></a>
@@ -43,21 +40,41 @@
         <div class="workroomMainBtn">
             <div class="row my-3">
                 <div class="col-12 d-flex">
-                    <a type="button" href="#" class="btn btn-light btn-md m-auto text-nowrap">
+                    <a id="saveStaff" type="button" href="#" class="btn btn-light btn-md m-auto text-nowrap">
                         <span class="icon-heart-o mr-2 text-danger"></span>收藏
                     </a>
-                    <a type="button" href="#" class="btn btn-primary btn-md m-auto text-nowrap">
+                    <a id="contactStaff" type="button" href="#" class="btn btn-primary btn-md m-auto text-nowrap">
                         <span class="fas fa-phone-alt mr-2"></span>直接聯絡
                     </a>
-                </div>
-                <div class="col-12 my-3">
-                    <button class="workroomContactNow ga_event btn btn-danger w-100" data-el="即時詢問"
-                            type="button" data-token="" title="即時詢問">
-                        即時詢問
-                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+    const saveStaffBtn = document.getElementById('saveStaff');
+    const contactStaffBtn = document.getElementById('contactStaff');
+
+    function SaveStaff() {
+
+        //存我的最愛<人才>資料
+    }
+
+    
+    function ShowStaffContact(e) {
+        e.target.setAttribute('data-toggle', 'modal');
+        e.target.setAttribute('data-target', '#ShowStaffContact');
+
+        let modal = document.getElementById('ShowStaffContact');
+        modal.querySelector('h5').innerText = '';
+
+        //存訊息<案主聯絡人才>資料
+    }
+
+    window.onload = function () {
+        saveStaffBtn.addEventListener('click', SaveStaff);
+        contactStaffBtn.addEventListener('click', ShowStaffContact);
+    }
+
+</script>
