@@ -212,6 +212,7 @@
     <Compile Include="Models\DBModel\ServicePlus.cs" />
     <Compile Include="Models\DBModel\ServiceRecord.cs" />
     <Compile Include="Models\DBModel\SubCategory.cs" />
+    <Compile Include="Models\DBModel\sysdiagrams.cs" />
     <Compile Include="Models\DBModel\SystemContent.cs" />
     <Compile Include="Models\DBModel\ToolCategory.cs" />
     <Compile Include="Models\DBModel\ToolSubCategory.cs" />
@@ -486,17 +487,11 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202108111415486_worktest.resx">
-      <DependentUpon>202108111415486_worktest.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202108141411495_memberID.resx">
+      <DependentUpon>202108141411495_memberID.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202108111418451_worktest1.resx">
-      <DependentUpon>202108111418451_worktest1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202108111422103_worktest2.resx">
-      <DependentUpon>202108111422103_worktest2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202108111425424_worktest3.resx">
-      <DependentUpon>202108111425424_worktest3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202108160600068_2021-08-16.resx">
+      <DependentUpon>202108160600068_2021-08-16.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
