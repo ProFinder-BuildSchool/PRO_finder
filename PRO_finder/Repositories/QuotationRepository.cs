@@ -5,19 +5,19 @@ using System.Web;
 using PRO_finder.Models;
 using PRO_finder.Models.DBModel;
 
-namespace PRO_finder.Repository
+namespace PRO_finder.Repositories
 {
-    public class MemInfoRepository
+    public class QuotationRepository
     {
         private readonly ProFinderContext _ctx;
-        public MemInfoRepository()
+        public QuotationRepository()
         {
             _ctx = new ProFinderContext();
         }
-        public List<MemberInfo> ReadMemInfoData()
+        public List<Quotation> ReadQuotationData()
         {
-            var MemInfoList = _ctx.MemberInfo.ToList();
-            return MemInfoList;
+            var QuotationList = _ctx.Quotation.ToList();
+            return QuotationList;
         }
     }
 }

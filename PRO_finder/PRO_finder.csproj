@@ -221,8 +221,8 @@
     <Compile Include="Repositories\GeneralRepository.cs" />
     <Compile Include="Repositories\SubCategoryRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
-    <Compile Include="Repository\MemInfoRepository.cs" />
-    <Compile Include="Repository\QuotationRepository.cs" />
+    <Compile Include="Repositories\MemInfoRepository.cs" />
+    <Compile Include="Repositories\QuotationRepository.cs" />
     <Compile Include="Service\CaseService.cs" />
     <Compile Include="Service\CategoryService.cs" />
     <Compile Include="Service\MemInfoService.cs" />
@@ -450,6 +450,7 @@
     <Content Include="Views\Talent\CaseSetting.cshtml" />
     <Content Include="Views\FindQuotation\getLocationID.cshtml" />
     <Content Include="Views\Shared\_StaffPartial.cshtml" />
+    <Content Include="Views\Shared\_LayoutMemberCenter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
