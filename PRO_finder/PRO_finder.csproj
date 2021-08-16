@@ -396,6 +396,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\BuildSchoolProFinder - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\BuildSchoolProFinder - ReadOnly - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - ReadOnly - FTP1.pubxml" />
     <None Include="Properties\PublishProfiles\BuildSchoolProFinder - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -430,6 +431,7 @@
     <Content Include="Views\Shared\_LayoutMemberTalent.cshtml" />
     <Content Include="Views\Talent\CreateQuotation.cshtml" />
     <Content Include="Views\Talent\UploadMyWorks.cshtml" />
+    <Content Include="Views\Talent\CaseSetting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

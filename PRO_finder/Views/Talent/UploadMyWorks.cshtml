@@ -3,8 +3,7 @@
 @{
     ViewBag.Title = "UploadMyWorks";
     Layout = "~/Views/Shared/_LayoutMemberTalent.cshtml";
-    var service = new CategoryService();
-    List<SelectListItem> categoryList = service.GetCategorySelectList();
+    
 }
 
 @using (Html.BeginForm())
@@ -15,7 +14,7 @@
             <h4>新增作品集</h4>
             <hr>
             <div class="form-group">
-                <label for="title" class="col-md-12 control-label">作品集名稱：</label>
+                <label for="title" class="col-md-12 control-label">作品集名稱</label>
                 <div class="col-md-12">
                     <input type="text" id="title" name="WorkName" class="form-control text-box single-line">
                 </div>
@@ -25,7 +24,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-6">
-                            @Html.DropDownList("Catgeory", categoryList, new { @class = "form-control", @id = "categoryDropdown" })
+                            @Html.DropDownList("Catgeory", (List<SelectListItem>)ViewBag.categoryList, new { @class = "form-control", @id = "categoryDropdown" })
                         </div>
                         <div class="col-6">
                             <select class="form-control" id="subcategorySelect" name="SubCategoryID">
@@ -47,7 +46,7 @@
                             </label>
                         </div>
                         <div class="col-6 d-none">
-                            <input type="file" id="newWorks" multiple="multiple" class="w-100">
+                            <input type="file" id="newWorks" multiple="multiple" class="w-100" name="">
                         </div>
                     </div>
                 </div>
@@ -56,6 +55,11 @@
                 <div class="container">
                     <div class="row" id="displayUpload">
                     </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-12">
+                    <input  value="儲存" class="btn btn-primary" id="submit"/>
                 </div>
             </div>
         </div>
@@ -188,6 +192,29 @@
                 count++;
             });
         });
+        
+        //imgur 圖檔上傳
+        const id = "c20b85a63157827";
+        const album = 'Sv87YFL';
+
+
+        $g("input#newWorks").addEventListener("change", function (e) {
+            let form = new FormData();
+            form.append('image', e.target.files[0]);
+            /*form.append('album', album)*/
+            console.log(form);
+
+            fetch("https://api.imgur.com/3/image", {
+                method: "post",
+                headers: {
+                    Authorization: `Client-ID ${id}`
+                },
+                body: form
+            }).then(data => data.json()).then(data => {
+                console.log(data);
+            })
+        });
+
         function $g(element) {
             let temp = document.querySelectorAll(element);
             return temp.length == 1 ? temp[0] : temp;

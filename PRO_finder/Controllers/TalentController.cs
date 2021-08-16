@@ -67,12 +67,16 @@ namespace PRO_finder.Controllers
         [HttpGet]
         public ActionResult UploadMyWorks()
         {
-
+            ViewBag.categoryList = _service.GetCategorySelectList();
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UploadMyWorks([Bind(Include ="WorkPictureID, WorkID, WorkPicture, SortNumber")] WorkPictures newWorkPictures, [Bind(Include ="WorkID, WorkName, SubCategoryID")] Works newWorksInfo)
+        {
+            return View();
+        }
+        public ActionResult CaseSetting()
         {
             return View();
         }

@@ -127,7 +127,7 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-12">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <input type="submit" value="儲存" class="btn btn-primary" />
                 </div>
             </div>
         </div>
@@ -161,18 +161,13 @@
 
         //imgur 圖檔上傳
         const id = "c20b85a63157827";
-        //const token = "9aa33cd84b3881ffd9354d38adc91e7fc06d8cba";
         const album = 'Sv87YFL';
 
-        
-        document.querySelector("#upload").addEventListener("change", function (e) {
+
+        $g("#upload").addEventListener("change", function (e) {
             let form = new FormData();
             form.append('image', e.target.files[0]);
-            //form.append('title', 'test');
-            //form.append('description', 'test');
             /*form.append('album', album)*/
-            //form.append('type', 'url')
-
             console.log(form);
 
             fetch("https://api.imgur.com/3/image", {
@@ -185,20 +180,7 @@
                 console.log(data);
             })
         });
-        //document.querySelector("#submit").addEventListener("click", function () {
-        //    axios({ method: "post", url: "https://api.imgur.com/3/image/", data: form, headers: { Authorization: `Client-ID ${id}` }, mimeType: 'multipart/form-data' })
-        //        .then(res => {
-        //            console.log(res);
-        //        })
-        //        .catch(e => console.log(e));
 
-        //});
-
-        //document.querySelector("#upload").addEventListener("change", ev => {
-        //    const formdata = new FormData()
-        //    formdata.append("image", ev.target.files[0])
-            
-        //})
         //上傳圖檔呈現
         let displayUpload = $g("#displayUpload");
         $g("input#upload").addEventListener("change", function () {
@@ -228,6 +210,7 @@
                 count++;
             });
         });
+
         function $g(element) {
             let temp = document.querySelectorAll(element);
             return temp.length == 1 ? temp[0] : temp;
