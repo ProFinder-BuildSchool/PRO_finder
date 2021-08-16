@@ -11,7 +11,7 @@ using PRO_finder.ViewModels;
 
 namespace PRO_finder.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class TalentController : Controller
     {
         // GET: AccountCenter
@@ -40,7 +40,6 @@ namespace PRO_finder.Controllers
         public ActionResult CreateQuotation()
         {
             //var currentUserId = User.Identity.GetUserId();
-
             ViewBag.categoryList = _service.GetCategorySelectList();
             return View();
         }
