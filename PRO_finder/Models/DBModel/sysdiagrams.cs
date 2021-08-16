@@ -1,4 +1,4 @@
-namespace PRO_finder
+namespace PRO_finder.Models.DBModel
 {
     using System;
     using System.Collections.Generic;

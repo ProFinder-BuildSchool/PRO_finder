@@ -25,7 +25,6 @@ namespace PRO_finder.Models.DBModel
         }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MemberID { get; set; }
 
         [StringLength(50)]
@@ -81,6 +80,8 @@ namespace PRO_finder.Models.DBModel
 
         [StringLength(128)]
         public string UserId { get; set; }
+
+        public byte? IsThirdLogin { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Case> Case { get; set; }

@@ -18,8 +18,10 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44375</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -167,6 +169,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202108160908090_DBtest.cs" />
+    <Compile Include="Migrations\202108160908090_DBtest.Designer.cs">
+      <DependentUpon>202108160908090_DBtest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DBModel\AspNetRoles.cs" />
     <Compile Include="Models\DBModel\AspNetUserClaims.cs" />
@@ -193,6 +200,7 @@
     <Compile Include="Models\DBModel\ServicePlus.cs" />
     <Compile Include="Models\DBModel\ServiceRecord.cs" />
     <Compile Include="Models\DBModel\SubCategory.cs" />
+    <Compile Include="Models\DBModel\sysdiagrams.cs" />
     <Compile Include="Models\DBModel\SystemContent.cs" />
     <Compile Include="Models\DBModel\ToolCategory.cs" />
     <Compile Include="Models\DBModel\ToolSubCategory.cs" />
@@ -394,6 +402,10 @@
     <Content Include="Assets\bs4\scss\_variables.scss" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - ReadOnly - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - ReadOnly - FTP1.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -426,11 +438,13 @@
     <Content Include="Views\Shared\_LayoutMemberClient.cshtml" />
     <Content Include="Views\Shared\_LayoutMemberTalent.cshtml" />
     <Content Include="Views\Talent\CreateQuotation.cshtml" />
+    <Content Include="Views\Talent\UploadMyWorks.cshtml" />
+    <Content Include="Views\Talent\CaseSetting.cshtml" />
+    <Content Include="Views\FindQuotation\getLocationID.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Helper\" />
-    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -464,6 +478,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202108160908090_DBtest.resx">
+      <DependentUpon>202108160908090_DBtest.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
