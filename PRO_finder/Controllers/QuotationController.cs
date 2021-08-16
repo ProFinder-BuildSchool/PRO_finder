@@ -11,6 +11,7 @@ namespace PRO_finder.Controllers
         // GET: Quotation
         public ActionResult Index()
         {
+            string Contain = this.TempData["Contain"] as string;
             return View();
         }
         public ActionResult Detail()
