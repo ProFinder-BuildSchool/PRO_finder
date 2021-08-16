@@ -95,10 +95,6 @@ namespace PRO_finder.Models.DBModel
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Category>()
-                .Property(e => e.CategoryName)
-                .IsFixedLength();
-
-            modelBuilder.Entity<Category>()
                 .HasMany(e => e.SubCategory)
                 .WithRequired(e => e.Category)
                 .WillCascadeOnDelete(false);
@@ -117,15 +113,13 @@ namespace PRO_finder.Models.DBModel
 
             modelBuilder.Entity<MemberInfo>()
                 .HasMany(e => e.Case)
-                .WithRequired(e => e.MemberInfo)
-                .HasForeignKey(e => e.MemberID)
-                .WillCascadeOnDelete(false);
+                .WithOptional(e => e.MemberInfo)
+                .HasForeignKey(e => e.MemberID);
 
             modelBuilder.Entity<MemberInfo>()
                 .HasMany(e => e.Case1)
-                .WithRequired(e => e.MemberInfo1)
-                .HasForeignKey(e => e.MemberID)
-                .WillCascadeOnDelete(false);
+                .WithOptional(e => e.MemberInfo1)
+                .HasForeignKey(e => e.MemberID);
 
             modelBuilder.Entity<MemberInfo>()
                 .HasOptional(e => e.Experience)
@@ -214,18 +208,6 @@ namespace PRO_finder.Models.DBModel
             modelBuilder.Entity<ServicePlus>()
                 .Property(e => e.Cost)
                 .HasPrecision(19, 4);
-
-            modelBuilder.Entity<SubCategory>()
-                .HasMany(e => e.Case)
-                .WithRequired(e => e.SubCategory)
-                .HasForeignKey(e => e.SubCategoryID)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<SubCategory>()
-                .HasMany(e => e.Case1)
-                .WithRequired(e => e.SubCategory1)
-                .HasForeignKey(e => e.SubCategoryID)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<SubCategory>()
                 .HasMany(e => e.Experience)

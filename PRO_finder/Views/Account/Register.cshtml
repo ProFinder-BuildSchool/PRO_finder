@@ -3,52 +3,69 @@
     ViewBag.Title = "註冊";
 }
 
-<h2>@ViewBag.Title.</h2>
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>建立新帳戶。</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Test, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Test, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Test2, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Test2, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
+<div class="py-5 row justify-content-center text-center">
+    <div class="col-md-4 col-12">
+        <section id="RegisterForm">
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4 class="text-center font-weight-bolder">會員註冊</h4>
+                <p class="text-center">
+                    歡迎蒞臨Pro Finder!
+                </p>
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div class="form-group">
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="註冊" />
-        </div>
+                    <div class="col-md-10 col-8 mx-auto">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = " 請輸入您的 E-mail" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+
+                    <div class="col-md-10 col-8 mx-auto">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = " 請輸入密碼 包含英文大小寫及一個特殊字元" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+
+                    <div class="col-md-10 col-8 mx-auto">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "請再確認密碼" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10 mx-auto">
+                        <input type="submit" class="btn " id="Register" value="註冊" />
+                    </div>
+                </div>
+                <p>
+                    您沒有Pro Finder的帳號嗎？ @Html.ActionLink("立即登入", "Login")
+                </p>
+
+            }
+        </section>
     </div>
-}
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+
+
 }
+@section topCSS{
+    <style>
+        #Register {
+            background-color: #89ba16;
+            color: white;
+            font-weight: 800;
+        }
+    </style>
+
+}
+

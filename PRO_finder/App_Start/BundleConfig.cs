@@ -31,7 +31,7 @@ namespace PRO_finder
              bundles.Add(new StyleBundle("~/bundles/css").Include(
             "~/Assets/css/custom-bs.css", "~/Assets/css/jquery.fancybox.min.css", "~/Assets/css/bootstrap-select.min.css",
              "~/Assets/fonts/icomoon/style.css", "~/Assets/fonts/line-icons/style.css", "~/Assets/css/owl.carousel.min.css",
-            "~/Assets/css/animate.min.css", "~/Assets/css/style.css"));
+            "~/Assets/css/animate.min.css" , "~/Assets/css/style.css"));
         }
    
     }

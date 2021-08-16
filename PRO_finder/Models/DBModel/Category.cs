@@ -18,7 +18,7 @@ namespace PRO_finder.Models.DBModel
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CategoryID { get; set; }
 
-        [StringLength(10)]
+        [StringLength(50)]
         public string CategoryName { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

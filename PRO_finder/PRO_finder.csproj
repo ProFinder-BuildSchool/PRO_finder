@@ -18,8 +18,10 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44375</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -66,11 +68,17 @@
     <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.2.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Security, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.2.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.2.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.2.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
@@ -161,9 +169,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helper\Enum\City.cs" />
+    <Compile Include="Migrations\202108141411495_memberID.cs" />
+    <Compile Include="Migrations\202108141411495_memberID.Designer.cs">
+      <DependentUpon>202108141411495_memberID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108160600068_2021-08-16.cs" />
+    <Compile Include="Migrations\202108160600068_2021-08-16.Designer.cs">
+      <DependentUpon>202108160600068_2021-08-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Helper\Enum\Cate.cs" />
     <Compile Include="Models\DBModel\AspNetRoles.cs" />
     <Compile Include="Models\DBModel\AspNetUserClaims.cs" />
     <Compile Include="Models\DBModel\AspNetUserLogins.cs" />
@@ -195,19 +210,17 @@
     <Compile Include="Models\DBModel\WorkAttachment.cs" />
     <Compile Include="Models\DBModel\WorkPictures.cs" />
     <Compile Include="Models\DBModel\Works.cs" />
-    <Compile Include="Helper\Enum\Category.cs" />
-    <Compile Include="Helper\Enum\SubCategory.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\ViewModels\MemberInfoViewModel.cs" />
-    <Compile Include="Models\ViewModels\QuotationViewModel.cs" />
+    <Compile Include="Models\ViewModels\CaseViewModel.cs" />
+    <Compile Include="Models\ViewModels\Home_IndexViewModel.cs" />
+    <Compile Include="Models\ViewModels\SubCategoryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\QuotationRepository.cs" />
-    <Compile Include="Repository\MemInfoRepository.cs" />
-    <Compile Include="Service\QuotationService .cs" />
-    <Compile Include="Service\MemInfoService.cs" />
+    <Compile Include="Repositories\GeneralRepository.cs" />
+    <Compile Include="Repositories\SubCategoryRepository.cs" />
+    <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Service\CaseService.cs" />
     <Compile Include="Service\CategoryService.cs" />
-    <Compile Include="Settings\Setting.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\TalentIndexViewModel.cs" />
@@ -223,6 +236,7 @@
     <Content Include="Assets\css\style.css" />
     <Content Include="Assets\images\apps.png" />
     <Content Include="Assets\images\hero_1.jpg" />
+    <Content Include="Assets\images\horizontal_on_white_by_logaster %281%29.png" />
     <Content Include="Assets\images\img_1.jpg" />
     <Content Include="Assets\images\img_2.jpg" />
     <Content Include="Assets\images\job_logo_1.jpg" />
@@ -284,7 +298,6 @@
     <Content Include="Assets\js\jquery.waypoints.min.js" />
     <Content Include="Assets\js\owl.carousel.min.js" />
     <Content Include="Assets\js\quill.min.js" />
-    <Content Include="Assets\js\QuotationDetail.js" />
     <Content Include="Assets\js\stickyfill.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -391,6 +404,10 @@
     <Content Include="Assets\bs4\scss\_variables.scss" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - ReadOnly - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - ReadOnly - FTP1.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -423,11 +440,13 @@
     <Content Include="Views\Shared\_LayoutMemberClient.cshtml" />
     <Content Include="Views\Shared\_LayoutMemberTalent.cshtml" />
     <Content Include="Views\Talent\CreateQuotation.cshtml" />
-    <Content Include="Views\Shared\_StaffPartial.cshtml" />
+    <Content Include="Views\Talent\UploadMyWorks.cshtml" />
+    <Content Include="Views\Talent\CaseSetting.cshtml" />
+    <Content Include="Views\FindQuotation\getLocationID.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Migrations\" />
+    <Folder Include="Helper\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -461,6 +480,14 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202108141411495_memberID.resx">
+      <DependentUpon>202108141411495_memberID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108160600068_2021-08-16.resx">
+      <DependentUpon>202108160600068_2021-08-16.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
