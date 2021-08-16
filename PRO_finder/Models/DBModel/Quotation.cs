@@ -9,12 +9,6 @@ namespace PRO_finder.Models.DBModel
     [Table("Quotation")]
     public partial class Quotation
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Quotation()
-        {
-            OtherPicture = new HashSet<OtherPicture>();
-        }
-
         public int QuotationID { get; set; }
 
         [Required]
@@ -22,10 +16,6 @@ namespace PRO_finder.Models.DBModel
         public string QuotationTitle { get; set; }
 
         public TimeSpan? UpdateDate { get; set; }
-
-        [Required]
-        [StringLength(30)]
-        public string Price { get; set; }
 
         public int QuotationUnit { get; set; }
 
@@ -42,14 +32,7 @@ namespace PRO_finder.Models.DBModel
 
         public int SubCategoryID { get; set; }
 
-        public int? LocationID { get; set; }
-
-        public virtual Locations Locations { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OtherPicture> OtherPicture { get; set; }
-
-        public virtual OtherPicture OtherPicture1 { get; set; }
+        public decimal? Price { get; set; }
 
         public virtual SubCategory SubCategory { get; set; }
     }

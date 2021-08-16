@@ -169,13 +169,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202108141411495_memberID.cs" />
-    <Compile Include="Migrations\202108141411495_memberID.Designer.cs">
-      <DependentUpon>202108141411495_memberID.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202108160600068_2021-08-16.cs" />
-    <Compile Include="Migrations\202108160600068_2021-08-16.Designer.cs">
-      <DependentUpon>202108160600068_2021-08-16.cs</DependentUpon>
+    <Compile Include="Migrations\202108160908090_DBtest.cs" />
+    <Compile Include="Migrations\202108160908090_DBtest.Designer.cs">
+      <DependentUpon>202108160908090_DBtest.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -204,6 +200,7 @@
     <Compile Include="Models\DBModel\ServicePlus.cs" />
     <Compile Include="Models\DBModel\ServiceRecord.cs" />
     <Compile Include="Models\DBModel\SubCategory.cs" />
+    <Compile Include="Models\DBModel\sysdiagrams.cs" />
     <Compile Include="Models\DBModel\SystemContent.cs" />
     <Compile Include="Models\DBModel\ToolCategory.cs" />
     <Compile Include="Models\DBModel\ToolSubCategory.cs" />
@@ -490,11 +487,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202108141411495_memberID.resx">
-      <DependentUpon>202108141411495_memberID.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202108160600068_2021-08-16.resx">
-      <DependentUpon>202108160600068_2021-08-16.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202108160908090_DBtest.resx">
+      <DependentUpon>202108160908090_DBtest.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

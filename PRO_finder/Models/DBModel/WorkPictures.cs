@@ -14,11 +14,10 @@ namespace PRO_finder.Models.DBModel
 
         public int WorkID { get; set; }
 
-        [Column(TypeName = "image")]
-        [Required]
-        public byte[] WorkPicture { get; set; }
-
         public int SortNumber { get; set; }
+
+        [Required]
+        public string WorkPicture { get; set; }
 
         public virtual Works Works { get; set; }
     }

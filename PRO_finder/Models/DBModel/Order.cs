@@ -39,6 +39,9 @@ namespace PRO_finder.Models.DBModel
         [Column(TypeName = "money")]
         public decimal Price { get; set; }
 
+        [Column(TypeName = "date")]
+        public DateTime DealedDate { get; set; }
+
         public virtual MemberInfo MemberInfo { get; set; }
     }
 }

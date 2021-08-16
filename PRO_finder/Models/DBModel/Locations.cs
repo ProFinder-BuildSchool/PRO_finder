@@ -8,12 +8,6 @@ namespace PRO_finder.Models.DBModel
 
     public partial class Locations
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Locations()
-        {
-            Quotation = new HashSet<Quotation>();
-        }
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int LocationID { get; set; }
@@ -21,8 +15,5 @@ namespace PRO_finder.Models.DBModel
         [Required]
         [StringLength(10)]
         public string LocationName { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Quotation> Quotation { get; set; }
     }
 }

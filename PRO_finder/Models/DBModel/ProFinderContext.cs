@@ -35,6 +35,7 @@ namespace PRO_finder.Models.DBModel
         public virtual DbSet<ServicePlus> ServicePlus { get; set; }
         public virtual DbSet<ServiceRecord> ServiceRecord { get; set; }
         public virtual DbSet<SubCategory> SubCategory { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<ToolCategory> ToolCategory { get; set; }
         public virtual DbSet<ToolSubCategory> ToolSubCategory { get; set; }
         public virtual DbSet<WorkAttachment> WorkAttachment { get; set; }
@@ -186,20 +187,13 @@ namespace PRO_finder.Models.DBModel
                 .Property(e => e.Price)
                 .HasPrecision(19, 4);
 
-            modelBuilder.Entity<OtherPicture>()
-                .HasMany(e => e.Quotation1)
-                .WithOptional(e => e.OtherPicture1)
-                .HasForeignKey(e => e.OtherPictureID);
-
             modelBuilder.Entity<Quotation>()
                 .Property(e => e.Evaluation)
                 .HasPrecision(2, 0);
 
             modelBuilder.Entity<Quotation>()
-                .HasMany(e => e.OtherPicture)
-                .WithRequired(e => e.Quotation)
-                .HasForeignKey(e => e.QuotationID)
-                .WillCascadeOnDelete(false);
+                .Property(e => e.Price)
+                .HasPrecision(5, 0);
 
             modelBuilder.Entity<ReplyFrequency>()
                 .Property(e => e.Degree)
@@ -228,10 +222,6 @@ namespace PRO_finder.Models.DBModel
                 .HasMany(e => e.ToolSubCategory)
                 .WithRequired(e => e.ToolCategory)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Works>()
-                .Property(e => e.WorkName)
-                .IsFixedLength();
 
             modelBuilder.Entity<Works>()
                 .HasMany(e => e.WorkPictures)
