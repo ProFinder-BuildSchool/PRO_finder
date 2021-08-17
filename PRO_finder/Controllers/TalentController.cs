@@ -11,7 +11,7 @@ using PRO_finder.ViewModels;
 
 namespace PRO_finder.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class TalentController : Controller
     {
         // GET: AccountCenter
@@ -22,8 +22,10 @@ namespace PRO_finder.Controllers
             _context = new ProFinderContext();
             _service = new CategoryService();
         }
+
         public ActionResult Index()
         {
+
             //List<TalentIndexViewModel> clientIndex = new List<TalentIndexViewModel>();
             //MemberInfo memberInfo = context.MemberInfoes.FirstOrDefault();
             //var systemContent = context.SystemContents.ToList();
@@ -56,7 +58,7 @@ namespace PRO_finder.Controllers
             return View(quotation);
         }
         [HttpPost]
-        public JsonResult getSubcategoryList(int categoryID)
+        public JsonResult GetSubcategoryList(int categoryID)
         {
             _context.Configuration.ProxyCreationEnabled = false;
             List<SubCategory> subcategoryList = _context.SubCategory.Where(x => x.CategoryID == categoryID).ToList();

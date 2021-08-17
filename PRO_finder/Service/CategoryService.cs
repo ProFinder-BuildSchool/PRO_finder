@@ -11,23 +11,24 @@ namespace PRO_finder.Service
 {
     public class CategoryService
     {
+        private readonly GeneralRepository _repo;
+        public CategoryService()
+        {
+            _repo = new GeneralRepository(new ProFinderContext());
+        }
 
         public List<SelectListItem> GetCategorySelectList()
         {
-            using (ProFinderContext context = new ProFinderContext())
-            {
-                List<Category> categoriesList = context.Category.ToList();
+            
+                List<Category> categoriesList = _repo.GetAll<Category>().ToList();
                 List<SelectListItem> selectCategory = new List<SelectListItem>();
-                selectCategory.Add(new SelectListItem { Text = "選擇服務類型" });
+                selectCategory.Add(new SelectListItem { Text = "選擇主類型" });
                 foreach (var item in categoriesList)
                 {
                     selectCategory.Add(new SelectListItem { Value = item.CategoryID.ToString(), Text = item.CategoryName });
                 }
 
                 return selectCategory;
-
-            }
-
 
         }
 

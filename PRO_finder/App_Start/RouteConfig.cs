@@ -18,6 +18,11 @@ namespace PRO_finder
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "Talent",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Talent", action = "Index", id = UrlParameter.Optional }
+            );
         }
     }
 }

@@ -11,23 +11,7 @@ namespace PRO_finder.ViewModels
 {
     public class TalentIndexViewModel
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TalentIndexViewModel()
-        {
-            Cases = new HashSet<Case>();
-            Cases1 = new HashSet<Case>();
-            HostingDetails = new HashSet<HostingDetail>();
-            Messages = new HashSet<Message>();
-            Messages1 = new HashSet<Message>();
-            Orders = new HashSet<Order>();
-            SaveStaffs = new HashSet<SaveStaff>();
-            SaveStaffs1 = new HashSet<SaveStaff>();
-            ServicePlus = new HashSet<ServicePlus>();
-            ProposalRecords = new HashSet<ProposalRecord>();
-        }
 
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MemberID { get; set; }
 
         [Required]
@@ -87,50 +71,6 @@ namespace PRO_finder.ViewModels
         [Required]
         [StringLength(50)]
         public string Description { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Case> Cases { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Case> Cases1 { get; set; }
-
-        public virtual Experience Experience { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HostingDetail> HostingDetails { get; set; }
-
-        public virtual Locations Location { get; set; }
-
-        public virtual ServiceRecord ServiceRecord { get; set; }
-
-        public virtual SystemContent SystemContent { get; set; }
-
-        public virtual ToolCategory ToolCategory { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Message> Messages { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Message> Messages1 { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SaveStaff> SaveStaffs { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SaveStaff> SaveStaffs1 { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ServicePlus> ServicePlus { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProposalRecord> ProposalRecords { get; set; }
-
-        public virtual ReplyFrequency ReplyFrequency { get; set; }
-
-        public virtual QuotationDetail QuotationDetail { get; set; }
 
         public DateTime SentTime { get; set; }
 
