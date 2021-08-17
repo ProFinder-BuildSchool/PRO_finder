@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PRO_finder.Models;
+using PRO_finder.Models.DBModel;
 
 namespace PRO_finder.Controllers
 {
@@ -17,9 +18,10 @@ namespace PRO_finder.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private readonly ProFinderContext _context;
         public AccountController()
         {
+            _context = new ProFinderContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -157,7 +159,8 @@ namespace PRO_finder.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    _context.MemberInfo.Add(new MemberInfo { UserId = model.Email, Email = model.Email });
+                    _context.SaveChanges();
                     // 如需如何進行帳戶確認及密碼重設的詳細資訊，請前往 https://go.microsoft.com/fwlink/?LinkID=320771
                     // 傳送包含此連結的電子郵件
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -375,6 +378,8 @@ namespace PRO_finder.Controllers
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
+                        _context.MemberInfo.Add(new MemberInfo { UserId = model.Email, Email = model.Email });
+                        _context.SaveChanges();
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);
                     }

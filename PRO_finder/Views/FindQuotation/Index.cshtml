@@ -1,29 +1,115 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
-@Html.Partial("_CategoryMenuPartial")
-<div class="col-md-6 mb-5 ml-5">
-    <div class="category-list ml-4">
-        <select class="w-25">
-            <option>地區</option>
-            <option value="1">新竹市</option>
-            <option value="12">台北市</option>
-            <option value="13">台南市</option>
-            <option value="1">新竹市</option>
-        </select>
-        <select class="w-25">
-            <option>地區</option>
-            <option value="1">新竹市</option>
-            <option value="12">台北市</option>
-            <option value="13">台南市</option>
-            <option value="1">新竹市</option>
-        </select>
-        <input type="text" placeholder="請輸入關鍵字">
+@model List<PRO_finder.Models.ViewModels.CaseViewModel>
+
+
+<section class="section-hero overlay inner-page bg-image" id="home-section">
+    <div class="container">
+        <div class="row  p-0">
+            <div class="col-md-12 mb-3">
+                <div class="category-area">
+                    <h3>找案件</h3>
+                    <span>多筆案件等你大展身手！</span>
+                    <div class="row  justify-content-around">
+                        <div class="col-md-1">
+                            <div class="category-btn">
+                                <a class="mb-1" href="#"><i class="fas fa-pencil-ruler"></i></a>
+                                <p>平面設計</p>
+                                <p>(373)筆</p>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="category-btn">
+                                <a class="mb-1" href="#"><i class="far fa-window-restore"></i></a>
+                                <p>網頁設計</p>
+                                <p>(373)筆</p>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="category-btn">
+                                <a class="mb-1" href="#"><i class="fas fa-code"></i></a>
+                                <p>程式開發</p>
+                                <p>(373)筆</p>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="category-btn">
+                                <a class="mb-1" href="#"><i class="far fa-file-alt"></i></a>
+                                <p>翻譯寫作</p>
+                                <p>(373)筆</p>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="category-btn">
+                                <a class="mb-1" href="#"><i class="fas fa-camera-retro"></i></a>
+                                <p>商社娛樂</p>
+                                <p>(373)筆</p>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="category-btn">
+                                <a class="mb-1" href="#"><i class="fas fa-photo-video"></i></a>
+                                <p>影像製作</p>
+                                <p>(373)筆</p>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="category-btn">
+                                <a class="mb-1" href="#"><i class="fas fa-ruler-combined"></i></a>
+                                <p>空間設計</p>
+                                <p>(373)筆</p>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="category-btn">
+                                <a class="mb-1" href="#"><i class="far fa-heart"></i></a>
+                                <p>生活服務</p>
+                                <p>(373)筆</p>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="category-btn">
+                                <a class="mb-1" href="#"><i class="far fa-newspaper"></i></a>
+                                <p>活動企劃</p>
+                                <p>(373)筆</p>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="category-btn">
+                                <a class="mb-1" href="#"><i class="fas fa-pencil-ruler"></i></a>
+                                <p>專業顧問</p>
+                                <p>(373)筆</p>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="category-btn">
+                                <a class="mb-1" href="#"><i class="fas fa-cogs"></i></a>
+                                <p>資訊工程</p>
+                                <p>(373)筆</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 ">
+                <div class="category-list">
+                    @Html.DropDownList("LocationID", (List<SelectListItem>)ViewBag.locationList, new { @class = "w-25" })
+                    <select class="w-25">
+                        <option>地區</option>
+                        <option value="1">新竹市</option>
+                        <option value="12">台北市</option>
+                        <option value="13">台南市</option>
+                        <option value="1">新竹市</option>
+                    </select>
+                    <input type="text" placeholder="請輸入關鍵字">
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</section>
 
-
-<section class="site-section">
+<section class="site-section bg-white">
     <div class="container pt-5">
         <div class="row">
             <div class="col-md-3">
@@ -58,6 +144,42 @@
                     </ul>
 
                 </div>
+
+
+                <div class="card-little">
+                    <div class="card-header">
+
+                    </div>
+                    <div class="card-bodyleft">
+                        <blockquote class="blockquote mb-0">
+                            <p>
+                                恭喜人才
+                                <a class="SSH" href="#">小萌設計</a><br> 完成任務
+                                <a class="SSH" href="#">SSH 設定</a>SSH 設定！ 成交日期 2021/07/22
+                            </p>
+
+                        </blockquote>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <div class="card w-100">
                     <h3 class="title"><i class="fas fa-chess-queen"></i>最新升級VIP會員</h3>
                     <ul class="list-group list-group-flush">
@@ -157,24 +279,32 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="card case">
-                            <div class="card-body">
-                                <a class="h5" href="@Url.Action("Detail", "FindQuotation")"<h5 class="card-title">產品報價目錄整理, 中英文打字及校對.</h5></a>
-                                <a href="#" class="case-price mr-1">1萬~5萬 </a>
-                                <span class="city"><i class="fas fa-map-marker-alt mr-1"></i>不限</span>
-                                <p class="card-text">案件內容:1.案件內容：需用Excel整理各別產品價格及目錄2.配合時間：發案後1個月內3.配合地點：在家作業便可,並定期討論</p>
+                        @foreach (var i in ViewBag.caseList)
+                        {<div class="card case mb-3">
+                                <div class="card-body">
+                                    <a class="h5" href="@Url.Action("Detail", "FindQuotation")"><h5 class="card-title">@i.title</h5></a>
+                                    <a href="#" class="case-price mr-1">@i.Price </a>
+                                    <span class="city"><i class="fas fa-map-marker-alt mr-1"></i>@i.LocationName</span>
+                                    <p class="card-text">@i.Description</p>
 
-                                <p class="subcate-list">
-                                    <span class="subcate">#排版打字、</span>
-                                    <span class="subcate">#文字校對、</span>
-                                    <span class="subcate">#人力派遣</span>
-                                </p>
-                                <div class="d-flex justify-content-between">
-                                    <p class="update-time">2<span>小時前 更新</span></p>
-                                    <a href="#" class="btn btn-primary">我要報價</a>
+                                    <p class="subcate-list">
+                                        <span class="subcate">#排版打字、</span>
+                                        <span class="subcate">#文字校對、</span>
+                                        <span class="subcate">#人力派遣</span>
+                                    </p>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="update-time">2<span>小時前 更新</span></p>
+                                        <a href="#" class="btn btn-primary">我要報價</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div>}
+
+
+
+
+
+
+
                     </div>
                     <div class="col-md-12">
                         <div class="case-page d-flex justify-content-end ">
@@ -220,7 +350,6 @@
             text-align: center;
         }
 
-
         .category-area .category-btn .fas,
         .category-area .category-btn .far {
             font-size: 25px;
@@ -246,9 +375,6 @@
                 left: -5px;
             }
 
-
-
-
         .category-area span {
             font-size: 12px;
             font-weight: 800;
@@ -272,8 +398,6 @@
             cursor: pointer;
         }
 
-
-
         .category-list select,
         .category-list input {
             height: 100%;
@@ -289,7 +413,6 @@
             line-height: 1;
         }
 
-
         .fa-thumbs-up {
             color: lightskyblue;
             margin-right: 2px;
@@ -300,44 +423,36 @@
             margin-right: 2px;
         }
 
-
-
-        .site-section {
-            padding-top: 0px;
+        .site-section .card li {
+            border: none;
+            position: relative;
         }
 
-            .site-section .container {
-                border-top: 1px solid rgba(0, 0, 0, .2);
+        .list-group .list-group-flush.list-group-item {
+            align-items: center
+        }
+
+        .site-section .card .list-group-item {
+            padding: 5px 20px;
+            padding-bottom: 10px;
+        }
+
+            .site-section .card .list-group-item p {
+                font-weight: 600;
+                color: black;
+                margin: 0;
+                cursor: pointer;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                font-size: 14px;
             }
 
-
-            .site-section .card li {
-                border: none;
-                position: relative;
+            .site-section .card .list-group-item span {
+                font-size: 8px;
+                display: block;
+                line-height: 1;
             }
-
-
-            .site-section .card .list-group-item {
-                padding: 5px 20px;
-                padding-bottom: 10px;
-            }
-
-                .site-section .card .list-group-item p {
-                    font-weight: 600;
-                    color: black;
-                    margin: 0;
-                    cursor: pointer;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    font-size: 14px;
-                }
-
-                .site-section .card .list-group-item span {
-                    font-size: 8px;
-                    display: block;
-                    line-height: 1;
-                }
 
         .avatar {
             width: 20%;
@@ -358,7 +473,6 @@
             border: none;
         }
 
-
         .case-status .pagination {
             margin: 0;
             border-bottom: 2px solid rgba(0, 0, 0, .1);
@@ -369,8 +483,6 @@
             padding: 5px 10px;
             font-size: 14px;
         }
-
-
 
         .btn-list {
             border-bottom: 2px solid rgba(0, 0, 0, .1);
@@ -438,5 +550,39 @@
             padding-top: 20px;
             border-top: 2px rgba(0, 0, 0, .1) solid;
         }
+
+        .card-bodyleft {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 10px;
+            width: 100%;
+            height: 120px;
+            border-radius: 5px;
+            background-image: url('https://upload.cc/i1/2021/08/11/MJ9kmI.png');
+            background-size: 100%;
+            background-position: 50%;
+            background-repeat: no-repeat;
+            color: #fff;
+            box-sizing: border-box;
+        }
+
+        .carddeal {
+            font-size: 14px;
+            color: rgba(0, 0, 0, .6);
+            margin: 10px;
+            text-align: center
+        }
     </style>
+}
+@section endJS
+    {
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.querySelector("#LocationID").addEventListener("change", function () {
+            axios({ method: "post", url: "@Url.Action("getLocationID", "FindQuotation")", data:{ locationID: Number(this.value) }})
+            .then(res => { console.log(res) });
+        });
+    </script>
 }
