@@ -1,4 +1,4 @@
-﻿
+﻿@model List<QuotationViewModel>
 @{
     ViewBag.Title = "Index";
 }
@@ -6,100 +6,12 @@
 <div class="row d-flex justify-content-center mt-5">
     <form class="searchInput">
         <div>
-            <input type="text" placeholder="例：產品攝影">
+            <input id="serchContain" placeholder="例：產品攝影" value="@TempData["Contain"]">
             <button><i class="fas fa-search"></i></button>
         </div>
     </form>
 </div>
-<section class="section-hero overlay inner-page bg-image" id="home-section">
-    <div class="container">
-        <div class="row  p-0">
-            <div class="col-md-4 col-lg-12">
-                <div class="category-area">
-                    <div class="row  justify-content-around">
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="fas fa-pencil-ruler"></i></a>
-                                <p>平面設計</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="far fa-window-restore"></i></a>
-                                <p>網頁設計</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="fas fa-code"></i></a>
-                                <p>程式開發</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="far fa-file-alt"></i></a>
-                                <p>翻譯寫作</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="fas fa-camera-retro"></i></a>
-                                <p>商社娛樂</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="fas fa-photo-video"></i></a>
-                                <p>影像製作</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="fas fa-ruler-combined"></i></a>
-                                <p>空間設計</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="far fa-heart"></i></a>
-                                <p>生活服務</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="far fa-newspaper"></i></a>
-                                <p>活動企劃</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="fas fa-pencil-ruler"></i></a>
-                                <p>專業顧問</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="fas fa-cogs"></i></a>
-                                <p>資訊工程</p>
-                                <p>(373)筆</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+@Html.Partial("_CategoryMenuPartial")
 <section class="site-section">
     <div class="container">
         <div class="row pagination-wrap">
@@ -187,18 +99,10 @@
                     </div>
                     <div class="border p-4 rounded serviceCategory">
                         <div class="list-unstyled block__47528">
-                            <label><input type="checkbox"> <span>LOGO/商標設計</span></label>
-                            <label><input type="checkbox"> <span>招牌設計</span></label>
-                            <label><input type="checkbox"> <span>名片/信封設計</span></label>
-                            <label><input type="checkbox"> <span>企業形象/VI設計</span></label>
-                            <label><input type="checkbox"> <span>DM/海報/卡片設計</span></label>
-                            <label><input type="checkbox"> <span>封面設計</span></label>
-                            <label><input type="checkbox"> <span>書籍/手冊/簡報設計</span></label>
-                            <label><input type="checkbox"> <span>產品包裝設計</span></label>
-                            <label><input type="checkbox"> <span>插畫/漫畫</span></label>
-                            <label><input type="checkbox"> <span>織品服裝設計</span></label>
-                            <label><input type="checkbox"> <span>命名/Slogan標語</span></label>
-                            <label><input type="checkbox"> <span>ICON設計</span></label>
+                            @foreach (var item in ViewBag.cateNameList)
+                            {
+                                <label><input type="checkbox"> <span>@item.SubCategoryName</span></label>
+                            }
                         </div>
                     </div>
                 </div>
@@ -210,7 +114,7 @@
                         <div class="list-unstyled block__47528">
                             <label><input type="checkbox"> <span>台北市</span></label>
                             <label><input type="checkbox"> <span>新北市</span></label>
-                            <label><input type="checkbox"><span>基隆市</span></label>
+                            <label><input type="checkbox"> <span>基隆市</span></label>
                             <label><input type="checkbox"> <span>桃園市</span></label>
                             <label><input type="checkbox"> <span>新竹市</span></label>
                             <label><input type="checkbox"> <span>新竹縣</span></label>
@@ -270,45 +174,83 @@
                         </li>
                     </ul>
                 </div>
+                @*<div class="row item_zone mb-5">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="listing__item">
+                                <div class="listing__item__pic">
+                                    <a href="@Url.Action("Detail", "Quotation")" target="_blank"><img src="~/Assets/images/sq_img_6.jpg" alt="Image" class="img-fluid rounded"></a>
+                                </div>
+                                <div class="listing__item__text">
+                                    <div class="listing__item__text__inside">
+                                        <h5>test</h5>
+                                        <span class="price">1200</span><span>/件</span>
+                                        <div class="listing__item__text__rating">
+                                            <div class="listing__item__rating__star mr-2">
+                                                <span class="icon_star"></span>
+                                                <span class="icon_star"></span>
+                                                <span class="icon_star"></span>
+                                                <span class="icon_star"></span>
+                                                <span class="icon_star-half_alt"></span>
+                                            </div>
+                                            <span>4</span><span>人訂購</span>
+                                        </div>
+                                        <div class="mb-2">
+                                            <a class="studioName" href="@Url.Action("Detail", "Quotation")" target="_blank">test<span class="pic_tag">VIP</span></a>
+                                        </div>
+                                    </div>
+                                    <div class="listing__item__text__info">
+                                        <a class="listing__item__text__info__right" href="@Url.Action("Detail", "Quotation")" target="_blank">服務詳情</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
                 <div class="row item_zone mb-5">
-                    <div class="col-lg-3 col-md-6 d-flex">
-                        <div class="listing__item mx-auto">
-                            <div class="listing__item__pic">
-                                <a href="@Url.Action("Detail", "Quotation")"><img src="~/Assets/images/sq_img_2.jpg" alt="Image" class="img-fluid rounded"></a>
-                            </div>
-                            <div class="listing__item__text">
-                                <div class="listing__item__text__inside">
-                                    <h5>專業LOGO設計</h5>
-                                    <span class="price">$1,980</span><span>/件</span>
-                                    <div class="listing__item__text__rating">
-                                        <div class="listing__item__rating__star mr-2">
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star-half_alt"></span>
-                                        </div>
-                                        <span>110</span><span>人訂購</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <a class="studioName" href="@Url.Action("Detail", "Quotation")">GO LINE 創意設計 <span class="pic_tag">VIP</span></a>
-                                    </div>
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-lg-3 col-md-6">
+                            <div class="listing__item">
+                                <div class="listing__item__pic">
+                                    <a href="@Url.Action("Detail", "Quotation")" target="_blank"><img src="@Html.DisplayFor(modelItem => item.Img)" alt="Image" class="img-fluid rounded"></a>
                                 </div>
-                                <div class="listing__item__text__info">
-                                    <a class="listing__item__text__info__right" href="@Url.Action("Detail", "Quotation")">服務詳情</a>
+                                <div class="listing__item__text">
+                                    <div class="listing__item__text__inside">
+                                        <h5>@Html.DisplayFor(modelItem => item.CategoryName)</h5>
+                                        <span class="price">@Html.DisplayFor(modelItem => item.Price) </span><span>/ 件</span>
+                                        <div class="listing__item__text__rating">
+                                            <div class="listing__item__rating__star mr-2">
+                                                <span class="icon_star"></span>
+                                                <span class="icon_star"></span>
+                                                <span class="icon_star"></span>
+                                                <span class="icon_star"></span>
+                                                <span class="icon_star-half_alt"></span>
+                                            </div>
+                                            <span></span><span>人訂購</span>
+                                        </div>
+                                        <div class="mb-2">
+                                            <a class="studioName" href="@Url.Action("Detail", "Quotation")" target="_blank">@Html.DisplayFor(modelItem => item.StudioName)</a> <br>
+                                            <span class="pic_tag">CategoryId： @Html.DisplayFor(modelItem => item.CategoryId)</span>
+                                            <span class="pic_tag">SubcategoryId： @Html.DisplayFor(modelItem => item.SubcategoryId)</span>
+                                        </div>
+                                    </div>
+                                    <div class="listing__item__text__info">
+                                        <a class="listing__item__text__info__right" href="@Url.Action("Detail", "Quotation")" target="_blank">服務詳情</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    }
+
+                @*<template id="testcatd">
                     <div class="col-lg-3 col-md-6">
                         <div class="listing__item">
                             <div class="listing__item__pic">
-                                <a href="@Url.Action("Detail", "Quotation")"><img src="~/Assets/images/sq_img_3.jpg" alt="Image" class="img-fluid rounded"></a>
+                                <a href="" target="_blank"><img src="" alt="Image" class="img-fluid rounded"></a>
                             </div>
                             <div class="listing__item__text">
                                 <div class="listing__item__text__inside">
-                                    <h5>專業LOGO設計</h5>
-                                    <span class="price">$1,980</span><span>/件</span>
+                                    <h5></h5>
+                                    <span class="price"></span><span>/ 件</span>
                                     <div class="listing__item__text__rating">
                                         <div class="listing__item__rating__star mr-2">
                                             <span class="icon_star"></span>
@@ -317,308 +259,22 @@
                                             <span class="icon_star"></span>
                                             <span class="icon_star-half_alt"></span>
                                         </div>
-                                        <span>110</span><span>人訂購</span>
+                                        <span></span><span>人訂購</span>
                                     </div>
                                     <div class="mb-2">
-                                        <a class="studioName" href="@Url.Action("Detail", "Quotation")">GO LINE 創意設計 <span class="pic_tag">VIP</span></a>
+                                        <a class="studioName" href="" target="_blank"></a> <br>
+                                        <span class="pic_tag test1">CategoryId：</span>
+                                        <span class="pic_tag test2">SubcategoryId:</span>
                                     </div>
                                 </div>
                                 <div class="listing__item__text__info">
-                                    <a class="listing__item__text__info__right" href="@Url.Action("Detail", "Quotation")">服務詳情</a>
+                                    <a class="listing__item__text__info__right" href="@Url.Action("Detail", "Quotation")" target="_blank">服務詳情</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="listing__item">
-                            <div class="listing__item__pic">
-                                <a href="@Url.Action("Detail", "Quotation")"><img src="~/Assets/images/sq_img_1.jpg" alt="Image" class="img-fluid rounded"></a>
-                            </div>
-                            <div class="listing__item__text">
-                                <div class="listing__item__text__inside">
-                                    <h5>專業LOGO設計</h5>
-                                    <span class="price">$1,980</span><span>/件</span>
-                                    <div class="listing__item__text__rating">
-                                        <div class="listing__item__rating__star mr-2">
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star-half_alt"></span>
-                                        </div>
-                                        <span>110</span><span>人訂購</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <a class="studioName" href="@Url.Action("Detail", "Quotation")">GO LINE 創意設計 <span class="pic_tag">VIP</span></a>
-                                    </div>
-                                </div>
-                                <div class="listing__item__text__info">
-                                    <a class="listing__item__text__info__right" href="@Url.Action("Detail", "Quotation")">服務詳情</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="listing__item">
-                            <div class="listing__item__pic">
-                                <a href="@Url.Action("Detail", "Quotation")"><img src="~/Assets/images/sq_img_4.jpg" alt="Image" class="img-fluid rounded"></a>
-                            </div>
-                            <div class="listing__item__text">
-                                <div class="listing__item__text__inside">
-                                    <h5>專業LOGO設計</h5>
-                                    <span class="price">$1,980</span><span>/件</span>
-                                    <div class="listing__item__text__rating">
-                                        <div class="listing__item__rating__star mr-2">
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star-half_alt"></span>
-                                        </div>
-                                        <span>110</span><span>人訂購</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <a class="studioName" href="@Url.Action("Detail", "Quotation")">GO LINE 創意設計 <span class="pic_tag">VIP</span></a>
-                                    </div>
-                                </div>
-                                <div class="listing__item__text__info">
-                                    <a class="listing__item__text__info__right" href="@Url.Action("Detail", "Quotation")">服務詳情</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="listing__item">
-                            <div class="listing__item__pic">
-                                <a href="@Url.Action("Detail", "Quotation")"><img src="~/Assets/images/sq_img_5.jpg" alt="Image" class="img-fluid rounded"></a>
-                            </div>
-                            <div class="listing__item__text">
-                                <div class="listing__item__text__inside">
-                                    <h5>專業LOGO設計</h5>
-                                    <span class="price">$1,980</span><span>/件</span>
-                                    <div class="listing__item__text__rating">
-                                        <div class="listing__item__rating__star mr-2">
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star-half_alt"></span>
-                                        </div>
-                                        <span>110</span><span>人訂購</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <a class="studioName" href="@Url.Action("Detail", "Quotation")">GO LINE 創意設計 <span class="pic_tag">VIP</span></a>
-                                    </div>
-                                </div>
-                                <div class="listing__item__text__info">
-                                    <a class="listing__item__text__info__right" href="@Url.Action("Detail", "Quotation")">服務詳情</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="listing__item">
-                            <div class="listing__item__pic">
-                                <a href="@Url.Action("Detail", "Quotation")"><img src="~/Assets/images/sq_img_6.jpg" alt="Image" class="img-fluid rounded"></a>
-                            </div>
-                            <div class="listing__item__text">
-                                <div class="listing__item__text__inside">
-                                    <h5>專業LOGO設計</h5>
-                                    <span class="price">$1,980</span><span>/件</span>
-                                    <div class="listing__item__text__rating">
-                                        <div class="listing__item__rating__star mr-2">
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star-half_alt"></span>
-                                        </div>
-                                        <span>110</span><span>人訂購</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <a class="studioName" href="@Url.Action("Detail", "Quotation")">GO LINE 創意設計 <span class="pic_tag">VIP</span></a>
-                                    </div>
-                                </div>
-                                <div class="listing__item__text__info">
-                                    <a class="listing__item__text__info__right" href="@Url.Action("Detail", "Quotation")">服務詳情</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="listing__item">
-                            <div class="listing__item__pic">
-                                <a href="@Url.Action("Detail", "Quotation")"><img src="~/Assets/images/sq_img_7.jpg" alt="Image" class="img-fluid rounded"></a>
-                            </div>
-                            <div class="listing__item__text">
-                                <div class="listing__item__text__inside">
-                                    <h5>專業LOGO設計</h5>
-                                    <span class="price">$1,980</span><span>/件</span>
-                                    <div class="listing__item__text__rating">
-                                        <div class="listing__item__rating__star mr-2">
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star-half_alt"></span>
-                                        </div>
-                                        <span>110</span><span>人訂購</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <a class="studioName" href="@Url.Action("Detail", "Quotation")">GO LINE 創意設計 <span class="pic_tag">VIP</span></a>
-                                    </div>
-                                </div>
-                                <div class="listing__item__text__info">
-                                    <a class="listing__item__text__info__right" href="@Url.Action("Detail", "Quotation")">服務詳情</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="listing__item">
-                            <div class="listing__item__pic">
-                                <a href="@Url.Action("Detail", "Quotation")"><img src="~/Assets/images/sq_img_8.jpg" alt="Image" class="img-fluid rounded"></a>
-                            </div>
-                            <div class="listing__item__text">
-                                <div class="listing__item__text__inside">
-                                    <h5>專業LOGO設計</h5>
-                                    <span class="price">$1,980</span><span>/件</span>
-                                    <div class="listing__item__text__rating">
-                                        <div class="listing__item__rating__star mr-2">
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star-half_alt"></span>
-                                        </div>
-                                        <span>110</span><span>人訂購</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <a class="studioName" href="@Url.Action("Detail", "Quotation")">GO LINE 創意設計 <span class="pic_tag">VIP</span></a>
-                                    </div>
-                                </div>
-                                <div class="listing__item__text__info">
-                                    <a class="listing__item__text__info__right" href="@Url.Action("Detail", "Quotation")">服務詳情</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="listing__item">
-                            <div class="listing__item__pic">
-                                <a href="@Url.Action("Detail", "Quotation")"><img src="~/Assets/images/sq_img_9.jpg" alt="Image" class="img-fluid rounded"></a>
-                            </div>
-                            <div class="listing__item__text">
-                                <div class="listing__item__text__inside">
-                                    <h5>專業LOGO設計</h5>
-                                    <span class="price">$1,980</span><span>/件</span>
-                                    <div class="listing__item__text__rating">
-                                        <div class="listing__item__rating__star mr-2">
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star-half_alt"></span>
-                                        </div>
-                                        <span>110</span><span>人訂購</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <a class="studioName" href="@Url.Action("Detail", "Quotation")">GO LINE 創意設計 <span class="pic_tag">VIP</span></a>
-                                    </div>
-                                </div>
-                                <div class="listing__item__text__info">
-                                    <a class="listing__item__text__info__right" href="@Url.Action("Detail", "Quotation")">服務詳情</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="listing__item">
-                            <div class="listing__item__pic">
-                                <a href="@Url.Action("Detail", "Quotation")"><img src="~/Assets/images/sq_img_10.jpg" alt="Image" class="img-fluid rounded"></a>
-                            </div>
-                            <div class="listing__item__text">
-                                <div class="listing__item__text__inside">
-                                    <h5>專業LOGO設計</h5>
-                                    <span class="price">$1,980</span><span>/件</span>
-                                    <div class="listing__item__text__rating">
-                                        <div class="listing__item__rating__star mr-2">
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star-half_alt"></span>
-                                        </div>
-                                        <span>110</span><span>人訂購</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <a class="studioName" href="@Url.Action("Detail", "Quotation")">GO LINE 創意設計 <span class="pic_tag">VIP</span></a>
-                                    </div>
-                                </div>
-                                <div class="listing__item__text__info">
-                                    <a class="listing__item__text__info__right" href="@Url.Action("Detail", "Quotation")">服務詳情</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="listing__item">
-                            <div class="listing__item__pic">
-                                <a href="@Url.Action("Detail", "Quotation")"><img src="~/Assets/images/sq_img_11.jpg" alt="Image" class="img-fluid rounded"></a>
-                            </div>
-                            <div class="listing__item__text">
-                                <div class="listing__item__text__inside">
-                                    <h5>專業LOGO設計</h5>
-                                    <span class="price">$1,980</span><span>/件</span>
-                                    <div class="listing__item__text__rating">
-                                        <div class="listing__item__rating__star mr-2">
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star-half_alt"></span>
-                                        </div>
-                                        <span>110</span><span>人訂購</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <a class="studioName" href="@Url.Action("Detail", "Quotation")">GO LINE 創意設計 <span class="pic_tag">VIP</span></a>
-                                    </div>
-                                </div>
-                                <div class="listing__item__text__info">
-                                    <a class="listing__item__text__info__right" href="@Url.Action("Detail", "Quotation")">服務詳情</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="listing__item">
-                            <div class="listing__item__pic">
-                                <a href="@Url.Action("Detail", "Quotation")"><img src="~/Assets/images/sq_img_12.jpg" alt="Image" class="img-fluid rounded"></a>
-                            </div>
-                            <div class="listing__item__text">
-                                <div class="listing__item__text__inside">
-                                    <h5>專業LOGO設計</h5>
-                                    <span class="price">$1,980</span><span>/件</span>
-                                    <div class="listing__item__text__rating">
-                                        <div class="listing__item__rating__star mr-2">
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star-half_alt"></span>
-                                        </div>
-                                        <span>110</span><span>人訂購</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <a class="studioName" href="@Url.Action("Detail", "Quotation")">GO LINE 創意設計 <span class="pic_tag">VIP</span></a>
-                                    </div>
-                                </div>
-                                <div class="listing__item__text__info">
-                                    <a class="listing__item__text__info__right" href="@Url.Action("Detail", "Quotation")">服務詳情</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                </template>*@
+
                 </div>
                 <div class="row pagination-wrap mt-3">
                     <div class="col-md-12 text-right">
@@ -644,6 +300,10 @@
         html.fixWindow {
             position: fixed;
             width: 100%;
+        }
+
+        body {
+            overflow-x: hidden;
         }
 
         .site-section {
@@ -753,74 +413,6 @@
             background-color: #a7a3a3;
         }
 
-        .section-hero.inner-page {
-            padding-bottom: 20px;
-        }
-
-        .section-hero.overlay:before,
-        .section-hero.overlay-2:before {
-            background: none;
-        }
-
-        .category-area .category-btn a {
-            display: block;
-            text-align: center;
-        }
-
-        .category-area .category-btn .fas,
-        .category-area .category-btn .far {
-            font-size: 25px;
-            margin-bottom: 10px;
-            color: rgba(0, 0, 0, .4)
-        }
-
-        .category-area h3 {
-            font-size: 16px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            padding-left: 5px;
-            display: inline-block;
-            position: relative;
-        }
-
-            .category-area h3::before {
-                content: '';
-                width: 4px;
-                height: 16px;
-                background-color: #89ba16;
-                position: absolute;
-                left: -5px;
-            }
-
-        .category-area span {
-            font-size: 12px;
-            font-weight: 800;
-            color: rgba(0, 0, 0, .7)
-        }
-
-        .category-area .category-btn p {
-            margin: 0;
-            color: black;
-            font-weight: 600;
-            text-align: center;
-            line-height: 1.3;
-            font-size: 14px;
-            color: rgba(0, 0, 0, .4)
-        }
-
-        .category-btn:hover .fas,
-        .category-btn:hover .far,
-        .category-btn:hover p {
-            color: #89ba16;
-            cursor: pointer;
-        }
-
-        .category-list select,
-        .category-list input {
-            height: 100%;
-            margin-right: 5px;
-        }
-
         /* Listing */
         .listing .listing__list .listing__item {
             max-width: calc(50% - 30px);
@@ -875,6 +467,7 @@
             padding: 2px 5px;
             color: white;
             border-radius: 6px;
+            margin-left: 10px;
         }
 
         .listing__item__pic__tag.top_rate {
@@ -1075,16 +668,16 @@
         }
 
         .searchInput {
-            height: 55px;
+            height: 52px;
             box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgb(177, 171, 171);
+            border: 2px solid rgb(177, 171, 171);
             border-radius: 5px;
         }
 
             .searchInput input {
                 border: none;
                 height: 50px;
-                width: 300px;
+                width: 250px;
             }
 
                 .searchInput input:focus {
@@ -1093,10 +686,11 @@
 
             .searchInput button {
                 width: 52px;
-                height: 52px;
+                height: 51px;
                 background-color: #89ba16;
                 margin-left: -4px;
                 border: none;
+                border-radius: 0 5px 5px 0;
             }
 
                 .searchInput button:focus {
@@ -1142,7 +736,7 @@
             width: 0px;
             position: fixed;
             z-index: 1;
-            top: 10%;
+            top: 15%;
             right: 0;
             background-color: #faf9f8;
             overflow-x: hidden;
@@ -1264,10 +858,32 @@
 }
 
 @section endJS{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+            integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         let filtermodal = document.querySelector('.filtermodal');
         let html = document.querySelector('html');
         let side = document.getElementById('Sidenav');
+        let AllCardArray = [];
+        let serchContain = document.querySelector('#serchContain').value;
+        let card = document.querySelector('#testcatd');
+
+        let test = '';
+        //let cloneContent = card.content.cloneNode(true);
+        window.onload = function () {
+            //Axios
+            axios.get('https://localhost:44375/Quotation/AllcardData')
+                .then(res => {
+                    AllCardArray = res.data;
+                    console.log(AllCardArray)
+                    /*findcard();*/
+                })
+                
+                .catch(err => {
+                    console.log(err);
+                })
+        }
 
         document.querySelector('.closefilter').addEventListener('click', function () {
             side.style.width = "0px";
@@ -1280,7 +896,8 @@
 
             filtermodal.style.display = 'block';
             html.classList.add('fixWindow');
-        })
+        });
+
         $(".tab").each(function (index) {
             $(this).click(function (e) {
                 triggletab();
@@ -1304,5 +921,30 @@
                 $(this).removeClass("active");
             });
         }
+
+        function findcard() {
+            if (serchContain == null) {
+                test = AllCardArray
+            }
+            else {
+                test = AllCardArray.filter(x => x.SubcategoryName.includes(serchContain));
+            }
+            console.log(test);
+            addcard();
+        }
+
+        //function addcard() {
+        //    test.forEach(function (item, index) {
+                
+        //        cloneContent.querySelector('h5').innerText = item.SubcategoryName;
+        //        cloneContent.querySelector('img').src = item.Img;
+        //        cloneContent.querySelector('.studioName').innerText = item.StudioName;
+        //        cloneContent.querySelector('.price').innerText = item.Price;
+        //        cloneContent.querySelector('.test1').innerText = item.CategoryId;
+        //        cloneContent.querySelector('.test2').innerText = item.SubcategoryId;
+        //        document.querySelector('.item_zone').append(cloneContent);
+        //    })
+        //}
+
     </script>
 }
