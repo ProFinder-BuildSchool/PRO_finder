@@ -39,5 +39,22 @@ namespace PRO_finder.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Index(string type, string contain)
+        {
+            var Type = type;
+            var Contain = contain;
+            this.TempData["Contain"] = contain;
+            if (Type == "找報價")
+            {
+                return RedirectToAction("Index", "Quotation");
+            }
+            else if (Type == "找案子")
+            {
+                return RedirectToAction("Index", "FindQuotation");
+            }
+            return View();
+        }
     }
 }
