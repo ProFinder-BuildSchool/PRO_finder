@@ -15,7 +15,6 @@ namespace PRO_finder.Controllers
 
     public class QuotationController : Controller
     {
-        private readonly QuotationRepository _quotRepo;
         private readonly QuotationService _quotService;
 
         public QuotationController()
@@ -28,9 +27,11 @@ namespace PRO_finder.Controllers
         // GET: Quotation
         public ActionResult Index(int CategoryId = 0)
         {
+            //string Contain = this.TempData["Contain"] as string;
 
             List<QuotationViewModel> pageData = _quotService.GetCategoryPageData(CategoryId);
             ViewBag.cateNameList = _quotService.GetsubcatrgotyName(CategoryId);
+
 
             return View(pageData);
         }
@@ -49,10 +50,11 @@ namespace PRO_finder.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult JSON()
+        
+        public ActionResult AllcardData()
         {
-            return JSON();
+            List<QuotationViewModel> allCardData = _quotService.GetAllCardData();
+            return Json(allCardData, JsonRequestBehavior.AllowGet);
         }
     }
 }

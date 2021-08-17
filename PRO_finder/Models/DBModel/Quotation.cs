@@ -24,8 +24,8 @@ namespace PRO_finder.Models.DBModel
         public TimeSpan? UpdateDate { get; set; }
 
         [Required]
-        [StringLength(30)]
-        public string Price { get; set; }
+        //[StringLength(30)]
+        public decimal Price { get; set; }
 
         public int QuotationUnit { get; set; }
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using PRO_finder.Models.ViewModels;
+using System.Globalization;
 
 namespace PRO_finder.Repositories
 {
@@ -27,12 +28,12 @@ namespace PRO_finder.Repositories
                                  join o in _ctx.OtherPicture on q.OtherPictureID equals o.OtherPictureID
                                  join s in _ctx.SubCategory on q.SubCategoryID equals s.SubCategoryID
                                  join m in _ctx.MemberInfo on q.MemberID equals m.MemberID
-                                 join l in _ctx.Locations on q.LocationID equals l.LocationID
+                                 //join l in _ctx.Locations on q.LocationID equals l.LocationID
                                  select new QuotationViewModel
                                  {
                                      Id = q.QuotationID,
                                      CategoryName = s.SubCategoryName,
-                                     Price = q.Price,
+                                     Price = (q.Price).ToString(),
                                      Unit = q.QuotationUnit,
                                      StudioName = m.NickName,
                                      Img = o.MainPicture,

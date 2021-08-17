@@ -41,5 +41,17 @@ namespace PRO_finder.Service
 
             return quotationVM;
         }
+
+        public List<QuotationViewModel> GetAllCardData()
+        {
+            List<QuotationViewModel> quotationVM = _QuotationRepo.ReadQuotationData().ToList();
+
+            if (quotationVM.Count() == 0)
+            {
+                return null;
+            }
+
+            return quotationVM;
+        }
     }
 }
