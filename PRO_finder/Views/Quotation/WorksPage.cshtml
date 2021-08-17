@@ -7,7 +7,7 @@
     var Memberservice = new MemberinfoService();
     List<Works> worksList = service.getWorkItem();
     List<MemberInfo> memberinfoList = Memberservice.getMemberInfoItem();
-    int workID = 0;
+    int workID = 1;
     int MemberID = 0;
 }
 
@@ -56,7 +56,7 @@
                     </div>
                     <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
                         <strong class="d-block text-black mb-3">網站連結/Website URL</strong>
-                        <a href="@worksList[workID].WebsiteURLID" class="btn btn-outline-primary border-width-2">前往網站/Visit Website</a>
+                        <a href="@worksList[workID].WebsiteURL" class="btn btn-outline-primary border-width-2">前往網站/Visit Website</a>
                     </div>
                 </div>
 
@@ -121,6 +121,7 @@
             position: sticky;
             top: 180px;
         }
+     
     </style>
 
 }

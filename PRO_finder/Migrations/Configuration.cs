@@ -35,7 +35,7 @@ namespace PRO_finder.Migrations
                 Client= "¬ü¬ì",
                 Role="«eºÝ",
                 YearStarted=2020,
-                WebsiteURLID= "https://play.google.com/store/apps/details?id=com.scalpx.scalpxdetectionLite&hl=zh_TW&gl=US",
+                WebsiteURL= "https://play.google.com/store/apps/details?id=com.scalpx.scalpxdetectionLite&hl=zh_TW&gl=US",
                 SubCategoryID=22,
                 WorkAttachmentID=null
 
