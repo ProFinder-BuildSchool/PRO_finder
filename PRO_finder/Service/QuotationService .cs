@@ -9,14 +9,14 @@ using PRO_finder.Models.ViewModels;
 
 namespace PRO_finder.Service
 {
-    public class QuotationService
-    {
-        private readonly QuotationRepository _QuotationRepo;
+    //public class QuotationService
+    //{
+    //    private readonly QuotationRepository _QuotationRepo;
 
-        public QuotationService()
-        {
-            _QuotationRepo = new QuotationRepository();
-        }
+        //public QuotationService()
+        //{
+        //    _QuotationRepo = new QuotationRepository();
+        //}
         //public QuotationViewModel GetQuotationData(int Memid)
         //{
 
@@ -37,5 +37,5 @@ namespace PRO_finder.Service
         //    return QuotationVM;
         //}
 
-    }
+    //}
 }

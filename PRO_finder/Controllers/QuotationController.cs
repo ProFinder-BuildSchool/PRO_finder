@@ -19,11 +19,13 @@ namespace PRO_finder.Controllers
     public class QuotationController : Controller
     {
         private readonly QuotationService _quotService;
+        private readonly MemInfoService _memInfoService;
 
         public QuotationController()
         {
 
             _quotService = new QuotationService();
+            _memInfoService = new MemInfoService();
         }
 
         //ProFinderModels ctx = new ProFinderModels();
@@ -40,7 +42,7 @@ namespace PRO_finder.Controllers
         }
         public ActionResult Detail(int Memberid)
         {
-            MemberInfoViewModel MemInfoVM = _MemInfoService.GetMemInfoData(Memberid);
+            MemberInfoViewModel MemInfoVM = _memInfoService.GetMemInfoData(Memberid);
             return View(MemInfoVM);
         }
 

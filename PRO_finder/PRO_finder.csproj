@@ -225,6 +225,7 @@
     <Compile Include="Service\CategoryService.cs" />
     <Compile Include="Service\MemInfoService.cs" />
     <Compile Include="Service\QuotationService .cs" />
+    <Compile Include="Service\QuotationService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\TalentIndexViewModel.cs" />
@@ -447,6 +448,7 @@
     <Content Include="Views\Talent\UploadMyWorks.cshtml" />
     <Content Include="Views\Talent\CaseSetting.cshtml" />
     <Content Include="Views\FindQuotation\getLocationID.cshtml" />
+    <Content Include="Views\Shared\_StaffPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
