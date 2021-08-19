@@ -38,7 +38,9 @@ namespace PRO_finder.Controllers
         }
         public ActionResult Detail(int Memberid)
         {
-            MemberInfoViewModel MemInfoVM = _memInfoService.GetMemInfoData(Memberid);
+            QuotationViewModel MemInfoVM = new QuotationViewModel() {
+                MemInfo = _memInfoService.GetMemInfoData(Memberid)
+            };
             return View(MemInfoVM);
         }
 

@@ -6,22 +6,18 @@ namespace PRO_finder.Models.ViewModel
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("OtherPicture")]
-    public partial class OtherPictureViewModel
+    public class OtherPictureViewModel
     {
         public int QuotationID { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int OtherPictureID { get; set; }
 
-        [Required]
         public string MainPicture { get; set; }
 
         public int SortNumber { get; set; }
 
-        public byte IsDefault { get; set; }
+        public bool IsDefault { get; set; }
 
-        [Column("OtherPicture")]
-        public string OtherPicture1 { get; set; }
+        public string OtherPicture { get; set; }
     }
 }

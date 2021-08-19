@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Detail";
+
 }
 
 <section class="site-section" id="next-section">
@@ -30,16 +31,19 @@
                                         <!-- 作品集縮圖 -->
                                         <div class="left-down">
                                             <ul class="d-flex" style="overflow-y: auto;">
+                                                @foreach(var pic in Model.OtherPicture) 
+                                                { 
                                                 <li class="mx-2">
-                                                    <a href="#otherpicture-one" title="pre-Post">
-                                                        OtherPicture-SortNumber&OtherPicture
+                                                    <a href="#@pic.OtherPicture" title="pre-Post">
                                                         <img width="71" height="36"
                                                              src="https://demo.colorlib.com/activello/wp-content/uploads/sites/57/2015/11/photo-1438109491414-7198515b166b-710x335.jpg"
                                                              class="single-featured wp-post-image" alt=""
                                                              sizes="(max-width: 710px) 25vw,178px" />
                                                     </a>
+                                                    
                                                 </li>
-                                                <li class="mx-2">
+                                                }
+                                                <!--<li class="mx-2">
                                                     <a href="#otherpicture-two" title="pre-Post">
                                                         OtherPicture-SortNumber&OtherPicture
                                                         <img width="71" height="36"
@@ -67,14 +71,14 @@
                                                     </a>
                                                 </li>
                                                 <li class="mx-2">
-                                                    <a href="#otherpicture-five" title="pre-Post">
+                                                    <a href="#otherpicture-five" title="pre-Post">-->
                                                         <!--OtherPicture-SortNumber&OtherPicture-->
-                                                        <img width="71" height="36"
+                                                        <!--<img width="71" height="36"
                                                              src="https://demo.colorlib.com/activello/wp-content/uploads/sites/57/2015/11/photo-1438109491414-7198515b166b-710x335.jpg"
                                                              class="single-featured wp-post-image" alt=""
                                                              sizes="(max-width: 710px) 25vw,178px" />
                                                     </a>
-                                                </li>
+                                                </li>-->
                                             </ul>
                                         </div>
                                     </div>
@@ -92,7 +96,7 @@
                                             <p>服務報價：@Model.Price</p>
                                             <p>服務評分：Quotation-Evaluation</p>
                                             <p>執行時間：Quotation-ExecuteDate</p>
-                                            <p>服務地點：LocationID</p>
+                                            <p>服務地點：@Model.MemInfo.LocationID</p>
                                             <a class="btn btn-danger" href="#">站內詢問</a>
                                         </div>
                                     </div>
@@ -153,11 +157,14 @@
                                     <span class="icon-book mr-3"></span>服務說明
                                 </h3>
                                 <div class="col-lg-6 col-md-12 recent-posts-wrapper d-flex flex-column">
-                                    <figure id="otherpicture-one" class="mb-5">
-                                        <img src="~/Assets/images/job_single_img_1.jpg" alt="Image"
+                                    @foreach (var pic in Model.OtherPicture)
+                                    {
+                                    <figure id="@pic.OtherPicture" class="mb-5">
+                                        <img src="@pic.MainPicture" alt="Image"
                                              class="img-fluid rounded">
                                     </figure>
-                                    <figure id="otherpicture-two" class="mb-5">
+                                    }
+                                    @*<figure id="otherpicture-two" class="mb-5">
                                         <img src="~/Assets/images/job_single_img_1.jpg" alt="Image"
                                              class="img-fluid rounded">
                                     </figure>
@@ -172,7 +179,7 @@
                                     <figure id="otherpicture-five" class="mb-5">
                                         <img src="~/Assets/images/job_single_img_1.jpg" alt="Image"
                                              class="img-fluid rounded">
-                                    </figure>
+                                    </figure>*@
                                 </div>
                             </div>
                         </div>
