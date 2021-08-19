@@ -27,7 +27,7 @@ namespace PRO_finder.Controllers
         // GET: Quotation
         public ActionResult Index(int CategoryId = 0)
         {
-            //string Contain = this.TempData["Contain"] as string;
+            string Contain = this.TempData["Contain"] as string;
 
             List<QuotationViewModel> pageData = _quotService.GetCategoryPageData(CategoryId);
             ViewBag.cateNameList = _quotService.GetsubcatrgotyName(CategoryId);
