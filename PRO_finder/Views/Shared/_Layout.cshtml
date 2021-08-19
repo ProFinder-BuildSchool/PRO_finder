@@ -7,18 +7,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
           integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+            integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
 
     @Styles.Render("~/bundles/css")
 
     @RenderSection("topCSS", required: false)
     @RenderSection("topJS", required: false)
-<style>
-    .container-fluid.list {
-        background-color: #89ba16 !important;
-    }
+    <style>
+        .container-fluid.list {
+            background-color: #89ba16 !important;
+        }
 
-</style>
+        .btn-area {
+            line-height: .2 !important;
+            height: 2.5rem !important;
+        }
+
+        #search_text, #search_type {
+            line-height: .2;
+            border: none;
+        }
+
+        #search_text {
+            border: 1px solid rgba(0,0,0,.1);
+        }
+
+        #search_form {
+        }
+    </style>
 </head>
 
 <body id="top">
@@ -40,7 +59,8 @@
             <div class="site-mobile-menu-body"></div>
         </div> <!-- .site-mobile-menu -->
         @Html.Partial("_NavbarPartial")
-        @*@{Html.RenderAction("Index", "Home");}*@
+
+
         @RenderBody()
 
         <footer class="site-footer">

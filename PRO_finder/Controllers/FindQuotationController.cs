@@ -1,5 +1,4 @@
-﻿using PRO_finder.Models.DBModel;
-using PRO_finder.Models.ViewModels;
+﻿using PRO_finder.Models.ViewModels;
 using PRO_finder.Service;
 using System;
 using System.Collections.Generic;
@@ -11,15 +10,16 @@ namespace PRO_finder.Controllers
 {
     public class FindQuotationController : Controller
     {
-        // GET: FindQuotation
-        private readonly ProFinderContext _ctx;
-        private caseService _caseService;
+
+        private readonly CaseService _caseService;
 
         public FindQuotationController()
         {
-            _ctx = new ProFinderContext();
-            _caseService = new caseService();
+           _caseService = new CaseService();
+
         }
+
+        // GET: FindQuotation
         public ActionResult Index()
         {
             List<CaseViewModel> result = _caseService.Getcase();
@@ -28,7 +28,15 @@ namespace PRO_finder.Controllers
             ViewBag.locationList = locationlist;
             return View();
         }
-        
+
+
+        public ActionResult IndexJson()
+        {
+            List<CaseViewModel> result = _caseService.GetCasesList();
+            return Json(result,JsonRequestBehavior.AllowGet);
+        }
+
+
 
         [HttpPost]
         public ActionResult getLocationID(int locationID)

@@ -17,21 +17,50 @@ namespace PRO_finder.Controllers
 
         private readonly ProFinderContext _ctx;
         private CategoryService _CategoryService;
+        private Home_IndexService _Home_IndexService;
 
         public HomeController()
         {
             _ctx = new ProFinderContext();
             _CategoryService = new CategoryService();
+            _Home_IndexService = new Home_IndexService();
         }
         public ActionResult Index()                       
         {
 
-            List<CategoryViewModel> categories = _CategoryService.Home_Index_GetCategoryItem();
+            var list = _CategoryService.Home_Index_GetCategoryItem();
 
-            return View(categories);                                
-        }                                                 
-                                                          
-     
+            return View(list);                                
+        }
+
+        public ActionResult Index2()
+        {
+
+            var list = _CategoryService.Home_Index_GetCategoryItem();
+
+            return Json(list,JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult Index(string type ,string contain)
+        {
+            var Type = type;
+            var Contain = contain;
+            this.TempData["Contain"] = contain;
+            if (Type == "找報價")
+            {
+                return RedirectToAction("Index", "Quotation");
+            }
+            else if(Type == "找案子")
+            {
+                return RedirectToAction("Index", "FindQuotation");
+            }
+            ViewBag.keyWord = contain;
+
+            return View();
+        }
+
+
 
         public ActionResult Contact()
         {
