@@ -167,9 +167,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202108160908090_DBtest.cs" />
-    <Compile Include="Migrations\202108160908090_DBtest.Designer.cs">
-      <DependentUpon>202108160908090_DBtest.cs</DependentUpon>
+    <Compile Include="Migrations\202108111415486_worktest.cs" />
+    <Compile Include="Migrations\202108111415486_worktest.Designer.cs">
+      <DependentUpon>202108111415486_worktest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108111418451_worktest1.cs" />
+    <Compile Include="Migrations\202108111418451_worktest1.Designer.cs">
+      <DependentUpon>202108111418451_worktest1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108111422103_worktest2.cs" />
+    <Compile Include="Migrations\202108111422103_worktest2.Designer.cs">
+      <DependentUpon>202108111422103_worktest2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108111425424_worktest3.cs" />
+    <Compile Include="Migrations\202108111425424_worktest3.Designer.cs">
+      <DependentUpon>202108111425424_worktest3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108181441586_WORKPICTURE.cs" />
+    <Compile Include="Migrations\202108181441586_WORKPICTURE.Designer.cs">
+      <DependentUpon>202108181441586_WORKPICTURE.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -208,19 +224,25 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\CaseViewModel.cs" />
-    <Compile Include="Models\ViewModels\Home_IndexViewModel.cs" />
     <Compile Include="Models\ViewModels\QuotationViewModel.cs" />
     <Compile Include="Models\ViewModels\SubCategoryViewModel.cs" />
+    <Compile Include="Models\ViewModels\Workdetail.cs" />
+    <Compile Include="Models\ViewModels\WorkPageViewModel.cs" />
+    <Compile Include="Models\ViewModels\StudioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CaseRepository.cs" />
     <Compile Include="Repositories\GeneralRepository.cs" />
     <Compile Include="Repositories\QuotationRepository.cs" />
     <Compile Include="Repositories\SubCategoryRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Repositories\WorkPageRepository.cs" />
     <Compile Include="Service\CaseService.cs" />
     <Compile Include="Service\Home_IndexService .cs" />
     <Compile Include="Service\CategoryService.cs" />
+    <Compile Include="Service\MemberinfoService.cs" />
     <Compile Include="Service\QuotationService.cs" />
+    <Compile Include="Service\WorkPictureService.cs" />
+    <Compile Include="Service\StudioService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\TalentIndexViewModel.cs" />
@@ -404,10 +426,6 @@
     <Content Include="Assets\bs4\scss\_variables.scss" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - ReadOnly - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - ReadOnly - FTP1.pubxml" />
-    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -450,7 +468,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Helper\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -486,8 +503,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202108160908090_DBtest.resx">
-      <DependentUpon>202108160908090_DBtest.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202108181441586_WORKPICTURE.resx">
+      <DependentUpon>202108181441586_WORKPICTURE.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PRO_finder.Models.DBModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +10,7 @@ using PRO_finder.Models.ViewModels;
 using PRO_finder.Repositories;
 using PRO_finder.Service;
 using PRO_finder.Models.DBModel;
+using PRO_finder.Model.ViewModels;
 
 namespace PRO_finder.Controllers
 {
@@ -16,11 +18,13 @@ namespace PRO_finder.Controllers
     public class QuotationController : Controller
     {
         private readonly QuotationService _quotService;
+        private readonly StudioService _studioService;
 
         public QuotationController()
         {
-
+        
             _quotService = new QuotationService();
+            _studioService = new StudioService();
         }
 
         //ProFinderModels ctx = new ProFinderModels();
@@ -45,9 +49,10 @@ namespace PRO_finder.Controllers
             return View();
         }
 
-        public ActionResult WorksPage()
+        public ActionResult WorksPage(int WorkID = 1)
         {
-            return View();
+            List<WorkPageViewModel> pageData = _studioService.GetWorkPageData (WorkID);
+            return View(pageData);
         }
 
         
