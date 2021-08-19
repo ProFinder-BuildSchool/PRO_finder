@@ -6,28 +6,31 @@ using System.Web.Mvc;
 using PRO_finder.Models.DBModel;
 using PRO_finder.ViewModels;
 using PRO_finder.Repositories;
+using PRO_finder.Models.ViewModels;
+using Newtonsoft.Json;
 
 namespace PRO_finder.Service
 {
     public class CategoryService
     {
+        private readonly GeneralRepository _repo;
+        public CategoryService()
+        {
+            _repo = new GeneralRepository(new ProFinderContext());
+        }
 
         public List<SelectListItem> GetCategorySelectList()
         {
-            using (ProFinderContext context = new ProFinderContext())
-            {
-                List<Category> categoriesList = context.Category.ToList();
+            
+                List<Category> categoriesList = _repo.GetAll<Category>().ToList();
                 List<SelectListItem> selectCategory = new List<SelectListItem>();
-                selectCategory.Add(new SelectListItem { Text = "選擇服務類型" });
+                selectCategory.Add(new SelectListItem { Text = "選擇主類型" });
                 foreach (var item in categoriesList)
                 {
                     selectCategory.Add(new SelectListItem { Value = item.CategoryID.ToString(), Text = item.CategoryName });
                 }
 
                 return selectCategory;
-
-            }
-
 
         }
 
@@ -68,11 +71,32 @@ namespace PRO_finder.Service
                     Icon = Iconlist.Where(c => c.Categoryname == x.CategoryName.Replace(" ", "")).ToList(),
                     ID = x.CategoryID,
                     CategoryName = x.CategoryName,
-                    subCategories = SubcategoriesList.Where(y => y.CategoryID == x.CategoryID).ToList()
+                    SubCategories = SubcategoriesList.Where(y => y.CategoryID == x.CategoryID).ToList()
                 });
             }
 
             return CategoryViewModel;
+        }
+
+        public string GetAllCatAndSubCat()
+        {
+            var allCategory = _repo.GetAll<Category>();
+            var allSubCategory = _repo.GetAll<SubCategory>();
+            var all = new List<CategoryViewModel>();
+            foreach (var item in allCategory)
+            {
+                var subList = new List<SubCategory>();
+                foreach(var sub in allSubCategory)
+                {
+                    if(sub.CategoryID == item.CategoryID)
+                    {
+                        subList.Add(new SubCategory { SubCategoryID = sub.SubCategoryID, SubCategoryName = sub.SubCategoryName});
+                    }
+                }
+                all.Add(new CategoryViewModel { CategoryID = item.CategoryID, JsonSubCategoryList = JsonConvert.SerializeObject(subList) });
+            }
+            return JsonConvert.SerializeObject(all);
+            
         }
 
 

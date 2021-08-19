@@ -468,6 +468,7 @@
     <Content Include="Views\Quotation\AllcardData.cshtml" />
     <Content Include="Views\Home\Index2.cshtml" />
     <Content Include="Views\FindQuotation\IndexJson.cshtml" />
+    <Content Include="Views\Talent\GetAllCategoryAndSubCategoryList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

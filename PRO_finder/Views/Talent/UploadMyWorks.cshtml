@@ -3,10 +3,10 @@
 @{
     ViewBag.Title = "UploadMyWorks";
     Layout = "~/Views/Shared/_LayoutMemberTalent.cshtml";
-    
+
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("UploadMyWorks", "Talent"))
 {
     @Html.AntiForgeryToken()
     <div class="myContainer">
@@ -14,13 +14,13 @@
             <h4>新增作品集</h4>
             <hr>
             <div class="form-group">
-                <label for="title" class="col-md-12 control-label">作品集名稱</label>
+                <label for="WorkName" class="col-md-12 control-label">作品集名稱</label>
                 <div class="col-md-12">
-                    <input type="text" id="title" name="WorkName" class="form-control text-box single-line">
+                    <input type="text" id="WorkName" name="WorkName" class="form-control text-box single-line">
                 </div>
             </div>
             <div class="form-group">
-                <label for="Category" class="control-label col-md-12">服務類別</label>
+                <label for="Category" class="control-label col-md-12">作品類別</label>
                 <div class="container">
                     <div class="row">
                         <div class="col-6">
@@ -28,19 +28,65 @@
                         </div>
                         <div class="col-6">
                             <select class="form-control" id="subcategorySelect" name="SubCategoryID">
-                                <option class="text-center">選擇服務子類型</option>
+                                <option class="text-center">選擇子類型</option>
                             </select>
-                            @*@Html.DropDownList("SubCategoryID", null, htmlAttributes: new { @class = "form-control" })*@
                             @Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="form-group mt-5">
+            <div class="form-group">
+                <label for="Client" class="col-md-12 control-label">客戶名稱</label>
+                <div class="col-md-12">
+                    <input type="text" id="Client" name="Client" class="form-control text-box single-line">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Role" class="col-md-12 control-label">工作職責</label>
+                <div class="col-md-12">
+                    <input type="text" id="Role" name="Role" class="form-control text-box single-line">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="YearStarted" class="col-md-12 control-label">作品年份</label>
+                <div class="col-md-12">
+                    <input type="text" id="YearStarted" name="YearStarted" class="form-control text-box single-line">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="WebsiteURL" class="col-md-12 control-label">作品網站連結</label>
+                <div class="col-md-12">
+                    <input type="text" id="WebsiteURL" name="WebsiteURL" class="form-control text-box single-line">
+                </div> 
+            </div>
+            <hr>
+            <div class="form-group">
+                <p class="col-md-12 control-label text-black font-weight-bold">作品附件檔案</p>
+                <div class="container">
+                    <div class="row workAttachmentRow">
+                        <div class="col-md-12 my-2 workAttachmentWrap" id="wrap0">
+                            <a class="btn removeAttachment" data-count="0"><i class="far fa-trash-alt"></i></a>
+                            <p class="col-md-12 mb-0 text-black">附件檔案名稱</p>
+                            <div class="col-md-12 mt-2">
+                                <input type="text" id="WorkAttachmentName" name="WorkAttachmentName" class="form-control text-box single-line">
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                <input type="file" id="WorkAttachmentLink" name="WorkAttachmentLink" class="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-3 text-right">
+                    <span class="btn btn-light" id="addFile"><i class="fas fa-plus"></i>&ensp;新增作品附件</span>
+                </div>
+            </div>
+            <hr>
+            <div class="form-group">
                 <div class="container">
                     <div class="row">
-                        <div class="col-12 ">
-                            <label for="newWorks">
+                        <div class="col-12">
+                            <label class="col-md-12 control-label">影音圖檔上傳</label>
+                            <label for="newWorks" class="mt-2 ml-3">
                                 <img src="https://image.flaticon.com/icons/png/512/568/568717.png"
                                      alt=""><span class="uploadIcon">上傳作品</span>
                             </label>
@@ -57,13 +103,35 @@
                     </div>
                 </div>
             </div>
+            <hr />
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-12">
-                    <input  value="儲存" class="btn btn-primary" id="submit"/>
+                <label for="editor" class="col-md-12 control-label">作品描述</label>
+                <div class="col-md-12">
+                    <div id="editor" name="WorkDescription"></div>
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-12 text-center">
+                    <input value="儲存" class="btn btn-primary" id="submit" />
                 </div>
             </div>
         </div>
     </div>
+    <template id="addFileTemplate">
+        <div class="col-md-12 my-2 workAttachmentWrap">
+            <a class="btn removeAttachment"><i class="far fa-trash-alt"></i></a>
+            <p class="col-md-12 mb-0 text-black">附件檔案名稱</p>
+            <div class="col-md-12 mt-2">
+                <input type="text" id="WorkAttachmentName" name="WorkAttachmentName" class="form-control text-box single-line">
+            </div>
+            <div class="col-md-12 mt-2">
+                <input type="file" id="WorkAttachmentLink" name="WorkAttachmentLink" class="">
+            </div>
+        </div>
+    </template>
 }
 @section topJS
     {
@@ -71,10 +139,12 @@
 }
 @section topCSS
     {
+    <link href="~/Assets/css/quill.snow.css" rel="stylesheet" />
     <style>
         h4 {
-            color: #515A5A;
+            color: #89ba16;
             font-weight: 900;
+            padding: 0 15px;
         }
 
         .myContainer {
@@ -87,6 +157,8 @@
 
         hr {
             /* margin: 10px 0px !important; */
+            color: #89ba16;
+            border-top: #89ba16 2px solid;
         }
 
         label {
@@ -98,21 +170,28 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 20vw;
-            height: 20vw;
+            width: 15vw;
+            height: 15vw;
             background-color: #f2f2f2;
             border: 2px #bebebe dashed;
-            margin: auto;
+            margin-left: 0;
         }
 
         label[for="newWorks"] img {
             width: 30%;
         }
+        span#addFile:hover{
+            cursor: pointer;
+        }
+        #displayUpload {
+            border: 2px #89ba16 dashed;
+            margin: 0px 15px;
+        }
         #displayUpload img {
             margin-top: auto auto;
             width: 100%;
             height: 100%;
-            max-height: 150px;
+            /*max-height: 150px;*/
             padding: 0px;
         }
 
@@ -139,29 +218,89 @@
                 right: 15px;
                 border: none !important;
             }
+            #displayUpload div span:hover{
+                background-color: unset !important;
+                cursor:pointer;
+            }
+            /*.ql-toolbar .ql-snow{
+                border-radius: 0.25rem 0 0.25rem 0;
+            }
+            */
+        .workAttachmentWrap {
+            border: dashed 1px #bebebe;
+            padding:15px;
+            border-radius: .25rem;
+            position:relative;
+        }
+        .workAttachmentWrap a{
+            display:block;
+            position:absolute;
+            top:0;
+            right:0;
+            z-index:10;
+        }
+        .workAttachmentWrap a:hover{
+            cursor:pointer;
+        }
+        
+        
     </style>
 }
 @section endJS
     {
+    <script src="~/Assets/js/quill.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
     <script>
+
+       
         //服務類別轉換
-       document.querySelector("#categoryDropdown").addEventListener("change", function () {
-            console.log(this.value);
-            axios({method:"post", url:"@Url.Action("getSubcategoryList", "Talent")", data: { categoryID: this.value }})
-                .then(result => {
-                    let data = result.data;
-                    let selector = document.querySelector("#subcategorySelect");
-                    selector.innerHTML = "<option class='text - center'>選擇服務子類型</option>"
-                    data.forEach(d => {
-                        console.log(d);
+        let selector = document.querySelector("#subcategorySelect");
+        var subCategoryList = [];
+
+        axios.get("/Talent/GetAllCategoryAndSubCategoryList").then(result => {
+            let data = JSON.parse(result.data);
+            subCategoryList.push(...data);
+        });
+
+        $g("#categoryDropdown").addEventListener("change", function () {
+            selector.innerHTML = "<option class='text - center'>選擇服務子類型</option>";
+            subCategoryList.forEach(sub => {
+                if (sub.CategoryID == this.value) {
+                    let allsub = JSON.parse(sub.JsonSubCategoryList);
+                    allsub.forEach(s => {
                         let option = document.createElement("option");
-                        option.innerText = d.SubCategoryName;
-                        option.value = d.SubCategoryID;
+                        option.innerText = s.SubCategoryName;
+                        option.value = s.SubCategoryID;
                         selector.append(option);
                     });
-                });
-       })
+                };
+            });
+        });
+
+        //新增作品連結
+        let count = 1;
+        $g("#addFile").addEventListener("click", function () {
+            let clone = $g("#addFileTemplate").content.cloneNode(true);
+            clone.querySelector(".workAttachmentWrap").setAttribute("id", `wrap${count}`);
+            clone.querySelector("a").setAttribute("data-count", `${count}`);
+
+            clone.querySelector("a").addEventListener("click", function () {
+                let div = $g(`.workAttachmentWrap#wrap${this.dataset.count}`)
+                $g(".workAttachmentRow").removeChild(div);
+            });
+
+            $g(".workAttachmentRow").appendChild(clone);
+            count++;
+        });
+        ////設定第0個wrap的刪除
+        $g(".workAttachmentWrap#wrap0 a").addEventListener("click", function () {
+            let div = $g(`.workAttachmentWrap#wrap0`)
+            $g(".workAttachmentRow").removeChild(div);
+        });
+        
+        
+
 
         //上傳圖檔呈現
         let displayUpload = $g("#displayUpload");
@@ -173,7 +312,9 @@
                 let div = document.createElement("div");
                 let span = document.createElement("span");
                 let img = document.createElement("img");
-                div.classList.add("col-4");
+                div.classList.add("col-12");
+                //div.classList.add("col-md-6");
+                //div.classList.add("col-lg-4");
                 span.innerHTML = "<i class='fas fa-trash-alt'></i>";
                 span.classList.add("btn");
                 span.classList.add("btn-outline-danger");
@@ -192,7 +333,7 @@
                 count++;
             });
         });
-        
+
         //imgur 圖檔上傳
         const id = "c20b85a63157827";
         const album = 'Sv87YFL';
@@ -215,10 +356,38 @@
             })
         });
 
+        //quill 富文本編輯器
+        var toolbarOptions = [
+            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+            [{ 'direction': 'rtl' }],                         // text direction
+
+            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+            [{ 'align': [] }],
+
+            ['clean']                                         // remove formatting button
+        ];
+        var quill = new Quill('#editor', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+            theme: 'snow'
+        });
+        $g('.ql-toolbar.ql-snow').style.setProperty('border-radius', '.25rem .25rem 0 0');
+        $g('#editor').style.setProperty('border-radius', '0 0 .25rem .25rem');
+        $g('#editor').style.setProperty('min-height', '200px');
+
         function $g(element) {
             let temp = document.querySelectorAll(element);
             return temp.length == 1 ? temp[0] : temp;
         }
+
+        
     </script>
 }
 
