@@ -50,6 +50,55 @@
     </div>
 </div>
 
+<!-- Modal Add -->
+<div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="inputModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="inputModalLabel"></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div id="input-area" class="modal-body d-flex flex-column">
+                <input id="todo-title" type="text" placeholder="標題長度請勿超過12個字" maxlength="12">
+                <input id="todo-time" type="time">
+                <textarea id="todo-item" placeholder="說明..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal"onclick="SubmitMessage()">
+                    發送
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Info -->
+<div class="modal fade" id="showContact" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="info-modal-title" id="infoModalLabel"></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div id="info-area" class="modal-body d-flex flex-column">
+                <input id="info-todo-title" type="text" placeholder="標題長度請勿超過12個字" maxlength="12">
+                <input id="info-todo-time" type="time">
+                <textarea id="info-todo-item" placeholder="說明..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="DeleteTodoItem()">刪除</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="EditTodoItem()">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     const saveStaffBtn = document.getElementById('saveStaff');
     const contactStaffBtn = document.getElementById('contactStaff');
@@ -59,8 +108,8 @@
         //存我的最愛<人才>資料
     }
 
-    
-    function ShowStaffContact() {
+
+    function ShowStaffContact(e) {
         //顯示訊息視窗
 
         //存訊息<案主聯絡人才>資料

@@ -31,17 +31,20 @@
                                         <!-- 作品集縮圖 -->
                                         <div class="left-down">
                                             <ul class="d-flex" style="overflow-y: auto;">
-                                                @foreach(var pic in Model.OtherPicture) 
-                                                { 
-                                                <li class="mx-2">
-                                                    <a href="#@pic.OtherPicture" title="pre-Post">
-                                                        <img width="71" height="36"
-                                                             src="https://demo.colorlib.com/activello/wp-content/uploads/sites/57/2015/11/photo-1438109491414-7198515b166b-710x335.jpg"
-                                                             class="single-featured wp-post-image" alt=""
-                                                             sizes="(max-width: 710px) 25vw,178px" />
-                                                    </a>
-                                                    
-                                                </li>
+                                                @if (Model.OtherPicture.Any())
+                                                {
+                                                    foreach (var pic in Model.OtherPicture)
+                                                    {
+                                                        <li class="mx-2">
+                                                            <a href="#otherpicture-@pic.OtherPicture" title="pre-Post">
+                                                                <img width="71" height="36"
+                                                                     src="https://demo.colorlib.com/activello/wp-content/uploads/sites/57/2015/11/photo-1438109491414-7198515b166b-710x335.jpg"
+                                                                     class="single-featured wp-post-image" alt=""
+                                                                     sizes="(max-width: 710px) 25vw,178px" />
+                                                            </a>
+
+                                                        </li>
+                                                    }
                                                 }
                                                 <!--<li class="mx-2">
                                                     <a href="#otherpicture-two" title="pre-Post">
@@ -72,8 +75,8 @@
                                                 </li>
                                                 <li class="mx-2">
                                                     <a href="#otherpicture-five" title="pre-Post">-->
-                                                        <!--OtherPicture-SortNumber&OtherPicture-->
-                                                        <!--<img width="71" height="36"
+                                                <!--OtherPicture-SortNumber&OtherPicture-->
+                                                <!--<img width="71" height="36"
                                                              src="https://demo.colorlib.com/activello/wp-content/uploads/sites/57/2015/11/photo-1438109491414-7198515b166b-710x335.jpg"
                                                              class="single-featured wp-post-image" alt=""
                                                              sizes="(max-width: 710px) 25vw,178px" />
@@ -85,7 +88,7 @@
                                     <div class="col-6">
                                         <div>
                                             <span class="text-danger">
-                                                #<a class="text-danger" href="#">網頁切版製作MemberInfo-CategoryID</a>
+                                                #<a class="text-danger" href="#">@Model.CategoryID</a>
                                             </span>
                                             <span class="m-2">
                                                 <span class="icon-clock-o mr-2"></span><span class="">{{接案日期}}更新</span>
@@ -120,7 +123,7 @@
                                     <span class="icon-align-left mr-3"></span>服務內容
                                 </h3>
                                 <p>
-                                    Quotation-Description
+                                    @Model.MemInfo.Description
                                 </p>
                             </div>
                             <!-- 其他服務 -->
@@ -157,29 +160,32 @@
                                     <span class="icon-book mr-3"></span>服務說明
                                 </h3>
                                 <div class="col-lg-6 col-md-12 recent-posts-wrapper d-flex flex-column">
-                                    @foreach (var pic in Model.OtherPicture)
+                                    @if (Model.OtherPicture.Any())
                                     {
-                                    <figure id="@pic.OtherPicture" class="mb-5">
-                                        <img src="@pic.MainPicture" alt="Image"
-                                             class="img-fluid rounded">
-                                    </figure>
+                                        foreach (var pic in Model.OtherPicture)
+                                        {
+                                            <figure id="otherpicture-@pic.OtherPicture" class="mb-5">
+                                                <img src="@pic.MainPicture" alt="Image"
+                                                     class="img-fluid rounded">
+                                            </figure>
+                                        }
                                     }
                                     @*<figure id="otherpicture-two" class="mb-5">
-                                        <img src="~/Assets/images/job_single_img_1.jpg" alt="Image"
-                                             class="img-fluid rounded">
-                                    </figure>
-                                    <figure id="otherpicture-three" class="mb-5">
-                                        <img src="~/Assets/images/job_single_img_1.jpg" alt="Image"
-                                             class="img-fluid rounded">
-                                    </figure>
-                                    <figure id="otherpicture-four" class="mb-5">
-                                        <img src="~/Assets/images/job_single_img_1.jpg" alt="Image"
-                                             class="img-fluid rounded">
-                                    </figure>
-                                    <figure id="otherpicture-five" class="mb-5">
-                                        <img src="~/Assets/images/job_single_img_1.jpg" alt="Image"
-                                             class="img-fluid rounded">
-                                    </figure>*@
+                                            <img src="~/Assets/images/job_single_img_1.jpg" alt="Image"
+                                                 class="img-fluid rounded">
+                                        </figure>
+                                        <figure id="otherpicture-three" class="mb-5">
+                                            <img src="~/Assets/images/job_single_img_1.jpg" alt="Image"
+                                                 class="img-fluid rounded">
+                                        </figure>
+                                        <figure id="otherpicture-four" class="mb-5">
+                                            <img src="~/Assets/images/job_single_img_1.jpg" alt="Image"
+                                                 class="img-fluid rounded">
+                                        </figure>
+                                        <figure id="otherpicture-five" class="mb-5">
+                                            <img src="~/Assets/images/job_single_img_1.jpg" alt="Image"
+                                                 class="img-fluid rounded">
+                                        </figure>*@
                                 </div>
                             </div>
                         </div>
