@@ -9,9 +9,9 @@ namespace PRO_finder.Controllers
     public class QuotationController : Controller
     {
         // GET: Quotation
-        public ActionResult Index()
+        public ActionResult Index(string keyWord)
         {
-            string Contain = this.TempData["Contain"] as string;
+            TempData["Contain"] = keyWord;
             return View();
         }
         public ActionResult Detail()

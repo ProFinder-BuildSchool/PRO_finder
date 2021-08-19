@@ -15,7 +15,7 @@
                 <form class="d-inline-block" id="search_form" autocomplete="off" method="post">
                     <div class="mainInputextbox d-inline-block">
                         <p>
-                            <input type="text"  name="contain" id="search_text" maxlength="100" placeholder="請輸入關鍵字" class="textfield" value="">
+                            <input type="text" name="contain" id="search_text" maxlength="100" placeholder="請輸入關鍵字" class="textfield" value="@TempData["Contain"]">
                         </p>
                     </div>
                     <p class="searchTypeSelect  d-inline-block">
@@ -90,6 +90,11 @@
 </header>
 @section topCSS{
     <style>
-        
     </style>
+}
+
+@section endJS{
+    <script>
+
+    </script>
 } 

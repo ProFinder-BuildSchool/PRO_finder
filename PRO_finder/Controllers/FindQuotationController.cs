@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PRO_finder.Models.ViewModels;
+using PRO_finder.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +10,15 @@ namespace PRO_finder.Controllers
 {
     public class FindQuotationController : Controller
     {
+
+        private readonly CaseService _caseService;
+
+        public FindQuotationController()
+        {
+           _caseService = new CaseService();
+
+        }
+
         // GET: FindQuotation
         public ActionResult Index()
         {
@@ -17,7 +28,15 @@ namespace PRO_finder.Controllers
             ViewBag.locationList = locationlist;
             return View();
         }
-        
+
+
+        public ActionResult IndexJson()
+        {
+            List<CaseViewModel> result = _caseService.GetCasesList();
+            return Json(result,JsonRequestBehavior.AllowGet);
+        }
+
+
 
         [HttpPost]
         public ActionResult getLocationID(int locationID)

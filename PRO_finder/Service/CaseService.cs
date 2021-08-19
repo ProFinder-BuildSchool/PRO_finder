@@ -7,10 +7,22 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace PRO_finder.Service
 {
-    public class caseService
+    public class CaseService
     {
+        private readonly CaseRepository _CaseRepo;
+
+
+        public CaseService()
+        {
+           _CaseRepo = new CaseRepository();
+
+        }
+
+
+
         public List<CaseViewModel> Getcase()
         {
             var repository = new GeneralRepository(new ProFinderContext());
@@ -25,15 +37,15 @@ namespace PRO_finder.Service
 
             foreach(var i in result)
             {
-                var location = repository.GetAll<Locations>().ToList().Where(x => x.LocationID == i.Location).FirstOrDefault().LocationName;
-                List.Add(new CaseViewModel
-                {
-                    title =i.CaseTitle,
-                    Price= (CaseViewModel.PriceEnum)i.Price,
-                    LocationID= (int)i.Location,
-                    Description=i.Description,
-                    LocationName = location
-                });
+                //var location = repository.GetAll<Locations>().ToList().Where(x => x.LocationID == i.Location).FirstOrDefault().LocationName;
+                //List.Add(new CaseViewModel
+                //{
+                //    title =i.CaseTitle,
+                //    Price= (CaseViewModel.PriceEnum)i.Price,
+                //    LocationID= (int)i.Location,
+                //    Description=i.Description,
+                //    LocationName = location
+                //});
             }
 
 
@@ -51,6 +63,13 @@ namespace PRO_finder.Service
                     new SelectListItem { Text = item.LocationName, Value = item.LocationID.ToString() });
             }
             return locationlist;
+        }
+
+
+        public List<CaseViewModel> GetCasesList()
+        {
+            List<CaseViewModel> CasesList = _CaseRepo.ReadCase().ToList();
+            return CasesList;
         }
 
     }

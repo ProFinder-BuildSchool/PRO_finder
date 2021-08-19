@@ -33,6 +33,14 @@ namespace PRO_finder.Controllers
             return View(list);                                
         }
 
+        public ActionResult Index2()
+        {
+
+            var list = _CategoryService.Home_Index_GetCategoryItem();
+
+            return Json(list,JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public ActionResult Index(string type ,string contain)
         {
@@ -46,8 +54,8 @@ namespace PRO_finder.Controllers
             else if(Type == "找案子")
             {
                 return RedirectToAction("Index", "FindQuotation");
-            } 
-
+            }
+            ViewBag.keyWord = contain;
 
             return View();
         }
