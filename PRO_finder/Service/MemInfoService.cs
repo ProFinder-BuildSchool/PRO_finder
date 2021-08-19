@@ -32,6 +32,7 @@ namespace PRO_finder.Service
                     NickName = x.NickName,
                     LogInTime = x.LogInTime,
                     Identity = (MemberInfoViewModel.IdentityStatus)x.Identity
+                    //SubCategoryID = x.SubCategoryID
 
 
                 }).FirstOrDefault();

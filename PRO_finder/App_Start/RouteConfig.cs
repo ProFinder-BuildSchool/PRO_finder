@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
+using PRO_finder.Models.ViewModels;
+
 namespace PRO_finder
 {
     public class RouteConfig
@@ -21,7 +23,7 @@ namespace PRO_finder
             routes.MapRoute(
                 name: "Detail",
                 url: "{controller}/{action}/{Memberid}",
-                defaults: new { controller = "Quotation", action = "Detail" }
+                defaults: new { controller = "Quotation", action = "Detail"}
             );
         }
     }

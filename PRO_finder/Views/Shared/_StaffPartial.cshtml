@@ -25,9 +25,7 @@
                 <p class="designerInvited">受邀次數: {{11}}</p>
                 <p class="designerSkill">
                     <span class="designerSkillTit">專長:</span>
-                    <a href=""># SubCategoryID</a>
-                    <a href=""># 網頁切版製作SubCategoryID</a>
-                    <a href=""># 網站程式設計/網站架設SubCategoryID</a>
+                    <a href=""># @Model.SubCategoryID</a>
                 </p>
                 <div class="author-social mb-4">
                     <a href="#"><span class="icon-facebook"></span></a>
@@ -62,12 +60,8 @@
     }
 
     
-    function ShowStaffContact(e) {
-        e.target.setAttribute('data-toggle', 'modal');
-        e.target.setAttribute('data-target', '#ShowStaffContact');
-
-        let modal = document.getElementById('ShowStaffContact');
-        modal.querySelector('h5').innerText = '';
+    function ShowStaffContact() {
+        //顯示訊息視窗
 
         //存訊息<案主聯絡人才>資料
     }

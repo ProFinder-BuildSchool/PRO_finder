@@ -87,6 +87,8 @@ namespace PRO_finder.Models.ViewModels
 
         public int? CategoryID { get; set; }
 
+        public int? SubCategoryID { get; set; }
+
         [StringLength(50)]
         public string AllPieceworkExp { get; set; }
 

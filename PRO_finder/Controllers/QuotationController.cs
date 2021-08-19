@@ -8,10 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using PRO_finder.Models;
-using PRO_finder.Models.ViewModels;
-using PRO_finder.Repositories;
-using PRO_finder.Service;
-using PRO_finder.Models.DBModel;
 
 namespace PRO_finder.Controllers
 {

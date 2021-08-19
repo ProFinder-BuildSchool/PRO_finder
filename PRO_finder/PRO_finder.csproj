@@ -212,6 +212,7 @@
     <Compile Include="Models\ViewModels\CaseViewModel.cs" />
     <Compile Include="Models\ViewModels\Home_IndexViewModel.cs" />
     <Compile Include="Models\ViewModels\MemberInfoViewModel.cs" />
+    <Compile Include="Models\ViewModels\OtherPictureViewModel.cs" />
     <Compile Include="Models\ViewModels\QuotationViewModel.cs" />
     <Compile Include="Models\ViewModels\SubCategoryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -224,7 +225,6 @@
     <Compile Include="Service\CaseService.cs" />
     <Compile Include="Service\CategoryService.cs" />
     <Compile Include="Service\MemInfoService.cs" />
-    <Compile Include="Service\QuotationService .cs" />
     <Compile Include="Service\QuotationService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
