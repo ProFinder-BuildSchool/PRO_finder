@@ -84,10 +84,31 @@ namespace PRO_finder.Migrations
 
             context.WorkPictures.AddOrUpdate(x => x.WorkPictureID, new WorkPictures
             {
-                //WorkID= 1,
-                //WorkPictureID = 1,
-                //WorkPicture= http://www.ntpceasygo.com.tw/images/case06_clip_image002.jpg,
-                //SortNumber =1
+                WorkID = 1,
+                WorkPictureID = 1,
+                WorkPicture = "http://www.ntpceasygo.com.tw/images/case06_clip_image002.jpg",
+                SortNumber = 1
+            });
+            context.WorkPictures.AddOrUpdate(x => x.WorkPictureID, new WorkPictures
+            {
+                WorkID = 1,
+                WorkPictureID = 2,
+                WorkPicture = "https://img-fnc.ebc.net.tw/EbcFnc/news/2020/10/05/1601897598_28540.jpg",
+                SortNumber = 2
+            });
+            context.WorkPictures.AddOrUpdate(x => x.WorkPictureID, new WorkPictures
+            {
+                WorkID = 1,
+                WorkPictureID = 3,
+                WorkPicture = "https://www.soeasyedu.com.tw/updimg/blog_content/20181012/20181012.jpg",
+                SortNumber = 3
+            });
+            context.WorkPictures.AddOrUpdate(x => x.WorkPictureID, new WorkPictures
+            {
+                WorkID = 1,
+                WorkPictureID = 4,
+                WorkPicture = "https://img95.699pic.com/photo/50143/1679.jpg_wh300.jpg",
+                SortNumber = 4
             });
             //context.Users.AddOrUpdate(x => x.Id, new User
             //{

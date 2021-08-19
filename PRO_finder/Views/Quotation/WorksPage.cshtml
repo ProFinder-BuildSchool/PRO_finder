@@ -1,95 +1,97 @@
-﻿@*@model PRO_finder.Models.ViewModels.Workdetail*@
-@using PRO_finder.Service
-@using PRO_finder.Models.DBModel;
+﻿@model List<PRO_finder.Model.ViewModels.WorkPageViewModel>
+
 @{
     ViewBag.Title = "WorksPage";
-    var service = new WorksService();
-    var Memberservice = new MemberinfoService();
-    List<Works> worksList = service.getWorkItem();
-    List<MemberInfo> memberinfoList = Memberservice.getMemberInfoItem();
-    int workID = 1;
-    int MemberID = 0;
+
 }
 
 <section class="site-section pb-0 portfolio-single" id="next-section">
 
     <div class="container">
+       
+            <div class="row mb-5 mt-5">
 
-        <div class="row mb-5 mt-5">
+                <div class="col-lg-8">
 
-            <div class="col-lg-8">
-                <figure>
-                    <a href="~/Assets/images/sq_img_6.jpg" data-fancybox="gallery"><img src="~/Assets/images/sq_img_6.jpg" alt="Image" class="img-fluid"></a>
-                </figure>
-                <figure>
-                    <a href="~/Assets/images/sq_img_2.jpg" data-fancybox="gallery"><img src="~/Assets/images/sq_img_2.jpg" alt="Image" class="img-fluid"></a>
-                </figure>
-                <figure>
-                    <a href="~/Assets/images/sq_img_7.jpg" data-fancybox="gallery"><img src="~/Assets/images/sq_img_7.jpg" alt="Image" class="img-fluid"></a>
-                </figure>
-                <figure class="mb-0">
-                    <a href="~/Assets/images/sq_img_8.jpg" data-fancybox="gallery"><img src="~/Assets/images/sq_img_8.jpg" alt="Image" class="img-fluid"></a>
-                </figure>
-            </div>
-
-            <div class="col-lg-4 ml-auto h-100 jm-sticky-top" id="workdetail">
-
-                <div class="mb-4">
-                    <h3 class="mb-4 h4 border-bottom">@worksList[workID].WorkName 作品詳情</h3>
-
-                    <p class="mb-0">@worksList[workID].WorkDescription</p>
+                    @*<figure>
+                        <a href="@Html.DisplayFor(modelItem => item.WorkPicture)" data-fancybox="gallery"><img src="@Html.DisplayFor(modelItem => item.WorkPicture)" alt="Image" class="img-fluid"></a>
+                    </figure>
+                    <figure>
+                        <a href="@Html.DisplayFor(modelItem => item.WorkPicture)" data-fancybox="gallery"><img src="@Html.DisplayFor(modelItem => item.WorkPicture)" alt="Image" class="img-fluid"></a>
+                    </figure>
+                    <figure>
+                       <a href="@Html.DisplayFor(modelItem => item.WorkPicture)" data-fancybox="gallery"><img src="@Html.DisplayFor(modelItem => item.WorkPicture)" alt="Image" class="img-fluid"></a>
+                    </figure>
+                    <figure class="mb-0">
+                        <a href="@Html.DisplayFor(modelItem => item.WorkPicture)" data-fancybox="gallery"><img src="@Html.DisplayFor(modelItem => item.WorkPicture)" alt="Image" class="img-fluid"></a>
+                    </figure>*@
+                   
                 </div>
 
-                <div class="row mb-4">
+                <div class="col-lg-4 ml-auto h-100 jm-sticky-top" id="workdetail">
+                    @foreach (var item in Model)
+                    {
+                        <div class="mb-4">
+                            <h3 class="mb-4 h4 border-bottom">@Html.DisplayFor(modelItem => item.WorkName)作品詳情</h3>
 
-                    <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
-                        <strong class="d-block text-black">客戶</strong>
-                        @worksList[workID].Client
-                    </div>
-                    <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
-                        <strong class="d-block text-black">職責</strong>
-                        @worksList[workID].Role
-                    </div>
-                    <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
-                        <strong class="d-block text-black">作品年份</strong>
-                        @worksList[workID].YearStarted
-                    </div>
-                    <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
-                        <strong class="d-block text-black mb-3">網站連結/Website URL</strong>
-                        <a href="@worksList[workID].WebsiteURL" class="btn btn-outline-primary border-width-2">前往網站/Visit Website</a>
-                    </div>
-                </div>
+                            <p class="mb-0">@item.WorkDescription</p>
+                        </div>
 
-                <div class="block__87154 mb-0">
+                        <div class="row mb-4">
 
-                    <blockquote>
-
-                        <div class="block__91147 d-flex align-items-center">
-                            <figure class="mr-4"><img src="@memberinfoList[MemberID].ProfilePicture" alt="Image" class="img-fluid"></figure>
-                            <div>
-                                <h3>@memberinfoList[MemberID].NickName </h3>
-                                <span class="designerType">接案身分: 工作室</span>
-                                <!-- <span class="position">Web Designer</span> -->
+                            <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
+                                <strong class="d-block text-black">客戶</strong>
+                                @item.Client
+                            </div>
+                            <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
+                                <strong class="d-block text-black">職責</strong>
+                                @item.Role
+                            </div>
+                            <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
+                                <strong class="d-block text-black">作品年份</strong>
+                                @item.YearStarted
+                            </div>
+                            <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
+                                <strong class="d-block text-black mb-3">網站連結/Website URL</strong>
+                                <a href="@item.WebsiteURL" class="btn btn-outline-primary border-width-2">前往網站/Visit Website</a>
                             </div>
                         </div>
 
-                        <p class="designerSkill">
-                            <span class="designerSkillTit">專長:</span>
-                            <a href="/talent?ca=dRL&amp;su=BJeM" target="_blank" title="EDM設計"># EDM設計</a>
-                            <a href="/talent?ca=dRL&amp;su=My0G" target="_blank" title="廣告Banner"># 廣告Banner</a>
-                            <a href="/talent?ca=L35&amp;su=ao6p" target="_blank" title="影片/音效後製剪輯"># 影片/音效後製剪輯</a>
-                        </p>
-                        <div class="contactp">
-                            <p><a href="@Url.Action("StudioHome", "Quotation")" class="btn btn-primary btn-md">回到工作室</a></p>
+
+                        <div class="block__87154 mb-0">
+
+                            <blockquote>
+
+                                <div class="block__91147 d-flex align-items-center">
+                                    <figure class="mr-4"><img src="@item.ProfilePicture" alt="Image" class="img-fluid"></figure>
+                                    <div>
+                                        <h3>@item.NickName </h3>
+                                        <span class="designerType">接案身分: @item.Identity</span>
+                                        <!-- <span class="position">Web Designer</span> -->
+                                    </div>
+                                </div>
+
+                                <p class="designerSkill">
+                                    <span class="designerSkillTit">專長:</span>
+                                    <a href="/talent?ca=dRL&amp;su=BJeM" target="_blank" title="EDM設計"># EDM設計</a>
+                                    <a href="/talent?ca=dRL&amp;su=My0G" target="_blank" title="廣告Banner"># 廣告Banner</a>
+                                    <a href="/talent?ca=L35&amp;su=ao6p" target="_blank" title="影片/音效後製剪輯"># 影片/音效後製剪輯</a>
+                                </p>
+                                <div class="contactp">
+                                    <p><a href="@Url.Action("StudioHome", "Quotation")" class="btn btn-primary btn-md">回到工作室</a></p>
+                                </div>
+                            </blockquote>
                         </div>
+
+                    }
                 </div>
-                </blockquote>
+
 
             </div>
-
-        </div>
+       
     </div>
     </div>
+            
 </section>
 <section class=" py-3 site-section mb-5">
     <div class="container">
@@ -121,7 +123,6 @@
             position: sticky;
             top: 180px;
         }
-     
     </style>
 
 }

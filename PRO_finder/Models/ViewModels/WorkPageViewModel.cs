@@ -10,46 +10,40 @@ namespace PRO_finder.Model.ViewModels
 {
     public class WorkPageViewModel
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public WorkPageViewModel()
-        {
-            WorkPictures = new HashSet<WorkPictures>();
-        }
-
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int WorkID { get; set; }
 
-        [Required]
-        [StringLength(10)]
         public string WorkName { get; set; }
 
-        [Required]
         public string WorkDescription { get; set; }
 
-        [Required]
-        [StringLength(10)]
         public string Client { get; set; }
 
-        [Required]
-        [StringLength(10)]
         public string Role { get; set; }
 
         public int YearStarted { get; set; }
 
-        public string WebsiteURLID { get; set; }
+        public string WebsiteURL { get; set; }
 
         public int SubCategoryID { get; set; }
 
-        public int? WorkAttachmentID { get; set; }
+        public int WorkAttachmentID { get; set; }
+
+        public int WorkPictureID { get; set; }
+
+        public int SortNumber { get; set; }
+
+        public string WorkPicture { get; set; }
+
+        public int MemberID { get; set; }
+
+        public byte[] ProfilePicture { get; set; }
+        public string NickName { get; set; }
+        public int TalentCategoryID { get; set; }
+
+        public int Identity { get; set; }
 
 
 
-        public virtual SubCategory SubCategory { get; set; }
 
-        public virtual WorkAttachment WorkAttachment { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WorkPictures> WorkPictures { get; set; }
     }
 }
