@@ -55,7 +55,7 @@ namespace PRO_finder.Service
                     Icon = Iconlist.Where(c => c.Categoryname == x.CategoryName.Replace(" ", "")).ToList(),
                     ID = x.CategoryID,
                     CategoryName = x.CategoryName,
-                    subCategories = SubcategoriesList.Where(y => y.CategoryID == x.CategoryID).ToList()
+                    SubCategories = SubcategoriesList.Where(y => y.CategoryID == x.CategoryID).ToList()
                 });
 
                 Home_IndexViewModel.Cases.Add(new CaseViewModel
