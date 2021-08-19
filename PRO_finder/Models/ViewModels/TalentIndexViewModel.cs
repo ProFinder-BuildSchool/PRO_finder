@@ -80,7 +80,6 @@ namespace PRO_finder.ViewModels
 
         public string Content { get; set; }
 
-        public virtual MemberInfo MemberInfo { get; set; }
         public List<string> ContentList { get; set; }
     }
 }

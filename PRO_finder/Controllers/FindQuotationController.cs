@@ -42,7 +42,7 @@ namespace PRO_finder.Controllers
             List<SelectListItem> locationlist = _caseService.getLocationList();
             ViewBag.locationList = locationlist;
 
-            return View("getLocationID", ViewBag.caseList);
+            return View("Index", ViewBag.caseList);
         }
         public ActionResult Detail()
         {

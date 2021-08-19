@@ -445,6 +445,7 @@
     <Content Include="Views\FindQuotation\getLocationID.cshtml" />
     <Content Include="Views\Shared\_CategoryMenuPartial.cshtml" />
     <Content Include="Views\Quotation\AllcardData.cshtml" />
+    <Content Include="Views\Talent\GetAllCategoryAndSubCategoryList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

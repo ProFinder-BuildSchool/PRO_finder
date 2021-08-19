@@ -43,12 +43,14 @@ namespace PRO_finder.Controllers
         {
             //var currentUserId = User.Identity.GetUserId();
             ViewBag.categoryList = _service.GetCategorySelectList();
+            
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateQuotation([Bind(Include = "QuotationID, QuotationTitle, Price, QuotationUnit, ExecuteDate, Description, SubCategoryID")] Quotation quotation, [Bind(Include ="WorkAttachmentLink")] WorkAttachment workAttachment)
         {
+            ViewBag.JsonAllCategory = _service.GetAllCatAndSubCat();
             if (ModelState.IsValid)
             {
                 _context.Quotation.Add(quotation);
@@ -57,11 +59,11 @@ namespace PRO_finder.Controllers
             }
             return View(quotation);
         }
-        [HttpPost]
-        public JsonResult GetSubcategoryList(int categoryID)
+        
+        public JsonResult GetAllCategoryAndSubCategoryList()
         {
             _context.Configuration.ProxyCreationEnabled = false;
-            List<SubCategory> subcategoryList = _context.SubCategory.Where(x => x.CategoryID == categoryID).ToList();
+            var subcategoryList = _service.GetAllCatAndSubCat();
             return Json(subcategoryList, JsonRequestBehavior.AllowGet);
         }
 
@@ -69,12 +71,15 @@ namespace PRO_finder.Controllers
         public ActionResult UploadMyWorks()
         {
             ViewBag.categoryList = _service.GetCategorySelectList();
+            ViewBag.JsonAllCategory = _service.GetAllCatAndSubCat();
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UploadMyWorks([Bind(Include ="WorkPictureID, WorkID, WorkPicture, SortNumber")] WorkPictures newWorkPictures, [Bind(Include ="WorkID, WorkName, SubCategoryID")] Works newWorksInfo)
+        public ActionResult UploadMyWorks(WorkPictures newWorkPictures, Works newWorksInfo)
         {
+            ViewBag.categoryList = _service.GetCategorySelectList();
+            ViewBag.JsonAllCategory = _service.GetAllCatAndSubCat();
             return View();
         }
         public ActionResult CaseSetting()
