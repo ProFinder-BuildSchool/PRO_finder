@@ -49,11 +49,11 @@ namespace PRO_finder.Controllers
             return View();
         }
 
-        public ActionResult WorksPage(int WorkID = 1)
-        {
-            List<WorkPageViewModel> pageData = _studioService.GetWorkPageData (WorkID);
-            return View(pageData);
-        }
+        //public ActionResult WorksPage(int WorkID = 1)
+        //{
+        //    //List<WorkPageViewModel> pageData = _studioService.GetWorkPageData (WorkID);
+        //    //return View(pageData);
+        //}
 
         
         public ActionResult AllcardData()
