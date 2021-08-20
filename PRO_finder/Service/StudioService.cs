@@ -10,6 +10,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Spatial;
 using PRO_finder.Repositories;
 using PRO_finder.Model.ViewModels;
+using System.Data.Entity;
 
 namespace PRO_finder.Service
 {
@@ -17,11 +18,36 @@ namespace PRO_finder.Service
         {
         public IEnumerable<WorkPageViewModel> GetWorkpicturesByWorkID(int WorkID)
         {
-            var WorkpictureRepository = new GeneralRepository(new WorkPageViewModel());
+            var WorkpictureRepository = new GeneralRepository(new ProFinderContext());
 
-            return from works in WorkpictureRepository.GetAll<Works>()
+           return from works in WorkpictureRepository.GetAll<Works>()
                    join workpictures in WorkpictureRepository.GetAll<WorkPictures>()
                    on works.WorkID equals workpictures.WorkID
+                   where works.WorkID == WorkID
+                   orderby workpictures.SortNumber
+                   select new WorkPageViewModel
+                   {
+                       WorkID = works.WorkID,
+                      //WorkName = works.WorkName,
+                      //WorkDescription = works.WorkDescription,
+                      //Client = works.Client,
+                      //Role = works.Role,
+                      //YearStarted = works.YearStarted,
+                      //WebsiteURL = works.WebsiteURL,
+                      //SubCategoryID = works.SubCategoryID,
+                       WorkPictureID = workpictures.WorkPictureID,
+                       SortNumber = workpictures.SortNumber,
+                       WorkPicture = workpictures.WorkPicture
+                   };
+        }
+
+        public IEnumerable<WorkPageViewModel> GetWorkInfoByWorkID(int WorkID)
+        {
+            var WorkinfoRepository = new GeneralRepository(new ProFinderContext());
+
+            return from works in WorkinfoRepository.GetAll<Works>()
+                   join memberinfo in WorkinfoRepository.GetAll<MemberInfo>()
+                   on works.MemberID equals memberinfo.MemberID
                    where works.WorkID == WorkID
                    select new WorkPageViewModel
                    {
@@ -32,12 +58,19 @@ namespace PRO_finder.Service
                        Role = works.Role,
                        YearStarted = works.YearStarted,
                        WebsiteURL = works.WebsiteURL,
-                      // SubCategoryID = works.SubCategoryID,
-                       WorkPictureID = workpictures.WorkPictureID,
-                       SortNumber = workpictures.SortNumber,
-                       WorkPicture = workpictures.WorkPicture
+                       SubCategoryID = works.SubCategoryID,
+                       MemberID=memberinfo.MemberID,
+                       //ProfilePicture=memberinfo.ProfilePicture,
+                       NickName=memberinfo.NickName,
+                       Identity=memberinfo.Identity
+
+                       //WorkPictureID = workpictures.WorkPictureID,
+                       //SortNumber = workpictures.SortNumber,
+                       //WorkPicture = workpictures.WorkPicture
                    };
         }
+
+
 
         //public IEnumerable<WorkPageViewModel> GetWorkdetailAndMemberinfoByWorkID(int WorkID)
         //{

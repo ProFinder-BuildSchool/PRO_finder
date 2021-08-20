@@ -9,7 +9,7 @@ using System.Web;
 
 namespace PRO_finder.Model.ViewModels
 {
-    public class WorkPageViewModel : DbContext
+    public class WorkPageViewModel 
     {
         public int WorkID { get; set; }
 
@@ -41,7 +41,12 @@ namespace PRO_finder.Model.ViewModels
         public string NickName { get; set; }
         public int TalentCategoryID { get; set; }
 
-        public int Identity { get; set; }
+        public int? Identity { get; set; }
+
+        public enum IdentityStatus
+        {
+            個人兼職, 專職SOHO, 工作室, 兼職上班族, 公司, 學生
+        }
 
 
 

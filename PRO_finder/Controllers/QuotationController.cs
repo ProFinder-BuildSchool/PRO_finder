@@ -57,13 +57,22 @@ namespace PRO_finder.Controllers
             return View();
         }
 
-        //public ActionResult WorksPage(int WorkID = 1)
-        //{
-        //    //List<WorkPageViewModel> pageData = _studioService.GetWorkPageData (WorkID);
-        //    //return View(pageData);
-        //}
+        public ActionResult WorksPage(int WorkID = 1)
+        {
+            
+            ViewBag.WorkInfoList = _studioService.GetWorkInfoByWorkID(WorkID);
+            ViewBag.WorkPictureList = _studioService.GetWorkpicturesByWorkID(WorkID);
+            //WorkPageViewModel WorkPictureVM = new WorkPageViewModel()
+            //{
+            //    WorkpictureRepository = _studioService.GetWorkpicturesByWorkID(WorkID)
+            //};
+            return View();
 
-        
+            //List<WorkPageViewModel> pageData = _studioService.GetWorkPageData (WorkID);
+            //return View(pageData);
+        }
+
+
         public ActionResult AllcardData()
         {
             List<QuotationViewModel> allCardData = _quotService.GetAllCardData();
