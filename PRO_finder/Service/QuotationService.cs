@@ -53,5 +53,22 @@ namespace PRO_finder.Service
 
             return quotationVM;
         }
+
+        //報價細節
+        public QuotationViewModel GetQuoDetailData(int MemId,int QuotationId)
+        {
+            //List<QuotationViewModel> QuoDetailList = _QuotationRepo.ReadQuoDetailData().ToList();
+            //if (QuoDetailList.Count() == 0)
+            //{
+            //    return null;
+            //}
+            //QuotationViewModel QuoDetailVM = (QuotationViewModel)QuoDetailList.Where(x => x.Id == id)
+            //    .Select(x => new QuotationViewModel
+            //    {
+
+            //    });
+
+            return null;
+        }
     }
 }
