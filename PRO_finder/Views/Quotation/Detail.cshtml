@@ -1,7 +1,8 @@
-﻿@model QuotationViewModel
-
+﻿@model QuotationDetailViewModel
 @{
+
     ViewBag.Title = "Detail";
+    IEnumerable <QuotationReview> quoreview = new QuotationService().GetQuoReview((int)(ViewBag.QID));
 
 }
 
@@ -25,7 +26,7 @@
                                     <div class="col-6 border p-2 d-inline-block mr-3 rounded">
                                         <!-- 報價細節封面 -->
                                         <figure>
-                                            <img src="@Model.Img" alt="Image"
+                                            <img src="Model.MainPicture" alt="Image"
                                                  class="img-fluid rounded">
                                         </figure>
                                         <!-- 作品集縮圖 -->
@@ -36,59 +37,28 @@
                                                     foreach (var pic in Model.OtherPicture)
                                                     {
                                                         <li class="mx-2">
-                                                            <a href="#otherpicture-@pic.OtherPicture" title="pre-Post">
+                                                            <a href="#otherpicture-@pic.SortNumber" title="pre-Post">
                                                                 <img width="71" height="36"
-                                                                     src="https://demo.colorlib.com/activello/wp-content/uploads/sites/57/2015/11/photo-1438109491414-7198515b166b-710x335.jpg"
+                                                                     src="@pic.OtherPicture"
                                                                      class="single-featured wp-post-image" alt=""
                                                                      sizes="(max-width: 710px) 25vw,178px" />
                                                             </a>
-
                                                         </li>
                                                     }
+                                                    foreach (var pic in Model.OtherPicture)
+                                                    {
+                                                        <figure id="otherpicture-@pic.SortNumber" class="mb-5">
+                                                            <img src="@pic.MainPicture" alt="Image" class="img-fluid rounded" sizes="(max-width: 710px) 25vw,178px" ;>
+                                                        </figure>
+                                                    }
                                                 }
-                                                <!--<li class="mx-2">
-                                                    <a href="#otherpicture-two" title="pre-Post">
-                                                        OtherPicture-SortNumber&OtherPicture
-                                                        <img width="71" height="36"
-                                                             src="https://demo.colorlib.com/activello/wp-content/uploads/sites/57/2015/11/photo-1438109491414-7198515b166b-710x335.jpg"
-                                                             class="single-featured wp-post-image" alt=""
-                                                             sizes="(max-width: 710px) 25vw,178px" />
-                                                    </a>
-                                                </li>
-                                                <li class="mx-2">
-                                                    <a href="#otherpicture-three" title="pre-Post">
-                                                        OtherPicture-SortNumber&OtherPicture
-                                                        <img width="71" height="36"
-                                                             src="https://demo.colorlib.com/activello/wp-content/uploads/sites/57/2015/11/photo-1438109491414-7198515b166b-710x335.jpg"
-                                                             class="single-featured wp-post-image" alt=""
-                                                             sizes="(max-width: 710px) 25vw,178px" />
-                                                    </a>
-                                                </li>
-                                                <li class="mx-2">
-                                                    <a href="#otherpicture-four" title="pre-Post">
-                                                        OtherPicture-SortNumber&OtherPicture
-                                                        <img width="71" height="36"
-                                                             src="https://demo.colorlib.com/activello/wp-content/uploads/sites/57/2015/11/photo-1438109491414-7198515b166b-710x335.jpg"
-                                                             class="single-featured wp-post-image" alt=""
-                                                             sizes="(max-width: 710px) 25vw,178px" />
-                                                    </a>
-                                                </li>
-                                                <li class="mx-2">
-                                                    <a href="#otherpicture-five" title="pre-Post">-->
-                                                <!--OtherPicture-SortNumber&OtherPicture-->
-                                                <!--<img width="71" height="36"
-                                                             src="https://demo.colorlib.com/activello/wp-content/uploads/sites/57/2015/11/photo-1438109491414-7198515b166b-710x335.jpg"
-                                                             class="single-featured wp-post-image" alt=""
-                                                             sizes="(max-width: 710px) 25vw,178px" />
-                                                    </a>
-                                                </li>-->
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div>
                                             <span class="text-danger">
-                                                #<a class="text-danger" href="#">@Model.CategoryId</a>
+                                                #<a class="text-danger" href="#">@Model.QuotationTitle</a>
                                             </span>
                                             <span class="m-2">
                                                 <span class="icon-clock-o mr-2"></span><span class="">@Model.UpdateDate 更新</span>
@@ -97,9 +67,18 @@
                                         <div class="mt-3">
                                             <h2>MemberInfo-CategoryID</h2>
                                             <p>服務報價：@Model.Price</p>
-                                            <p>服務評分：@Model.Evaluation</p>
+                                            <p>服務評分：
+                                                @{ if (Model.Evaluation == -1)
+                                                    {
+                                                        @("無評價")   
+                                                    }
+                                                    else 
+                                                    {
+                                                        @Model.Evaluation
+                                                    }
+                                                }</p>
                                             <p>執行時間：@Model.ExecuteDate</p>
-                                            <p>服務地點：@Model.MemInfo.LocationID</p>
+                                            <p>服務地點：@Model.LocationID</p>
                                             <a class="btn btn-danger" href="#">站內詢問</a>
                                         </div>
                                     </div>
@@ -123,7 +102,7 @@
                                     <span class="icon-align-left mr-3"></span>服務內容
                                 </h3>
                                 <p>
-                                    @Model.MemInfo.Description
+                                    @Model.Description
                                 </p>
                             </div>
                             <!-- 其他服務 -->
@@ -164,39 +143,22 @@
                                     {
                                         foreach (var pic in Model.OtherPicture)
                                         {
-                                            <figure id="otherpicture-@pic.OtherPicture" class="mb-5">
-                                                <img src="@pic.MainPicture" alt="Image"
-                                                     class="img-fluid rounded">
+                                            <figure id="otherpicture-@pic.SortNumber" class="mb-5">
+                                                <img src="@pic.MainPicture" alt="Image" class="img-fluid rounded" sizes="(max-width: 710px) 25vw,178px";>
                                             </figure>
                                         }
                                     }
-                                    @*<figure id="otherpicture-two" class="mb-5">
-                                            <img src="~/Assets/images/job_single_img_1.jpg" alt="Image"
-                                                 class="img-fluid rounded">
-                                        </figure>
-                                        <figure id="otherpicture-three" class="mb-5">
-                                            <img src="~/Assets/images/job_single_img_1.jpg" alt="Image"
-                                                 class="img-fluid rounded">
-                                        </figure>
-                                        <figure id="otherpicture-four" class="mb-5">
-                                            <img src="~/Assets/images/job_single_img_1.jpg" alt="Image"
-                                                 class="img-fluid rounded">
-                                        </figure>
-                                        <figure id="otherpicture-five" class="mb-5">
-                                            <img src="~/Assets/images/job_single_img_1.jpg" alt="Image"
-                                                 class="img-fluid rounded">
-                                        </figure>*@
                                 </div>
                             </div>
                         </div>
                         <!-- 顯示評價 (如果評價太多要有分頁)-->
                         <div class="comment-content" style="display:none;">
                             <h3 class="h5 d-flex align-items-center mb-4 text-primary">
-                                <span class="icon-turned_in mr-3"></span>服務評價 @((int)Model.Evaluation).Count() 則
+                                <span class="icon-turned_in mr-3"></span>服務評價 @quoreview.Count() 則
                             </h3>
                             <div class="col-lg-8 mb-5">
                                 <div class="pt-3">
-                                    @if (Model.Evaluation == 0)
+                                    @if (quoreview.Count() == 0)
                                     {
                                         <p>暫無評價</p>
                                     }
@@ -208,13 +170,13 @@
                                                     <img src="Order-DealedTalentMemberID-ProfilePicture" alt="Image placeholder">
                                                 </div>
                                                 <div class="comment-body">
-                                                    <h3>Jacob Smith</h3>
-                                                    <div class="meta">Order-SubmitDate</div>
+                                                    @*<h3>@ViewBag.QuoReview.NickName</h3>
+                                                    <div class="meta">@ViewBag.QuoReview.SubmitDate</div>
                                                     <p>
-                                                        Order-CaseMessage
-                                                    </p>
+                                                        @ViewBag.QuoReview.CaseMessage
+                                                    </p>*@
                                                 </div>
-                                            </li>
+/                                            </li>
                                         </ul>
                                     }
                                 </div>

@@ -8,11 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using PRO_finder.Models;
-using PRO_finder.Models.ViewModels;
 using PRO_finder.Repositories;
-using PRO_finder.Service;
-using PRO_finder.Models.DBModel;
 using PRO_finder.Model.ViewModels;
+using Newtonsoft.Json;
 
 namespace PRO_finder.Controllers
 {
@@ -21,17 +19,12 @@ namespace PRO_finder.Controllers
     {
         private readonly QuotationService _quotService;
         private readonly StudioService _studioService;
-        private readonly MemInfoService _memInfoService;
 
         public QuotationController()
         {
-        
             _quotService = new QuotationService();
             _studioService = new StudioService();
-            //_memInfoService = new MemInfoService();
         }
-
-        //ProFinderModels ctx = new ProFinderModels();
         // GET: Quotation
         public ActionResult Index(int CategoryId = 0)
         {
@@ -43,13 +36,11 @@ namespace PRO_finder.Controllers
 
             return View(pageData);
         }
-        public ActionResult Detail(int Memberid)
+        public ActionResult Detail(int Memberid,int Quotationid)
         {
-            QuotationViewModel MemInfoVM = new QuotationViewModel() {
-                MemInfo = _memInfoService.GetMemInfoData(Memberid)
-            };
-            //ViewBag.QuoDetailTitle = _quotService.GetQuoDetailData(id);
-            return View(MemInfoVM);
+            QuotationDetailViewModel QuoDetailVM = _quotService.GetQuoDetailData(Memberid, Quotationid);
+            ViewBag.QID = Quotationid;
+            return View(QuoDetailVM);
         }
 
         public ActionResult StudioHome()

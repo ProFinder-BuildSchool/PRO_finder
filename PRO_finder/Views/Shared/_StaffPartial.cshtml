@@ -1,18 +1,18 @@
-﻿@model QuotationViewModel
+﻿@model QuotationDetailViewModel
 
 <div class="col-lg-4 sidebar pl-lg-5 position-relative">
     <div class="sidebar-box" style="position:sticky;top:155px;z-index:2;">
         <img src="~/Assets/images/person_1.jpg" alt="Image placeholder"
              class="img-fluid mb-4 w-50 rounded-circle">
-        <h3>@Model.MemInfo.NickName</h3>
+        <h3>@Model.NickName</h3>
         <div class="d-flex flex-column">
-            <span class="m-2"><span class="icon-briefcase mr-2"></span>接案身分: @Model.MemInfo.Identity</span>
+            <span class="m-2"><span class="icon-briefcase mr-2"></span>接案身分: @Model.Identity</span>
             <span class="m-2">
                 <span class="icon-clock-o mr-2"></span><span class="text-primary">
-                    上線時間:@Model.MemInfo.LogInTime
+                    上線時間:@Model.LogInTime
                 </span>
             </span>
-            <span class="m-2"><span class="icon-room mr-2"></span>接案地點: @Model.MemInfo.LocationID</span>
+            <span class="m-2"><span class="icon-room mr-2"></span>接案地點: @Model.LocationID</span>
             <a class="btn btn-default" data-toggle="collapse" href="#multiCollapseExample1"
                role="button" aria-expanded="false" aria-controls="multiCollapseExample1">看更多↓</a>
         </div>
@@ -25,7 +25,7 @@
                 <p class="designerInvited">受邀次數: {{11}}</p>
                 <p class="designerSkill">
                     <span class="designerSkillTit">專長:</span>
-                    <a href=""># @Model.MemInfo.SubCategoryID</a>
+                    <a href=""># @Model.SubcategoryName</a>
                 </p>
                 <div class="author-social mb-4">
                     <a href="#"><span class="icon-facebook"></span></a>
