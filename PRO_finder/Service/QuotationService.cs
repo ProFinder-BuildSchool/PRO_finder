@@ -11,28 +11,50 @@ namespace PRO_finder.Service
 {
     public class QuotationService
     {
-        private readonly QuotationRepository _QuotationRepo;
+        private readonly GeneralRepository _ctx;
 
         public QuotationService()
         {
-            _QuotationRepo = new QuotationRepository();
+            _ctx = new GeneralRepository(new ProFinderContext());
         }
 
         public List<QuotationViewModel> GetCategoryPageData(int categoryId)
         {
-            List<QuotationViewModel> quotationVM = _QuotationRepo.ReadQuotationData().Where(x => x.CategoryId == categoryId).ToList();
 
+            var quotationVM = (from q in _ctx.GetAll<Quotation>()
+                               join o in _ctx.GetAll<OtherPicture>() on q.OtherPictureID equals o.OtherPictureID
+                               join s in _ctx.GetAll<SubCategory>() on q.SubCategoryID equals s.SubCategoryID
+                               join m in _ctx.GetAll<MemberInfo>() on q.MemberID equals m.MemberID
+                               join l in _ctx.GetAll<Locations>() on m.LocationID equals l.LocationID
+                               join c in _ctx.GetAll<Category>() on s.CategoryID equals c.CategoryID
+                               select new QuotationViewModel
+                               {
+                                   Id = q.QuotationID,
+                                   CategoryName = c.CategoryName,
+                                   Price = (q.Price).ToString(),
+                                   Unit = q.QuotationUnit,
+                                   StudioName = m.NickName,
+                                   Img = o.MainPicture,
+                                   CategoryId = s.CategoryID,
+                                   SubcategoryId = s.SubCategoryID,
+                                   SubcategoryName = s.SubCategoryName,
+                                   Location = l.LocationName
+
+                               }
+                               );
             if (quotationVM.Count() == 0)
             {
                 return null;
             }
 
-            return quotationVM;
+            return quotationVM.Where(x => x.CategoryId == categoryId).ToList(); ;
         }
+
 
         public List<SubCategory> GetsubcatrgotyName(int categoryId)
         {
-            List<SubCategory> quotationVM = _QuotationRepo.ReadSubCateData().Where(x => x.CategoryID == categoryId).ToList();
+            List<SubCategory> subCateList = _ctx.GetAll<SubCategory>().ToList();
+            List<SubCategory> quotationVM = subCateList.Where(x => x.CategoryID == categoryId).ToList();
 
             if (quotationVM.Count() == 0)
             {
@@ -44,14 +66,34 @@ namespace PRO_finder.Service
 
         public List<QuotationViewModel> GetAllCardData()
         {
-            List<QuotationViewModel> quotationVM = _QuotationRepo.ReadQuotationData().ToList();
+            var quotationVM = (from q in _ctx.GetAll<Quotation>()
+                               join o in _ctx.GetAll<OtherPicture>() on q.OtherPictureID equals o.OtherPictureID
+                               join s in _ctx.GetAll<SubCategory>() on q.SubCategoryID equals s.SubCategoryID
+                               join m in _ctx.GetAll<MemberInfo>() on q.MemberID equals m.MemberID
+                               join l in _ctx.GetAll<Locations>() on m.LocationID equals l.LocationID
+                               join c in _ctx.GetAll<Category>() on s.CategoryID equals c.CategoryID
+                               select new QuotationViewModel
+                               {
+                                   Id = q.QuotationID,
+                                   CategoryName = c.CategoryName,
+                                   Price = (q.Price).ToString(),
+                                   Unit = q.QuotationUnit,
+                                   StudioName = m.NickName,
+                                   Img = o.MainPicture,
+                                   CategoryId = s.CategoryID,
+                                   SubcategoryId = s.SubCategoryID,
+                                   SubcategoryName = s.SubCategoryName,
+                                   Location = l.LocationName
+
+                               }
+                               );
 
             if (quotationVM.Count() == 0)
             {
                 return null;
             }
 
-            return quotationVM;
+            return quotationVM.ToList();
         }
     }
 }

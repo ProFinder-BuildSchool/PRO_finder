@@ -16,6 +16,7 @@ namespace PRO_finder.Models.ViewModels
         public int Unit { get; set; }
         public string StudioName { get; set; }
         public string Img { get; set; }
+        public string Location { get; set; }
 
 
     }
