@@ -16,12 +16,12 @@ using PRO_finder.Models.ViewModels;
 namespace PRO_finder.Service
 {
     public class StudioService
-        {
+    {
         public IEnumerable<WorkPageViewModel> GetWorkpicturesByWorkID(int WorkID)
         {
             var WorkpictureRepository = new GeneralRepository(new ProFinderContext());
 
-           return from works in WorkpictureRepository.GetAll<Works>()
+            return from works in WorkpictureRepository.GetAll<Works>()
                    join workpictures in WorkpictureRepository.GetAll<WorkPictures>()
                    on works.WorkID equals workpictures.WorkID
                    where works.WorkID == WorkID
@@ -29,13 +29,13 @@ namespace PRO_finder.Service
                    select new WorkPageViewModel
                    {
                        WorkID = works.WorkID,
-                      //WorkName = works.WorkName,
-                      //WorkDescription = works.WorkDescription,
-                      //Client = works.Client,
-                      //Role = works.Role,
-                      //YearStarted = works.YearStarted,
-                      //WebsiteURL = works.WebsiteURL,
-                      //SubCategoryID = works.SubCategoryID,
+                       //WorkName = works.WorkName,
+                       //WorkDescription = works.WorkDescription,
+                       //Client = works.Client,
+                       //Role = works.Role,
+                       //YearStarted = works.YearStarted,
+                       //WebsiteURL = works.WebsiteURL,
+                       //SubCategoryID = works.SubCategoryID,
                        WorkPictureID = workpictures.WorkPictureID,
                        SortNumber = workpictures.SortNumber,
                        WorkPicture = workpictures.WorkPicture
@@ -72,7 +72,7 @@ namespace PRO_finder.Service
             var StudioinfoRepository = new GeneralRepository(new ProFinderContext());
 
             return from mermberinfo in StudioinfoRepository.GetAll<MemberInfo>()
-                   
+
                    select new StudioViewModel
                    {
                        MemberID = mermberinfo.MemberID,
@@ -96,8 +96,8 @@ namespace PRO_finder.Service
                    where works.MemberID == MemberID
                    join workpictures in StudioworkRepository.GetAll<WorkPictures>()
                    on works.WorkID equals workpictures.WorkID
-                   where workpictures.SortNumber==1
-                  
+                   where workpictures.SortNumber == 1
+
                    select new StudioViewModel
                    {
                        WorkID = works.WorkID,
@@ -141,6 +141,7 @@ namespace PRO_finder.Service
 
         //評價
     }
+}
 
 
         //public IEnumerable<WorkPageViewModel> GetWorkdetailAndMemberinfoByWorkID(int WorkID)
@@ -199,5 +200,4 @@ namespace PRO_finder.Service
 
         //    return quotationVM;
         //}
-    }
-}
+    
