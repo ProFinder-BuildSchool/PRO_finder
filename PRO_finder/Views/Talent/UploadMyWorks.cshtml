@@ -115,7 +115,7 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-12 text-center">
-                    <input value="儲存" class="btn btn-primary" id="submit" />
+                    <input value="儲存服務" class="btn btn-primary" id="submit" />
                 </div>
             </div>
         </div>
@@ -250,7 +250,7 @@
     {
     <script src="~/Assets/js/quill.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js" integrity="sha512-zYXldzJsDrNKV+odAwFYiDXV2Cy37cwizT+NkuiPGsa9X1dOz04eHvUWVuxaJ299GvcJT31ug2zO4itXBjFx4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
 
        
@@ -303,23 +303,24 @@
 
 
         //上傳圖檔呈現
+        let countImg = 0;
         let displayUpload = $g("#displayUpload");
         $g("input#newWorks").addEventListener("change", function () {
             let files = Array.from(this.files);
-            let count = 0;
+            
             files.forEach(file => {
 
                 let div = document.createElement("div");
                 let span = document.createElement("span");
                 let img = document.createElement("img");
                 div.classList.add("col-12");
-                //div.classList.add("col-md-6");
-                //div.classList.add("col-lg-4");
+                div.classList.add("col-md-6");
+                div.classList.add("col-lg-4");
                 span.innerHTML = "<i class='fas fa-trash-alt'></i>";
                 span.classList.add("btn");
                 span.classList.add("btn-outline-danger");
-                span.dataset.count = count;
-                div.setAttribute("id", `count${count}`);
+                span.dataset.count = countImg;
+                div.setAttribute("id", `count${countImg}`);
                 img.src = URL.createObjectURL(file);
                 span.addEventListener("click", function () {
                     let displayUpload = $g("#displayUpload");
@@ -330,8 +331,13 @@
                 div.appendChild(span);
                 div.appendChild(img);
                 displayUpload.appendChild(div);
-                count++;
+                countImg++;
             });
+        });
+        //sortable
+        const displayArea = $g("#displayUpload");
+        new Sortable(displayArea, {
+            animation: 200
         });
 
         //imgur 圖檔上傳

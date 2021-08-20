@@ -121,7 +121,7 @@
     <link href="~/Assets/css/quill.snow.css" rel="stylesheet" />
     <style>
         h4 {
-            color: #515A5A;
+            color: #89ba16;
             font-weight: 900;
         }
 
@@ -204,6 +204,7 @@
 @section endJS{
     <script src="~/Assets/js/quill.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js" integrity="sha512-zYXldzJsDrNKV+odAwFYiDXV2Cy37cwizT+NkuiPGsa9X1dOz04eHvUWVuxaJ299GvcJT31ug2zO4itXBjFx4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
 
         //服務類別轉換
@@ -229,6 +230,7 @@
                 };
             });
         });
+
         //quill 富文本編輯器
         var toolbarOptions = [
             ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -254,7 +256,7 @@
         $g('.ql-toolbar.ql-snow').style.setProperty('border-radius', '.25rem .25rem 0 0');
         $g('#editor').style.setProperty('border-radius', '0 0 .25rem .25rem');
         $g('#editor').style.setProperty('min-height', '200px');
-        
+
 
         //imgur 圖檔上傳
         const id = "c20b85a63157827";
@@ -279,33 +281,47 @@
         });
 
         //上傳圖檔呈現
+        let count = 0;
         let displayUpload = $g("#displayUpload");
         $g("input#upload").addEventListener("change", function () {
             let files = Array.from(this.files);
-            let count = 0;
+
             files.forEach(file => {
 
                 let div = document.createElement("div");
                 let span = document.createElement("span");
-                let img = document.createElement("img");
-                div.classList.add("col-4");
+                let img = new Image();
+                div.classList.add("col-12");
+                div.classList.add("col-md-6");
+                div.classList.add("col-lg-4");
+                img.src = URL.createObjectURL(file);
                 span.innerHTML = "<i class='fas fa-trash-alt'></i>";
                 span.classList.add("btn");
                 span.classList.add("btn-outline-danger");
                 span.dataset.count = count;
                 div.setAttribute("id", `count${count}`);
-                img.src = URL.createObjectURL(file);
+                div.setAttribute("draggable", true);
+
+
+                //刪除設定
                 span.addEventListener("click", function () {
                     let displayUpload = $g("#displayUpload");
                     let theDiv = $g(`div#count${this.dataset.count}`);
                     displayUpload.removeChild(theDiv);
                     console.log(theDiv);
                 });
+
                 div.appendChild(span);
                 div.appendChild(img);
                 displayUpload.appendChild(div);
                 count++;
             });
+        });
+
+        //sortable
+        const displayArea = $g("#displayUpload");
+        new Sortable(displayArea, {
+            animation:200
         });
 
 
