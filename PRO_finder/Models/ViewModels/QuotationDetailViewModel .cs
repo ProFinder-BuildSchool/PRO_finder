@@ -7,7 +7,7 @@ using System.Web;
 namespace PRO_finder.Models.ViewModels
 {
 
-    public class QuotationViewModel
+    public class QuotationDetailViewModel
     {
         public int Id { get; set; }
         public int CategoryId { get; set; }

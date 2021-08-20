@@ -19,9 +19,5 @@ namespace PRO_finder.Models.DBModel
         public DateTime InvitedDate { get; set; }
 
         public int ReplyStatus { get; set; }
-
-        public virtual Case Case { get; set; }
-
-        public virtual Case Case1 { get; set; }
     }
 }

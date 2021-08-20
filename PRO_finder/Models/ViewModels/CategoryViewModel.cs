@@ -13,12 +13,14 @@ namespace PRO_finder.ViewModels
         //public List<Cate> Categories { get; set; }
         public List<Icon> Icon { get; set; }
 
-        public List<Models.DBModel.SubCategory> subCategories { get; set; }
+        public List<Models.DBModel.SubCategory> SubCategories { get; set; }
 
         public int ID { get; set; }
         public string CategoryName { get; set; }
 
+        public int CategoryID;
 
+        public string JsonSubCategoryList;
     }
 
     public class Icon 

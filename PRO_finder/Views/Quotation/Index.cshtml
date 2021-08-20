@@ -241,7 +241,7 @@
                         </div>
                     }
 
-                @*<template id="testcatd">
+                <template id="testcatd">
                     <div class="col-lg-3 col-md-6">
                         <div class="listing__item">
                             <div class="listing__item__pic">
@@ -273,7 +273,7 @@
                             </div>
                         </div>
                     </div>
-                </template>*@
+                </template>
 
                 </div>
                 <div class="row pagination-wrap mt-3">
@@ -870,14 +870,15 @@
         let card = document.querySelector('#testcatd');
 
         let test = '';
-        //let cloneContent = card.content.cloneNode(true);
+        let cloneContent = card.content.cloneNode(true);
         window.onload = function () {
+            AllCardArray = 
             //Axios
             axios.get('https://localhost:44375/Quotation/AllcardData')
                 .then(res => {
                     AllCardArray = res.data;
                     console.log(AllCardArray)
-                    /*findcard();*/
+                    findcard();
                 })
                 
                 .catch(err => {
@@ -933,18 +934,18 @@
             addcard();
         }
 
-        //function addcard() {
-        //    test.forEach(function (item, index) {
+        function addcard() {
+            test.forEach(function (item, index) {
                 
-        //        cloneContent.querySelector('h5').innerText = item.SubcategoryName;
-        //        cloneContent.querySelector('img').src = item.Img;
-        //        cloneContent.querySelector('.studioName').innerText = item.StudioName;
-        //        cloneContent.querySelector('.price').innerText = item.Price;
-        //        cloneContent.querySelector('.test1').innerText = item.CategoryId;
-        //        cloneContent.querySelector('.test2').innerText = item.SubcategoryId;
-        //        document.querySelector('.item_zone').append(cloneContent);
-        //    })
-        //}
+                cloneContent.querySelector('h5').innerText = item.SubcategoryName;
+                cloneContent.querySelector('img').src = item.Img;
+                cloneContent.querySelector('.studioName').innerText = item.StudioName;
+                cloneContent.querySelector('.price').innerText = item.Price;
+                cloneContent.querySelector('.test1').innerText = item.CategoryId;
+                cloneContent.querySelector('.test2').innerText = item.SubcategoryId;
+                document.querySelector('.item_zone').append(cloneContent);
+            })
+        }
 
     </script>
 }

@@ -38,6 +38,10 @@ namespace PRO_finder.Models.DBModel
 
         public int? WorkAttachmentID { get; set; }
 
+        public int? MemberID { get; set; }
+
+        public virtual MemberInfo MemberInfo { get; set; }
+
         public virtual SubCategory SubCategory { get; set; }
 
         public virtual WorkAttachment WorkAttachment { get; set; }
