@@ -14,7 +14,5 @@ namespace PRO_finder.Models.DBModel
         public int CaseID { get; set; }
 
         public string CaseRefImg { get; set; }
-
-        public virtual Case Case { get; set; }
     }
 }
