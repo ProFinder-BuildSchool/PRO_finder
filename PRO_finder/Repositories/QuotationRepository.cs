@@ -54,6 +54,12 @@ namespace PRO_finder.Repositories
             return subCateList;
         }
 
+        public IEnumerable<Quotation> ReadQuoDetailData()
+        {
+            var QuoDetailList = _ctx.Quotation.ToList();
+            return QuoDetailList;
+        }
+
         //public IEnumerable<QuotationViewModel> ReadCategoryData(int CategoryId)
         //{
         //    var quotationList = (from q in _ctx.Quotation

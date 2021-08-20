@@ -227,6 +227,9 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\CaseViewModel.cs" />
     <Compile Include="Models\ViewModels\Home_IndexViewModel.cs" />
+    <Compile Include="Models\ViewModels\MemberInfoViewModel.cs" />
+    <Compile Include="Models\ViewModels\OtherPictureViewModel.cs" />
+    <Compile Include="Models\ViewModels\QuotationDetailViewModel .cs" />
     <Compile Include="Models\ViewModels\QuotationViewModel.cs" />
     <Compile Include="Models\ViewModels\SubCategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\Workdetail.cs" />
@@ -238,11 +241,14 @@
     <Compile Include="Repositories\QuotationRepository.cs" />
     <Compile Include="Repositories\SubCategoryRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Repositories\MemInfoRepository.cs" />
+    <Compile Include="Repositories\QuotationRepository.cs" />
     <Compile Include="Repositories\WorkPageRepository.cs" />
     <Compile Include="Service\CaseService.cs" />
     <Compile Include="Service\Home_IndexService .cs" />
     <Compile Include="Service\CategoryService.cs" />
     <Compile Include="Service\MemberinfoService.cs" />
+    <Compile Include="Service\MemInfoService.cs" />
     <Compile Include="Service\QuotationService.cs" />
     <Compile Include="Service\WorkPictureService.cs" />
     <Compile Include="Service\StudioService.cs" />
@@ -469,6 +475,7 @@
     <Content Include="Views\Home\Index2.cshtml" />
     <Content Include="Views\FindQuotation\IndexJson.cshtml" />
     <Content Include="Views\Talent\GetAllCategoryAndSubCategoryList.cshtml" />
+    <Content Include="Views\Shared\_StaffPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

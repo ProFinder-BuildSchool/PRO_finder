@@ -1,4 +1,6 @@
-﻿using PRO_finder.Models.DBModel;
+﻿using PRO_finder.Models.ViewModels;
+using PRO_finder.Service;
+using PRO_finder.Models.DBModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +21,14 @@ namespace PRO_finder.Controllers
     {
         private readonly QuotationService _quotService;
         private readonly StudioService _studioService;
+        private readonly MemInfoService _memInfoService;
 
         public QuotationController()
         {
         
             _quotService = new QuotationService();
             _studioService = new StudioService();
+            //_memInfoService = new MemInfoService();
         }
 
         //ProFinderModels ctx = new ProFinderModels();
@@ -39,9 +43,13 @@ namespace PRO_finder.Controllers
 
             return View(pageData);
         }
-        public ActionResult Detail()
+        public ActionResult Detail(int Memberid)
         {
-            return View();
+            QuotationViewModel MemInfoVM = new QuotationViewModel() {
+                MemInfo = _memInfoService.GetMemInfoData(Memberid)
+            };
+            //ViewBag.QuoDetailTitle = _quotService.GetQuoDetailData(id);
+            return View(MemInfoVM);
         }
 
         public ActionResult StudioHome()
