@@ -8,18 +8,26 @@
 {
     @Html.AntiForgeryToken()
     <div class="myContainer">
-        <h4 class="text-dark fw-bold mb-2">接案設定</h4>
+        <h5>接案設定</h5>
         <hr>
         <div class="form-horizontal">
             <div class="form-group">
-                <label for="CaseStatus" class="col-md-12 control-label">接案狀態</label>
-                <div class="col-md-12">
-                    <input type="radio" name="CaseStatus" value="open" id="CaseStatus">
-                    <label for="CaseStatus" style="font-size: 14px;">開啓</label><br>
-                    <input type="radio" name="CaseStatus" value="open-without-info" id="CaseStatus">
-                    <label for="CaseStatus" style="font-size: 14px;">開啟，隱藏聯絡資訊【建議選項】</label><br>
-                    <input type="radio" name="CaseStatus" value="close" id="CaseStatus">
-                    <label for="CaseStatus" style="font-size: 14px;">關閉</label><br>
+                <p for="CaseStatus" class="col-md-12 text-black font-weight-bold">接案狀態</p>
+                <div class="container">
+                    <div class="row caseStatus">
+                        <div class="col-12 col-md-auto">
+                            <input type="radio" name="Status" value="open" id="CaseStatus-open">
+                            <label for="CaseStatus" style="font-size: 14px;" class="d-inline">開啓</label>
+                        </div>
+                        <div class="col-12 col-md-auto">
+                            <input type="radio" name="Status" value="open-without-info" id="CaseStatus-openRestricted">
+                            <label for="CaseStatus" style="font-size: 14px;" class="d-inline">開啟，隱藏聯絡資訊【建議】</label>
+                        </div>
+                        <div class="col-12 col-md-auto">
+                            <input type="radio" name="Status" value="close" id="CaseStatus">
+                            <label for="CaseStatus" style="font-size: 14px;">關閉</label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <hr />
@@ -29,25 +37,52 @@
                     <input type="text" class="form-control text-box single-line" id="NickName" placeholder="tasker" name="NickName">
                 </div>
             </div>
-
+            <hr />
             <div class="form-group">
-                <label class="col-md-12 control-label" for="Identity">接案身份</label>
-                <div class="col-md-12">
-                    <input type="radio" name="Identity" value="0" id="Identity">
-                    <label for="individual" style="font-size: 14px;">個人兼職</label>
-                    <input type="radio" name="Identity" value="1" id="Identity">
-                    <label for="solo" style="font-size: 14px;">專職SOHO</label>
-                    <input type="radio" name="Identity" value="2" id="Identity">
-                    <label for="workhouse" style="font-size: 14px;">工作室</label>
-                    <input type="radio" name="Identity" value="3" id="Identity">
-                    <label for="part-time" style="font-size: 14px;">兼職上班族</label>
-                    <input type="radio" name="Identity" value="4" id="Identity">
-                    <label for="close" style="font-size: 14px;">公司</label>
-                    <input type="radio" name="Identity" value="5" id="Identity">
-                    <label for="student" style="font-size: 14px;">學生</label>
+                <p class="col-md-12 text-black font-weight-bold" for="Identity">接案身份</p>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-auto">
+                            <input type="radio" name="Identity" value="0" id="Identity-individual">
+                            <label for="individual" style="font-size: 14px;">個人兼職</label>
+                        </div>
+                        <div class="col-12 col-md-auto">
+                            <input type="radio" name="Identity" value="1" id="Identity-soho">
+                            <label for="soho" style="font-size: 14px;">專職SOHO</label>
+                        </div>
+                        <div class="col-12 col-md-auto">
+                            <input type="radio" name="Identity" value="2" id="Identity-workhouse">
+                            <label for="workhouse" style="font-size: 14px;">工作室</label>
+                        </div>
+                        <div class="col-12 col-md-auto">
+                            <input type="radio" name="Identity" value="3" id="Identity-parttime">
+                            <label for="part-time" style="font-size: 14px;">兼職上班族</label>
+                        </div>
+                        <div class="col-12 col-md-auto">
+                            <input type="radio" name="Identity" value="4" id="Identity-company">
+                            <label for="company" style="font-size: 14px;">公司</label>
+                        </div>
+                        <div class="col-12 col-md-auto">
+                            <input type="radio" name="Identity" value="5" id="Identity-student">
+                            <label for="student" style="font-size: 14px;">學生</label>
+                        </div>
+                    </div>
                 </div>
             </div>
-
+            <hr />
+            <div class="form-group">
+                <label for="job-location" class="col-md-12 control-label">居住地</label>
+                <div class="col-md-12">
+                    <div>居住地下拉式選單</div>
+                </div>
+            </div>
+            <hr />
+            <div class="form-group">
+                <label for="Cellphone" class="col-md-12 control-label">行動電話</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="Cellphone" placeholder="Product Designer" name="Cellphone">
+                </div>
+            </div>
 
             <div class="form-group">
                 <label for="Email" class="col-md-12 control-label">Email</label>
@@ -55,25 +90,53 @@
                     <input type="text" class="form-control" id="Email" placeholder="you@yourdomain.com" name="Email">
                 </div>
             </div>
+            <hr />
             <div class="form-group">
-                <label for="Cellphone" class="col-md-12 control-label">行動電話</label>
+                <label for="TalentCategoryID" class="col-md-12 control-label">擅長軟體工具</label>
                 <div class="col-md-12">
-                    <input type="text" class="form-control" id="Cellphone" placeholder="Product Designer" name="Cellphone">
+                    <div>擅長軟體工具的下拉式選單</div>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="job-location" class="col-md-12 control-label">居住地</label>
-                <div class="col-md-12">
-                    <input type="text" class="form-control" id="job-location" placeholder="e.g. 新北市">
-                </div>
+        </div>
+    </div>
+    <div class="myContainer mt-3">
+        <h5>理想接案條件</h5>
+        <hr />
+        <div class="form-group">
+            <label for="LocationID" class="col-md-12 control-label">理想接案城市</label>
+            <div class="col-md-12">
+                <div>理想接案城市的下拉式選單</div>
             </div>
-
-            <div class="form-group">
-                <label for="job-description">Job Description</label>
-                <div class="editor" id="editor-1">
-                    <p>Write Job Description!</p>
-                </div>
+        </div>
+        <div class="form-group">
+            <label for="SubCategoryID" class="col-md-12 control-label">理想接案類別</label>
+            <div class="col-md-12">
+                <div>理想接案類別的下拉式選單</div>
             </div>
+        </div>
+    </div>
+    <div class="myContainer mt-3">
+        <h5>接案經歷</h5>
+        <hr />
+        <div class="form-group">
+            <label for="SubCategoryID" class="col-md-12 control-label">理想接案類別</label>
+            <div class="col-md-12">
+                <div>接案經歷的下拉式選單</div>
+            </div>
+        </div>
+    </div>
+    <div class="myContainer mt-3">
+        <h5>接案描述</h5>
+        <hr />
+        <div class="form-group">
+            <div id="editor">
+                <p>Write Job Description!</p>
+            </div>
+        </div>
+    </div>
+    <div class="form-group mt-3">
+        <div class="col-md-offset-2 col-md-12 text-center">
+            <input value="儲存設定" class="btn btn-primary" id="submit" />
         </div>
     </div>
 }
@@ -81,17 +144,18 @@
     {
     <link href="~/Assets/css/quill.snow.css" rel="stylesheet" />
     <style>
-            h4 {
-                color: #515A5A;
-                font-weight: 900;
-            }
+        h5 {
+            color: #89ba16;
+            font-weight: 900;
+            padding: 0 15px;
+        }
 
             .myContainer {
                 @*max-width: 510px;
                 *@ margin: auto;
                 border-radius: 10px;
                 box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-                padding: 30px;
+                padding: 25px;
             }
 
             hr {
@@ -101,12 +165,42 @@
             label {
                 font-weight: 700;
             }
+
     </style>
 }
 @section endJS{
     <script src="~/Assets/js/quill.min.js"></script>
     <script>
+        //quill 富文本編輯器
+        var toolbarOptions = [
+            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
 
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+            [{ 'direction': 'rtl' }],                         // text direction
+
+            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+            [{ 'align': [] }],
+
+            ['clean']                                         // remove formatting button
+        ];
+        var quill = new Quill('#editor', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+            theme: 'snow'
+        });
+        $g('.ql-toolbar.ql-snow').style.setProperty('border-radius', '.25rem .25rem 0 0');
+        $g('#editor').style.setProperty('border-radius', '0 0 .25rem .25rem');
+        $g('#editor').style.setProperty('min-height', '200px');
+
+        function $g(element) {
+            let temp = document.querySelectorAll(element);
+            return temp.length == 1 ? temp[0] : temp;
+        }
 
     </script>
 
