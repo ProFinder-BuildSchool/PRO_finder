@@ -33,7 +33,7 @@
                     @foreach (var item in ViewBag.WorkInfoList)
                     {
                         <div class="mb-4" id="WD">
-                            <h3 class="mb-4 h4 border-bottom">@item.WorkName 作品詳情</h3>
+                            <h3 class="mb-4 h4 border-bottom">@item.WorkName</h3>
 
                             <p class="mb-0">@item.WorkDescription</p>
                         </div>
@@ -114,8 +114,8 @@
     <style>
 
         #WD {
-            white-space: pre-line;
-    
+            /*white-space: pre-wrap;*/
+            word-break: break-all;
         }
         .designerSkill a {
             font-size: 15px;
