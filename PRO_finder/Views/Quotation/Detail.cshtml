@@ -1,8 +1,8 @@
-﻿@model QuotationDetailViewModel
+﻿@model QuotationViewModel
 @{
 
     ViewBag.Title = "Detail";
-    IEnumerable <QuotationReview> quoreview = new QuotationService().GetQuoReview((int)(ViewBag.QID));
+    //IEnumerable <QuotationReview> quoreview = new QuotationService().GetQuoReview((int)(ViewBag.QID));
 
 }
 
@@ -154,11 +154,11 @@
                         <!-- 顯示評價 (如果評價太多要有分頁)-->
                         <div class="comment-content" style="display:none;">
                             <h3 class="h5 d-flex align-items-center mb-4 text-primary">
-                                <span class="icon-turned_in mr-3"></span>服務評價 @quoreview.Count() 則
+                                <span class="icon-turned_in mr-3"></span>服務評價 @Model.QuotationReview.Count() 則
                             </h3>
                             <div class="col-lg-8 mb-5">
                                 <div class="pt-3">
-                                    @if (quoreview.Count() == 0)
+                                    @if (@Model.QuotationReview.Count() == 0)
                                     {
                                         <p>暫無評價</p>
                                     }

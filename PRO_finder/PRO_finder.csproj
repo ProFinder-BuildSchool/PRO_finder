@@ -245,14 +245,12 @@
     <Compile Include="Repositories\QuotationRepository.cs" />
     <Compile Include="Repositories\SubCategoryRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
-    <Compile Include="Repositories\MemInfoRepository.cs" />
     <Compile Include="Repositories\QuotationRepository.cs" />
     <Compile Include="Repositories\WorkPageRepository.cs" />
     <Compile Include="Service\CaseService.cs" />
     <Compile Include="Service\Home_IndexService .cs" />
     <Compile Include="Service\CategoryService.cs" />
     <Compile Include="Service\MemberinfoService.cs" />
-    <Compile Include="Service\MemInfoService.cs" />
     <Compile Include="Service\QuotationService.cs" />
     <Compile Include="Service\WorkPictureService.cs" />
     <Compile Include="Service\StudioService.cs" />

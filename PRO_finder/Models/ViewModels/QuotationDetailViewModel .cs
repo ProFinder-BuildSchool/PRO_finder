@@ -21,7 +21,6 @@ namespace PRO_finder.Models.ViewModels
     //    public string Img { get; set; }
 
     //    //報價細節需要欄位
-
     //    public int MemberID { get; set; }
     //    public string NickName { get; set; }
 
@@ -45,7 +44,6 @@ namespace PRO_finder.Models.ViewModels
     //    public IEnumerable<OtherPictureViewModel> OtherPicture { get; set; }
     //    public string UpdateDate { get; set; }
     //    public int ExecuteDate { get; set; }
-
     //    public string Description { get; set; }
     //    public decimal Evaluation { get; set; }
 
@@ -53,9 +51,9 @@ namespace PRO_finder.Models.ViewModels
 
     //}
 
-    //public class QuotationReview {
-    //    public string NickName { get; set; }
-
+    //public class QuotationReview
+    //{
+    //    public string ReviewName { get; set; }
     //    public string SubmitDate { get; set; }
     //    public decimal CaseReview { get; set; }
     //    public string CaseMessage { get; set; }

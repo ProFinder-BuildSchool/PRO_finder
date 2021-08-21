@@ -1,123 +1,77 @@
-﻿@model QuotationDetailViewModel
+﻿@model QuotationViewModel
 
-<div class="col-lg-4 sidebar pl-lg-5 position-relative">
-    <div class="sidebar-box" style="position:sticky;top:155px;z-index:2;">
-        <img src="~/Assets/images/person_1.jpg" alt="Image placeholder"
-             class="img-fluid mb-4 w-50 rounded-circle">
-        <h3>@Model.NickName</h3>
-        <div class="d-flex flex-column">
-            <span class="m-2"><span class="icon-briefcase mr-2"></span>接案身分: @Model.Identity</span>
-            <span class="m-2">
-                <span class="icon-clock-o mr-2"></span><span class="text-primary">
-                    上線時間:@Model.LogInTime
+@{
+
+    <div class="col-lg-4 sidebar pl-lg-5 position-relative">
+        <div class="sidebar-box" style="position:sticky;top:155px;z-index:2;">
+            <img src="~/Assets/images/person_1.jpg" alt="Image placeholder"
+                 class="img-fluid mb-4 w-50 rounded-circle">
+            <h3>@Model.NickName</h3>
+            <div class="d-flex flex-column">
+                <span class="m-2"><span class="icon-briefcase mr-2"></span>接案身分: @Model.Identity</span>
+                <span class="m-2">
+                    <span class="icon-clock-o mr-2"></span><span class="text-primary">
+                        上線時間:@Model.LogInTime
+                    </span>
                 </span>
-            </span>
-            <span class="m-2"><span class="icon-room mr-2"></span>接案地點: @Model.LocationID</span>
-            <a class="btn btn-default" data-toggle="collapse" href="#multiCollapseExample1"
-               role="button" aria-expanded="false" aria-controls="multiCollapseExample1">看更多↓</a>
-        </div>
-        <div class="collapse multi-collapse" id="multiCollapseExample1">
-            <div class="body">
-                <label class="readMoreBtn" for="workroomInfoReadMore"></label>
-                <p class="designerDeal">
-                    成交件數:{{0}}
-                </p>
-                <p class="designerInvited">受邀次數: {{11}}</p>
-                <p class="designerSkill">
-                    <span class="designerSkillTit">專長:</span>
-                    <a href=""># @Model.SubcategoryName</a>
-                </p>
-                <div class="author-social mb-4">
-                    <a href="#"><span class="icon-facebook"></span></a>
-                    <a href="#"><span class="icon-twitter"></span></a>
-                    <a href="#"><span class="icon-instagram"></span></a>
-                    <a href="#"><span class="icon-linkedin"></span></a>
+                <span class="m-2"><span class="icon-room mr-2"></span>接案地點: @Model.LocationID</span>
+                <a class="btn btn-default" data-toggle="collapse" href="#multiCollapseExample1"
+                   role="button" aria-expanded="false" aria-controls="multiCollapseExample1">看更多↓</a>
+            </div>
+            <div class="collapse multi-collapse" id="multiCollapseExample1">
+                <div class="body">
+                    <label class="readMoreBtn" for="workroomInfoReadMore"></label>
+                    <p class="designerDeal">
+                        成交件數:{{0}}
+                    </p>
+                    <p class="designerInvited">受邀次數: {{11}}</p>
+                    <p class="designerSkill">
+                        <span class="designerSkillTit">專長:</span>
+                        <a href=""># @Model.SubcategoryName</a>
+                    </p>
+                    <div class="author-social mb-4">
+                        <a href="#"><span class="icon-facebook"></span></a>
+                        <a href="#"><span class="icon-twitter"></span></a>
+                        <a href="#"><span class="icon-instagram"></span></a>
+                        <a href="#"><span class="icon-linkedin"></span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="workroomMainBtn">
+                <div class="row my-3">
+                    <div class="col-12 d-flex">
+                        <a id="saveStaff" type="button" href="#" class="btn btn-light btn-md m-auto text-nowrap">
+                            <span class="icon-heart-o mr-2 text-danger"></span>收藏
+                        </a>
+                        <a id="contactStaff" type="button" href="#" class="btn btn-primary btn-md m-auto text-nowrap">
+                            <span class="fas fa-phone-alt mr-2"></span>直接聯絡
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="workroomMainBtn">
-            <div class="row my-3">
-                <div class="col-12 d-flex">
-                    <a id="saveStaff" type="button" href="#" class="btn btn-light btn-md m-auto text-nowrap">
-                        <span class="icon-heart-o mr-2 text-danger"></span>收藏
-                    </a>
-                    <a id="contactStaff" type="button" href="#" class="btn btn-primary btn-md m-auto text-nowrap">
-                        <span class="fas fa-phone-alt mr-2"></span>直接聯絡
-                    </a>
-                </div>
-            </div>
-        </div>
     </div>
-</div>
-
-<!-- Modal Add -->
-<div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="inputModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="inputModalLabel"></h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div id="input-area" class="modal-body d-flex flex-column">
-                <input id="todo-title" type="text" placeholder="標題長度請勿超過12個字" maxlength="12">
-                <input id="todo-time" type="time">
-                <textarea id="todo-item" placeholder="說明..."></textarea>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal"onclick="SubmitMessage()">
-                    發送
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Info -->
-<div class="modal fade" id="showContact" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="info-modal-title" id="infoModalLabel"></h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div id="info-area" class="modal-body d-flex flex-column">
-                <input id="info-todo-title" type="text" placeholder="標題長度請勿超過12個字" maxlength="12">
-                <input id="info-todo-time" type="time">
-                <textarea id="info-todo-item" placeholder="說明..."></textarea>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="DeleteTodoItem()">刪除</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="EditTodoItem()">修改</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    const saveStaffBtn = document.getElementById('saveStaff');
-    const contactStaffBtn = document.getElementById('contactStaff');
-
-    function SaveStaff() {
-
-        //存我的最愛<人才>資料
     }
+    <script>
+        const saveStaffBtn = document.getElementById('saveStaff');
+        const contactStaffBtn = document.getElementById('contactStaff');
+
+        function SaveStaff() {
+
+            //存我的最愛<人才>資料
+        }
 
 
-    function ShowStaffContact(e) {
-        //顯示訊息視窗
+        function ShowStaffContact(e) {
+            //顯示訊息視窗
 
-        //存訊息<案主聯絡人才>資料
-    }
+            //存訊息<案主聯絡人才>資料
+        }
 
-    window.onload = function () {
-        saveStaffBtn.addEventListener('click', SaveStaff);
-        contactStaffBtn.addEventListener('click', ShowStaffContact);
-    }
+        window.onload = function () {
+            saveStaffBtn.addEventListener('click', SaveStaff);
+            contactStaffBtn.addEventListener('click', ShowStaffContact);
+        }
 
-</script>
+    </script>
+    

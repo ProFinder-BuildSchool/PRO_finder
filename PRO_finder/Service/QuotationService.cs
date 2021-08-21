@@ -6,6 +6,7 @@ using PRO_finder.Repositories;
 using PRO_finder.Models.DBModel;
 using PRO_finder.Models.ViewModels;
 using PRO_finder.Models.ViewModel;
+using static PRO_finder.Models.ViewModels.QuotationViewModel;
 
 namespace PRO_finder.Service
 {
@@ -58,7 +59,7 @@ namespace PRO_finder.Service
         }
 
         //報價細節
-        public QuotationDetailViewModel GetQuoDetailData(int MemId,int QuotationId)
+        public QuotationViewModel GetQuoDetailData(int MemId,int QuotationId)
         {
             var MemInfoList = _ctx.GetAll<MemberInfo>();
             var QuoList = _ctx.GetAll<Quotation>();
@@ -69,57 +70,72 @@ namespace PRO_finder.Service
             {
                 return null;
             }
+            var OtherPicVM = (from op in OtherPicList
+                              where op.QuotationID == QuotationId
+                              select new OtherPictureViewModel
+                              {
+                                  QuotationID = op.QuotationID,
+                                  MainPicture = op.MainPicture,
+                                  SortNumber = op.SortNumber,
+                                  IsDefault = (op.IsDefault == 0 ? false : true),
+                                  OtherPicture = op.OtherPicture1
+                              });
+            //IEnumerable<QuotationReview> QuoReview = new QuotationService().GetQuoReview(QuotationId);
 
-            IEnumerable<QuotationReview> QuotationReview = new QuotationService().GetQuoReview(QuotationId);
-            var QuoDetailVM = (from m in MemInfoList
-                               join q in QuoList on m.MemberID equals q.MemberID
-                               where m.MemberID == MemId && q.QuotationID == QuotationId
-                               select new QuotationDetailViewModel
-                               {
-                                   Id = m.MemberID,
-                                   NickName = m.NickName,
-                                   LogInTime = m.LogInTime,
-                                   Identity = (QuotationDetailViewModel.IdentityStatus)m.Identity,
-                                   SubcategoryId = (int)m.SubCategoryID,
-                                   OtherPicture = (from op in OtherPicList
-                                                   where op.QuotationID == QuotationId
-                                                   select new OtherPictureViewModel
-                                                   {
-                                                       QuotationID = op.QuotationID,
-                                                       MainPicture = op.MainPicture,
-                                                       SortNumber = op.SortNumber,
-                                                       IsDefault = (op.IsDefault == 0 ? false : true),
-                                                       OtherPicture = op.OtherPicture1
-                                                   }),
-                                   QuotationTitle = q.QuotationTitle,
-                                   UpdateDate = q.UpdateDate.ToString(),
-                                   ExecuteDate = q.ExecuteDate,
-                                   Description = m.Description,
-                                   Evaluation = q.Evaluation == null ? (-1) : (decimal)q.Evaluation,
-                                   QuotationReview = QuotationReview
-                               }
-                                 ).FirstOrDefault();
-
-            return QuoDetailVM;
-        }
-
-        public IEnumerable<QuotationReview> GetQuoReview(int QuotationId)
-        {
             var OrderList = _ctx.GetAll<Order>();
-            var MemInfoList = _ctx.GetAll<MemberInfo>();
-
             var OrderVM = (from o in OrderList
                            join m in MemInfoList on o.DealedTalentMemberID equals m.MemberID
                            where o.SourceID == QuotationId
                            select new QuotationReview
                            {
-                               NickName = m.NickName,
-                               
+                               ReviewName = m.NickName,
                                SubmitDate = o.SubmitDate.ToString(),
                                CaseReview = o.CaseReview,
                                CaseMessage = o.CaseMessage
                            });
-            return OrderVM;
+
+            var QuoDetailVM = (from m in MemInfoList
+                               join q in QuoList on m.MemberID equals q.MemberID
+                               where m.MemberID == MemId && q.QuotationID == QuotationId
+                               select new QuotationViewModel {
+                                   Id = m.MemberID,
+                                   NickName = m.NickName,
+                                   LogInTime = m.LogInTime,
+                                   Identity = (QuotationViewModel.IdentityStatus)m.Identity,
+                                   SubcategoryId = (int)m.SubCategoryID,
+                                   OtherPicture = OtherPicVM,
+                                   QuotationTitle = q.QuotationTitle,
+                                   UpdateDate = q.UpdateDate.ToString(),
+                                   ExecuteDate = q.ExecuteDate,
+                                   Description = m.Description,
+                                   Evaluation = q.Evaluation == null ? (-1) : (decimal)q.Evaluation,
+                                   QuotationReview = OrderVM
+
+                               }).FirstOrDefault();
+
+            return QuoDetailVM;
         }
+
+        //public IEnumerable<QuotationReview> GetQuoReview(int QuotationId)
+        //{
+        //    var OrderList = _ctx.GetAll<Order>();
+        //    var MemInfoList = _ctx.GetAll<MemberInfo>();
+
+        //    var OrderVM = (from o in OrderList
+        //                   join m in MemInfoList on o.DealedTalentMemberID equals m.MemberID
+        //                   where o.SourceID == QuotationId
+        //                   select new QuotationReview
+        //                   {
+        //                       ReviewName = m.NickName,
+                               
+        //                       SubmitDate = o.SubmitDate.ToString(),
+        //                       CaseReview = o.CaseReview,
+        //                       CaseMessage = o.CaseMessage
+        //                   });
+            
+        //    return OrderVM;
+        //}
+
+
     }
 }

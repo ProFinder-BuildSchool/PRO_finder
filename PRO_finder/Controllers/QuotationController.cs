@@ -9,8 +9,8 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using PRO_finder.Models;
 using PRO_finder.Repositories;
-using PRO_finder.Model.ViewModels;
 using Newtonsoft.Json;
+using PRO_finder.Model.ViewModels;
 
 namespace PRO_finder.Controllers
 {
@@ -38,7 +38,7 @@ namespace PRO_finder.Controllers
         }
         public ActionResult Detail(int Memberid,int Quotationid)
         {
-            QuotationDetailViewModel QuoDetailVM = _quotService.GetQuoDetailData(Memberid, Quotationid);
+            QuotationViewModel QuoDetailVM = _quotService.GetQuoDetailData(Memberid, Quotationid);
             ViewBag.QID = Quotationid;
             return View(QuoDetailVM);
         }
