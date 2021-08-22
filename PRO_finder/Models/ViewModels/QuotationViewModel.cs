@@ -18,6 +18,7 @@ namespace PRO_finder.Models.ViewModels
         public int Unit { get; set; }
         public string StudioName { get; set; }
         public string Img { get; set; }
+        public string Location { get; set; }
 
         //報價細節需要欄位
         public MemberInfoViewModel MemInfo { get; set; }
