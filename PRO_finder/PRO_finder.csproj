@@ -49,10 +49,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -195,6 +195,26 @@
     <Compile Include="Migrations\202108200717494_2021-08-20.Designer.cs">
       <DependentUpon>202108200717494_2021-08-20.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202108201025322_workseed.cs" />
+    <Compile Include="Migrations\202108201025322_workseed.Designer.cs">
+      <DependentUpon>202108201025322_workseed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108201027016_workseed1.cs" />
+    <Compile Include="Migrations\202108201027016_workseed1.Designer.cs">
+      <DependentUpon>202108201027016_workseed1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108201035485_workseed2.cs" />
+    <Compile Include="Migrations\202108201035485_workseed2.Designer.cs">
+      <DependentUpon>202108201035485_workseed2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108201043101_workseed3.cs" />
+    <Compile Include="Migrations\202108201043101_workseed3.Designer.cs">
+      <DependentUpon>202108201043101_workseed3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108221512188_2021-08-22.cs" />
+    <Compile Include="Migrations\202108221512188_2021-08-22.Designer.cs">
+      <DependentUpon>202108221512188_2021-08-22.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DBModel\AspNetRoles.cs" />
@@ -245,17 +265,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CaseRepository.cs" />
     <Compile Include="Repositories\GeneralRepository.cs" />
-    <Compile Include="Repositories\QuotationRepository.cs" />
     <Compile Include="Repositories\SubCategoryRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
-    <Compile Include="Repositories\MemInfoRepository.cs" />
-    <Compile Include="Repositories\QuotationRepository.cs" />
     <Compile Include="Repositories\WorkPageRepository.cs" />
+    <Compile Include="Models\ViewModels\CaseDetailViewModel.cs" />
     <Compile Include="Service\CaseService.cs" />
     <Compile Include="Service\Home_IndexService .cs" />
     <Compile Include="Service\CategoryService.cs" />
     <Compile Include="Service\MemberinfoService.cs" />
-    <Compile Include="Service\MemInfoService.cs" />
     <Compile Include="Service\OperationResult.cs" />
     <Compile Include="Service\QuotationService.cs" />
     <Compile Include="Service\WorkPictureService.cs" />
@@ -591,6 +608,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202108200717494_2021-08-20.resx">
       <DependentUpon>202108200717494_2021-08-20.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108201025322_workseed.resx">
+      <DependentUpon>202108201025322_workseed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108201027016_workseed1.resx">
+      <DependentUpon>202108201027016_workseed1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108201035485_workseed2.resx">
+      <DependentUpon>202108201035485_workseed2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108201043101_workseed3.resx">
+      <DependentUpon>202108201043101_workseed3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108221512188_2021-08-22.resx">
+      <DependentUpon>202108221512188_2021-08-22.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -6,8 +6,8 @@
 <div class="row d-flex justify-content-center mt-5">
     <form class="searchInput">
         <div>
-            <input id="serchContain" placeholder="例：產品攝影" value="@TempData["Contain"]">
-            <button><i class="fas fa-search"></i></button>
+            <input id="serchContain" class="serchinput" placeholder="例：產品攝影" type="text">
+            <button type="button" class="serchtbtn"><i class="fas fa-search"></i></button>
         </div>
     </form>
 </div>
@@ -93,7 +93,7 @@
         </div>
         <div class="row mb-5">
             <div class="col-lg-3 col-md-3 hamburgerfilter">
-                <div class="selectList mb-2">
+                <div class="selectList mb-2 subcatefilter">
                     <div class="CategoryName">
                         <p>服務類別</p>
                     </div>
@@ -101,7 +101,7 @@
                         <div class="list-unstyled block__47528">
                             @foreach (var item in ViewBag.cateNameList)
                             {
-                                <label><input type="checkbox"> <span>@item.SubCategoryName</span></label>
+                                <label><input type="checkbox" class="subcateinput" value="@item.SubCategoryName"> <span>@item.SubCategoryName</span></label>
                             }
                         </div>
                     </div>
@@ -147,6 +147,8 @@
                     </div>
                 </div>
             </div>
+
+            @*tab filter*@
             <div class="col-lg-9 col-md-12 ">
                 <div class="most__search__tab mb-3">
                     <ul class="nav nav-tabs text-right" role="tablist">
@@ -174,49 +176,19 @@
                         </li>
                     </ul>
                 </div>
-                @*<div class="row item_zone mb-5">
-                        <div class="col-lg-3 col-md-6">
-                            <div class="listing__item">
-                                <div class="listing__item__pic">
-                                    <a href="@Url.Action("Detail", "Quotation")" target="_blank"><img src="~/Assets/images/sq_img_6.jpg" alt="Image" class="img-fluid rounded"></a>
-                                </div>
-                                <div class="listing__item__text">
-                                    <div class="listing__item__text__inside">
-                                        <h5>test</h5>
-                                        <span class="price">1200</span><span>/件</span>
-                                        <div class="listing__item__text__rating">
-                                            <div class="listing__item__rating__star mr-2">
-                                                <span class="icon_star"></span>
-                                                <span class="icon_star"></span>
-                                                <span class="icon_star"></span>
-                                                <span class="icon_star"></span>
-                                                <span class="icon_star-half_alt"></span>
-                                            </div>
-                                            <span>4</span><span>人訂購</span>
-                                        </div>
-                                        <div class="mb-2">
-                                            <a class="studioName" href="@Url.Action("Detail", "Quotation")" target="_blank">test<span class="pic_tag">VIP</span></a>
-                                        </div>
-                                    </div>
-                                    <div class="listing__item__text__info">
-                                        <a class="listing__item__text__info__right" href="@Url.Action("Detail", "Quotation")" target="_blank">服務詳情</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>*@
+
                 <div class="row item_zone mb-5">
-                    @foreach (var item in Model)
+                    @foreach (var item in ViewBag.pageData)
                     {
                         <div class="col-lg-3 col-md-6">
                             <div class="listing__item">
                                 <div class="listing__item__pic">
-                                    <a href="@Url.Action("Detail", "Quotation")" target="_blank"><img src="@Html.DisplayFor(modelItem => item.Img)" alt="Image" class="img-fluid rounded"></a>
+                                    <a href="@Url.Action("Detail", "Quotation")" target="_blank"><img src="@item.Img" alt="Image" class="img-fluid rounded"></a>
                                 </div>
                                 <div class="listing__item__text">
                                     <div class="listing__item__text__inside">
-                                        <h5>@Html.DisplayFor(modelItem => item.CategoryName)</h5>
-                                        <span class="price">@Html.DisplayFor(modelItem => item.Price) </span><span>/ 件</span>
+                                        <h5>@item.SubcategoryName</h5>
+                                        <span class="price">@item.Price</span><span>/ 件</span>
                                         <div class="listing__item__text__rating">
                                             <div class="listing__item__rating__star mr-2">
                                                 <span class="icon_star"></span>
@@ -228,9 +200,10 @@
                                             <span></span><span>人訂購</span>
                                         </div>
                                         <div class="mb-2">
-                                            <a class="studioName" href="@Url.Action("Detail", "Quotation")" target="_blank">@Html.DisplayFor(modelItem => item.StudioName)</a> <br>
-                                            <span class="pic_tag">CategoryId： @Html.DisplayFor(modelItem => item.CategoryId)</span>
-                                            <span class="pic_tag">SubcategoryId： @Html.DisplayFor(modelItem => item.SubcategoryId)</span>
+                                            <a class="studioName" href="@Url.Action("Detail", "Quotation")" target="_blank">@item.StudioName</a> <br>
+                                            <span class="pic_tag">CategoryId： @item.CategoryId</span>
+                                            <span class="pic_tag">SubcategoryId： @item.SubcategoryId</span>
+                                            <span class="pic_tag">Location： @item.Location</span>
                                         </div>
                                     </div>
                                     <div class="listing__item__text__info">
@@ -241,7 +214,7 @@
                         </div>
                     }
 
-                <template id="testcatd">
+                <template id="templateCard">
                     <div class="col-lg-3 col-md-6">
                         <div class="listing__item">
                             <div class="listing__item__pic">
@@ -263,8 +236,9 @@
                                     </div>
                                     <div class="mb-2">
                                         <a class="studioName" href="" target="_blank"></a> <br>
-                                        <span class="pic_tag test1">CategoryId：</span>
-                                        <span class="pic_tag test2">SubcategoryId:</span>
+                                        <span class="pic_tag test1"></span>
+                                        <span class="pic_tag test2"></span>
+                                        <span class="pic_tag test3"></span>
                                     </div>
                                 </div>
                                 <div class="listing__item__text__info">
@@ -296,565 +270,565 @@
 </section>
 
 @section topCSS{
-    <style>
-        html.fixWindow {
-            position: fixed;
-            width: 100%;
+<style>
+    html.fixWindow {
+        position: fixed;
+        width: 100%;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .site-section {
+        padding-top: 3rem;
+    }
+
+    .item_zone .col-lg-3 {
+        padding: 0 10px !important;
+    }
+
+    .categoriedpage {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .categoriedpage h1 {
+        margin-right: auto;
+        font-size: 25px;
+        font-weight: bolder;
+    }
+
+    .categoriedpage h1::before {
+        content: "";
+        border: 2px solid #89ba16;
+        margin-right: 5px;
+    }
+
+    .most__search__tab ul {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .block__47528 {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .block__47528 li {
+        font-size: 16px;
+        line-height: 2;
+        overflow: hidden;
+    }
+
+    .block__47528 label {
+        color: rgb(143, 134, 134);
+        user-select: none;
+    }
+
+    .block__47528 label:hover,
+    .block__47528 input:hover {
+        cursor: pointer;
+    }
+
+    .block__47528 input:checked + span {
+        color: #e1264a;
+        font-weight: bolder;
+    }
+
+    .block__47528 input:checked + span::before {
+        content: "✓ ";
+        font-size: 16px;
+        font-weight: bolder;
+        width: 15px;
+        height: 15px;
+    }
+
+    .block__47528 input[type=checkbox]:checked {
+        display: none;
+    }
+
+    .selectList {
+        width: 230px;
+    }
+
+    .serviceCategory {
+        height: 350px;
+        overflow: hidden;
+        overflow: scroll;
+        overflow-x: hidden;
+    }
+
+    .CategoryName {
+        display: flex;
+        height: 50px;
+        background-color: #e5e5e5;
+    }
+
+    .CategoryName p {
+        margin: auto 0 auto 10px;
+        font-size: 18px;
+        font-weight: bolder;
+        color: black;
+    }
+
+    .serviceCategory::-webkit-scrollbar,
+    .tabs-contents::-webkit-scrollbar {
+        width: 8px;
+        height: 5px;
+        background-color: #ffffff;
+    }
+
+    .serviceCategory::-webkit-scrollbar-thumb,
+    .tabs-contents::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #a7a3a3;
+    }
+
+    /* Listing */
+    .listing .listing__list .listing__item {
+        max-width: calc(50% - 30px);
+        float: left;
+        margin-right: 30px;
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        width: 100%;
+        height: 100%;
+    }
+
+    .listing__item {
+        -webkit-box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+
+    .listing__item:hover img,
+    .listing__item:hover {
+        transform: scale(1.03);
+    }
+
+
+    .listing__item__pic {
+        overflow: hidden;
+    }
+
+
+    .listing__item__pic img {
+        width: 100%;
+        transition: .3s;
+    }
+
+    .listing__item__pic__tag {
+        font-size: 12px;
+        color: #ffffff;
+        background: #f03250;
+        font-weight: 600;
+        display: inline-block;
+        padding: 5px 15px 5px 10px;
+        border-radius: 2px;
+        position: absolute;
+        left: 20px;
+        top: 20px;
+    }
+
+    .pic_tag {
+        font-size: 15px;
+        background-color: #e1264a;
+        font-weight: bolder;
+        padding: 2px 5px;
+        color: white;
+        border-radius: 6px;
+        margin-left: 10px;
+    }
+
+    .listing__item__pic__tag.top_rate {
+        background: #00a7ea;
+    }
+
+    .listing__item__pic__tag.hot_deal {
+        background: #D9D137;
+    }
+
+    .listing__item__pic__btns {
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+    }
+
+    .listing__item__text {
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: 10px;
+    }
+
+    .listing__item__text__inside h5 {
+        font-size: 16px;
+        color: #323232;
+        font-weight: 600;
+        margin-bottom: 6px;
+    }
+
+    .studioName:hover {
+        color: #e1264a !important;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .listing__item__text__inside ul {
+        margin-bottom: 20px;
+    }
+
+    .listing__item__text__inside .price {
+        color: #e1264a;
+        font-size: 20px;
+        font-weight: 900;
+    }
+
+    .listing__item__text__inside ul li {
+        font-size: 15px;
+        color: #323232;
+        list-style: none;
+        line-height: 25px;
+        position: relative;
+        padding-left: 25px;
+    }
+
+    .listing__item__text__inside ul li span {
+        color: #A8A8A8;
+        position: absolute;
+        left: 0;
+        top: 5px;
+    }
+
+    .listing__item__text__rating {
+        overflow: hidden;
+        margin-bottom: 15px;
+        border-bottom: 1px solid rgba(0, 0, 0, .1);
+    }
+
+    .listing__item__text__rating .listing__item__rating__star {
+        float: left;
+    }
+
+    .listing__item__text__rating .listing__item__rating__star span {
+        font-size: 14px;
+        color: #F09D17;
+        margin-right: -3px;
+    }
+
+    .listing__item__text__rating .listing__item__rating__star span:last-child {
+        margin-right: 0;
+    }
+
+    .listing__item__text__rating h6 {
+        font-size: 15px;
+        color: #f03250;
+        font-weight: 600;
+        float: right;
+    }
+
+    .listing__item__text__info {
+        padding: 10px 8px;
+        border-top: 1px solid rgba(0, 0, 0, .1);
+        overflow: hidden;
+    }
+
+    .listing__item__text__info__left {
+        float: left;
+    }
+
+    .listing__item__text__info__left img {
+        display: inline-block;
+        margin-right: 10px;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+    }
+
+    .listing__item__text__info__left span {
+        font-size: 14px;
+        color: #323232;
+        font-weight: 600;
+    }
+
+    .listing__item__text__info__right {
+        float: right;
+        font-size: 14px;
+        color: #ffffffec;
+        font-weight: 700;
+        padding-top: 4px;
+        background-color: Transparent;
+        background-repeat: no-repeat;
+        border: none;
+        background-color: #89ba16;
+        border-radius: 5px;
+        padding: 5px 10px;
+        text-decoration: none;
+    }
+
+    .listing__item__text__info__right.closed {
+        color: #f03250;
+    }
+
+    .listing__item__text__info__right:focus {
+        outline: none;
+    }
+
+    .listing__item__text__info__right:hover {
+        opacity: .8;
+        text-decoration: none;
+        color: white;
+    }
+
+    /* Listing */
+    .listing__map {
+        height: 100%;
+        width: 45%;
+        margin-top: 105px;
+        float: left;
+    }
+
+    .listing__map iframe {
+        width: 100%;
+        height: 100%;
+    }
+
+    .pricefilter input {
+        border: none;
+        width: 150px;
+    }
+
+    .pricefilter input:focus,
+    .rwdprice input:focus {
+        outline: none;
+    }
+
+    .textprice {
+        border: 1px solid rgb(124, 121, 121);
+        border-radius: 5px;
+        height: 30px;
+        display: flex;
+    }
+
+    .priceconfirm {
+        margin-top: 20px;
+        height: 40px;
+        border-radius: 5px;
+        color: rgb(8, 8, 8);
+        background-color: Transparent;
+        background-repeat: no-repeat;
+        border: 1px solid black;
+        font-weight: bolder;
         }
 
-        body {
-            overflow-x: hidden;
+    .priceconfirm:hover {
+        border-color: #f03250;
+        color: #f03250;
+    }
+
+    .priceconfirm:focus {
+        outline: none;
+        color: #f03250;
+        border-radius: 5px;
+        border: 2px solid #f03250;
+    }
+
+    .most__search__tab span {
+        font-size: 15px;
+        display: inline-block;
+    }
+
+    .searchInput {
+        height: 52px;
+        box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.5);
+        border: 2px solid rgb(177, 171, 171);
+        border-radius: 5px;
+    }
+
+    .searchInput input {
+        border: none;
+        height: 50px;
+        width: 250px;
+    }
+
+    .searchInput input:focus {
+        outline: none;
+    }
+
+    .searchInput button {
+        width: 52px;
+        height: 51px;
+        background-color: #89ba16;
+        margin-left: -4px;
+        border: none;
+        border-radius: 0 5px 5px 0;
+    }
+
+    .searchInput button:focus {
+        outline: none;
+    }
+
+    .hamfliterbtn {
+        display: none;
+        background-color: Transparent;
+        background-repeat: no-repeat;
+        border: 1px solid #6c757d;
+        width: 90px;
+        height: 40px;
+        border-radius: 5px;
+        font-size: 15px;
+        margin-bottom: 15px;
+    }
+
+    .hamfliterbtn:focus {
+        outline: none;
+        border: 3px solid #89ba16;
+        border-radius: 5px;
+        color: #89ba16;
+        font-weight: bolder;
+    }
+
+    @@media screen and (max-width:992px) {
+
+        .hamburgerfilter,
+        .pagetop {
+            display: none;
         }
-
-        .site-section {
-            padding-top: 3rem;
-        }
-
-        .item_zone .col-lg-3 {
-            padding: 0 10px !important;
-        }
-
-        .categoriedpage {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-            .categoriedpage h1 {
-                margin-right: auto;
-                font-size: 25px;
-                font-weight: bolder;
-            }
-
-                .categoriedpage h1::before {
-                    content: "";
-                    border: 2px solid #89ba16;
-                    margin-right: 5px;
-                }
-
-        .most__search__tab ul {
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        .block__47528 {
-            display: flex;
-            flex-direction: column;
-        }
-
-            .block__47528 li {
-                font-size: 16px;
-                line-height: 2;
-                overflow: hidden;
-            }
-
-            .block__47528 label {
-                color: rgb(143, 134, 134);
-                user-select: none;
-            }
-
-                .block__47528 label:hover,
-                .block__47528 input:hover {
-                    cursor: pointer;
-                }
-
-            .block__47528 input:checked + span {
-                color: #e1264a;
-                font-weight: bolder;
-            }
-
-                .block__47528 input:checked + span::before {
-                    content: "✓ ";
-                    font-size: 16px;
-                    font-weight: bolder;
-                    width: 15px;
-                    height: 15px;
-                }
-
-            .block__47528 input[type=checkbox]:checked {
-                display: none;
-            }
-
-        .selectList {
-            width: 230px;
-        }
-
-        .serviceCategory {
-            height: 350px;
-            overflow: hidden;
-            overflow: scroll;
-            overflow-x: hidden;
-        }
-
-        .CategoryName {
-            display: flex;
-            height: 50px;
-            background-color: #e5e5e5;
-        }
-
-            .CategoryName p {
-                margin: auto 0 auto 10px;
-                font-size: 18px;
-                font-weight: bolder;
-                color: black;
-            }
-
-        .serviceCategory::-webkit-scrollbar,
-        .tabs-contents::-webkit-scrollbar {
-            width: 8px;
-            height: 5px;
-            background-color: #ffffff;
-        }
-
-        .serviceCategory::-webkit-scrollbar-thumb,
-        .tabs-contents::-webkit-scrollbar-thumb {
-            border-radius: 10px;
-            background-color: #a7a3a3;
-        }
-
-        /* Listing */
-        .listing .listing__list .listing__item {
-            max-width: calc(50% - 30px);
-            float: left;
-            margin-right: 30px;
-            -webkit-box-flex: 0;
-            -ms-flex: 0 0 50%;
-            flex: 0 0 50%;
-            width: 100%;
-            height: 100%;
-        }
-
-        .listing__item {
-            -webkit-box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.1);
-            box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-        }
-
-            .listing__item:hover img,
-            .listing__item:hover {
-                transform: scale(1.03);
-            }
-
-
-        .listing__item__pic {
-            overflow: hidden;
-        }
-
-
-            .listing__item__pic img {
-                width: 100%;
-                transition: .3s;
-            }
-
-        .listing__item__pic__tag {
-            font-size: 12px;
-            color: #ffffff;
-            background: #f03250;
-            font-weight: 600;
-            display: inline-block;
-            padding: 5px 15px 5px 10px;
-            border-radius: 2px;
-            position: absolute;
-            left: 20px;
-            top: 20px;
-        }
-
-        .pic_tag {
-            font-size: 15px;
-            background-color: #e1264a;
-            font-weight: bolder;
-            padding: 2px 5px;
-            color: white;
-            border-radius: 6px;
-            margin-left: 10px;
-        }
-
-        .listing__item__pic__tag.top_rate {
-            background: #00a7ea;
-        }
-
-        .listing__item__pic__tag.hot_deal {
-            background: #D9D137;
-        }
-
-        .listing__item__pic__btns {
-            position: absolute;
-            right: 20px;
-            bottom: 20px;
-        }
-
-        .listing__item__text {
-            padding-left: 8px;
-            padding-right: 8px;
-            padding-top: 10px;
-        }
-
-        .listing__item__text__inside h5 {
-            font-size: 16px;
-            color: #323232;
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-
-        .studioName:hover {
-            color: #e1264a !important;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .listing__item__text__inside ul {
-            margin-bottom: 20px;
-        }
-
-        .listing__item__text__inside .price {
-            color: #e1264a;
-            font-size: 20px;
-            font-weight: 900;
-        }
-
-        .listing__item__text__inside ul li {
-            font-size: 15px;
-            color: #323232;
-            list-style: none;
-            line-height: 25px;
-            position: relative;
-            padding-left: 25px;
-        }
-
-            .listing__item__text__inside ul li span {
-                color: #A8A8A8;
-                position: absolute;
-                left: 0;
-                top: 5px;
-            }
-
-        .listing__item__text__rating {
-            overflow: hidden;
-            margin-bottom: 15px;
-            border-bottom: 1px solid rgba(0, 0, 0, .1);
-        }
-
-            .listing__item__text__rating .listing__item__rating__star {
-                float: left;
-            }
-
-                .listing__item__text__rating .listing__item__rating__star span {
-                    font-size: 14px;
-                    color: #F09D17;
-                    margin-right: -3px;
-                }
-
-                    .listing__item__text__rating .listing__item__rating__star span:last-child {
-                        margin-right: 0;
-                    }
-
-            .listing__item__text__rating h6 {
-                font-size: 15px;
-                color: #f03250;
-                font-weight: 600;
-                float: right;
-            }
-
-        .listing__item__text__info {
-            padding: 10px 8px;
-            border-top: 1px solid rgba(0, 0, 0, .1);
-            overflow: hidden;
-        }
-
-        .listing__item__text__info__left {
-            float: left;
-        }
-
-            .listing__item__text__info__left img {
-                display: inline-block;
-                margin-right: 10px;
-                width: 34px;
-                height: 34px;
-                border-radius: 50%;
-            }
-
-            .listing__item__text__info__left span {
-                font-size: 14px;
-                color: #323232;
-                font-weight: 600;
-            }
-
-        .listing__item__text__info__right {
-            float: right;
-            font-size: 14px;
-            color: #ffffffec;
-            font-weight: 700;
-            padding-top: 4px;
-            background-color: Transparent;
-            background-repeat: no-repeat;
-            border: none;
-            background-color: #89ba16;
-            border-radius: 5px;
-            padding: 5px 10px;
-            text-decoration: none;
-        }
-
-            .listing__item__text__info__right.closed {
-                color: #f03250;
-            }
-
-            .listing__item__text__info__right:focus {
-                outline: none;
-            }
-
-            .listing__item__text__info__right:hover {
-                opacity: .8;
-                text-decoration: none;
-                color: white;
-            }
-
-        /* Listing */
-        .listing__map {
-            height: 100%;
-            width: 45%;
-            margin-top: 105px;
-            float: left;
-        }
-
-            .listing__map iframe {
-                width: 100%;
-                height: 100%;
-            }
-
-        .pricefilter input {
-            border: none;
-            width: 150px;
-        }
-
-            .pricefilter input:focus,
-            .rwdprice input:focus {
-                outline: none;
-            }
-
-        .textprice {
-            border: 1px solid rgb(124, 121, 121);
-            border-radius: 5px;
-            height: 30px;
-            display: flex;
-        }
-
-        .priceconfirm {
-            margin-top: 20px;
-            height: 40px;
-            border-radius: 5px;
-            color: rgb(8, 8, 8);
-            background-color: Transparent;
-            background-repeat: no-repeat;
-            border: 1px solid black;
-            font-weight: bolder;
-        }
-
-            .priceconfirm:hover {
-                border-color: #f03250;
-                color: #f03250;
-            }
-
-            .priceconfirm:focus {
-                outline: none;
-                color: #f03250;
-                border-radius: 5px;
-                border: 2px solid #f03250;
-            }
-
-        .most__search__tab span {
-            font-size: 15px;
-            display: inline-block;
-        }
-
-        .searchInput {
-            height: 52px;
-            box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.5);
-            border: 2px solid rgb(177, 171, 171);
-            border-radius: 5px;
-        }
-
-            .searchInput input {
-                border: none;
-                height: 50px;
-                width: 250px;
-            }
-
-                .searchInput input:focus {
-                    outline: none;
-                }
-
-            .searchInput button {
-                width: 52px;
-                height: 51px;
-                background-color: #89ba16;
-                margin-left: -4px;
-                border: none;
-                border-radius: 0 5px 5px 0;
-            }
-
-                .searchInput button:focus {
-                    outline: none;
-                }
 
         .hamfliterbtn {
-            display: none;
-            background-color: Transparent;
-            background-repeat: no-repeat;
-            border: 1px solid #6c757d;
-            width: 90px;
-            height: 40px;
-            border-radius: 5px;
-            font-size: 15px;
-            margin-bottom: 15px;
-        }
-
-            .hamfliterbtn:focus {
-                outline: none;
-                border: 3px solid #89ba16;
-                border-radius: 5px;
-                color: #89ba16;
-                font-weight: bolder;
-            }
-
-        @@media screen and (max-width:992px) {
-
-            .hamburgerfilter,
-            .pagetop {
-                display: none;
-            }
-
-            .hamfliterbtn {
-                display: block;
-            }
-        }
-
-        .sidenav {
-            display: flex;
-            flex-wrap: wrap;
-            height: 500px;
-            width: 0px;
-            position: fixed;
-            z-index: 1;
-            top: 15%;
-            right: 0;
-            background-color: #faf9f8;
-            overflow-x: hidden;
-            padding-top: 40px;
-        }
-
-        .closefilter {
-            position: absolute;
-            left: 3%;
-            top: 0;
-            background-color: transparent;
-            border: none;
-            font-size: 25px;
-            font-weight: bolder;
-        }
-
-        .filterbtn {
-            margin: 5px auto;
-        }
-
-            .filterbtn button:first-child {
-                background-color: rgb(64 64 64);
-                margin-right: 10px;
-            }
-
-            .filterbtn button {
-                width: 120px;
-                height: 30px;
-                border-radius: 5px;
-                color: white;
-                background-color: #f03250;
-                background-repeat: no-repeat;
-                border: 1px solid black;
-                font-weight: bolder;
-            }
-
-        .closefilter:focus {
-            outline: none;
-        }
-
-        .closefilter:hover {
-            background-color: white;
-        }
-
-        .filtermodal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: rgb(0, 0, 0);
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        .rwdprice input {
-            width: 100px;
-            border: none;
-        }
-
-        .rwdprice .textprice {
-            width: 150px;
-        }
-
-        .tabs-pages {
-            width: 90px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-            .tabs-pages:focus,
-            .tabs-pages:hover {
-                cursor: pointer;
-            }
-
-        .tab {
-            padding: 0.5em 1.2em;
-            color: rgb(59, 59, 59);
-            background-color: #fbfdfd;
-            margin: 10px 0;
-            font-weight: bolder;
-        }
-
-            .tab:hover {
-                background-color: #fdf7f8;
-            }
-
-            .tab.active {
-                border-left: 4px solid #f03250;
-            }
-
-        .tabs-contents {
             display: block;
-            width: 170px;
-            height: 400px;
-            position: relative;
-            overflow: hidden;
-            overflow: scroll;
-            overflow-x: hidden;
         }
+    }
 
-        .tab-c {
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: none;
-            height: auto;
-            color: black;
-            transition: opacity .3s;
-        }
+    .sidenav {
+        display: flex;
+        flex-wrap: wrap;
+        height: 500px;
+        width: 0px;
+        position: fixed;
+        z-index: 1;
+        top: 15%;
+        right: 0;
+        background-color: #faf9f8;
+        overflow-x: hidden;
+        padding-top: 40px;
+    }
 
-            .tab-c.active {
-                display: block;
-            }
-    </style>
+    .closefilter {
+        position: absolute;
+        left: 3%;
+        top: 0;
+        background-color: transparent;
+        border: none;
+        font-size: 25px;
+        font-weight: bolder;
+    }
+
+    .filterbtn {
+        margin: 5px auto;
+    }
+
+    .filterbtn button:first-child {
+        background-color: rgb(64 64 64);
+        margin-right: 10px;
+    }
+
+    .filterbtn button {
+        width: 120px;
+        height: 30px;
+        border-radius: 5px;
+        color: white;
+        background-color: #f03250;
+        background-repeat: no-repeat;
+        border: 1px solid black;
+        font-weight: bolder;
+    }
+
+    .closefilter:focus {
+        outline: none;
+    }
+
+    .closefilter:hover {
+        background-color: white;
+    }
+
+    .filtermodal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .rwdprice input {
+        width: 100px;
+        border: none;
+    }
+
+    .rwdprice .textprice {
+        width: 150px;
+    }
+
+    .tabs-pages {
+        width: 90px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tabs-pages:focus,
+    .tabs-pages:hover {
+        cursor: pointer;
+    }
+
+    .tab {
+        padding: 0.5em 1.2em;
+        color: rgb(59, 59, 59);
+        background-color: #fbfdfd;
+        margin: 10px 0;
+        font-weight: bolder;
+    }
+
+    .tab:hover {
+        background-color: #fdf7f8;
+    }
+
+    .tab.active {
+        border-left: 4px solid #f03250;
+    }
+
+    .tabs-contents {
+        display: block;
+        width: 170px;
+        height: 400px;
+        position: relative;
+        overflow: hidden;
+        overflow: scroll;
+        overflow-x: hidden;
+    }
+
+    .tab-c {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: none;
+        height: auto;
+        color: black;
+        transition: opacity .3s;
+    }
+
+    .tab-c.active {
+        display: block;
+    }
+</style>
 }
 
 @section endJS{
@@ -865,25 +839,31 @@
         let filtermodal = document.querySelector('.filtermodal');
         let html = document.querySelector('html');
         let side = document.getElementById('Sidenav');
-        let AllCardArray = [];
+        let AllCardArray = @Html.Raw(Json.Encode(ViewBag.pageData));
         let serchContain = document.querySelector('#serchContain').value;
-        let card = document.querySelector('#testcatd');
+        let card = document.querySelector('#templateCard');
+        let subcatefilter = document.querySelector('.subcatefilter');
 
-        let test = '';
-        let cloneContent = card.content.cloneNode(true);
+        let filterCard = [];
+        let itemZone = document.querySelector('.item_zone');
+        let subcateinput = document.querySelectorAll('.subcateinput');
+        let serchValue = document.querySelector('.serchinput');
+        let numberOfChecked = 0;
+
+
         window.onload = function () {
-            AllCardArray = 
-            //Axios
-            axios.get('https://localhost:44375/Quotation/AllcardData')
-                .then(res => {
-                    AllCardArray = res.data;
-                    console.log(AllCardArray)
-                    findcard();
-                })
-                
-                .catch(err => {
-                    console.log(err);
-                })
+            var url = decodeURI(location.href);
+            if (url.indexOf('keyword') > -1)
+            {
+                subcatefilter.style.display = 'none';
+            }
+
+            if (AllCardArray.length == 0) {
+                itemZone.innerHTML = '<div class="text-primary mx-auto h5">抱歉，沒有符合的搜尋結果<p>';
+            }
+            console.log(AllCardArray)
+            AddCategoryFilter();
+
         }
 
         document.querySelector('.closefilter').addEventListener('click', function () {
@@ -923,29 +903,52 @@
             });
         }
 
-        function findcard() {
-            if (serchContain == null) {
-                test = AllCardArray
-            }
-            else {
-                test = AllCardArray.filter(x => x.SubcategoryName.includes(serchContain));
-            }
-            console.log(test);
-            addcard();
-        }
 
         function addcard() {
-            test.forEach(function (item, index) {
-                
+            filterCard.forEach(function (item, index) {
+                let cloneContent = card.content.cloneNode(true);
                 cloneContent.querySelector('h5').innerText = item.SubcategoryName;
                 cloneContent.querySelector('img').src = item.Img;
                 cloneContent.querySelector('.studioName').innerText = item.StudioName;
                 cloneContent.querySelector('.price').innerText = item.Price;
-                cloneContent.querySelector('.test1').innerText = item.CategoryId;
-                cloneContent.querySelector('.test2').innerText = item.SubcategoryId;
-                document.querySelector('.item_zone').append(cloneContent);
+                cloneContent.querySelector('.test1').innerText = `cate${item.CategoryId}`;
+                cloneContent.querySelector('.test2').innerText = `sub${item.SubcategoryId}`;
+                cloneContent.querySelector('.test3').innerText = `location${item.Location}`;
+                itemZone.append(cloneContent);
+            });
+        }
+
+        function AddCategoryFilter() {
+            subcateinput.forEach(function (item, index) {
+                item.addEventListener('change', function () {
+                    if (this.checked) {
+                        numberOfChecked++
+                        filterCard = filterCard.concat(AllCardArray.filter(x => x.SubcategoryName.includes(item.value)));
+                    }
+
+                    else {
+                        numberOfChecked--;
+                        filterCard = filterCard.filter(x => !x.SubcategoryName.includes(item.value));
+                    }
+
+                    itemZone.innerText = '';
+                    addcard();
+
+                    if (numberOfChecked == 0) {
+                        filterCard = AllCardArray;
+                        itemZone.innerText = '';
+                        addcard();
+                        filterCard = [];
+                        return;
+                    }
+
+                })
             })
         }
+
+        document.querySelector('.serchtbtn').addEventListener('click', function () {
+            location.href = "https://localhost:44375/Quotation?keyword=" + `${serchValue.value}`;
+        });
 
     </script>
 }

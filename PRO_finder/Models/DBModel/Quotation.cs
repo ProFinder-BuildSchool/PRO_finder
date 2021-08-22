@@ -15,7 +15,7 @@ namespace PRO_finder.Models.DBModel
         [StringLength(30)]
         public string QuotationTitle { get; set; }
 
-        public TimeSpan? UpdateDate { get; set; }
+        public DateTime? UpdateDate { get; set; }
 
         public int QuotationUnit { get; set; }
 
@@ -26,13 +26,13 @@ namespace PRO_finder.Models.DBModel
         [Required]
         public string Description { get; set; }
 
-        public int? OtherPictureID { get; set; }
-
         public decimal? Evaluation { get; set; }
 
         public int SubCategoryID { get; set; }
 
         public decimal? Price { get; set; }
+
+        public string MainPicture { get; set; }
 
         public virtual SubCategory SubCategory { get; set; }
     }
