@@ -62,15 +62,28 @@ namespace PRO_finder.Controllers
             return View(MemInfoVM);
         }
 
-        public ActionResult StudioHome()
+        public ActionResult StudioHome(int MemberID=1)
         {
+            ViewBag.StudioInfoList = _studioService.GetStudioInfoByMemberID (MemberID);
+            //ViewBag.StudioWorkList = _studioService.GetStudioworksByMemberID (MemberID);
+            //ViewBag.StudioQuotationList = _studioService.GetStudioQuotationByMemberID (MemberID);
+            //ViewBag.StudioReviewList = _studioService.GetCaseReviewByMemberID (MemberID);
             return View();
         }
 
         public ActionResult WorksPage(int WorkID = 1)
         {
-            List<WorkPageViewModel> pageData = _studioService.GetWorkPageData(WorkID);
-            return View(pageData);
+            
+            ViewBag.WorkInfoList = _studioService.GetWorkInfoByWorkID(WorkID);
+            ViewBag.WorkPictureList = _studioService.GetWorkpicturesByWorkID(WorkID);
+            //WorkPageViewModel WorkPictureVM = new WorkPageViewModel()
+            //{
+            //    WorkpictureRepository = _studioService.GetWorkpicturesByWorkID(WorkID)
+            //};
+            return View();
+
+            //List<WorkPageViewModel> pageData = _studioService.GetWorkPageData (WorkID);
+            //return View(pageData);
         }
 
 
