@@ -14,12 +14,10 @@ namespace PRO_finder.Service
     public class QuotationService
     {
         private readonly GeneralRepository _ctx;
-        private readonly QuotationRepository _QuotationRepo;
         private readonly GeneralRepository _repo;
 
         public QuotationService()
         {
-            _QuotationRepo = new QuotationRepository();
             _repo = new GeneralRepository(new ProFinderContext());
             _ctx = new GeneralRepository(new ProFinderContext());
         }
