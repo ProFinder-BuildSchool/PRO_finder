@@ -9,11 +9,12 @@ namespace PRO_finder.Models.ViewModels
     {
         public int MemberID { get; set; }
         public byte[] ProfilePicture { get; set; }
+        public DateTime? LogInTime { get; set; }
         public string NickName { get; set; }
-        public int? ExpertSubCategoryID { get; set; }
+        public string ExpertSubCategory { get; set; }
         public int? Identity { get; set; }
         public string Description { get; set; }
-        public int? LocationID { get; set; }
+        public string LocationName { get; set; }
         public int WorkID { get; set; }
         public string WorkName { get; set; }
         public string WebsiteURL { get; set; }

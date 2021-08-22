@@ -72,17 +72,24 @@ namespace PRO_finder.Service
             var StudioinfoRepository = new GeneralRepository(new ProFinderContext());
 
             return from mermberinfo in StudioinfoRepository.GetAll<MemberInfo>()
+                   //join subcategory in StudioinfoRepository.GetAll<SubCategory>()
+                   //on mermberinfo.SubCategoryID equals subcategory.SubCategoryID
+                   join location in StudioinfoRepository.GetAll<Locations>()
+                   on mermberinfo.LocationID equals location.LocationID
+                   where mermberinfo.MemberID == MemberID
+
 
                    select new StudioViewModel
                    {
                        MemberID = mermberinfo.MemberID,
                        NickName = mermberinfo.NickName,
                        Description = mermberinfo.Description,
-                       LocationID = mermberinfo.LocationID,
-                       //LogInTime = mermberinfo.LogInTime,
+                       LocationName = location.LocationName,
+                       LogInTime = mermberinfo.LogInTime,
                        ProfilePicture = mermberinfo.ProfilePicture,
-                       ExpertSubCategoryID = mermberinfo.SubCategoryID,
+                       //ExpertSubCategory = subcategory.SubCategoryName,
                        Identity = mermberinfo.Identity
+                       
                    };
         }
 
@@ -119,13 +126,19 @@ namespace PRO_finder.Service
                    where quotation.MemberID == MemberID
                    join quotationpicture in StudioquotRepository.GetAll<OtherPicture>()
                    on quotation.QuotationID equals quotationpicture.QuotationID
+                   join subcategory in StudioquotRepository.GetAll<SubCategory>()
+                   on quotation.SubCategoryID equals subcategory.SubCategoryID
+                   join category in StudioquotRepository.GetAll<Category>()
+                   on subcategory.CategoryID equals category.CategoryID
+
 
 
                    select new StudioViewModel
                    {
                        QuotationId = quotation.QuotationID,
                        //QuotationCategoryId = quotation.Category,要用sub反找cate  CategoryName
-                       QuotationSubcategoryId = quotation.SubCategoryID,
+                       SubcategoryName = subcategory.SubCategoryName,
+                       CategoryName=category.CategoryName,
                        Price = quotation.Price,
                        Unit = quotation.QuotationUnit,
                        QuotationImg = quotationpicture.MainPicture
@@ -139,6 +152,27 @@ namespace PRO_finder.Service
 
         }
 
+        public IEnumerable<StudioViewModel> GetCaseReviewByMemberID(int MemberID)
+        {
+            var CaseReviewRepository = new GeneralRepository(new ProFinderContext());
+
+            return from order in CaseReviewRepository.GetAll<Order>()
+                   join memberinfo in CaseReviewRepository.GetAll<MemberInfo>()
+                   on order.DealedTalentMemberID equals memberinfo.MemberID
+                  
+
+                   select new StudioViewModel
+                   {
+                       CaseReview = order.CaseReview,
+                       CaseMessage = order.CaseMessage,
+                       CaseReplyMessage=order.CaseReplyMessage,
+                       MemberID = memberinfo.MemberID,
+                       NickName=memberinfo.NickName
+
+
+                       
+                   };
+        }
         //評價
     }
 }

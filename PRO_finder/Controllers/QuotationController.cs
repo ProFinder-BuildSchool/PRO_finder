@@ -52,8 +52,12 @@ namespace PRO_finder.Controllers
             return View(MemInfoVM);
         }
 
-        public ActionResult StudioHome()
+        public ActionResult StudioHome(int MemberID=1)
         {
+            ViewBag.StudioInfoList = _studioService.GetStudioInfoByMemberID (MemberID);
+            //ViewBag.StudioWorkList = _studioService.GetStudioworksByMemberID (MemberID);
+            //ViewBag.StudioQuotationList = _studioService.GetStudioQuotationByMemberID (MemberID);
+            //ViewBag.StudioReviewList = _studioService.GetCaseReviewByMemberID (MemberID);
             return View();
         }
 
