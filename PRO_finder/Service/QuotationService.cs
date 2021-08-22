@@ -194,8 +194,7 @@ namespace PRO_finder.Service
 
             return QuoDetailVM;
         }
-            return null;
-        }
+            
 
         //刊登新服務 CreateQuotation
         public Quotation CreateQuotation(CreateQuotationViewModel newQ, DateTime now)
