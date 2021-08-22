@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace PRO_finder.Controllers
 {
@@ -19,42 +20,55 @@ namespace PRO_finder.Controllers
 
         }
 
+
+
+        [HttpGet]
         // GET: FindQuotation
-        public ActionResult Index()
+        public ActionResult Index(string id)
         {
-            List<CaseViewModel> result = _caseService.Getcase();
-            ViewBag.caseList = result;
-            List<SelectListItem> locationlist = _caseService.getLocationList();
-            ViewBag.locationList = locationlist;
+            ViewBag.CateId = id;
+       
             return View();
         }
 
 
-        public ActionResult IndexJson()
+
+        [HttpGet]
+        public ActionResult IndexJson(string Cateid ="")
         {
-            List<CaseViewModel> result = _caseService.GetCasesList();
-            return Json(result,JsonRequestBehavior.AllowGet);
+            List<CaseViewModel> result;
+            if (Cateid == "")
+            {
+                result = _caseService.GetCasesList().ToList();
+            }
+            else {
+                result = _caseService.GetCasesList().Where(x => x.CategoryID == Int32.Parse(Cateid)).ToList();
+            }
+
+          
+            return Json(result, JsonRequestBehavior.AllowGet);
+            
+
         }
 
 
+
+      
 
         [HttpPost]
-        public ActionResult getLocationID(int locationID)
+        public ActionResult searchinput(string Input)
         {
-            List<CaseViewModel> result = _caseService.Getcase().Where(x => x.LocationID == locationID).ToList() ;
-            //if (result == null)
-            //{
-            //    result = _caseService.Getcase().Where(x => x.LocationID == 1).ToList();
-            //}
-            ViewBag.caseList = result;
-            List<SelectListItem> locationlist = _caseService.getLocationList();
-            ViewBag.locationList = locationlist;
 
-            return View("Index", ViewBag.caseList);
+
+            var result = _caseService.GetCasesList().Where(x => x.Description.Contains(Input)).ToList();
+            return Json(result, JsonRequestBehavior.AllowGet);
+
         }
-        public ActionResult Detail()
+
+
+        public ActionResult Detail(int id)
         {
-            return View();
+            return View(id);
         }public ActionResult Test()
         {
             return View();

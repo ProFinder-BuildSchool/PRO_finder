@@ -32,6 +32,7 @@ namespace PRO_finder.Repositories
                                  SubCategoryID = s.SubCategoryID,
                                  Description = c.Description,
                                  UpdateDate = c.UpdateDate.ToString(),
+
                                  SubCategoryName = s.SubCategoryName,
                              });
 

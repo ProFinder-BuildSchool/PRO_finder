@@ -13,6 +13,8 @@ namespace PRO_finder.Models.DBModel
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CaseID { get; set; }
 
+
+
         public string CaseRefImg { get; set; }
     }
 }
