@@ -27,11 +27,11 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-6">
-                            @Html.DropDownList("Catgeory", (List<SelectListItem>)ViewBag.categoryList, new { @class = "form-control", @id = "categoryDropdown" })
+                            @Html.DropDownList("Catgeory", (List<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control", @id = "categoryDropdown" })
                         </div>
                         <div class="col-6">
                             <select class="form-control" id="subcategorySelect" name="SubCategoryID">
-                                <option class="text-center">選擇服務子類型</option>
+                                <option class="text-center">選擇子類型</option>
                             </select>
                             @Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })
                         </div>
@@ -86,13 +86,14 @@
                 </div>
             </div>
 
+            @*參考圖片*@
             <div class="form-group mt-5">
                 <div class="container">
                     <div class="row">
-                        <div class="col-12 ">
+                        <div class="col-12">
                             <label for="upload">
                                 <img src="https://image.flaticon.com/icons/png/512/568/568717.png"
-                                     alt=""><span class="uploadIcon">上傳作品</span>
+                                     alt=""><span class="uploadIcon">參考圖檔</span>
                             </label>
                         </div>
                         <div class="col-6 d-none">
@@ -103,6 +104,7 @@
             </div>
             <div class="displayUploadArea">
                 <div class="container">
+                    <p class="text-danger mb-0">&ensp;*拖曳交換順序</p>
                     <div class="row" id="displayUpload">
                     </div>
                 </div>
@@ -111,12 +113,25 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-12 text-center">
-                    <input type="submit" value="儲存" class="btn btn-primary mt-3" />
+                    <input type="submit" value="儲存" class="btn btn-primary mt-3" id="submit" />
                 </div>
             </div>
         </div>
     </div>
+    //hidden inputs
+    <input type="hidden" name="MainPicture" id="MainPicture"/>
+    <input type="hidden" name="OtherPictureList" id="OtherPictureList"/>
+
 }
+@*picture template*@
+<template id="displayPictureTemplate">
+    <div class="col-12 col-md-6 col-lg-4">
+        <span class="btn btn-outline-danger"><i class='fas fa-trash-alt'></i></span>
+        @*<img src="" data-content="WorkPicture"/>*@
+        @*<video src="" data-content="WorkPicture"/>*@
+    </div>
+</template>
+
 @section topCSS{
     <link href="~/Assets/css/quill.snow.css" rel="stylesheet" />
     <style>
@@ -157,6 +172,10 @@
                     width: 30%;
                 }
 
+        span.uploadIcon {
+            font-size: 10px;
+        }
+
         #displayUpload {
             border: 2px #89ba16 dashed;
             margin: 0px 15px;
@@ -185,6 +204,13 @@
                     background-color: rgba(0, 0, 0, 0.5);
                 }
 
+                #displayUpload div:first-child::before {
+                    content: "  *第一張為封面";
+                    color: yellow;
+                    font-size: 16px;
+                    font-weight: 700;
+                }
+
                 #displayUpload div span {
                     position: absolute;
                     z-index: 300;
@@ -198,6 +224,12 @@
                         background-color: unset !important;
                         cursor: pointer;
                     }
+
+        @@media screen and (min-width:768px) {
+            span.uploadIcon {
+                font-size: 16px;
+            }
+        }
     </style>
 }
 
@@ -257,74 +289,97 @@
         $g('#editor').style.setProperty('border-radius', '0 0 .25rem .25rem');
         $g('#editor').style.setProperty('min-height', '200px');
 
-
-        //imgur 圖檔上傳
-        const id = "c20b85a63157827";
-        const album = 'Sv87YFL';
-
-
-        $g("#upload").addEventListener("change", function (e) {
-            let form = new FormData();
-            form.append('image', e.target.files[0]);
-            /*form.append('album', album)*/
-            console.log(form);
-
-            fetch("https://api.imgur.com/3/image", {
-                method: "post",
-                headers: {
-                    Authorization: `Client-ID ${id}`
-                },
-                body: form
-            }).then(data => data.json()).then(data => {
-                console.log(data);
-            })
-        });
-
         //上傳圖檔呈現
-        let count = 0;
+        let countMedia = 0;
         let displayUpload = $g("#displayUpload");
+        let uploadArray = []; //上傳圖床用的
         $g("input#upload").addEventListener("change", function () {
+            /*console.dir(this);*/
             let files = Array.from(this.files);
-
             files.forEach(file => {
+                uploadArray.push(file);
 
-                let div = document.createElement("div");
-                let span = document.createElement("span");
-                let img = new Image();
-                div.classList.add("col-12");
-                div.classList.add("col-md-6");
-                div.classList.add("col-lg-4");
-                img.src = URL.createObjectURL(file);
-                span.innerHTML = "<i class='fas fa-trash-alt'></i>";
-                span.classList.add("btn");
-                span.classList.add("btn-outline-danger");
-                span.dataset.count = count;
-                div.setAttribute("id", `count${count}`);
-                div.setAttribute("draggable", true);
-
+                let clone = $g("#displayPictureTemplate").content.cloneNode(true);
+                let div = clone.querySelector("div");
+                let span = clone.querySelector("span");
+                span.dataset.count = countMedia;
+                div.setAttribute("id", `count${countMedia}`);
 
                 //刪除設定
                 span.addEventListener("click", function () {
-                    let displayUpload = $g("#displayUpload");
-                    let theDiv = $g(`div#count${this.dataset.count}`);
+                    let theCount = this.dataset.count
+                    let theDiv = $g(`div#count${theCount}`);
                     displayUpload.removeChild(theDiv);
-                    console.log(theDiv);
+                    uploadArray.splice(theCount, 1);
+                    //console.log(theDiv);
                 });
 
-                div.appendChild(span);
-                div.appendChild(img);
+                //新增圖片影片預覽
+                let regexImg = "^image.+";
+                let regexVideo = "^video.+";
+                let fileType = file.type;
+                let img = document.createElement("img");
+                let video = document.createElement("video");
+
+                if (fileType.match(regexImg)) {
+                    img.src = URL.createObjectURL(file);
+                    div.appendChild(img);
+                }
+                else if (fileType.match(regexVideo)) {
+                    video.src = URL.createObjectURL(file);
+                    div.appendChild(video);
+                }
                 displayUpload.appendChild(div);
-                count++;
+                countMedia++;
             });
         });
 
         //sortable
         const displayArea = $g("#displayUpload");
         new Sortable(displayArea, {
-            animation:200
+            animation: 200
         });
 
+        //提交，送出WorkAttachmentList、WorkPicturesList
+        //cloudinary 影音圖檔上傳
+        const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/syjy97jq/image/upload";
+        const upload_preset = "syjy97jq";
+        const myApiKey = "691819382586651"
 
+        $g("input[type='submit']").addEventListener("click", function (e) {
+            e.preventDefault();
+            //OtherPictureList
+            let sortNum = 0;
+            let otherPictureArray = [];
+            const formData = new FormData();
+            uploadArray.forEach(file => {
+                formData.append("file", file);
+                formData.append("upload_preset", upload_preset);
+                formData.append("api_key", myApiKey);
+
+                fetch(CLOUDINARY_URL, {
+                    method: "POST",
+                    body: formData
+                })
+                .then((response) => {
+                    return response.text();
+                })
+                .then((data) => {
+                    let result = JSON.parse(data);
+                    let obj = new Object();
+                    obj.OtherPicture1 = result.url;
+                    //obj.OtherPictureLink = result.url;
+                    obj.SortNumber = sortNum;
+                    OtherPictureArray.push(obj);
+                    sortNum++;
+                });
+            });
+            $g("input#MainPicture").value = OtherPictureArray[0].OtherPicture;
+            let otherPics = JSON.stringify(otherPictureArray);
+            $g("input#OtherPictureList").value = otherPics;
+            console.log(otherPics);
+
+        });
 
         function $g(element) {
             let temp = document.querySelectorAll(element);
