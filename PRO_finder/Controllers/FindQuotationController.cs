@@ -66,12 +66,20 @@ namespace PRO_finder.Controllers
         }
 
 
-        public ActionResult Detail(int id)
+        public ActionResult Detail(int id =1)
         {
-            return View(id);
-        }public ActionResult Test()
+            ViewBag.CateId = id;
+            var result = _caseService.GetCaseDetail().FirstOrDefault(x => x.CaseId == id);
+
+            return View(result);
+        }
+
+        public ActionResult Othercase(string Cateid) 
         {
-            return View();
+            var result = _caseService.GetCasesList().Where(x => x.CategoryID == Int32.Parse(Cateid)).ToList
+                ();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }
