@@ -105,7 +105,7 @@
         <div class="form-group">
             <label for="LocationID" class="col-md-12 control-label">理想接案城市</label>
             <div class="col-md-6">
-                @Html.DropDownList("LocationID", (List<SelectListItem>)ViewBag.LocationDropdownList, new { @class = "form-control", @id = "categoryDropdown" })
+                @Html.DropDownList("LocationID", (List<SelectListItem>)ViewBag.LocationDropdownList, new { @class = "form-control"})
             </div>
         </div>
         <div class="form-group">
@@ -187,7 +187,7 @@
         });
 
         document.querySelector("#categoryDropdown").addEventListener("change", function () {
-            selector.innerHTML = "<option class='text - center'>選擇子類型</option>";
+            selector.innerHTML = "<option class='text-center'>選擇子類型</option>";
             subCategoryList.forEach(sub => {
                 if (sub.CategoryID == this.value) {
                     let allsub = JSON.parse(sub.JsonSubCategoryList);
