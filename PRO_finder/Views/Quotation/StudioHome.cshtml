@@ -27,7 +27,7 @@
                         </div>
                         <p class="designerSkill">
                             <span class="designerSkillTit">專長:</span>
-                            <a href="/talent?ca=dRL&amp;su=BJeM" target="_blank" title="EDM設計">item.ExpertSubCategory</a>
+                            <a href="/talent?ca=dRL&amp;su=BJeM" target="_blank" title="EDM設計">@item.ExpertSubCategory</a>
                             @*<a href="/talent?ca=dRL&amp;su=My0G" target="_blank" title="廣告Banner"># 廣告Banner</a>
                     <a href="/talent?ca=L35&amp;su=ao6p" target="_blank" title="影片/音效後製剪輯"># 影片/音效後製剪輯</a>*@
                         </p>
@@ -59,8 +59,8 @@
 
                     <a name="01"></a>
                     <div id="about">
-                        @*@foreach (var item in ViewBag.StudioInfoList)
-                    {*@
+                        @foreach (var item in ViewBag.StudioInfoList)
+                    {
                         <h4 class="mb-4" id="part">關於</h4>
                         <div class="wrap123">
                             <input type="checkbox" id="exp">
@@ -68,7 +68,7 @@
                                 <label class="btn123" for="exp"></label>
                                 <div>
                                     <p>
-                                        item.Description
+                                        @item.Description
                                         @*哈囉！我是筑筑，是在職兼職的網頁設計師，台灣及日本股票上市電商公司工作5年，有數百張banner設計經驗，其中包含許多知名品牌，有豐富的業界經歷，設計風格多樣，如果喜歡我的設計，非常歡迎長期合作！<br />
                                         <br />
                                         主要提供 Banner設計服務，並尋找可長期配合廠商。<br />
@@ -96,7 +96,7 @@
                                 </div>
                             </div>
                         </div>
-                        @*}*@
+                        }
                     </div>
 
                     @*</a>*@
