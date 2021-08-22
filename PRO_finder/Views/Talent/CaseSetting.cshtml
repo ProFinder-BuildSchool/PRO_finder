@@ -73,7 +73,7 @@
             <div class="form-group">
                 <label for="job-location" class="col-md-12 control-label">居住地</label>
                 <div class="col-md-6">
-                    @Html.DropDownList("LiveCity", (List<SelectListItem>)ViewBag.LocationDropdownList, new { @class = "form-control", @id = "categoryDropdown" })
+                    @Html.DropDownList("LiveCity", (List<SelectListItem>)ViewBag.LocationDropdownList, new { @class = "form-control"})
                 </div>
             </div>
             <hr />
@@ -93,8 +93,8 @@
             <hr />
             <div class="form-group">
                 <label for="TalentCategoryID" class="col-md-12 control-label">擅長軟體工具</label>
-                <div class="col-md-12">
-                    <div>擅長軟體工具的下拉式選單</div>
+                <div class="col-6">
+
                 </div>
             </div>
         </div>

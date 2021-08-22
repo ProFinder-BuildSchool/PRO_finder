@@ -13,12 +13,13 @@ namespace PRO_finder.Service
     public class CaseService
     {
         private readonly CaseRepository _CaseRepo;
+        private readonly GeneralRepository _repo;
 
 
         public CaseService()
         {
            _CaseRepo = new CaseRepository();
-
+           _repo = new GeneralRepository(new ProFinderContext());
         }
 
 
@@ -71,5 +72,16 @@ namespace PRO_finder.Service
             return CasesList;
         }
 
+        public List<SelectListItem> GetToolList()
+        {
+            var toolList = _repo.GetAll<ToolCategory>();
+            List<SelectListItem> toolDropdown = new List<SelectListItem>();
+            toolDropdown.Add(new SelectListItem { Text = "選擇擅長工具類別" });
+            foreach(var item in toolList)
+            {
+                toolDropdown.Add(new SelectListItem { Text = item.TalentCategoryName, Value = item.TalentCategoryName});
+            }
+            return toolDropdown;
+        }
     }
 }
