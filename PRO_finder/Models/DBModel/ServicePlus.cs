@@ -20,9 +20,9 @@ namespace PRO_finder.Models.DBModel
 
         public byte Status { get; set; }
 
-        public TimeSpan StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
-        public TimeSpan EndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         public virtual MemberInfo MemberInfo { get; set; }
     }
