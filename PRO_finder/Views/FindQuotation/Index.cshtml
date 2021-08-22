@@ -1,4 +1,4 @@
-﻿@model string 
+﻿@model string
 @{
     ViewBag.Title = "Index";
 }
@@ -17,17 +17,17 @@
                                     <p>平面設計</p>
                                     <p>(373)筆</p>
                                 </a>
-                                
+
                             </div>
                         </div>
                         <div class="col-md-1 test">
-                            <div class="category-btn"  >
+                            <div class="category-btn">
                                 <a class="mb-1" href="@Url.Action("Index",new { id = "1"} )">
                                     <i class="far fa-window-restore"></i>
                                     <p>網頁設計</p>
                                     <p>(373)筆</p>
                                 </a>
-                                
+
                             </div>
                         </div>
                         <div class="col-md-1 test">
@@ -38,7 +38,7 @@
                                     <p>程式開發</p>
                                     <p>(373)筆</p>
                                 </a>
-                               
+
                             </div>
                         </div>
                         <div class="col-md-1 test">
@@ -48,7 +48,7 @@
                                     <p>翻譯寫作</p>
                                     <p>(373)筆</p>
                                 </a>
-                               
+
                             </div>
                         </div>
                         <div class="col-md-1 test">
@@ -58,17 +58,17 @@
                                     <p>商社娛樂</p>
                                     <p>(373)筆</p>
                                 </a>
-                               
+
                             </div>
                         </div>
                         <div class="col-md-1 test">
-                            <div class="category-btn" >
+                            <div class="category-btn">
                                 <a class="mb-1" href="@Url.Action("Index",new { id = "5"} )">
                                     <i class="fas fa-photo-video"></i>
                                     <p>影像製作</p>
                                     <p>(373)筆</p>
                                 </a>
-                                
+
                             </div>
                         </div>
                         <div class="col-md-1 test">
@@ -104,7 +104,7 @@
                                     <i class="fas fa-pencil-ruler"></i>
                                     <p>專業顧問</p>
                                     <p>(373)筆</p>
-                                </a>  
+                                </a>
                             </div>
                         </div>
                         <div class="col-md-1  test">
@@ -132,7 +132,7 @@
                         @*動態資料*@
                     </select>
                     <button class="watchAll btn   p-1 text-black">× 清除條件</button>
-                    <input  class=" searchinput "type="text" placeholder="請輸入關鍵字">
+                    <input class=" searchinput " type="text" placeholder="請輸入關鍵字">
                     <button type="submit" class=" search btn  btn-success text-white p-1 "><i class="icon fas text-white fa-search mr-2"></i>搜尋</button>
                 </div>
             </div>
@@ -153,23 +153,41 @@
                             <li class="list-group-item">
                                 <a href="#">
                                     <p></p>
-                                </a><span class="hour-ago">12小時前</span>
+                                </a>
+                                <span class="hour-ago"></span>
                             </li>
 
 
                         </template>
-                      
 
-                       
+
+
                     </ul>
 
                 </div>
 
 
-               
-                <div style="position:relative; height:20%" class="my-3">
-                    <img class="w-100 h-100" src="https://pic.52112.com/180531/JPG-180531_509/nkFGBvQnQn_small.jpg" alt="最近成交" />
-                    <div style="position:absolute; z-index:2; left:10px ;top:10px">安安</div>
+
+                <div style="position:relative; height:150px" class="my-3">
+                    <img class="w-100 h-100 rounded" src="https://i.ibb.co/Th5hn3k/unnamed.jpg" alt="最近成交" />
+
+                    <div style="position:absolute; z-index:2; left:10px ;top:10px">
+                        <p class="font-weight-bold  text-white mb-1">最新成交</p>
+                        <p class="font-weight-bold  text-white mb-1">
+                            恭喜人才
+                            <a href="#" class="font-weight-bold text-warning">SHEAU圖文創意</a>
+                        </p>
+                        <p class="font-weight-bold text-white mb-1">
+                            完成任務
+                            <a href="#" class="font-weight-bold text-warning">徵求IG小編</a>
+                        </p>
+                        <p class="font-weight-bold  text-white">成交日期 2021/08/21</p>
+
+                    </div>
+
+
+
+
                 </div>
 
 
@@ -242,7 +260,7 @@
             </div>
 
             <!--<div class="col-md-1">-->
-                <!-- 空白 -->
+            <!-- 空白 -->
             <!--</div>-->
 
 
@@ -290,7 +308,7 @@
                                 </p>
                                 <div class="d-flex justify-content-between">
                                     <p class="update-time"></p>
-                                    <a  class="btn btn-primary addCart">我要報價</a>
+                                    <a class="btn btn-primary addCart">我要報價</a>
                                 </div>
                             </div>
                         </div>
@@ -300,22 +318,14 @@
                         <div class="case-page d-flex justify-content-end ">
                             <nav class="pages" aria-label="Page navigation example">
                                 <ul class="pagination" id="paginationlist">
-                                    <li class="page-item">
-                                        <a class="page-link Previous" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
+
 
                                     <template id="pagination">
                                         <li class="page-item pagelist"><a class="page-link pageItem" href="#"></a></li>
                                     </template>
 
 
-                                    <li class="page-item">
-                                        <a class="page-link Next" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
+
                                 </ul>
 
                             </nav>
@@ -540,7 +550,6 @@
         }
 
         .case .card-text {
-           
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -563,31 +572,34 @@
             padding-top: 20px;
             border-top: 2px rgba(0, 0, 0, .1) solid;
         }
-        br{
+
+        br {
             display: none
         }
+
         .actives i,
         .actives > a,
         .actives p {
             color: #89ba16 !important;
         }
-        .FindQuotation a{
+
+        .FindQuotation a {
             color: #89ba16 !important;
-            background-color:white
-              
+            background-color: white
         }
+
         .site-navbar {
-          
-            position:static !important;
+            position: static !important;
         }
+
         #home-section {
-            position:sticky;
-            top:0;
-            z-index:1000;
-            background-color:white !important;
-            opacity:1;
-            
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: white !important;
+            opacity: 1;
         }
+
         .border-btm {
             box-shadow: 0px 0px 4px 1px #89ba16;
         }
@@ -597,7 +609,7 @@
     {
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    
+
     <script>
         window.onscroll = function (e) {
             let homesectiontoTop =document.querySelector('#home-section')
@@ -640,6 +652,10 @@
                     console.log(err);
                 })
 
+
+
+
+
         axios.get(`/FindQuotation/IndexJson`).then(res => {
             let newCaseArray = res.data
             setNewCase(newCaseArray)
@@ -672,8 +688,8 @@
            arr.slice(0,5).forEach(function (item, index) {
 
                 let cloneContent = newCase.content.cloneNode(true);
-               cloneContent.querySelector('p').innerText = item.title
-               cloneContent.querySelector('.hour-ago').innerText = item.UpdateDate
+               cloneContent.querySelector('p').innerHTML = `<span class=" pt-1 d-inline-block px-1 bg-success text-white">${index+1}.</span> ${item.title}`
+               cloneContent.querySelector('.hour-ago').innerText = StringToDate(item.UpdateDate)
                 document.querySelector('.newCaseList').append(cloneContent);
 
             })
@@ -761,16 +777,30 @@
 
         //設定分頁頁數
         function setPagination(arr) {
+            console.log('安安',arr)
+            if (arr.length == 0) { return }
             document.querySelector('#paginationlist').innerHTML = "";
-            if (arr.page == undefined) { return }
+            document.querySelector('#paginationlist').innerHTML +=
+                `   <li class="page-item">
+                          <a class="page-link Previous" href="#" aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                           </a>
+                   </li>`
             let lastpage = arr[arr.length - 1].page
             for (let i = 1; i <= lastpage; i++) {
                 let cloneContent = pagesOption.content.cloneNode(true);
                 cloneContent.querySelector('.page-link').innerText = i
                 document.querySelector('#paginationlist').append(cloneContent);
             }
-            document.querySelectorAll('.pagelist')[0].classList.add('active')
             addbuttonEvent();
+            document.querySelector('#paginationlist').innerHTML+=
+            `<li class="page-item">
+                <a class="page-link Next" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>`
+            document.querySelectorAll('.pagelist')[0].classList.add('active')
+
         }
 
         //點擊換頁
@@ -819,7 +849,7 @@
 
 
 
-    
+
         //渲染案件
         function addcase(arr,pages=1) {
             arr.forEach(function (item, index) {
@@ -830,14 +860,36 @@
                     cloneContent.querySelector('.city').innerHTML = ` <i class="fas fa-map-marker-alt mr-1"></i>${item.LocationName}`;
                     cloneContent.querySelector('.card-text').innerText =item.Description;
                     cloneContent.querySelector('.subcate').innerText = item.SubCategoryName;
-                    cloneContent.querySelector('.update-time').innerText = item.UpdateDate;
+                    cloneContent.querySelector('.update-time').innerText = StringToDate(item.UpdateDate);
                     cloneContent.querySelector('.addCart').href = `/FindQuotation/Detail?id=${item.CaseId}`
                     cloneContent.querySelector('.card-title-a').href = `/FindQuotation/Detail?id=${item.CaseId}`
                     document.querySelector('.aaaaaaa').append(cloneContent);
+                    StringToDate(item.UpdateDate)
                 }
             })
-        };
 
+        };
+        function StringToDate(string) {
+
+            var num = parseInt(string.substring(4).substring(2));
+        
+            var CaseUpdate = new Date(num)
+            var Today = new Date()
+            
+            var diff = Today.getTime() - CaseUpdate.getTime();
+
+            var days = Math.floor(diff / 1000 / 60 / 60 / 24);
+            diff -= days * 1000 * 60 * 60 * 24;
+            var hours = Math.floor(diff / 1000 / 60 / 60);
+            diff -= hours * 1000 * 60 * 60;
+            var minutes = Math.floor(diff / 1000 / 60);
+            diff -= minutes * 1000 * 60;
+            var seconds = Math.floor(diff / 1000);
+
+            resultTime = days+"天"+hours + "小時前"
+            return resultTime;
+
+        }
 
         function changePrice(pirceNum) {
 
@@ -872,7 +924,7 @@
                     }
                     else {
                         res.data.forEach((x) => { areaArray.push(x.LocationName), priceArray.push(x.Price) })
-                       
+
                     }
                     setCaseCount(AllCardArray);
                     setPages(AllCardArray);

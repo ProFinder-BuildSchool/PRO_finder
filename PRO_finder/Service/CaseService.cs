@@ -37,7 +37,7 @@ namespace PRO_finder.Service
                        LocationName = Locations.LocationName,
                        SubCategoryID = SubCategory.SubCategoryID,
                        Description = Case.Description,
-                       UpdateDate = Case.UpdateDate.ToString(),
+                       UpdateDate = (DateTime)Case.UpdateDate,
                        SubCategoryName = SubCategory.SubCategoryName,
                        CategoryID = SubCategory.CategoryID
 

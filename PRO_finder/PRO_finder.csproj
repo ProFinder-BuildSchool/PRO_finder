@@ -19,10 +19,8 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44375</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>
-    </IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>
-    </IISExpressWindowsAuthentication>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -349,6 +347,7 @@
     <Content Include="Assets\css\owl.carousel.min.css" />
     <Content Include="Assets\css\quill.snow.css" />
     <Content Include="Assets\css\style.css" />
+    <Content Include="Assets\images\300.jfif" />
     <Content Include="Assets\images\apps.png" />
     <Content Include="Assets\images\hero_1.jpg" />
     <Content Include="Assets\images\horizontal_on_white_by_logaster %281%29.png" />
