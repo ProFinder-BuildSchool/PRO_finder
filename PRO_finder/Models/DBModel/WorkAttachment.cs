@@ -15,13 +15,14 @@ namespace PRO_finder.Models.DBModel
             Works = new HashSet<Works>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int WorkAttachmentID { get; set; }
 
         [StringLength(50)]
         public string WorkAttachmentName { get; set; }
 
         public string WorkAttachmentLink { get; set; }
+
+        public int? WorkID { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Works> Works { get; set; }

@@ -141,7 +141,7 @@ namespace PRO_finder.Service
                        CategoryName=category.CategoryName,
                        Price = quotation.Price,
                        Unit = quotation.QuotationUnit,
-                       QuotationImg = quotationpicture.MainPicture
+                       //QuotationImg = quotationpicture.MainPicture
                        //用id去找name SubcategoryName 
                        //WorkName = works.WorkName,
                        //WebsiteURL = works.WebsiteURL,

@@ -66,7 +66,7 @@ namespace PRO_finder.Service
                        LocationID = (int)Case.Location,
                        LocationName = Locations.LocationName,
                        Price = (int)Case.Price,
-                       CompleteDate = Case.CompleteDate,
+                       //CompleteDate = Case.CompleteDate,
                        Type = (CaseDetailViewModel.TypeEnum)(TypeEnum)Case.Type,
                        Description = Case.Description,
                        Contact = Case.Contact,

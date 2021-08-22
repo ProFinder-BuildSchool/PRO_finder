@@ -43,13 +43,13 @@ namespace PRO_finder.Models.DBModel
         [MaxLength(8)]
         public byte[] RegistedTime { get; set; }
 
-        public TimeSpan? EditedTime { get; set; }
+        public DateTime? EditedTime { get; set; }
 
-        public byte? isDeleted { get; set; }
+        public bool? isDeleted { get; set; }
 
-        public TimeSpan? CreateUser { get; set; }
+        public DateTime? CreateUser { get; set; }
 
-        public TimeSpan? UpdateUser { get; set; }
+        public DateTime? UpdateUser { get; set; }
 
         [Column(TypeName = "money")]
         public decimal? Balance { get; set; }
@@ -57,7 +57,7 @@ namespace PRO_finder.Models.DBModel
         [Column(TypeName = "image")]
         public byte[] ProfilePicture { get; set; }
 
-        public byte? Status { get; set; }
+        public bool? Status { get; set; }
 
         [StringLength(50)]
         public string NickName { get; set; }
@@ -80,7 +80,7 @@ namespace PRO_finder.Models.DBModel
         [StringLength(128)]
         public string UserId { get; set; }
 
-        public byte? IsThirdLogin { get; set; }
+        public bool? IsThirdLogin { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Case> Case { get; set; }
@@ -92,6 +92,8 @@ namespace PRO_finder.Models.DBModel
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HostingDetail> HostingDetail { get; set; }
+
+        public virtual Works Works { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Message { get; set; }
@@ -111,7 +113,7 @@ namespace PRO_finder.Models.DBModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServicePlus> ServicePlus { get; set; }
 
-        public virtual Works Works { get; set; }
+        public virtual Works Works1 { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProposalRecord> ProposalRecord { get; set; }

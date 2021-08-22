@@ -9,7 +9,6 @@ namespace PRO_finder.Models.DBModel
     [Table("Case")]
     public partial class Case
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CaseID { get; set; }
 
         public int? SortNumber { get; set; }
@@ -25,9 +24,6 @@ namespace PRO_finder.Models.DBModel
 
         public int? Location { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? CompleteDate { get; set; }
-
         public string Description { get; set; }
 
         public int? MemberID { get; set; }
@@ -39,7 +35,7 @@ namespace PRO_finder.Models.DBModel
         [StringLength(50)]
         public string Contact { get; set; }
 
-        public byte? AnswerPhone { get; set; }
+        public bool? AnswerPhone { get; set; }
 
         [StringLength(10)]
         public string LocalCallsCode { get; set; }
@@ -58,6 +54,8 @@ namespace PRO_finder.Models.DBModel
 
         [StringLength(50)]
         public string LineID { get; set; }
+
+        public int? CompleteDate { get; set; }
 
         public virtual MemberInfo MemberInfo { get; set; }
 

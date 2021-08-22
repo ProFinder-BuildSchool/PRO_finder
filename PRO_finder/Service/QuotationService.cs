@@ -29,7 +29,7 @@ namespace PRO_finder.Service
         {
 
             var quotationVM = (from q in _ctx.GetAll<Quotation>()
-                               join o in _ctx.GetAll<OtherPicture>() on q.OtherPictureID equals o.OtherPictureID
+                               //join o in _ctx.GetAll<OtherPicture>() on q.OtherPictureID equals o.OtherPictureID
                                join s in _ctx.GetAll<SubCategory>() on q.SubCategoryID equals s.SubCategoryID
                                join m in _ctx.GetAll<MemberInfo>() on q.MemberID equals m.MemberID
                                join l in _ctx.GetAll<Locations>() on m.LocationID equals l.LocationID
@@ -41,7 +41,7 @@ namespace PRO_finder.Service
                                    Price = (q.Price).ToString(),
                                    Unit = q.QuotationUnit,
                                    StudioName = m.NickName,
-                                   Img = o.MainPicture,
+                                   //Img = o.MainPicture,
                                    CategoryId = s.CategoryID,
                                    SubcategoryId = s.SubCategoryID,
                                    SubcategoryName = s.SubCategoryName,
@@ -74,7 +74,7 @@ namespace PRO_finder.Service
         public List<QuotationViewModel> GetKeyWordCardData(string keyword)
         {
             var quotationVM = (from q in _ctx.GetAll<Quotation>()
-                               join o in _ctx.GetAll<OtherPicture>() on q.OtherPictureID equals o.OtherPictureID
+                               //join o in _ctx.GetAll<OtherPicture>() on q.OtherPictureID equals o.OtherPictureID
                                join s in _ctx.GetAll<SubCategory>() on q.SubCategoryID equals s.SubCategoryID
                                join m in _ctx.GetAll<MemberInfo>() on q.MemberID equals m.MemberID
                                join l in _ctx.GetAll<Locations>() on m.LocationID equals l.LocationID
@@ -86,7 +86,7 @@ namespace PRO_finder.Service
                                    Price = (q.Price).ToString(),
                                    Unit = q.QuotationUnit,
                                    StudioName = m.NickName,
-                                   Img = o.MainPicture,
+                                   //Img = o.MainPicture,
                                    CategoryId = s.CategoryID,
                                    SubcategoryId = s.SubCategoryID,
                                    SubcategoryName = s.SubCategoryName,
@@ -106,7 +106,7 @@ namespace PRO_finder.Service
         public List<QuotationViewModel> GetAllCardData()
         {
             var quotationVM = (from q in _ctx.GetAll<Quotation>()
-                               join o in _ctx.GetAll<OtherPicture>() on q.OtherPictureID equals o.OtherPictureID
+                               //join o in _ctx.GetAll<OtherPicture>() on q.OtherPictureID equals o.OtherPictureID
                                join s in _ctx.GetAll<SubCategory>() on q.SubCategoryID equals s.SubCategoryID
                                join m in _ctx.GetAll<MemberInfo>() on q.MemberID equals m.MemberID
                                join l in _ctx.GetAll<Locations>() on m.LocationID equals l.LocationID
@@ -118,7 +118,7 @@ namespace PRO_finder.Service
                                    Price = (q.Price).ToString(),
                                    Unit = q.QuotationUnit,
                                    StudioName = m.NickName,
-                                   Img = o.MainPicture,
+                                   //Img = o.MainPicture,
                                    CategoryId = s.CategoryID,
                                    SubcategoryId = s.SubCategoryID,
                                    SubcategoryName = s.SubCategoryName,
@@ -152,9 +152,9 @@ namespace PRO_finder.Service
                               select new OtherPictureViewModel
                               {
                                   QuotationID = op.QuotationID,
-                                  MainPicture = op.MainPicture,
+                                  //MainPicture = op.MainPicture,
                                   SortNumber = op.SortNumber,
-                                  IsDefault = (op.IsDefault == 0 ? false : true),
+                                  //IsDefault = (op.IsDefault == 0 ? false : true),
                                   OtherPicture = op.OtherPicture1
                               });
             var OrderList = _ctx.GetAll<Order>();
