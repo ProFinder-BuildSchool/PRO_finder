@@ -80,8 +80,6 @@ namespace PRO_finder.Service
                                   IsDefault = (op.IsDefault == 0 ? false : true),
                                   OtherPicture = op.OtherPicture1
                               });
-            //IEnumerable<QuotationReview> QuoReview = new QuotationService().GetQuoReview(QuotationId);
-
             var OrderList = _ctx.GetAll<Order>();
             var OrderVM = (from o in OrderList
                            join m in MemInfoList on o.DealedTalentMemberID equals m.MemberID
@@ -115,27 +113,5 @@ namespace PRO_finder.Service
 
             return QuoDetailVM;
         }
-
-        //public IEnumerable<QuotationReview> GetQuoReview(int QuotationId)
-        //{
-        //    var OrderList = _ctx.GetAll<Order>();
-        //    var MemInfoList = _ctx.GetAll<MemberInfo>();
-
-        //    var OrderVM = (from o in OrderList
-        //                   join m in MemInfoList on o.DealedTalentMemberID equals m.MemberID
-        //                   where o.SourceID == QuotationId
-        //                   select new QuotationReview
-        //                   {
-        //                       ReviewName = m.NickName,
-                               
-        //                       SubmitDate = o.SubmitDate.ToString(),
-        //                       CaseReview = o.CaseReview,
-        //                       CaseMessage = o.CaseMessage
-        //                   });
-            
-        //    return OrderVM;
-        //}
-
-
     }
 }

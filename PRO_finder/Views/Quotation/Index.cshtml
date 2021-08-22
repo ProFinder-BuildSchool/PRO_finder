@@ -211,7 +211,8 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="listing__item">
                                 <div class="listing__item__pic">
-                                    <a href="@Url.Action("Detail", "Quotation")" target="_blank"><img src="@Html.DisplayFor(modelItem => item.Img)" alt="Image" class="img-fluid rounded"></a>
+                                    @*<a href="@Url.Action("Detail", "Quotation")" target="_blank"><img src="@Html.DisplayFor(modelItem => item.Img)" alt="Image" class="img-fluid rounded"></a>*@
+                                    <a href="Detail/@item.MemberID/@item.Id" target="_blank"><img src="@Html.DisplayFor(modelItem => item.Img)" alt="Image" class="img-fluid rounded"></a>
                                 </div>
                                 <div class="listing__item__text">
                                     <div class="listing__item__text__inside">
