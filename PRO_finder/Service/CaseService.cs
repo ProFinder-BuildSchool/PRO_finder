@@ -92,7 +92,7 @@ namespace PRO_finder.Service
 
         public List<SelectListItem> GetToolList()
         {
-            var toolList = _repo.GetAll<ToolCategory>();
+            var toolList = _ctx.GetAll<ToolCategory>();
             List<SelectListItem> toolDropdown = new List<SelectListItem>();
             toolDropdown.Add(new SelectListItem { Text = "選擇擅長工具類別" });
             foreach(var item in toolList)
