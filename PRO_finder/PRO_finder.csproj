@@ -246,6 +246,7 @@
     <Compile Include="Repositories\MemInfoRepository.cs" />
     <Compile Include="Repositories\QuotationRepository.cs" />
     <Compile Include="Repositories\WorkPageRepository.cs" />
+    <Compile Include="Models\ViewModels\CaseDetailViewModel.cs" />
     <Compile Include="Service\CaseService.cs" />
     <Compile Include="Service\Home_IndexService .cs" />
     <Compile Include="Service\CategoryService.cs" />
