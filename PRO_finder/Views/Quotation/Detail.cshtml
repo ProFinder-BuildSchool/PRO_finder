@@ -1,4 +1,4 @@
-﻿@model QuotationViewModel
+﻿@model QuotationDetailViewModel
 @{
 
     ViewBag.Title = "Detail";
@@ -58,14 +58,14 @@
                                     <div class="col-6">
                                         <div>
                                             <span class="text-danger">
-                                                #<a class="text-danger" href="#">@Model.QuotationTitle</a>
+                                                #<a class="text-danger" href="#">@Model.SubcategoryName</a>
                                             </span>
                                             <span class="m-2">
                                                 <span class="icon-clock-o mr-2"></span><span class="">@Model.UpdateDate 更新</span>
                                             </span>
                                         </div>
                                         <div class="mt-3">
-                                            <h2>MemberInfo-CategoryID</h2>
+                                            <h2>@Model.QuotationTitle</h2>
                                             <p>服務報價：@Model.Price</p>
                                             <p>服務評分：
                                                 @{ if (Model.Evaluation == -1)

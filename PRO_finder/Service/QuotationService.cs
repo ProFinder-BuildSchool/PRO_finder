@@ -59,7 +59,7 @@ namespace PRO_finder.Service
         }
 
         //報價細節
-        public QuotationViewModel GetQuoDetailData(int MemId,int QuotationId)
+        public QuotationDetailViewModel GetQuoDetailData(int MemId,int QuotationId)
         {
             var MemInfoList = _ctx.GetAll<MemberInfo>();
             var QuoList = _ctx.GetAll<Quotation>();
@@ -95,14 +95,18 @@ namespace PRO_finder.Service
             var QuoDetailVM = (from m in MemInfoList
                                join q in QuoList on m.MemberID equals q.MemberID
                                where m.MemberID == MemId && q.QuotationID == QuotationId
-                               select new QuotationViewModel {
-                                   Id = m.MemberID,
+                               select new QuotationDetailViewModel
+                               {
+                                   QuotationId = q.QuotationID,
+                                   MemberID = m.MemberID,
                                    NickName = m.NickName,
                                    LogInTime = m.LogInTime,
-                                   Identity = (QuotationViewModel.IdentityStatus)m.Identity,
-                                   SubcategoryId = (int)m.SubCategoryID,
+                                   Identity = (QuotationDetailViewModel.IdentityStatus)m.Identity,
+                                   //SubcategoryId = (int)m.SubCategoryID,
                                    OtherPicture = OtherPicVM,
                                    QuotationTitle = q.QuotationTitle,
+                                   SubcategoryName = q.SubCategoryID.ToString(),
+                                   Price = q.Price.ToString(),
                                    UpdateDate = q.UpdateDate.ToString(),
                                    ExecuteDate = q.ExecuteDate,
                                    Description = m.Description,
