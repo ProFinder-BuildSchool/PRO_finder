@@ -238,6 +238,7 @@
     <Compile Include="Models\ViewModels\QuotationDetailViewModel .cs" />
     <Compile Include="Models\ViewModels\QuotationViewModel.cs" />
     <Compile Include="Models\ViewModels\SubCategoryViewModel.cs" />
+    <Compile Include="Models\ViewModels\UploadMyWorksViewModel.cs" />
     <Compile Include="Models\ViewModels\Workdetail.cs" />
     <Compile Include="Models\ViewModels\WorkPageViewModel.cs" />
     <Compile Include="Models\ViewModels\StudioViewModel.cs" />
@@ -255,9 +256,11 @@
     <Compile Include="Service\CategoryService.cs" />
     <Compile Include="Service\MemberinfoService.cs" />
     <Compile Include="Service\MemInfoService.cs" />
+    <Compile Include="Service\OperationResult.cs" />
     <Compile Include="Service\QuotationService.cs" />
     <Compile Include="Service\WorkPictureService.cs" />
     <Compile Include="Service\StudioService.cs" />
+    <Compile Include="Service\WorksService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\TalentIndexViewModel.cs" />

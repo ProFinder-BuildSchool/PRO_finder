@@ -51,21 +51,20 @@ namespace PRO_finder.Service
 
             return List;
         }
+
         public List<SelectListItem> getLocationList()
         {
             var repository = new GeneralRepository(new ProFinderContext());
             List<Locations> locationDB = repository.GetAll<Locations>().ToList();
             List<SelectListItem> locationlist = new List<SelectListItem>();
             locationlist.Add(new SelectListItem { Text = "地區" });
-            foreach(var item in locationDB)
+            foreach (var item in locationDB)
             {
                 locationlist.Add(
                     new SelectListItem { Text = item.LocationName, Value = item.LocationID.ToString() });
             }
             return locationlist;
         }
-
-
         public List<CaseViewModel> GetCasesList()
         {
             List<CaseViewModel> CasesList = _CaseRepo.ReadCase().ToList();

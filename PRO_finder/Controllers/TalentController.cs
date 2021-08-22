@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using System.Web.UI;
 using Microsoft.AspNet.Identity;
 using PRO_finder.Models.DBModel;
+using PRO_finder.Models.ViewModels;
+using PRO_finder.Repositories;
 using PRO_finder.Service;
 using PRO_finder.ViewModels;
 
@@ -15,75 +17,106 @@ namespace PRO_finder.Controllers
     public class TalentController : Controller
     {
         // GET: AccountCenter
-        private readonly ProFinderContext _context;
-        private readonly CategoryService _service;
+        private readonly GeneralRepository _repo;
+        private readonly CategoryService _cateService;
+        private readonly WorksService _worksService;
+        private readonly QuotationService _quotaService;
+
         public TalentController()
         {
-            _context = new ProFinderContext();
-            _service = new CategoryService();
+            _repo = new GeneralRepository(new ProFinderContext());
+            _cateService = new CategoryService();
+            _worksService = new WorksService();
+            _quotaService = new QuotationService();
         }
 
         public ActionResult Index()
         {
-
-            //List<TalentIndexViewModel> clientIndex = new List<TalentIndexViewModel>();
-            //MemberInfo memberInfo = context.MemberInfoes.FirstOrDefault();
-            //var systemContent = context.SystemContents.ToList();
-            //List<string> temp = new List<string>();
-            //foreach(var item in systemContent)
-            //{
-            //    temp.Add(item.Content);
-            //}
-            //clientIndex.Add(new TalentIndexViewModel { Balance = memberInfo.Balance, ContentList = temp});
-            //return View(clientIndex);
             return View();
         }
-        [HttpGet]
+
+        //[HttpGet]
         public ActionResult CreateQuotation()
         {
             //var currentUserId = User.Identity.GetUserId();
-            ViewBag.categoryList = _service.GetCategorySelectList();
-            
+            ViewBag.CategoryList = _cateService.GetCategorySelectList();
+
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateQuotation([Bind(Include = "QuotationID, QuotationTitle, Price, QuotationUnit, ExecuteDate, Description, SubCategoryID")] Quotation quotation, [Bind(Include ="WorkAttachmentLink")] WorkAttachment workAttachment)
+        public ActionResult CreateQuotation([Bind(Include = "QuotationTitle, Price, QuotationUnit, ExecuteDate, Description, SubCategoryID, MainPicture, OtherPictureList")] CreateQuotationViewModel quotation)
         {
-            ViewBag.JsonAllCategory = _service.GetAllCatAndSubCat();
+            ViewBag.CategoryList = _cateService.GetCategorySelectList();
             if (ModelState.IsValid)
             {
-                _context.Quotation.Add(quotation);
-                _context.SaveChanges();
+                string user = HttpContext.User.Identity.GetUserId();
+                quotation.MemberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == user).MemberID;
+                DateTime now = DateTime.Now;
+                var newQ = _quotaService.CreateQuotation(quotation, now);
+                int quotationID = newQ.QuotationID;
+
+                if (quotation.OtherPictureList != null)
+                {
+                    _quotaService.CreateOtherPics(quotationID, quotation.OtherPictureList);
+                }
+
                 return RedirectToAction("Index");
             }
             return View(quotation);
         }
-        
+
         public JsonResult GetAllCategoryAndSubCategoryList()
         {
-            _context.Configuration.ProxyCreationEnabled = false;
-            var subcategoryList = _service.GetAllCatAndSubCat();
+            var subcategoryList = _cateService.GetAllCatAndSubCat();
             return Json(subcategoryList, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public ActionResult UploadMyWorks()
         {
-            ViewBag.categoryList = _service.GetCategorySelectList();
-            ViewBag.JsonAllCategory = _service.GetAllCatAndSubCat();
+            ViewBag.CategoryList = _cateService.GetCategorySelectList();
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UploadMyWorks(WorkPictures newWorkPictures, Works newWorksInfo)
+        public ActionResult UploadMyWorks([Bind(Include = "WorkName, SubCategoryID, Client, Role, YearStarted, WebsiteURL, WorkDescription, WorkAttachmentList, WorkPictureList")] UploadMyWorksViewModel newWorks)
         {
-            ViewBag.categoryList = _service.GetCategorySelectList();
-            ViewBag.JsonAllCategory = _service.GetAllCatAndSubCat();
-            return View();
+            //頁面顯示
+            ViewBag.CategoryList = _cateService.GetCategorySelectList();
+
+            //取得memberID,並加至newWorks
+            string userId = HttpContext.User.Identity.GetUserId();
+            newWorks.MemberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == userId).MemberID;
+
+            
+            if (ModelState.IsValid)
+            {
+                //存入Works資料庫
+                var newEntity = _worksService.CreateWorks(newWorks);
+                int workID = newEntity.WorkID;
+
+                //存入WorkAttachment資料庫
+                if (newWorks.WorkAttachmentList != null)
+                {
+                    _worksService.CreateWorkAttachment(workID, newWorks.WorkAttachmentList);
+                }
+
+                //存入WorkPictures資料庫
+                if (newWorks.WorkPictureList != null)
+                {
+                    _worksService.CreateWorkPictures(workID, newWorks.WorkPictureList);
+                }
+
+                return RedirectToAction("Index");
+            }
+
+            return View(newWorks);
         }
         public ActionResult CaseSetting()
         {
+            ViewBag.LocationDropdownList = _quotaService.GetLocationList();
+            ViewBag.CategoryList = _cateService.GetCategorySelectList();
             return View();
         }
     }
