@@ -16,7 +16,5 @@ namespace PRO_finder.Models.DBModel
         public TimeSpan SavedDate { get; set; }
 
         public int MemberID { get; set; }
-
-        public virtual Case Case { get; set; }
     }
 }

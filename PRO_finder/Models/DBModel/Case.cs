@@ -9,15 +9,6 @@ namespace PRO_finder.Models.DBModel
     [Table("Case")]
     public partial class Case
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Case()
-        {
-            CaseNotification = new HashSet<CaseNotification>();
-            HostingDetail = new HashSet<HostingDetail>();
-            ProposalRecord = new HashSet<ProposalRecord>();
-            QuotationDetail = new HashSet<QuotationDetail>();
-        }
-
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CaseID { get; set; }
 
@@ -28,7 +19,7 @@ namespace PRO_finder.Models.DBModel
 
         public int? SubCategoryID { get; set; }
 
-        public TimeSpan? UpdateDate { get; set; }
+        public DateTime? UpdateDate { get; set; }
 
         public int? Price { get; set; }
 
@@ -71,23 +62,5 @@ namespace PRO_finder.Models.DBModel
         public virtual MemberInfo MemberInfo { get; set; }
 
         public virtual MemberInfo MemberInfo1 { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CaseNotification> CaseNotification { get; set; }
-
-        public virtual CaseNotification CaseNotification1 { get; set; }
-
-        public virtual CaseReference CaseReference { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HostingDetail> HostingDetail { get; set; }
-
-        public virtual SaveCase SaveCase { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProposalRecord> ProposalRecord { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QuotationDetail> QuotationDetail { get; set; }
     }
 }

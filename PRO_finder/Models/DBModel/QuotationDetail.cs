@@ -20,8 +20,6 @@ namespace PRO_finder.Models.DBModel
         [Required]
         public string ProposeDescription { get; set; }
 
-        public virtual Case Case { get; set; }
-
         public virtual MemberInfo MemberInfo { get; set; }
     }
 }

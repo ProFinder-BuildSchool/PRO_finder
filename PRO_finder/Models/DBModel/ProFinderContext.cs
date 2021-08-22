@@ -63,39 +63,6 @@ namespace PRO_finder.Models.DBModel
                 .HasForeignKey(e => e.UserId)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Case>()
-                .HasMany(e => e.CaseNotification)
-                .WithRequired(e => e.Case)
-                .HasForeignKey(e => e.CaseID)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Case>()
-                .HasOptional(e => e.CaseNotification1)
-                .WithRequired(e => e.Case1);
-
-            modelBuilder.Entity<Case>()
-                .HasOptional(e => e.CaseReference)
-                .WithRequired(e => e.Case);
-
-            modelBuilder.Entity<Case>()
-                .HasMany(e => e.HostingDetail)
-                .WithRequired(e => e.Case)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Case>()
-                .HasOptional(e => e.SaveCase)
-                .WithRequired(e => e.Case);
-
-            modelBuilder.Entity<Case>()
-                .HasMany(e => e.ProposalRecord)
-                .WithRequired(e => e.Case)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Case>()
-                .HasMany(e => e.QuotationDetail)
-                .WithRequired(e => e.Case)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Category>()
                 .HasMany(e => e.SubCategory)
                 .WithRequired(e => e.Category)
@@ -166,6 +133,10 @@ namespace PRO_finder.Models.DBModel
                 .HasMany(e => e.ServicePlus)
                 .WithRequired(e => e.MemberInfo)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<MemberInfo>()
+                .HasOptional(e => e.Works)
+                .WithRequired(e => e.MemberInfo);
 
             modelBuilder.Entity<MemberInfo>()
                 .HasMany(e => e.ProposalRecord)

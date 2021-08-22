@@ -22,8 +22,6 @@ namespace PRO_finder.Models.DBModel
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int HostID { get; set; }
 
-        public virtual Case Case { get; set; }
-
         public virtual MemberInfo MemberInfo { get; set; }
     }
 }

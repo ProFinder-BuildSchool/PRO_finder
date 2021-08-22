@@ -7,6 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4 sidebar pl-lg-5">
+
                 <div class="sidebar-box">
                     <img src="~/Assets/images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4 w-50 rounded-circle">
                     <h3>筑筑</h3>
@@ -28,16 +29,12 @@
                         <a href="/talent?ca=L35&amp;su=ao6p" target="_blank" title="影片/音效後製剪輯"># 影片/音效後製剪輯</a>
                     </p>
 
-                    <div class="contacts">
-                        <a href="#">收藏</a>
-                        <a href="#">直接連絡</a>
-                        <a href="#" class="btn btn-primary btn-md">邀請報價</a>
-                    </div>
+
 
                     <div class="contactp">
                         <p>
-                            <a href="#">收藏</a>
-                            <a href="#">直接連絡</a>
+                            <a href="#"><i class="icon-heart-o"></i>收藏</a>
+                            <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
                         </p>
                         <p><a href="#" class="btn btn-primary btn-md">邀請報價</a></p>
                     </div>
@@ -53,6 +50,8 @@
                     <li><a href="#04">評價</a></li>
                 </ul>
 
+
+
                 <a name="01"></a>
                 <div id="about">
                     <h4 class="mb-4" id="part">關於</h4>
@@ -64,7 +63,7 @@
                                 <p>
                                     哈囉！我是筑筑，是在職兼職的網頁設計師，台灣及日本股票上市電商公司工作5年，有數百張banner設計經驗，其中包含許多知名品牌，有豐富的業界經歷，設計風格多樣，如果喜歡我的設計，非常歡迎長期合作！<br />
                                     <br />
-                                    主要提供 Banner設計 服務，並尋找可長期配合廠商。<br />
+                                    主要提供 Banner設計服務，並尋找可長期配合廠商。<br />
                                     若有 LOGO設計 / 名片設計 / 企業識別 / 海報設計 / 網站視覺設計 / 切版 等其他需求可以另進行討論。<br />
                                     <br />
                                     如需要報價或其他問題歡迎聯繫我，期待與您有合作機會！<br />
@@ -116,7 +115,7 @@
                                     <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
                                 </div>
                             </span>
-                            <img class="img-fluid"src="~/Assets/images/sq_img_1.jpg" />
+                            <img class="img-fluid" src="~/Assets/images/sq_img_1.jpg" />
 
                         </div>
                     </div>
@@ -575,10 +574,18 @@
                         <div class="comment-form-wrap pt-5">
 
                         </div>
+
+
                 </div>
                 </a>
             </div>
 
+        </div>
+
+        <div class="contacts">
+            <a href="#"><i class="icon-heart-o"></i>收藏</a>
+            <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
+            <a href="#" class="btn btn-primary btn-md">邀請報價</a>
         </div>
 </section>
 
@@ -603,26 +610,36 @@
             list-style: none;
             display: inline;
         }
-      .sidebar-box{
-        text-align: center;
-      }
+        .sidebar-box {
+            text-align: center;
+            position: sticky;
+            top: 48px;
+            z-index: 1000;
+        }
       .contactp{
         display: none;
       }
 
-      .contacts{
-        width: 100%;
-        Z-index:1000;
-        position: fixed;
-        bottom: 0px;
-        background-color: rgb(186, 216, 186);
-        text-align: center;
-      }
-      .posticon{
-        display: flex;
-        justify-content: space-evenly;
+      .contacts {
+            width: 100%;
+            Z-index: 1100;
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            background-color: rgb(186, 216, 186);
+            text-align: center;
+        }
 
-      }
+        .contacts a {
+            padding-left: 10px;
+            padding-right: 10px;
+            color:black;
+        }
+
+       .posticon {
+                display: flex;
+                justify-content: space-evenly;
+            }
       .posticon i{
         color: white;
       }
@@ -647,16 +664,16 @@
         padding-right:15px ;
         padding-left:15px;
         position: sticky;
-        top: 48px;
+        top: 130px;
         background-color: white;
         border-bottom: 1px solid rgb(214, 213, 213);
         z-index: 1000;
       }
-      
-      :target:before {
-        content: "";
-        display: block;
-        height:40px;
+
+        :target:before {
+            content: "";
+            display: block;
+            height: 85px;
         }
       #posts{
         border-bottom: 1px solid grey;
@@ -986,6 +1003,7 @@
         .contactp {
             display: block;
         }
+
     }
 
     </style>
