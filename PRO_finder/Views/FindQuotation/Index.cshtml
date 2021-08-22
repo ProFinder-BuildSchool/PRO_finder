@@ -1,9 +1,6 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
-@model List<PRO_finder.Models.ViewModels.CaseViewModel>
-
-
 <section class="section-hero overlay inner-page bg-image" id="home-section">
     <div class="container">
         <div class="row  p-0">
@@ -92,16 +89,19 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 ">
+            <div class="col-md-8 ">
                 <div class="category-list">
-                    @Html.DropDownList("LocationID", (List<SelectListItem>)ViewBag.locationList, new { @class = "w-25" })
-                    <select class="w-25">
-                        <option>地區</option>
-                        <option value="1">新竹市</option>
-                        <option value="12">台北市</option>
-                        <option value="13">台南市</option>
-                        <option value="1">新竹市</option>
+                    <select class="w-25 areaOption">
+                        <option value="" disabled selected hidden>-請選擇地區-</option>
+                        @*動態資料*@
+
                     </select>
+
+                    <select class="w-25 priceOption">
+                        <option value="" disabled selected hidden>-請選擇價格-</option>
+                        @*動態資料*@
+                    </select>
+                    <button class="watchAll btn border p-1 btn-success text-white">看全部</button>
                     <input type="text" placeholder="請輸入關鍵字">
                 </div>
             </div>
@@ -109,7 +109,7 @@
     </div>
 </section>
 
-<section class="site-section bg-white">
+<section class="site-section">
     <div class="container pt-5">
         <div class="row">
             <div class="col-md-3">
@@ -161,23 +161,6 @@
                         </blockquote>
                     </div>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                 <div class="card w-100">
@@ -246,16 +229,19 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-1">
+
+            <!--<div class="col-md-1">-->
                 <!-- 空白 -->
-            </div>
-            <div class="col-md-8">
+            <!--</div>-->
+
+
+            <div class="col-md-9">
                 <div class="row">
                     <div class="col-md-12">
                         <nav class="case-status" aria-label="...">
                             <ul class="pagination pagination-lg">
                                 <li class="page-item active" aria-current="page">
-                                    <div class="page-link">全部案件(<span class="caseCount">30678</span>)</div>
+                                    <div class="page-link">全部案件(<span class="caseCount"></span>)</div>
                                 </li>
                                 <li class="page-item">
                                     <div class="page-link">長期案件(<span class="caseCount">5278</span>)</div>
@@ -270,34 +256,34 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="btn-list">
-                                    <button class="active">最近更新</button>
+                                    <button class=" sortPrice">價錢排序<i class="ml-1 fas fa-sort"></i></button>
                                     <button>最近刊登</button>
-                                    <button>預算金額</button>
                                     <button>提案人數</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        @foreach (var i in ViewBag.caseList)
-                        {<div class="card case mb-3">
-                                <div class="card-body">
-                                    <a class="h5" href="@Url.Action("Detail", "FindQuotation")"><h5 class="card-title">@i.title</h5></a>
-                                    <a href="#" class="case-price mr-1">@i.Price </a>
-                                    <span class="city"><i class="fas fa-map-marker-alt mr-1"></i>@i.LocationName</span>
-                                    <p class="card-text">@i.Description</p>
+                    <div class="col-md-12 aaaaaaa">     </div>
 
-                                    <p class="subcate-list">
-                                        <span class="subcate">#排版打字、</span>
-                                        <span class="subcate">#文字校對、</span>
-                                        <span class="subcate">#人力派遣</span>
-                                    </p>
-                                    <div class="d-flex justify-content-between">
-                                        <p class="update-time">2<span>小時前 更新</span></p>
-                                        <a href="#" class="btn btn-primary">我要報價</a>
-                                    </div>
+                    <template id="caseList">
+                        <div class="card case mb-3">
+                            <div class="card-body">
+                                <a class="h5" href="@Url.Action("Detail", "w")"><h5 class="card-title"></h5></a>
+                                <a href="#" class=" case-price mr-1"> </a>
+                                <span class="city"><i class="fas fa-map-marker-alt mr-1"></i></span>
+                                <p class="card-text"></p>
+
+                                <p class="subcate-list">
+                                    <span class="subcate"><span>#</span></span>
+
+                                </p>
+                                <div class="d-flex justify-content-between">
+                                    <p class="update-time">2<span>小時前 更新</span></p>
+                                    <a href="#" class="btn btn-primary">我要報價</a>
                                 </div>
-                            </div>}
+                            </div>
+                        </div>
+                    </template>
 
 
 
@@ -305,25 +291,29 @@
 
 
 
-                    </div>
+
                     <div class="col-md-12">
                         <div class="case-page d-flex justify-content-end ">
                             <nav class="pages" aria-label="Page navigation example">
-                                <ul class="pagination">
+                                <ul class="pagination" id="paginationlist">
                                     <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
+                                        <a class="page-link Previous" href="#" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+                                    <template id="pagination">
+                                        <li class="page-item pagelist"><a class="page-link pageItem" href="#"></a></li>
+                                    </template>
+
+
                                     <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
+                                        <a class="page-link Next" href="#" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>
                                 </ul>
+
                             </nav>
                         </div>
                     </div>
@@ -350,6 +340,7 @@
             text-align: center;
         }
 
+
         .category-area .category-btn .fas,
         .category-area .category-btn .far {
             font-size: 25px;
@@ -375,6 +366,9 @@
                 left: -5px;
             }
 
+
+
+
         .category-area span {
             font-size: 12px;
             font-weight: 800;
@@ -398,6 +392,8 @@
             cursor: pointer;
         }
 
+
+
         .category-list select,
         .category-list input {
             height: 100%;
@@ -413,6 +409,7 @@
             line-height: 1;
         }
 
+
         .fa-thumbs-up {
             color: lightskyblue;
             margin-right: 2px;
@@ -423,36 +420,44 @@
             margin-right: 2px;
         }
 
-        .site-section .card li {
-            border: none;
-            position: relative;
+
+
+        .site-section {
+            padding-top: 0px;
         }
 
-        .list-group .list-group-flush.list-group-item {
-            align-items: center
-        }
-
-        .site-section .card .list-group-item {
-            padding: 5px 20px;
-            padding-bottom: 10px;
-        }
-
-            .site-section .card .list-group-item p {
-                font-weight: 600;
-                color: black;
-                margin: 0;
-                cursor: pointer;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                font-size: 14px;
+            .site-section .container {
+                border-top: 1px solid rgba(0, 0, 0, .2);
             }
 
-            .site-section .card .list-group-item span {
-                font-size: 8px;
-                display: block;
-                line-height: 1;
+
+            .site-section .card li {
+                border: none;
+                position: relative;
             }
+
+
+            .site-section .card .list-group-item {
+                padding: 5px 20px;
+                padding-bottom: 10px;
+            }
+
+                .site-section .card .list-group-item p {
+                    font-weight: 600;
+                    color: black;
+                    margin: 0;
+                    cursor: pointer;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    font-size: 14px;
+                }
+
+                .site-section .card .list-group-item span {
+                    font-size: 8px;
+                    display: block;
+                    line-height: 1;
+                }
 
         .avatar {
             width: 20%;
@@ -473,6 +478,7 @@
             border: none;
         }
 
+
         .case-status .pagination {
             margin: 0;
             border-bottom: 2px solid rgba(0, 0, 0, .1);
@@ -483,6 +489,8 @@
             padding: 5px 10px;
             font-size: 14px;
         }
+
+
 
         .btn-list {
             border-bottom: 2px solid rgba(0, 0, 0, .1);
@@ -509,7 +517,7 @@
         }
 
         .case .case-price {
-            font-size: 20px;
+            font-size: 14px;
             font-weight: bold;
             padding: 10px 0;
         }
@@ -528,6 +536,7 @@
         }
 
         .case .card-text {
+           
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -550,29 +559,8 @@
             padding-top: 20px;
             border-top: 2px rgba(0, 0, 0, .1) solid;
         }
-
-        .card-bodyleft {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding-left: 10px;
-            width: 100%;
-            height: 120px;
-            border-radius: 5px;
-            background-image: url('https://upload.cc/i1/2021/08/11/MJ9kmI.png');
-            background-size: 100%;
-            background-position: 50%;
-            background-repeat: no-repeat;
-            color: #fff;
-            box-sizing: border-box;
-        }
-
-        .carddeal {
-            font-size: 14px;
-            color: rgba(0, 0, 0, .6);
-            margin: 10px;
-            text-align: center
+        br{
+            display: none
         }
     </style>
 }
@@ -580,9 +568,248 @@
     {
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        document.querySelector("#LocationID").addEventListener("change", function () {
-            axios({ method: "post", url: "@Url.Action("getLocationID", "FindQuotation")", data:{ locationID: Number(this.value) }})
-            .then(res => { console.log(res) });
-        });
+
+
+
+        let AllCardArray = [];
+        let card = document.querySelector('#caseList');
+        let pagesOption = document.querySelector('#pagination');
+        let dataArray =[];
+        let areaArray =[];
+        let priceArray = [];
+
+
+        window.onload = function () {
+            axios.get('https://localhost:44375/FindQuotation/IndexJson')
+                .then(res => {
+                    AllCardArray = res.data;
+                    res.data.forEach((x) => { areaArray.push(x.LocationName) })
+                    res.data.forEach((x) => { priceArray.push(x.Price) })
+                    setCaseCount();
+                    setPages(AllCardArray);
+                    addPriceOption();
+                    addareaOption();
+                    addcase(AllCardArray);
+                    
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+
+        //看全部
+        document.querySelector('.watchAll').addEventListener("click", function () {
+            document.querySelector('.areaOption').value = "";
+            document.querySelector('.priceOption').value = "";
+            addcase(AllCardArray);
+            setPages(AllCardArray);
+        })
+
+
+
+        //地區選項更換時
+        document.querySelector('.areaOption').addEventListener("change", function (e) {
+            let FilterCaseArr = [];
+            if (document.querySelector('.priceOption').value == "") {
+                FilterCaseArr = AllCardArray.filter(x => x.LocationName == e.target.value)
+            }
+            else {
+                FilterCaseArr = AllCardArray.filter(x => x.LocationName == e.target.value && x.Price == document.querySelector('.priceOption').value)
+            }     
+            document.querySelector('.aaaaaaa').innerHTML = ''
+            document.querySelector('#paginationlist').innerHTML = ''
+            setPages(FilterCaseArr);
+            addcase(FilterCaseArr);
+        })
+
+         //金錢選項更換時
+        document.querySelector('.priceOption').addEventListener("change", function (e) {
+            let FilterCaseArr = [];
+            if (document.querySelector('.areaOption').value == "") {
+                FilterCaseArr = AllCardArray.filter(x => x.Price == e.target.value)
+            }
+            else {
+                FilterCaseArr = AllCardArray.filter(x => x.Price == e.target.value && x.LocationName == document.querySelector('.areaOption').value)
+            }
+            document.querySelector('.aaaaaaa').innerHTML = ''
+            document.querySelector('#paginationlist').innerHTML = ''
+            setPages(FilterCaseArr);
+            addcase(FilterCaseArr);
+        })
+
+
+        //顯示案件數
+        function setCaseCount() {
+            let caseCount = AllCardArray.length
+            document.querySelector('.caseCount').innerText = caseCount
+        };
+
+        //按照價錢排序
+        let sortHtoL = false;
+        document.querySelector('.sortPrice').addEventListener('click', function () {
+            sortHtoL = !sortHtoL
+            console.log(sortHtoL)
+            if (sortHtoL) {
+                AllCardArray.sort(function (a, b) { return b.Price - a.Price })
+            }
+            else { AllCardArray.sort(function (a, b) { return a.Price - b.Price })}
+            document.querySelector('.aaaaaaa').innerHTML = ''
+            addcase(AllCardArray);
+            setPages(AllCardArray);
+        })
+        
+        //function sortCasePrice() {
+           
+        //    document.querySelector('.aaaaaaa').innerHTML = ''
+        //    addcase(AllCardArray);
+        //    setPages(AllCardArray);
+        //}
+
+
+        //取資料設定每頁案件數量可得頁數
+        function setPages(arr) {
+            let num = 5; //多少個一頁
+            let nowItem = num; //目前一頁的item限制
+            let nowPage = 1; //目前
+            arr.forEach((x, index) => {
+                if (index < nowItem) {
+                    x.page = nowPage;
+                    if (index == nowItem - 1) {
+                        nowItem += num;
+                        nowPage += 1;
+                    }
+                }
+            })
+           
+            setPagination(arr)
+        }
+
+
+        //設定分頁頁數
+        function setPagination(arr) {
+            document.querySelector('#paginationlist').innerHTML = "";
+            let lastpage = arr[arr.length - 1].page
+            for (let i = 1; i <= lastpage; i++) {
+                let cloneContent = pagesOption.content.cloneNode(true);
+                cloneContent.querySelector('.page-link').innerText = i
+                document.querySelector('#paginationlist').append(cloneContent);
+            }
+            document.querySelectorAll('.pagelist')[0].classList.add('active') 
+            addbuttonEvent();
+        }
+
+        //點擊換頁
+        function addbuttonEvent() {
+         
+            document.querySelectorAll('.pageItem').forEach(x => x.addEventListener('click', function (e) {
+                document.querySelectorAll('.pagelist').forEach(x => x.classList.remove('active'))
+  
+                document.querySelector('.aaaaaaa').innerHTML = ''
+                addcase(AllCardArray, e.target.innerHTML)
+                event.preventDefault();
+                topFunction();
+                e.target.parentElement.classList.add('active')
+                 LoginChangeUrl() 
+            }))
+            
+            
+        }
+
+
+        function LoginChangeUrl() {
+            var url = window.location.href
+            if (url.charAt(url.length - 1) == "/")
+            {
+                history.pushState("", "Title", url + "logon");
+            }
+        }
+
+
+
+       //點擊回頂部
+        function topFunction() {
+            document.body.scrollTop = 150;
+            document.documentElement.scrollTop = 150;
+        }
+
+        
+
+       
+
+
+        //新增價錢選項
+        function addPriceOption() {
+            var newPriceArray = [...new Set(priceArray)]
+            newPriceArray.forEach(function (item, index) {
+                let options = document.createElement('option');
+                options.innerHTML = changePrice(item);
+                options.value = item;
+                document.querySelector('.priceOption').append(options)
+            })
+        }
+
+        //新增地區選項
+        function addareaOption() {
+            var newareaArray = [...new Set(areaArray)]
+            newareaArray.forEach(function (item, index) {
+                let options = document.createElement('option');
+                options.innerHTML = item;
+                options.value = item
+                document.querySelector('.areaOption').append(options)
+            })
+        };
+
+
+         
+
+
+        //渲染案件
+        function addcase(arr,pages=1) {
+            arr.forEach(function (item, index) {
+                if (item.page == pages) {
+                    let cloneContent = card.content.cloneNode(true);
+                    cloneContent.querySelector('.card-title').innerText = item.title
+                    cloneContent.querySelector('.case-price').innerText = changePrice(item.Price);
+                    cloneContent.querySelector('.city').innerText = item.LocationName;
+                    cloneContent.querySelector('.card-text').innerText = item.Description;
+                    cloneContent.querySelector('.subcate').innerText = item.SubCategoryName;
+                    cloneContent.querySelector('.update-time').innerText = item.UpdateDate;
+                    document.querySelector('.aaaaaaa').append(cloneContent);
+                }
+            })
+        };
+
+
+
+        function changePrice(pirceNum) {
+           
+            switch (pirceNum) {
+                case 1:
+                    return '5000以下'
+                case 2:
+                    return '5001~10000'
+                case 3:
+                    return '10001~50000'
+                case 4:
+                    return '50001~100000'
+                case 5:
+                    return '100001~300000'
+                default:
+                    return '查無資料'
+            }
+
+        }
+        
+
+        function findcard() {
+            if (serchContain == null) {
+                test = AllCardArray
+            }
+            else {
+                test = AllCardArray.filter(x => x.SubcategoryName.includes(serchContain));
+            }
+            console.log(test);
+            addcard();
+        }
     </script>
 }
