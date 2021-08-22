@@ -103,14 +103,16 @@ namespace PRO_finder.Service
                    where works.MemberID == MemberID
                    join workpictures in StudioworkRepository.GetAll<WorkPictures>()
                    on works.WorkID equals workpictures.WorkID
-                   where workpictures.SortNumber == 1
+                   where workpictures.SortNumber == 3
+                   join subcategory in StudioworkRepository.GetAll<SubCategory>()
+                   on works.SubCategoryID equals subcategory.SubCategoryID
 
                    select new StudioViewModel
                    {
                        WorkID = works.WorkID,
                        WorkName = works.WorkName,
                        WebsiteURL = works.WebsiteURL,
-                       WorkSubCategoryID = works.SubCategoryID,
+                       WorkSubCategory = subcategory.SubCategoryName,
                        MemberID = memberinfo.MemberID,
                        WorkPicture = workpictures.WorkPicture
                    };

@@ -12,6 +12,8 @@ namespace PRO_finder.Models.ViewModels
         public DateTime? LogInTime { get; set; }
         public string NickName { get; set; }
         public string ExpertSubCategory { get; set; }
+        public string WorkSubCategory { get; set; }
+  
         public int? Identity { get; set; }
         public string Description { get; set; }
         public string LocationName { get; set; }
