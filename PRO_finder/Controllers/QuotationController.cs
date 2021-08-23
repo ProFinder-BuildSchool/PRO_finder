@@ -7,6 +7,7 @@ using PRO_finder.Models;
 using PRO_finder.Repositories;
 using Newtonsoft.Json;
 using PRO_finder.Model.ViewModels;
+using System.Linq;
 
 namespace PRO_finder.Controllers
 {
@@ -57,7 +58,9 @@ namespace PRO_finder.Controllers
 
         public ActionResult StudioHome(int MemberID=1)
         {
+            //ViewBag.MemberID = MemberID;
             ViewBag.StudioInfoList = _studioService.GetStudioInfoByMemberID (MemberID);
+            //var result = _studioService.GetStudioInfoByMemberID().FirstOrDefault(x => x.MemberID == MemberID);
             ViewBag.StudioWorkList = _studioService.GetStudioworksByMemberID (MemberID);
             ViewBag.StudioQuotationList = _studioService.GetStudioQuotationByMemberID (MemberID);
             //ViewBag.StudioReviewList = _studioService.GetCaseReviewByMemberID (MemberID);

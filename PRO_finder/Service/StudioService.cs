@@ -72,11 +72,11 @@ namespace PRO_finder.Service
             var StudioinfoRepository = new GeneralRepository(new ProFinderContext());
 
             return from mermberinfo in StudioinfoRepository.GetAll<MemberInfo>()
-                   //join subcategory in StudioinfoRepository.GetAll<SubCategory>()
-                   //on mermberinfo.SubCategoryID equals subcategory.SubCategoryID
                    join location in StudioinfoRepository.GetAll<Locations>()
                    on mermberinfo.LocationID equals location.LocationID
                    where mermberinfo.MemberID == MemberID
+                   //join subcategory in StudioinfoRepository.GetAll<SubCategory>()
+                   //on mermberinfo.SubCategoryID equals subcategory.SubCategoryID
 
 
                    select new StudioViewModel
