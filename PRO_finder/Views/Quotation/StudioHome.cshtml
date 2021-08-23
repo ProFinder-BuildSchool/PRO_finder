@@ -154,7 +154,7 @@
         </div>*@
 
 
-       
+
                     @*<div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
             <div class="item-wrap">
                 <span class="portfolio-info">
@@ -325,298 +325,307 @@
 
 
                     <a name="03"><h4 class="mb-4" id="part">報價(5)</h4></a>
-                    @foreach (var item in ViewBag.StudioQuotationList)
-                    {
-                        <div id='quotationcard'>
-                            <div class="row item_zone mb-5">
+
+                    <div id='quotationcard'>
+                        <div class="row item_zone mb-5">
+                            @foreach (var item in ViewBag.StudioQuotationList)
+                            {
                                 <div class="col-lg-3 col-md-6">
                                     <div class="listing__item">
                                         <div class="listing__item__pic">
-                                            <div class="ribbon-wrap"><div class="ribbon">@item.CategoryName</div></div>
-                                            <img src="@item.QuotationImg" alt="Image" class="img-fluid rounded">
+                                           
+                                                <div class="ribbon-wrap"><div class="ribbon">@item.CategoryName</div></div>
+                                                <img src="@item.QuotationImg" alt="Image" class="img-fluid rounded">
+                                           
                                         </div>
+
                                         <div class="listing__item__text">
-                                            <div class="listing__item__text__inside">
-                                                <h5>@item.SubcategoryName</h5>
-                                                <span class="price">@item.Price</span><span>/@item.Unit</span>
-                                                <div class="listing__item__text__rating">
-                                                    <div class="listing__item__rating__star mr-2">
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star-half_alt"></span>
+                                            
+                                                <div class="listing__item__text__inside">
+
+                                                    <h5>@item.SubcategoryName</h5>
+                                                    <span class="price">@item.Price</span><span>/@item.Unit</span>
+                                                    <div class="listing__item__text__rating">
+                                                        <div class="listing__item__rating__star mr-2">
+                                                            <span class="icon_star"></span>
+                                                            <span class="icon_star"></span>
+                                                            <span class="icon_star"></span>
+                                                            <span class="icon_star"></span>
+                                                            <span class="icon_star-half_alt"></span>
+                                                        </div>
+                                                        <span>110</span><span>人訂購</span>
                                                     </div>
-                                                    <span>110</span><span>人訂購</span>
                                                 </div>
-                                            </div>
-                                            <div class="listing__item__text__info">
-                                                <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
-                                            </div>
+                                                <div class="listing__item__text__info">
+                                                    <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
+                                                </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="listing__item">
-                                        <div class="listing__item__pic">
-                                            <div class="ribbon-wrap"><div class="ribbon">平面設計</div></div>
-                                            <img src="~/Assets/images/sq_img_2.jpg" alt="Image" class="img-fluid rounded">
-                                        </div>
-                                        <div class="listing__item__text">
-                                            <div class="listing__item__text__inside">
-                                                <h5>專業LOGO設計</h5>
-                                                <span class="price">$1,980</span><span>/件</span>
-                                                <div class="listing__item__text__rating">
-                                                    <div class="listing__item__rating__star mr-2">
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star-half_alt"></span>
-                                                    </div>
-                                                    <span>110</span><span>人訂購</span>
-                                                </div>
-                                            </div>
-                                            <div class="listing__item__text__info">
-                                                <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="listing__item">
-                                        <div class="listing__item__pic">
-                                            <div class="ribbon-wrap"><div class="ribbon">平面設計</div></div>
-                                            <img src="~/Assets/images/sq_img_3.jpg" alt="Image" class="img-fluid rounded">
-                                        </div>
-                                        <div class="listing__item__text">
-                                            <div class="listing__item__text__inside">
-                                                <h5>專業LOGO設計</h5>
-                                                <span class="price">$1,980</span><span>/件</span>
-                                                <div class="listing__item__text__rating">
-                                                    <div class="listing__item__rating__star mr-2">
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star-half_alt"></span>
-                                                    </div>
-                                                    <span>110</span><span>人訂購</span>
-                                                </div>
-                                            </div>
-                                            <div class="listing__item__text__info">
-                                                <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="listing__item">
-                                        <div class="listing__item__pic">
-                                            <div class="ribbon-wrap"><div class="ribbon">平面設計</div></div>
-                                            <img src="~/Assets/images/sq_img_8.jpg" alt="Image" class="img-fluid rounded">
-                                        </div>
-                                        <div class="listing__item__text">
-                                            <div class="listing__item__text__inside">
-                                                <h5>專業LOGO設計</h5>
-                                                <span class="price">$1,980</span><span>/件</span>
-                                                <div class="listing__item__text__rating">
-                                                    <div class="listing__item__rating__star mr-2">
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star-half_alt"></span>
-                                                    </div>
-                                                    <span>110</span><span>人訂購</span>
-                                                </div>
-                                            </div>
-                                            <div class="listing__item__text__info">
-                                                <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="listing__item">
-                                        <div class="listing__item__pic">
-                                            <div class="ribbon-wrap"><div class="ribbon">平面設計</div></div>
-                                            <img src="~/Assets/images/sq_img_7.jpg" alt="Image" class="img-fluid rounded">
-                                        </div>
-                                        <div class="listing__item__text">
-                                            <div class="listing__item__text__inside">
-                                                <h5>專業LOGO設計</h5>
-                                                <span class="price">$1,980</span><span>/件</span>
-                                                <div class="listing__item__text__rating">
-                                                    <div class="listing__item__rating__star mr-2">
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star-half_alt"></span>
-                                                    </div>
-                                                    <span>110</span><span>人訂購</span>
-                                                </div>
-                                            </div>
-                                            <div class="listing__item__text__info">
-                                                <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="listing__item">
-                                        <div class="listing__item__pic">
-                                            <div class="ribbon-wrap"><div class="ribbon">平面設計</div></div>
-                                            <img src="~/Assets/images/sq_img_6.jpg" alt="Image" class="img-fluid rounded">
-                                        </div>
-                                        <div class="listing__item__text">
-                                            <div class="listing__item__text__inside">
-                                                <h5>專業LOGO設計</h5>
-                                                <span class="price">$1,980</span><span>/件</span>
-                                                <div class="listing__item__text__rating">
-                                                    <div class="listing__item__rating__star mr-2">
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star-half_alt"></span>
-                                                    </div>
-                                                    <span>110</span><span>人訂購</span>
-                                                </div>
-                                            </div>
-                                            <div class="listing__item__text__info">
-                                                <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="listing__item">
-                                        <div class="listing__item__pic">
-                                            <div class="ribbon-wrap"><div class="ribbon">網站設計</div></div>
-                                            <img src="~/Assets/images/sq_img_5.jpg" alt="Image" class="img-fluid rounded">
-                                        </div>
-                                        <div class="listing__item__text">
-                                            <div class="listing__item__text__inside">
-                                                <h5>專業LOGO設計</h5>
-                                                <span class="price">$1,980</span><span>/件</span>
-                                                <div class="listing__item__text__rating">
-                                                    <div class="listing__item__rating__star mr-2">
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star"></span>
-                                                        <span class="icon_star-half_alt"></span>
-                                                    </div>
-                                                    <span>110</span><span>人訂購</span>
-                                                </div>
-                                            </div>
-                                            <div class="listing__item__text__info">
-                                                <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            }
                             </div>
                         </div>
-                    }
-
-
-
-                    <div class="pt-5">
-                        <a name="04">
-                            <a name="0ˋ"><h4 class="mb-4" id="part">評價</h4></a>
-                            <ul class="comment-list">
-                                <li class="comment">
-                                    <div class="vcard bio">
-                                        <img src="~/Assets/images/person_2.jpg" alt="Image placeholder">
+                   
+                                        @*<div class="col-lg-3 col-md-6">
+                                <div class="listing__item">
+                                    <div class="listing__item__pic">
+                                        <div class="ribbon-wrap"><div class="ribbon">平面設計</div></div>
+                                        <img src="~/Assets/images/sq_img_2.jpg" alt="Image" class="img-fluid rounded">
                                     </div>
-                                    <div class="comment-body">
-                                        <h3>Jacob Smith</h3>
-                                        <div class="meta">January 9, 2018 at 2:21pm</div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                        <p><a href="#" class="reply">Reply</a></p>
-                                    </div>
-                                </li>
-
-                                <li class="comment">
-                                    <div class="vcard bio">
-                                        <img src="~/Assets/images/person_3.jpg" alt="Image placeholder">
-                                    </div>
-                                    <div class="comment-body">
-                                        <h3>Chris Meyer</h3>
-                                        <div class="meta">January 9, 2018 at 2:21pm</div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                        <p><a href="#" class="reply">Reply</a></p>
-                                    </div>
-
-                                    <ul class="children">
-                                        <li class="comment">
-                                            <div class="vcard bio">
-                                                <img src="~/Assets/images/person_5.jpg" alt="Image placeholder">
+                                    <div class="listing__item__text">
+                                        <div class="listing__item__text__inside">
+                                            <h5>專業LOGO設計</h5>
+                                            <span class="price">$1,980</span><span>/件</span>
+                                            <div class="listing__item__text__rating">
+                                                <div class="listing__item__rating__star mr-2">
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star-half_alt"></span>
+                                                </div>
+                                                <span>110</span><span>人訂購</span>
                                             </div>
-                                            <div class="comment-body">
-                                                <h3>Chintan Patel</h3>
-                                                <div class="meta">January 9, 2018 at 2:21pm</div>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                                <p><a href="#" class="reply">Reply</a></p>
-                                            </div>
-
-
-                                            <ul class="children">
-                                                <li class="comment">
-                                                    <div class="vcard bio">
-                                                        <img src="~/Assets/images/person_1.jpg" alt="Image placeholder">
-                                                    </div>
-                                                    <div class="comment-body">
-                                                        <h3>Jean Doe</h3>
-                                                        <div class="meta">January 9, 2018 at 2:21pm</div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                                        <p><a href="#" class="reply">Reply</a></p>
-                                                    </div>
-
-                                                    <ul class="children">
-                                                        <li class="comment">
-                                                            <div class="vcard bio">
-                                                                <img src="~/Assets/images/person_4.jpg" alt="Image placeholder">
-                                                            </div>
-                                                            <div class="comment-body">
-                                                                <h3>Ben Afflick</h3>
-                                                                <div class="meta">January 9, 2018 at 2:21pm</div>
-                                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                                                <p><a href="#" class="reply">Reply</a></p>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li class="comment">
-                                    <div class="vcard bio">
-                                        <img src="~/Assets/images/person_1.jpg" alt="Image placeholder">
+                                        </div>
+                                        <div class="listing__item__text__info">
+                                            <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
+                                        </div>
                                     </div>
-                                    <div class="comment-body">
-                                        <h3>Jean Doe</h3>
-                                        <div class="meta">January 9, 2018 at 2:21pm</div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                        <p><a href="#" class="reply">Reply</a></p>
-                                    </div>
-                                </li>
-                            </ul>
-                            <!-- END comment-list -->
-
-                            <div class="comment-form-wrap pt-5">
-
+                                </div>
                             </div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="listing__item">
+                                    <div class="listing__item__pic">
+                                        <div class="ribbon-wrap"><div class="ribbon">平面設計</div></div>
+                                        <img src="~/Assets/images/sq_img_3.jpg" alt="Image" class="img-fluid rounded">
+                                    </div>
+                                    <div class="listing__item__text">
+                                        <div class="listing__item__text__inside">
+                                            <h5>專業LOGO設計</h5>
+                                            <span class="price">$1,980</span><span>/件</span>
+                                            <div class="listing__item__text__rating">
+                                                <div class="listing__item__rating__star mr-2">
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star-half_alt"></span>
+                                                </div>
+                                                <span>110</span><span>人訂購</span>
+                                            </div>
+                                        </div>
+                                        <div class="listing__item__text__info">
+                                            <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="listing__item">
+                                    <div class="listing__item__pic">
+                                        <div class="ribbon-wrap"><div class="ribbon">平面設計</div></div>
+                                        <img src="~/Assets/images/sq_img_8.jpg" alt="Image" class="img-fluid rounded">
+                                    </div>
+                                    <div class="listing__item__text">
+                                        <div class="listing__item__text__inside">
+                                            <h5>專業LOGO設計</h5>
+                                            <span class="price">$1,980</span><span>/件</span>
+                                            <div class="listing__item__text__rating">
+                                                <div class="listing__item__rating__star mr-2">
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star-half_alt"></span>
+                                                </div>
+                                                <span>110</span><span>人訂購</span>
+                                            </div>
+                                        </div>
+                                        <div class="listing__item__text__info">
+                                            <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="listing__item">
+                                    <div class="listing__item__pic">
+                                        <div class="ribbon-wrap"><div class="ribbon">平面設計</div></div>
+                                        <img src="~/Assets/images/sq_img_7.jpg" alt="Image" class="img-fluid rounded">
+                                    </div>
+                                    <div class="listing__item__text">
+                                        <div class="listing__item__text__inside">
+                                            <h5>專業LOGO設計</h5>
+                                            <span class="price">$1,980</span><span>/件</span>
+                                            <div class="listing__item__text__rating">
+                                                <div class="listing__item__rating__star mr-2">
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star-half_alt"></span>
+                                                </div>
+                                                <span>110</span><span>人訂購</span>
+                                            </div>
+                                        </div>
+                                        <div class="listing__item__text__info">
+                                            <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="listing__item">
+                                    <div class="listing__item__pic">
+                                        <div class="ribbon-wrap"><div class="ribbon">平面設計</div></div>
+                                        <img src="~/Assets/images/sq_img_6.jpg" alt="Image" class="img-fluid rounded">
+                                    </div>
+                                    <div class="listing__item__text">
+                                        <div class="listing__item__text__inside">
+                                            <h5>專業LOGO設計</h5>
+                                            <span class="price">$1,980</span><span>/件</span>
+                                            <div class="listing__item__text__rating">
+                                                <div class="listing__item__rating__star mr-2">
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star-half_alt"></span>
+                                                </div>
+                                                <span>110</span><span>人訂購</span>
+                                            </div>
+                                        </div>
+                                        <div class="listing__item__text__info">
+                                            <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="listing__item">
+                                    <div class="listing__item__pic">
+                                        <div class="ribbon-wrap"><div class="ribbon">網站設計</div></div>
+                                        <img src="~/Assets/images/sq_img_5.jpg" alt="Image" class="img-fluid rounded">
+                                    </div>
+                                    <div class="listing__item__text">
+                                        <div class="listing__item__text__inside">
+                                            <h5>專業LOGO設計</h5>
+                                            <span class="price">$1,980</span><span>/件</span>
+                                            <div class="listing__item__text__rating">
+                                                <div class="listing__item__rating__star mr-2">
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star-half_alt"></span>
+                                                </div>
+                                                <span>110</span><span>人訂購</span>
+                                            </div>
+                                        </div>
+                                        <div class="listing__item__text__info">
+                                            <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
 
 
-                    </div>
-                    </a>
-                </div>
+
+
+                                        <div class="pt-5">
+                                            <a name="04">
+                                                <a name="0ˋ"><h4 class="mb-4" id="part">評價</h4></a>
+                                                <ul class="comment-list">
+                                                    <li class="comment">
+                                                        <div class="vcard bio">
+                                                            <img src="~/Assets/images/person_2.jpg" alt="Image placeholder">
+                                                        </div>
+                                                        <div class="comment-body">
+                                                            <h3>Jacob Smith</h3>
+                                                            <div class="meta">January 9, 2018 at 2:21pm</div>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                                            <p><a href="#" class="reply">Reply</a></p>
+                                                        </div>
+                                                    </li>
+
+                                                    <li class="comment">
+                                                        <div class="vcard bio">
+                                                            <img src="~/Assets/images/person_3.jpg" alt="Image placeholder">
+                                                        </div>
+                                                        <div class="comment-body">
+                                                            <h3>Chris Meyer</h3>
+                                                            <div class="meta">January 9, 2018 at 2:21pm</div>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                                            <p><a href="#" class="reply">Reply</a></p>
+                                                        </div>
+
+                                                        <ul class="children">
+                                                            <li class="comment">
+                                                                <div class="vcard bio">
+                                                                    <img src="~/Assets/images/person_5.jpg" alt="Image placeholder">
+                                                                </div>
+                                                                <div class="comment-body">
+                                                                    <h3>Chintan Patel</h3>
+                                                                    <div class="meta">January 9, 2018 at 2:21pm</div>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                                                    <p><a href="#" class="reply">Reply</a></p>
+                                                                </div>
+
+
+                                                                <ul class="children">
+                                                                    <li class="comment">
+                                                                        <div class="vcard bio">
+                                                                            <img src="~/Assets/images/person_1.jpg" alt="Image placeholder">
+                                                                        </div>
+                                                                        <div class="comment-body">
+                                                                            <h3>Jean Doe</h3>
+                                                                            <div class="meta">January 9, 2018 at 2:21pm</div>
+                                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                                                            <p><a href="#" class="reply">Reply</a></p>
+                                                                        </div>
+
+                                                                        <ul class="children">
+                                                                            <li class="comment">
+                                                                                <div class="vcard bio">
+                                                                                    <img src="~/Assets/images/person_4.jpg" alt="Image placeholder">
+                                                                                </div>
+                                                                                <div class="comment-body">
+                                                                                    <h3>Ben Afflick</h3>
+                                                                                    <div class="meta">January 9, 2018 at 2:21pm</div>
+                                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                                                                    <p><a href="#" class="reply">Reply</a></p>
+                                                                                </div>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+
+                                                    <li class="comment">
+                                                        <div class="vcard bio">
+                                                            <img src="~/Assets/images/person_1.jpg" alt="Image placeholder">
+                                                        </div>
+                                                        <div class="comment-body">
+                                                            <h3>Jean Doe</h3>
+                                                            <div class="meta">January 9, 2018 at 2:21pm</div>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                                            <p><a href="#" class="reply">Reply</a></p>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <!-- END comment-list -->
+
+                                                <div class="comment-form-wrap pt-5">
+
+                                                </div>
+
+
+                                        </div>
+                                        </a>
+                                    </div>
 
         </div>
 </div>

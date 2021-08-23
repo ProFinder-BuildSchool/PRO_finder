@@ -175,7 +175,7 @@ namespace PRO_finder.Service
                        
                    };
         }
-        //評價
+        
     }
 }
 
