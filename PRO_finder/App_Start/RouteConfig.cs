@@ -22,7 +22,7 @@ namespace PRO_finder
             );
             routes.MapRoute(
                 name: "Detail",
-                url: "{controller}/{action}/{Memberid}",
+                url: "{controller}/{action}/{Memberid}/{Quotationid}",
                 defaults: new { controller = "Quotation", action = "Detail"}
             );
         }
