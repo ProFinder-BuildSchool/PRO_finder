@@ -13,8 +13,6 @@ namespace PRO_finder.ViewModels
 {
     public class CreateQuotationViewModel
     {
-
-
         [Key]
         public int QuotationID { get; set; }
 
@@ -46,47 +44,13 @@ namespace PRO_finder.ViewModels
         [Display(Name = "服務内容")]
         public string Description { get; set; }
 
-        public int? OtherPictureID { get; set; }
-
-        public decimal? Evaluation { get; set; }
-
         [Display(Name = "服務類別")]
         public int SubCategoryID { get; set; }
 
-        public int LocationID { get; set; }
+        public string MainPicture { get; set; }
 
-        
+        public string OtherPictureList { get; set; }
 
-        
-        public int WorkID { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string WorkName { get; set; }
-
-        [Required]
-        public string WorkDescription { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string Client { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string Role { get; set; }
-
-        public int YearStarted { get; set; }
-
-        public string WebsiteURLID { get; set; }
-
-        
-        public int? WorkAttachmentID { get; set; }
-
-
-        [StringLength(50)]
-        public string WorkAttachmentName { get; set; }
-
-        public string WorkAttachmentLink { get; set; }
 
     }
 }

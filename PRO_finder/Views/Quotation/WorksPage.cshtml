@@ -1,4 +1,4 @@
-﻿@model List<PRO_finder.Model.ViewModels.WorkPageViewModel>
+﻿@model List<PRO_finder.Models.ViewModels.StudioViewModel>
 
 @{
     ViewBag.Title = "WorksPage";
@@ -12,27 +12,28 @@
             <div class="row mb-5 mt-5">
 
                 <div class="col-lg-8">
-
-                    @*<figure>
-                        <a href="@Html.DisplayFor(modelItem => item.WorkPicture)" data-fancybox="gallery"><img src="@Html.DisplayFor(modelItem => item.WorkPicture)" alt="Image" class="img-fluid"></a>
-                    </figure>
-                    <figure>
-                        <a href="@Html.DisplayFor(modelItem => item.WorkPicture)" data-fancybox="gallery"><img src="@Html.DisplayFor(modelItem => item.WorkPicture)" alt="Image" class="img-fluid"></a>
-                    </figure>
-                    <figure>
-                       <a href="@Html.DisplayFor(modelItem => item.WorkPicture)" data-fancybox="gallery"><img src="@Html.DisplayFor(modelItem => item.WorkPicture)" alt="Image" class="img-fluid"></a>
-                    </figure>
-                    <figure class="mb-0">
-                        <a href="@Html.DisplayFor(modelItem => item.WorkPicture)" data-fancybox="gallery"><img src="@Html.DisplayFor(modelItem => item.WorkPicture)" alt="Image" class="img-fluid"></a>
-                    </figure>*@
-                   
-                </div>
+                    @foreach (var item in ViewBag.WorkPictureList)
+                    {
+                        <figure>
+                <a href="@item.WorkPicture" data-fancybox="gallery"><img src="@item.WorkPicture" alt="Image" class="img-fluid"></a>
+            </figure>
+            @*<figure>
+                <a href="@Html.DisplayFor(modelItem => item.WorkPicture)" data-fancybox="gallery"><img src="@Html.DisplayFor(modelItem => item.WorkPicture)" alt="Image" class="img-fluid"></a>
+            </figure>
+            <figure>
+               <a href="@Html.DisplayFor(modelItem => item.WorkPicture)" data-fancybox="gallery"><img src="@Html.DisplayFor(modelItem => item.WorkPicture)" alt="Image" class="img-fluid"></a>
+            </figure>
+            <figure class="mb-0">
+                <a href="@Html.DisplayFor(modelItem => item.WorkPicture)" data-fancybox="gallery"><img src="@Html.DisplayFor(modelItem => item.WorkPicture)" alt="Image" class="img-fluid"></a>
+            </figure>*@
+                    }
+                    </div>
 
                 <div class="col-lg-4 ml-auto h-100 jm-sticky-top" id="workdetail">
-                    @foreach (var item in Model)
+                    @foreach (var item in ViewBag.WorkInfoList)
                     {
-                        <div class="mb-4">
-                            <h3 class="mb-4 h4 border-bottom">@Html.DisplayFor(modelItem => item.WorkName)作品詳情</h3>
+                        <div class="mb-4" id="WD">
+                            <h3 class="mb-4 h4 border-bottom">@item.WorkName</h3>
 
                             <p class="mb-0">@item.WorkDescription</p>
                         </div>
@@ -111,6 +112,11 @@
 
 @section topCSS{
     <style>
+
+        #WD {
+            /*white-space: pre-wrap;*/
+            word-break: break-all;
+        }
         .designerSkill a {
             font-size: 15px;
         }
@@ -123,6 +129,7 @@
             position: sticky;
             top: 180px;
         }
+       
     </style>
 
 }

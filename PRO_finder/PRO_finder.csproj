@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -18,12 +19,15 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44375</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>4.1</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -191,6 +195,26 @@
     <Compile Include="Migrations\202108200717494_2021-08-20.Designer.cs">
       <DependentUpon>202108200717494_2021-08-20.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202108201025322_workseed.cs" />
+    <Compile Include="Migrations\202108201025322_workseed.Designer.cs">
+      <DependentUpon>202108201025322_workseed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108201027016_workseed1.cs" />
+    <Compile Include="Migrations\202108201027016_workseed1.Designer.cs">
+      <DependentUpon>202108201027016_workseed1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108201035485_workseed2.cs" />
+    <Compile Include="Migrations\202108201035485_workseed2.Designer.cs">
+      <DependentUpon>202108201035485_workseed2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108201043101_workseed3.cs" />
+    <Compile Include="Migrations\202108201043101_workseed3.Designer.cs">
+      <DependentUpon>202108201043101_workseed3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108221512188_2021-08-22.cs" />
+    <Compile Include="Migrations\202108221512188_2021-08-22.Designer.cs">
+      <DependentUpon>202108221512188_2021-08-22.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DBModel\AspNetRoles.cs" />
@@ -234,33 +258,90 @@
     <Compile Include="Models\ViewModels\QuotationDetailViewModel .cs" />
     <Compile Include="Models\ViewModels\QuotationViewModel.cs" />
     <Compile Include="Models\ViewModels\SubCategoryViewModel.cs" />
+    <Compile Include="Models\ViewModels\UploadMyWorksViewModel.cs" />
     <Compile Include="Models\ViewModels\Workdetail.cs" />
     <Compile Include="Models\ViewModels\WorkPageViewModel.cs" />
     <Compile Include="Models\ViewModels\StudioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CaseRepository.cs" />
     <Compile Include="Repositories\GeneralRepository.cs" />
-    <Compile Include="Repositories\QuotationRepository.cs" />
     <Compile Include="Repositories\SubCategoryRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
-    <Compile Include="Repositories\MemInfoRepository.cs" />
-    <Compile Include="Repositories\QuotationRepository.cs" />
     <Compile Include="Repositories\WorkPageRepository.cs" />
     <Compile Include="Models\ViewModels\CaseDetailViewModel.cs" />
     <Compile Include="Service\CaseService.cs" />
     <Compile Include="Service\Home_IndexService .cs" />
     <Compile Include="Service\CategoryService.cs" />
     <Compile Include="Service\MemberinfoService.cs" />
-    <Compile Include="Service\MemInfoService.cs" />
+    <Compile Include="Service\OperationResult.cs" />
     <Compile Include="Service\QuotationService.cs" />
     <Compile Include="Service\WorkPictureService.cs" />
     <Compile Include="Service\StudioService.cs" />
+    <Compile Include="Service\WorksService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\TalentIndexViewModel.cs" />
     <Compile Include="Models\ViewModels\CreateQuotationViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\cloudinary-core\cloudinary-core-shrinkwrap.js" />
+    <Content Include="Assets\cloudinary-core\cloudinary-core-shrinkwrap.min.js" />
+    <Content Include="Assets\cloudinary-core\cloudinary-core.js" />
+    <Content Include="Assets\cloudinary-core\cloudinary-core.min.js" />
+    <Content Include="Assets\cloudinary-core\src\cloudinary.js" />
+    <Content Include="Assets\cloudinary-core\src\cloudinaryjquery.js" />
+    <Content Include="Assets\cloudinary-core\src\condition.js" />
+    <Content Include="Assets\cloudinary-core\src\configuration.js" />
+    <Content Include="Assets\cloudinary-core\src\constants.js" />
+    <Content Include="Assets\cloudinary-core\src\crc32.js" />
+    <Content Include="Assets\cloudinary-core\src\expression.js" />
+    <Content Include="Assets\cloudinary-core\src\index.js" />
+    <Content Include="Assets\cloudinary-core\src\jquery-file-upload.js" />
+    <Content Include="Assets\cloudinary-core\src\layer\fetchlayer.js" />
+    <Content Include="Assets\cloudinary-core\src\layer\layer.js" />
+    <Content Include="Assets\cloudinary-core\src\layer\subtitleslayer.js" />
+    <Content Include="Assets\cloudinary-core\src\layer\textlayer.js" />
+    <Content Include="Assets\cloudinary-core\src\namespace\cloudinary-core-shrinkwrap.js" />
+    <Content Include="Assets\cloudinary-core\src\namespace\cloudinary-core.js" />
+    <Content Include="Assets\cloudinary-core\src\namespace\cloudinary-jquery-file-upload.js" />
+    <Content Include="Assets\cloudinary-core\src\namespace\cloudinary-jquery.js" />
+    <Content Include="Assets\cloudinary-core\src\parameters.js" />
+    <Content Include="Assets\cloudinary-core\src\sdkAnalytics\base64Map.js" />
+    <Content Include="Assets\cloudinary-core\src\sdkAnalytics\encodeVersion.js" />
+    <Content Include="Assets\cloudinary-core\src\sdkAnalytics\getAnalyticsOptions.js" />
+    <Content Include="Assets\cloudinary-core\src\sdkAnalytics\getSDKAnalyticsSignature.js" />
+    <Content Include="Assets\cloudinary-core\src\sdkAnalytics\reverseVersion.js" />
+    <Content Include="Assets\cloudinary-core\src\sdkAnalytics\stringPad.js" />
+    <Content Include="Assets\cloudinary-core\src\tags\clienthintsmetatag.js" />
+    <Content Include="Assets\cloudinary-core\src\tags\htmltag.js" />
+    <Content Include="Assets\cloudinary-core\src\tags\imagetag.js" />
+    <Content Include="Assets\cloudinary-core\src\tags\picturetag.js" />
+    <Content Include="Assets\cloudinary-core\src\tags\sourcetag.js" />
+    <Content Include="Assets\cloudinary-core\src\tags\videotag.js" />
+    <Content Include="Assets\cloudinary-core\src\transformation.js" />
+    <Content Include="Assets\cloudinary-core\src\url.js" />
+    <Content Include="Assets\cloudinary-core\src\utf8_encode.js" />
+    <Content Include="Assets\cloudinary-core\src\util\baseutil.js" />
+    <Content Include="Assets\cloudinary-core\src\util\ensureOption.js" />
+    <Content Include="Assets\cloudinary-core\src\util\ensurePresenceOf.js" />
+    <Content Include="Assets\cloudinary-core\src\util\features\transparentVideo\checkSupportForTransparency.js" />
+    <Content Include="Assets\cloudinary-core\src\util\features\transparentVideo\createHiddenVideoTag.js" />
+    <Content Include="Assets\cloudinary-core\src\util\features\transparentVideo\enforceOptionsForTransparentVideo.js" />
+    <Content Include="Assets\cloudinary-core\src\util\features\transparentVideo\instantiateSeeThru.js" />
+    <Content Include="Assets\cloudinary-core\src\util\features\transparentVideo\mountCloudinaryVideoTag.js" />
+    <Content Include="Assets\cloudinary-core\src\util\features\transparentVideo\mountSeeThruCanvasTag.js" />
+    <Content Include="Assets\cloudinary-core\src\util\firstNotNull.js" />
+    <Content Include="Assets\cloudinary-core\src\util\generateBreakpoints.js" />
+    <Content Include="Assets\cloudinary-core\src\util\index.js" />
+    <Content Include="Assets\cloudinary-core\src\util\jquery.js" />
+    <Content Include="Assets\cloudinary-core\src\util\lazyLoad.js" />
+    <Content Include="Assets\cloudinary-core\src\util\lodash.js" />
+    <Content Include="Assets\cloudinary-core\src\util\parse\normalizeToArray.js" />
+    <Content Include="Assets\cloudinary-core\src\util\srcsetUtils.js" />
+    <Content Include="Assets\cloudinary-core\src\util\transformations\addFlag.js" />
+    <Content Include="Assets\cloudinary-core\src\util\xhr\getBlobFromURL.js" />
+    <Content Include="Assets\cloudinary-core\src\util\xhr\getHeadersFromURL.js" />
+    <Content Include="Assets\cloudinary-core\src\util\xhr\loadScript.js" />
     <Content Include="Assets\css\animate.min.css" />
     <Content Include="Assets\css\bootstrap-select.min.css" />
     <Content Include="Assets\css\custom-bs.css" />
@@ -438,6 +519,10 @@
     <Content Include="Assets\bs4\scss\_variables.scss" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Assets\cloudinary-core\cloudinary-core-shrinkwrap.js.map" />
+    <Content Include="Assets\cloudinary-core\cloudinary-core.js.map" />
+    <Content Include="Assets\cloudinary-core\package.json" />
+    <Content Include="Assets\cloudinary-core\README.md" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -514,6 +599,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
@@ -523,12 +609,31 @@
     <EmbeddedResource Include="Migrations\202108200717494_2021-08-20.resx">
       <DependentUpon>202108200717494_2021-08-20.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108201025322_workseed.resx">
+      <DependentUpon>202108201025322_workseed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108201027016_workseed1.resx">
+      <DependentUpon>202108201027016_workseed1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108201035485_workseed2.resx">
+      <DependentUpon>202108201035485_workseed2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108201043101_workseed3.resx">
+      <DependentUpon>202108201043101_workseed3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108221512188_2021-08-22.resx">
+      <DependentUpon>202108221512188_2021-08-22.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Assets\cloudinary-core\cloudinary-core.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
