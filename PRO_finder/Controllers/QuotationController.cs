@@ -46,6 +46,7 @@ namespace PRO_finder.Controllers
                 ViewBag.cateNameList = _quotService.GetsubcatrgotyName(CategoryId.Value);
             }
 
+            ViewBag.LocationList = _quotService.GetLocationName();
             return View();
 
         }

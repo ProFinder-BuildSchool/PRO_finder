@@ -64,6 +64,18 @@ namespace PRO_finder.Service
             return quotationVM;
         }
 
+        public List<Locations> GetLocationName()
+        {
+            List<Locations> LocationList = _ctx.GetAll<Locations>().ToList();
+
+            if (LocationList.Count() == 0)
+            {
+                return null;
+            }
+
+            return LocationList;
+        }
+
         public List<QuotationViewModel> GetKeyWordCardData(string keyword)
         {
             var quotationVM = (from q in _ctx.GetAll<Quotation>()

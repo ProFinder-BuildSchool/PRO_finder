@@ -112,18 +112,10 @@
                     </div>
                     <div class="border p-4 rounded serviceCategory">
                         <div class="list-unstyled block__47528">
-                            <label><input type="checkbox"> <span>台北市</span></label>
-                            <label><input type="checkbox"> <span>新北市</span></label>
-                            <label><input type="checkbox"> <span>基隆市</span></label>
-                            <label><input type="checkbox"> <span>桃園市</span></label>
-                            <label><input type="checkbox"> <span>新竹市</span></label>
-                            <label><input type="checkbox"> <span>新竹縣</span></label>
-                            <label><input type="checkbox"> <span>宜蘭縣</span></label>
-                            <label><input type="checkbox"> <span>苗栗縣</span></label>
-                            <label><input type="checkbox"> <span>台中市</span></label>
-                            <label><input type="checkbox"> <span>彰化縣</span></label>
-                            <label><input type="checkbox"> <span>南投縣</span></label>
-                            <label><input type="checkbox"> <span>雲林縣</span></label>
+                            @foreach (var item in ViewBag.LocationList)
+                            {
+                                <label><input type="checkbox" class="locationinput" value="@item.LocationName"> <span>@item.LocationName </span></label>
+                            }
                         </div>
                     </div>
                 </div>
@@ -847,8 +839,10 @@
         let filterCard = [];
         let itemZone = document.querySelector('.item_zone');
         let subcateinput = document.querySelectorAll('.subcateinput');
+        let locationinput = document.querySelectorAll('.locationinput');
         let serchValue = document.querySelector('.serchinput');
-        let numberOfChecked = 0;
+        let numberOfSubcateChecked = 0;
+        let numberOfLocationChecked = 0;
 
 
         window.onload = function () {
@@ -863,6 +857,7 @@
             }
             console.log(AllCardArray)
             AddCategoryFilter();
+            AddLocationFilter();
 
         }
 
@@ -922,19 +917,19 @@
             subcateinput.forEach(function (item, index) {
                 item.addEventListener('change', function () {
                     if (this.checked) {
-                        numberOfChecked++
+                        numberOfSubcateChecked++
                         filterCard = filterCard.concat(AllCardArray.filter(x => x.SubcategoryName.includes(item.value)));
                     }
 
                     else {
-                        numberOfChecked--;
+                        numberOfSubcateChecked--;
                         filterCard = filterCard.filter(x => !x.SubcategoryName.includes(item.value));
                     }
 
                     itemZone.innerText = '';
                     addcard();
 
-                    if (numberOfChecked == 0) {
+                    if (numberOfSubcateChecked == 0) {
                         filterCard = AllCardArray;
                         itemZone.innerText = '';
                         addcard();
@@ -945,7 +940,38 @@
                 })
             })
         }
+        //function AddLocationFilter() {
+        //    locationinput.forEach(function (item, index) {
+        //        item.addEventListener('change', function () {
+        //            if (this.checked) {
+        //                numberOfLocationChecked++
+        //                filterCard = filterCard.concat(AllCardArray.filter(x => x.Location == item.value));
+        //                console.log(filterCard);
+        //                console.log(item.value);
+        //            }
 
+        //            else {
+        //                numberOfLocationChecked--;
+        //                filterCard = filterCard.filter(x => x.Location != item.value);
+        //                console.log(filterCard);
+        //            }
+
+        //            itemZone.innerText = '';
+        //            addcard();
+
+        //            if (numberOfLocationChecked == 0) {
+        //                filterCard = AllCardArray;
+        //                itemZone.innerText = '';
+        //                addcard();
+        //                filterCard = [];
+        //                return;
+        //            }
+
+        //        })
+        //    })
+        //}
+
+       
         document.querySelector('.serchtbtn').addEventListener('click', function () {
             location.href = "https://localhost:44375/Quotation?keyword=" + `${serchValue.value}`;
         });
