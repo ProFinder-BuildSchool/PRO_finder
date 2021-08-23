@@ -25,11 +25,9 @@ namespace PRO_finder.Service
             _ctx = new GeneralRepository(new ProFinderContext());
         }
 
-        public List<QuotationViewModel> GetCategoryPageData(int categoryId)
+        public List<QuotationViewModel> GetAllCardData()
         {
-
             var quotationVM = (from q in _ctx.GetAll<Quotation>()
-                               //join o in _ctx.GetAll<OtherPicture>() on q.OtherPictureID equals o.OtherPictureID
                                join s in _ctx.GetAll<SubCategory>() on q.SubCategoryID equals s.SubCategoryID
                                join m in _ctx.GetAll<MemberInfo>() on q.MemberID equals m.MemberID
                                join l in _ctx.GetAll<Locations>() on m.LocationID equals l.LocationID
@@ -41,20 +39,32 @@ namespace PRO_finder.Service
                                    Price = (q.Price).ToString(),
                                    Unit = q.QuotationUnit,
                                    StudioName = m.NickName,
-                                   //Img = o.MainPicture,
+                                   Img = q.MainPicture,
                                    CategoryId = s.CategoryID,
                                    SubcategoryId = s.SubCategoryID,
                                    SubcategoryName = s.SubCategoryName,
                                    Location = l.LocationName
 
                                }
-                               );
+                   );
             if (quotationVM.Count() == 0)
             {
                 return null;
             }
 
-            return quotationVM.Where(x => x.CategoryId == categoryId).ToList();
+            return quotationVM.ToList();
+        }
+
+        public List<QuotationViewModel> GetCategoryPageData(int categoryId)
+        {
+
+            var quotationVM = GetAllCardData().Where(x => x.CategoryId == categoryId).ToList();
+            if (quotationVM.Count() == 0)
+            {
+                return null;
+            }
+
+            return quotationVM;
         }
 
 
@@ -85,66 +95,14 @@ namespace PRO_finder.Service
 
         public List<QuotationViewModel> GetKeyWordCardData(string keyword)
         {
-            var quotationVM = (from q in _ctx.GetAll<Quotation>()
-                               //join o in _ctx.GetAll<OtherPicture>() on q.OtherPictureID equals o.OtherPictureID
-                               join s in _ctx.GetAll<SubCategory>() on q.SubCategoryID equals s.SubCategoryID
-                               join m in _ctx.GetAll<MemberInfo>() on q.MemberID equals m.MemberID
-                               join l in _ctx.GetAll<Locations>() on m.LocationID equals l.LocationID
-                               join c in _ctx.GetAll<Category>() on s.CategoryID equals c.CategoryID
-                               select new QuotationViewModel
-                               {
-                                   Id = q.QuotationID,
-                                   CategoryName = c.CategoryName,
-                                   Price = (q.Price).ToString(),
-                                   Unit = q.QuotationUnit,
-                                   StudioName = m.NickName,
-                                   //Img = o.MainPicture,
-                                   CategoryId = s.CategoryID,
-                                   SubcategoryId = s.SubCategoryID,
-                                   SubcategoryName = s.SubCategoryName,
-                                   Location = l.LocationName
-
-                               }
-                               );
+            var quotationVM = GetAllCardData();
 
             if (quotationVM.Count() != 0)
             {
                 return quotationVM.Where(x => x.SubcategoryName.Contains(keyword)).ToList();
             }
 
-                return null;
-        }
-
-        public List<QuotationViewModel> GetAllCardData()
-        {
-            var quotationVM = (from q in _ctx.GetAll<Quotation>()
-                               //join o in _ctx.GetAll<OtherPicture>() on q.OtherPictureID equals o.OtherPictureID
-                               join s in _ctx.GetAll<SubCategory>() on q.SubCategoryID equals s.SubCategoryID
-                               join m in _ctx.GetAll<MemberInfo>() on q.MemberID equals m.MemberID
-                               join l in _ctx.GetAll<Locations>() on m.LocationID equals l.LocationID
-                               join c in _ctx.GetAll<Category>() on s.CategoryID equals c.CategoryID
-                               select new QuotationViewModel
-                               {
-                                   Id = q.QuotationID,
-                                   CategoryName = c.CategoryName,
-                                   Price = (q.Price).ToString(),
-                                   Unit = q.QuotationUnit,
-                                   StudioName = m.NickName,
-                                   //Img = o.MainPicture,
-                                   CategoryId = s.CategoryID,
-                                   SubcategoryId = s.SubCategoryID,
-                                   SubcategoryName = s.SubCategoryName,
-                                   Location = l.LocationName
-
-                               }
-                               );
-
-            if (quotationVM.Count() == 0)
-            {
-                return null;
-            }
-
-            return quotationVM.ToList();
+            return null;
         }
 
         //報價細節

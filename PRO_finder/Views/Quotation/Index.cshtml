@@ -11,7 +11,92 @@
         </div>
     </form>
 </div>
-@Html.Partial("_CategoryMenuPartial")
+<section class="section-hero overlay inner-page bg-image" id="home-section">
+    <div class="container">
+        <div class="row  p-0">
+            <div class="col-12">
+                <div class="category-area">
+                    <div class="row  justify-content-around">
+                        <div>
+                            <div class="category-btn">
+                                <a class="mb-1" href="/Quotation/Index?CategoryId=0"><i class="fas fa-pencil-ruler"></i></a>
+                                <p>平面設計</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="category-btn">
+                                <a class="mb-1" href="/Quotation/Index?CategoryId=1"><i class="far fa-window-restore"></i></a>
+                                <p>網頁設計</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="category-btn">
+                                <a class="mb-1" href="/Quotation/Index?CategoryId=2"><i class="fas fa-code"></i></a>
+                                <p>程式開發</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="category-btn">
+                                <a class="mb-1" href="/Quotation/Index?CategoryId=3"><i class="far fa-file-alt"></i></a>
+                                <p>翻譯寫作</p>
+                                <p>(373)筆</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="category-btn">
+                                <a class="mb-1" href="/Quotation/Index?CategoryId=4"><i class="fas fa-camera-retro"></i></a>
+                                <p>商社娛樂</p>
+                                <p>(373)筆</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="category-btn">
+                                <a class="mb-1" href="/Quotation/Index?CategoryId=5"><i class="fas fa-photo-video"></i></a>
+                                <p>影像製作</p>
+                                <p>(373)筆</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="category-btn">
+                                <a class="mb-1" href="/Quotation/Index?CategoryId=6"><i class="fas fa-ruler-combined"></i></a>
+                                <p>空間設計</p>
+                                <p>(373)筆</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="category-btn">
+                                <a class="mb-1" href="/Quotation/Index?CategoryId=7"><i class="far fa-heart"></i></a>
+                                <p>生活服務</p>
+                                <p>(373)筆</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="category-btn">
+                                <a class="mb-1" href="/Quotation/Index?CategoryId=8"><i class="far fa-newspaper"></i></a>
+                                <p>活動企劃</p>
+                                <p>(373)筆</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="category-btn">
+                                <a class="mb-1" href="/Quotation/Index?CategoryId=9"><i class="fas fa-pencil-ruler"></i></a>
+                                <p>專業顧問</p>
+                                <p>(373)筆</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="category-btn">
+                                <a class="mb-1" href="/Quotation/Index?CategoryId=10"><i class="fas fa-cogs"></i></a>
+                                <p>資訊工程</p>
+                                <p>(373)筆</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <section class="site-section">
     <div class="container">
         <div class="row pagination-wrap">
@@ -170,17 +255,56 @@
                 </div>
 
                 <div class="row item_zone mb-5">
-                    @foreach (var item in ViewBag.pageData)
+                    @if (ViewBag.pageData != null)
                     {
+                        foreach (var item in ViewBag.pageData)
+                        {
+                            <div class="col-lg-3 col-md-6">
+                                <div class="listing__item">
+                                    <div class="listing__item__pic">
+                                        <a href="@Url.Action("Detail", "Quotation")" target="_blank"><img src="@item.Img" alt="Image" class="img-fluid rounded"></a>
+                                    </div>
+                                    <div class="listing__item__text">
+                                        <div class="listing__item__text__inside">
+                                            <h5>@item.SubcategoryName</h5>
+                                            <span class="price">@item.Price</span><span>/ 件</span>
+                                            <div class="listing__item__text__rating">
+                                                <div class="listing__item__rating__star mr-2">
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star-half_alt"></span>
+                                                </div>
+                                                <span></span><span>人訂購</span>
+                                            </div>
+                                            <div class="mb-2">
+                                                <a class="studioName" href="@Url.Action("Detail", "Quotation")" target="_blank">@item.StudioName</a> <br>
+                                                <span class="pic_tag">CategoryId： @item.CategoryId</span>
+                                                <span class="pic_tag">SubcategoryId： @item.SubcategoryId</span>
+                                                <span class="pic_tag">Location： @item.Location</span>
+                                            </div>
+                                        </div>
+                                        <div class="listing__item__text__info">
+                                            <a class="listing__item__text__info__right" href="@Url.Action("Detail", "Quotation")" target="_blank">服務詳情</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+
+                    <template id="templateCard">
                         <div class="col-lg-3 col-md-6">
                             <div class="listing__item">
                                 <div class="listing__item__pic">
-                                    <a href="@Url.Action("Detail", "Quotation")" target="_blank"><img src="@item.Img" alt="Image" class="img-fluid rounded"></a>
+                                    <a href="" target="_blank"><img src="" alt="Image" class="img-fluid rounded"></a>
                                 </div>
                                 <div class="listing__item__text">
                                     <div class="listing__item__text__inside">
-                                        <h5>@item.SubcategoryName</h5>
-                                        <span class="price">@item.Price</span><span>/ 件</span>
+                                        <h5></h5>
+                                        <span class="price"></span><span>/ 件</span>
                                         <div class="listing__item__text__rating">
                                             <div class="listing__item__rating__star mr-2">
                                                 <span class="icon_star"></span>
@@ -192,10 +316,10 @@
                                             <span></span><span>人訂購</span>
                                         </div>
                                         <div class="mb-2">
-                                            <a class="studioName" href="@Url.Action("Detail", "Quotation")" target="_blank">@item.StudioName</a> <br>
-                                            <span class="pic_tag">CategoryId： @item.CategoryId</span>
-                                            <span class="pic_tag">SubcategoryId： @item.SubcategoryId</span>
-                                            <span class="pic_tag">Location： @item.Location</span>
+                                            <a class="studioName" href="" target="_blank"></a> <br>
+                                            <span class="pic_tag test1"></span>
+                                            <span class="pic_tag test2"></span>
+                                            <span class="pic_tag test3"></span>
                                         </div>
                                     </div>
                                     <div class="listing__item__text__info">
@@ -204,42 +328,7 @@
                                 </div>
                             </div>
                         </div>
-                    }
-
-                <template id="templateCard">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="listing__item">
-                            <div class="listing__item__pic">
-                                <a href="" target="_blank"><img src="" alt="Image" class="img-fluid rounded"></a>
-                            </div>
-                            <div class="listing__item__text">
-                                <div class="listing__item__text__inside">
-                                    <h5></h5>
-                                    <span class="price"></span><span>/ 件</span>
-                                    <div class="listing__item__text__rating">
-                                        <div class="listing__item__rating__star mr-2">
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star"></span>
-                                            <span class="icon_star-half_alt"></span>
-                                        </div>
-                                        <span></span><span>人訂購</span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <a class="studioName" href="" target="_blank"></a> <br>
-                                        <span class="pic_tag test1"></span>
-                                        <span class="pic_tag test2"></span>
-                                        <span class="pic_tag test3"></span>
-                                    </div>
-                                </div>
-                                <div class="listing__item__text__info">
-                                    <a class="listing__item__text__info__right" href="@Url.Action("Detail", "Quotation")" target="_blank">服務詳情</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </template>
+                    </template>
 
                 </div>
                 <div class="row pagination-wrap mt-3">
@@ -262,7 +351,7 @@
 </section>
 
 @section topCSS{
-<style>
+    <style>
     html.fixWindow {
         position: fixed;
         width: 100%;
@@ -270,6 +359,54 @@
 
     body {
         overflow-x: hidden;
+    }
+
+    .section-hero.inner-page {
+        padding-bottom: 20px;
+    }
+
+    .section-hero.overlay:before,
+    .section-hero.overlay-2:before {
+        background: none;
+    }
+
+    .category-btn {
+        margin: 15px 10px;
+    }
+
+    .category-area .category-btn a {
+        display: block;
+        text-align: center;
+    }
+
+    .category-area .category-btn .fas,
+    .category-area .category-btn .far {
+        font-size: 45px;
+        margin-bottom: 10px;
+        color: rgba(0, 0, 0, .4)
+    }
+
+    .category-area span {
+        font-size: 17px;
+        font-weight: 800;
+        color: rgba(0, 0, 0, .7)
+    }
+
+    .category-area .category-btn p {
+        margin: 0;
+        color: black;
+        font-weight: 600;
+        text-align: center;
+        line-height: 1.3;
+        font-size: 14px;
+        color: rgba(0, 0, 0, .4)
+    }
+
+    .category-btn:hover .fas,
+    .category-btn:hover .far,
+    .category-btn:hover p {
+        color: #89ba16;
+        cursor: pointer;
     }
 
     .site-section {
@@ -844,16 +981,18 @@
         let numberOfSubcateChecked = 0;
         let numberOfLocationChecked = 0;
 
+        let reductionArr = [];
+
 
         window.onload = function () {
             var url = decodeURI(location.href);
+            if (AllCardArray.length == 0) {
+                itemZone.innerHTML = '<div class="text-primary mx-auto h5">抱歉，沒有符合的搜尋結果<p>';
+            }
+
             if (url.indexOf('keyword') > -1)
             {
                 subcatefilter.style.display = 'none';
-            }
-
-            if (AllCardArray.length == 0) {
-                itemZone.innerHTML = '<div class="text-primary mx-auto h5">抱歉，沒有符合的搜尋結果<p>';
             }
             console.log(AllCardArray)
             AddCategoryFilter();
@@ -919,11 +1058,17 @@
                     if (this.checked) {
                         numberOfSubcateChecked++
                         filterCard = filterCard.concat(AllCardArray.filter(x => x.SubcategoryName.includes(item.value)));
+/*                        console.log(filterCard);*/
+                        reductionArr = filterCard;
+                        console.log(reductionArr);
                     }
 
                     else {
                         numberOfSubcateChecked--;
                         filterCard = filterCard.filter(x => !x.SubcategoryName.includes(item.value));
+/*                        console.log(filterCard);*/
+                        reductionArr = filterCard;
+                        console.log(reductionArr );
                     }
 
                     itemZone.innerText = '';
@@ -940,36 +1085,69 @@
                 })
             })
         }
-        //function AddLocationFilter() {
-        //    locationinput.forEach(function (item, index) {
-        //        item.addEventListener('change', function () {
-        //            if (this.checked) {
-        //                numberOfLocationChecked++
-        //                filterCard = filterCard.concat(AllCardArray.filter(x => x.Location == item.value));
-        //                console.log(filterCard);
-        //                console.log(item.value);
-        //            }
 
-        //            else {
-        //                numberOfLocationChecked--;
-        //                filterCard = filterCard.filter(x => x.Location != item.value);
-        //                console.log(filterCard);
-        //            }
+        function AddLocationFilter() {
+            locationinput.forEach(function (item, index) {
+                item.addEventListener('change', function () {
+                    if (numberOfSubcateChecked != 0) {
+                        if (this.checked) {
+                            numberOfLocationChecked++
+                            filterCard = filterCard.filter(x => x.Location == item.value);
+                            //console.log(filterCard);
+                            //console.log(item.value);
+                            //console.log(reductionArr);
+                        }
+                        else {
+                            numberOfLocationChecked--;
+                            filterCard = reductionArr;
+                            /*console.log(filterCard);*/
+                            //console.log(reductionArr);
+                        }
+                    }
 
-        //            itemZone.innerText = '';
-        //            addcard();
+                    else {
+                        if (this.checked) {
+                            numberOfSubcateChecked++
+                            filterCard = filterCard.concat(AllCardArray.filter(x => x.Location.includes(item.value)));
+                            console.log(filterCard);
+                            console.log(AllCardArray);
+                            console.log(numberOfSubcateChecked);
+                        }
 
-        //            if (numberOfLocationChecked == 0) {
-        //                filterCard = AllCardArray;
-        //                itemZone.innerText = '';
-        //                addcard();
-        //                filterCard = [];
-        //                return;
-        //            }
+                        else {
+                            numberOfSubcateChecked--;
+                            filterCard = filterCard.filter(x => !x.Location.includes(item.value));
+                            console.log(filterCard);
+                        }
 
-        //        })
-        //    })
-        //}
+
+                        if (numberOfSubcateChecked == 0) {
+                            filterCard = AllCardArray;
+                            itemZone.innerText = '';
+                            addcard();
+                            filterCard = [];
+                            return;
+                        }
+                    }
+
+                    itemZone.innerText = '';
+                    addcard();
+                })
+            });
+        }
+
+
+        //function filterByName1(aim, nameArr, location ) {
+        //    let result = []
+        //    for (let i = 0; i < nameArr.length; i++) {
+        //        result.push(aim.find(item => item.name = nameArr[i] ))
+        //    }
+        //    for (let i = 0; i < nameArr.length; i++) {
+        //        result.push(aim.find(item => item.name = nameArr[i]))
+        //    }
+        //    return result
+
+
 
        
         document.querySelector('.serchtbtn').addEventListener('click', function () {
