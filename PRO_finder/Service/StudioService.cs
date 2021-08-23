@@ -126,8 +126,8 @@ namespace PRO_finder.Service
                        //join memberinfo in StudioquotRepository.GetAll<MemberInfo>()
                        //on quotation.MemberID equals memberinfo.MemberID
                    where quotation.MemberID == MemberID
-                   join quotationpicture in StudioquotRepository.GetAll<OtherPicture>()
-                   on quotation.QuotationID equals quotationpicture.QuotationID
+                   //join quotationpicture in StudioquotRepository.GetAll<OtherPicture>()
+                   //on quotation.QuotationID equals quotationpicture.QuotationID
                    join subcategory in StudioquotRepository.GetAll<SubCategory>()
                    on quotation.SubCategoryID equals subcategory.SubCategoryID
                    join category in StudioquotRepository.GetAll<Category>()
@@ -143,7 +143,7 @@ namespace PRO_finder.Service
                        CategoryName=category.CategoryName,
                        Price = quotation.Price,
                        Unit = quotation.QuotationUnit,
-                       QuotationImg = quotationpicture.MainPicture
+                       QuotationImg = quotation.MainPicture
                        //用id去找name SubcategoryName 
                        //WorkName = works.WorkName,
                        //WebsiteURL = works.WebsiteURL,
