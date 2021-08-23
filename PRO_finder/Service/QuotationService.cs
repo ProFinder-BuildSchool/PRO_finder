@@ -152,7 +152,6 @@ namespace PRO_finder.Service
                               select new OtherPictureViewModel
                               {
                                   QuotationID = op.QuotationID,
-                                  //MainPicture = op.MainPicture,
                                   SortNumber = op.SortNumber,
                                   //IsDefault = (op.IsDefault == 0 ? false : true),
                                   OtherPicture = op.OtherPicture1
@@ -177,9 +176,10 @@ namespace PRO_finder.Service
                                    QuotationId = q.QuotationID,
                                    MemberID = m.MemberID,
                                    NickName = m.NickName,
-                                   LogInTime = m.LogInTime,
+                                   LogInTime = m.LogInTime.ToString(),
                                    Identity = (QuotationDetailViewModel.IdentityStatus)m.Identity,
                                    //SubcategoryId = (int)m.SubCategoryID,
+                                   MainPicture = q.MainPicture,
                                    OtherPicture = OtherPicVM,
                                    QuotationTitle = q.QuotationTitle,
                                    SubcategoryName = q.SubCategoryID.ToString(),

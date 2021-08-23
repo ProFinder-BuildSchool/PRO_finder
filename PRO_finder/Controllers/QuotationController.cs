@@ -51,7 +51,7 @@ namespace PRO_finder.Controllers
         public ActionResult Detail(int Memberid,int Quotationid)
         {
             QuotationDetailViewModel QuoDetailVM = _quotService.GetQuoDetailData(Memberid, Quotationid);
-            ViewBag.QID = Quotationid;
+            //ViewBag.QID = Quotationid;
             return View(QuoDetailVM);
         }
 
