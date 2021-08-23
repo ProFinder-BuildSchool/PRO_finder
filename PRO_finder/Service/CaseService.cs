@@ -75,6 +75,7 @@ namespace PRO_finder.Service
                        LocalCalls = Case.LocalCalls,
                        ContactEmail = Case.ContactEmail,
                        LineID = Case.LineID,
+                       CategoryID = SubCategory.CategoryID,
                       
 
                    };

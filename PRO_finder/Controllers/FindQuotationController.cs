@@ -76,7 +76,7 @@ namespace PRO_finder.Controllers
 
         public ActionResult Othercase(string Cateid) 
         {
-            var result = _caseService.GetCasesList().Where(x => x.CategoryID == Int32.Parse(Cateid)).ToList
+            var result = _caseService.GetCaseDetail().Where(x => x.CategoryID == Int32.Parse(Cateid)).ToList
                 ();
 
             return Json(result, JsonRequestBehavior.AllowGet);

@@ -31,8 +31,9 @@ namespace PRO_finder.Models.ViewModels
         public string LocalCalls { get; set; }
         public string ContactEmail { get; set; }
         public string LineID { get; set; }
+        public int CategoryID { get; set; }
 
-        
+        //public string LogInTime { get; set; }
 
 
 

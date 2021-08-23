@@ -72,16 +72,39 @@
 
                 </div>
 
-                <div class="row mb-5">
+                <div id="IWantThisCase" class="row mb-5 justify-content-center">
                     <div class="col-12">
                         <p class="bg-light p-3 text-black">
                             ※提醒：<br>1.聯繫時請務必先說明您是Tasker出任務會員，謝謝。<br>
                             2.接案如需赴約請注意安全，若遇行為不軌，請立即離開，並向執法單位備案。
                         </p>
                     </div>
-                    <div class="col-4"></div>
                     <div class="col-4">
-                        <a href="#" class="btn btn-block btn-primary btn-md mt-2">我要報價</a>
+                        <a href="#" class="btn btn-block btn-primary btn-md mt-2 ">我要報價</a>
+                    </div>
+                </div>
+                
+                <div class="othercaseMore">
+                    <div class="mb-4">
+                        <h2 class="h4">您可能感興趣的案件</h2>
+                    </div>
+                    <div id="item_zone" class="list row mb-3 "></div>
+                    <template id="templateCard">
+                        <div class="col-4 d-md-block mb-4 ">
+                            <div class="border rounded  pl-2 pr-2 p-1">
+                                <a class="case-a">
+                                    <div class="d-flex justify-content-between  mb-2">
+                                        <span class="case-price   text-danger"></span>
+                                        <span class="case-location "></span>
+                                    </div>
+                                    <span class="case-title"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </template>
+
+                    <div id="othercaseMore"class="row  justify-content-center"  >
+                        <a href="@Url.Action("Index",new { id=Model.CategoryID})" class="border rounded ">看更多</a>
                     </div>
                 </div>
 
@@ -169,6 +192,7 @@
                 </div>
 
             </div>
+
         </div>
 
     </div>
@@ -176,56 +200,15 @@
 </section>
 
 <section class="pb-lg-5">
-    <div class="container  ">
+    <div class="container ">
         <div class="col-8">
-            <div class="mb-3">
-                <div class="col-md-7">
-                    <h2 class=" h4">您可能感興趣的案件</h2>
-                </div>
-            </div>
-
-            <div class="list row g-5 mb-3" style="margin-bottom: 0;">
-
-                <template id="otherCase">
-
-                    <div class="col-12 col-md-6 col-lg-4  ">
-                        <div class="">
-                            <div class="mr-2">
-                                <a href="#"></a>
-
-                                <div class="row  border p-3  mb-2">
-                                    <div class="">
-                                        <h3 class=" h6 text-danger">@Model.Price</h3>
-                                        <h3 class="h6 ">@Model.title</h3>
-                                    </div>
-                                    <div class=" ">
-                                        <span class="icon-room"></span> @Model.LocationName
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </template>
-
-                
-
-            </div>
-            <div class="col-md-6 text-center text-md-right">
-                <div class="custom-pagination ml-auto ">
-
-                    <a href="#" class="next">看更多</a>
-                </div>
-            </div>
-
             <div class="mb-3">
                 <div class="col-md-7">
                     <h2 class=" h4">報價會員</h2>
                 </div>
             </div>
 
-            <!-- 動態生成小頭貼還沒想怎麼做 -->
+            <!-- 小頭貼還沒想怎麼做 -->
             <div>
                 <div class="col-md-7">
                     <p class="text-black">2人參與報價</p>
@@ -234,7 +217,6 @@
 
         </div>
 
-        <div class="col-4"></div>
     </div>
 
 
@@ -246,6 +228,56 @@
         .list :hover {
             cursor: pointer;
         }
+        
+
+        .case-title {
+            white-space: nowrap;
+            width: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: -webkit-box;
+        }
+
+        #item_zone a {
+            text-decoration: none;
+        }
+
+
+
+        #othercaseMore a {
+            padding:3px 0;
+            text-decoration: none;
+            width: 15%;
+            height: 30%;
+            line-height: 30px;
+            display: inline-block;
+            border: 1px solid #89ba16;
+            text-align: center;
+            background: #89ba16;
+            border-color: #89ba16;
+            color: #fff;
+        }
+
+            #othercaseMore a:hover {
+                background: #90c317;
+                color: #fff;
+                border-color: #90c317;
+            }
+        @@media screen and (max-width: 991.98px) {
+            .othercaseMore {
+                display: none
+            }
+            #IWantThisCase .btn {
+                width: 100%;
+                height: 80%;
+                white-space: nowrap;
+                width: 100%;
+                text-overflow: ellipsis;
+                padding:5px 8px 4px 8px;
+            }
+        }
+
+        
     </style>
 }
 
@@ -254,25 +286,50 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
+        let card = document.querySelector('#templateCard');
+        let otherCase =[]
 
-        window.onload = function ()
-        {
-            axios.get('/FindQuotation/Othercase?CateId=@ViewBag.CateId').then(res => console.log(res.data))
-        }
+            axios.get(`/FindQuotation/Othercase?CateId=@Model.CategoryID`).then(res => {
+                otherCase = res.data.filter(x => x.CategoryID ==@Model.CategoryID).slice(0,6)
 
-        function addcase(arr, pages = 1) {
-            arr.forEach(function (item, index) {
-                if (item.page == pages) {
+                addcase();
+            })
+
+
+
+
+        function addcase() {
+            otherCase.forEach(function (item, index) {
+
                     let cloneContent = card.content.cloneNode(true);
-                    cloneContent.querySelector('.card-title').innerText = item.title
                     cloneContent.querySelector('.case-price').innerText = changePrice(item.Price);
-                    cloneContent.querySelector('.city').innerHTML = ` <i class="fas fa-map-marker-alt mr-1"></i>${item.LocationName}`;
-                    
-                    cloneContent.querySelector('.card-title-a').href = `/FindQuotation/Detail?id=${item.CaseId}`
-                    document.querySelector('.aaaaaaa').append(cloneContent);
-                }
+                cloneContent.querySelector('.case-location').innerHTML = ` <i class="fas fa-map-marker-alt mr-1"></i>${item.LocationName}`;
+
+                cloneContent.querySelector('.case-title').innerText = item.title
+                cloneContent.querySelector('.case-a').href = `/FindQuotation/Detail?id=${item.CaseId}`
+                    document.querySelector('#item_zone').append(cloneContent);
+
             })
         };
+
+        function changePrice(pirceNum) {
+
+            switch (pirceNum) {
+                case 1:
+                    return '五千元以下'
+                case 2:
+                    return '五千~一萬元'
+                case 3:
+                    return '一萬~五萬元'
+                case 4:
+                    return '五萬~十萬元'
+                case 5:
+                    return '十萬~三十萬元'
+                default:
+                    return '查無資料'
+            }
+
+        }
 
 
     </script>
