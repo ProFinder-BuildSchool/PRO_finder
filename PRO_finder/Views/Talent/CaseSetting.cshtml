@@ -72,8 +72,8 @@
             <hr />
             <div class="form-group">
                 <label for="job-location" class="col-md-12 control-label">居住地</label>
-                <div class="col-md-12">
-                    <div>居住地下拉式選單</div>
+                <div class="col-md-6">
+                    @Html.DropDownList("LiveCity", (List<SelectListItem>)ViewBag.LocationDropdownList, new { @class = "form-control", @id = "categoryDropdown" })
                 </div>
             </div>
             <hr />
@@ -104,14 +104,24 @@
         <hr />
         <div class="form-group">
             <label for="LocationID" class="col-md-12 control-label">理想接案城市</label>
-            <div class="col-md-12">
-                <div>理想接案城市的下拉式選單</div>
+            <div class="col-md-6">
+                @Html.DropDownList("LocationID", (List<SelectListItem>)ViewBag.LocationDropdownList, new { @class = "form-control", @id = "categoryDropdown" })
             </div>
         </div>
         <div class="form-group">
             <label for="SubCategoryID" class="col-md-12 control-label">理想接案類別</label>
-            <div class="col-md-12">
-                <div>理想接案類別的下拉式選單</div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        @Html.DropDownList("Catgeory", (List<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control", @id = "categoryDropdown" })
+                    </div>
+                    <div class="col-6">
+                        <select class="form-control" id="subcategorySelect" name="SubCategoryID">
+                            <option class="text-center">選擇子類型</option>
+                        </select>
+                        @*@Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })*@
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -119,9 +129,8 @@
         <h5>接案經歷</h5>
         <hr />
         <div class="form-group">
-            <label for="SubCategoryID" class="col-md-12 control-label">理想接案類別</label>
             <div class="col-md-12">
-                <div>接案經歷的下拉式選單</div>
+                <p>接案經歷下拉式選單</p>
             </div>
         </div>
     </div>
@@ -158,10 +167,6 @@
                 padding: 25px;
             }
 
-            hr {
-                /* margin: 10px 0px !important; */
-            }
-
             label {
                 font-weight: 700;
             }
@@ -170,7 +175,32 @@
 }
 @section endJS{
     <script src="~/Assets/js/quill.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
+        //接案類別轉換
+        let selector = document.querySelector("#subcategorySelect");
+        var subCategoryList = [];
+
+        axios.get("/Talent/GetAllCategoryAndSubCategoryList").then(result => {
+            let data = JSON.parse(result.data);
+            subCategoryList.push(...data);
+        });
+
+        document.querySelector("#categoryDropdown").addEventListener("change", function () {
+            selector.innerHTML = "<option class='text - center'>選擇子類型</option>";
+            subCategoryList.forEach(sub => {
+                if (sub.CategoryID == this.value) {
+                    let allsub = JSON.parse(sub.JsonSubCategoryList);
+                    allsub.forEach(s => {
+                        let option = document.createElement("option");
+                        option.innerText = s.SubCategoryName;
+                        option.value = s.SubCategoryID;
+                        selector.append(option);
+                    });
+                };
+            });
+        });
+
         //quill 富文本編輯器
         var toolbarOptions = [
             ['bold', 'italic', 'underline', 'strike'],        // toggled buttons

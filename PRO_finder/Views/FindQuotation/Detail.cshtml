@@ -1,4 +1,5 @@
-﻿@{
+﻿@model PRO_finder.Models.ViewModels.CaseDetailViewModel
+@{
     ViewBag.Title = "Detail";
 }
 
@@ -9,11 +10,11 @@
                 <div class="d-flex align-items-center ">
 
                     <div>
-                        <h2>協助金屬拋光</h2>
+                        <h2>@Model.title</h2>
                         <div>
-                            <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>案件編號 : </span><span>b13Wo</span>
-                            <span class="m-2"><span class="icon-room mr-2"></span>不限</span>
-                            <span class="m-2"><span class="icon-clock-o mr-2"></span><span class="text-danger">急件</span></span>
+                            <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>案件編號 : </span><span>@Model.CaseId</span>
+                            <span class="m-2"><span class="icon-room mr-2"></span>@Model.LocationName</span>
+                            <span class="m-2"><span class="icon-clock-o mr-2"></span><span class="text-danger">@Model.Type</span></span>
                         </div>
                     </div>
                 </div>
@@ -39,20 +40,20 @@
                     <h3 class="h5 d-flex align-items-center mb-1 mr-3 text-primary">
                         <span class="fas fa-caret-right mr-2"></span>預算金額
                     </h3>
-                    <span class="text-black">5,000</span>
+                    <span class="text-black">@Model.Price</span>
                 </div>
 
                 <div class="mb-4 row pl-3">
                     <h3 class="h5 d-flex align-items-center mb-1 mr-3 text-primary">
                         <span class="fas fa-caret-right mr-2"></span>執行地點
-                    </h3><span class="text-black">不限</span>
+                    </h3><span class="text-black">新竹市</span>
                 </div>
 
                 <div class="mb-4 row pl-3">
                     <h3 class="h5 d-flex align-items-center mb-1 mr-3 text-primary">
                         <span class="fas fa-caret-right mr-2"></span>預計完成日
                     </h3>
-                    <span class="text-black">無指定時間</span>
+                    <span class="text-black">@Model.CompleteDate</span>
                 </div>
 
                 <div class="mb-5 ">
@@ -61,11 +62,12 @@
                         <span class="fas fa-caret-right mr-2"></span>案件說明
                     </h3>
                     <p class="text-black">
-                        一.案件說明：<br>
-                        1.飾品配件拋光<br>
-                        2.拋光材質為鋁<br>
-                        3.可先試做、報價<br>
-                        二.注意事項：具備相關能力或實務經驗，能獨立作業。
+                        @*一.案件說明：<br>
+                            1.飾品配件拋光<br>
+                            2.拋光材質為鋁<br>
+                            3.可先試做、報價<br>
+                            二.注意事項：具備相關能力或實務經驗，能獨立作業。*@
+                        @Model.Description
                     </p>
 
                 </div>
@@ -92,37 +94,36 @@
                             <strong class="text-black">
                                 <span class="far fa-user-circle mr-2"></span>稱呼
                                 :
-                            </strong> 羅**
+                            </strong> @Model.Contact
                         </li>
                         <li class="mb-2 text-black">
                             <strong class="text-black">
                                 <span class="far fa-calendar-check mr-2"></span>聯絡時段 :
-                            </strong> <br>13:00~18:00　<br>
-                            19:00~21:00　
+                            </strong> @Model.ContactTime
                         </li>
                         <li class="mb-2 text-info">
                             <strong class="text-black">
                                 <span class="fas fa-mobile-alt mr-2"></span>手機
                                 :
-                            </strong> 0911-***-***
+                            </strong> @Model.LocalCallsCode
                         </li>
                         <li class="mb-2 text-info">
                             <strong class="text-black">
                                 <span class="fas fa-phone mr-2"></span>市話
                                 :
-                            </strong> 未提供
+                            </strong> @Model.LocalCalls
                         </li>
                         <li class="mb-2 text-info">
                             <strong class="text-black">
                                 <span class="fas fa-envelope mr-2"></span>E-mail
                                 :
-                            </strong> 
+                            </strong>@Model.ContactEmail
                         </li>
                         <li class="mb-2 text-info">
                             <strong class="text-black">
                                 <span class="far fa-star mr-2"></span>Line ID
                                 :
-                            </strong> 有提供
+                            </strong> @Model.LineID
                         </li>
                     </ul>
 
@@ -184,120 +185,31 @@
             </div>
 
             <div class="list row g-5 mb-3" style="margin-bottom: 0;">
-                <div class="col-12 col-md-6 col-lg-4  ">
-                    <div class="">
-                        <div class="mr-2">
-                            <a href="job-single.html"></a>
 
-                            <div class="row  border p-3  mb-2">
-                                <div class="">
-                                    <h3 class=" h6 text-danger">$ 60000</h3>
-                                    <h3 class="h6 ">徵求家事工作人員</h3>
-                                </div>
-                                <div class=" ">
-                                    <span class="icon-room"></span> 新竹市
-                                </div>
+                <template id="otherCase">
 
+                    <div class="col-12 col-md-6 col-lg-4  ">
+                        <div class="">
+                            <div class="mr-2">
+                                <a href="#"></a>
+
+                                <div class="row  border p-3  mb-2">
+                                    <div class="">
+                                        <h3 class=" h6 text-danger">$ 60000</h3>
+                                        <h3 class="h6 ">徵求家事工作人員</h3>
+                                    </div>
+                                    <div class=" ">
+                                        <span class="icon-room"></span> 新竹市
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
+
                     </div>
+                </template>
 
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="">
-                        <div class="mr-2">
-                            <a href="job-single.html"></a>
-
-                            <div class="row  border p-3 mb-2">
-                                <div class="">
-                                    <h3 class=" h6 text-danger">$ 60000</h3>
-                                    <h3 class="h6 ">徵求家事工作人員</h3>
-                                </div>
-                                <div class=" ">
-                                    <span class="icon-room"></span> 新竹市
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="">
-                        <div class="mr-2">
-                            <a href="job-single.html"></a>
-
-                            <div class="row border  p-3 mb-2">
-                                <div class="">
-                                    <h3 class=" h6 text-danger">$ 60000</h3>
-                                    <h3 class="h6 ">徵求家事工作人員</h3>
-                                </div>
-                                <div class=" ">
-                                    <span class="icon-room"></span> 新竹市
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="">
-                        <div class="mr-2">
-                            <a href="job-single.html"></a>
-
-                            <div class="row border  p-3 mb-2">
-                                <div class="">
-                                    <h3 class=" h6 text-danger">$ 60000</h3>
-                                    <h3 class="h6 ">徵求家事工作人員</h3>
-                                </div>
-                                <div class=" ">
-                                    <span class="icon-room"></span> 新竹市
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="">
-                        <div class="mr-2">
-                            <a href="job-single.html"></a>
-
-                            <div class="row border  p-3 mb-2">
-                                <div class="">
-                                    <h3 class=" h6 text-danger">$ 60000</h3>
-                                    <h3 class="h6 ">徵求家事工作人員</h3>
-                                </div>
-                                <div class=" ">
-                                    <span class="icon-room"></span> 新竹市
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-12 col-md-6 col-lg-4 ">
-                    <div class="">
-                        <div class="mr-2">
-                            <a href="job-single.html"></a>
-
-                            <div class="row border  p-3 mb-2">
-                                <div class="">
-                                    <h3 class=" h6 text-danger">$ 60000</h3>
-                                    <h3 class="h6 ">徵求家事工作人員</h3>
-                                </div>
-                                <div class=" ">
-                                    <span class="icon-room"></span> 新竹市
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+                
 
             </div>
             <div class="col-md-6 text-center text-md-right">
@@ -316,7 +228,7 @@
             <!-- 動態生成小頭貼還沒想怎麼做 -->
             <div>
                 <div class="col-md-7">
-                    <p class="text-black">169人參與報價</p>
+                    <p class="text-black">2人參與報價</p>
                 </div>
             </div>
 
@@ -336,3 +248,34 @@
         }
     </style>
 }
+
+@section endJS
+{
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+
+        window.onload = function ()
+        {
+            axios.get('/FindQuotation/Othercase?CateId=@ViewBag.CateId').then(res => console.log(res.data))
+        }
+
+        function addcase(arr, pages = 1) {
+            arr.forEach(function (item, index) {
+                if (item.page == pages) {
+                    let cloneContent = card.content.cloneNode(true);
+                    cloneContent.querySelector('.card-title').innerText = item.title
+                    cloneContent.querySelector('.case-price').innerText = changePrice(item.Price);
+                    cloneContent.querySelector('.city').innerHTML = ` <i class="fas fa-map-marker-alt mr-1"></i>${item.LocationName}`;
+                    
+                    cloneContent.querySelector('.card-title-a').href = `/FindQuotation/Detail?id=${item.CaseId}`
+                    document.querySelector('.aaaaaaa').append(cloneContent);
+                }
+            })
+        };
+
+
+    </script>
+
+
+} 

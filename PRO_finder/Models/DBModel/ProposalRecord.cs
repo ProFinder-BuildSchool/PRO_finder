@@ -13,7 +13,7 @@ namespace PRO_finder.Models.DBModel
 
         public int CaseID { get; set; }
 
-        public TimeSpan SavedDate { get; set; }
+        public DateTime SavedDate { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProposalRecordID { get; set; }

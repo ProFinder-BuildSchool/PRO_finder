@@ -100,6 +100,10 @@ namespace PRO_finder.Models.DBModel
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<MemberInfo>()
+                .HasOptional(e => e.Works)
+                .WithRequired(e => e.MemberInfo);
+
+            modelBuilder.Entity<MemberInfo>()
                 .HasMany(e => e.Message)
                 .WithRequired(e => e.MemberInfo)
                 .HasForeignKey(e => e.TargetID)
@@ -135,8 +139,8 @@ namespace PRO_finder.Models.DBModel
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<MemberInfo>()
-                .HasOptional(e => e.Works)
-                .WithRequired(e => e.MemberInfo);
+                .HasOptional(e => e.Works1)
+                .WithRequired(e => e.MemberInfo1);
 
             modelBuilder.Entity<MemberInfo>()
                 .HasMany(e => e.ProposalRecord)
@@ -153,7 +157,7 @@ namespace PRO_finder.Models.DBModel
 
             modelBuilder.Entity<Order>()
                 .Property(e => e.CaseReview)
-                .HasPrecision(3, 0);
+                .HasPrecision(3, 1);
 
             modelBuilder.Entity<Order>()
                 .Property(e => e.Price)
@@ -161,7 +165,7 @@ namespace PRO_finder.Models.DBModel
 
             modelBuilder.Entity<Quotation>()
                 .Property(e => e.Evaluation)
-                .HasPrecision(2, 0);
+                .HasPrecision(2, 1);
 
             modelBuilder.Entity<Quotation>()
                 .Property(e => e.Price)
@@ -169,7 +173,7 @@ namespace PRO_finder.Models.DBModel
 
             modelBuilder.Entity<ReplyFrequency>()
                 .Property(e => e.Degree)
-                .HasPrecision(3, 0);
+                .HasPrecision(3, 1);
 
             modelBuilder.Entity<ServicePlus>()
                 .Property(e => e.Cost)

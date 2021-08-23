@@ -1,7 +1,8 @@
-﻿@{
+﻿@model string 
+@{
     ViewBag.Title = "Index";
 }
-<section class="section-hero overlay inner-page bg-image" id="home-section">
+<section class="section-hero overlay inner-page bg-image pt-2" id="home-section">
     <div class="container">
         <div class="row  p-0">
             <div class="col-md-12 mb-3">
@@ -9,100 +10,130 @@
                     <h3>找案件</h3>
                     <span>多筆案件等你大展身手！</span>
                     <div class="row  justify-content-around">
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="fas fa-pencil-ruler"></i></a>
-                                <p>平面設計</p>
-                                <p>(373)筆</p>
+                        <div class="col-md-1 test">
+                            <div class="category-btn ">
+                                <a class="mb-1" href="@Url.Action("Index",new { id = "0"} )">
+                                    <i class="fas fa-pencil-ruler"></i>
+                                    <p>平面設計</p>
+                                    <p>(373)筆</p>
+                                </a>
+                                
                             </div>
                         </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="far fa-window-restore"></i></a>
-                                <p>網頁設計</p>
-                                <p>(373)筆</p>
+                        <div class="col-md-1 test">
+                            <div class="category-btn"  >
+                                <a class="mb-1" href="@Url.Action("Index",new { id = "1"} )">
+                                    <i class="far fa-window-restore"></i>
+                                    <p>網頁設計</p>
+                                    <p>(373)筆</p>
+                                </a>
+                                
                             </div>
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-1 test">
                             <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="fas fa-code"></i></a>
-                                <p>程式開發</p>
-                                <p>(373)筆</p>
+
+                                <a class="mb-1" href="@Url.Action("Index",new { id = "2"} )">
+                                    <i class="fas fa-code"></i>
+                                    <p>程式開發</p>
+                                    <p>(373)筆</p>
+                                </a>
+                               
                             </div>
                         </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="far fa-file-alt"></i></a>
-                                <p>翻譯寫作</p>
-                                <p>(373)筆</p>
+                        <div class="col-md-1 test">
+                            <div class="category-btn ">
+                                <a class="mb-1" href="@Url.Action("Index",new { id = "3"} )">
+                                    <i class="far fa-file-alt"></i>
+                                    <p>翻譯寫作</p>
+                                    <p>(373)筆</p>
+                                </a>
+                               
                             </div>
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-1 test">
                             <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="fas fa-camera-retro"></i></a>
-                                <p>商社娛樂</p>
-                                <p>(373)筆</p>
+                                <a class="mb-1" href="@Url.Action("Index",new { id = "4"} )">
+                                    <i class="fas fa-camera-retro"></i>
+                                    <p>商社娛樂</p>
+                                    <p>(373)筆</p>
+                                </a>
+                               
                             </div>
                         </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="fas fa-photo-video"></i></a>
-                                <p>影像製作</p>
-                                <p>(373)筆</p>
+                        <div class="col-md-1 test">
+                            <div class="category-btn" >
+                                <a class="mb-1" href="@Url.Action("Index",new { id = "5"} )">
+                                    <i class="fas fa-photo-video"></i>
+                                    <p>影像製作</p>
+                                    <p>(373)筆</p>
+                                </a>
+                                
                             </div>
                         </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="fas fa-ruler-combined"></i></a>
-                                <p>空間設計</p>
-                                <p>(373)筆</p>
+                        <div class="col-md-1 test">
+                            <div class="category-btn ">
+                                <a class="mb-1" href="@Url.Action("Index",new { id = "6"} )">
+                                    <i class="fas fa-ruler-combined"></i>
+                                    <p>空間設計</p>
+                                    <p>(373)筆</p>
+                                </a>
                             </div>
                         </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="far fa-heart"></i></a>
-                                <p>生活服務</p>
-                                <p>(373)筆</p>
+                        <div class="col-md-1 test">
+                            <div class="category-btn ">
+                                <a class="mb-1" href="@Url.Action("Index",new { id = "7"} )">
+                                    <i class="far fa-heart"></i>
+                                    <p>生活服務</p>
+                                    <p>(373)筆</p>
+                                </a>
                             </div>
                         </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="far fa-newspaper"></i></a>
-                                <p>活動企劃</p>
-                                <p>(373)筆</p>
+                        <div class="col-md-1 test">
+                            <div class="category-btn ">
+                                <a class="mb-1" href="@Url.Action("Index",new { id = "8"} )">
+                                    <i class="far fa-newspaper"></i>
+                                    <p>活動企劃</p>
+                                    <p>(373)筆</p>
+                                </a>
                             </div>
                         </div>
-                        <div class="col-md-1">
-                            <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="fas fa-pencil-ruler"></i></a>
-                                <p>專業顧問</p>
-                                <p>(373)筆</p>
+                        <div class="col-md-1 test">
+                            <div class="category-btn ">
+                                <a class="mb-1 " href="@Url.Action("Index",new { id = "9"} )">
+                                    <i class="fas fa-pencil-ruler"></i>
+                                    <p>專業顧問</p>
+                                    <p>(373)筆</p>
+                                </a>  
                             </div>
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-1  test">
                             <div class="category-btn">
-                                <a class="mb-1" href="#"><i class="fas fa-cogs"></i></a>
-                                <p>資訊工程</p>
-                                <p>(373)筆</p>
+                                <a class="mb-1" href="@Url.Action("Index",new { id = "10"} )">
+                                    <i class="fas fa-cogs"></i>
+                                    <p>資訊工程</p>
+                                    <p>(373)筆</p>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-8 ">
+            <div class="col-md-12 ">
                 <div class="category-list">
                     <select class="w-25 areaOption">
-                        <option value="" disabled selected hidden>-請選擇地區-</option>
+
                         @*動態資料*@
 
                     </select>
 
                     <select class="w-25 priceOption">
-                        <option value="" disabled selected hidden>-請選擇價格-</option>
+
                         @*動態資料*@
                     </select>
-                    <button class="watchAll btn border p-1 btn-success text-white">看全部</button>
-                    <input type="text" placeholder="請輸入關鍵字">
+                    <button class="watchAll btn   p-1 text-black">× 清除條件</button>
+                    <input  class=" searchinput "type="text" placeholder="請輸入關鍵字">
+                    <button type="submit" class=" search btn  btn-success text-white p-1 "><i class="icon fas text-white fa-search mr-2"></i>搜尋</button>
                 </div>
             </div>
         </div>
@@ -113,54 +144,34 @@
     <div class="container pt-5">
         <div class="row">
             <div class="col-md-3">
-                <div class="card w-100 mb-5">
+                <div class="card w-100 ">
                     <h3 class="title"><i class="far fa-thumbs-up"></i>最新案件推薦</h3>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <a href="#">
-                                <p>搬運工(不需交通工具)</p>
-                            </a><span class="hour-ago">12小時前</span>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="#">
-                                <p>An item</p>
-                            </a><span class="hour-ago">12小時前</span>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="#">
-                                <p>An item</p>
-                            </a><span class="hour-ago">12小時前</span>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="#">
-                                <p>An item</p>
-                            </a><span class="hour-ago">12小時前</span>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="#">
-                                <p>An item</p>
-                            </a><span class="hour-ago">12小時前</span>
-                        </li>
+                    <ul class="list-group list-group-flush  newCaseList">
+
+
+                        <template id="newCase">
+                            <li class="list-group-item">
+                                <a href="#">
+                                    <p></p>
+                                </a><span class="hour-ago">12小時前</span>
+                            </li>
+
+
+                        </template>
+                      
+
+                       
                     </ul>
 
                 </div>
 
 
-                <div class="card-little">
-                    <div class="card-header">
-
-                    </div>
-                    <div class="card-bodyleft">
-                        <blockquote class="blockquote mb-0">
-                            <p>
-                                恭喜人才
-                                <a class="SSH" href="#">小萌設計</a><br> 完成任務
-                                <a class="SSH" href="#">SSH 設定</a>SSH 設定！ 成交日期 2021/07/22
-                            </p>
-
-                        </blockquote>
-                    </div>
+               
+                <div style="position:relative; height:20%" class="my-3">
+                    <img class="w-100 h-100" src="https://pic.52112.com/180531/JPG-180531_509/nkFGBvQnQn_small.jpg" alt="最近成交" />
+                    <div style="position:absolute; z-index:2; left:10px ;top:10px">安安</div>
                 </div>
+
 
 
                 <div class="card w-100">
@@ -252,7 +263,7 @@
                             </ul>
                         </nav>
                     </div>
-                    <div class="col-md-12 mb-5">
+                    <div class="col-md-12 mb-3">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="btn-list">
@@ -268,9 +279,9 @@
                     <template id="caseList">
                         <div class="card case mb-3">
                             <div class="card-body">
-                                <a class="h5" href="@Url.Action("Detail", "w")"><h5 class="card-title"></h5></a>
+                                <a class="h5 card-title-a" href=""><h5 class="card-title"></h5></a>
                                 <a href="#" class=" case-price mr-1"> </a>
-                                <span class="city"><i class="fas fa-map-marker-alt mr-1"></i></span>
+                                <span class="city"></span>
                                 <p class="card-text"></p>
 
                                 <p class="subcate-list">
@@ -278,19 +289,12 @@
 
                                 </p>
                                 <div class="d-flex justify-content-between">
-                                    <p class="update-time">2<span>小時前 更新</span></p>
-                                    <a href="#" class="btn btn-primary">我要報價</a>
+                                    <p class="update-time"></p>
+                                    <a  class="btn btn-primary addCart">我要報價</a>
                                 </div>
                             </div>
                         </div>
                     </template>
-
-
-
-
-
-
-
 
                     <div class="col-md-12">
                         <div class="case-page d-flex justify-content-end ">
@@ -562,14 +566,43 @@
         br{
             display: none
         }
+        .actives i,
+        .actives > a,
+        .actives p {
+            color: #89ba16 !important;
+        }
+        .FindQuotation a{
+            color: #89ba16 !important;
+            background-color:white
+              
+        }
+        .site-navbar {
+          
+            position:static !important;
+        }
+        #home-section {
+            position:sticky;
+            top:0;
+            z-index:1000;
+            background-color:white !important;
+            opacity:1;
+            
+        }
+        .border-btm {
+            box-shadow: 0px 0px 4px 1px #89ba16;
+        }
     </style>
 }
 @section endJS
     {
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    
     <script>
-
-
+        window.onscroll = function (e) {
+            let homesectiontoTop =document.querySelector('#home-section')
+            homesectiontoTop.offsetTop > 130 ? homesectiontoTop.classList.add('border-btm') : homesectiontoTop.classList.remove('border-btm')
+        }
 
         let AllCardArray = [];
         let card = document.querySelector('#caseList');
@@ -577,33 +610,75 @@
         let dataArray =[];
         let areaArray =[];
         let priceArray = [];
+        let newCase = document.querySelector("#newCase");
+        var test = window.location.search;
 
 
-        window.onload = function () {
-            axios.get('https://localhost:44375/FindQuotation/IndexJson')
-                .then(res => {
-                    AllCardArray = res.data;
-                    res.data.forEach((x) => { areaArray.push(x.LocationName) })
-                    res.data.forEach((x) => { priceArray.push(x.Price) })
-                    setCaseCount();
-                    setPages(AllCardArray);
-                    addPriceOption();
-                    addareaOption();
-                    addcase(AllCardArray);
-                    
+
+        axios.get(`/FindQuotation/IndexJson?CateId=@ViewBag.CateId`).then(res => {
+            AllCardArray = res.data;
+            console.log(test.substr(4))
+            if (test.substr(4) != "" ) {
+                document.querySelectorAll('.category-btn')[test.substr(4)].classList.add('actives')
+            }
+            setCaseCount(AllCardArray);
+            if (AllCardArray.length == 0 || AllCardArray == null || AllCardArray == undefined)
+            {
+                document.querySelector('.aaaaaaa').innerHTML = '<p class="text-danger">查無資料!!!</p>'
+                document.querySelector('.priceOption').innerHTML = ' <option value="" disabled selected hidden>-請選擇價格-</option>';
+                document.querySelector('.areaOption').innerHTML = '<option value="" disabled selected hidden>-請選擇地區-</option>';
+            }
+            else {
+                console.log(AllCardArray)
+                res.data.forEach((x) => { areaArray.push(x.LocationName) })
+                res.data.forEach((x) => { priceArray.push(x.Price) })
+                addSelectOption()
+                setPages(AllCardArray);
+                addcase(AllCardArray);}
                 })
                 .catch(err => {
                     console.log(err);
                 })
-        }
 
-        //看全部
-        document.querySelector('.watchAll').addEventListener("click", function () {
-            document.querySelector('.areaOption').value = "";
-            document.querySelector('.priceOption').value = "";
-            addcase(AllCardArray);
-            setPages(AllCardArray);
+        axios.get(`/FindQuotation/IndexJson`).then(res => {
+            let newCaseArray = res.data
+            setNewCase(newCaseArray)
         })
+
+        //清除條件
+        document.querySelector('.watchAll').addEventListener("click", function () {
+
+            document.querySelector('.aaaaaaa').innerHTML = ''
+            document.querySelector('.searchinput').value=""
+            axios.get('/FindQuotation/IndexJson?CateId=@ViewBag.CateId')
+                .then(res => {
+                    AllCardArray = res.data;
+                    console.log(AllCardArray)
+                    res.data.forEach((x) => { areaArray.push(x.LocationName),priceArray.push(x.Price)})
+                    setCaseCount(AllCardArray)
+                    setPages(AllCardArray);
+                    addSelectOption()
+                    addcase(AllCardArray);
+
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        })
+
+
+
+        function setNewCase(arr) {
+           arr.slice(0,5).forEach(function (item, index) {
+
+                let cloneContent = newCase.content.cloneNode(true);
+               cloneContent.querySelector('p').innerText = item.title
+               cloneContent.querySelector('.hour-ago').innerText = item.UpdateDate
+                document.querySelector('.newCaseList').append(cloneContent);
+
+            })
+
+        }
 
 
 
@@ -615,12 +690,16 @@
             }
             else {
                 FilterCaseArr = AllCardArray.filter(x => x.LocationName == e.target.value && x.Price == document.querySelector('.priceOption').value)
-            }     
+            }
             document.querySelector('.aaaaaaa').innerHTML = ''
             document.querySelector('#paginationlist').innerHTML = ''
             setPages(FilterCaseArr);
             addcase(FilterCaseArr);
+            setCaseCount(FilterCaseArr)
         })
+
+
+
 
          //金錢選項更換時
         document.querySelector('.priceOption').addEventListener("change", function (e) {
@@ -635,13 +714,15 @@
             document.querySelector('#paginationlist').innerHTML = ''
             setPages(FilterCaseArr);
             addcase(FilterCaseArr);
+            setCaseCount(FilterCaseArr)
         })
 
 
         //顯示案件數
-        function setCaseCount() {
-            let caseCount = AllCardArray.length
+        function setCaseCount(arr) {
+            let caseCount = arr.length
             document.querySelector('.caseCount').innerText = caseCount
+
         };
 
         //按照價錢排序
@@ -657,13 +738,6 @@
             addcase(AllCardArray);
             setPages(AllCardArray);
         })
-        
-        //function sortCasePrice() {
-           
-        //    document.querySelector('.aaaaaaa').innerHTML = ''
-        //    addcase(AllCardArray);
-        //    setPages(AllCardArray);
-        //}
 
 
         //取資料設定每頁案件數量可得頁數
@@ -680,7 +754,7 @@
                     }
                 }
             })
-           
+
             setPagination(arr)
         }
 
@@ -688,42 +762,32 @@
         //設定分頁頁數
         function setPagination(arr) {
             document.querySelector('#paginationlist').innerHTML = "";
+            if (arr.page == undefined) { return }
             let lastpage = arr[arr.length - 1].page
             for (let i = 1; i <= lastpage; i++) {
                 let cloneContent = pagesOption.content.cloneNode(true);
                 cloneContent.querySelector('.page-link').innerText = i
                 document.querySelector('#paginationlist').append(cloneContent);
             }
-            document.querySelectorAll('.pagelist')[0].classList.add('active') 
+            document.querySelectorAll('.pagelist')[0].classList.add('active')
             addbuttonEvent();
         }
 
         //點擊換頁
         function addbuttonEvent() {
-         
+
             document.querySelectorAll('.pageItem').forEach(x => x.addEventListener('click', function (e) {
                 document.querySelectorAll('.pagelist').forEach(x => x.classList.remove('active'))
-  
                 document.querySelector('.aaaaaaa').innerHTML = ''
                 addcase(AllCardArray, e.target.innerHTML)
                 event.preventDefault();
                 topFunction();
                 e.target.parentElement.classList.add('active')
-                 LoginChangeUrl() 
+                 LoginChangeUrl()
             }))
-            
-            
+
+
         }
-
-
-        function LoginChangeUrl() {
-            var url = window.location.href
-            if (url.charAt(url.length - 1) == "/")
-            {
-                history.pushState("", "Title", url + "logon");
-            }
-        }
-
 
 
        //點擊回頂部
@@ -732,13 +796,11 @@
             document.documentElement.scrollTop = 150;
         }
 
-        
-
-       
-
 
         //新增價錢選項
-        function addPriceOption() {
+        function addSelectOption() {
+             document.querySelector('.priceOption').innerHTML = ' <option value="" disabled selected hidden>-請選擇價格-</option>';
+             document.querySelector('.areaOption').innerHTML = '<option value="" disabled selected hidden>-請選擇地區-</option>';
             var newPriceArray = [...new Set(priceArray)]
             newPriceArray.forEach(function (item, index) {
                 let options = document.createElement('option');
@@ -746,10 +808,6 @@
                 options.value = item;
                 document.querySelector('.priceOption').append(options)
             })
-        }
-
-        //新增地區選項
-        function addareaOption() {
             var newareaArray = [...new Set(areaArray)]
             newareaArray.forEach(function (item, index) {
                 let options = document.createElement('option');
@@ -757,12 +815,11 @@
                 options.value = item
                 document.querySelector('.areaOption').append(options)
             })
-        };
+        }
 
 
-         
 
-
+    
         //渲染案件
         function addcase(arr,pages=1) {
             arr.forEach(function (item, index) {
@@ -770,46 +827,62 @@
                     let cloneContent = card.content.cloneNode(true);
                     cloneContent.querySelector('.card-title').innerText = item.title
                     cloneContent.querySelector('.case-price').innerText = changePrice(item.Price);
-                    cloneContent.querySelector('.city').innerText = item.LocationName;
-                    cloneContent.querySelector('.card-text').innerText = item.Description;
+                    cloneContent.querySelector('.city').innerHTML = ` <i class="fas fa-map-marker-alt mr-1"></i>${item.LocationName}`;
+                    cloneContent.querySelector('.card-text').innerText =item.Description;
                     cloneContent.querySelector('.subcate').innerText = item.SubCategoryName;
                     cloneContent.querySelector('.update-time').innerText = item.UpdateDate;
+                    cloneContent.querySelector('.addCart').href = `/FindQuotation/Detail?id=${item.CaseId}`
+                    cloneContent.querySelector('.card-title-a').href = `/FindQuotation/Detail?id=${item.CaseId}`
                     document.querySelector('.aaaaaaa').append(cloneContent);
                 }
             })
         };
 
 
-
         function changePrice(pirceNum) {
-           
+
             switch (pirceNum) {
                 case 1:
-                    return '5000以下'
+                    return '5000元以下'
                 case 2:
-                    return '5001~10000'
+                    return '5001~10000元'
                 case 3:
-                    return '10001~50000'
+                    return '10001~50000元'
                 case 4:
-                    return '50001~100000'
+                    return '50001~100000元'
                 case 5:
-                    return '100001~300000'
+                    return '100001~300000元'
                 default:
                     return '查無資料'
             }
 
         }
-        
 
-        function findcard() {
-            if (serchContain == null) {
-                test = AllCardArray
-            }
-            else {
-                test = AllCardArray.filter(x => x.SubcategoryName.includes(serchContain));
-            }
-            console.log(test);
-            addcard();
-        }
+
+
+        document.querySelector('.search').addEventListener('click', function () {
+            let input = document.querySelector('.searchinput').value
+
+            document.querySelector('.aaaaaaa').innerHTML = ''
+            axios.get('/FindQuotation/IndexJson?CateId=@ViewBag.CateId')
+                .then(res => {
+                    AllCardArray = res.data.filter(x => x.Description.includes(input));
+                    if (AllCardArray.length ==0) {
+                        document.querySelector('.aaaaaaa').innerHTML = '查無資料!!'
+                    }
+                    else {
+                        res.data.forEach((x) => { areaArray.push(x.LocationName), priceArray.push(x.Price) })
+                       
+                    }
+                    setCaseCount(AllCardArray);
+                    setPages(AllCardArray);
+                    addSelectOption()
+                    addcase(AllCardArray);
+
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        })
     </script>
 }
