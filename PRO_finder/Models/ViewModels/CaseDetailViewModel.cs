@@ -12,6 +12,7 @@ namespace PRO_finder.Models.ViewModels
         public int CaseId { get; set; }
         public int LocationID { get; set; }
         public string LocationName { get; set; }
+
         public enum TypeEnum
         {
             長期合作, 急件, 一般案件
@@ -21,8 +22,11 @@ namespace PRO_finder.Models.ViewModels
         {
             get; set;
         }
-        //public int Type { get; set; }
-        public int Price { get; set; }
+        public enum PriceEnum
+        {
+            五千元以下, 五千至一萬元間, 一萬至五萬元間, 五萬至十萬元間, 十萬至三十萬元間, 查無資料
+    }
+        public PriceEnum Price { get; set; }
         public DateTime? CompleteDate { get; set; }
         public string Description { get; set; }
         public string Contact { get; set; }

@@ -46,7 +46,7 @@
                 <div class="mb-4 row pl-3">
                     <h3 class="h5 d-flex align-items-center mb-1 mr-3 text-primary">
                         <span class="fas fa-caret-right mr-2"></span>執行地點
-                    </h3><span class="text-black">新竹市</span>
+                    </h3><span class="text-black">@Model.LocationName</span>
                 </div>
 
                 <div class="mb-4 row pl-3">
@@ -83,10 +83,10 @@
                         <a href="#" class="btn btn-block btn-primary btn-md mt-2 ">我要報價</a>
                     </div>
                 </div>
-                
+
                 <div class="othercaseMore">
                     <div class="mb-4">
-                        <h2 class="h4">您可能感興趣的案件</h2>
+                        <p class="h4 text-black">您可能感興趣的案件</p>
                     </div>
                     <div id="item_zone" class="list row mb-3 "></div>
                     <template id="templateCard">
@@ -103,10 +103,19 @@
                         </div>
                     </template>
 
-                    <div id="othercaseMore"class="row  justify-content-center"  >
+                    <div id="othercaseMore" class="row  justify-content-center">
                         <a href="@Url.Action("Index",new { id=Model.CategoryID})" class="border rounded ">看更多</a>
                     </div>
                 </div>
+                <div class="mt-4 mb-3">
+                    <p class=" h4 text-black">報價會員</p>
+                    <!-- 缺小頭貼 -->
+                    <p class=" text-black">2人參與報價</p>
+                </div>
+
+
+
+
 
             </div>
             <div class="col-lg-4">
@@ -200,26 +209,6 @@
 </section>
 
 <section class="pb-lg-5">
-    <div class="container ">
-        <div class="col-8">
-            <div class="mb-3">
-                <div class="col-md-7">
-                    <h2 class=" h4">報價會員</h2>
-                </div>
-            </div>
-
-            <!-- 小頭貼還沒想怎麼做 -->
-            <div>
-                <div class="col-md-7">
-                    <p class="text-black">2人參與報價</p>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-
 </section>
 
 @section topCSS
@@ -228,7 +217,7 @@
         .list :hover {
             cursor: pointer;
         }
-        
+
 
         .case-title {
             white-space: nowrap;
@@ -242,10 +231,8 @@
             text-decoration: none;
         }
 
-
-
         #othercaseMore a {
-            padding:3px 0;
+            padding: 3px 0;
             text-decoration: none;
             width: 15%;
             height: 30%;
@@ -263,21 +250,21 @@
                 color: #fff;
                 border-color: #90c317;
             }
+
         @@media screen and (max-width: 991.98px) {
             .othercaseMore {
                 display: none
             }
+
             #IWantThisCase .btn {
                 width: 100%;
                 height: 80%;
                 white-space: nowrap;
                 width: 100%;
                 text-overflow: ellipsis;
-                padding:5px 8px 4px 8px;
+                padding: 5px 8px 4px 8px;
             }
         }
-
-        
     </style>
 }
 
@@ -303,10 +290,9 @@
 
                     let cloneContent = card.content.cloneNode(true);
                     cloneContent.querySelector('.case-price').innerText = changePrice(item.Price);
-                cloneContent.querySelector('.case-location').innerHTML = ` <i class="fas fa-map-marker-alt mr-1"></i>${item.LocationName}`;
-
-                cloneContent.querySelector('.case-title').innerText = item.title
-                cloneContent.querySelector('.case-a').href = `/FindQuotation/Detail?id=${item.CaseId}`
+                    cloneContent.querySelector('.case-location').innerHTML = ` <i class="fas fa-map-marker-alt mr-1"></i>${item.LocationName}`;
+                    cloneContent.querySelector('.case-title').innerText = item.title
+                    cloneContent.querySelector('.case-a').href = `/FindQuotation/Detail?id=${item.CaseId}`
                     document.querySelector('#item_zone').append(cloneContent);
 
             })
