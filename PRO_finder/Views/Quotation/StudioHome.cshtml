@@ -36,7 +36,7 @@
 
                         <div class="contactp">
                             <p>
-                                <a href="#"><i class="icon-heart-o"></i>收藏</a>
+                                <a href="#"><i class="icon-heart-o" ></i>收藏</a>
                                 <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
                             </p>
                             <p><a href="#" class="btn btn-primary btn-md">邀請報價</a></p>
@@ -105,6 +105,7 @@
                 <a name="02"><h4 class="mb-4" id="part">作品</h4></a>
                 @foreach (var item in ViewBag.StudioWorkList)
                 {
+                    //如果subcate重複，選擇第一個(firstordefault)
                     <div class="row justify-content-center mb-5" data-aos="fade-up">
                         <div id="filters" class="filters text-center button-group col-md-7">
                             <button class="btn btn-primary active" data-filter="*">All</button>
@@ -121,7 +122,7 @@
                                     <h5>@item.WorkSubCategory</h5>
                                     <h6>@item.WorkName</h6>
                                     <div class="posticon">
-                                        <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
+                                        <a href="@Url.Action("WorksPage", new { WorkID = @item.WorkID})"><i class="icon-zoom_in"></i></a>
                                         <a href="@item.WebsiteURL"><i class="icon-link"></i></a>
                                     </div>
                                 </span>
@@ -1086,26 +1087,25 @@
             .contactp {
                 display: block;
             }
+
             .studionav {
-                
                 top: 125px;
-                
             }
+
             :target:before {
                 content: "";
                 display: block;
                 height: 180px;
             }
+
             .sidebar-box {
-              
                 top: 110px;
-              
             }
         }
 
 
         /*@@media screen and (max-width:1023px) {
-           
+
 
             .studionav {
                 top: 40px;
@@ -1118,13 +1118,18 @@
     </style>
 
 }
-@*@section endJS
+@section endJS{
+    @*<script>
+    window.onload = function ()
     {
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-        window.onload = function ()
-        {
-            axios.get('/Quotation/StudioHome?MemberID=@ViewBag.MemberID').then(res => console.log(res.data))
+        document.querySelector('#heart').addEventListener("click", function () {
+            var item = @ViewBag.StudioInfoList;
+
+        })
         }
-    </script>
-}*@
+        function AddToHeart(id) {
+            console.log(id);
+        }
+    </script>*@
+}
+   

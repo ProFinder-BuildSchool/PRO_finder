@@ -15,8 +15,16 @@ using PRO_finder.Models.ViewModels;
 
 namespace PRO_finder.Service
 {
+
+
     public class StudioService
     {
+
+        private readonly GeneralRepository _repo;
+        public StudioService()
+        {
+            _repo = new GeneralRepository(new ProFinderContext());
+        }
         public IEnumerable<WorkPageViewModel> GetWorkpicturesByWorkID(int WorkID)
         {
             var WorkpictureRepository = new GeneralRepository(new ProFinderContext());
@@ -29,13 +37,6 @@ namespace PRO_finder.Service
                    select new WorkPageViewModel
                    {
                        WorkID = works.WorkID,
-                       //WorkName = works.WorkName,
-                       //WorkDescription = works.WorkDescription,
-                       //Client = works.Client,
-                       //Role = works.Role,
-                       //YearStarted = works.YearStarted,
-                       //WebsiteURL = works.WebsiteURL,
-                       //SubCategoryID = works.SubCategoryID,
                        WorkPictureID = workpictures.WorkPictureID,
                        SortNumber = workpictures.SortNumber,
                        WorkPicture = workpictures.WorkPicture
@@ -89,7 +90,7 @@ namespace PRO_finder.Service
                        ProfilePicture = mermberinfo.ProfilePicture,
                        //ExpertSubCategory = subcategory.SubCategoryName,
                        Identity = mermberinfo.Identity
-                       
+
                    };
         }
 
@@ -140,7 +141,7 @@ namespace PRO_finder.Service
                        QuotationId = quotation.QuotationID,
                        //QuotationCategoryId = quotation.Category,要用sub反找cate  CategoryName
                        SubcategoryName = subcategory.SubCategoryName,
-                       CategoryName=category.CategoryName,
+                       CategoryName = category.CategoryName,
                        Price = quotation.Price,
                        Unit = quotation.QuotationUnit,
                        QuotationImg = quotation.MainPicture
@@ -161,22 +162,40 @@ namespace PRO_finder.Service
             return from order in CaseReviewRepository.GetAll<Order>()
                    join memberinfo in CaseReviewRepository.GetAll<MemberInfo>()
                    on order.DealedTalentMemberID equals memberinfo.MemberID
-                  
+
 
                    select new StudioViewModel
                    {
                        CaseReview = order.CaseReview,
                        CaseMessage = order.CaseMessage,
-                       CaseReplyMessage=order.CaseReplyMessage,
+                       CaseReplyMessage = order.CaseReplyMessage,
                        MemberID = memberinfo.MemberID,
-                       NickName=memberinfo.NickName
+                       NickName = memberinfo.NickName
 
 
-                       
+
                    };
         }
-        
-    }
+
+        public SaveStaff CreateFavorite(StudioViewModel input)
+        {
+
+            SaveStaff entity = new SaveStaff()
+            {
+                MemberID = input.MemberID,
+                SavedTalentID = input.SavedTalentID,
+                SavedDate = input.SavedDate,
+                SaveStaffID = input.SaveStaffID
+            };
+            _repo.Create(entity);
+            _repo.SaveChanges();
+            return entity;
+        }
+        //public IEnumerable<StudioViewModel> PostSaveStaffByMemberID(int MemberID)
+        //{
+    }    //    var StudioworkRepository = new GeneralRepository(new ProFinderContext());
+
+        //}
 }
 
 
