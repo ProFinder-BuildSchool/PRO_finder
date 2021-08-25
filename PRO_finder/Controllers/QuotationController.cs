@@ -25,7 +25,6 @@ namespace PRO_finder.Controllers
         // GET: Quotation
         public ActionResult Index(int? CategoryId, string keyword)
         {
-            //string Contain = this.TempData["Contain"] as string;
 
             if (string.IsNullOrEmpty(keyword) && !CategoryId.HasValue)
             {
@@ -46,6 +45,7 @@ namespace PRO_finder.Controllers
                 ViewBag.cateNameList = _quotService.GetsubcatrgotyName(CategoryId.Value);
             }
 
+            ViewBag.LocationList = _quotService.GetLocationName();
             return View();
 
         }
@@ -84,11 +84,11 @@ namespace PRO_finder.Controllers
         }
 
 
-        public ActionResult AllcardData()
-        {
-            List<QuotationViewModel> allCardData = _quotService.GetAllCardData();
-            return Json(allCardData, JsonRequestBehavior.AllowGet);
-        }
+        //public ActionResult AllcardData()
+        //{
+        //    List<QuotationViewModel> allCardData = _quotService.GetAllCardData();
+        //    return Json(allCardData, JsonRequestBehavior.AllowGet);
+        //}
 
 
     }
