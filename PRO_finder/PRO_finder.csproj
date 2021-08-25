@@ -566,6 +566,7 @@
     <Content Include="Views\Talent\GetAllCategoryAndSubCategoryList.cshtml" />
     <Content Include="Views\Shared\_StaffPartial.cshtml" />
     <Content Include="Views\FindQuotation\Othercase.cshtml" />
+    <Content Include="Views\SavedCase\SaveCase.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
