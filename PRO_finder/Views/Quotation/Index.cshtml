@@ -921,26 +921,8 @@
         function AddCategoryFilter() {
             subcateinput.forEach(function (item, index) {
                 item.addEventListener('change', function () {
-                    if (this.checked) {
-                        numberOfChecked++
-                        filterCard = filterCard.concat(AllCardArray.filter(x => x.SubcategoryName.includes(item.value)));
-                    }
-
-                    else {
-                        numberOfChecked--;
-                        filterCard = filterCard.filter(x => !x.SubcategoryName.includes(item.value));
-                    }
-
-                    itemZone.innerText = '';
-                    addcard();
-
-                    if (numberOfChecked == 0) {
-                        filterCard = AllCardArray;
-                        itemZone.innerText = '';
-                        addcard();
-                        filterCard = [];
-                        return;
-                    }
+                  
+                    
 
                 })
             })

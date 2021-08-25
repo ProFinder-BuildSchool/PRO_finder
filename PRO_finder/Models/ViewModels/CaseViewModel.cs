@@ -29,6 +29,7 @@ namespace PRO_finder.Models.ViewModels
 
         public string SubCategoryName { get; set; }
 
+        public string DiffDateTime { get; set; }
 
         public int CategoryID { get; set; }
     }

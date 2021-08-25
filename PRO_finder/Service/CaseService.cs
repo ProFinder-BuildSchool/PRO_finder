@@ -6,24 +6,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using PRO_finder.Helper;
 
 namespace PRO_finder.Service
 {
     public class CaseService
     {
         private readonly GeneralRepository _ctx;
-
+        
 
         public CaseService()
         {
+
             _ctx = new GeneralRepository(new ProFinderContext());
 
+           
         }
 
-        public IEnumerable<CaseViewModel> GetCasesList()
+        public List<CaseViewModel> GetCasesList()
         {
-            return from Case in _ctx.GetAll<Case>()
+           var temp = (from Case in _ctx.GetAll<Case>()
                    join MemberInfo in _ctx.GetAll<MemberInfo>() on Case.MemberID equals MemberInfo.MemberID
                    join SubCategory in _ctx.GetAll<SubCategory>() on Case.SubCategoryID equals SubCategory.SubCategoryID
                    join Locations in _ctx.GetAll<Locations>() on Case.Location equals Locations.LocationID
@@ -40,14 +42,18 @@ namespace PRO_finder.Service
                        UpdateDate = (DateTime)Case.UpdateDate,
                        SubCategoryName = SubCategory.SubCategoryName,
                        CategoryID = SubCategory.CategoryID
+                   }).ToList();
 
+            foreach(var item in temp)
+            {
+                item.DiffDateTime = DateToString.TransDate(item.UpdateDate);
+            }
 
-                   };
-
+           
+            return temp;
         }
 
       
-
 
 
         public IEnumerable<CaseDetailViewModel> GetCaseDetail()
