@@ -127,5 +127,26 @@ namespace PRO_finder.Service
             _ctx.SaveChanges();
             return entity;
         }
+        public List<SelectListItem> GetToolSelectList()
+        {
+            var toolList = _ctx.GetAll<ToolCategory>().ToList();
+            List<SelectListItem> toolSelectList = new List<SelectListItem>();
+            toolSelectList.Add(new SelectListItem { Text = "選擇擅長工具類型" });
+            foreach (var item in toolList)
+            {
+                toolSelectList.Add(new SelectListItem { Text = item.TalentCategoryName, Value = item.TalentCategoryID.ToString() });
+            }
+            return toolSelectList;
+        }
+        public string GetJsonSubTool()
+        {
+            var subToolDblist = _ctx.GetAll<ToolSubCategory>().ToList();
+            var subToolVMList = new List<SubToolViewModel>();
+            foreach (var tool in subToolDblist)
+            {
+                subToolVMList.Add(new SubToolViewModel { TalentCategoryID = tool.TalentCategoryID, SubTalentCategoryID = tool.SubTalentCategoryID, SubTalentCategoryName = tool.SubTalentCategoryName });
+            }
+            return JsonConvert.SerializeObject(subToolVMList);
+        }
     }
 }
