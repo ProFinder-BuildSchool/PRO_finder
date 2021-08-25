@@ -7,7 +7,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-
 namespace PRO_finder.Service
 {
     public class CaseService
@@ -66,7 +65,7 @@ namespace PRO_finder.Service
                        LocationID = (int)Case.Location,
                        LocationName = Locations.LocationName,
                        Price = (CaseDetailViewModel.PriceEnum)Case.Price,
-                       //CompleteDate = Case.CompleteDate,
+                       CompleteDate = Case.CompleteDate,
                        Type = (CaseDetailViewModel.TypeEnum)(TypeEnum)Case.Type,
                        Description = Case.Description,
                        Contact = Case.Contact,
@@ -90,6 +89,8 @@ namespace PRO_finder.Service
         {
             長期合作, 急件, 一般案件
         }
+
+        
 
     }
 }

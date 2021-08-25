@@ -70,7 +70,6 @@ namespace PRO_finder.Controllers
         {
             ViewBag.CateId = id;
             var result = _caseService.GetCaseDetail().FirstOrDefault(x => x.CaseId == id);
-
             return View(result);
         }
 

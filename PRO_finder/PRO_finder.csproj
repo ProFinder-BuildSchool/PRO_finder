@@ -160,7 +160,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CartTestController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\FindQuotationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -216,9 +215,6 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Cart.cs" />
-    <Compile Include="Models\CartItem.cs" />
-    <Compile Include="Models\CartOperation.cs" />
     <Compile Include="Models\DBModel\AspNetRoles.cs" />
     <Compile Include="Models\DBModel\AspNetUserClaims.cs" />
     <Compile Include="Models\DBModel\AspNetUserLogins.cs" />
@@ -567,7 +563,6 @@
     <Content Include="Views\FindQuotation\IndexJson.cshtml" />
     <Content Include="Views\Talent\GetAllCategoryAndSubCategoryList.cshtml" />
     <Content Include="Views\Shared\_StaffPartial.cshtml" />
-    <Content Include="Views\Cart\GetCart.cshtml" />
     <Content Include="Views\FindQuotation\Othercase.cshtml" />
   </ItemGroup>
   <ItemGroup>
