@@ -164,6 +164,7 @@
     <Compile Include="Controllers\FindQuotationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\QuotationController.cs" />
+    <Compile Include="Controllers\SaveCaseController.cs" />
     <Compile Include="Controllers\TalentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -255,6 +256,8 @@
     <Compile Include="Models\ViewModels\OtherPictureViewModel.cs" />
     <Compile Include="Models\ViewModels\QuotationDetailViewModel .cs" />
     <Compile Include="Models\ViewModels\QuotationViewModel.cs" />
+    <Compile Include="Models\ViewModels\SaveCaseItemViewModel.cs" />
+    <Compile Include="Models\ViewModels\SaveCaseViewModel.cs" />
     <Compile Include="Models\ViewModels\SubCategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\UploadMyWorksViewModel.cs" />
     <Compile Include="Models\ViewModels\Workdetail.cs" />
