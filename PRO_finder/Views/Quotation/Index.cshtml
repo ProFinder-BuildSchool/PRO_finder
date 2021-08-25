@@ -1035,7 +1035,12 @@
         window.onload = function () {
             var url = decodeURI(location.href);
             if (AllCardArray.length == 0) {
-                itemZone.innerHTML = '<div class="text-primary mx-auto h5">抱歉，沒有符合的搜尋結果<p>';
+                //let div = document.createElement('div');
+                //div.classList.add('text-primary', 'mx-auto', 'h5');
+                //div.innerText = '抱歉，沒有符合的搜尋結果';
+                //itemZone.append(div);
+                itemZone.innerHTML = '<div class="text-primary mx-auto h5"><p>抱歉，沒有符合的搜尋結果<p></div>';
+                console.log('cccc');
             }
 
             if (url.indexOf('keyword') > -1)
@@ -1174,8 +1179,6 @@
             /*addcard(filterCard)*/;
         }
 
-        $(".praise").attr("disabled", true).css("pointer-events", "none");  
-
        //search btn
         document.querySelector('.serchtbtn').addEventListener('click', function () {
             location.href = "Index?keyword=" + `${serchValue.value}`;
@@ -1185,15 +1188,6 @@
         //Price filter
         priceconfirmbtn.forEach(function (item, index) {
             item.addEventListener('click', function () {
-            //    minPrice = minPrice.value;
-            //    maxPrice = maxPrice.value;
-            //    RwdMinPrice = RwdMinPrice.value;
-            //    RwdMaxPrice = RwdMaxPrice.value;
-
-            console.log(minPrice.value)
-            console.log(maxPrice.value)
-            console.log(RwdMinPrice.value)
-            console.log(RwdMaxPrice.value)
 
                 if (minPrice.value != "") {
                     priceArr = filterCard.filter(x => Number(x.Price) >= Number(minPrice.value) && Number(x.Price) <= Number(maxPrice.value))
@@ -1319,11 +1313,11 @@
         }
 
         pagediv.addEventListener('click', function (e) {
-            switchPage(e, AllCardArray);
+            switchPage(e, filterCard);
         });
 
         pagebottom.addEventListener('click', function (e) {
-            switchPage(e, AllCardArray);
+            switchPage(e, filterCard);
         });
 
     </script>
