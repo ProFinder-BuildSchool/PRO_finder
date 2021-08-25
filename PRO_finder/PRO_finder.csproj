@@ -273,7 +273,6 @@
     <Compile Include="Service\MemberinfoService.cs" />
     <Compile Include="Service\OperationResult.cs" />
     <Compile Include="Service\QuotationService.cs" />
-    <Compile Include="Service\System.Runtime.CompilerServices.cs" />
     <Compile Include="Service\WorkPictureService.cs" />
     <Compile Include="Service\StudioService.cs" />
     <Compile Include="Service\WorksService.cs" />
