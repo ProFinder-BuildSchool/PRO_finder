@@ -85,12 +85,12 @@ namespace PRO_finder.Service
             var all = new List<CategoryViewModel>();
             foreach (var item in allCategory)
             {
-                var subList = new List<SubCategory>();
+                var subList = new List<SubCateData>();
                 foreach(var sub in allSubCategory)
                 {
                     if(sub.CategoryID == item.CategoryID)
                     {
-                        subList.Add(new SubCategory { SubCategoryID = sub.SubCategoryID, SubCategoryName = sub.SubCategoryName});
+                        subList.Add(new SubCateData { SubCateID = sub.SubCategoryID, SubCateName = sub.SubCategoryName});
                     }
                 }
                 all.Add(new CategoryViewModel { CategoryID = item.CategoryID, JsonSubCategoryList = JsonConvert.SerializeObject(subList) });

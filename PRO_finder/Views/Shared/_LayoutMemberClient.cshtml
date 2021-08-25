@@ -35,9 +35,32 @@
         .myHeader {
             padding: 5px;
         }
-        #myTabContent nav {
-            position: fixed;
-            z-index: 2000;
+        #myTabContent nav ul {
+            position: relative;
+            width: 170px;
+        }
+
+        #navbarTogglerDemo.show #accordionExample {
+            position: absolute;
+            z-index: 20000;
+            top: 0px;
+            width: 100%;
+        }
+
+        #navbarTogglerDemo.show ul::before {
+            content: "";
+            background-color: rgb(255 255 255);
+            opacity: 0.6;
+            position: absolute;
+            top: -20px;
+            left: -500px;
+            width: 500vw;
+            height: 1000vh;
+            z-index: 1000;
+        }
+
+        section {
+            overflow: hidden;
         }
         @@media screen and (min-width: 768px) {
             .navbar-toggler {

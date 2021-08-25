@@ -1,4 +1,5 @@
-﻿using PRO_finder.Models.DBModel;
+﻿using Newtonsoft.Json;
+using PRO_finder.Models.DBModel;
 using PRO_finder.Models.ViewModels;
 using PRO_finder.Repositories;
 using System;
@@ -89,17 +90,26 @@ namespace PRO_finder.Service
         {
             長期合作, 急件, 一般案件
         }
-
-        public List<SelectListItem> GetToolList()
+        public List<SelectListItem> GetToolSelectList()
         {
-            var toolList = _ctx.GetAll<ToolCategory>();
-            List<SelectListItem> toolDropdown = new List<SelectListItem>();
-            toolDropdown.Add(new SelectListItem { Text = "選擇擅長工具類別" });
+            var toolList = _ctx.GetAll<ToolCategory>().ToList();
+            List<SelectListItem> toolSelectList = new List<SelectListItem>();
+            toolSelectList.Add(new SelectListItem { Text = "選擇擅長工具類型" });
             foreach(var item in toolList)
             {
-                toolDropdown.Add(new SelectListItem { Text = item.TalentCategoryName, Value = item.TalentCategoryName});
+                toolSelectList.Add(new SelectListItem { Text = item.TalentCategoryName, Value = item.TalentCategoryID.ToString() });
             }
-            return toolDropdown;
+            return toolSelectList;
+        }
+        public string GetJsonSubTool()
+        {
+            var subToolDblist = _ctx.GetAll<ToolSubCategory>().ToList();
+            var subToolVMList = new List<SubToolViewModel>();
+            foreach(var tool in subToolDblist)
+            {
+                subToolVMList.Add(new SubToolViewModel { TalentCategoryID = tool.TalentCategoryID, SubTalentCategoryID = tool.SubTalentCategoryID, SubTalentCategoryName = tool.SubTalentCategoryName });
+            }
+            return JsonConvert.SerializeObject(subToolVMList);
         }
     }
 }

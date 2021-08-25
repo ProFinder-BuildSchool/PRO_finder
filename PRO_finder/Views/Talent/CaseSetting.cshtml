@@ -93,9 +93,17 @@
             <hr />
             <div class="form-group">
                 <label for="TalentCategoryID" class="col-md-12 control-label">擅長軟體工具</label>
-                <div class="col-6">
-
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            @Html.DropDownList("ToolCategoryID", (List<SelectListItem>)ViewBag.ToolList, new { @class = "form-control" })
+                            <div class="mt-3 toolCheckArea" id="toolCheckArea"></div>
+                        </div>
+                        <div class="col-12 col-md-6 displayTool" id="displayTool">
+                        </div>
+                    </div>
                 </div>
+                
             </div>
         </div>
     </div>
@@ -105,7 +113,7 @@
         <div class="form-group">
             <label for="LocationID" class="col-md-12 control-label">理想接案城市</label>
             <div class="col-md-6">
-                @Html.DropDownList("LocationID", (List<SelectListItem>)ViewBag.LocationDropdownList, new { @class = "form-control"})
+                @Html.DropDownList("LocationID", (List<SelectListItem>)ViewBag.LocationDropdownList, new { @class = "form-control", @id = "toolDropdown"})
             </div>
         </div>
         <div class="form-group">
@@ -148,6 +156,17 @@
             <input value="儲存設定" class="btn btn-primary" id="submit" />
         </div>
     </div>
+    <template id="toolCheckBox">
+        <div class="form-check col-12">
+            <input type="checkbox" name="talentTool" id="" class="form-check-input">&ensp;<label class="form-check-label mb-0"></label>
+        </div>
+    </template>
+    <template id="toolCheckedTag">
+        <div class="d-flex toolTag mb-2 justify-content-center">
+            <p class="mb-0"></p> &ensp;
+            <button class="mb-0 btn border-0 bg-transparent"><i class="fas fa-trash"></i></button>
+        </div>
+    </template>
 }
 @section topCSS
     {
@@ -170,6 +189,37 @@
             label {
                 font-weight: 700;
             }
+        .toolCheckArea {
+            border: dashed 1px #bebebe;
+            border-radius:.25rem;
+            display:flex;
+            flex-direction:row;
+            flex-wrap:wrap;
+            padding:10px;
+            max-height: 200px;
+            overflow:auto;
+        }
+        .toolTag {
+            padding: 3px;
+            border: solid 1px #bebebe;
+            border-radius: .25rem;
+            display: inline;
+        }
+        .toolTag p{
+            line-height:36px;
+        }
+            .toolTag button {
+                color: #89ba16 !important;
+            }
+        #displayTool{
+            max-height:254px;
+            overflow:auto;
+        }    
+        @@media screen and (min-width:768px){
+            .toolCheckArea{
+                margin-top:0px;
+            }
+        }
 
     </style>
 }
@@ -193,13 +243,47 @@
                     let allsub = JSON.parse(sub.JsonSubCategoryList);
                     allsub.forEach(s => {
                         let option = document.createElement("option");
-                        option.innerText = s.SubCategoryName;
-                        option.value = s.SubCategoryID;
+                        option.innerText = s.SubCateName;
+                        option.value = s.SubCateID;
                         selector.append(option);
                     });
                 };
             });
         });
+
+        //擅長工具Dropdown & checkbox
+        let subToolArray = []
+        axios.get("/Talent/GetSubTool").then(res => {
+            let tools = JSON.parse(res.data);
+            subToolArray.push(...tools);
+        });
+        $g("select#ToolCategoryID").addEventListener("change", function () {
+            let cateID = Number(this.value);
+            $g("#toolCheckArea").innerHTML = "";
+            subToolArray.forEach(subTool => {
+                if (subTool.TalentCategoryID == cateID) {
+                    let clone_checkbox = $g("template#toolCheckBox").content.cloneNode(true);
+                    clone_checkbox.querySelector("label").innerText = subTool.SubTalentCategoryName;
+                    clone_checkbox.querySelector("input").value = subTool.SubTalentCategoryID;
+                    clone_checkbox.querySelector("input").setAttribute("data-content", subTool.SubTalentCategoryName);
+                    clone_checkbox.querySelector("input").addEventListener("change", function (e) {
+                        let element = e.target;
+                        if (e.target.checked) {
+                            clone_tag = $g("template#toolCheckedTag").content.cloneNode(true);
+                            console.log(clone_tag)
+                            clone_tag.querySelector("p").innerText = element.dataset.content;
+                            clone_tag.querySelector("button").setAttribute("data-content", this.value);
+                            $g("#displayTool").appendChild(clone_tag);
+                        } else {
+
+                        }
+                    });
+                    document.querySelector("#toolCheckArea").appendChild(clone_checkbox);
+                }
+            });
+
+        });
+        
 
         //quill 富文本編輯器
         var toolbarOptions = [
