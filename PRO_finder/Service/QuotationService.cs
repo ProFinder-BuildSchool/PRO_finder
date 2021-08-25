@@ -34,7 +34,7 @@ namespace PRO_finder.Service
                                join c in _ctx.GetAll<Category>() on s.CategoryID equals c.CategoryID
                                select new QuotationViewModel
                                {
-                                   Id = q.QuotationID,
+                                   QuotationId = q.QuotationID,
                                    CategoryName = c.CategoryName,
                                    Price = (q.Price).ToString(),
                                    Unit = q.QuotationUnit,
