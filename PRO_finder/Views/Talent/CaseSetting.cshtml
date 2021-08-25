@@ -266,16 +266,21 @@
                     clone_checkbox.querySelector("label").innerText = subTool.SubTalentCategoryName;
                     clone_checkbox.querySelector("input").value = subTool.SubTalentCategoryID;
                     clone_checkbox.querySelector("input").setAttribute("data-content", subTool.SubTalentCategoryName);
+                    clone_checkbox.querySelector("input").checked = subTool.IsChecked;
                     clone_checkbox.querySelector("input").addEventListener("change", function (e) {
-                        let element = e.target;
+                        //let element = e.target;
                         if (e.target.checked) {
                             clone_tag = $g("template#toolCheckedTag").content.cloneNode(true);
                             console.log(clone_tag)
-                            clone_tag.querySelector("p").innerText = element.dataset.content;
+                            clone_tag.querySelector("p").innerText = this.dataset.content;
+                            clone_tag.querySelector("div").setAttribute("id", `tool${this.value}`);
                             clone_tag.querySelector("button").setAttribute("data-content", this.value);
                             $g("#displayTool").appendChild(clone_tag);
+                            subToolArray[this.value]["IsChecked"] = true;
                         } else {
-
+                            let theTag = $g(`div#tool${this.value}`);
+                            $g("#displayTool").removeChild(theTag);
+                            subToolArray[this.value]["IsChecked"] = false;
                         }
                     });
                     document.querySelector("#toolCheckArea").appendChild(clone_checkbox);
