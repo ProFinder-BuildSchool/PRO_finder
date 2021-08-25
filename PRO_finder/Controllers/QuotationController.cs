@@ -7,6 +7,7 @@ using PRO_finder.Models;
 using PRO_finder.Repositories;
 using Newtonsoft.Json;
 using PRO_finder.Model.ViewModels;
+using System.Linq;
 
 namespace PRO_finder.Controllers
 {
@@ -48,35 +49,38 @@ namespace PRO_finder.Controllers
             return View();
 
         }
-        public ActionResult Detail(int Memberid,int Quotationid)
+        public ActionResult Detail(int Memberid=1,int Quotationid=2019)
         {
             QuotationDetailViewModel QuoDetailVM = _quotService.GetQuoDetailData(Memberid, Quotationid);
             ViewBag.QID = Quotationid;
             return View(QuoDetailVM);
         }
 
-        public ActionResult StudioHome(int MemberID=1)
+        public ActionResult StudioHome(int MemberID=7)
         {
             ViewBag.StudioInfoList = _studioService.GetStudioInfoByMemberID (MemberID);
-            //ViewBag.StudioWorkList = _studioService.GetStudioworksByMemberID (MemberID);
-            //ViewBag.StudioQuotationList = _studioService.GetStudioQuotationByMemberID (MemberID);
-            //ViewBag.StudioReviewList = _studioService.GetCaseReviewByMemberID (MemberID);
+            ViewBag.StudioWorkList = _studioService.GetStudioworksByMemberID (MemberID);
+            ViewBag.StudioQuotationList = _studioService.GetStudioQuotationByMemberID (MemberID);
             return View();
+            //ViewBag.MemberID = MemberID;
+            //StudioViewModel StudioInfoVM = _studioService.GetStudioInfoByMemberID(MemberID);
+            //var result = _studioService.GetStudioInfoByMemberID().FirstOrDefault(x => x.MemberID == MemberID);
+            //ViewBag.StudioReviewList = _studioService.GetCaseReviewByMemberID (MemberID);
+
         }
 
-        public ActionResult WorksPage(int WorkID = 1)
+        public ActionResult WorksPage(int WorkID = 5)
         {
             
             ViewBag.WorkInfoList = _studioService.GetWorkInfoByWorkID(WorkID);
             ViewBag.WorkPictureList = _studioService.GetWorkpicturesByWorkID(WorkID);
-            //WorkPageViewModel WorkPictureVM = new WorkPageViewModel()
-            //{
-            //    WorkpictureRepository = _studioService.GetWorkpicturesByWorkID(WorkID)
-            //};
+            
             return View();
 
             //List<WorkPageViewModel> pageData = _studioService.GetWorkPageData (WorkID);
             //return View(pageData);
+            //WorkPageViewModel WorkPictureVM = new WorkPageViewModel()
+            //{  WorkpictureRepository = _studioService.GetWorkpicturesByWorkID(WorkID)};
         }
 
 

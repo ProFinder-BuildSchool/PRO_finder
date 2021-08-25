@@ -19,10 +19,8 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44375</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>
-    </IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>
-    </IISExpressWindowsAuthentication>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -91,6 +89,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -99,6 +100,12 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -156,21 +163,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIControllers\CaseController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\FindQuotationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\QuotationController.cs" />
+    <Compile Include="Controllers\SaveCaseController.cs" />
     <Compile Include="Controllers\TalentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\DateToString.cs" />
     <Compile Include="Migrations\202108111415486_worktest.cs" />
     <Compile Include="Migrations\202108111415486_worktest.Designer.cs">
       <DependentUpon>202108111415486_worktest.cs</DependentUpon>
@@ -215,6 +226,10 @@
     <Compile Include="Migrations\202108221512188_2021-08-22.Designer.cs">
       <DependentUpon>202108221512188_2021-08-22.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202108230210101_ThreeQuotationRecord.cs" />
+    <Compile Include="Migrations\202108230210101_ThreeQuotationRecord.Designer.cs">
+      <DependentUpon>202108230210101_ThreeQuotationRecord.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DBModel\AspNetRoles.cs" />
@@ -251,15 +266,18 @@
     <Compile Include="Models\DBModel\Works.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModels\APIModels\APIBase\APIResult.cs" />
     <Compile Include="Models\ViewModels\CaseViewModel.cs" />
     <Compile Include="Models\ViewModels\Home_IndexViewModel.cs" />
     <Compile Include="Models\ViewModels\MemberInfoViewModel.cs" />
     <Compile Include="Models\ViewModels\OtherPictureViewModel.cs" />
     <Compile Include="Models\ViewModels\QuotationDetailViewModel .cs" />
     <Compile Include="Models\ViewModels\QuotationViewModel.cs" />
+    <Compile Include="Models\ViewModels\SaveCaseItemViewModel.cs" />
+    <Compile Include="Models\ViewModels\SaveCaseViewModel.cs" />
     <Compile Include="Models\ViewModels\SubCategoryViewModel.cs" />
+    <Compile Include="Models\ViewModels\SubToolViewModel.cs" />
     <Compile Include="Models\ViewModels\UploadMyWorksViewModel.cs" />
-    <Compile Include="Models\ViewModels\Workdetail.cs" />
     <Compile Include="Models\ViewModels\WorkPageViewModel.cs" />
     <Compile Include="Models\ViewModels\StudioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -267,7 +285,6 @@
     <Compile Include="Repositories\GeneralRepository.cs" />
     <Compile Include="Repositories\SubCategoryRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
-    <Compile Include="Repositories\WorkPageRepository.cs" />
     <Compile Include="Models\ViewModels\CaseDetailViewModel.cs" />
     <Compile Include="Service\CaseService.cs" />
     <Compile Include="Service\Home_IndexService .cs" />
@@ -275,7 +292,6 @@
     <Compile Include="Service\MemberinfoService.cs" />
     <Compile Include="Service\OperationResult.cs" />
     <Compile Include="Service\QuotationService.cs" />
-    <Compile Include="Service\WorkPictureService.cs" />
     <Compile Include="Service\StudioService.cs" />
     <Compile Include="Service\WorksService.cs" />
     <Compile Include="Startup.cs" />
@@ -349,6 +365,7 @@
     <Content Include="Assets\css\owl.carousel.min.css" />
     <Content Include="Assets\css\quill.snow.css" />
     <Content Include="Assets\css\style.css" />
+    <Content Include="Assets\images\300.jfif" />
     <Content Include="Assets\images\apps.png" />
     <Content Include="Assets\images\hero_1.jpg" />
     <Content Include="Assets\images\horizontal_on_white_by_logaster %281%29.png" />
@@ -564,6 +581,8 @@
     <Content Include="Views\FindQuotation\IndexJson.cshtml" />
     <Content Include="Views\Talent\GetAllCategoryAndSubCategoryList.cshtml" />
     <Content Include="Views\Shared\_StaffPartial.cshtml" />
+    <Content Include="Views\FindQuotation\Othercase.cshtml" />
+    <Content Include="Views\SavedCase\SaveCase.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -623,6 +642,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202108221512188_2021-08-22.resx">
       <DependentUpon>202108221512188_2021-08-22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108230210101_ThreeQuotationRecord.resx">
+      <DependentUpon>202108230210101_ThreeQuotationRecord.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

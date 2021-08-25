@@ -4,10 +4,10 @@
 }
 
 <section class="site-section" id="next-section">
-<div class="container">
+    <div class="container">
         <div class="row">
-            
-                <div class="col-lg-4 sidebar pl-lg-5">
+
+            <div class="col-lg-4 sidebar pl-lg-5">
                 @foreach (var item in ViewBag.StudioInfoList)
                 {
 
@@ -29,37 +29,37 @@
                             <span class="designerSkillTit">專長:</span>
                             <a href="/talent?ca=dRL&amp;su=BJeM" target="_blank" title="EDM設計">@item.ExpertSubCategory</a>
                             @*<a href="/talent?ca=dRL&amp;su=My0G" target="_blank" title="廣告Banner"># 廣告Banner</a>
-                    <a href="/talent?ca=L35&amp;su=ao6p" target="_blank" title="影片/音效後製剪輯"># 影片/音效後製剪輯</a>*@
+                                <a href="/talent?ca=L35&amp;su=ao6p" target="_blank" title="影片/音效後製剪輯"># 影片/音效後製剪輯</a>*@
                         </p>
 
 
 
                         <div class="contactp">
                             <p>
-                                <a href="#"><i class="icon-heart-o"></i>收藏</a>
+                                <a href="#"><i class="icon-heart-o" ></i>收藏</a>
                                 <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
                             </p>
                             <p><a href="#" class="btn btn-primary btn-md">邀請報價</a></p>
                         </div>
                     </div>
                 }
-                </div>
-            
-
-                <div class="col-lg-8 blog-content">
-
-                    <ul class="studionav">
-                        <li><a href="#01">關於</a></li>
-                        <li><a href="#02">作品</a></li>
-                        <li><a href="#03">報價</a></li>
-                        <li><a href="#04">評價</a></li>
-                    </ul>
+            </div>
 
 
+            <div class="col-lg-8 blog-content">
 
-                    <a name="01"></a>
-                    <div id="about">
-                        @foreach (var item in ViewBag.StudioInfoList)
+                <ul class="studionav">
+                    <li><a href="#01">關於</a></li>
+                    <li><a href="#02">作品</a></li>
+                    <li><a href="#03">報價</a></li>
+                    <li><a href="#04">評價</a></li>
+                </ul>
+
+
+
+                <a name="01"></a>
+                <div id="about">
+                    @foreach (var item in ViewBag.StudioInfoList)
                     {
                         <h4 class="mb-4" id="part">關於</h4>
                         <div class="wrap123">
@@ -70,46 +70,48 @@
                                     <p>
                                         @item.Description
                                         @*哈囉！我是筑筑，是在職兼職的網頁設計師，台灣及日本股票上市電商公司工作5年，有數百張banner設計經驗，其中包含許多知名品牌，有豐富的業界經歷，設計風格多樣，如果喜歡我的設計，非常歡迎長期合作！<br />
-                                        <br />
-                                        主要提供 Banner設計服務，並尋找可長期配合廠商。<br />
-                                        若有 LOGO設計 / 名片設計 / 企業識別 / 海報設計 / 網站視覺設計 / 切版 等其他需求可以另進行討論。<br />
-                                        <br />
-                                        如需要報價或其他問題歡迎聯繫我，期待與您有合作機會！<br />
-                                        <br />
-                                        <br />
-                                        經歷<br />
-                                        2020<br />
-                                        現職日本股票上市公司，擔任專案設計師，專為吉野家、KF製藥、TTU 等日本知名企業製作Banner、EDM、海報 等設計，各式Banner製作經驗豐富。<br />
-                                        2019<br />
-                                        曾任職於網頁設計公司擔任專案網頁設計師，UI/UX設計、切版、RWD、Banner設計，具備html/css等獨立作業等級的切版技術。<br />
-                                        2016<br />
-                                        曾任職於台灣股票上市知名電商擔任網頁設計師，負責製作各式品牌及活動Banner、EDM、檔期活動頁設計與切版，門市型錄，門市海報 等，熟悉各種產品的設計，風格多樣。<br />
-                                        <br />
-                                        了解更多作品請參考作品集連結：<br />
-                                        https://chuyun10.github.io/chuyun10/index.html<br />
-                                        https://www.behance.net/chuyunteng
-                                    </p>
-                                    <p class="boldBlack">擅長工具:</p>
-                                    <p class="workroomTabContentText">
-                                        Illustrator、PhotoShop、HTML、CSS、InDesign、After Effects、Premiere。
-                                    </p>*@
+                                                <br />
+                                                主要提供 Banner設計服務，並尋找可長期配合廠商。<br />
+                                                若有 LOGO設計 / 名片設計 / 企業識別 / 海報設計 / 網站視覺設計 / 切版 等其他需求可以另進行討論。<br />
+                                                <br />
+                                                如需要報價或其他問題歡迎聯繫我，期待與您有合作機會！<br />
+                                                <br />
+                                                <br />
+                                                經歷<br />
+                                                2020<br />
+                                                現職日本股票上市公司，擔任專案設計師，專為吉野家、KF製藥、TTU 等日本知名企業製作Banner、EDM、海報 等設計，各式Banner製作經驗豐富。<br />
+                                                2019<br />
+                                                曾任職於網頁設計公司擔任專案網頁設計師，UI/UX設計、切版、RWD、Banner設計，具備html/css等獨立作業等級的切版技術。<br />
+                                                2016<br />
+                                                曾任職於台灣股票上市知名電商擔任網頁設計師，負責製作各式品牌及活動Banner、EDM、檔期活動頁設計與切版，門市型錄，門市海報 等，熟悉各種產品的設計，風格多樣。<br />
+                                                <br />
+                                                了解更多作品請參考作品集連結：<br />
+                                                https://chuyun10.github.io/chuyun10/index.html<br />
+                                                https://www.behance.net/chuyunteng
+                                            </p>
+                                            <p class="boldBlack">擅長工具:</p>
+                                            <p class="workroomTabContentText">
+                                                Illustrator、PhotoShop、HTML、CSS、InDesign、After Effects、Premiere。
+                                            </p>*@
                                 </div>
                             </div>
                         </div>
-                        }
-                    </div>
+                    }
+                </div>
 
-                    @*</a>*@
+                @*</a>*@
 
 
-                    <a name="02"><h4 class="mb-4" id="part">作品</h4></a>
-
+                <a name="02"><h4 class="mb-4" id="part">作品</h4></a>
+                @foreach (var item in ViewBag.StudioWorkList)
+                {
+                    //如果subcate重複，選擇第一個(firstordefault)
                     <div class="row justify-content-center mb-5" data-aos="fade-up">
                         <div id="filters" class="filters text-center button-group col-md-7">
                             <button class="btn btn-primary active" data-filter="*">All</button>
-                            <button class="btn btn-primary" data-filter=".web">Web</button>
-                            <button class="btn btn-primary" data-filter=".design">Design</button>
-                            <button class="btn btn-primary" data-filter=".brand">Brand</button>
+                            <button class="btn btn-primary" data-filter=".web">@item.WorkSubCategory</button>
+                            @*<button class="btn btn-primary" data-filter=".design">Design</button>
+                                <button class="btn btn-primary" data-filter=".brand">Brand</button>*@
                         </div>
                     </div>
 
@@ -117,487 +119,524 @@
                         <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
                             <div class="item-wrap">
                                 <span class="portfolio-info">
-                                    <h5>政府補助案</h5>
-                                    <h6>A+企業創新研發淬鍊計畫</h6>
+                                    <h5>@item.WorkSubCategory</h5>
+                                    <h6>@item.WorkName</h6>
                                     <div class="posticon">
-                                        <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
-                                        <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
+                                        <a href="@Url.Action("WorksPage", new { WorkID = @item.WorkID})"><i class="icon-zoom_in"></i></a>
+                                        <a href="@item.WebsiteURL"><i class="icon-link"></i></a>
                                     </div>
                                 </span>
-                                <img class="img-fluid" src="~/Assets/images/sq_img_1.jpg" />
+                                <div id="coverlayer">
+                                    <img class="img-fluid" id="workcover" src="@item.WorkPicture" />
+                                </div>
 
                             </div>
                         </div>
-                        <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-                            <div class="item-wrap">
-                                <span class="portfolio-info">
-                                    <h5>政府補助案</h5>
-                                    <h6>A+企業創新研發淬鍊計畫</h6>
-                                    <div class="posticon">
-                                        <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
-                                        <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
-                                    </div>
-                                </span>
-                                <img class="img-fluid" src="~/Assets/images/sq_img_2.jpg" />
-
-                            </div>
-                        </div>
-
-                        <div class="item brand col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-                            <div class="item-wrap">
-                                <span class="portfolio-info">
-                                    <h5>政府補助案</h5>
-                                    <h6>A+企業創新研發淬鍊計畫</h6>
-                                    <div class="posticon">
-                                        <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
-                                        <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
-                                    </div>
-                                </span>
-                                <img class="img-fluid" src="~/Assets/images/sq_img_3.jpg" />
-
-                            </div>
-                        </div>
-
-                        <div class="item design col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-
-                            <div class="item-wrap">
-                                <span class="portfolio-info">
-                                    <h5>政府補助案</h5>
-                                    <h6>A+企業創新研發淬鍊計畫</h6>
-                                    <div class="posticon">
-                                        <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
-                                        <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
-                                    </div>
-                                </span>
-                                <img class="img-fluid" src="~/Assets/images/sq_img_4.jpg" />
-
-                            </div>
-
-                        </div>
-
-                        <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-                            <div class="item-wrap">
-                                <span class="portfolio-info">
-                                    <h5>政府補助案</h5>
-                                    <h6>A+企業創新研發淬鍊計畫</h6>
-                                    <div class="posticon">
-                                        <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
-                                        <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
-                                    </div>
-                                </span>
-                                <img class="img-fluid" src="~/Assets/images/sq_img_5.jpg" />
-
-                            </div>
-                        </div>
-
-                        <div class="item brand col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-                            <div class="item-wrap">
-                                <span class="portfolio-info">
-                                    <h5>政府補助案</h5>
-                                    <h6>A+企業創新研發淬鍊計畫</h6>
-                                    <div class="posticon">
-                                        <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
-                                        <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
-                                    </div>
-                                </span>
-                                <img class="img-fluid" src="~/Assets/images/sq_img_6.jpg" />
-
-                            </div>
-                        </div>
-
-                        <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-                            <div class="item-wrap">
-                                <span class="portfolio-info">
-                                    <h5>政府補助案</h5>
-                                    <h6>A+企業創新研發淬鍊計畫</h6>
-                                    <div class="posticon">
-                                        <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
-                                        <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
-                                    </div>
-                                </span>
-                                <img class="img-fluid" src="~/Assets/images/sq_img_7.jpg" />
-
-                            </div>
-                        </div>
-
-                        <div class="item design col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-                            <div class="item-wrap">
-                                <span class="portfolio-info">
-                                    <h5>政府補助案</h5>
-                                    <h6>A+企業創新研發淬鍊計畫</h6>
-                                    <div class="posticon">
-                                        <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
-                                        <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
-                                    </div>
-                                </span>
-                                <img class="img-fluid" src="~/Assets/images/sq_img_8.jpg" />
-
-                            </div>
-                        </div>
-
-                        <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-                            <div class="item-wrap">
-                                <span class="portfolio-info">
-                                    <h5>政府補助案</h5>
-                                    <h6>A+企業創新研發淬鍊計畫</h6>
-                                    <div class="posticon">
-                                        <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
-                                        <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
-                                    </div>
-                                </span>
-                                <img class="img-fluid" src="~/Assets/images/sq_img_9.jpg" />
-
-                            </div>
-                        </div>
-
-                        <div class="item design col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-                            <div class="item-wrap">
-                                <span class="portfolio-info">
-                                    <h5>政府補助案</h5>
-                                    <h6>A+企業創新研發淬鍊計畫</h6>
-                                    <div class="posticon">
-                                        <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
-                                        <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
-                                    </div>
-                                </span>
-                                <img class="img-fluid" src="~/Assets/images/sq_img_10.jpg" />
-
-                            </div>
-                        </div>
-
-                        <div class="item brand col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-                            <div class="item-wrap">
-                                <span class="portfolio-info">
-                                    <h5>政府補助案</h5>
-                                    <h6>A+企業創新研發淬鍊計畫</h6>
-                                    <div class="posticon">
-                                        <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
-                                        <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
-                                    </div>
-                                </span>
-                                <img class="img-fluid" src="~/Assets/images/sq_img_11.jpg" />
-
-                            </div>
-                        </div>
-
-                        <div class="item design col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-                            <div class="item-wrap">
-                                <span class="portfolio-info">
-                                    <h5>政府補助案</h5>
-                                    <h6>A+企業創新研發淬鍊計畫</h6>
-                                    <div class="posticon">
-                                        <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
-                                        <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
-                                    </div>
-                                </span>
-                                <img class="img-fluid" src="~/Assets/images/sq_img_12.jpg" />
-
-                            </div>
-                        </div>
-
 
                     </div>
-                    <a name="03"><h4 class="mb-4" id="part">報價(5)</h4></a>
+                }
 
-                    <div id='quotationcard'>
-                        <div class="row item_zone mb-5">
-                            <div class="col-lg-3 col-md-6">
-                                <div class="listing__item">
-                                    <div class="listing__item__pic">
-                                        <div class="ribbon-wrap"><div class="ribbon">平面設計</div></div>
-                                        <img src="~/Assets/images/sq_img_1.jpg" alt="Image" class="img-fluid rounded">
-                                    </div>
-                                    <div class="listing__item__text">
-                                        <div class="listing__item__text__inside">
-                                            <h5>專業LOGO設計</h5>
-                                            <span class="price">$1,980</span><span>/件</span>
-                                            <div class="listing__item__text__rating">
-                                                <div class="listing__item__rating__star mr-2">
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star-half_alt"></span>
-                                                </div>
-                                                <span>110</span><span>人訂購</span>
-                                            </div>
-                                        </div>
-                                        <div class="listing__item__text__info">
-                                            <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
-                                        </div>
-                                    </div>
+
+
+                @*<div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+                        <div class="item-wrap">
+                            <span class="portfolio-info">
+                                <h5>政府補助案</h5>
+                                <h6>A+企業創新研發淬鍊計畫</h6>
+                                <div class="posticon">
+                                    <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
+                                    <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
                                 </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6">
-                                <div class="listing__item">
-                                    <div class="listing__item__pic">
-                                        <div class="ribbon-wrap"><div class="ribbon">平面設計</div></div>
-                                        <img src="~/Assets/images/sq_img_2.jpg" alt="Image" class="img-fluid rounded">
-                                    </div>
-                                    <div class="listing__item__text">
-                                        <div class="listing__item__text__inside">
-                                            <h5>專業LOGO設計</h5>
-                                            <span class="price">$1,980</span><span>/件</span>
-                                            <div class="listing__item__text__rating">
-                                                <div class="listing__item__rating__star mr-2">
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star-half_alt"></span>
-                                                </div>
-                                                <span>110</span><span>人訂購</span>
-                                            </div>
-                                        </div>
-                                        <div class="listing__item__text__info">
-                                            <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
-                                        </div>
-                                    </div>
+                            </span>
+                            <img class="img-fluid" src="~/Assets/images/sq_img_2.jpg" />
+
+
+                        </div>
+                    </div>*@
+
+
+
+                @*<div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+                        <div class="item-wrap">
+                            <span class="portfolio-info">
+                                <h5>政府補助案</h5>
+                                <h6>A+企業創新研發淬鍊計畫</h6>
+                                <div class="posticon">
+                                    <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
+                                    <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
                                 </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6">
-                                <div class="listing__item">
-                                    <div class="listing__item__pic">
-                                        <div class="ribbon-wrap"><div class="ribbon">平面設計</div></div>
-                                        <img src="~/Assets/images/sq_img_3.jpg" alt="Image" class="img-fluid rounded">
-                                    </div>
-                                    <div class="listing__item__text">
-                                        <div class="listing__item__text__inside">
-                                            <h5>專業LOGO設計</h5>
-                                            <span class="price">$1,980</span><span>/件</span>
-                                            <div class="listing__item__text__rating">
-                                                <div class="listing__item__rating__star mr-2">
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star-half_alt"></span>
-                                                </div>
-                                                <span>110</span><span>人訂購</span>
-                                            </div>
-                                        </div>
-                                        <div class="listing__item__text__info">
-                                            <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6">
-                                <div class="listing__item">
-                                    <div class="listing__item__pic">
-                                        <div class="ribbon-wrap"><div class="ribbon">平面設計</div></div>
-                                        <img src="~/Assets/images/sq_img_8.jpg" alt="Image" class="img-fluid rounded">
-                                    </div>
-                                    <div class="listing__item__text">
-                                        <div class="listing__item__text__inside">
-                                            <h5>專業LOGO設計</h5>
-                                            <span class="price">$1,980</span><span>/件</span>
-                                            <div class="listing__item__text__rating">
-                                                <div class="listing__item__rating__star mr-2">
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star-half_alt"></span>
-                                                </div>
-                                                <span>110</span><span>人訂購</span>
-                                            </div>
-                                        </div>
-                                        <div class="listing__item__text__info">
-                                            <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6">
-                                <div class="listing__item">
-                                    <div class="listing__item__pic">
-                                        <div class="ribbon-wrap"><div class="ribbon">平面設計</div></div>
-                                        <img src="~/Assets/images/sq_img_7.jpg" alt="Image" class="img-fluid rounded">
-                                    </div>
-                                    <div class="listing__item__text">
-                                        <div class="listing__item__text__inside">
-                                            <h5>專業LOGO設計</h5>
-                                            <span class="price">$1,980</span><span>/件</span>
-                                            <div class="listing__item__text__rating">
-                                                <div class="listing__item__rating__star mr-2">
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star-half_alt"></span>
-                                                </div>
-                                                <span>110</span><span>人訂購</span>
-                                            </div>
-                                        </div>
-                                        <div class="listing__item__text__info">
-                                            <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6">
-                                <div class="listing__item">
-                                    <div class="listing__item__pic">
-                                        <div class="ribbon-wrap"><div class="ribbon">平面設計</div></div>
-                                        <img src="~/Assets/images/sq_img_6.jpg" alt="Image" class="img-fluid rounded">
-                                    </div>
-                                    <div class="listing__item__text">
-                                        <div class="listing__item__text__inside">
-                                            <h5>專業LOGO設計</h5>
-                                            <span class="price">$1,980</span><span>/件</span>
-                                            <div class="listing__item__text__rating">
-                                                <div class="listing__item__rating__star mr-2">
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star-half_alt"></span>
-                                                </div>
-                                                <span>110</span><span>人訂購</span>
-                                            </div>
-                                        </div>
-                                        <div class="listing__item__text__info">
-                                            <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6">
-                                <div class="listing__item">
-                                    <div class="listing__item__pic">
-                                        <div class="ribbon-wrap"><div class="ribbon">網站設計</div></div>
-                                        <img src="~/Assets/images/sq_img_5.jpg" alt="Image" class="img-fluid rounded">
-                                    </div>
-                                    <div class="listing__item__text">
-                                        <div class="listing__item__text__inside">
-                                            <h5>專業LOGO設計</h5>
-                                            <span class="price">$1,980</span><span>/件</span>
-                                            <div class="listing__item__text__rating">
-                                                <div class="listing__item__rating__star mr-2">
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star-half_alt"></span>
-                                                </div>
-                                                <span>110</span><span>人訂購</span>
-                                            </div>
-                                        </div>
-                                        <div class="listing__item__text__info">
-                                            <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </span>
+                            <img class="img-fluid" src="~/Assets/images/sq_img_2.jpg" />
+
                         </div>
                     </div>
 
+                    <div class="item brand col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+                        <div class="item-wrap">
+                            <span class="portfolio-info">
+                                <h5>政府補助案</h5>
+                                <h6>A+企業創新研發淬鍊計畫</h6>
+                                <div class="posticon">
+                                    <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
+                                    <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
+                                </div>
+                            </span>
+                            <img class="img-fluid" src="~/Assets/images/sq_img_3.jpg" />
 
+                        </div>
+                    </div>
 
-                    <div class="pt-5">
-                        <a name="04">
-                            <a name="0ˋ"><h4 class="mb-4" id="part">評價</h4></a>
-                            <ul class="comment-list">
-                                <li class="comment">
-                                    <div class="vcard bio">
-                                        <img src="~/Assets/images/person_2.jpg" alt="Image placeholder">
-                                    </div>
-                                    <div class="comment-body">
-                                        <h3>Jacob Smith</h3>
-                                        <div class="meta">January 9, 2018 at 2:21pm</div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                        <p><a href="#" class="reply">Reply</a></p>
-                                    </div>
-                                </li>
+                    <div class="item design col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
 
-                                <li class="comment">
-                                    <div class="vcard bio">
-                                        <img src="~/Assets/images/person_3.jpg" alt="Image placeholder">
-                                    </div>
-                                    <div class="comment-body">
-                                        <h3>Chris Meyer</h3>
-                                        <div class="meta">January 9, 2018 at 2:21pm</div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                        <p><a href="#" class="reply">Reply</a></p>
-                                    </div>
+                        <div class="item-wrap">
+                            <span class="portfolio-info">
+                                <h5>政府補助案</h5>
+                                <h6>A+企業創新研發淬鍊計畫</h6>
+                                <div class="posticon">
+                                    <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
+                                    <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
+                                </div>
+                            </span>
+                            <img class="img-fluid" src="~/Assets/images/sq_img_4.jpg" />
 
-                                    <ul class="children">
-                                        <li class="comment">
-                                            <div class="vcard bio">
-                                                <img src="~/Assets/images/person_5.jpg" alt="Image placeholder">
-                                            </div>
-                                            <div class="comment-body">
-                                                <h3>Chintan Patel</h3>
-                                                <div class="meta">January 9, 2018 at 2:21pm</div>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                                <p><a href="#" class="reply">Reply</a></p>
-                                            </div>
-
-
-                                            <ul class="children">
-                                                <li class="comment">
-                                                    <div class="vcard bio">
-                                                        <img src="~/Assets/images/person_1.jpg" alt="Image placeholder">
-                                                    </div>
-                                                    <div class="comment-body">
-                                                        <h3>Jean Doe</h3>
-                                                        <div class="meta">January 9, 2018 at 2:21pm</div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                                        <p><a href="#" class="reply">Reply</a></p>
-                                                    </div>
-
-                                                    <ul class="children">
-                                                        <li class="comment">
-                                                            <div class="vcard bio">
-                                                                <img src="~/Assets/images/person_4.jpg" alt="Image placeholder">
-                                                            </div>
-                                                            <div class="comment-body">
-                                                                <h3>Ben Afflick</h3>
-                                                                <div class="meta">January 9, 2018 at 2:21pm</div>
-                                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                                                <p><a href="#" class="reply">Reply</a></p>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li class="comment">
-                                    <div class="vcard bio">
-                                        <img src="~/Assets/images/person_1.jpg" alt="Image placeholder">
-                                    </div>
-                                    <div class="comment-body">
-                                        <h3>Jean Doe</h3>
-                                        <div class="meta">January 9, 2018 at 2:21pm</div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                        <p><a href="#" class="reply">Reply</a></p>
-                                    </div>
-                                </li>
-                            </ul>
-                            <!-- END comment-list -->
-
-                            <div class="comment-form-wrap pt-5">
-
-                            </div>
-
+                        </div>
 
                     </div>
-                    </a>
+
+                    <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+                        <div class="item-wrap">
+                            <span class="portfolio-info">
+                                <h5>政府補助案</h5>
+                                <h6>A+企業創新研發淬鍊計畫</h6>
+                                <div class="posticon">
+                                    <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
+                                    <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
+                                </div>
+                            </span>
+                            <img class="img-fluid" src="~/Assets/images/sq_img_5.jpg" />
+
+                        </div>
+                    </div>
+
+                    <div class="item brand col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+                        <div class="item-wrap">
+                            <span class="portfolio-info">
+                                <h5>政府補助案</h5>
+                                <h6>A+企業創新研發淬鍊計畫</h6>
+                                <div class="posticon">
+                                    <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
+                                    <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
+                                </div>
+                            </span>
+                            <img class="img-fluid" src="~/Assets/images/sq_img_6.jpg" />
+
+                        </div>
+                    </div>
+
+                    <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+                        <div class="item-wrap">
+                            <span class="portfolio-info">
+                                <h5>政府補助案</h5>
+                                <h6>A+企業創新研發淬鍊計畫</h6>
+                                <div class="posticon">
+                                    <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
+                                    <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
+                                </div>
+                            </span>
+                            <img class="img-fluid" src="~/Assets/images/sq_img_7.jpg" />
+
+                        </div>
+                    </div>
+
+                    <div class="item design col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+                        <div class="item-wrap">
+                            <span class="portfolio-info">
+                                <h5>政府補助案</h5>
+                                <h6>A+企業創新研發淬鍊計畫</h6>
+                                <div class="posticon">
+                                    <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
+                                    <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
+                                </div>
+                            </span>
+                            <img class="img-fluid" src="~/Assets/images/sq_img_8.jpg" />
+
+                        </div>
+                    </div>
+
+                    <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+                        <div class="item-wrap">
+                            <span class="portfolio-info">
+                                <h5>政府補助案</h5>
+                                <h6>A+企業創新研發淬鍊計畫</h6>
+                                <div class="posticon">
+                                    <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
+                                    <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
+                                </div>
+                            </span>
+                            <img class="img-fluid" src="~/Assets/images/sq_img_9.jpg" />
+
+                        </div>
+                    </div>
+
+                    <div class="item design col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+                        <div class="item-wrap">
+                            <span class="portfolio-info">
+                                <h5>政府補助案</h5>
+                                <h6>A+企業創新研發淬鍊計畫</h6>
+                                <div class="posticon">
+                                    <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
+                                    <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
+                                </div>
+                            </span>
+                            <img class="img-fluid" src="~/Assets/images/sq_img_10.jpg" />
+
+                        </div>
+                    </div>
+
+                    <div class="item brand col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+                        <div class="item-wrap">
+                            <span class="portfolio-info">
+                                <h5>政府補助案</h5>
+                                <h6>A+企業創新研發淬鍊計畫</h6>
+                                <div class="posticon">
+                                    <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
+                                    <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
+                                </div>
+                            </span>
+                            <img class="img-fluid" src="~/Assets/images/sq_img_11.jpg" />
+
+                        </div>
+                    </div>
+
+                    <div class="item design col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+                        <div class="item-wrap">
+                            <span class="portfolio-info">
+                                <h5>政府補助案</h5>
+                                <h6>A+企業創新研發淬鍊計畫</h6>
+                                <div class="posticon">
+                                    <a href="@Url.Action("WorksPage", "Quotation")"><i class="icon-zoom_in"></i></a>
+                                    <a href="assets/img/portfolio/portfolio-6.jpg"><i class="icon-link"></i></a>
+                                </div>
+                            </span>
+                            <img class="img-fluid" src="~/Assets/images/sq_img_12.jpg" />
+
+                        </div>
+                    </div>*@
+
+
+
+                <a name="03"><h4 class="mb-4" id="part">報價(5)</h4></a>
+
+                <div id='quotationcard'>
+                    <div class="row item_zone mb-5">
+                        @foreach (var item in ViewBag.StudioQuotationList)
+                        {
+                            <div class="col-lg-3 col-md-6">
+                                <div class="listing__item">
+                                    <div class="listing__item__pic" id="quoimglimit">
+
+                                        <div class="ribbon-wrap"><div class="ribbon">@item.CategoryName</div></div>
+                                        <img src="@item.QuotationImg" alt="Image" class="img-fluid rounded">
+
+                                    </div>
+
+                                    <div class="listing__item__text">
+
+                                        <div class="listing__item__text__inside">
+
+                                            <h5>@item.SubcategoryName</h5>
+                                            <span class="price">@item.Price</span><span>/@item.Unit</span>
+                                            <div class="listing__item__text__rating">
+                                                <div class="listing__item__rating__star mr-2">
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star"></span>
+                                                    <span class="icon_star-half_alt"></span>
+                                                </div>
+                                                <span>110</span><span>人訂購</span>
+                                            </div>
+                                        </div>
+                                        <div class="listing__item__text__info">
+                                            <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
                 </div>
 
-        </div>
-</div>
+                @*<div class="col-lg-3 col-md-6">
+                        <div class="listing__item">
+                            <div class="listing__item__pic">
+                                <div class="ribbon-wrap"><div class="ribbon">平面設計</div></div>
+                                <img src="~/Assets/images/sq_img_2.jpg" alt="Image" class="img-fluid rounded">
+                            </div>
+                            <div class="listing__item__text">
+                                <div class="listing__item__text__inside">
+                                    <h5>專業LOGO設計</h5>
+                                    <span class="price">$1,980</span><span>/件</span>
+                                    <div class="listing__item__text__rating">
+                                        <div class="listing__item__rating__star mr-2">
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star-half_alt"></span>
+                                        </div>
+                                        <span>110</span><span>人訂購</span>
+                                    </div>
+                                </div>
+                                <div class="listing__item__text__info">
+                                    <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="listing__item">
+                            <div class="listing__item__pic">
+                                <div class="ribbon-wrap"><div class="ribbon">平面設計</div></div>
+                                <img src="~/Assets/images/sq_img_3.jpg" alt="Image" class="img-fluid rounded">
+                            </div>
+                            <div class="listing__item__text">
+                                <div class="listing__item__text__inside">
+                                    <h5>專業LOGO設計</h5>
+                                    <span class="price">$1,980</span><span>/件</span>
+                                    <div class="listing__item__text__rating">
+                                        <div class="listing__item__rating__star mr-2">
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star-half_alt"></span>
+                                        </div>
+                                        <span>110</span><span>人訂購</span>
+                                    </div>
+                                </div>
+                                <div class="listing__item__text__info">
+                                    <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="listing__item">
+                            <div class="listing__item__pic">
+                                <div class="ribbon-wrap"><div class="ribbon">平面設計</div></div>
+                                <img src="~/Assets/images/sq_img_8.jpg" alt="Image" class="img-fluid rounded">
+                            </div>
+                            <div class="listing__item__text">
+                                <div class="listing__item__text__inside">
+                                    <h5>專業LOGO設計</h5>
+                                    <span class="price">$1,980</span><span>/件</span>
+                                    <div class="listing__item__text__rating">
+                                        <div class="listing__item__rating__star mr-2">
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star-half_alt"></span>
+                                        </div>
+                                        <span>110</span><span>人訂購</span>
+                                    </div>
+                                </div>
+                                <div class="listing__item__text__info">
+                                    <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="listing__item">
+                            <div class="listing__item__pic">
+                                <div class="ribbon-wrap"><div class="ribbon">平面設計</div></div>
+                                <img src="~/Assets/images/sq_img_7.jpg" alt="Image" class="img-fluid rounded">
+                            </div>
+                            <div class="listing__item__text">
+                                <div class="listing__item__text__inside">
+                                    <h5>專業LOGO設計</h5>
+                                    <span class="price">$1,980</span><span>/件</span>
+                                    <div class="listing__item__text__rating">
+                                        <div class="listing__item__rating__star mr-2">
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star-half_alt"></span>
+                                        </div>
+                                        <span>110</span><span>人訂購</span>
+                                    </div>
+                                </div>
+                                <div class="listing__item__text__info">
+                                    <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="listing__item">
+                            <div class="listing__item__pic">
+                                <div class="ribbon-wrap"><div class="ribbon">平面設計</div></div>
+                                <img src="~/Assets/images/sq_img_6.jpg" alt="Image" class="img-fluid rounded">
+                            </div>
+                            <div class="listing__item__text">
+                                <div class="listing__item__text__inside">
+                                    <h5>專業LOGO設計</h5>
+                                    <span class="price">$1,980</span><span>/件</span>
+                                    <div class="listing__item__text__rating">
+                                        <div class="listing__item__rating__star mr-2">
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star-half_alt"></span>
+                                        </div>
+                                        <span>110</span><span>人訂購</span>
+                                    </div>
+                                </div>
+                                <div class="listing__item__text__info">
+                                    <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="listing__item">
+                            <div class="listing__item__pic">
+                                <div class="ribbon-wrap"><div class="ribbon">網站設計</div></div>
+                                <img src="~/Assets/images/sq_img_5.jpg" alt="Image" class="img-fluid rounded">
+                            </div>
+                            <div class="listing__item__text">
+                                <div class="listing__item__text__inside">
+                                    <h5>專業LOGO設計</h5>
+                                    <span class="price">$1,980</span><span>/件</span>
+                                    <div class="listing__item__text__rating">
+                                        <div class="listing__item__rating__star mr-2">
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star"></span>
+                                            <span class="icon_star-half_alt"></span>
+                                        </div>
+                                        <span>110</span><span>人訂購</span>
+                                    </div>
+                                </div>
+                                <div class="listing__item__text__info">
+                                    <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
 
-            <div class="contacts">
-                <a href="#"><i class="icon-heart-o"></i>收藏</a>
-                <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
-                <a href="#" class="btn btn-primary btn-md">邀請報價</a>
+
+
+
+                <div class="pt-5">
+                    <a name="04">
+                        <a name="0ˋ"><h4 class="mb-4" id="part">評價</h4></a>
+                        <ul class="comment-list">
+                            <li class="comment">
+                                <div class="vcard bio">
+                                    <img src="~/Assets/images/person_2.jpg" alt="Image placeholder">
+                                </div>
+                                <div class="comment-body">
+                                    <h3>Jacob Smith</h3>
+                                    <div class="meta">January 9, 2018 at 2:21pm</div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                    <p><a href="#" class="reply">Reply</a></p>
+                                </div>
+                            </li>
+
+                            <li class="comment">
+                                <div class="vcard bio">
+                                    <img src="~/Assets/images/person_3.jpg" alt="Image placeholder">
+                                </div>
+                                <div class="comment-body">
+                                    <h3>Chris Meyer</h3>
+                                    <div class="meta">January 9, 2018 at 2:21pm</div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                    <p><a href="#" class="reply">Reply</a></p>
+                                </div>
+
+                                <ul class="children">
+                                    <li class="comment">
+                                        <div class="vcard bio">
+                                            <img src="~/Assets/images/person_5.jpg" alt="Image placeholder">
+                                        </div>
+                                        <div class="comment-body">
+                                            <h3>Chintan Patel</h3>
+                                            <div class="meta">January 9, 2018 at 2:21pm</div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                            <p><a href="#" class="reply">Reply</a></p>
+                                        </div>
+
+
+                                        <ul class="children">
+                                            <li class="comment">
+                                                <div class="vcard bio">
+                                                    <img src="~/Assets/images/person_1.jpg" alt="Image placeholder">
+                                                </div>
+                                                <div class="comment-body">
+                                                    <h3>Jean Doe</h3>
+                                                    <div class="meta">January 9, 2018 at 2:21pm</div>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                                    <p><a href="#" class="reply">Reply</a></p>
+                                                </div>
+
+                                                <ul class="children">
+                                                    <li class="comment">
+                                                        <div class="vcard bio">
+                                                            <img src="~/Assets/images/person_4.jpg" alt="Image placeholder">
+                                                        </div>
+                                                        <div class="comment-body">
+                                                            <h3>Ben Afflick</h3>
+                                                            <div class="meta">January 9, 2018 at 2:21pm</div>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                                            <p><a href="#" class="reply">Reply</a></p>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="comment">
+                                <div class="vcard bio">
+                                    <img src="~/Assets/images/person_1.jpg" alt="Image placeholder">
+                                </div>
+                                <div class="comment-body">
+                                    <h3>Jean Doe</h3>
+                                    <div class="meta">January 9, 2018 at 2:21pm</div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                    <p><a href="#" class="reply">Reply</a></p>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- END comment-list -->
+
+                        <div class="comment-form-wrap pt-5">
+
+                        </div>
+
+
+                </div>
+                </a>
             </div>
-    </section>
+
+        </div>
+    </div>
+
+    <div class="contacts">
+        <a href="#"><i class="icon-heart-o"></i>收藏</a>
+        <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
+        <a href="#" class="btn btn-primary btn-md">邀請報價</a>
+    </div>
+</section>
 
 
 
@@ -611,416 +650,486 @@
 
 
 
-    @section topCSS{
-        <style>
-            body, html {
-                scroll-behavior: smooth;
+@section topCSS{
+    <style>
+        body, html {
+            scroll-behavior: smooth;
+        }
+
+        li {
+            list-style: none;
+            display: inline;
+        }
+
+        .sidebar-box {
+            text-align: center;
+            position: sticky;
+            top: 48px;
+            z-index: 1000;
+        }
+
+        .contactp {
+            display: none;
+        }
+
+        .contacts {
+            width: 100%;
+            Z-index: 1100;
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            background-color: rgb(186, 216, 186);
+            text-align: center;
+        }
+
+            .contacts a {
+                padding-left: 10px;
+                padding-right: 10px;
+                color: black;
             }
 
-            li {
-                list-style: none;
-                display: inline;
+        .posticon {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+            .posticon i {
+                color: white;
             }
 
-            .sidebar-box {
-                text-align: center;
-                position: sticky;
-                top: 48px;
-                z-index: 1000;
+                .posticon i:active {
+                    color: rgb(89, 110, 89);
+                }
+
+        #about {
+            border-bottom: 1px solid grey;
+            margin-bottom: 20px;
+        }
+
+
+        #part {
+            border-left: 4px solid rgb(118, 148, 118);
+        }
+
+
+
+        .studionav {
+            display: flex;
+            justify-content: space-evenly;
+            padding-right: 15px;
+            padding-left: 15px;
+            position: sticky;
+            top: 35px;
+            background-color: white;
+            border-bottom: 1px solid rgb(214, 213, 213);
+            z-index: 1000;
+        }
+
+        :target:before {
+            content: "";
+            display: block;
+            height: 80px;
+        }
+
+        #posts {
+            border-bottom: 1px solid grey;
+            margin-bottom: 20px;
+        }
+
+        .studionav li > a {
+            text-decoration: none;
+            font-size: 20px;
+            color: #333;
+        }
+
+            .studionav li > a:hover {
+                border-bottom: solid rgb(118, 148, 118);
             }
 
-            .contactp {
+            .studionav li > a:active {
+                border-bottom: solid rgb(118, 148, 118);
+            }
+
+        #quotationcard {
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 1px solid grey;
+        }
+
+        .ribbon-wrap {
+            width: 106px;
+            height: 108px;
+            overflow: hidden;
+            position: absolute;
+            top: 0px;
+            left: 15px;
+        }
+
+        .ribbon {
+            position: absolute;
+            right: 4px;
+            top: 10px;
+            width: 135px;
+            background-color: #FB8C00;
+            color: white;
+            text-align: center;
+            transform: rotate(-30deg);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+            .ribbon:before {
+                content: "";
+                border-top: 4px solid #795548;
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                position: absolute;
+                bottom: -4px;
+                right: 0;
+            }
+
+            .ribbon:after {
+                content: "";
+                border-top: 4px solid #795548;
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                position: absolute;
+                bottom: -4px;
+                left: 0;
+            }
+
+        /* #coverlayer {
+                width: 225px;
+                height: 225px;
+                border: 2px solid red;
+            }*/
+
+        .item-wrap {
+            /*width: 220px;
+                height: 220px;*/
+            overflow: hidden;
+            /* min-height: 220px;
+                 object-fit: fill;*/
+        }
+
+            .item-wrap img {
+                transform: scale(1.5);
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                min-height: 220px;
+                max-height: 220px;
+                /* object-fit: fill;*/
+            }
+        /* Listing */
+        #quoimglimit {
+            overflow: hidden;
+        }
+
+            #quoimglimit img {
+                min-height: 160px;
+                /*max-height: 160px;*/
+            }
+
+        .listing .listing__list .listing__item {
+            max-width: calc(50% - 30px);
+            float: left;
+            margin-right: 30px;
+            -webkit-box-flex: 0;
+            -ms-flex: 0 0 50%;
+            flex: 0 0 50%;
+            width: 100%;
+            height: 100%;
+        }
+
+        .listing__item {
+            -webkit-box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+            .listing__item:hover img,
+            .listing__item:hover {
+                transform: scale(1.03);
+            }
+
+
+        .listing__item__pic {
+            overflow: hidden;
+        }
+
+
+            .listing__item__pic img {
+                width: 100%;
+                transition: .3s;
+            }
+
+        .listing__item__pic__tag {
+            font-size: 12px;
+            color: #ffffff;
+            background: #f03250;
+            font-weight: 600;
+            display: inline-block;
+            padding: 5px 15px 5px 10px;
+            border-radius: 2px;
+            position: absolute;
+            left: 20px;
+            top: 20px;
+        }
+
+        .pic_tag {
+            font-size: 15px;
+            background-color: #e1264a;
+            font-weight: bolder;
+            padding: 2px 5px;
+            color: white;
+            border-radius: 6px;
+        }
+
+        .listing__item__pic__tag.top_rate {
+            background: #00a7ea;
+        }
+
+        .listing__item__pic__tag.hot_deal {
+            background: #D9D137;
+        }
+
+        .listing__item__pic__btns {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+        }
+
+        .listing__item__text {
+            padding-left: 8px;
+            padding-right: 8px;
+            padding-top: 10px;
+        }
+
+        .listing__item__text__inside h5 {
+            font-size: 16px;
+            color: #323232;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .studioName:hover {
+            color: #e1264a !important;
+            cursor: pointer;
+        }
+
+        .listing__item__text__inside ul {
+            margin-bottom: 20px;
+        }
+
+        .listing__item__text__inside .price {
+            color: #e1264a;
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        .listing__item__text__inside ul li {
+            font-size: 15px;
+            color: #323232;
+            list-style: none;
+            line-height: 25px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+            .listing__item__text__inside ul li span {
+                color: #A8A8A8;
+                position: absolute;
+                left: 0;
+                top: 5px;
+            }
+
+        .listing__item__text__rating {
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+            .listing__item__text__rating .listing__item__rating__star {
+                float: left;
+            }
+
+                .listing__item__text__rating .listing__item__rating__star span {
+                    font-size: 14px;
+                    color: #F09D17;
+                    margin-right: -3px;
+                }
+
+                    .listing__item__text__rating .listing__item__rating__star span:last-child {
+                        margin-right: 0;
+                    }
+
+            .listing__item__text__rating h6 {
+                font-size: 15px;
+                color: #f03250;
+                font-weight: 600;
+                float: right;
+            }
+
+        .listing__item__text__info {
+            padding: 10px 8px;
+            border-top: 1px solid rgba(0, 0, 0, .1);
+            overflow: hidden;
+        }
+
+        .listing__item__text__info__left {
+            float: left;
+        }
+
+            .listing__item__text__info__left img {
+                display: inline-block;
+                margin-right: 10px;
+                width: 34px;
+                height: 34px;
+                border-radius: 50%;
+            }
+
+            .listing__item__text__info__left span {
+                font-size: 14px;
+                color: #323232;
+                font-weight: 600;
+            }
+
+        .listing__item__text__info__right {
+            float: right;
+            font-size: 14px;
+            color: #ffffffec;
+            font-weight: 700;
+            padding-top: 4px;
+            background-color: Transparent;
+            background-repeat: no-repeat;
+            border: none;
+            background-color: #89ba16;
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+
+            .listing__item__text__info__right.closed {
+                color: #f03250;
+            }
+
+            .listing__item__text__info__right:focus {
+                outline: none;
+            }
+
+            .listing__item__text__info__right:hover {
+                opacity: .8;
+            }
+
+
+
+        #designerinfoNumber {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+        }
+
+
+        .text123 {
+            display: -webkit-box;
+            -webkit-line-clamp: 15;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .btn123 {
+            float: right;
+            clear: both;
+        }
+
+        .text123::before {
+            content: '';
+            float: right;
+            width: 0;
+            height: 100%;
+            margin-bottom: -24px;
+        }
+
+
+        .wrap123
+        [type="checkbox"] {
+            display: none
+        }
+
+        .wrap123 {
+            display: flex;
+        }
+
+        .btn123::after {
+            content: '顯示更多'
+        }
+
+        #exp:checked + .text123 {
+            -webkit-line-clamp: 999;
+        }
+
+            #exp:checked + .text123 .btn123::after {
+                content: '顯示較少'
+            }
+
+
+
+
+            #exp:checked + .text123::after {
+                visibility: hidden;
+            }
+
+
+
+        @@media screen and (min-width:769px) {
+            .contacts {
                 display: none;
             }
 
-            .contacts {
-                width: 100%;
-                Z-index: 1100;
-                position: fixed;
-                bottom: 0px;
-                left: 0px;
-                background-color: rgb(186, 216, 186);
-                text-align: center;
+            .contactp {
+                display: block;
             }
-
-                .contacts a {
-                    padding-left: 10px;
-                    padding-right: 10px;
-                    color: black;
-                }
-
-            .posticon {
-                display: flex;
-                justify-content: space-evenly;
-            }
-
-                .posticon i {
-                    color: white;
-                }
-
-                    .posticon i:active {
-                        color: rgb(89, 110, 89);
-                    }
-
-            #about {
-                border-bottom: 1px solid grey;
-                margin-bottom: 20px;
-            }
-
-
-            #part {
-                border-left: 4px solid rgb(118, 148, 118);
-            }
-
-
 
             .studionav {
-                display: flex;
-                justify-content: space-evenly;
-                padding-right: 15px;
-                padding-left: 15px;
-                position: sticky;
-                top: 130px;
-                background-color: white;
-                border-bottom: 1px solid rgb(214, 213, 213);
-                z-index: 1000;
+                top: 125px;
             }
 
             :target:before {
                 content: "";
                 display: block;
-                height: 85px;
+                height: 180px;
             }
 
-            #posts {
-                border-bottom: 1px solid grey;
-                margin-bottom: 20px;
+            .sidebar-box {
+                top: 110px;
+            }
+        }
+
+
+        /*@@media screen and (max-width:1023px) {
+
+
+            .studionav {
+                top: 40px;
             }
 
-            .studionav li > a {
-                text-decoration: none;
-                font-size: 20px;
-                color: #333;
+            .sidebar-box {
+                top: 110px;
             }
-
-                .studionav li > a:hover {
-                    border-bottom: solid rgb(118, 148, 118);
-                }
-
-                .studionav li > a:active {
-                    border-bottom: solid rgb(118, 148, 118);
-                }
-
-            #quotationcard {
-                display: flex;
-                flex-wrap: wrap;
-                border-bottom: 1px solid grey;
-            }
-
-            .ribbon-wrap {
-                width: 106px;
-                height: 108px;
-                overflow: hidden;
-                position: absolute;
-                top: 0px;
-                left: 15px;
-            }
-
-            .ribbon {
-                position: absolute;
-                right: 4px;
-                top: 10px;
-                width: 135px;
-                background-color: #FB8C00;
-                color: white;
-                text-align: center;
-                transform: rotate(-30deg);
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            }
-
-                .ribbon:before {
-                    content: "";
-                    border-top: 4px solid #795548;
-                    border-left: 4px solid transparent;
-                    border-right: 4px solid transparent;
-                    position: absolute;
-                    bottom: -4px;
-                    right: 0;
-                }
-
-                .ribbon:after {
-                    content: "";
-                    border-top: 4px solid #795548;
-                    border-left: 4px solid transparent;
-                    border-right: 4px solid transparent;
-                    position: absolute;
-                    bottom: -4px;
-                    left: 0;
-                }
-
-
-            /* Listing */
-            .listing .listing__list .listing__item {
-                max-width: calc(50% - 30px);
-                float: left;
-                margin-right: 30px;
-                -webkit-box-flex: 0;
-                -ms-flex: 0 0 50%;
-                flex: 0 0 50%;
-                width: 100%;
-                height: 100%;
-            }
-
-            .listing__item {
-                -webkit-box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.1);
-                box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.1);
-                margin-bottom: 30px;
-            }
-
-                .listing__item:hover img,
-                .listing__item:hover {
-                    transform: scale(1.03);
-                }
-
-
-            .listing__item__pic {
-                overflow: hidden;
-            }
-
-
-                .listing__item__pic img {
-                    width: 100%;
-                    transition: .3s;
-                }
-
-            .listing__item__pic__tag {
-                font-size: 12px;
-                color: #ffffff;
-                background: #f03250;
-                font-weight: 600;
-                display: inline-block;
-                padding: 5px 15px 5px 10px;
-                border-radius: 2px;
-                position: absolute;
-                left: 20px;
-                top: 20px;
-            }
-
-            .pic_tag {
-                font-size: 15px;
-                background-color: #e1264a;
-                font-weight: bolder;
-                padding: 2px 5px;
-                color: white;
-                border-radius: 6px;
-            }
-
-            .listing__item__pic__tag.top_rate {
-                background: #00a7ea;
-            }
-
-            .listing__item__pic__tag.hot_deal {
-                background: #D9D137;
-            }
-
-            .listing__item__pic__btns {
-                position: absolute;
-                right: 20px;
-                bottom: 20px;
-            }
-
-            .listing__item__text {
-                padding-left: 8px;
-                padding-right: 8px;
-                padding-top: 10px;
-            }
-
-            .listing__item__text__inside h5 {
-                font-size: 16px;
-                color: #323232;
-                font-weight: 600;
-                margin-bottom: 6px;
-            }
-
-            .studioName:hover {
-                color: #e1264a !important;
-                cursor: pointer;
-            }
-
-            .listing__item__text__inside ul {
-                margin-bottom: 20px;
-            }
-
-            .listing__item__text__inside .price {
-                color: #e1264a;
-                font-size: 20px;
-                font-weight: 900;
-            }
-
-            .listing__item__text__inside ul li {
-                font-size: 15px;
-                color: #323232;
-                list-style: none;
-                line-height: 25px;
-                position: relative;
-                padding-left: 25px;
-            }
-
-                .listing__item__text__inside ul li span {
-                    color: #A8A8A8;
-                    position: absolute;
-                    left: 0;
-                    top: 5px;
-                }
-
-            .listing__item__text__rating {
-                overflow: hidden;
-                margin-bottom: 15px;
-            }
-
-                .listing__item__text__rating .listing__item__rating__star {
-                    float: left;
-                }
-
-                    .listing__item__text__rating .listing__item__rating__star span {
-                        font-size: 14px;
-                        color: #F09D17;
-                        margin-right: -3px;
-                    }
-
-                        .listing__item__text__rating .listing__item__rating__star span:last-child {
-                            margin-right: 0;
-                        }
-
-                .listing__item__text__rating h6 {
-                    font-size: 15px;
-                    color: #f03250;
-                    font-weight: 600;
-                    float: right;
-                }
-
-            .listing__item__text__info {
-                padding: 10px 8px;
-                border-top: 1px solid rgba(0, 0, 0, .1);
-                overflow: hidden;
-            }
-
-            .listing__item__text__info__left {
-                float: left;
-            }
-
-                .listing__item__text__info__left img {
-                    display: inline-block;
-                    margin-right: 10px;
-                    width: 34px;
-                    height: 34px;
-                    border-radius: 50%;
-                }
-
-                .listing__item__text__info__left span {
-                    font-size: 14px;
-                    color: #323232;
-                    font-weight: 600;
-                }
-
-            .listing__item__text__info__right {
-                float: right;
-                font-size: 14px;
-                color: #ffffffec;
-                font-weight: 700;
-                padding-top: 4px;
-                background-color: Transparent;
-                background-repeat: no-repeat;
-                border: none;
-                background-color: #89ba16;
-                border-radius: 5px;
-                padding: 5px 10px;
-            }
-
-                .listing__item__text__info__right.closed {
-                    color: #f03250;
-                }
-
-                .listing__item__text__info__right:focus {
-                    outline: none;
-                }
-
-                .listing__item__text__info__right:hover {
-                    opacity: .8;
-                }
-
-
-
-            #designerinfoNumber {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-evenly;
-            }
-
-
-            .text123 {
-                display: -webkit-box;
-                -webkit-line-clamp: 15;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-            }
-
-            .btn123 {
-                float: right;
-                clear: both;
-            }
-
-            .text123::before {
-                content: '';
-                float: right;
-                width: 0;
-                height: 100%;
-                margin-bottom: -24px;
-            }
-
-
-            .wrap123
-            [type="checkbox"] {
-                display: none
-            }
-
-            .wrap123 {
-                display: flex;
-            }
-
-            .btn123::after {
-                content: '顯示更多'
-            }
-
-            #exp:checked + .text123 {
-                -webkit-line-clamp: 999;
-            }
-
-                #exp:checked + .text123 .btn123::after {
-                    content: '顯示較少'
-                }
-
-
-
-
-                #exp:checked + .text123::after {
-                    visibility: hidden;
-                }
-
-
-
-            @@media screen and (min-width:769px) {
-                .contacts {
-                    display: none;
-                }
-
-                .contactp {
-                    display: block;
-                }
-            }
-        </style>
-
-    }
-
-
-
+        }*/
+    </style>
+
+}
+@section endJS{
+    @*<script>
+    window.onload = function ()
+    {
+        document.querySelector('#heart').addEventListener("click", function () {
+            var item = @ViewBag.StudioInfoList;
+
+        })
+        }
+        function AddToHeart(id) {
+            console.log(id);
+        }
+    </script>*@
+}
+   

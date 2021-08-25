@@ -15,8 +15,16 @@ using PRO_finder.Models.ViewModels;
 
 namespace PRO_finder.Service
 {
+
+
     public class StudioService
     {
+
+        private readonly GeneralRepository _repo;
+        public StudioService()
+        {
+            _repo = new GeneralRepository(new ProFinderContext());
+        }
         public IEnumerable<WorkPageViewModel> GetWorkpicturesByWorkID(int WorkID)
         {
             var WorkpictureRepository = new GeneralRepository(new ProFinderContext());
@@ -29,13 +37,6 @@ namespace PRO_finder.Service
                    select new WorkPageViewModel
                    {
                        WorkID = works.WorkID,
-                       //WorkName = works.WorkName,
-                       //WorkDescription = works.WorkDescription,
-                       //Client = works.Client,
-                       //Role = works.Role,
-                       //YearStarted = works.YearStarted,
-                       //WebsiteURL = works.WebsiteURL,
-                       //SubCategoryID = works.SubCategoryID,
                        WorkPictureID = workpictures.WorkPictureID,
                        SortNumber = workpictures.SortNumber,
                        WorkPicture = workpictures.WorkPicture
@@ -72,11 +73,11 @@ namespace PRO_finder.Service
             var StudioinfoRepository = new GeneralRepository(new ProFinderContext());
 
             return from mermberinfo in StudioinfoRepository.GetAll<MemberInfo>()
-                   //join subcategory in StudioinfoRepository.GetAll<SubCategory>()
-                   //on mermberinfo.SubCategoryID equals subcategory.SubCategoryID
                    join location in StudioinfoRepository.GetAll<Locations>()
                    on mermberinfo.LocationID equals location.LocationID
                    where mermberinfo.MemberID == MemberID
+                   //join subcategory in StudioinfoRepository.GetAll<SubCategory>()
+                   //on mermberinfo.SubCategoryID equals subcategory.SubCategoryID
 
 
                    select new StudioViewModel
@@ -89,7 +90,7 @@ namespace PRO_finder.Service
                        ProfilePicture = mermberinfo.ProfilePicture,
                        //ExpertSubCategory = subcategory.SubCategoryName,
                        Identity = mermberinfo.Identity
-                       
+
                    };
         }
 
@@ -103,14 +104,16 @@ namespace PRO_finder.Service
                    where works.MemberID == MemberID
                    join workpictures in StudioworkRepository.GetAll<WorkPictures>()
                    on works.WorkID equals workpictures.WorkID
-                   where workpictures.SortNumber == 1
+                   where workpictures.SortNumber == 3
+                   join subcategory in StudioworkRepository.GetAll<SubCategory>()
+                   on works.SubCategoryID equals subcategory.SubCategoryID
 
                    select new StudioViewModel
                    {
                        WorkID = works.WorkID,
                        WorkName = works.WorkName,
                        WebsiteURL = works.WebsiteURL,
-                       WorkSubCategoryID = works.SubCategoryID,
+                       WorkSubCategory = subcategory.SubCategoryName,
                        MemberID = memberinfo.MemberID,
                        WorkPicture = workpictures.WorkPicture
                    };
@@ -124,8 +127,8 @@ namespace PRO_finder.Service
                        //join memberinfo in StudioquotRepository.GetAll<MemberInfo>()
                        //on quotation.MemberID equals memberinfo.MemberID
                    where quotation.MemberID == MemberID
-                   join quotationpicture in StudioquotRepository.GetAll<OtherPicture>()
-                   on quotation.QuotationID equals quotationpicture.QuotationID
+                   //join quotationpicture in StudioquotRepository.GetAll<OtherPicture>()
+                   //on quotation.QuotationID equals quotationpicture.QuotationID
                    join subcategory in StudioquotRepository.GetAll<SubCategory>()
                    on quotation.SubCategoryID equals subcategory.SubCategoryID
                    join category in StudioquotRepository.GetAll<Category>()
@@ -138,10 +141,10 @@ namespace PRO_finder.Service
                        QuotationId = quotation.QuotationID,
                        //QuotationCategoryId = quotation.Category,要用sub反找cate  CategoryName
                        SubcategoryName = subcategory.SubCategoryName,
-                       CategoryName=category.CategoryName,
+                       CategoryName = category.CategoryName,
                        Price = quotation.Price,
                        Unit = quotation.QuotationUnit,
-                       //QuotationImg = quotationpicture.MainPicture
+                       QuotationImg = quotation.MainPicture
                        //用id去找name SubcategoryName 
                        //WorkName = works.WorkName,
                        //WebsiteURL = works.WebsiteURL,
@@ -159,22 +162,40 @@ namespace PRO_finder.Service
             return from order in CaseReviewRepository.GetAll<Order>()
                    join memberinfo in CaseReviewRepository.GetAll<MemberInfo>()
                    on order.DealedTalentMemberID equals memberinfo.MemberID
-                  
+
 
                    select new StudioViewModel
                    {
                        CaseReview = order.CaseReview,
                        CaseMessage = order.CaseMessage,
-                       CaseReplyMessage=order.CaseReplyMessage,
+                       CaseReplyMessage = order.CaseReplyMessage,
                        MemberID = memberinfo.MemberID,
-                       NickName=memberinfo.NickName
+                       NickName = memberinfo.NickName
 
 
-                       
+
                    };
         }
-        //評價
-    }
+
+        public SaveStaff CreateFavorite(StudioViewModel input)
+        {
+
+            SaveStaff entity = new SaveStaff()
+            {
+                MemberID = input.MemberID,
+                SavedTalentID = input.SavedTalentID,
+                SavedDate = input.SavedDate,
+                SaveStaffID = input.SaveStaffID
+            };
+            _repo.Create(entity);
+            _repo.SaveChanges();
+            return entity;
+        }
+        //public IEnumerable<StudioViewModel> PostSaveStaffByMemberID(int MemberID)
+        //{
+    }    //    var StudioworkRepository = new GeneralRepository(new ProFinderContext());
+
+        //}
 }
 
 

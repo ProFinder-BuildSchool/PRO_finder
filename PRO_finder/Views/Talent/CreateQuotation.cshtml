@@ -81,7 +81,8 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-12" })
                 <div class="col-md-12">
-                    <div id="editor" name="Description"></div>
+                    <div id="editor"></div>
+                    <input type="hidden" name="Description"/>
                     @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -113,7 +114,7 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-12 text-center">
-                    <input type="submit" value="儲存" class="btn btn-primary mt-3" id="submit" />
+                    <input type="button" value="儲存" class="btn btn-primary mt-3" id="send"/>
                 </div>
             </div>
         </div>
@@ -255,8 +256,8 @@
                     let allsub = JSON.parse(sub.JsonSubCategoryList);
                     allsub.forEach(s => {
                         let option = document.createElement("option");
-                        option.innerText = s.SubCategoryName;
-                        option.value = s.SubCategoryID;
+                        option.innerText = s.SubCateName;
+                        option.value = s.SubCateID;
                         selector.append(option);
                     });
                 };
@@ -298,7 +299,6 @@
             let files = Array.from(this.files);
             files.forEach(file => {
                 uploadArray.push(file);
-
                 let clone = $g("#displayPictureTemplate").content.cloneNode(true);
                 let div = clone.querySelector("div");
                 let span = clone.querySelector("span");
@@ -346,44 +346,52 @@
         const upload_preset = "syjy97jq";
         const myApiKey = "691819382586651"
 
-        $g("input[type='submit']").addEventListener("click", function (e) {
+        $g("input#send").addEventListener("click", function (e) {
             e.preventDefault();
-            //OtherPictureList
-            let sortNum = 0;
-            let otherPictureArray = [];
-            const formData = new FormData();
-            uploadArray.forEach(file => {
-                formData.append("file", file);
-                formData.append("upload_preset", upload_preset);
-                formData.append("api_key", myApiKey);
 
-                fetch(CLOUDINARY_URL, {
-                    method: "POST",
-                    body: formData
-                })
-                .then((response) => {
-                    return response.text();
-                })
-                .then((data) => {
-                    let result = JSON.parse(data);
+            //富文本編輯器儲存
+            $g("input[name='Description']").value = $g("div.ql-editor").innerHTML;
+
+            //OtherPictureList
+            //let sortNum = 0;
+            let otherPictureArray = [];
+
+            const asyncRun = async () => {
+                for (let i = 0; i < uploadArray.length; i++) {
+                    let formData = new FormData();
+                    formData.append("file", uploadArray[i]);
+                    formData.append("upload_preset", upload_preset);
+                    formData.append("api_key", myApiKey);
+                    let result_url = await fetchCloudinary(formData);
                     let obj = new Object();
-                    obj.OtherPicture1 = result.url;
-                    //obj.OtherPictureLink = result.url;
-                    obj.SortNumber = sortNum;
-                    OtherPictureArray.push(obj);
-                    sortNum++;
-                });
-            });
-            $g("input#MainPicture").value = OtherPictureArray[0].OtherPicture;
-            let otherPics = JSON.stringify(otherPictureArray);
-            $g("input#OtherPictureList").value = otherPics;
-            console.log(otherPics);
+                    obj.OtherPicture1 = result_url;
+                    obj.SortNumber = i;
+                    otherPictureArray.push(obj);
+                }
+                $g("input#MainPicture").value = otherPictureArray[0].OtherPicture1;
+                let otherPics = JSON.stringify(otherPictureArray);
+                $g("input#OtherPictureList").value = otherPics;
+                console.log(otherPics);
+
+                document.querySelector("form[action='/Talent/CreateQuotation']").submit();
+            };
+            asyncRun();
 
         });
 
         function $g(element) {
             let temp = document.querySelectorAll(element);
             return temp.length == 1 ? temp[0] : temp;
+        }
+        function fetchCloudinary(form_data) {
+            return fetch(CLOUDINARY_URL, {
+                method: "POST",
+                body: form_data
+            })
+                .then((response) => {
+                    return response.json();
+                })
+                .then(data => data.url);
         }
     </script>
 

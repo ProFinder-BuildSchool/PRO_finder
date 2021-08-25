@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using System.Web.Mvc;
 using PRO_finder.Models.ViewModel;
 using static PRO_finder.Models.ViewModels.QuotationViewModel;
+using Newtonsoft.Json.Linq;
 
 namespace PRO_finder.Service
 {
@@ -167,19 +168,20 @@ namespace PRO_finder.Service
             
 
         //刊登新服務 CreateQuotation
-        public Quotation CreateQuotation(CreateQuotationViewModel newQ, DateTime now)
+        public Quotation CreateQuotation(CreateQuotationViewModel newQ)
         {
+            DateTime now = DateTime.Now;
             Quotation entity = new Quotation
             {
                 QuotationTitle = newQ.QuotationTitle,
-                //UpdateDate = now,
+                UpdateDate = now,
                 QuotationUnit = (int)newQ.QuotationUnit,
                 ExecuteDate = newQ.ExecuteDate,
                 MemberID = newQ.MemberID,
                 Description = newQ.Description,
                 SubCategoryID = newQ.SubCategoryID,
                 Price = newQ.Price,
-                //MainPicture = newQ.MainPicture
+                MainPicture = newQ.MainPicture
             };
             _repo.Create(entity);
             _repo.SaveChanges();
@@ -188,7 +190,8 @@ namespace PRO_finder.Service
 
         public void CreateOtherPics(int quotationID, string picList)
         {
-            List<OtherPicture> pics = (List<OtherPicture>)JsonConvert.DeserializeObject(picList);
+            JArray tempArray = JArray.Parse(picList);
+            List<OtherPicture> pics = tempArray.ToObject<List<OtherPicture>>();
             foreach(var item in pics)
             {
                 OtherPicture p = new OtherPicture
@@ -203,7 +206,7 @@ namespace PRO_finder.Service
             }
         }
 
-        public List<SelectListItem> GetLocationList()
+        public List<SelectListItem> GetLocationSelectList()
         {
             List<Locations> locationDB = _repo.GetAll<Locations>().ToList();
             List<SelectListItem> locationlist = new List<SelectListItem>();

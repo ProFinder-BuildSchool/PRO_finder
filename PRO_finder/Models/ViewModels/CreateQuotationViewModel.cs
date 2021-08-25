@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using PRO_finder.Models.DBModel;
 
 
@@ -24,7 +25,6 @@ namespace PRO_finder.ViewModels
         public TimeSpan UpdateDate { get; set; }
 
         [Required]
-        [StringLength(30)]
         [Display(Name = "服務訂價")]
         public decimal Price { get; set; }
 
@@ -42,6 +42,7 @@ namespace PRO_finder.ViewModels
 
         [Required]
         [Display(Name = "服務内容")]
+        [AllowHtml]
         public string Description { get; set; }
 
         [Display(Name = "服務類別")]
