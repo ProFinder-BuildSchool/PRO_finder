@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services;
+using static PRO_finder.Models.ViewModels.SaveCaseItemViewModel;
 using PRO_finder.Helper;
 
 namespace PRO_finder.Service
@@ -32,7 +34,7 @@ namespace PRO_finder.Service
                    join Category in _ctx.GetAll<Category>() on SubCategory.CategoryID equals Category.CategoryID
                    select new CaseViewModel
                    {
-                       CaseId=Case.CaseID,
+                       CaseId = Case.CaseID,
                        title = Case.CaseTitle,
                        Price = (int)Case.Price,
                        LocationID = (int)Case.Location,
@@ -53,14 +55,14 @@ namespace PRO_finder.Service
             return temp;
         }
 
-      
+
 
 
         public IEnumerable<CaseDetailViewModel> GetCaseDetail()
         {
 
-            
-          return from Case in _ctx.GetAll<Case>()
+
+            return from Case in _ctx.GetAll<Case>()
                    join MemberInfo in _ctx.GetAll<MemberInfo>() on Case.MemberID equals MemberInfo.MemberID
                    join SubCategory in _ctx.GetAll<SubCategory>() on Case.SubCategoryID equals SubCategory.SubCategoryID
                    join Locations in _ctx.GetAll<Locations>() on Case.Location equals Locations.LocationID
@@ -71,8 +73,8 @@ namespace PRO_finder.Service
                        CaseId = Case.CaseID,
                        LocationID = (int)Case.Location,
                        LocationName = Locations.LocationName,
-                       Price = (int)Case.Price,
-                       //CompleteDate = Case.CompleteDate,
+                       Price = (CaseDetailViewModel.PriceEnum)Case.Price,
+                       CompleteDate = Case.CompleteDate,
                        Type = (CaseDetailViewModel.TypeEnum)(TypeEnum)Case.Type,
                        Description = Case.Description,
                        Contact = Case.Contact,
@@ -81,14 +83,15 @@ namespace PRO_finder.Service
                        LocalCalls = Case.LocalCalls,
                        ContactEmail = Case.ContactEmail,
                        LineID = Case.LineID,
-                      
+                       CategoryID = SubCategory.CategoryID,
+
 
                    };
 
 
 
 
-             
+
         }
 
         public enum TypeEnum
@@ -96,5 +99,32 @@ namespace PRO_finder.Service
             長期合作, 急件, 一般案件
         }
 
+        public IEnumerable<SaveCaseItemViewModel> GetSavedCaseData()
+        {
+            return from SaveCase in _ctx.GetAll<SaveCase>()
+                   join Case in _ctx.GetAll<Case>() on SaveCase.CaseID equals Case.CaseID
+                   select new SaveCaseItemViewModel
+                   {
+                       CaseID = SaveCase.CaseID,
+                       title = Case.CaseTitle,
+                       Price = (PriceEnum)Case.Price,
+                       Contact = Case.Contact,
+                       CaseStatus = (int)Case.CaseStatus,
+                       UpdateDate = (DateTime)Case.UpdateDate
+                   };
+        }
+        
+        public SaveCase AddSaveCase(SaveCaseViewModel NewSaveCase, SaveCaseItemViewModel NewSaveCaseItem)
+        {
+            SaveCase entity = new SaveCase
+            {
+                CaseID = NewSaveCase.CaseID,
+                SavedDate = NewSaveCaseItem.UpdateDate,
+                MemberID = NewSaveCase.MemberID
+            };
+            _ctx.Create(entity);
+            _ctx.SaveChanges();
+            return entity;
+        }
     }
 }
