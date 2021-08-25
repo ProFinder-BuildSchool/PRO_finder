@@ -10,7 +10,7 @@ namespace PRO_finder.Models.ViewModels
 
     public class QuotationViewModel
     {
-        public int Id { get; set; } //QuotationId
+        public int QuotationId { get; set; } //QuotationId
         public int CategoryId { get; set; }
         public int SubcategoryId { get; set; }
         public string SubcategoryName { get; set; }

@@ -153,20 +153,23 @@ namespace PRO_finder.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email  ,Test= model.Test ,Test2 =model.Test2};
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    _context.MemberInfo.Add(new MemberInfo { UserId = model.Email, Email = model.Email });
-                    _context.SaveChanges();
+
+                    //_context.MemberInfo.Add(new MemberInfo { UserId = model.Email, Email = model.Email });
+                    //_context.SaveChanges();
                     // 如需如何進行帳戶確認及密碼重設的詳細資訊，請前往 https://go.microsoft.com/fwlink/?LinkID=320771
                     // 傳送包含此連結的電子郵件
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "確認您的帳戶", "請按一下此連結確認您的帳戶 <a href=\"" + callbackUrl + "\">這裏</a>");
-
+                    
+                    _context.MemberInfo.Add(new MemberInfo { UserId = user.Id, Email = model.Email });
+                    _context.SaveChanges();
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
@@ -378,7 +381,8 @@ namespace PRO_finder.Controllers
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
-                        _context.MemberInfo.Add(new MemberInfo { UserId = model.Email, Email = model.Email });
+                        
+                        _context.MemberInfo.Add(new MemberInfo { UserId = user.Id, Email = model.Email });
                         _context.SaveChanges();
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);

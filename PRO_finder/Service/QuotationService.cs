@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using System.Web.Mvc;
 using PRO_finder.Models.ViewModel;
 using static PRO_finder.Models.ViewModels.QuotationViewModel;
+using Newtonsoft.Json.Linq;
 
 namespace PRO_finder.Service
 {
@@ -25,36 +26,46 @@ namespace PRO_finder.Service
             _ctx = new GeneralRepository(new ProFinderContext());
         }
 
-        public List<QuotationViewModel> GetCategoryPageData(int categoryId)
+        public List<QuotationViewModel> GetAllCardData()
         {
-
             var quotationVM = (from q in _ctx.GetAll<Quotation>()
-                               //join o in _ctx.GetAll<OtherPicture>() on q.OtherPictureID equals o.OtherPictureID
                                join s in _ctx.GetAll<SubCategory>() on q.SubCategoryID equals s.SubCategoryID
                                join m in _ctx.GetAll<MemberInfo>() on q.MemberID equals m.MemberID
                                join l in _ctx.GetAll<Locations>() on m.LocationID equals l.LocationID
                                join c in _ctx.GetAll<Category>() on s.CategoryID equals c.CategoryID
                                select new QuotationViewModel
                                {
-                                   Id = q.QuotationID,
+                                   QuotationId = q.QuotationID,
                                    CategoryName = c.CategoryName,
                                    Price = (q.Price).ToString(),
                                    Unit = q.QuotationUnit,
                                    StudioName = m.NickName,
-                                   //Img = o.MainPicture,
+                                   Img = q.MainPicture,
                                    CategoryId = s.CategoryID,
                                    SubcategoryId = s.SubCategoryID,
                                    SubcategoryName = s.SubCategoryName,
                                    Location = l.LocationName
 
                                }
-                               );
+                   );
             if (quotationVM.Count() == 0)
             {
                 return null;
             }
 
-            return quotationVM.Where(x => x.CategoryId == categoryId).ToList();
+            return quotationVM.ToList();
+        }
+
+        public List<QuotationViewModel> GetCategoryPageData(int categoryId)
+        {
+
+            var quotationVM = GetAllCardData().Where(x => x.CategoryId == categoryId).ToList();
+            if (quotationVM.Count() == 0)
+            {
+                return null;
+            }
+
+            return quotationVM;
         }
 
 
@@ -71,68 +82,28 @@ namespace PRO_finder.Service
             return quotationVM;
         }
 
+        public List<Locations> GetLocationName()
+        {
+            List<Locations> LocationList = _ctx.GetAll<Locations>().ToList();
+
+            if (LocationList.Count() == 0)
+            {
+                return null;
+            }
+
+            return LocationList;
+        }
+
         public List<QuotationViewModel> GetKeyWordCardData(string keyword)
         {
-            var quotationVM = (from q in _ctx.GetAll<Quotation>()
-                               //join o in _ctx.GetAll<OtherPicture>() on q.OtherPictureID equals o.OtherPictureID
-                               join s in _ctx.GetAll<SubCategory>() on q.SubCategoryID equals s.SubCategoryID
-                               join m in _ctx.GetAll<MemberInfo>() on q.MemberID equals m.MemberID
-                               join l in _ctx.GetAll<Locations>() on m.LocationID equals l.LocationID
-                               join c in _ctx.GetAll<Category>() on s.CategoryID equals c.CategoryID
-                               select new QuotationViewModel
-                               {
-                                   Id = q.QuotationID,
-                                   CategoryName = c.CategoryName,
-                                   Price = (q.Price).ToString(),
-                                   Unit = q.QuotationUnit,
-                                   StudioName = m.NickName,
-                                   //Img = o.MainPicture,
-                                   CategoryId = s.CategoryID,
-                                   SubcategoryId = s.SubCategoryID,
-                                   SubcategoryName = s.SubCategoryName,
-                                   Location = l.LocationName
-
-                               }
-                               );
+            var quotationVM = GetAllCardData();
 
             if (quotationVM.Count() != 0)
             {
                 return quotationVM.Where(x => x.SubcategoryName.Contains(keyword)).ToList();
             }
 
-                return null;
-        }
-
-        public List<QuotationViewModel> GetAllCardData()
-        {
-            var quotationVM = (from q in _ctx.GetAll<Quotation>()
-                               //join o in _ctx.GetAll<OtherPicture>() on q.OtherPictureID equals o.OtherPictureID
-                               join s in _ctx.GetAll<SubCategory>() on q.SubCategoryID equals s.SubCategoryID
-                               join m in _ctx.GetAll<MemberInfo>() on q.MemberID equals m.MemberID
-                               join l in _ctx.GetAll<Locations>() on m.LocationID equals l.LocationID
-                               join c in _ctx.GetAll<Category>() on s.CategoryID equals c.CategoryID
-                               select new QuotationViewModel
-                               {
-                                   Id = q.QuotationID,
-                                   CategoryName = c.CategoryName,
-                                   Price = (q.Price).ToString(),
-                                   Unit = q.QuotationUnit,
-                                   StudioName = m.NickName,
-                                   //Img = o.MainPicture,
-                                   CategoryId = s.CategoryID,
-                                   SubcategoryId = s.SubCategoryID,
-                                   SubcategoryName = s.SubCategoryName,
-                                   Location = l.LocationName
-
-                               }
-                               );
-
-            if (quotationVM.Count() == 0)
-            {
-                return null;
-            }
-
-            return quotationVM.ToList();
+            return null;
         }
 
         //報價細節
@@ -197,19 +168,20 @@ namespace PRO_finder.Service
             
 
         //刊登新服務 CreateQuotation
-        public Quotation CreateQuotation(CreateQuotationViewModel newQ, DateTime now)
+        public Quotation CreateQuotation(CreateQuotationViewModel newQ)
         {
+            DateTime now = DateTime.Now;
             Quotation entity = new Quotation
             {
                 QuotationTitle = newQ.QuotationTitle,
-                //UpdateDate = now,
+                UpdateDate = now,
                 QuotationUnit = (int)newQ.QuotationUnit,
                 ExecuteDate = newQ.ExecuteDate,
                 MemberID = newQ.MemberID,
                 Description = newQ.Description,
                 SubCategoryID = newQ.SubCategoryID,
                 Price = newQ.Price,
-                //MainPicture = newQ.MainPicture
+                MainPicture = newQ.MainPicture
             };
             _repo.Create(entity);
             _repo.SaveChanges();
@@ -218,7 +190,8 @@ namespace PRO_finder.Service
 
         public void CreateOtherPics(int quotationID, string picList)
         {
-            List<OtherPicture> pics = (List<OtherPicture>)JsonConvert.DeserializeObject(picList);
+            JArray tempArray = JArray.Parse(picList);
+            List<OtherPicture> pics = tempArray.ToObject<List<OtherPicture>>();
             foreach(var item in pics)
             {
                 OtherPicture p = new OtherPicture
@@ -233,7 +206,7 @@ namespace PRO_finder.Service
             }
         }
 
-        public List<SelectListItem> GetLocationList()
+        public List<SelectListItem> GetLocationSelectList()
         {
             List<Locations> locationDB = _repo.GetAll<Locations>().ToList();
             List<SelectListItem> locationlist = new List<SelectListItem>();
