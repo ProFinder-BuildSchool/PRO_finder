@@ -276,6 +276,7 @@
     <Compile Include="Models\ViewModels\SaveCaseItemViewModel.cs" />
     <Compile Include="Models\ViewModels\SaveCaseViewModel.cs" />
     <Compile Include="Models\ViewModels\SubCategoryViewModel.cs" />
+    <Compile Include="Models\ViewModels\SubToolViewModel.cs" />
     <Compile Include="Models\ViewModels\UploadMyWorksViewModel.cs" />
     <Compile Include="Models\ViewModels\WorkPageViewModel.cs" />
     <Compile Include="Models\ViewModels\StudioViewModel.cs" />

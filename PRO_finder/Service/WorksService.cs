@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PRO_finder.Models.DBModel;
 using PRO_finder.Models.ViewModels;
 using PRO_finder.Repositories;
@@ -19,8 +20,11 @@ namespace PRO_finder.Service
         }
         public Works CreateWorks(UploadMyWorksViewModel input)
         {
+            int lastworkID = _repo.GetAll<Works>().ToList().Last().WorkID;
+            int newID = lastworkID+1;
             Works entity = new Works()
             {
+                WorkID = newID,
                 WorkName = input.WorkName,
                 WorkDescription = input.WorkDescription,
                 Client = input.Client,
@@ -36,12 +40,13 @@ namespace PRO_finder.Service
         }
         public void CreateWorkAttachment(int workID, string attachmentList)
         {
-            var parseAttachmentList = (List<WorkAttachment>)JsonConvert.DeserializeObject(attachmentList);
+            JArray tempArray = JArray.Parse(attachmentList);
+            var parseAttachmentList = tempArray.ToObject<List<WorkAttachment>>();
             foreach(var item in parseAttachmentList)
             {
                 WorkAttachment entity = new WorkAttachment
                 {
-                    //WorkID = workID,
+                    WorkID = workID,
                     WorkAttachmentName = item.WorkAttachmentName,
                     WorkAttachmentLink = item.WorkAttachmentLink
                 };
@@ -52,7 +57,8 @@ namespace PRO_finder.Service
 
         public void CreateWorkPictures(int workID, string pictureList)
         {
-            var parsePictureList = (List<WorkPictures>)JsonConvert.DeserializeObject(pictureList);
+            JArray tempArray = JArray.Parse(pictureList);
+            var parsePictureList = tempArray.ToObject<List<WorkPictures>>();
             foreach(var item in parsePictureList)
             {
                 WorkPictures entity = new WorkPictures

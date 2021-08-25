@@ -1,4 +1,5 @@
-﻿using PRO_finder.Models.DBModel;
+﻿using Newtonsoft.Json;
+using PRO_finder.Models.DBModel;
 using PRO_finder.Models.ViewModels;
 using PRO_finder.Repositories;
 using System;
