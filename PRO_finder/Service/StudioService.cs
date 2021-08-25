@@ -12,6 +12,9 @@ using PRO_finder.Repositories;
 using PRO_finder.Model.ViewModels;
 using System.Data.Entity;
 using PRO_finder.Models.ViewModels;
+using System.Configuration;
+using System.Data.SqlClient;
+using Dapper;
 
 namespace PRO_finder.Service
 {
@@ -191,11 +194,13 @@ namespace PRO_finder.Service
             _repo.SaveChanges();
             return entity;
         }
+
         //public IEnumerable<StudioViewModel> PostSaveStaffByMemberID(int MemberID)
         //{
     }    //    var StudioworkRepository = new GeneralRepository(new ProFinderContext());
 
-        //}
+    //}
+
 }
 
 

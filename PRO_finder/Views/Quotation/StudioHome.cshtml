@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "StudioHome";
 }
-
+@using PRO_finder.Service
 <section class="site-section" id="next-section">
     <div class="container">
         <div class="row">
@@ -36,7 +36,10 @@
 
                         <div class="contactp">
                             <p>
-                                <a href="#"><i class="icon-heart-o" ></i>收藏</a>
+                                @*<a href="#"><i class="icon-heart-o" onclick=@Html.ActionLink() ></i>收藏</a>*@
+                                @Html.ActionLink(
+                                    "收藏", "FavorInsert", new { MemberID=ViewBag.MemberID, TalentID=ViewBag.MemberID, time= DateTime.UtcNow, StaffID=ViewBag.MemberID }
+                                )
                                 <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
                             </p>
                             <p><a href="#" class="btn btn-primary btn-md">邀請報價</a></p>
@@ -1123,13 +1126,11 @@
     window.onload = function ()
     {
         document.querySelector('#heart').addEventListener("click", function () {
-            var item = @ViewBag.StudioInfoList;
+            @FavorInsert
 
         })
         }
-        function AddToHeart(id) {
-            console.log(id);
-        }
+
     </script>*@
 }
    

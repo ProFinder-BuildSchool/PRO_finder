@@ -8,6 +8,10 @@ using PRO_finder.Repositories;
 using Newtonsoft.Json;
 using PRO_finder.Model.ViewModels;
 using System.Linq;
+using System.Configuration;
+using System;
+using System.Data.SqlClient;
+using Dapper;
 
 namespace PRO_finder.Controllers
 {
@@ -56,11 +60,12 @@ namespace PRO_finder.Controllers
             return View(QuoDetailVM);
         }
 
-        public ActionResult StudioHome(int MemberID=7)
+        public ActionResult StudioHome(int MemberID=10)
         {
             ViewBag.StudioInfoList = _studioService.GetStudioInfoByMemberID (MemberID);
             ViewBag.StudioWorkList = _studioService.GetStudioworksByMemberID (MemberID);
             ViewBag.StudioQuotationList = _studioService.GetStudioQuotationByMemberID (MemberID);
+            ViewBag.MemberID = MemberID;
             return View();
             //ViewBag.MemberID = MemberID;
             //StudioViewModel StudioInfoVM = _studioService.GetStudioInfoByMemberID(MemberID);
@@ -90,6 +95,17 @@ namespace PRO_finder.Controllers
             return Json(allCardData, JsonRequestBehavior.AllowGet);
         }
 
+        static string connString = ConfigurationManager.ConnectionStrings["ProFinderContext"].ConnectionString;
+        public ActionResult FavorInsert(int MemberID, int TalentID, DateTime time, int StaffID)
+        {
+            int affectedRow = 0; //
 
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                string sql = "Insert into SaveStaff(MemberID, SavedTalentID, SavedDate, SaveStaffID)values( @MemberID, @TalentID, @time, @StaffID)";
+                affectedRow = conn.Execute(sql, new { MemberID, TalentID, time, StaffID });
+            }
+            return RedirectToAction("StudioHome");
+        }
     }
 }
