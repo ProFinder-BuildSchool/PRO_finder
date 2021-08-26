@@ -21,6 +21,13 @@ namespace PRO_finder.ViewModels
         public int CategoryID;
 
         public string JsonSubCategoryList;
+        public List<SubCateData> SubCateData { get; set; }
+    }
+
+    public class SubCateData
+    {
+        public int SubCateID { get; set; }
+        public string SubCateName { get; set; }
     }
 
     public class Icon 
