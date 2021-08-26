@@ -13,10 +13,12 @@ namespace PRO_finder.Models.ViewModels
 
         public int MemberID { get; set; }
 
-        public SaveCaseViewModel()
-        {
-            this.saveCaseItems = new List<SaveCaseItemViewModel>();
-        }
-        public List<SaveCaseItemViewModel> saveCaseItems;
+        
+        public List<SaveCaseItemViewModel> SaveCaseItems { get; set; }
+
+        //public static explicit operator SaveCaseViewModel(object v)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

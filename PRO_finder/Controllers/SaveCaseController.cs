@@ -1,4 +1,5 @@
 ﻿using PRO_finder.Models.DBModel;
+using PRO_finder.Models.ViewModels;
 using PRO_finder.Repositories;
 using PRO_finder.Service;
 using System;
@@ -11,23 +12,34 @@ namespace PRO_finder.Controllers
 {
     public class SaveCaseController : Controller
     {
-        private readonly GeneralRepository _repo;
         private readonly CaseService _caseService;
+        private readonly SaveCaseService _savecaseService;
+
+
 
         public SaveCaseController()
         {
-            _repo = new GeneralRepository(new ProFinderContext());
             _caseService = new CaseService();
+            _savecaseService = new SaveCaseService();
+            
         }
 
-        public ActionResult Index()
+        public ViewResult Index()
         {
-            return View();
+            //List<SaveCaseItemViewModel> SaveCaseItems = (List<SaveCaseItemViewModel>)_savecaseService.GetSaveItemCaseData();
+            var SaveCaseViewModel = new SaveCaseViewModel();
+            return View(SaveCaseViewModel);
         }
 
-        public ActionResult AddSaveCase()
+        public ActionResult AddToSaveCase(int CaseID)
         {
-            return View();
+            var selectedCase = _caseService.GetCaseDetail().FirstOrDefault(c => c.CaseId == CaseID);
+
+            if (selectedCase != null)
+            {
+                _savecaseService.AddItemToSaveCase();
+            }
+            return RedirectToAction("Index");
         }
     }
     

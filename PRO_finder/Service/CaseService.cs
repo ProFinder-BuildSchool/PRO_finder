@@ -64,10 +64,10 @@ namespace PRO_finder.Service
 
 
             return from Case in _ctx.GetAll<Case>()
-                   join MemberInfo in _ctx.GetAll<MemberInfo>() on Case.MemberID equals MemberInfo.MemberID
+                   //join MemberInfo in _ctx.GetAll<MemberInfo>() on Case.MemberID equals MemberInfo.MemberID
                    join SubCategory in _ctx.GetAll<SubCategory>() on Case.SubCategoryID equals SubCategory.SubCategoryID
                    join Locations in _ctx.GetAll<Locations>() on Case.Location equals Locations.LocationID
-                   join Category in _ctx.GetAll<Category>() on SubCategory.CategoryID equals Category.CategoryID
+                   //join Category in _ctx.GetAll<Category>() on SubCategory.CategoryID equals Category.CategoryID
                    select new CaseDetailViewModel
                    {
                        title = Case.CaseTitle,
@@ -100,33 +100,7 @@ namespace PRO_finder.Service
             長期合作, 急件, 一般案件
         }
 
-        public IEnumerable<SaveCaseItemViewModel> GetSavedCaseData()
-        {
-            return from SaveCase in _ctx.GetAll<SaveCase>()
-                   join Case in _ctx.GetAll<Case>() on SaveCase.CaseID equals Case.CaseID
-                   select new SaveCaseItemViewModel
-                   {
-                       CaseID = SaveCase.CaseID,
-                       title = Case.CaseTitle,
-                       Price = (PriceEnum)Case.Price,
-                       Contact = Case.Contact,
-                       CaseStatus = (int)Case.CaseStatus,
-                       UpdateDate = (DateTime)Case.UpdateDate
-                   };
-        }
-        
-        public SaveCase AddSaveCase(SaveCaseViewModel NewSaveCase, SaveCaseItemViewModel NewSaveCaseItem)
-        {
-            SaveCase entity = new SaveCase
-            {
-                CaseID = NewSaveCase.CaseID,
-                SavedDate = NewSaveCaseItem.UpdateDate,
-                MemberID = NewSaveCase.MemberID
-            };
-            _ctx.Create(entity);
-            _ctx.SaveChanges();
-            return entity;
-        }
+       
         public List<SelectListItem> GetToolSelectList()
         {
             var toolList = _ctx.GetAll<ToolCategory>().ToList();
