@@ -37,7 +37,7 @@
                         <div class="contactp">
                             <p>
                                 @*<a href="#"><i class="icon-heart-o" onclick=@Html.ActionLink() ></i>收藏</a>*@
-                                @Html.ActionLink("收藏", "FavorInsert", new { MemberID = ViewBag.MemberID, TalentID = ViewBag.MemberID, time = DateTime.UtcNow, StaffID = ViewBag.MemberID, AddorRemove = ViewBag.FavorExist },new { @class="icon-heart-o"})
+                                @Html.ActionLink("收藏", "FavorInsertorDelete", new { MemberID = ViewBag.MemberID, TalentID = ViewBag.MemberID, time = DateTime.UtcNow, StaffID = ViewBag.MemberID, AddorRemove = ViewBag.FavorExist},new { @class="icon-heart-o"})
                                     <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
 </p>
                             <p><a href="#" class="btn btn-primary btn-md">邀請報價</a></p>

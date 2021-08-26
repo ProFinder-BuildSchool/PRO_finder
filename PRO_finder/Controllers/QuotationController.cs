@@ -13,6 +13,7 @@ using System;
 using System.Data.SqlClient;
 using Dapper;
 using PRO_finder.Models.DBModel;
+using Microsoft.AspNet.Identity;
 
 namespace PRO_finder.Controllers
 {
@@ -61,12 +62,14 @@ namespace PRO_finder.Controllers
             return View(QuoDetailVM);
         }
 
-        public ActionResult StudioHome(int TalentID=10, int MemberID= 1)
+        public ActionResult StudioHome(int TalentID=20)//, int MemberID= 1)
         {
+            int currentUserId;
+            var result = int.TryParse(System.Web.HttpContext.Current.User.Identity.GetUserId(),out currentUserId);
             ViewBag.StudioInfoList = _studioService.GetStudioInfoByMemberID (TalentID);
             ViewBag.StudioWorkList = _studioService.GetStudioworksByMemberID (TalentID);
             ViewBag.StudioQuotationList = _studioService.GetStudioQuotationByMemberID (TalentID);
-            IEnumerable<SaveStaff> favorlist = _studioService.GetFavorite(MemberID, TalentID);
+            IEnumerable<SaveStaff> favorlist = _studioService.GetFavorite(currentUserId, TalentID);
             ViewBag.MemberID = TalentID;
             //ViewBag.FavorExist = select SavedTalentID from favorlist where SavedTalentID == TalentID; //判斷talent是否存在member的list中
             return View();
@@ -113,12 +116,12 @@ namespace PRO_finder.Controllers
                 else
                 {
                     string sql = "DELETE FROM SaveStaff WHERE MemberID = @MemberID and SavedTalentID = @SavedTalentID and SaveStaffID=@SaveStaffID";
-                    affectedRow = conn.Execute(sql, new { MemberID = MemberID, SavedTalentID= TalentID, SaveStaffID= StaffID });
+                    affectedRow = conn.Execute(sql, new { MemberID = MemberID, SavedTalentID = TalentID, SaveStaffID = StaffID });
 
                     //remove from DB
                 }
             }
-            return RedirectToAction("StudioHome");
+            return  RedirectToAction("StudioHome"); //new EmptyResult();
         }
     }
 }
