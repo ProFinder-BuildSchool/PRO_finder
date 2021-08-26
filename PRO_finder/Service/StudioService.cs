@@ -180,19 +180,25 @@ namespace PRO_finder.Service
                    };
         }
 
-        public SaveStaff CreateFavorite(StudioViewModel input)
+        public IEnumerable<SaveStaff> GetFavorite(int MemberID,int TalentID)
         {
+            var GetFavorRepository = new GeneralRepository(new ProFinderContext());
 
-            SaveStaff entity = new SaveStaff()
-            {
-                MemberID = input.MemberID,
-                SavedTalentID = input.SavedTalentID,
-                SavedDate = input.SavedDate,
-                SaveStaffID = input.SaveStaffID
-            };
-            _repo.Create(entity);
-            _repo.SaveChanges();
-            return entity;
+            return from savestaff in GetFavorRepository.GetAll<SaveStaff>()
+                   where savestaff.MemberID == MemberID //AND savestaff.SavedTalentID== TalentID
+
+
+                   select new SaveStaff
+                   {
+                       MemberID = savestaff.MemberID,
+                       SavedTalentID = savestaff.SavedTalentID,
+                       SavedDate = savestaff.SavedDate,
+                       SaveStaffID = savestaff.SaveStaffID
+
+
+
+                   };
+
         }
 
         //public IEnumerable<StudioViewModel> PostSaveStaffByMemberID(int MemberID)

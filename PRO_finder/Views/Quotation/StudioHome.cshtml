@@ -37,11 +37,9 @@
                         <div class="contactp">
                             <p>
                                 @*<a href="#"><i class="icon-heart-o" onclick=@Html.ActionLink() ></i>收藏</a>*@
-                                @Html.ActionLink(
-                                    "收藏", "FavorInsert", new { MemberID=ViewBag.MemberID, TalentID=ViewBag.MemberID, time= DateTime.UtcNow, StaffID=ViewBag.MemberID }
-                                )
-                                <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
-                            </p>
+                                @Html.ActionLink("收藏", "FavorInsert", new { MemberID = ViewBag.MemberID, TalentID = ViewBag.MemberID, time = DateTime.UtcNow, StaffID = ViewBag.MemberID, AddorRemove = ViewBag.FavorExist },new { @class="icon-heart-o"})
+                                    <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
+</p>
                             <p><a href="#" class="btn btn-primary btn-md">邀請報價</a></p>
                         </div>
                     </div>
@@ -65,44 +63,24 @@
                     @foreach (var item in ViewBag.StudioInfoList)
                     {
                         <h4 class="mb-4" id="part">關於</h4>
-                        <div class="wrap123">
+                        <!--<div class="wrap123">
                             <input type="checkbox" id="exp">
                             <div class="text123">
                                 <label class="btn123" for="exp"></label>
                                 <div>
                                     <p>
-                                        @item.Description
-                                        @*哈囉！我是筑筑，是在職兼職的網頁設計師，台灣及日本股票上市電商公司工作5年，有數百張banner設計經驗，其中包含許多知名品牌，有豐富的業界經歷，設計風格多樣，如果喜歡我的設計，非常歡迎長期合作！<br />
-                                                <br />
-                                                主要提供 Banner設計服務，並尋找可長期配合廠商。<br />
-                                                若有 LOGO設計 / 名片設計 / 企業識別 / 海報設計 / 網站視覺設計 / 切版 等其他需求可以另進行討論。<br />
-                                                <br />
-                                                如需要報價或其他問題歡迎聯繫我，期待與您有合作機會！<br />
-                                                <br />
-                                                <br />
-                                                經歷<br />
-                                                2020<br />
-                                                現職日本股票上市公司，擔任專案設計師，專為吉野家、KF製藥、TTU 等日本知名企業製作Banner、EDM、海報 等設計，各式Banner製作經驗豐富。<br />
-                                                2019<br />
-                                                曾任職於網頁設計公司擔任專案網頁設計師，UI/UX設計、切版、RWD、Banner設計，具備html/css等獨立作業等級的切版技術。<br />
-                                                2016<br />
-                                                曾任職於台灣股票上市知名電商擔任網頁設計師，負責製作各式品牌及活動Banner、EDM、檔期活動頁設計與切版，門市型錄，門市海報 等，熟悉各種產品的設計，風格多樣。<br />
-                                                <br />
-                                                了解更多作品請參考作品集連結：<br />
-                                                https://chuyun10.github.io/chuyun10/index.html<br />
-                                                https://www.behance.net/chuyunteng
-                                            </p>
-                                            <p class="boldBlack">擅長工具:</p>
-                                            <p class="workroomTabContentText">
-                                                Illustrator、PhotoShop、HTML、CSS、InDesign、After Effects、Premiere。
-                                            </p>*@
-                                </div>
+                                        -->            
+                        <div class="aboutText">
+                            <p class="aboutp">
+                                @item.Description
+                            <div class="closeup">
+                                <a href="javascript:;" class="show">顯示更多</a>
+                                <a href="javascript:;" class="put">顯示較少</a>
                             </div>
                         </div>
                     }
                 </div>
 
-                @*</a>*@
 
 
                 <a name="02"><h4 class="mb-4" id="part">作品</h4></a>
@@ -1031,7 +1009,7 @@
         }
 
 
-        .text123 {
+       /* .text123 {
             display: -webkit-box;
             -webkit-line-clamp: 15;
             -webkit-box-orient: vertical;
@@ -1069,20 +1047,42 @@
             -webkit-line-clamp: 999;
         }
 
-            #exp:checked + .text123 .btn123::after {
-                content: '顯示較少'
+        #exp:checked + .text123 .btn123::after {
+            content: '顯示較少'
+        }
+
+        #exp:checked + .text123::after {
+            visibility: hidden;
+        }
+*/
+      
+        .aboutp {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 10;
+            -webkit-box-orient: vertical;
+        }
+        .closeup {
+            text-align: right;
+        }
+        .closeup a {
+            text-decoration: none;
+        }
+        .closeup a:hover {
+            text-decoration: underline;
+        }
+        .put{
+           display:none;
+        }
+        @@media screen and (min-width:1024px) {
+
+            .studionav {
+                top:40px
             }
+        }
 
-
-
-
-            #exp:checked + .text123::after {
-                visibility: hidden;
-            }
-
-
-
-        @@media screen and (min-width:769px) {
+        @@media screen and (min-width:1025px) {
             .contacts {
                 display: none;
             }
@@ -1122,6 +1122,34 @@
 
 }
 @section endJS{
+    <script>
+        var closeup = document.getElementsByClassName('closeup')[0]
+        var aboutp = document.getElementsByClassName('aboutp')[0]
+        var show = document.getElementsByClassName('show')[0]
+        var put = document.getElementsByClassName('put')[0]
+        var ischange = false
+        //if aboutp.line 如果文字少於十行不顯示closeupbtn
+       /* https://www.codenong.com/cs106865709/*/
+        closeup.addEventListener("click", function () {
+            if (ischange) {
+                aboutp.style.display = "-webkit-box"
+                put.style.display = "none"
+                show.style.display = "inline-block"
+                ischange = false
+            }
+            else {
+                aboutp.style.display = "block"
+                put.style.display = "inline-block"
+                show.style.display = "none"
+                ischange = true
+            }
+        })
+
+
+
+    </script>
+    
+
     @*<script>
     window.onload = function ()
     {
