@@ -303,7 +303,6 @@
     <Compile Include="Models\ViewModels\Home_IndexViewModel.cs" />
     <Compile Include="Models\ViewModels\MemberInfoViewModel.cs" />
     <Compile Include="Models\ViewModels\OtherPictureViewModel.cs" />
-    <Compile Include="Models\ViewModels\QuotationDetailViewModel .cs" />
     <Compile Include="Models\ViewModels\QuotationViewModel.cs" />
     <Compile Include="Models\ViewModels\SaveCaseViewModel.cs" />
     <Compile Include="Models\ViewModels\StudioDetailViewModel.cs" />
