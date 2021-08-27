@@ -134,7 +134,7 @@ namespace PRO_finder.Service
                                   QuotationID = op.QuotationID,
                                   SortNumber = op.SortNumber,
                                   //IsDefault = (op.IsDefault == 0 ? false : true),
-                                  OtherPicture = op.OtherPicture1
+                                  OtherPicture = op.OtherPictureLink
                               });
             var OrderList = _ctx.GetAll<Order>();
             var OrderVM = (from o in OrderList
@@ -208,8 +208,8 @@ namespace PRO_finder.Service
                 OtherPicture p = new OtherPicture
                 {
                     QuotationID = quotationID,
-                    OtherPicture1 = item.OtherPicture1,
-                    //OtherPictureLink = item.OtherPictureLink,
+                    //OtherPicture1 = item.OtherPicture1,
+                    OtherPictureLink = item.OtherPictureLink,
                     SortNumber = item.SortNumber
                 };
                 _repo.Create(p);

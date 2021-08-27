@@ -262,6 +262,10 @@
     <Compile Include="Migrations\202108230210101_ThreeQuotationRecord.Designer.cs">
       <DependentUpon>202108230210101_ThreeQuotationRecord.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202108271342384_2021-08-27.cs" />
+    <Compile Include="Migrations\202108271342384_2021-08-27.Designer.cs">
+      <DependentUpon>202108271342384_2021-08-27.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DBModel\AspNetRoles.cs" />
@@ -291,6 +295,7 @@
     <Compile Include="Models\DBModel\SubCategory.cs" />
     <Compile Include="Models\DBModel\sysdiagrams.cs" />
     <Compile Include="Models\DBModel\SystemContent.cs" />
+    <Compile Include="Models\DBModel\TalentTool.cs" />
     <Compile Include="Models\DBModel\ToolCategory.cs" />
     <Compile Include="Models\DBModel\ToolSubCategory.cs" />
     <Compile Include="Models\DBModel\WorkAttachment.cs" />
@@ -624,8 +629,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Cart\" />
-    <Folder Include="WorkAttachments\" />
     <Folder Include="Views\Default\" />
+    <Folder Include="WorkAttachments\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -685,6 +690,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202108230210101_ThreeQuotationRecord.resx">
       <DependentUpon>202108230210101_ThreeQuotationRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108271342384_2021-08-27.resx">
+      <DependentUpon>202108271342384_2021-08-27.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

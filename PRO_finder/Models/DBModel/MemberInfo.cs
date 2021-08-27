@@ -14,6 +14,7 @@ namespace PRO_finder.Models.DBModel
         {
             Case = new HashSet<Case>();
             Case1 = new HashSet<Case>();
+            Experience = new HashSet<Experience>();
             HostingDetail = new HashSet<HostingDetail>();
             Message = new HashSet<Message>();
             Message1 = new HashSet<Message>();
@@ -88,7 +89,8 @@ namespace PRO_finder.Models.DBModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Case> Case1 { get; set; }
 
-        public virtual Experience Experience { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Experience> Experience { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HostingDetail> HostingDetail { get; set; }

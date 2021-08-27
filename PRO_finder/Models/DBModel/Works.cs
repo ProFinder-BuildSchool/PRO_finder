@@ -15,6 +15,7 @@ namespace PRO_finder.Models.DBModel
         }
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int WorkID { get; set; }
 
         [Required]

@@ -18,7 +18,7 @@ namespace PRO_finder.Models.DBModel
 
         public int? SubCategoryID { get; set; }
 
-        public DateTime? UpdateDate { get; set; }
+        public DateTime UpdateDate { get; set; }
 
         public int? Price { get; set; }
 

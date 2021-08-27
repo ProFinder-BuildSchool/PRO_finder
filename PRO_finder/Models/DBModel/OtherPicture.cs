@@ -17,7 +17,6 @@ namespace PRO_finder.Models.DBModel
 
         public bool? IsDefault { get; set; }
 
-        [Column("OtherPicture")]
-        public string OtherPicture1 { get; set; }
+        public string OtherPictureLink { get; set; }
     }
 }
