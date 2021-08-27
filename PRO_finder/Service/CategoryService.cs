@@ -24,7 +24,7 @@ namespace PRO_finder.Service
             
                 List<Category> categoriesList = _repo.GetAll<Category>().ToList();
                 List<SelectListItem> selectCategory = new List<SelectListItem>();
-                selectCategory.Add(new SelectListItem { Text = "選擇主類型" });
+                selectCategory.Add(new SelectListItem { Text = "選擇主類型" , Value = "-1"});
                 foreach (var item in categoriesList)
                 {
                     selectCategory.Add(new SelectListItem { Value = item.CategoryID.ToString(), Text = item.CategoryName });

@@ -80,6 +80,9 @@
                 <div class="col-md-12 mt-3 text-right">
                     <span class="btn btn-light" id="addFile"><i class="fas fa-plus"></i>&ensp;新增作品附件</span>
                 </div>
+                <div>
+                    <button id="test">test</button>
+                </div>
             </div>
             <hr>
             <div class="form-group">
@@ -294,8 +297,8 @@
         let selector = document.querySelector("#subcategorySelect");
         var subCategoryList = [];
 
-        axios.get("/Talent/GetAllCategoryAndSubCategoryList").then(result => {
-            let data = JSON.parse(result.data);
+        axios.get("/api/Talent/GetAllCategoryAndSubCategoryList").then(result => {
+            let data = JSON.parse(result.data.Result);
             subCategoryList.push(...data);
         });
 
@@ -415,29 +418,32 @@
             //富文本編輯器儲存
             $g("input[name='WorkDescription']").value = $g("div.ql-editor").innerHTML;
 
-            //WorkAttachmentList
             let workAttachmentArray = [];
-            let input_nameList = document.querySelectorAll("input[data-content='WorkAttachmentName']");
-            let input_linkList = document.querySelectorAll("input[data-content='WorkAttachmentLink']");
-            if (input_nameList == null && input_linkList == null) {
-                $g("input#WorkAttachmentList").value = null;
-            }
-            else {
-                let len = input_nameList.length >= input_linkList.length ? input_linkList.length : input_nameList.length;
-                for (let i = 0; i < len; i++) {
-                    let obj = new Object();
-                    obj['WorkAttachmentName'] = input_nameList[i].value;
-                    obj['WorkAttachmentLink'] = input_linkList[i].value;
-                    workAttachmentArray.push(obj);
-                };
-                let newAttachments = JSON.stringify(workAttachmentArray);
-                $g("input#WorkAttachmentList").value = newAttachments;
-                console.log(newAttachments);
-            };
-
-            //WorkPictureList
             let workPictureArray = [];
             const asyncRun = async () => {
+                //WorkAttachment
+                let input_nameList = document.querySelectorAll("input[data-content='WorkAttachmentName']");
+                let input_linkList = document.querySelectorAll("input[data-content='WorkAttachmentLink']");
+                if (input_nameList == null && input_linkList == null) {
+                    $g("input#WorkAttachmentList").value = null;
+                }
+                else {
+                    let len = input_nameList.length >= input_linkList.length ? input_linkList.length : input_nameList.length;
+                    for (let i = 0; i < len; i++) {
+                        let file = new FormData();
+                        file.append("file", input_linkList[i].files[0]);
+
+                        let obj = new Object();
+                        obj['WorkAttachmentName'] = input_nameList[i].value;
+                        obj['WorkAttachmentLink'] = await axiosFiles(file);
+                        workAttachmentArray.push(obj);
+                    };
+                    let newAttachments = JSON.stringify(workAttachmentArray);
+                    $g("input#WorkAttachmentList").value = newAttachments;
+                    console.log(newAttachments);
+                };
+
+                //WorkPictureList
                 for (let i = 0; i < uploadArray.length; i++) {
                     let formData = new FormData();
                     formData.append("file", uploadArray[i]);
@@ -455,8 +461,7 @@
                 document.querySelector("form[action='/Talent/UploadMyWorks']").submit();
             }
             asyncRun();
-        });
-            
+        })
 
             function $g(element) {
                 let temp = document.querySelectorAll(element);
@@ -471,7 +476,11 @@
                         return response.json();
                     })
                     .then(data => data.url);
-            }
+        }
+        function axiosFiles(file) {
+            return axios({ method: "post", data: file, url: "/Talent/UploadFile", contentType: false, processData: false, enctype: "multipart/form-data" })
+                .then(res => res.data)
+        }
     </script>
 
 

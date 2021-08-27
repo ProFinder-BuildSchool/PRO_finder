@@ -244,8 +244,8 @@
         let selector = document.querySelector("#subcategorySelect");
         var subCategoryList = [];
 
-        axios.get("/Talent/GetAllCategoryAndSubCategoryList").then(result => {
-            let data = JSON.parse(result.data);
+        axios.get("/api/Talent/GetAllCategoryAndSubCategoryList").then(result => {
+            let data = JSON.parse(result.data.Result);
             subCategoryList.push(...data);
         });
 
