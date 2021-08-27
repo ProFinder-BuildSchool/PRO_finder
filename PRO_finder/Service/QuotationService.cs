@@ -45,21 +45,28 @@ namespace PRO_finder.Service
                                    SubcategoryId = s.SubCategoryID,
                                    SubcategoryName = s.SubCategoryName,
                                    Location = l.LocationName
+                                   
 
                                }
                    );
+
             if (quotationVM.Count() == 0)
             {
                 return null;
             }
 
+
             return quotationVM.ToList();
+
         }
 
         public List<QuotationViewModel> GetCategoryPageData(int categoryId)
         {
 
             var quotationVM = GetAllCardData().Where(x => x.CategoryId == categoryId).ToList();
+
+
+
             if (quotationVM.Count() == 0)
             {
                 return null;
@@ -85,6 +92,8 @@ namespace PRO_finder.Service
         public List<Locations> GetLocationName()
         {
             List<Locations> LocationList = _ctx.GetAll<Locations>().ToList();
+
+            
 
             if (LocationList.Count() == 0)
             {

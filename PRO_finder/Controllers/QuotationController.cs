@@ -23,7 +23,7 @@ namespace PRO_finder.Controllers
             _studioService = new StudioService();
         }
         // GET: Quotation
-        public ActionResult Index(int? CategoryId, string keyword)
+        public ActionResult Index(int? CategoryId, string keyword,string[] filter)
         {
 
             if (string.IsNullOrEmpty(keyword) && !CategoryId.HasValue)

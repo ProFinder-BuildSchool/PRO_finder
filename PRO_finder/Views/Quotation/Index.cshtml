@@ -102,7 +102,7 @@
         <div class="row pagination-wrap">
             <div class="col-md-12 categoriedpage">
                 <h1>平面設計-服務報價</h1>
-                <div class="mb-3 pagetop d-flex">
+                <div class="mb-3 pagediv d-flex">
                     @*<a href="#" class="prev">Prev</a>*@
                     @*<div class="d-inline-block pagezone">*@
                         @*<a href="#" class="active">1</a>
@@ -126,7 +126,7 @@
                                 <div class="list-unstyled block__47528 rwdcategory">
                                     @foreach (var item in ViewBag.cateNameList)
                                     {
-                                        <label><input type="checkbox" class="subcateinput" value="@item.SubCategoryName"> <span>@item.SubCategoryName</span></label>
+                                        <label><input type="checkbox" class="subcateinput" value="@item.SubCategoryName" data-subId="@item.SubCategoryID"> <span>@item.SubCategoryName</span></label>
                                     }
                                 </div>
                             </div>
@@ -134,7 +134,7 @@
                                 <div class="list-unstyled block__47528 rwdlocation">
                                     @foreach (var item in ViewBag.LocationList)
                                     {
-                                        <label><input type="checkbox" class="locationinput" value="@item.LocationName"> <span>@item.LocationName </span></label>
+                                        <label><input type="checkbox" class="locationinput" value="@item.LocationName" data-locatId="@(item.LocationID+1000)"> <span>@item.LocationName </span></label>
                                     }
                                 </div>
                             </div>
@@ -170,7 +170,7 @@
                         <div class="list-unstyled block__47528">
                             @foreach (var item in ViewBag.cateNameList)
                             {
-                                <label><input type="checkbox" class="subcateinput" value="@item.SubCategoryName"> <span>@item.SubCategoryName</span></label>
+                                <label><input type="checkbox" class="subcateinput" value="@item.SubCategoryName" data-subId="@item.SubCategoryID"> <span>@item.SubCategoryName</span></label>
                             }
                         </div>
                     </div>
@@ -183,7 +183,7 @@
                         <div class="list-unstyled block__47528">
                             @foreach (var item in ViewBag.LocationList)
                             {
-                                <label><input type="checkbox" class="locationinput" value="@item.LocationName"> <span>@item.LocationName </span></label>
+                                <label><input type="checkbox" class="locationinput" value="@item.LocationName" data-locatId="@(item.LocationID+1000)"> <span>@item.LocationName </span></label>
                             }
                         </div>
                     </div>
@@ -215,24 +215,24 @@
             <div class="most__search__tab mb-3">
                 <ul class="nav nav-tabs text-right" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">
+                        <a class="nav-link active priceSortBtn" data-toggle="tab" href="#tabs-1" role="tab">
                             價格
-                            <span>↑</span>
-                            <span>↓</span>
+                            <span class="priceTop">↑</span>
+                            <span class="priceLow">↓</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">
+                        <a class="nav-link orderNumberBtn" data-toggle="tab" href="#tabs-2" role="tab">
                             訂購數
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">
+                        <a class="nav-link evaluationNumberBtn" data-toggle="tab" href="#tabs-3" role="tab">
                             評價
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">
+                        <a class="nav-link newBtn" data-toggle="tab" href="#tabs-3" role="tab">
                             最新
                         </a>
                     </li>
@@ -319,33 +319,11 @@
 
             </div>
 
-            <!--<div class="row pagination-wrap mt-3">
-            <div class="col-md-12 text-right">
-                <div class="custom-pagination ml-auto">-->
-                    @*<a href="#" class="prev">Prev</a>
-                    <div class="d-inline-block">
-                        <a href="#" class="active">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                    </div>
-                    <a href="#" class="next">Next</a>*@
-                <!--</div>
-            </div>
-        </div>-->
-
             
             <div class="row pagination-wrap mt-3">
-            <div class="col-md-12 pagebottom d-flex justify-content-end">
+            <div class="col-md-12 pagediv d-flex justify-content-end">
                 <div class="custom-pagination ml-auto">
-                    @*<a href="#" class="prev">Prev</a>
-                    <div class="d-inline-block">
-                        <a href="#" class="active">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                    </div>
-                    <a href="#" class="next">Next</a>*@
+
                 </div>
             </div>
         </div>
@@ -964,8 +942,7 @@
     .tab-c.active {
         display: block;
     }
-    .pagetop li,
-    .pagebottom li {
+    .pagediv li {
         list-style: none;
     }
     .page-link {
@@ -985,8 +962,7 @@
         text-decoration: none;
     }
 
-    .pagetop a.prev, .pagetop a.next,
-    .pagebottom a.prev, .pagebottom a.next {
+    .pagediv a.prev, .pagediv a.next {
         /*width: auto;*/
         height: 35px;
         line-height: 30px;
@@ -995,11 +971,16 @@
         border-radius: 4px;
     }
 
-    .pagetop a.active, .page-link:hover,
-    .pagebottom a.active{
+    .pagediv a.active, .page-link:hover {
         background: #89ba16;
         color: #fff;
         border-color: #89ba16;
+    }
+
+    .changecolor {
+        color: #89ba16;
+        font-weight:bolder;
+        font-size:18px !important;
     }
 </style>
 }
@@ -1026,6 +1007,10 @@
         let subcateArr = [];
         let locationArr = [];
 
+        let subcatIdArr = [];
+        let locatIdArr = [];
+        let IdArr = [];
+
         let minPrice = document.querySelector('.minPrice');
         let maxPrice = document.querySelector('.maxPrice');
         let RwdMinPrice = document.querySelector('.RwdMinPrice');
@@ -1034,17 +1019,9 @@
 
         window.onload = function () {
             var url = decodeURI(location.href);
-            if (AllCardArray.length == 0) {
-                //let div = document.createElement('div');
-                //div.classList.add('text-primary', 'mx-auto', 'h5');
-                //div.innerText = '抱歉，沒有符合的搜尋結果';
-                //itemZone.append(div);
-                itemZone.innerHTML = '<div class="text-primary mx-auto h5"><p>抱歉，沒有符合的搜尋結果<p></div>';
-                console.log('cccc');
-            }
 
-            if (url.indexOf('keyword') > -1)
-            {
+
+            if (url.indexOf('keyword') > -1) {
                 subcatefilter.style.display = 'none';
             }
             console.log(AllCardArray)
@@ -1052,7 +1029,13 @@
             AddLocationFilter();
 
             pagination(AllCardArray, 1);
-              
+
+            if (AllCardArray.length == 0) {
+                let div = document.createElement('div');
+                div.classList.add('text-primary', 'mx-auto', 'h5');
+                div.innerText = '抱歉，沒有符合的搜尋結果';
+                itemZone.append(div);
+            }
         }
 
         //RWD filter function
@@ -1060,7 +1043,7 @@
                 side.style.width = "0px";
                 filtermodal.style.display = 'none';
                 html.classList.remove('fixWindow');
-        }
+            };
 
         document.querySelector('.closefilter').addEventListener('click', function () {
             CloseRwdFilter();
@@ -1120,29 +1103,31 @@
             subcateinput.forEach(function (item, index) {
                 item.addEventListener('change', function (e) {
                     subcateArr = []
+                    subcatIdArr = []
                     subcateinput.forEach(x => {
                         if (x.checked) {
                             subcateArr.push(x.value)
+                            subcatIdArr.push(x.getAttribute('data-subId'))
                         }
 
                     })
-                    console.log(subcateArr);
                     filterByAll(priceArr, subcateArr, locationArr)
                 })
             })
         }
-
+       
         //Location filter
         function AddLocationFilter() {
             locationinput.forEach(function (item, index) {
                 item.addEventListener('change', function () {
                     locationArr = []
+                    locatIdArr=[]
                     locationinput.forEach(x => {
                         if (x.checked) {
                             locationArr.push(x.value)
+                            locatIdArr.push(x.getAttribute('data-locatId'))
                         }
                     })
-                    console.log(locationArr);
                     filterByAll(priceArr, subcateArr, locationArr)
                 })
             })
@@ -1173,10 +1158,10 @@
 
             }
 
-            filterCard = OptionTwo;
-            console.log(filterCard)            pagination(filterCard, 1)
+            filterCard = OptionTwo;            IdArr = locatIdArr.concat(subcatIdArr);            console.log(IdArr);            if (IdArr.length == 0) {                window.history.replaceState({}, 0, "Index?");
+            }            else {                window.history.replaceState({}, 0, "Index?filter=" + `${IdArr}`);
+            }                        pagination(filterCard, 1)
 
-            /*addcard(filterCard)*/;
         }
 
        //search btn
@@ -1198,13 +1183,13 @@
                     filterCard = priceArr;
                 }
 
-                console.log(filterCard)
                 CloseRwdFilter();
-                /*addcard(filterCard)*/
+
                 pagination(filterCard, 1);
             })
         })
 
+        //clear all btn
         clearbtn.forEach(function (item) {
             item.addEventListener('click', function () {
 
@@ -1225,19 +1210,18 @@
                 locationArr = [];
                 priceArr = [];
                 CloseRwdFilter();
-                /*addcard(filterCard)*/
+                window.history.replaceState({}, 0, "Index?");
                 pagination(filterCard, 1);
-
-                /*location.href = "Index?" ;*/
             });
         });
 
 
         //Pagination
         function pagination(AllData, nowPage) {
-            console.log(nowPage);
             const dataTotal = AllData.length;
             const perPageCount = 12;
+
+            //Count the number of pages
             const pageTotal = Math.ceil(dataTotal / perPageCount);
             let currentPage = nowPage;
 
@@ -1268,13 +1252,14 @@
 
         }
 
-        let pagediv = document.querySelector('.pagetop');
+        let pagediv = document.querySelectorAll('.pagediv');
         let pagebottom = document.querySelector('.pagebottom');
         let pagezone = document.querySelector('.pagezone');
 
+         
+        //pageBtn
         function pageBtn(page) {
             let prenext = '';
-            let pageNum = '';
             const total = page.pageTotal;
 
             if (page.hasPage) {
@@ -1300,25 +1285,52 @@
             }
 
 
-            pagediv.innerHTML = prenext;
-            pagebottom.innerHTML = prenext;
+            pagediv.forEach(function (item) {
+                item.innerHTML = prenext;
+            })
         }
+
 
         function switchPage(e,arr) {
             e.preventDefault();
             if (e.target.nodeName !== 'A') return;
             const page = e.target.dataset.page;
-            console.log(arr)
             pagination(arr, page);
         }
 
-        pagediv.addEventListener('click', function (e) {
-            switchPage(e, filterCard);
+        pagediv.forEach(function (item) {
+            item.addEventListener('click', function (e) {
+                switchPage(e, filterCard);
+            });
         });
+            
 
-        pagebottom.addEventListener('click', function (e) {
-            switchPage(e, filterCard);
+
+
+        //Sort by price
+        let sortPrice = false;
+        document.querySelector('.priceSortBtn').addEventListener('click', function () {
+            sortPrice = !sortPrice
+            if (sortPrice) {
+                filterCard.sort(function (a, b) { return b.Price - a.Price })
+                document.querySelector('.priceTop').classList.add('changecolor');
+                document.querySelector('.priceLow').classList.remove('changecolor');
+            }
+            else {
+                filterCard.sort(function (a, b) { return a.Price - b.Price })
+                document.querySelector('.priceLow').classList.add('changecolor');
+                document.querySelector('.priceTop').classList.remove('changecolor');
+            }
+            pagination(filterCard, 1);
+        })
+        
+        //Sort function
+        function SortNumber(sortNumber) {
+            filterCard.sort(function (a, b) { return b.sortNumber - a.sortNumber })
+        }
+
+        document.querySelector('.orderNumberBtn').addEventListener('click', function(){
+            SortNumber(sortNumber)
         });
-
     </script>
 }
