@@ -179,7 +179,7 @@ namespace PRO_finder.Service
         //刊登新服務 CreateQuotation
         public Quotation CreateQuotation(CreateQuotationViewModel newQ)
         {
-            DateTime now = DateTime.Now;
+            DateTime now = DateTime.UtcNow;
             Quotation entity = new Quotation
             {
                 QuotationTitle = newQ.QuotationTitle,
@@ -190,7 +190,9 @@ namespace PRO_finder.Service
                 Description = newQ.Description,
                 SubCategoryID = newQ.SubCategoryID,
                 Price = newQ.Price,
-                MainPicture = newQ.MainPicture
+                MainPicture = newQ.MainPicture,
+                //(DateTime)UpdateDate = now
+                //資料庫修正
             };
             _repo.Create(entity);
             _repo.SaveChanges();
@@ -219,7 +221,7 @@ namespace PRO_finder.Service
         {
             List<Locations> locationDB = _repo.GetAll<Locations>().ToList();
             List<SelectListItem> locationlist = new List<SelectListItem>();
-            locationlist.Add(new SelectListItem { Text = "地區" });
+            locationlist.Add(new SelectListItem { Text = "地區" , Value="-1"});
             foreach (var item in locationDB)
             {
                 locationlist.Add(
