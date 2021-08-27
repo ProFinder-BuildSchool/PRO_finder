@@ -8,7 +8,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services;
-using static PRO_finder.Models.ViewModels.SaveCaseItemViewModel;
 using PRO_finder.Helper;
 
 namespace PRO_finder.Service

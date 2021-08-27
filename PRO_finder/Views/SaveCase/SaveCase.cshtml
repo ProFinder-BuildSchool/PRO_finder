@@ -1,4 +1,4 @@
-﻿@model PRO_finder.Models.ViewModels.SaveCaseViewModel
+﻿@model IEnumerable<PRO_finder.Models.ViewModels.SaveCaseViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -27,7 +27,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.SaveCaseItems)
+                    @foreach (var item in Model)
                     {
                         <tr>
                             <td class="text-center">@item.title</td>
