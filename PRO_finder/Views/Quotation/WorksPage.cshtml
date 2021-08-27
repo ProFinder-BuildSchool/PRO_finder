@@ -12,11 +12,18 @@
             <div class="row mb-5 mt-5">
 
                 <div class="col-lg-8">
-                    @foreach (var pic in Model.WorkPicture)
+                    @if (Model.WorkPicture.Count() == 0)
                     {
-                        <figure>
-                            <a href="@pic.WorkPicture" data-fancybox="gallery"><img src="@pic.WorkPicture" alt="Image" class="img-fluid"></a>
-                        </figure>
+                        <p>沒有照片</p>
+                    }
+                    else {
+                        foreach (var pic in Model.WorkPicture)
+                        {
+                <figure>
+                    <a href = "@pic.WorkPicture" data - fancybox = "gallery" ><img src = "@pic.WorkPicture" alt = "Image" class="img-fluid"></a>
+                </figure>
+                        
+                    }
                     }
                 </div>
 

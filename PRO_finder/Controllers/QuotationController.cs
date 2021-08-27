@@ -74,11 +74,13 @@ namespace PRO_finder.Controllers
 
         }
 
-        public ActionResult WorksPage(int WorkID = 6)
+        public ActionResult WorksPage(int WorkID = 1)
         {
-            WorkDetailViewModel WorkDetailVM = _studioService.GetWorkDetailData(WorkID);
-         
-            return View(WorkDetailVM); 
+
+                WorkDetailViewModel WorkDetailVM = _studioService.GetWorkDetailData(WorkID);
+
+                return View(WorkDetailVM);
+            
         }
 
 
