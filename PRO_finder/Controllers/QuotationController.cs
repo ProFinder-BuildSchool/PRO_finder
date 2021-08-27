@@ -6,8 +6,13 @@ using System.Data.Entity;
 using PRO_finder.Models;
 using PRO_finder.Repositories;
 using Newtonsoft.Json;
-using PRO_finder.Model.ViewModels;
 using System.Linq;
+using System.Configuration;
+using System;
+using System.Data.SqlClient;
+using Dapper;
+using PRO_finder.Models.DBModel;
+using Microsoft.AspNet.Identity;
 
 namespace PRO_finder.Controllers
 {
@@ -56,31 +61,26 @@ namespace PRO_finder.Controllers
             return View(QuoDetailVM);
         }
 
-        public ActionResult StudioHome(int MemberID=7)
+        public ActionResult StudioHome(int TalentID=20)//, int MemberID= 1)
         {
-            ViewBag.StudioInfoList = _studioService.GetStudioInfoByMemberID (MemberID);
-            ViewBag.StudioWorkList = _studioService.GetStudioworksByMemberID (MemberID);
-            ViewBag.StudioQuotationList = _studioService.GetStudioQuotationByMemberID (MemberID);
-            return View();
-            //ViewBag.MemberID = MemberID;
-            //StudioViewModel StudioInfoVM = _studioService.GetStudioInfoByMemberID(MemberID);
-            //var result = _studioService.GetStudioInfoByMemberID().FirstOrDefault(x => x.MemberID == MemberID);
-            //ViewBag.StudioReviewList = _studioService.GetCaseReviewByMemberID (MemberID);
+            int currentUserId;
+            var result = int.TryParse(System.Web.HttpContext.Current.User.Identity.GetUserId(),out currentUserId);
+            StudioDetailViewModel StudioDetailVM = _studioService.GetStudioDetailData (TalentID);
+            IEnumerable<SaveStaff> favorlist = _studioService.GetFavorite(currentUserId, TalentID);
+            ViewBag.MemberID = TalentID;
+            //ViewBag.FavorExist = select SavedTalentID from favorlist where SavedTalentID == TalentID; //判斷talent是否存在member的list中
+            return View(StudioDetailVM);
+        
 
         }
 
-        public ActionResult WorksPage(int WorkID = 5)
+        public ActionResult WorksPage(int WorkID = 1)
         {
-            
-            ViewBag.WorkInfoList = _studioService.GetWorkInfoByWorkID(WorkID);
-            ViewBag.WorkPictureList = _studioService.GetWorkpicturesByWorkID(WorkID);
-            
-            return View();
 
-            //List<WorkPageViewModel> pageData = _studioService.GetWorkPageData (WorkID);
-            //return View(pageData);
-            //WorkPageViewModel WorkPictureVM = new WorkPageViewModel()
-            //{  WorkpictureRepository = _studioService.GetWorkpicturesByWorkID(WorkID)};
+                WorkDetailViewModel WorkDetailVM = _studioService.GetWorkDetailData(WorkID);
+
+                return View(WorkDetailVM);
+            
         }
 
 
@@ -90,6 +90,27 @@ namespace PRO_finder.Controllers
         //    return Json(allCardData, JsonRequestBehavior.AllowGet);
         //}
 
+        static string connString = ConfigurationManager.ConnectionStrings["ProFinderContext"].ConnectionString;
+        public ActionResult FavorInsertorDelete(int MemberID, int TalentID, DateTime time, int StaffID, bool AddorRemove)
+        {
+            int affectedRow = 0; //
 
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                if (AddorRemove)
+                {
+                    string sql = "Insert into SaveStaff(MemberID, SavedTalentID, SavedDate, SaveStaffID)values( @MemberID, @TalentID, @time, @StaffID)";
+                    affectedRow = conn.Execute(sql, new { MemberID, TalentID, time, StaffID });
+                }
+                else
+                {
+                    string sql = "DELETE FROM SaveStaff WHERE MemberID = @MemberID and SavedTalentID = @SavedTalentID and SaveStaffID=@SaveStaffID";
+                    affectedRow = conn.Execute(sql, new { MemberID = MemberID, SavedTalentID = TalentID, SaveStaffID = StaffID });
+
+                    //remove from DB
+                }
+            }
+            return  RedirectToAction("StudioHome"); //new EmptyResult();
+        }
     }
 }

@@ -1,15 +1,11 @@
-﻿using PRO_finder.Models.DBModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace PRO_finder.Model.ViewModels
+namespace PRO_finder.Models.ViewModels
 {
-    public class WorkPageViewModel 
+    public class WorkDetailViewModel
     {
         public int WorkID { get; set; }
 
@@ -27,14 +23,10 @@ namespace PRO_finder.Model.ViewModels
 
         public int SubCategoryID { get; set; }
 
-        public int WorkAttachmentID { get; set; }
+        public IEnumerable<WorkPicturesViewModel> WorkPicture { get; set; }
 
-        public int WorkPictureID { get; set; }
 
-        public int SortNumber { get; set; }
-
-        public string WorkPicture { get; set; }
-
+        //工作室
         public int MemberID { get; set; }
 
         public byte[] ProfilePicture { get; set; }
@@ -47,9 +39,6 @@ namespace PRO_finder.Model.ViewModels
         {
             個人兼職, 專職SOHO, 工作室, 兼職上班族, 公司, 學生
         }
-
-
-
 
     }
 }
