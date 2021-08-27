@@ -1,4 +1,4 @@
-﻿@model List<PRO_finder.Models.ViewModels.StudioViewModel>
+﻿@model  PRO_finder.Models.ViewModels.StudioDetailViewModel
 @{
     ViewBag.Title = "StudioHome";
 }
@@ -8,17 +8,17 @@
         <div class="row">
 
             <div class="col-lg-4 sidebar pl-lg-5">
-                @foreach (var item in ViewBag.StudioInfoList)
-                {
+                @*@foreach (var item in ViewBag.StudioInfoList)
+                {*@
 
                     <div class="sidebar-box">
                         <img src="~/Assets/images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4 w-50 rounded-circle">
-                        <h3>@item.NickName</h3>
+                        <h3>@Model.NickName</h3>
                         <p class="LV lv00"><a href="#" title="會員等級說明" target="_blank">LV0</a></p>
                         <!-- <p class="vipTag" title="VIP會員">VIP</p> -->
-                        <p class="designerType">接案身分: @item.Identity</p>
-                        <p class="designerActivity">上線時間: @item.LogInTime</p>
-                        <p class="designerLocation">接案地點: @item.LocationName</p>
+                        <p class="designerType">接案身分: @Model.Identity</p>
+                        <p class="designerActivity">上線時間: @Model.LogInTime</p>
+                        <p class="designerLocation">接案地點: @Model.LocationName</p>
 
 
                         <div id="designerinfoNumber">
@@ -27,7 +27,7 @@
                         </div>
                         <p class="designerSkill">
                             <span class="designerSkillTit">專長:</span>
-                            <a href="/talent?ca=dRL&amp;su=BJeM" target="_blank" title="EDM設計">@item.ExpertSubCategory</a>
+                            <a href="/talent?ca=dRL&amp;su=BJeM" target="_blank" title="EDM設計">@Model.ExpertSubCategory</a>
                             @*<a href="/talent?ca=dRL&amp;su=My0G" target="_blank" title="廣告Banner"># 廣告Banner</a>
                                 <a href="/talent?ca=L35&amp;su=ao6p" target="_blank" title="影片/音效後製剪輯"># 影片/音效後製剪輯</a>*@
                         </p>
@@ -37,9 +37,9 @@
                         <div class="contactp">
                             <p>
                                 @*<a href="#"><i class="icon-heart-o" onclick=@Html.ActionLink() ></i>收藏</a>*@
-                                @Html.ActionLink("收藏", "FavorInsertorDelete", new { MemberID = ViewBag.MemberID, TalentID = ViewBag.MemberID, time = DateTime.UtcNow, StaffID = ViewBag.MemberID, AddorRemove = ViewBag.FavorExist},new { @class="icon-heart-o"})
-                                    <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
-</p>
+                                @Html.ActionLink("收藏", "FavorInsertorDelete", new { MemberID = ViewBag.MemberID, TalentID = ViewBag.MemberID, time = DateTime.UtcNow, StaffID = ViewBag.MemberID, AddorRemove = ViewBag.FavorExist }, new { @class = "icon-heart-o" })
+                                <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
+                            </p>
                             <p><a href="#" class="btn btn-primary btn-md">邀請報價</a></p>
                         </div>
                     </div>
@@ -60,61 +60,69 @@
 
                 <a name="01"></a>
                 <div id="about">
-                    @foreach (var item in ViewBag.StudioInfoList)
+
+
+                    <h4 class="mb-4" id="part">關於</h4>
+                    @if (Model.Description.IsEmpty())
                     {
-                        <h4 class="mb-4" id="part">關於</h4>
-                        <!--<div class="wrap123">
-                            <input type="checkbox" id="exp">
-                            <div class="text123">
-                                <label class="btn123" for="exp"></label>
-                                <div>
-                                    <p>
-                                        -->            
+                        <p>暫無簡介</p>
+                    }
+                    else
+                    {
                         <div class="aboutText">
                             <p class="aboutp">
-                                @item.Description
-                            <div class="closeup">
-                                <a href="javascript:;" class="show">顯示更多</a>
-                                <a href="javascript:;" class="put">顯示較少</a>
-                            </div>
+                                @Model.Description
+                                <div class="closeup">
+                                    <a href="javascript:;" class="show">顯示更多</a>
+                                    <a href="javascript:;" class="put">顯示較少</a>
+                                </div>
                         </div>
                     }
-                </div>
+                    </div>
+                    
 
 
 
                 <a name="02"><h4 class="mb-4" id="part">作品</h4></a>
-                @foreach (var item in ViewBag.StudioWorkList)
+
+                @if (Model.Studioworks.Count() == 0)
                 {
-                    //如果subcate重複，選擇第一個(firstordefault)
-                    <div class="row justify-content-center mb-5" data-aos="fade-up">
-                        <div id="filters" class="filters text-center button-group col-md-7">
-                            <button class="btn btn-primary active" data-filter="*">All</button>
-                            <button class="btn btn-primary" data-filter=".web">@item.WorkSubCategory</button>
-                            @*<button class="btn btn-primary" data-filter=".design">Design</button>
-                                <button class="btn btn-primary" data-filter=".brand">Brand</button>*@
-                        </div>
-                    </div>
-
-                    <div id="posts" class="row no-gutter">
-                        <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-                            <div class="item-wrap">
-                                <span class="portfolio-info">
-                                    <h5>@item.WorkSubCategory</h5>
-                                    <h6>@item.WorkName</h6>
-                                    <div class="posticon">
-                                        <a href="@Url.Action("WorksPage", new { WorkID = @item.WorkID})"><i class="icon-zoom_in"></i></a>
-                                        <a href="@item.WebsiteURL"><i class="icon-link"></i></a>
-                                    </div>
-                                </span>
-                                <div id="coverlayer">
-                                    <img class="img-fluid" id="workcover" src="@item.WorkPicture" />
-                                </div>
-
+                    <p>暫無作品</p>
+                }
+                else
+                {
+                    foreach (var work in Model.Studioworks)
+                    {
+                        //如果subcate重複，選擇第一個(firstordefault)
+                        <div class="row justify-content-center mb-5" data-aos="fade-up">
+                            <div id="filters" class="filters text-center button-group col-md-7">
+                                <button class="btn btn-primary active" data-filter="*">All</button>
+                                <button class="btn btn-primary" data-filter=".web">@work.WorkSubCategory</button>
+                                @*<button class="btn btn-primary" data-filter=".design">Design</button>
+                                    <button class="btn btn-primary" data-filter=".brand">Brand</button>*@
                             </div>
                         </div>
 
-                    </div>
+                        <div id="posts" class="row no-gutter">
+                            <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+                                <div class="item-wrap">
+                                    <span class="portfolio-info">
+                                        <h5>@work.WorkSubCategory</h5>
+                                        <h6>@work.WorkName</h6>
+                                        <div class="posticon">
+                                            <a href="@Url.Action("WorksPage", new { WorkID = @work.WorkID })"><i class="icon-zoom_in"></i></a>
+                                            <a href="@work.WebsiteURL"><i class="icon-link"></i></a>
+                                        </div>
+                                    </span>
+                                    <div id="coverlayer">
+                                        <img class="img-fluid" id="workcover" src="@work.WorkPicture" />
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    }
                 }
 
 
@@ -310,42 +318,52 @@
 
                 <div id='quotationcard'>
                     <div class="row item_zone mb-5">
-                        @foreach (var item in ViewBag.StudioQuotationList)
+                        @if (Model.StudioQuotation.Count() == 0)
                         {
-                            <div class="col-lg-3 col-md-6">
-                                <div class="listing__item">
-                                    <div class="listing__item__pic" id="quoimglimit">
+                            <p>暫無報價</p>
+                        }
+                        else
+                        {
+                            foreach (var quot in Model.StudioQuotation)
+                            {
+                                @*@foreach (var item in ViewBag.StudioQuotationList)
+                                {*@
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="listing__item">
+                                            <div class="listing__item__pic" id="quoimglimit">
 
-                                        <div class="ribbon-wrap"><div class="ribbon">@item.CategoryName</div></div>
-                                        <img src="@item.QuotationImg" alt="Image" class="img-fluid rounded">
+                                                <div class="ribbon-wrap"><div class="ribbon">@quot.CategoryName</div></div>
+                                                <img src="@quot.QuotationImg" alt="Image" class="img-fluid rounded">
 
-                                    </div>
+                                            </div>
 
-                                    <div class="listing__item__text">
+                                            <div class="listing__item__text">
 
-                                        <div class="listing__item__text__inside">
+                                                <div class="listing__item__text__inside">
 
-                                            <h5>@item.SubcategoryName</h5>
-                                            <span class="price">@item.Price</span><span>/@item.Unit</span>
-                                            <div class="listing__item__text__rating">
-                                                <div class="listing__item__rating__star mr-2">
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star"></span>
-                                                    <span class="icon_star-half_alt"></span>
+                                                    <h5>@quot.SubcategoryName</h5>
+                                                    <span class="price">@quot.Price</span><span>/@quot.Unit</span>
+                                                    <div class="listing__item__text__rating">
+                                                        <div class="listing__item__rating__star mr-2">
+                                                            <span class="icon_star"></span>
+                                                            <span class="icon_star"></span>
+                                                            <span class="icon_star"></span>
+                                                            <span class="icon_star"></span>
+                                                            <span class="icon_star-half_alt"></span>
+                                                        </div>
+                                                        <span>110</span><span>人訂購</span>
+                                                    </div>
                                                 </div>
-                                                <span>110</span><span>人訂購</span>
+                                                <div class="listing__item__text__info">
+                                                    <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
+                                                </div>
+
                                             </div>
                                         </div>
-                                        <div class="listing__item__text__info">
-                                            <a href="@Url.Action("Detail", "Quotation")"><button class="listing__item__text__info__right">服務詳情</button></a>
-                                        </div>
-
                                     </div>
-                                </div>
-                            </div>
+                            }
                         }
+
                     </div>
                 </div>
 
@@ -518,97 +536,106 @@
                 <div class="pt-5">
                     <a name="04">
                         <a name="0ˋ"><h4 class="mb-4" id="part">評價</h4></a>
-                        <ul class="comment-list">
-                            <li class="comment">
-                                <div class="vcard bio">
-                                    <img src="~/Assets/images/person_2.jpg" alt="Image placeholder">
-                                </div>
-                                <div class="comment-body">
-                                    <h3>Jacob Smith</h3>
-                                    <div class="meta">January 9, 2018 at 2:21pm</div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                    <p><a href="#" class="reply">Reply</a></p>
-                                </div>
-                            </li>
-
-                            <li class="comment">
-                                <div class="vcard bio">
-                                    <img src="~/Assets/images/person_3.jpg" alt="Image placeholder">
-                                </div>
-                                <div class="comment-body">
-                                    <h3>Chris Meyer</h3>
-                                    <div class="meta">January 9, 2018 at 2:21pm</div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                    <p><a href="#" class="reply">Reply</a></p>
-                                </div>
-
-                                <ul class="children">
+                        @if (Model.StudioReview.Count() == 0)
+                        {
+                            <p>暫無評論</p>
+                        }
+                        else
+                        {
+                            foreach (var rev in Model.StudioReview)
+                            {
+                                <ul class="comment-list">
                                     <li class="comment">
                                         <div class="vcard bio">
-                                            <img src="~/Assets/images/person_5.jpg" alt="Image placeholder">
+                                            <img src="~/Assets/images/person_2.jpg" alt="Image placeholder">
                                         </div>
                                         <div class="comment-body">
-                                            <h3>Chintan Patel</h3>
+                                            <h3>Jacob Smith</h3>
+                                            <div class="meta">January 9, 2018 at 2:21pm</div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                            <p><a href="#" class="reply">Reply</a></p>
+                                        </div>
+                                    </li>
+
+                                    <li class="comment">
+                                        <div class="vcard bio">
+                                            <img src="~/Assets/images/person_3.jpg" alt="Image placeholder">
+                                        </div>
+                                        <div class="comment-body">
+                                            <h3>Chris Meyer</h3>
                                             <div class="meta">January 9, 2018 at 2:21pm</div>
                                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
                                             <p><a href="#" class="reply">Reply</a></p>
                                         </div>
 
-
                                         <ul class="children">
                                             <li class="comment">
                                                 <div class="vcard bio">
-                                                    <img src="~/Assets/images/person_1.jpg" alt="Image placeholder">
+                                                    <img src="~/Assets/images/person_5.jpg" alt="Image placeholder">
                                                 </div>
                                                 <div class="comment-body">
-                                                    <h3>Jean Doe</h3>
+                                                    <h3>Chintan Patel</h3>
                                                     <div class="meta">January 9, 2018 at 2:21pm</div>
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
                                                     <p><a href="#" class="reply">Reply</a></p>
                                                 </div>
 
+
                                                 <ul class="children">
                                                     <li class="comment">
                                                         <div class="vcard bio">
-                                                            <img src="~/Assets/images/person_4.jpg" alt="Image placeholder">
+                                                            <img src="~/Assets/images/person_1.jpg" alt="Image placeholder">
                                                         </div>
                                                         <div class="comment-body">
-                                                            <h3>Ben Afflick</h3>
+                                                            <h3>Jean Doe</h3>
                                                             <div class="meta">January 9, 2018 at 2:21pm</div>
                                                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
                                                             <p><a href="#" class="reply">Reply</a></p>
                                                         </div>
+
+                                                        <ul class="children">
+                                                            <li class="comment">
+                                                                <div class="vcard bio">
+                                                                    <img src="~/Assets/images/person_4.jpg" alt="Image placeholder">
+                                                                </div>
+                                                                <div class="comment-body">
+                                                                    <h3>Ben Afflick</h3>
+                                                                    <div class="meta">January 9, 2018 at 2:21pm</div>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                                                    <p><a href="#" class="reply">Reply</a></p>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
                                                     </li>
                                                 </ul>
                                             </li>
                                         </ul>
                                     </li>
+
+                                    <li class="comment">
+                                        <div class="vcard bio">
+                                            <img src="~/Assets/images/person_1.jpg" alt="Image placeholder">
+                                        </div>
+                                        <div class="comment-body">
+                                            <h3>Jean Doe</h3>
+                                            <div class="meta">January 9, 2018 at 2:21pm</div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                            <p><a href="#" class="reply">Reply</a></p>
+                                        </div>
+                                    </li>
                                 </ul>
-                            </li>
+                                <!-- END comment-list -->
 
-                            <li class="comment">
-                                <div class="vcard bio">
-                                    <img src="~/Assets/images/person_1.jpg" alt="Image placeholder">
+                                <div class="comment-form-wrap pt-5">
+
                                 </div>
-                                <div class="comment-body">
-                                    <h3>Jean Doe</h3>
-                                    <div class="meta">January 9, 2018 at 2:21pm</div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                    <p><a href="#" class="reply">Reply</a></p>
-                                </div>
-                            </li>
-                        </ul>
-                        <!-- END comment-list -->
 
-                        <div class="comment-form-wrap pt-5">
-
-                        </div>
-
-
-                </div>
+                            }
+                        }
+                     </div>
                 </a>
             </div>
-
+                       
         </div>
     </div>
 
@@ -633,491 +660,496 @@
 
 @section topCSS{
     <style>
-        body, html {
-            scroll-behavior: smooth;
-        }
-
-        li {
-            list-style: none;
-            display: inline;
-        }
-
-        .sidebar-box {
-            text-align: center;
-            position: sticky;
-            top: 48px;
-            z-index: 1000;
-        }
-
-        .contactp {
-            display: none;
-        }
-
-        .contacts {
-            width: 100%;
-            Z-index: 1100;
-            position: fixed;
-            bottom: 0px;
-            left: 0px;
-            background-color: rgb(186, 216, 186);
-            text-align: center;
-        }
-
-            .contacts a {
-                padding-left: 10px;
-                padding-right: 10px;
-                color: black;
-            }
-
-        .posticon {
-            display: flex;
-            justify-content: space-evenly;
-        }
-
-            .posticon i {
-                color: white;
-            }
-
-                .posticon i:active {
-                    color: rgb(89, 110, 89);
+                body, html {
+                    scroll-behavior: smooth;
                 }
 
-        #about {
-            border-bottom: 1px solid grey;
-            margin-bottom: 20px;
-        }
-
-
-        #part {
-            border-left: 4px solid rgb(118, 148, 118);
-        }
-
-
-
-        .studionav {
-            display: flex;
-            justify-content: space-evenly;
-            padding-right: 15px;
-            padding-left: 15px;
-            position: sticky;
-            top: 35px;
-            background-color: white;
-            border-bottom: 1px solid rgb(214, 213, 213);
-            z-index: 1000;
-        }
-
-        :target:before {
-            content: "";
-            display: block;
-            height: 80px;
-        }
-
-        #posts {
-            border-bottom: 1px solid grey;
-            margin-bottom: 20px;
-        }
-
-        .studionav li > a {
-            text-decoration: none;
-            font-size: 20px;
-            color: #333;
-        }
-
-            .studionav li > a:hover {
-                border-bottom: solid rgb(118, 148, 118);
-            }
-
-            .studionav li > a:active {
-                border-bottom: solid rgb(118, 148, 118);
-            }
-
-        #quotationcard {
-            display: flex;
-            flex-wrap: wrap;
-            border-bottom: 1px solid grey;
-        }
-
-        .ribbon-wrap {
-            width: 106px;
-            height: 108px;
-            overflow: hidden;
-            position: absolute;
-            top: 0px;
-            left: 15px;
-        }
-
-        .ribbon {
-            position: absolute;
-            right: 4px;
-            top: 10px;
-            width: 135px;
-            background-color: #FB8C00;
-            color: white;
-            text-align: center;
-            transform: rotate(-30deg);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-            .ribbon:before {
-                content: "";
-                border-top: 4px solid #795548;
-                border-left: 4px solid transparent;
-                border-right: 4px solid transparent;
-                position: absolute;
-                bottom: -4px;
-                right: 0;
-            }
-
-            .ribbon:after {
-                content: "";
-                border-top: 4px solid #795548;
-                border-left: 4px solid transparent;
-                border-right: 4px solid transparent;
-                position: absolute;
-                bottom: -4px;
-                left: 0;
-            }
-
-        /* #coverlayer {
-                width: 225px;
-                height: 225px;
-                border: 2px solid red;
-            }*/
-
-        .item-wrap {
-            /*width: 220px;
-                height: 220px;*/
-            overflow: hidden;
-            /* min-height: 220px;
-                 object-fit: fill;*/
-        }
-
-            .item-wrap img {
-                transform: scale(1.5);
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                min-height: 220px;
-                max-height: 220px;
-                /* object-fit: fill;*/
-            }
-        /* Listing */
-        #quoimglimit {
-            overflow: hidden;
-        }
-
-            #quoimglimit img {
-                min-height: 160px;
-                /*max-height: 160px;*/
-            }
-
-        .listing .listing__list .listing__item {
-            max-width: calc(50% - 30px);
-            float: left;
-            margin-right: 30px;
-            -webkit-box-flex: 0;
-            -ms-flex: 0 0 50%;
-            flex: 0 0 50%;
-            width: 100%;
-            height: 100%;
-        }
-
-        .listing__item {
-            -webkit-box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.1);
-            box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-        }
-
-            .listing__item:hover img,
-            .listing__item:hover {
-                transform: scale(1.03);
-            }
-
-
-        .listing__item__pic {
-            overflow: hidden;
-        }
-
-
-            .listing__item__pic img {
-                width: 100%;
-                transition: .3s;
-            }
-
-        .listing__item__pic__tag {
-            font-size: 12px;
-            color: #ffffff;
-            background: #f03250;
-            font-weight: 600;
-            display: inline-block;
-            padding: 5px 15px 5px 10px;
-            border-radius: 2px;
-            position: absolute;
-            left: 20px;
-            top: 20px;
-        }
-
-        .pic_tag {
-            font-size: 15px;
-            background-color: #e1264a;
-            font-weight: bolder;
-            padding: 2px 5px;
-            color: white;
-            border-radius: 6px;
-        }
-
-        .listing__item__pic__tag.top_rate {
-            background: #00a7ea;
-        }
-
-        .listing__item__pic__tag.hot_deal {
-            background: #D9D137;
-        }
-
-        .listing__item__pic__btns {
-            position: absolute;
-            right: 20px;
-            bottom: 20px;
-        }
-
-        .listing__item__text {
-            padding-left: 8px;
-            padding-right: 8px;
-            padding-top: 10px;
-        }
-
-        .listing__item__text__inside h5 {
-            font-size: 16px;
-            color: #323232;
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-
-        .studioName:hover {
-            color: #e1264a !important;
-            cursor: pointer;
-        }
-
-        .listing__item__text__inside ul {
-            margin-bottom: 20px;
-        }
-
-        .listing__item__text__inside .price {
-            color: #e1264a;
-            font-size: 20px;
-            font-weight: 900;
-        }
-
-        .listing__item__text__inside ul li {
-            font-size: 15px;
-            color: #323232;
-            list-style: none;
-            line-height: 25px;
-            position: relative;
-            padding-left: 25px;
-        }
-
-            .listing__item__text__inside ul li span {
-                color: #A8A8A8;
-                position: absolute;
-                left: 0;
-                top: 5px;
-            }
-
-        .listing__item__text__rating {
-            overflow: hidden;
-            margin-bottom: 15px;
-        }
-
-            .listing__item__text__rating .listing__item__rating__star {
-                float: left;
-            }
-
-                .listing__item__text__rating .listing__item__rating__star span {
-                    font-size: 14px;
-                    color: #F09D17;
-                    margin-right: -3px;
+                li {
+                    list-style: none;
+                    display: inline;
                 }
 
-                    .listing__item__text__rating .listing__item__rating__star span:last-child {
-                        margin-right: 0;
+                .sidebar-box {
+                    text-align: center;
+                    position: sticky;
+                    top: 48px;
+                    z-index: 1000;
+                }
+
+                .contactp {
+                    display: none;
+                }
+
+                .contacts {
+                    width: 100%;
+                    Z-index: 1100;
+                    position: fixed;
+                    bottom: 0px;
+                    left: 0px;
+                    background-color: rgb(186, 216, 186);
+                    text-align: center;
+                }
+
+                    .contacts a {
+                        padding-left: 10px;
+                        padding-right: 10px;
+                        color: black;
                     }
 
-            .listing__item__text__rating h6 {
-                font-size: 15px;
-                color: #f03250;
-                font-weight: 600;
-                float: right;
-            }
+                .posticon {
+                    display: flex;
+                    justify-content: space-evenly;
+                }
 
-        .listing__item__text__info {
-            padding: 10px 8px;
-            border-top: 1px solid rgba(0, 0, 0, .1);
-            overflow: hidden;
-        }
+                    .posticon i {
+                        color: white;
+                    }
 
-        .listing__item__text__info__left {
-            float: left;
-        }
+                        .posticon i:active {
+                            color: rgb(89, 110, 89);
+                        }
 
-            .listing__item__text__info__left img {
-                display: inline-block;
-                margin-right: 10px;
-                width: 34px;
-                height: 34px;
-                border-radius: 50%;
-            }
+                #about {
+                    border-bottom: 1px solid grey;
+                    margin-bottom: 20px;
+                }
 
-            .listing__item__text__info__left span {
-                font-size: 14px;
-                color: #323232;
-                font-weight: 600;
-            }
 
-        .listing__item__text__info__right {
-            float: right;
-            font-size: 14px;
-            color: #ffffffec;
-            font-weight: 700;
-            padding-top: 4px;
-            background-color: Transparent;
-            background-repeat: no-repeat;
-            border: none;
-            background-color: #89ba16;
-            border-radius: 5px;
-            padding: 5px 10px;
-        }
-
-            .listing__item__text__info__right.closed {
-                color: #f03250;
-            }
-
-            .listing__item__text__info__right:focus {
-                outline: none;
-            }
-
-            .listing__item__text__info__right:hover {
-                opacity: .8;
-            }
+                #part {
+                    border-left: 4px solid rgb(118, 148, 118);
+                }
 
 
 
-        #designerinfoNumber {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-evenly;
-        }
+                .studionav {
+                    display: flex;
+                    justify-content: space-evenly;
+                    padding-right: 15px;
+                    padding-left: 15px;
+                    position: sticky;
+                    top: 35px;
+                    background-color: white;
+                    border-bottom: 1px solid rgb(214, 213, 213);
+                    z-index: 1000;
+                }
+
+                :target:before {
+                    content: "";
+                    display: block;
+                    height: 80px;
+                }
+
+                #posts {
+                    border-bottom: 1px solid grey;
+                    margin-bottom: 20px;
+                }
+
+                .studionav li > a {
+                    text-decoration: none;
+                    font-size: 20px;
+                    color: #333;
+                }
+
+                    .studionav li > a:hover {
+                        border-bottom: solid rgb(118, 148, 118);
+                    }
+
+                    .studionav li > a:active {
+                        border-bottom: solid rgb(118, 148, 118);
+                    }
+
+                #quotationcard {
+                    display: flex;
+                    flex-wrap: wrap;
+                    border-bottom: 1px solid grey;
+                }
+
+                .ribbon-wrap {
+                    width: 106px;
+                    height: 108px;
+                    overflow: hidden;
+                    position: absolute;
+                    top: 0px;
+                    left: 15px;
+                }
+
+                .ribbon {
+                    position: absolute;
+                    right: 4px;
+                    top: 10px;
+                    width: 135px;
+                    background-color: #FB8C00;
+                    color: white;
+                    text-align: center;
+                    transform: rotate(-30deg);
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                }
+
+                    .ribbon:before {
+                        content: "";
+                        border-top: 4px solid #795548;
+                        border-left: 4px solid transparent;
+                        border-right: 4px solid transparent;
+                        position: absolute;
+                        bottom: -4px;
+                        right: 0;
+                    }
+
+                    .ribbon:after {
+                        content: "";
+                        border-top: 4px solid #795548;
+                        border-left: 4px solid transparent;
+                        border-right: 4px solid transparent;
+                        position: absolute;
+                        bottom: -4px;
+                        left: 0;
+                    }
+
+                /* #coverlayer {
+                        width: 225px;
+                        height: 225px;
+                        border: 2px solid red;
+                    }*/
+
+                .item-wrap {
+                    /*width: 220px;
+                        height: 220px;*/
+                    overflow: hidden;
+                    /* min-height: 220px;
+                         object-fit: fill;*/
+                }
+
+                    .item-wrap img {
+                        transform: scale(1.5);
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        min-height: 220px;
+                        max-height: 220px;
+                        /* object-fit: fill;*/
+                    }
+                /* Listing */
+                #quoimglimit {
+                    overflow: hidden;
+                }
+
+                    #quoimglimit img {
+                        min-height: 160px;
+                        /*max-height: 160px;*/
+                    }
+
+                .listing .listing__list .listing__item {
+                    max-width: calc(50% - 30px);
+                    float: left;
+                    margin-right: 30px;
+                    -webkit-box-flex: 0;
+                    -ms-flex: 0 0 50%;
+                    flex: 0 0 50%;
+                    width: 100%;
+                    height: 100%;
+                }
+
+                .listing__item {
+                    -webkit-box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.1);
+                    box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.1);
+                    margin-bottom: 30px;
+                }
+
+                    .listing__item:hover img,
+                    .listing__item:hover {
+                        transform: scale(1.03);
+                    }
 
 
-       /* .text123 {
-            display: -webkit-box;
-            -webkit-line-clamp: 15;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .btn123 {
-            float: right;
-            clear: both;
-        }
-
-        .text123::before {
-            content: '';
-            float: right;
-            width: 0;
-            height: 100%;
-            margin-bottom: -24px;
-        }
+                .listing__item__pic {
+                    overflow: hidden;
+                }
 
 
-        .wrap123
-        [type="checkbox"] {
-            display: none
-        }
+                    .listing__item__pic img {
+                        width: 100%;
+                        transition: .3s;
+                    }
 
-        .wrap123 {
-            display: flex;
-        }
+                .listing__item__pic__tag {
+                    font-size: 12px;
+                    color: #ffffff;
+                    background: #f03250;
+                    font-weight: 600;
+                    display: inline-block;
+                    padding: 5px 15px 5px 10px;
+                    border-radius: 2px;
+                    position: absolute;
+                    left: 20px;
+                    top: 20px;
+                }
 
-        .btn123::after {
-            content: '顯示更多'
-        }
+                .pic_tag {
+                    font-size: 15px;
+                    background-color: #e1264a;
+                    font-weight: bolder;
+                    padding: 2px 5px;
+                    color: white;
+                    border-radius: 6px;
+                }
 
-        #exp:checked + .text123 {
-            -webkit-line-clamp: 999;
-        }
+                .listing__item__pic__tag.top_rate {
+                    background: #00a7ea;
+                }
 
-        #exp:checked + .text123 .btn123::after {
-            content: '顯示較少'
-        }
+                .listing__item__pic__tag.hot_deal {
+                    background: #D9D137;
+                }
 
-        #exp:checked + .text123::after {
-            visibility: hidden;
-        }
-*/
-      
-        .aboutp {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 10;
-            -webkit-box-orient: vertical;
-        }
-        .closeup {
-            text-align: right;
-        }
-        .closeup a {
-            text-decoration: none;
-        }
-        .closeup a:hover {
-            text-decoration: underline;
-        }
-        .put{
-           display:none;
-        }
-        @@media screen and (min-width:1024px) {
+                .listing__item__pic__btns {
+                    position: absolute;
+                    right: 20px;
+                    bottom: 20px;
+                }
 
-            .studionav {
-                top:40px
-            }
-        }
+                .listing__item__text {
+                    padding-left: 8px;
+                    padding-right: 8px;
+                    padding-top: 10px;
+                }
 
-        @@media screen and (min-width:1025px) {
-            .contacts {
-                display: none;
-            }
+                .listing__item__text__inside h5 {
+                    font-size: 16px;
+                    color: #323232;
+                    font-weight: 600;
+                    margin-bottom: 6px;
+                }
 
-            .contactp {
-                display: block;
-            }
+                .studioName:hover {
+                    color: #e1264a !important;
+                    cursor: pointer;
+                }
 
-            .studionav {
-                top: 125px;
-            }
+                .listing__item__text__inside ul {
+                    margin-bottom: 20px;
+                }
 
-            :target:before {
-                content: "";
-                display: block;
-                height: 180px;
-            }
+                .listing__item__text__inside .price {
+                    color: #e1264a;
+                    font-size: 20px;
+                    font-weight: 900;
+                }
 
-            .sidebar-box {
-                top: 110px;
-            }
-        }
+                .listing__item__text__inside ul li {
+                    font-size: 15px;
+                    color: #323232;
+                    list-style: none;
+                    line-height: 25px;
+                    position: relative;
+                    padding-left: 25px;
+                }
+
+                    .listing__item__text__inside ul li span {
+                        color: #A8A8A8;
+                        position: absolute;
+                        left: 0;
+                        top: 5px;
+                    }
+
+                .listing__item__text__rating {
+                    overflow: hidden;
+                    margin-bottom: 15px;
+                }
+
+                    .listing__item__text__rating .listing__item__rating__star {
+                        float: left;
+                    }
+
+                        .listing__item__text__rating .listing__item__rating__star span {
+                            font-size: 14px;
+                            color: #F09D17;
+                            margin-right: -3px;
+                        }
+
+                            .listing__item__text__rating .listing__item__rating__star span:last-child {
+                                margin-right: 0;
+                            }
+
+                    .listing__item__text__rating h6 {
+                        font-size: 15px;
+                        color: #f03250;
+                        font-weight: 600;
+                        float: right;
+                    }
+
+                .listing__item__text__info {
+                    padding: 10px 8px;
+                    border-top: 1px solid rgba(0, 0, 0, .1);
+                    overflow: hidden;
+                }
+
+                .listing__item__text__info__left {
+                    float: left;
+                }
+
+                    .listing__item__text__info__left img {
+                        display: inline-block;
+                        margin-right: 10px;
+                        width: 34px;
+                        height: 34px;
+                        border-radius: 50%;
+                    }
+
+                    .listing__item__text__info__left span {
+                        font-size: 14px;
+                        color: #323232;
+                        font-weight: 600;
+                    }
+
+                .listing__item__text__info__right {
+                    float: right;
+                    font-size: 14px;
+                    color: #ffffffec;
+                    font-weight: 700;
+                    padding-top: 4px;
+                    background-color: Transparent;
+                    background-repeat: no-repeat;
+                    border: none;
+                    background-color: #89ba16;
+                    border-radius: 5px;
+                    padding: 5px 10px;
+                }
+
+                    .listing__item__text__info__right.closed {
+                        color: #f03250;
+                    }
+
+                    .listing__item__text__info__right:focus {
+                        outline: none;
+                    }
+
+                    .listing__item__text__info__right:hover {
+                        opacity: .8;
+                    }
 
 
-        /*@@media screen and (max-width:1023px) {
+
+                #designerinfoNumber {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-evenly;
+                }
 
 
-            .studionav {
-                top: 40px;
-            }
+                /* .text123 {
+                    display: -webkit-box;
+                    -webkit-line-clamp: 15;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
 
-            .sidebar-box {
-                top: 110px;
-            }
-        }*/
+                .btn123 {
+                    float: right;
+                    clear: both;
+                }
+
+                .text123::before {
+                    content: '';
+                    float: right;
+                    width: 0;
+                    height: 100%;
+                    margin-bottom: -24px;
+                }
+
+
+                .wrap123
+                [type="checkbox"] {
+                    display: none
+                }
+
+                .wrap123 {
+                    display: flex;
+                }
+
+                .btn123::after {
+                    content: '顯示更多'
+                }
+
+                #exp:checked + .text123 {
+                    -webkit-line-clamp: 999;
+                }
+
+                #exp:checked + .text123 .btn123::after {
+                    content: '顯示較少'
+                }
+
+                #exp:checked + .text123::after {
+                    visibility: hidden;
+                }
+        */
+
+                .aboutp {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 10;
+                    -webkit-box-orient: vertical;
+                }
+
+                .closeup {
+                    text-align: right;
+                }
+
+                    .closeup a {
+                        text-decoration: none;
+                    }
+
+                        .closeup a:hover {
+                            text-decoration: underline;
+                        }
+
+                .put {
+                    display: none;
+                }
+
+                @@media screen and (min-width:1024px) {
+
+                    .studionav {
+                        top: 40px
+                    }
+                }
+
+                @@media screen and (min-width:1025px) {
+                    .contacts {
+                        display: none;
+                    }
+
+                    .contactp {
+                        display: block;
+                    }
+
+                    .studionav {
+                        top: 125px;
+                    }
+
+                    :target:before {
+                        content: "";
+                        display: block;
+                        height: 180px;
+                    }
+
+                    .sidebar-box {
+                        top: 110px;
+                    }
+                }
+
+
+                /*@@media screen and (max-width:1023px) {
+
+
+                    .studionav {
+                        top: 40px;
+                    }
+
+                    .sidebar-box {
+                        top: 110px;
+                    }
+                }*/
     </style>
 
 }
@@ -1129,7 +1161,7 @@
         var put = document.getElementsByClassName('put')[0]
         var ischange = false
         //if aboutp.line 如果文字少於十行不顯示closeupbtn
-       /* https://www.codenong.com/cs106865709/*/
+        /* https://www.codenong.com/cs106865709/*/
         closeup.addEventListener("click", function () {
             if (ischange) {
                 aboutp.style.display = "-webkit-box"
@@ -1148,17 +1180,17 @@
 
 
     </script>
-    
+
 
     @*<script>
-    window.onload = function ()
-    {
-        document.querySelector('#heart').addEventListener("click", function () {
-            @FavorInsert
+        window.onload = function ()
+        {
+            document.querySelector('#heart').addEventListener("click", function () {
+                @FavorInsert
 
-        })
-        }
+            })
+            }
 
-    </script>*@
+        </script>*@
 }
-   
+

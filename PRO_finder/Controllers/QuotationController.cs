@@ -6,7 +6,6 @@ using System.Data.Entity;
 using PRO_finder.Models;
 using PRO_finder.Repositories;
 using Newtonsoft.Json;
-using PRO_finder.Model.ViewModels;
 using System.Linq;
 using System.Configuration;
 using System;
@@ -66,32 +65,20 @@ namespace PRO_finder.Controllers
         {
             int currentUserId;
             var result = int.TryParse(System.Web.HttpContext.Current.User.Identity.GetUserId(),out currentUserId);
-            ViewBag.StudioInfoList = _studioService.GetStudioInfoByMemberID (TalentID);
-            ViewBag.StudioWorkList = _studioService.GetStudioworksByMemberID (TalentID);
-            ViewBag.StudioQuotationList = _studioService.GetStudioQuotationByMemberID (TalentID);
+            StudioDetailViewModel StudioDetailVM = _studioService.GetStudioDetailData (TalentID);
             IEnumerable<SaveStaff> favorlist = _studioService.GetFavorite(currentUserId, TalentID);
             ViewBag.MemberID = TalentID;
             //ViewBag.FavorExist = select SavedTalentID from favorlist where SavedTalentID == TalentID; //判斷talent是否存在member的list中
-            return View();
-            //ViewBag.MemberID = MemberID;
-            //StudioViewModel StudioInfoVM = _studioService.GetStudioInfoByMemberID(MemberID);
-            //var result = _studioService.GetStudioInfoByMemberID().FirstOrDefault(x => x.MemberID == MemberID);
-            //ViewBag.StudioReviewList = _studioService.GetCaseReviewByMemberID (MemberID);
+            return View(StudioDetailVM);
+        
 
         }
 
-        public ActionResult WorksPage(int WorkID = 5)
+        public ActionResult WorksPage(int WorkID = 6)
         {
-            
-            ViewBag.WorkInfoList = _studioService.GetWorkInfoByWorkID(WorkID);
-            ViewBag.WorkPictureList = _studioService.GetWorkpicturesByWorkID(WorkID);
-            
-            return View();
-
-            //List<WorkPageViewModel> pageData = _studioService.GetWorkPageData (WorkID);
-            //return View(pageData);
-            //WorkPageViewModel WorkPictureVM = new WorkPageViewModel()
-            //{  WorkpictureRepository = _studioService.GetWorkpicturesByWorkID(WorkID)};
+            WorkDetailViewModel WorkDetailVM = _studioService.GetWorkDetailData(WorkID);
+         
+            return View(WorkDetailVM); 
         }
 
 

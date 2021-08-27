@@ -1,4 +1,4 @@
-﻿@model List<PRO_finder.Models.ViewModels.StudioViewModel>
+﻿@model  PRO_finder.Models.ViewModels.WorkDetailViewModel
 
 @{
     ViewBag.Title = "WorksPage";
@@ -12,49 +12,38 @@
             <div class="row mb-5 mt-5">
 
                 <div class="col-lg-8">
-                    @foreach (var item in ViewBag.WorkPictureList)
+                    @foreach (var pic in Model.WorkPicture)
                     {
                         <figure>
-                <a href="@item.WorkPicture" data-fancybox="gallery"><img src="@item.WorkPicture" alt="Image" class="img-fluid"></a>
-            </figure>
-            @*<figure>
-                <a href="@Html.DisplayFor(modelItem => item.WorkPicture)" data-fancybox="gallery"><img src="@Html.DisplayFor(modelItem => item.WorkPicture)" alt="Image" class="img-fluid"></a>
-            </figure>
-            <figure>
-               <a href="@Html.DisplayFor(modelItem => item.WorkPicture)" data-fancybox="gallery"><img src="@Html.DisplayFor(modelItem => item.WorkPicture)" alt="Image" class="img-fluid"></a>
-            </figure>
-            <figure class="mb-0">
-                <a href="@Html.DisplayFor(modelItem => item.WorkPicture)" data-fancybox="gallery"><img src="@Html.DisplayFor(modelItem => item.WorkPicture)" alt="Image" class="img-fluid"></a>
-            </figure>*@
+                            <a href="@pic.WorkPicture" data-fancybox="gallery"><img src="@pic.WorkPicture" alt="Image" class="img-fluid"></a>
+                        </figure>
                     }
-                    </div>
+                </div>
 
                 <div class="col-lg-4 ml-auto h-100 jm-sticky-top" id="workdetail">
-                    @foreach (var item in ViewBag.WorkInfoList)
-                    {
                         <div class="mb-4" id="WD">
-                            <h3 class="mb-4 h4 border-bottom">@item.WorkName</h3>
+                            <h3 class="mb-4 h4 border-bottom">@Model.WorkName</h3>
 
-                            <p class="mb-0">@item.WorkDescription</p>
+                            <p class="mb-0">@Model.WorkDescription</p>
                         </div>
 
                         <div class="row mb-4">
 
                             <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
                                 <strong class="d-block text-black">客戶</strong>
-                                @item.Client
+                                @Model.Client
                             </div>
                             <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
                                 <strong class="d-block text-black">職責</strong>
-                                @item.Role
+                                @Model.Role
                             </div>
                             <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
                                 <strong class="d-block text-black">作品年份</strong>
-                                @item.YearStarted
+                                @Model.YearStarted
                             </div>
                             <div class="col-sm-12 col-md-12 mb-4 col-lg-12">
                                 <strong class="d-block text-black mb-3">網站連結/Website URL</strong>
-                                <a href="@item.WebsiteURL" class="btn btn-outline-primary border-width-2">前往網站/Visit Website</a>
+                                <a href="@Model.WebsiteURL" class="btn btn-outline-primary border-width-2">前往網站/Visit Website</a>
                             </div>
                         </div>
 
@@ -64,11 +53,10 @@
                             <blockquote>
 
                                 <div class="block__91147 d-flex align-items-center">
-                                    <figure class="mr-4"><img src="@item.ProfilePicture" alt="Image" class="img-fluid"></figure>
+                                    <figure class="mr-4"><img src="@Model.ProfilePicture" alt="Image" class="img-fluid"></figure>
                                     <div>
-                                        <h3>@item.NickName </h3>
-                                        <span class="designerType">接案身分: @item.Identity</span>
-                                        <!-- <span class="position">Web Designer</span> -->
+                                        <h3>@Model.NickName </h3>
+                                        <span class="designerType">接案身分: @Model.Identity</span>
                                     </div>
                                 </div>
 
@@ -79,12 +67,10 @@
                                     <a href="/talent?ca=L35&amp;su=ao6p" target="_blank" title="影片/音效後製剪輯"># 影片/音效後製剪輯</a>
                                 </p>
                                 <div class="contactp">
-                                    <p><a href="@Url.Action("StudioHome", new { TalentID = @item.MemberID })" class="btn btn-primary btn-md">回到工作室</a></p>
+                                    <p><a href="@Url.Action("StudioHome", new { TalentID = @Model.MemberID })" class="btn btn-primary btn-md">回到工作室</a></p>
                                 </div>
                             </blockquote>
                         </div>
-
-                    }
                 </div>
 
 
@@ -114,7 +100,6 @@
     <style>
 
         #WD {
-            /*white-space: pre-wrap;*/
             word-break: break-all;
         }
         .designerSkill a {
