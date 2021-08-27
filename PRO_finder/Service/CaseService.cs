@@ -8,7 +8,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services;
-using static PRO_finder.Models.ViewModels.SaveCaseItemViewModel;
 using PRO_finder.Helper;
 
 namespace PRO_finder.Service
@@ -64,10 +63,10 @@ namespace PRO_finder.Service
 
 
             return from Case in _ctx.GetAll<Case>()
-                   join MemberInfo in _ctx.GetAll<MemberInfo>() on Case.MemberID equals MemberInfo.MemberID
+                   //join MemberInfo in _ctx.GetAll<MemberInfo>() on Case.MemberID equals MemberInfo.MemberID
                    join SubCategory in _ctx.GetAll<SubCategory>() on Case.SubCategoryID equals SubCategory.SubCategoryID
                    join Locations in _ctx.GetAll<Locations>() on Case.Location equals Locations.LocationID
-                   join Category in _ctx.GetAll<Category>() on SubCategory.CategoryID equals Category.CategoryID
+                   //join Category in _ctx.GetAll<Category>() on SubCategory.CategoryID equals Category.CategoryID
                    select new CaseDetailViewModel
                    {
                        title = Case.CaseTitle,
@@ -100,33 +99,27 @@ namespace PRO_finder.Service
             長期合作, 急件, 一般案件
         }
 
-        public IEnumerable<SaveCaseItemViewModel> GetSavedCaseData()
+       
+        public List<SelectListItem> GetToolSelectList()
         {
-            return from SaveCase in _ctx.GetAll<SaveCase>()
-                   join Case in _ctx.GetAll<Case>() on SaveCase.CaseID equals Case.CaseID
-                   select new SaveCaseItemViewModel
-                   {
-                       CaseID = SaveCase.CaseID,
-                       title = Case.CaseTitle,
-                       Price = (PriceEnum)Case.Price,
-                       Contact = Case.Contact,
-                       CaseStatus = (int)Case.CaseStatus,
-                       UpdateDate = (DateTime)Case.UpdateDate
-                   };
-        }
-        
-        public SaveCase AddSaveCase(SaveCaseViewModel NewSaveCase, SaveCaseItemViewModel NewSaveCaseItem)
-        {
-            SaveCase entity = new SaveCase
+            var toolList = _ctx.GetAll<ToolCategory>().ToList();
+            List<SelectListItem> toolSelectList = new List<SelectListItem>();
+            toolSelectList.Add(new SelectListItem { Text = "選擇擅長工具類型" });
+            foreach (var item in toolList)
             {
-                CaseID = NewSaveCase.CaseID,
-                SavedDate = NewSaveCaseItem.UpdateDate,
-                MemberID = NewSaveCase.MemberID
-            };
-            _ctx.Create(entity);
-            _ctx.SaveChanges();
-            return entity;
+                toolSelectList.Add(new SelectListItem { Text = item.TalentCategoryName, Value = item.TalentCategoryID.ToString() });
+            }
+            return toolSelectList;
         }
-        
+        public string GetJsonSubTool()
+        {
+            var subToolDblist = _ctx.GetAll<ToolSubCategory>().ToList();
+            var subToolVMList = new List<SubToolViewModel>();
+            foreach (var tool in subToolDblist)
+            {
+                subToolVMList.Add(new SubToolViewModel { TalentCategoryID = tool.TalentCategoryID, SubTalentCategoryID = tool.SubTalentCategoryID, SubTalentCategoryName = tool.SubTalentCategoryName });
+            }
+            return JsonConvert.SerializeObject(subToolVMList);
+        }
     }
 }

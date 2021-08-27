@@ -26,8 +26,9 @@ namespace PRO_finder.Controllers
         // GET: FindQuotation
         public ActionResult Index(string id)
         {
+
             ViewBag.CateId = id;
-       
+
             return View();
         }
 
@@ -37,11 +38,13 @@ namespace PRO_finder.Controllers
 
      
         [Authorize]
-        public ActionResult Detail(int id =1)
+        public ActionResult Detail(int id = 1)
         {
+            
             ViewBag.CateId = id;
             var result = _caseService.GetCaseDetail().FirstOrDefault(x => x.CaseId == id);
             return View(result);
+
         }
 
         public ActionResult Othercase(string Cateid) 

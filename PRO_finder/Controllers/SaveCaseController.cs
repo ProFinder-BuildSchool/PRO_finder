@@ -1,4 +1,6 @@
-﻿using PRO_finder.Models.DBModel;
+﻿using Microsoft.AspNet.Identity;
+using PRO_finder.Models.DBModel;
+using PRO_finder.Models.ViewModels;
 using PRO_finder.Repositories;
 using PRO_finder.Service;
 using System;
@@ -11,23 +13,40 @@ namespace PRO_finder.Controllers
 {
     public class SaveCaseController : Controller
     {
-        private readonly GeneralRepository _repo;
         private readonly CaseService _caseService;
+        private readonly SaveCaseService _savecaseService;
+        private readonly GeneralRepository _repo;
+
 
         public SaveCaseController()
         {
-            _repo = new GeneralRepository(new ProFinderContext());
             _caseService = new CaseService();
+            _savecaseService = new SaveCaseService();
+            _repo = new GeneralRepository(new ProFinderContext());
+            
         }
 
-        public ActionResult Index()
+        public ViewResult SaveCase()
         {
-            return View();
-        }
+            string user = HttpContext.User.Identity.GetUserId();
+            int MemberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == user).MemberID;
 
-        public ActionResult AddSaveCase()
+            var SaveCaseViewModel = _savecaseService.GetSaveCaseData(MemberID);
+            return View(SaveCaseViewModel);
+        }
+        [HttpPost]
+        public void AddToSaveCase(int caseid)
         {
-            return View();
+
+            string user = HttpContext.User.Identity.GetUserId();
+            int MemberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == user).MemberID;
+            
+
+            if (caseid != null)
+            {
+                _savecaseService.AddItemToSaveCase(caseid, MemberID);
+            }
+            
         }
     }
     

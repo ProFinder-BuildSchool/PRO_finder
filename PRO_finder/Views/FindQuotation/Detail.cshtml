@@ -22,9 +22,9 @@
             <div class="col-lg-4">
                 <div class="row">
                     <div class="col-6">
-                        <a href="#" class="btn btn-block btn-light btn-md border">
+                        <button id="btnSaveCase" href="#" class="btn btn-block btn-light btn-md border">
                             <span class="icon-heart-o mr-2 text-danger"></span>收藏
-                        </a>
+                        </button>
                     </div>
                     <div class="col-6">
                         <a href="#" class="btn btn-block btn-light btn-md border">
@@ -316,6 +316,14 @@
             }
 
         }
+
+        let btnSaveCase = document.querySelector('#btnSaveCase');
+        let caseid = @Html.Raw(Json.Encode(Model.CaseId));
+        btnSaveCase.addEventListener('click', function () {
+            //axios({ method: "post", data: caseid, url: "/SaveCase/AddToSaveCase" })
+            //    .then(res => console.log(res));
+            axios.post('/SaveCase/AddToSaveCase', { caseid: caseid }).then(res => console.log(res));
+        })
 
 
     </script>
