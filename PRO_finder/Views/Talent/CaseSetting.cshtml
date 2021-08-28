@@ -433,10 +433,12 @@
 
         //擅長工具Dropdown & checkbox
         let subToolArray = []
-        axios.get("/Talent/GetSubTool").then(res => {
-            let tools = JSON.parse(res.data);
+        let subToolArrayInRecord = []
+        axios.get("/api/Talent/GetSubTool").then(res => {
+            let tools = JSON.parse(res.data.Result);
             subToolArray.push(...tools);
         });
+
         $g("select#ToolCategoryID").addEventListener("change", function () {
             let cateID = Number(this.value);
             $g("#toolCheckArea").innerHTML = "";

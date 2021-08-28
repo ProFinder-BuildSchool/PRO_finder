@@ -102,5 +102,10 @@ namespace PRO_finder.Service
             JArray tempArray = JArray.Parse(jsonToolList);
             //No DB Model
         }
+        public string GetToolRecord(int memberID)
+        {
+            List<TalentTool> record = _ctx.GetAll<TalentTool>().Where(x => x.MemberID == memberID).ToList();
+            return JsonConvert.SerializeObject(record);
+        }
     }
 }

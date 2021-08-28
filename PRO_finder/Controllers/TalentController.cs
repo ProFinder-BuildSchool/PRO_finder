@@ -183,6 +183,7 @@ namespace PRO_finder.Controllers
         public ActionResult CaseSetting([Bind(Include = "Status, NickName, Identity, LiveCity, Cellphone, Email, JsonToolList, LocationID, SubCategoryID, AllPieceworkExp, JsonExDList, Description")] MemberInfoViewModel caseSettings)
         {
             //view 畫面資料
+            //大類別CategoryDropDown
             ViewBag.CategoryList = _cateService.GetCategorySelectList();
             ViewBag.ToolList = _memberInfoService.GetToolSelectList();
             if (caseSettings.LiveCity != null)
@@ -256,12 +257,6 @@ namespace PRO_finder.Controllers
             return Json(subcategoryList, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetSubTool()
-        {
-            var alltool = _memberInfoService.GetJsonSubTool();
-            return Json(alltool, JsonRequestBehavior.AllowGet);
-        }
-
         [HttpPost]
         public void UploadFile(HttpPostedFile file)
         {
@@ -282,5 +277,12 @@ namespace PRO_finder.Controllers
             }
            
         }
+        [HttpPost]
+        //public JsonResult GetToolRecord()
+        //{
+        //    string userID = "64547da8-0789-42f7-a193-e001cec76873";
+        //    int memberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == userID).MemberID;
+        //    _memberInfoService.GetToolRecord(memberID);
+        //}
     }
 }
