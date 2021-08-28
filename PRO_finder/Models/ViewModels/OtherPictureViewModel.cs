@@ -12,8 +12,6 @@ namespace PRO_finder.Models.ViewModel
 
         public int OtherPictureID { get; set; }
 
-        public string MainPicture { get; set; }
-
         public int SortNumber { get; set; }
 
         public bool IsDefault { get; set; }

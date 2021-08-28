@@ -37,6 +37,7 @@ namespace PRO_finder.Models.DBModel
         public virtual DbSet<ServiceRecord> ServiceRecord { get; set; }
         public virtual DbSet<SubCategory> SubCategory { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<TalentTool> TalentTool { get; set; }
         public virtual DbSet<ToolCategory> ToolCategory { get; set; }
         public virtual DbSet<ToolSubCategory> ToolSubCategory { get; set; }
         public virtual DbSet<WorkAttachment> WorkAttachment { get; set; }
@@ -91,8 +92,9 @@ namespace PRO_finder.Models.DBModel
                 .HasForeignKey(e => e.MemberID);
 
             modelBuilder.Entity<MemberInfo>()
-                .HasOptional(e => e.Experience)
-                .WithRequired(e => e.MemberInfo);
+                .HasMany(e => e.Experience)
+                .WithRequired(e => e.MemberInfo)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<MemberInfo>()
                 .HasMany(e => e.HostingDetail)

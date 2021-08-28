@@ -25,32 +25,22 @@
                                     <div class="col-6 border p-2 d-inline-block mr-3 rounded">
                                         <!-- 報價細節封面 -->
                                         <figure>
-                                            <img src="Model.MainPicture" alt="Image"
+                                            <img src="@Model.MainPicture" alt="Image"
                                                  class="img-fluid rounded">
                                         </figure>
                                         <!-- 作品集縮圖 -->
                                         <div class="left-down">
                                             <ul class="d-flex" style="overflow-y: auto;">
-                                                @if (Model.OtherPicture.Any())
+                                                @*@if (Model.OtherPicture.Any())
                                                 {
                                                     foreach (var pic in Model.OtherPicture)
-                                                    {
-                                                        <li class="mx-2">
-                                                            <a href="#otherpicture-@pic.SortNumber" title="pre-Post">
-                                                                <img width="71" height="36"
-                                                                     src="@pic.OtherPicture"
-                                                                     class="single-featured wp-post-image" alt=""
-                                                                     sizes="(max-width: 710px) 25vw,178px" />
-                                                            </a>
-                                                        </li>
-                                                    }
-                                                    foreach (var pic in Model.OtherPicture)
-                                                    {
+                                                    {<li>
                                                         <figure id="otherpicture-@pic.SortNumber" class="mb-5">
-                                                            <img src="@pic.MainPicture" alt="Image" class="img-fluid rounded" sizes="(max-width: 710px) 25vw,178px" ;>
+                                                            <img src="@Model.MainPicture" alt="Image" class="img-fluid rounded" sizes="(max-width: 710px) 25vw,178px" ;>
                                                         </figure>
+                                                    </li>    
                                                     }
-                                                }
+                                                }*@
                                             </ul>
                                         </div>
                                     </div>
@@ -76,8 +66,8 @@
                                                         @Model.Evaluation
                                                     }
                                                 }</p>
-                                            <p>執行時間：@Model.ExecuteDate</p>
-                                            <p>服務地點：@Model.LocationID</p>
+                                            <p>執行時間：@Model.ExecuteDate 天</p>
+                                            <p>服務地點：@Model.Location</p>
                                             <a class="btn btn-danger" href="#">站內詢問</a>
                                         </div>
                                     </div>
@@ -113,21 +103,20 @@
                                     <div class="work d-flex" style="overflow-y: auto;">
                                         <ul class="d-flex">
                                             @*@foreach (var item in Model)*@
-                                            {
                                             <li>
                                                 <div class="card m-2">
                                                     <img src="https://demo.colorlib.com/activello/wp-content/uploads/sites/57/2015/11/photo-1438109491414-7198515b166b-150x150.jpg"
                                                          class="card-img-top" alt="...">
                                                     <div class="card-body">
-                                                        <h5 class="card-title">
-                                                            <span class="date">@Model.Price</span>@Model.Unit
-                                                        </h5>
+                                                        <h6 class="card-title">
+                                                            @Model.QuotationTitle
+                                                        </h6>
+                                                        <span class="date">@Model.Price</span> / @Model.Unit
                                                         <p class="card-text">歡迎訂購</p>
                                                         <a href="@Url.Action("StudioHome", "Quotation")" class="btn btn-danger">服務詳情</a>
                                                     </div>
                                                 </div>
                                             </li>
-                                            }
                                         </ul>
                                     </div>
                                 </div>
@@ -143,7 +132,7 @@
                                         foreach (var pic in Model.OtherPicture)
                                         {
                                             <figure id="otherpicture-@pic.SortNumber" class="mb-5">
-                                                <img src="@pic.MainPicture" alt="Image" class="img-fluid rounded" sizes="(max-width: 710px) 25vw,178px";>
+                                                <img src="@Model.MainPicture" alt="Image" class="img-fluid rounded" sizes="(max-width: 710px) 25vw,178px";>
                                             </figure>
                                         }
                                     }

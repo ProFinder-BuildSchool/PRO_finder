@@ -15,7 +15,7 @@ namespace PRO_finder.Models.DBModel
         [StringLength(30)]
         public string QuotationTitle { get; set; }
 
-        public DateTime? UpdateDate { get; set; }
+        public DateTime UpdateDate { get; set; }
 
         public int QuotationUnit { get; set; }
 

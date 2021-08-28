@@ -9,8 +9,6 @@ namespace PRO_finder.Models.DBModel
     [Table("Experience")]
     public partial class Experience
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MemberID { get; set; }
 
         public int SubCategoryID { get; set; }
@@ -18,6 +16,9 @@ namespace PRO_finder.Models.DBModel
         [Required]
         [StringLength(50)]
         public string PieceworkExp { get; set; }
+
+        [Key]
+        public int ExpID { get; set; }
 
         public virtual MemberInfo MemberInfo { get; set; }
 

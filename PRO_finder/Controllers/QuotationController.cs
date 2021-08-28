@@ -28,7 +28,7 @@ namespace PRO_finder.Controllers
             _studioService = new StudioService();
         }
         // GET: Quotation
-        public ActionResult Index(int? CategoryId, string keyword)
+        public ActionResult Index(int? CategoryId, string keyword,string[] filter)
         {
 
             if (string.IsNullOrEmpty(keyword) && !CategoryId.HasValue)
@@ -57,7 +57,7 @@ namespace PRO_finder.Controllers
         public ActionResult Detail(int Memberid=1,int Quotationid=2019)
         {
             QuotationDetailViewModel QuoDetailVM = _quotService.GetQuoDetailData(Memberid, Quotationid);
-            ViewBag.QID = Quotationid;
+            //ViewBag.QID = Quotationid;
             return View(QuoDetailVM);
         }
 

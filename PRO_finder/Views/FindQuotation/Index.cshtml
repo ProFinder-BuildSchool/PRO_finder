@@ -1,7 +1,8 @@
-﻿@model string
+﻿
 @{
     ViewBag.Title = "Index";
 }
+@model List<CaseViewModel>
 <section class="section-hero overlay inner-page bg-image pt-2" id="home-section">
     <div class="container">
         <div class="row  p-0">
@@ -12,7 +13,7 @@
                     <div class="row  justify-content-around">
                         <div class="col-md-1 col-1 test">
                             <div class="category-btn ">
-                                <a class="mb-1" href="@Url.Action("Index",new { id = "0"} )">
+                                <a class="mb-1"  href="@Url.Action("Index",new { id = "0"} )">
                                     <i class="fas fa-pencil-ruler"></i>
                                     <p class="d-none d-md-block">平面設計</p>
                                     <p class="cateCount">(373)筆</p>
@@ -132,8 +133,12 @@
                         @*動態資料*@
                     </select>
                     <button class="watchAll btn   p-1 text-black">× 清除條件</button>
-                    <input class=" searchinput " type="text" placeholder="請輸入關鍵字">
-                    <button type="submit" class=" search btn  btn-success text-white p-1 "><i class="icon fas text-white fa-search mr-2"></i>搜尋</button>
+
+
+
+                    <input type="text" class="serchValue" name="name" value="" />
+                    <button type="submit"  class=" searchtbtn btn  btn-success text-white p-1 "><i class="icon fas text-white fa-search mr-2">搜尋</i></button>
+                   
                 </div>
             </div>
         </div>
@@ -608,27 +613,23 @@
             homesectiontoTop.offsetTop > 130 ? homesectiontoTop.classList.add('border-btm') : homesectiontoTop.classList.remove('border-btm')
         }
 
-        let AllCardArray = [];
+        let AllCardArray =@Html.Raw(Json.Encode(Model));
         let card = document.querySelector('#caseList');
         let pagesOption = document.querySelector('#pagination');
         let dataArray =[];
         let areaArray =[];
         let priceArray = [];
         let newCase = document.querySelector("#newCase");
-        var test = window.location.search;
+        let ViewBag =@ViewBag.CateId;
+        if (ViewBag<13) {document.querySelectorAll('.category-btn')[@ViewBag.CateId].classList.add('actives') }
 
 
 
-        axios.get("/api/Case/GetCase?CateId=@ViewBag.CateId").then(res => {
-            console.log(res)
-            AllCardArray = res.data.Result;
-            console.log(test.substr(4))
-            if (test.substr(4) != "" ) {
-                document.querySelectorAll('.category-btn')[test.substr(4)].classList.add('actives')
-            }
+
+
+
             setCaseCount(AllCardArray);
-            if (AllCardArray.length == 0 || AllCardArray == null || AllCardArray == undefined)
-            {
+            if (AllCardArray.length == 0 || AllCardArray == null || AllCardArray == undefined) {
                 document.querySelector('.aaaaaaa').innerHTML = '<p class="text-danger">查無資料!!!</p>'
                 document.querySelector('.priceOption').innerHTML = ' <option value="" disabled selected hidden>-請選擇價格-</option>';
                 document.querySelector('.areaOption').innerHTML = '<option value="" disabled selected hidden>-請選擇地區-</option>';
@@ -639,12 +640,8 @@
                 AllCardArray.forEach((x) => { priceArray.push(x.Price) })
                 addSelectOption()
                 setPages(AllCardArray);
-                addcase(AllCardArray);}
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-
+                addcase(AllCardArray);
+            }
 
 
 
@@ -667,7 +664,6 @@
 
         function setNewCase(arr) {
             arr.slice(0, 5).forEach(function (item, index) {
-
                 let cloneContent = newCase.content.cloneNode(true);
                 cloneContent.querySelector('p').innerHTML = `<span class=" pt-1 d-inline-block px-1 bg-success text-white">${index + 1}.</span> ${item.title}`
                 cloneContent.querySelector('.hour-ago').innerText = StringToDate(item.UpdateDate)
@@ -679,23 +675,7 @@
 
         //清除條件
         document.querySelector('.watchAll').addEventListener("click", function () {
-
-            document.querySelector('.aaaaaaa').innerHTML = ''
-            document.querySelector('.searchinput').value=""
-            axios.get('/FindQuotation/IndexJson?CateId=@ViewBag.CateId')
-                .then(res => {
-                    AllCardArray = res.data;
-                    console.log(AllCardArray)
-                    res.data.forEach((x) => { areaArray.push(x.LocationName),priceArray.push(x.Price)})
-                    setCaseCount(AllCardArray)
-                    setPages(AllCardArray);
-                    addSelectOption()
-                    addcase(AllCardArray);
-
-                })
-                .catch(err => {
-                    console.log(err);
-                })
+             location.href = `/FindQuotation/Index`;
         })
 
 
@@ -920,32 +900,10 @@
 
         }
 
+        document.querySelector('.searchtbtn').addEventListener('click', function () {
+            let serchValue = document.querySelector('.serchValue')
+            location.href = `/FindQuotation/Index?id=@ViewBag.CateId&searchStr=${serchValue.value}`;
+        });
 
-
-        document.querySelector('.search').addEventListener('click', function () {
-            let input = document.querySelector('.searchinput').value
-
-            document.querySelector('.aaaaaaa').innerHTML = ''
-            axios.post(`/api/Case/Searchinput?CateID=@ViewBag.CateId&seacrh=${input}`)
-                .then(res => {
-                    console.log(res.data.Result)
-                    AllCardArray = res.data.Result
-                    if (AllCardArray.length ==0) {
-                        document.querySelector('.aaaaaaa').innerHTML = '查無資料!!'
-                    }
-                    else {
-                        res.data.Result.forEach((x) => { areaArray.push(x.LocationName), priceArray.push(x.Price) })
-
-                    }
-                    setCaseCount(AllCardArray);
-                    setPages(AllCardArray);
-                    addSelectOption()
-                    addcase(AllCardArray);
-
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-        })
     </script>
 }

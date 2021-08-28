@@ -6,8 +6,7 @@
 
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-    <div class="myContainer">
+    @Html.AntiForgeryToken()<div class="myContainer">
         <h5>接案設定</h5>
         <hr>
         <div class="form-horizontal">
@@ -15,18 +14,37 @@
                 <p for="CaseStatus" class="col-md-12 text-black font-weight-bold">接案狀態</p>
                 <div class="container">
                     <div class="row caseStatus">
-                        <div class="col-12 col-md-auto">
-                            <input type="radio" name="Status" value="open" id="CaseStatus-open">
-                            <label for="CaseStatus" style="font-size: 14px;" class="d-inline">開啓</label>
-                        </div>
-                        <div class="col-12 col-md-auto">
-                            <input type="radio" name="Status" value="open-without-info" id="CaseStatus-openRestricted">
-                            <label for="CaseStatus" style="font-size: 14px;" class="d-inline">開啟，隱藏聯絡資訊【建議】</label>
-                        </div>
-                        <div class="col-12 col-md-auto">
-                            <input type="radio" name="Status" value="close" id="CaseStatus">
-                            <label for="CaseStatus" style="font-size: 14px;">關閉</label>
-                        </div>
+                        @if (Model.Status)
+                        {
+                            <div class="col-12 col-md-auto">
+                                <input type="radio" name="Status" value="true" id="CaseStatus-open" checked>
+                                <label for="CaseStatus-open" style="font-size: 14px;" class="d-inline">開啓</label>
+                            </div>
+                            @*<div class="col-12 col-md-auto">
+                                    <input type="radio" name="Status" value="true" id="CaseStatus-openRestricted">
+                                    <label for="CaseStatus-openRestricted" style="font-size: 14px;" class="d-inline">開啟，隱藏聯絡資訊【建議】</label>
+                                </div>*@
+                            <div class="col-12 col-md-auto">
+                                <input type="radio" name="Status" value="false" id="CaseStatus-closed">
+                                <label for="CaseStatus-closed" style="font-size: 14px;">關閉</label>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-12 col-md-auto">
+                                <input type="radio" name="Status" value="true" id="CaseStatus-open">
+                                <label for="CaseStatus-open" style="font-size: 14px;" class="d-inline">開啓</label>
+                            </div>
+                            @*<div class="col-12 col-md-auto">
+                                    <input type="radio" name="Status" value="true" id="CaseStatus-openRestricted">
+                                    <label for="CaseStatus-openRestricted" style="font-size: 14px;" class="d-inline">開啟，隱藏聯絡資訊【建議】</label>
+                                </div>*@
+                            <div class="col-12 col-md-auto">
+                                <input type="radio" name="Status" value="false" id="CaseStatus-closed" checked>
+                                <label for="CaseStatus-closed" style="font-size: 14px;">關閉</label>
+                            </div>
+                        }
+
                     </div>
                 </div>
             </div>
@@ -34,7 +52,7 @@
             <div class="form-group">
                 <label for="NickName" class="col-md-12 control-label">接案暱稱</label>
                 <div class="col-md-12">
-                    <input type="text" class="form-control text-box single-line" id="NickName" placeholder="tasker" name="NickName">
+                    <input type="text" class="form-control text-box single-line" id="NickName" placeholder="tasker" name="NickName" value="@Model.NickName">
                 </div>
             </div>
             <hr />
@@ -43,28 +61,71 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12 col-md-auto">
-                            <input type="radio" name="Identity" value="0" id="Identity-individual">
-                            <label for="individual" style="font-size: 14px;">個人兼職</label>
+                            @if ((int)Model.Identity == 0)
+                            {
+                                <input type="radio" name="Identity" value="0" id="Identity-individual" checked="checked">
+                            }
+                            else
+                            {
+                                <input type="radio" name="Identity" value="0" id="Identity-individual">
+                            }
+                            <label for="Identity-individual" style="font-size: 14px;">個人兼職</label>
                         </div>
                         <div class="col-12 col-md-auto">
-                            <input type="radio" name="Identity" value="1" id="Identity-soho">
-                            <label for="soho" style="font-size: 14px;">專職SOHO</label>
+                            @if ((int)Model.Identity == 1)
+                            {
+                                <input type="radio" name="Identity" value="1" id="Identity-soho" checked="checked">
+                            }
+                            else
+                            {
+                                <input type="radio" name="Identity" value="1" id="Identity-soho">
+                            }
+                            <label for="Identity-soho" style="font-size: 14px;">專職SOHO</label>
                         </div>
                         <div class="col-12 col-md-auto">
-                            <input type="radio" name="Identity" value="2" id="Identity-workhouse">
-                            <label for="workhouse" style="font-size: 14px;">工作室</label>
+                            @if ((int)Model.Identity == 2)
+                            {
+                                <input type="radio" name="Identity" value="2" id="Identity-workhouse" checked="checked">
+                            }
+                            else
+                            {
+                                <input type="radio" name="Identity" value="2" id="Identity-workhouse">
+                            }
+                            <label for="Identity-workhouse" style="font-size: 14px;">工作室</label>
                         </div>
                         <div class="col-12 col-md-auto">
-                            <input type="radio" name="Identity" value="3" id="Identity-parttime">
-                            <label for="part-time" style="font-size: 14px;">兼職上班族</label>
+                            @if ((int)Model.Identity == 3)
+                            {
+                                <input type="radio" name="Identity" value="3" id="Identity-partime" checked="checked">
+                            }
+                            else
+                            {
+                                <input type="radio" name="Identity" value="3" id="Identity-partime">
+                            }
+                            <label for="Identity-partime" style="font-size: 14px;">兼職上班族</label>
                         </div>
                         <div class="col-12 col-md-auto">
-                            <input type="radio" name="Identity" value="4" id="Identity-company">
-                            <label for="company" style="font-size: 14px;">公司</label>
+                            @if ((int)Model.Identity == 4)
+                            {
+                                <input type="radio" name="Identity" value="4" id="Identity-company" checked="checked">
+                            }
+                            else
+                            {
+                                <input type="radio" name="Identity" value="4" id="Identity-company">
+                            }
+                            <label for="Identity-company" style="font-size: 14px;">公司</label>
                         </div>
                         <div class="col-12 col-md-auto">
-                            <input type="radio" name="Identity" value="5" id="Identity-student">
-                            <label for="student" style="font-size: 14px;">學生</label>
+                            @if ((int)Model.Identity == 5)
+                            {
+                                <input type="radio" name="Identity" value="5" id="Identity-student" checked="checked">
+                            }
+                            else
+                            {
+                                <input type="radio" name="Identity" value="5" id="Identity-student">
+                            }
+
+                            <label for="Identity-student" style="font-size: 14px;">學生</label>
                         </div>
                     </div>
                 </div>
@@ -73,21 +134,21 @@
             <div class="form-group">
                 <label for="job-location" class="col-md-12 control-label">居住地</label>
                 <div class="col-md-6">
-                    @Html.DropDownList("LiveCity", (List<SelectListItem>)ViewBag.LocationDropdownList, new { @class = "form-control"})
+                    @Html.DropDownList("LiveCity", (List<SelectListItem>)ViewBag.LocationDropdownListForLiveCity, new { @class = "form-control", @name = "LiveCity" })
                 </div>
             </div>
             <hr />
             <div class="form-group">
                 <label for="Cellphone" class="col-md-12 control-label">行動電話</label>
                 <div class="col-md-12">
-                    <input type="text" class="form-control" id="Cellphone" placeholder="Product Designer" name="Cellphone">
+                    <input type="text" class="form-control" id="Cellphone" placeholder="Product Designer" name="Cellphone" value="@Model.Cellphone">
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="Email" class="col-md-12 control-label">Email</label>
                 <div class="col-md-12">
-                    <input type="text" class="form-control" id="Email" placeholder="you@yourdomain.com" name="Email">
+                    <input type="text" class="form-control" id="Email" placeholder="you@yourdomain.com" name="Email" value="@Model.Email">
                 </div>
             </div>
             <hr />
@@ -100,10 +161,11 @@
                             <div class="mt-3 toolCheckArea" id="toolCheckArea"></div>
                         </div>
                         <div class="col-12 col-md-6 displayTool" id="displayTool">
+                            @*還沒有display*@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -113,7 +175,7 @@
         <div class="form-group">
             <label for="LocationID" class="col-md-12 control-label">理想接案城市</label>
             <div class="col-md-6">
-                @Html.DropDownList("LocationID", (List<SelectListItem>)ViewBag.LocationDropdownList, new { @class = "form-control", @id = "toolDropdown"})
+                @Html.DropDownList("LocationID", (List<SelectListItem>)ViewBag.LocationDropdownList, new { @class = "form-control", @id = "toolDropdown" })
             </div>
         </div>
         <div class="form-group">
@@ -121,7 +183,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-6">
-                        @Html.DropDownList("Catgeory", (List<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control", @id = "categoryDropdown" })
+                        @Html.DropDownList("Catgeory", (List<SelectListItem>)ViewBag.IdealCaseCategoryList, new { @class = "form-control", @id = "categoryDropdown" })
                     </div>
                     <div class="col-6">
                         <select class="form-control" id="subcategorySelect" name="SubCategoryID">
@@ -139,7 +201,7 @@
         <div class="form-group">
             <label for="AllPieceworkExp" class="col-md-12 control-label">累計接案經驗</label>
             <div class="col-md-6">
-                <select id="AllPieceworkExp" class="form-control">
+                <select id="AllPieceworkExp" class="form-control" name="AllPieceworkExp">
                     <option value="無年工作經驗">無工作經驗</option>
                     <option value="0-1年工作經驗">0-1年工作經驗</option>
                     <option value="1-2年工作經驗">1-2年工作經驗</option>
@@ -159,22 +221,21 @@
         <label class="col-md-12 control-label text-black">接案經驗細節</label>
         <div id="ExDArea">
             <div class="col-md-12 my-2 ExDWrap" id="ExDWrap0">
-                <a class="btn removeExD"><i class="far fa-trash-alt"></i></a>
-                <p class="col-md-12 text-black mb-2">接案經驗細節1</p>
+                <p class="col-md-12 text-black mb-2">接案經驗細節</p>
                 <div class="form-group">
                     <div class="container">
                         <div class="row">
                             <div class="col-12 col-md-6 col-lg-4 mt-2">
-                                @Html.DropDownList("Catgeory", (List<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control", @id = "ExDCategoryDropdown" })
+                                @Html.DropDownList("ExDCategoryID", (List<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control", @id = "ExDCategoryID0" })
                             </div>
                             <div class="col-12 col-md-6 col-lg-4 mt-2">
-                                <select class="form-control" id="ExDSubCategoryID" name="ExDSubCategoryID">
+                                <select class="form-control" name="ExDSubCategoryID" id="ExDSubCategoryID0">
                                     <option class="text-center">選擇子類型</option>
                                 </select>
                                 @*@Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })*@
                             </div>
                             <div class="col-12 col-md-6 col-lg-4 mt-2">
-                                <select id="ExDPieceworkExp" class="form-control">
+                                <select class="form-control" name="ExDPieceworkExp">
                                     <option value="無年工作經驗">無工作經驗</option>
                                     <option value="0-1年工作經驗">0-1年工作經驗</option>
                                     <option value="1-2年工作經驗">1-2年工作經驗</option>
@@ -203,15 +264,20 @@
         <hr />
         <div class="form-group">
             <div id="editor">
-                <p>Write Job Description!</p>
+                <div>
+                    @Html.Raw(Model.Description)
+                </div>
             </div>
         </div>
     </div>
     <div class="form-group mt-3">
         <div class="col-md-offset-2 col-md-12 text-center">
-            <input value="儲存設定" class="btn btn-primary" id="submit" />
+            <input value="儲存設定" class="btn btn-primary" id="send" />
         </div>
     </div>
+    <input type="hidden" name="JsonToolList" id="JsonToolList">
+    <input type="hidden" name="JsonExDList" id="JsonExDList">
+    <input type="hidden" name="Description" id="Description" />
     <template id="toolCheckBox">
         <div class="form-check col-12">
             <input type="checkbox" name="talentTool" id="" class="form-check-input">&ensp;<label class="form-check-label mb-0"></label>
@@ -231,16 +297,16 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12 col-md-6 col-lg-4 mt-2">
-                            @Html.DropDownList("Catgeory", (List<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control", @id = "ExDCategoryDropdown" })
+                            @Html.DropDownList("ExDCategoryID", (List<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control" })
                         </div>
                         <div class="col-12 col-md-6 col-lg-4 mt-2">
-                            <select class="form-control" id="ExDSubCategoryID" name="ExDSubCategoryID">
+                            <select class="form-control" name="ExDSubCategoryID">
                                 <option class="text-center">選擇子類型</option>
                             </select>
                             @*@Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })*@
                         </div>
                         <div class="col-12 col-md-6 col-lg-4 mt-2">
-                            <select id="ExDPieceworkExp" class="form-control">
+                            <select class="form-control" name="ExDPieceworkExp">
                                 <option value="無年工作經驗">無工作經驗</option>
                                 <option value="0-1年工作經驗">0-1年工作經驗</option>
                                 <option value="1-2年工作經驗">1-2年工作經驗</option>
@@ -326,6 +392,9 @@
                 .ExDWrap a:hover {
                     cursor: pointer;
                 }
+                input#send{
+                    cursor: pointer;
+                }
         @@media screen and (min-width:768px){
             .toolCheckArea{
                 margin-top:0px;
@@ -337,28 +406,28 @@
 @section endJS{
     <script src="~/Assets/js/quill.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <script>
         //接案類別轉換
         let selector = document.querySelector("#subcategorySelect");
         var subCategoryList = [];
 
-        axios.get("/Talent/GetAllCategoryAndSubCategoryList").then(result => {
-            let data = JSON.parse(result.data);
+        axios.get("/api/Talent/GetAllCategoryAndSubCategoryList").then(result => {
+            let data = JSON.parse(result.data.Result);
             subCategoryList.push(...data);
         });
-
+        let idealSubCateID = @Html.Raw(Json.Encode(ViewBag.IdealSubCategoryID)) != null ? @Html.Raw(Json.Encode(ViewBag.IdealSubCategoryID)) : -1;
         document.querySelector("#categoryDropdown").addEventListener("change", function () {
             selector.innerHTML = "<option class='text-center'>選擇子類型</option>";
-            subCategoryList.forEach(sub => {
-                if (sub.CategoryID == this.value) {
-                    let allsub = JSON.parse(sub.JsonSubCategoryList);
-                    allsub.forEach(s => {
-                        let option = document.createElement("option");
-                        option.innerText = s.SubCateName;
-                        option.value = s.SubCateID;
-                        selector.append(option);
-                    });
-                };
+            let theSubList = subCategoryList.filter(x => x.CategoryID == this.value)[0].JsonSubCategoryList;
+            console.log(theSubList);
+            let allSub = JSON.parse(theSubList);
+            allSub.forEach(s => {
+                let option = document.createElement("option");
+                option.innerText = s.SubCateName;
+                option.value = s.SubCateID;
+                if (idealSubCateID == s.SubCateID) { option.selected = true; }
+                selector.append(option);
             });
         });
 
@@ -375,6 +444,7 @@
                 if (subTool.TalentCategoryID == cateID) {
                     let clone_checkbox = $g("template#toolCheckBox").content.cloneNode(true);
                     clone_checkbox.querySelector("label").innerText = subTool.SubTalentCategoryName;
+                    clone_checkbox.querySelector("label").setAttribute("for", `toolInput${subTool.SubTalentCategoryID}`)
                     clone_checkbox.querySelector("input").value = subTool.SubTalentCategoryID;
                     clone_checkbox.querySelector("input").setAttribute("id", `toolInput${subTool.SubTalentCategoryID}`);
                     clone_checkbox.querySelector("input").setAttribute("data-content", subTool.SubTalentCategoryName);
@@ -384,12 +454,13 @@
                         if (e.target.checked) {
                             clone_tag = $g("template#toolCheckedTag").content.cloneNode(true);
                             clone_tag.querySelector("p").innerText = this.dataset.content;
-                            clone_tag.querySelector("div").setAttribute("id", `tool${this.value}`);
+                            clone_tag.querySelector("div").setAttribute("id", `toolTag${this.value}`);
+                            clone_tag.querySelector("div").setAttribute("data-content", this.value);
                             clone_tag.querySelector("button").setAttribute("data-content", this.value);
                             clone_tag.querySelector("button").addEventListener("click", function (e) {
                                 e.preventDefault();
                                 let value = this.dataset.content;
-                                let theTag = $g(`div#tool${value}`);
+                                let theTag = $g(`div#toolTag${value}`);
                                 $g("#displayTool").removeChild(theTag);
                                 $g(`input#toolInput${value}`).checked = false;
                                 subToolArray[value]["IsChecked"] = false;
@@ -397,7 +468,7 @@
                             $g("#displayTool").appendChild(clone_tag);
                             subToolArray[this.value]["IsChecked"] = true;
                         } else {
-                            let theTag = $g(`div#tool${this.value}`);
+                            let theTag = $g(`div#toolTag${this.value}`);
                             $g("#displayTool").removeChild(theTag);
                             subToolArray[this.value]["IsChecked"] = false;
                         }
@@ -408,8 +479,8 @@
 
         });
         //接案經歷類別轉換
-        let ExDSubSelector = $g("select#ExDSubCategoryID")
-        document.querySelector("#ExDCategoryDropdown").addEventListener("change", function () {
+        let ExDSubSelector = $g("select#ExDSubCategoryID0");
+        document.querySelector("select#ExDCategoryID0").addEventListener("change", function () {
             ExDSubSelector.innerHTML = "<option class='text-center'>選擇子類型</option>";
             subCategoryList.forEach(sub => {
                 if (sub.CategoryID == this.value) {
@@ -429,7 +500,29 @@
         $g("span#addExD").addEventListener("click", function () {
             clone_ExD = $g("template#ExDTemplate").content.cloneNode(true);
             clone_ExD.querySelector("div.ExDWrap").setAttribute("id", `ExDWrap${ExDCount}`);
-            clone_ExD.querySelector("p").innerText = `接案經驗細節${ExDCount+1}`
+            clone_ExD.querySelector("select[name='ExDSubCategoryID']").setAttribute("id", `ExDSubCategoryID${ExDCount}`);
+            clone_ExD.querySelector("select[name='ExDCategoryID']").setAttribute("id", `ExDCategoryID${ExDCount}`);
+            let subSelector = clone_ExD.querySelector(`select#ExDSubCategoryID${ExDCount}`);
+            clone_ExD.querySelector(`select#ExDCategoryID${ExDCount}`).addEventListener("change", function () {
+                subSelector.innerHTML = "<option class='text-center'>選擇子類型</option>";
+                subCategoryList.forEach(sub => {
+                    if (sub.CategoryID == this.value) {
+                        let allsub = JSON.parse(sub.JsonSubCategoryList);
+                        allsub.forEach(s => {
+                            let option = document.createElement("option");
+                            option.innerText = s.SubCateName;
+                            option.value = s.SubCateID;
+                            subSelector.append(option);
+                        });
+                    };
+                });
+            });
+            //clone_ExD.querySelector("p").innerText = `接案經驗細節${ExDCount + 1}`;
+            clone_ExD.querySelector("a").setAttribute("data-count", ExDCount);
+            clone_ExD.querySelector("a").addEventListener("click", function () {
+                let theExD = $g(`div#ExDWrap${this.dataset.count}`);
+                $g("div#ExDArea").removeChild(theExD);
+            });
             $g("div#ExDArea").appendChild(clone_ExD);
             ExDCount++;
         });
@@ -460,6 +553,48 @@
         $g('#editor').style.setProperty('border-radius', '0 0 .25rem .25rem');
         $g('#editor').style.setProperty('min-height', '200px');
 
+
+        //送出表單 Submit form
+        $g("input#send").addEventListener("click", function (e) {
+            e.preventDefault();
+            //取得當前表單
+            const form = $g("form[action='/Talent/CaseSetting']");
+            const formD = new FormData(form);
+
+            //取得擅長軟體
+            let tools = $g("div[id^=toolTag]");
+            console.log(tools);
+            let toolArray = [];
+            tools.forEach(t => {
+                let toolId = t.dataset.content;
+                let p = $g(`div#toolTag${toolId}>p`);
+                let obj = new Object();
+                obj.ToolSubCategoryID = toolId;
+                obj.ToolSubCategoryName = p.innerText;
+                toolArray.push(obj);
+            });
+            console.log(toolArray)
+            $g("input#JsonToolList").value = JSON.stringify(toolArray);
+
+            //取得接案經歷
+            let ExDSubId = $g("select[name='ExDSubCategoryID']");
+            let ExDPieceworkExp = $g("select[name='ExDPieceworkExp']");
+            let ExDArray = [];
+            let len = ExDSubId.length >= ExDPieceworkExp.length ? ExDPieceworkExp.length : ExDSubId.length;
+            for (let i = 0; i < len; i++) {
+                let obj = new Object();
+                obj.SubCategoryID = ExDSubId[i].value;
+                obj.PieceworkExp = ExDPieceworkExp[i].value;
+                ExDArray.push(obj);
+            }
+            console.log(ExDArray);
+            $g("input#JsonExDList").value = JSON.stringify(ExDArray);
+
+            //取得Description
+            $g("input#Description").value = $g("div.ql-editor").innerHTML;
+            document.querySelector("form[action='/Talent/CaseSetting']").submit();
+
+        });
         function $g(element) {
             let temp = document.querySelectorAll(element);
             return temp.length == 1 ? temp[0] : temp;

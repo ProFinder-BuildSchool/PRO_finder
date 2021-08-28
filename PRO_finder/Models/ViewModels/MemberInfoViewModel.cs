@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using PRO_finder.Models.DBModel;
 
 namespace PRO_finder.Models.ViewModels
@@ -65,9 +66,12 @@ namespace PRO_finder.Models.ViewModels
 
         public string AllPieceworkExp { get; set; }
 
+        [AllowHtml]
         public string Description { get; set; }
 
         public string UserId { get; set; }
+        public string JsonToolList { get; set; }
+        public string JsonExDList { get; set; }
 
     }
 }

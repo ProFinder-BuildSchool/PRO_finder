@@ -45,21 +45,28 @@ namespace PRO_finder.Service
                                    SubcategoryId = s.SubCategoryID,
                                    SubcategoryName = s.SubCategoryName,
                                    Location = l.LocationName
+                                   
 
                                }
                    );
+
             if (quotationVM.Count() == 0)
             {
                 return null;
             }
 
+
             return quotationVM.ToList();
+
         }
 
         public List<QuotationViewModel> GetCategoryPageData(int categoryId)
         {
 
             var quotationVM = GetAllCardData().Where(x => x.CategoryId == categoryId).ToList();
+
+
+
             if (quotationVM.Count() == 0)
             {
                 return null;
@@ -85,6 +92,8 @@ namespace PRO_finder.Service
         public List<Locations> GetLocationName()
         {
             List<Locations> LocationList = _ctx.GetAll<Locations>().ToList();
+
+            
 
             if (LocationList.Count() == 0)
             {
@@ -123,10 +132,9 @@ namespace PRO_finder.Service
                               select new OtherPictureViewModel
                               {
                                   QuotationID = op.QuotationID,
-                                  //MainPicture = op.MainPicture,
                                   SortNumber = op.SortNumber,
                                   //IsDefault = (op.IsDefault == 0 ? false : true),
-                                  OtherPicture = op.OtherPicture1
+                                  OtherPicture = op.OtherPictureLink
                               });
             var OrderList = _ctx.GetAll<Order>();
             var OrderVM = (from o in OrderList
@@ -148,9 +156,10 @@ namespace PRO_finder.Service
                                    QuotationId = q.QuotationID,
                                    MemberID = m.MemberID,
                                    NickName = m.NickName,
-                                   LogInTime = m.LogInTime,
+                                   LogInTime = m.LogInTime.ToString(),
                                    Identity = (QuotationDetailViewModel.IdentityStatus)m.Identity,
                                    //SubcategoryId = (int)m.SubCategoryID,
+                                   MainPicture = q.MainPicture,
                                    OtherPicture = OtherPicVM,
                                    QuotationTitle = q.QuotationTitle,
                                    SubcategoryName = q.SubCategoryID.ToString(),
@@ -170,7 +179,7 @@ namespace PRO_finder.Service
         //刊登新服務 CreateQuotation
         public Quotation CreateQuotation(CreateQuotationViewModel newQ)
         {
-            DateTime now = DateTime.Now;
+            DateTime now = DateTime.UtcNow;
             Quotation entity = new Quotation
             {
                 QuotationTitle = newQ.QuotationTitle,
@@ -181,7 +190,9 @@ namespace PRO_finder.Service
                 Description = newQ.Description,
                 SubCategoryID = newQ.SubCategoryID,
                 Price = newQ.Price,
-                MainPicture = newQ.MainPicture
+                MainPicture = newQ.MainPicture,
+                //(DateTime)UpdateDate = now
+                //資料庫修正
             };
             _repo.Create(entity);
             _repo.SaveChanges();
@@ -197,8 +208,8 @@ namespace PRO_finder.Service
                 OtherPicture p = new OtherPicture
                 {
                     QuotationID = quotationID,
-                    OtherPicture1 = item.OtherPicture1,
-                    //OtherPictureLink = item.OtherPictureLink,
+                    //OtherPicture1 = item.OtherPicture1,
+                    OtherPictureLink = item.OtherPictureLink,
                     SortNumber = item.SortNumber
                 };
                 _repo.Create(p);
@@ -210,7 +221,7 @@ namespace PRO_finder.Service
         {
             List<Locations> locationDB = _repo.GetAll<Locations>().ToList();
             List<SelectListItem> locationlist = new List<SelectListItem>();
-            locationlist.Add(new SelectListItem { Text = "地區" });
+            locationlist.Add(new SelectListItem { Text = "地區" , Value="-1"});
             foreach (var item in locationDB)
             {
                 locationlist.Add(

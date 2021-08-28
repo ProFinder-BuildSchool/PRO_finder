@@ -22,7 +22,7 @@ namespace PRO_finder.ViewModels
         [Display(Name = "服務名稱")]
         public string QuotationTitle { get; set; }
 
-        public TimeSpan UpdateDate { get; set; }
+        public DateTime UpdateDate { get; set; }
 
         [Required]
         [Display(Name = "服務訂價")]
