@@ -40,7 +40,7 @@ namespace PRO_finder.Service
         {
             var repository = new GeneralRepository(new ProFinderContext());
 
-            var categoriesList =  repository.GetAll<Category>().ToList();
+            var categoriesList = repository.GetAll<Category>().ToList();
 
             var SubcategoriesList = repository.GetAll<SubCategory>().ToList();
 
