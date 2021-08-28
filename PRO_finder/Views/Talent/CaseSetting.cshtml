@@ -156,11 +156,11 @@
                 <label for="TalentCategoryID" class="col-md-12 control-label">擅長軟體工具</label>
                 <div class="container">
                     <div class="row">
-                        <div class="col-12 col-md-6 mb-2">
+                        <div class="col-12 col-lg-6 mb-2">
                             @Html.DropDownList("ToolCategoryID", (List<SelectListItem>)ViewBag.ToolList, new { @class = "form-control" })
                             <div class="mt-3 toolCheckArea" id="toolCheckArea"></div>
                         </div>
-                        <div class="col-12 col-md-6 displayTool" id="displayTool">
+                        <div class="col-12 col-lg-6 displayTool" id="displayTool">
                             @*還沒有display*@
                         </div>
                     </div>
@@ -358,6 +358,9 @@
             max-height: 200px;
             overflow:auto;
         }
+        label[for^='toolInput']{
+            word-wrap:break-word;
+        }
         .toolTag {
             padding: 3px;
             border: solid 1px #bebebe;
@@ -433,7 +436,8 @@
 
         //擅長工具Dropdown & checkbox
         let subToolArray = []
-        axios.get("/Talent/GetSubTool").then(res => {
+        let subToolArrayInRecord = []
+        axios.get("/api/Talent/GetSubTool").then(res => {
             let tools = JSON.parse(res.data);
             subToolArray.push(...tools);
         });
@@ -562,15 +566,13 @@
             const formD = new FormData(form);
 
             //取得擅長軟體
-            let tools = $g("div[id^=toolTag]");
-            console.log(tools);
+            let tools = subToolArray.filter(x => x.IsChecked == true);
             let toolArray = [];
             tools.forEach(t => {
-                let toolId = t.dataset.content;
-                let p = $g(`div#toolTag${toolId}>p`);
                 let obj = new Object();
-                obj.ToolSubCategoryID = toolId;
-                obj.ToolSubCategoryName = p.innerText;
+                obj.ToolSubCategoryID = t.SubTalentCategoryID;
+                obj.ToolSubCategoryName = t.SubTalentCategoryName;
+                obj.ToolCategoryID = t.TalentCategoryID;
                 toolArray.push(obj);
             });
             console.log(toolArray)
@@ -583,7 +585,7 @@
             let len = ExDSubId.length >= ExDPieceworkExp.length ? ExDPieceworkExp.length : ExDSubId.length;
             for (let i = 0; i < len; i++) {
                 let obj = new Object();
-                obj.SubCategoryID = ExDSubId[i].value;
+                obj.SubCategoryID = Number(ExDSubId[i].value);
                 obj.PieceworkExp = ExDPieceworkExp[i].value;
                 ExDArray.push(obj);
             }

@@ -233,16 +233,17 @@ namespace PRO_finder.Controllers
             {
                 //更新MemberInfo資料庫
                 _memberInfoService.UpdateMemberInfo(memberID, caseSettings);
-                //if (caseSettings.JsonExDList != null)
-                //{
-                //    //更新Experience資料庫
-                //    //_memberInfoService.UpdateExD(memberID, caseSettings.JsonExDList);
-                //}
+                if (caseSettings.JsonExDList != null)
+                {
+                    //更新Experience資料庫
+                    _memberInfoService.UpdateExD(memberID, caseSettings.JsonExDList);
+                }
 
-                //if(caseSettings.JsonToolList != null)
-                //{
+                if (caseSettings.JsonToolList != null)
+                {
                     //更新擅長軟體資料庫
-                //}
+                    _memberInfoService.UpdateToolList(memberID, caseSettings.JsonToolList);
+                }
                 return RedirectToAction("Index");
             }
             return View(caseSettings);

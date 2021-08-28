@@ -364,11 +364,11 @@
                     formData.append("api_key", myApiKey);
                     let result_url = await fetchCloudinary(formData);
                     let obj = new Object();
-                    obj.OtherPicture1 = result_url;
+                    obj.OtherPictureLink = result_url;
                     obj.SortNumber = i;
                     otherPictureArray.push(obj);
                 }
-                $g("input#MainPicture").value = otherPictureArray[0].OtherPicture1;
+                $g("input#MainPicture").value = otherPictureArray[0].OtherPictureLink;
                 let otherPics = JSON.stringify(otherPictureArray);
                 $g("input#OtherPictureList").value = otherPics;
                 console.log(otherPics);

@@ -76,9 +76,9 @@ namespace PRO_finder.Service
         {
             //先刪除原有記錄
             List<Experience> origin = _ctx.GetAll<Experience>().Where(x => x.MemberID == memberID).ToList();
-            foreach(var m in origin)
+            foreach(var item in origin)
             {
-                _ctx.Delete(m);
+                _ctx.Delete(item);
                 _ctx.SaveChanges();
             }
             //加入新記錄
@@ -97,10 +97,32 @@ namespace PRO_finder.Service
             }
         }
 
-        public void UpdateToolList(string userID, string jsonToolList)
+        public void UpdateToolList(int memberID, string jsonToolList)
         {
+            //刪除原有記錄
+            List<TalentTool> origin = _ctx.GetAll<TalentTool>().Where(x => x.MemberID == memberID).ToList();
+            foreach(var item in origin)
+            {
+                _ctx.Delete(item);
+                _ctx.SaveChanges();
+            }
+            
+            //加入新紀錄
             JArray tempArray = JArray.Parse(jsonToolList);
-            //No DB Model
+            List<TalentTool> toolList = tempArray.ToObject<List<TalentTool>>();
+            foreach(var item in toolList)
+            {
+                TalentTool t = new TalentTool
+                {
+                    ToolCategoryID = item.ToolCategoryID,
+                    ToolSubCategoryID = item.ToolSubCategoryID,
+                    ToolSubCategoryName = item.ToolSubCategoryName,
+                    MemberID = memberID
+                };
+                _ctx.Create(t);
+                _ctx.SaveChanges();
+            }
+            
         }
     }
 }

@@ -179,11 +179,10 @@ namespace PRO_finder.Service
         //刊登新服務 CreateQuotation
         public Quotation CreateQuotation(CreateQuotationViewModel newQ)
         {
-            DateTime now = DateTime.UtcNow;
             Quotation entity = new Quotation
             {
                 QuotationTitle = newQ.QuotationTitle,
-                UpdateDate = now,
+                UpdateDate = DateTime.UtcNow,
                 QuotationUnit = (int)newQ.QuotationUnit,
                 ExecuteDate = newQ.ExecuteDate,
                 MemberID = newQ.MemberID,
@@ -191,8 +190,6 @@ namespace PRO_finder.Service
                 SubCategoryID = newQ.SubCategoryID,
                 Price = newQ.Price,
                 MainPicture = newQ.MainPicture,
-                //(DateTime)UpdateDate = now
-                //資料庫修正
             };
             _repo.Create(entity);
             _repo.SaveChanges();
@@ -208,7 +205,6 @@ namespace PRO_finder.Service
                 OtherPicture p = new OtherPicture
                 {
                     QuotationID = quotationID,
-                    //OtherPicture1 = item.OtherPicture1,
                     OtherPictureLink = item.OtherPictureLink,
                     SortNumber = item.SortNumber
                 };
