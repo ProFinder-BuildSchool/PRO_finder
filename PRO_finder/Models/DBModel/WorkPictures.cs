@@ -9,6 +9,7 @@ namespace PRO_finder.Models.DBModel
     public partial class WorkPictures
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int WorkPictureID { get; set; }
 
         public int WorkID { get; set; }
