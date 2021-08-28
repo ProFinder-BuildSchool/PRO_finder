@@ -71,6 +71,27 @@ namespace PRO_finder.Service
                 _repo.SaveChanges();
             }
         }
-        
+
+
+
+        public WorkViewModel GetWorks_HomeIndex()
+        {
+            WorkViewModel workVM = new WorkViewModel();
+            var works = _repo.GetAll<Works>().ToList();
+            var pics = _repo.GetAll<WorkPictures>().ToList();
+
+
+
+
+
+
+
+
+
+
+
+                return null;
+        }
+
     }
 }

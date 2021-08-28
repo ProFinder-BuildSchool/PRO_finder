@@ -11,6 +11,8 @@ using System.Web.Mvc;
 using PRO_finder.Models.ViewModel;
 using static PRO_finder.Models.ViewModels.QuotationViewModel;
 using Newtonsoft.Json.Linq;
+using PRO_finder.Enum;
+using static PRO_finder.Enum.Enum;
 
 namespace PRO_finder.Service
 {
@@ -25,6 +27,35 @@ namespace PRO_finder.Service
             _repo = new GeneralRepository(new ProFinderContext());
             _ctx = new GeneralRepository(new ProFinderContext());
         }
+
+        public List<QuotationViewModel> GetAllCardDataGroupByIndex()
+        {
+            var list = GetAllCardData();
+
+            foreach(var item in list)
+            {
+
+                item.UnitToString = (UnitEnum)item.Unit;
+
+                if (list.IndexOf(item)<= 3 )
+                {
+                    item.SortNum = 1;
+                }
+                else if ( list.IndexOf(item) > 3 && list.IndexOf(item) <= 7)
+                {
+                    item.SortNum = 2;
+                }
+                else if (list.IndexOf(item) > 7 && list.IndexOf(item) <= 11 )
+                {
+                    item.SortNum = 3;
+                }
+            }
+
+            return list;
+        }
+
+
+
 
         public List<QuotationViewModel> GetAllCardData()
         {
@@ -45,8 +76,6 @@ namespace PRO_finder.Service
                                    SubcategoryId = s.SubCategoryID,
                                    SubcategoryName = s.SubCategoryName,
                                    Location = l.LocationName
-                                   
-
                                }
                    );
 

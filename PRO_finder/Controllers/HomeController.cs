@@ -18,17 +18,30 @@ namespace PRO_finder.Controllers
         private readonly ProFinderContext _ctx;
         private CategoryService _CategoryService;
         private Home_IndexService _Home_IndexService;
+        private QuotationService _quotationService;
 
         public HomeController()
         {
             _ctx = new ProFinderContext();
             _CategoryService = new CategoryService();
             _Home_IndexService = new Home_IndexService();
+            _quotationService = new QuotationService();
         }
         public ActionResult Index()                       
         {
 
             var list = _CategoryService.Home_Index_GetCategoryItem();
+
+
+            var QuotationList = _quotationService.GetAllCardDataGroupByIndex();
+
+
+
+
+
+
+
+            ViewBag.CaseList = QuotationList;
 
             return View(list);                                
         }
