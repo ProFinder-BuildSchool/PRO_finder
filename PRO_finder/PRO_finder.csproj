@@ -194,6 +194,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIControllers\CaseController.cs" />
+    <Compile Include="APIControllers\StudioController.cs" />
     <Compile Include="APIControllers\TalentController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -314,6 +315,7 @@
     <Compile Include="Models\ViewModels\OtherPictureViewModel.cs" />
     <Compile Include="Models\ViewModels\QuotationViewModel.cs" />
     <Compile Include="Models\ViewModels\SaveCaseViewModel.cs" />
+    <Compile Include="Models\ViewModels\SaveStaffViewModel.cs" />
     <Compile Include="Models\ViewModels\StudioDetailViewModel.cs" />
     <Compile Include="Models\ViewModels\StudioQuotationViewModel.cs" />
     <Compile Include="Models\ViewModels\StudioReviewViewModel.cs" />

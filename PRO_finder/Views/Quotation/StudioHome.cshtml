@@ -36,8 +36,8 @@
 
                         <div class="contactp">
                             <p>
-                                @*<a href="#"><i class="icon-heart-o" onclick=@Html.ActionLink() ></i>收藏</a>*@
-                                @Html.ActionLink("收藏", "FavorInsertorDelete", new { MemberID = ViewBag.MemberID, TalentID = ViewBag.MemberID, time = DateTime.UtcNow, StaffID = ViewBag.MemberID, AddorRemove = ViewBag.FavorExist }, new { @class = "icon-heart-o" })
+                                <a href="#"><i class="icon-heart-o" id="heart" ></i>收藏</a>
+                                @*@Html.ActionLink("收藏", "FavorInsertorDelete", new { MemberID = ViewBag.MemberID, TalentID = ViewBag.MemberID, time = DateTime.UtcNow, StaffID = ViewBag.MemberID, AddorRemove = ViewBag.FavorExist }, new { @class = "icon-heart-o" })*@
                                 <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
                             </p>
                             <p><a href="#" class="btn btn-primary btn-md">邀請報價</a></p>
@@ -639,7 +639,7 @@
     </div>
 
     <div class="contacts">
-        <a href="#"><i class="icon-heart-o"></i>收藏</a>
+        <a href="#"><i class="icon-heart-o" id="hearts"></i>收藏</a>
         <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
         <a href="#" class="btn btn-primary btn-md">邀請報價</a>
     </div>
@@ -1159,8 +1159,7 @@
         var show = document.getElementsByClassName('show')[0]
         var put = document.getElementsByClassName('put')[0]
         var ischange = false
-        //if aboutp.line 如果文字少於十行不顯示closeupbtn
-        /* https://www.codenong.com/cs106865709/*/
+
         closeup.addEventListener("click", function () {
             if (ischange) {
                 aboutp.style.display = "-webkit-box"
@@ -1176,20 +1175,24 @@
             }
         })
 
+        document.getElementById('hearts').addEventListener("click", function () {
+             /**/
+                console.log(@ViewBag.MemberID);
+                fetch('/api/Studio/FavorInsertorDelete?@ViewBag.MemberID, @ViewBag.MemberID, @DateTime.UtcNow, @ViewBag.MemberID, @ViewBag.FavorExist', {})
+            /**/
+            .then(function (response) {
+                //處理 response
+                document.querySelector('#hearts').innerHTML = "";
+            }).catch(function (err) {
+                // Error :(
+            })
+
+    })
+
 
 
     </script>
-
-
-    @*<script>
-        window.onload = function ()
-        {
-            document.querySelector('#heart').addEventListener("click", function () {
-                @FavorInsert
-
-            })
-            }
-
-        </script>*@
 }
+
+    
 

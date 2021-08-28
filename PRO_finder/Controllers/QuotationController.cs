@@ -61,14 +61,14 @@ namespace PRO_finder.Controllers
             return View(QuoDetailVM);
         }
 
-        public ActionResult StudioHome(int TalentID=20)//, int MemberID= 1)
+        public ActionResult StudioHome(int TalentID=1)//, int MemberID= 1)
         {
-            int currentUserId;
-            var result = int.TryParse(System.Web.HttpContext.Current.User.Identity.GetUserId(),out currentUserId);
+            int currentUserId=20;
+            //var result = int.TryParse(System.Web.HttpContext.Current.User.Identity.GetUserId(),out currentUserId);
             StudioDetailViewModel StudioDetailVM = _studioService.GetStudioDetailData (TalentID);
-            IEnumerable<SaveStaff> favorlist = _studioService.GetFavorite(currentUserId, TalentID);
+            IEnumerable<SaveStaffViewModel> favorlist = _studioService.GetFavorite(currentUserId, TalentID);
             ViewBag.MemberID = TalentID;
-            //ViewBag.FavorExist = select SavedTalentID from favorlist where SavedTalentID == TalentID; //判斷talent是否存在member的list中
+            ViewBag.FavorExist = favorlist.Count()!=0; //判斷talent是否存在member的list中
             return View(StudioDetailVM);
         
 
@@ -90,27 +90,27 @@ namespace PRO_finder.Controllers
         //    return Json(allCardData, JsonRequestBehavior.AllowGet);
         //}
 
-        static string connString = ConfigurationManager.ConnectionStrings["ProFinderContext"].ConnectionString;
-        public ActionResult FavorInsertorDelete(int MemberID, int TalentID, DateTime time, int StaffID, bool AddorRemove)
-        {
-            int affectedRow = 0; //
+        //static string connString = ConfigurationManager.ConnectionStrings["ProFinderContext"].ConnectionString;
+        //public ActionResult FavorInsertorDelete(int MemberID, int TalentID, DateTime time, int StaffID, bool AddorRemove)
+        //{
+        //    int affectedRow = 0; //
 
-            using (SqlConnection conn = new SqlConnection(connString))
-            {
-                if (AddorRemove)
-                {
-                    string sql = "Insert into SaveStaff(MemberID, SavedTalentID, SavedDate, SaveStaffID)values( @MemberID, @TalentID, @time, @StaffID)";
-                    affectedRow = conn.Execute(sql, new { MemberID, TalentID, time, StaffID });
-                }
-                else
-                {
-                    string sql = "DELETE FROM SaveStaff WHERE MemberID = @MemberID and SavedTalentID = @SavedTalentID and SaveStaffID=@SaveStaffID";
-                    affectedRow = conn.Execute(sql, new { MemberID = MemberID, SavedTalentID = TalentID, SaveStaffID = StaffID });
+        //    using (SqlConnection conn = new SqlConnection(connString))
+        //    {
+        //        if (AddorRemove)
+        //        {
+        //            string sql = "Insert into SaveStaff(MemberID, SavedTalentID, SavedDate, SaveStaffID)values( @MemberID, @TalentID, @time, @StaffID)";
+        //            affectedRow = conn.Execute(sql, new { MemberID, TalentID, time, StaffID });
+        //        }
+        //        else
+        //        {
+        //            string sql = "DELETE FROM SaveStaff WHERE MemberID = @MemberID and SavedTalentID = @SavedTalentID and SaveStaffID=@SaveStaffID";
+        //            affectedRow = conn.Execute(sql, new { MemberID = MemberID, SavedTalentID = TalentID, SaveStaffID = StaffID });
 
-                    //remove from DB
-                }
-            }
-            return  RedirectToAction("StudioHome"); //new EmptyResult();
-        }
+        //            //remove from DB
+        //        }
+        //    }
+        //    return  RedirectToAction("StudioHome"); //new EmptyResult();
+        //}
     }
 }
