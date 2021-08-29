@@ -13,5 +13,7 @@ namespace PRO_finder.Models.ViewModels
         public DateTime SavedDate { get; set; }
 
         public int SaveStaffID { get; set; }
+
+
     }
 }

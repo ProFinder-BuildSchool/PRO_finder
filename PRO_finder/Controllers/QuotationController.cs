@@ -61,14 +61,15 @@ namespace PRO_finder.Controllers
             return View(QuoDetailVM);
         }
 
-        public ActionResult StudioHome(int TalentID=1)//, int MemberID= 1)
+        public ActionResult StudioHome(int TalentID=20)//, int MemberID= 1)
         {
             int currentUserId=20;
             //var result = int.TryParse(System.Web.HttpContext.Current.User.Identity.GetUserId(),out currentUserId);
             StudioDetailViewModel StudioDetailVM = _studioService.GetStudioDetailData (TalentID);
-            IEnumerable<SaveStaffViewModel> favorlist = _studioService.GetFavorite(currentUserId, TalentID);
-            ViewBag.MemberID = TalentID;
-            ViewBag.FavorExist = favorlist.Count()!=0; //判斷talent是否存在member的list中
+            //IEnumerable<SaveStaffViewModel> favorlist = _studioService.GetFavorite(currentUserId, TalentID);
+            ViewBag.TalentID = TalentID;
+            ViewBag.UserID = currentUserId;
+            //ViewBag.FavorExist = favorlist.Count()!=0; //判斷talent是否存在member的list中
             return View(StudioDetailVM);
         
 
