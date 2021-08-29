@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PRO_finder.Models.DBModel;
-
+using PRO_finder.Enum;
 
 namespace PRO_finder.ViewModels
 {

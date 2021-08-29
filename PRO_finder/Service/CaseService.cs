@@ -25,6 +25,32 @@ namespace PRO_finder.Service
            
         }
 
+
+        public List<CaseViewModel> GetFinishCases()
+        {
+            var temp = GetCasesList().Where(x=>x.CaseStatus == 6).ToList();
+
+            foreach (var item in temp)
+            {
+
+
+                if (temp.IndexOf(item) <= 3)
+                {
+                    item.SortNum = 1;
+                }
+                else if (temp.IndexOf(item) > 3 && temp.IndexOf(item) <= 7)
+                {
+                    item.SortNum = 2;
+                }
+                else if (temp.IndexOf(item) > 7 && temp.IndexOf(item) <= 11)
+                {
+                    item.SortNum = 3;
+                }
+            }
+
+            return temp;
+        }
+
         public List<CaseViewModel> GetCasesList()
         {
            var temp = (from Case in _ctx.GetAll<Case>()
@@ -34,9 +60,11 @@ namespace PRO_finder.Service
                    join Category in _ctx.GetAll<Category>() on SubCategory.CategoryID equals Category.CategoryID
                    select new CaseViewModel
                    {
+                       CaseStatus = (int)Case.CaseStatus,
                        CaseId = Case.CaseID,
                        title = Case.CaseTitle,
                        Price = (int)Case.Price,
+                       
                        LocationID = (int)Case.Location,
                        LocationName = Locations.LocationName,
                        SubCategoryID = SubCategory.SubCategoryID,
@@ -50,10 +78,42 @@ namespace PRO_finder.Service
             {
                 item.DiffDateTime = DateToString.TransDate(item.UpdateDate);
             }
+            foreach (var item in temp)
+            {
+                item.PriceToString = PriceToRange(item.Price);
+            }
 
-           
+
+
+
+
+
+
             return temp;
         }
+
+        public static string PriceToRange(int? priceNum)
+        {
+            switch (priceNum)
+            {
+                case 1:
+                    return "5000元以下";
+                case 2:
+                    return "5001~10000元";
+                case 3:
+                    return "10001~50000元";
+                case 4:
+                    return "50001~100000元";
+                case 5:
+                    return "100001~300000元";
+                default:
+                    return "查無資料";
+            }
+        }
+
+
+
+
 
 
 

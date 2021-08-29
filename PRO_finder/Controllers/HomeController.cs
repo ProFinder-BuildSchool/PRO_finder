@@ -18,17 +18,39 @@ namespace PRO_finder.Controllers
         private readonly ProFinderContext _ctx;
         private CategoryService _CategoryService;
         private Home_IndexService _Home_IndexService;
+        private QuotationService _quotationService;
+        private WorksService _worksService;
+        private CaseService _caseService;
 
         public HomeController()
         {
             _ctx = new ProFinderContext();
             _CategoryService = new CategoryService();
             _Home_IndexService = new Home_IndexService();
+            _quotationService = new QuotationService();
+            _worksService = new WorksService();
+            _caseService = new CaseService();
         }
         public ActionResult Index()                       
         {
 
             var list = _CategoryService.Home_Index_GetCategoryItem();
+
+
+            var QuotationList = _quotationService.GetAllCardDataGroupByIndex();
+
+            var workList = _worksService.GetWorks_HomeIndex();
+
+
+            var caseList = _caseService.GetFinishCases();
+
+
+            ViewBag.QuotationList = QuotationList;
+            ViewBag.workList = workList;
+            ViewBag.caseList = caseList;
+
+
+
 
             return View(list);                                
         }
@@ -36,7 +58,7 @@ namespace PRO_finder.Controllers
         public ActionResult Index2()
         {
 
-            var list = _CategoryService.Home_Index_GetCategoryItem();
+            var list = _worksService.GetWorks_HomeIndex();
 
             return Json(list,JsonRequestBehavior.AllowGet);
         }

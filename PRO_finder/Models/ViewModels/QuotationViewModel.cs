@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using PRO_finder.Enum;
+using static PRO_finder.Enum.Enum;
 
 namespace PRO_finder.Models.ViewModels
 {
@@ -24,7 +26,11 @@ namespace PRO_finder.Models.ViewModels
 
         //報價細節
         public int MemberID { get; set; }
-        
+
+      
+
+        public UnitEnum UnitToString { get; set; }
+        public int SortNum { get; set; }
     }
 }
 
