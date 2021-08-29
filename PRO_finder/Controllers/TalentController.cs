@@ -277,7 +277,7 @@ namespace PRO_finder.Controllers
             }
            
         }
-        [HttpPost]
+        //[HttpPost]
         //public JsonResult GetToolRecord()
         //{
         //    string userID = "64547da8-0789-42f7-a193-e001cec76873";
