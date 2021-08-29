@@ -213,6 +213,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\DateToString.cs" />
+    <Compile Include="Helper\PriceToString.cs" />
     <Compile Include="Migrations\202108111415486_worktest.cs" />
     <Compile Include="Migrations\202108111415486_worktest.Designer.cs">
       <DependentUpon>202108111415486_worktest.cs</DependentUpon>

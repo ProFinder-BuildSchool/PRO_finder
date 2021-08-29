@@ -7,11 +7,15 @@ namespace PRO_finder.Models.ViewModels
 {
     public class WorkViewModel
     {
-        public string WorkID { get; set; }
+      
 
-        public string[] WorkPicture { get; set; }
+        public int WorkID { get; set; }
 
-        public SubCategoryViewModel SubCategories { get; set; }
+        public int SortNum { get; set; }
+
+
+        public List<string> WorkPicture { get; set; }
+        public string SubCategoryName { get; set; }
 
 
         public string Info { get; set; }
@@ -20,8 +24,4 @@ namespace PRO_finder.Models.ViewModels
         public string studio { get; set; }
     }
 
-    public class SubCategoryName
-    {
-        public string Name { get; set; }
-    }
-}
+ }

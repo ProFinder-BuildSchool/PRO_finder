@@ -11,5 +11,11 @@ namespace PRO_finder.Enum
         {
             件, 張, 頁, 份, 字, 個, 天, 時, 坪, 才, 秒, 月, 則, 幅
         }
+
+
+        public enum CaseStatusEnum
+        {
+        審核中,代托管, 審核未通過,草稿,已上架,進行中,已成交,已關閉,未上架
+        }
     }
 }

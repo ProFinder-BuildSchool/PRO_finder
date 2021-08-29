@@ -70,42 +70,43 @@
                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
             </ol>
-            <div class="carousel-inner h-100">
-                <div class="carousel-item  active">
-                    <div class="row">
-                        <div class=" col-6 col-md-8 ">
-                            <div class="row">
-                                <div class="col-md-3  d-md-flex d-none flex-wrap justify-content-around">
-                                    <div class="imgs mb-3">
-                                        <img class="w-100  h-100  OptionImg  " src="https://picsum.photos/300/200/?random=1">
+            <div class="carousel-inner h-100 p-4">
+                @for (var i = 0; i < 3; i++)
+                {
+                    var item = @ViewBag.workList[i];
+                    <div class="carousel-item  @(i == 0 ? "active": string.Empty)">
+                        <div class="row">
+                            <div class=" col-6 col-md-8 ">
+                                <div class="row picArea">
+                                    <div class="col-md-3  d-md-flex d-none flex-wrap justify-content-around">
+                                        @for (var j = 0; j < 3; j++)
+                                        {<div class="imgs mb-3">
+                                                <img class="w-100  h-100  OptionImg " src="@item.WorkPicture[j]">
+                                            </div>
+                                        }
                                     </div>
-                                    <div class="imgs mb-3">
-                                        <img class="w-100  h-100  OptionImg" src="https://picsum.photos/300/200/?random=2">
-                                    </div>
-                                    <div class="imgs ">
-                                        <img class="w-100  h-100  OptionImg" src="https://picsum.photos/300/200/?random=3">
-                                    </div>
-                                </div>
-                                <div class="col-md-9 pl-0">
-                                    <div class="imgs ">
-                                        <img class="w-100 CheckedkImg" src="https://picsum.photos/300/200/?random=1">
+                                    <div class="col-md-9 pl-0">
+                                        <div class=" CheckedkImgArea  ">
+                                            <img class="h-100 CheckedkImg" src="@item.WorkPicture[0]">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class=" col-6 col-md-4 d-flex align-items-center">
-                            <div class="site-text">
-                                <a href="#">#12</a>
-                                <a href="#">#12</a>
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequuntur recusandae deleniti, magni veritatis dolor velit</p>
-                                <div class="site-show d-flex justify-content-between">
-                                    <a href="#">by <span>帥哥</span> </a>
-                                    <button class="border btn">更多作品</button>
+                            <div class=" col-6 col-md-4 d-flex align-items-center">
+                                <div class="site-text">
+                                    <a href="#">#@item.SubCategoryName</a>
+
+                                    <p>@Html.Raw(item.Info)</p>
+                                    <div class="site-show d-flex justify-content-between">
+                                        <a href="#">by <span>@item.studio</span> </a>
+                                        <button class="border btn">更多作品</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
+
             </div>
         </div>
     </div>
@@ -153,65 +154,77 @@
                 </div>
             </div>
             <div class="col-md-6  text-center border-left">
-                <div class="aaa">
-                    <div id="slides" class="carousel slide carousel-vertical" data-ride="carousel">
-                        <div class="carousel-inner ">
-                            <div class="carousel-item active">
-                                <div class="end">
-                                    <h3><span>已成交</span> 安安安安<span>$999</span></h3>
-                                    <p>3小時前新報價</p>
+                <div class="row">
+                    <div class="col-lg-12 mb-5">
+                        <div id="slides" class="   slide carousel-vertical" data-ride="carousel">
+                            <div class="carousel-inner ">
+                                <div class="carousel-item active py-3">
+
+                                    @foreach (var item in ViewBag.caseList)
+                                    {
+                                        if (item.SortNum == 1)
+                                        {
+
+
+                                            <div class="end mb-2">
+                                                <h4 class="text-left mr-2">
+                                                    <span class="border border-success mr-2">已成交</span>
+                                                    @item.title
+
+                                                    <span class=" ml-2 text-danger PriceToString">$@item.PriceToString</span>
+
+                                                </h4>
+                                                <p class="text-left mb-0 ">@item.DiffDateTime</p>
+                                            </div>
+                                        }
+                                    }
+
+
                                 </div>
-                                <div class="end">
-                                    <h3><span>已成交</span> 安安安安<span>$999</span></h3>
-                                    <p>3小時前新報價</p>
+                                <div class="carousel-item py-5">
+                                    @foreach (var item in ViewBag.caseList)
+                                    {
+                                        if (item.SortNum == 2)
+                                        {
+
+                                            <div class="end mb-2">
+                                                <h4 class="text-left mr-2">
+                                                    <span class="border border-success mr-2">已成交</span>
+                                                    @item.title
+
+                                                    <span class=" ml-2 text-danger PriceToString">$@item.PriceToString</span>
+
+                                                </h4>
+                                                <p class="text-left mb-0 ">@item.DiffDateTime</p>
+                                            </div>
+                                        }
+                                    }
+
                                 </div>
-                                <div class="end">
-                                    <h3><span>已成交</span> 安安安安<span>$999</span></h3>
-                                    <p>3小時前新報價</p>
-                                </div>
-                                <div class="end">
-                                    <h3><span>已成交</span> 安安安安<span>$999</span></h3>
-                                    <p>3小時前新報價</p>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="end">
-                                    <h3><span>已成交</span> 安安安安<span>$999</span></h3>
-                                    <p>3小時前新報價</p>
-                                </div>
-                                <div class="end">
-                                    <h3><span>已成交</span> 安安安安<span>$999</span></h3>
-                                    <p>3小時前新報價</p>
-                                </div>
-                                <div class="end">
-                                    <h3><span>已成交</span> 安安安安<span>$999</span></h3>
-                                    <p>3小時前新報價</p>
-                                </div>
-                                <div class="end">
-                                    <h3><span>已成交</span> 安安安安<span>$999</span></h3>
-                                    <p>3小時前新報價</p>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="end">
-                                    <h3><span>已成交</span> 安安安安<span>$999</span></h3>
-                                    <p>3小時前新報價</p>
-                                </div>
-                                <div class="end">
-                                    <h3><span>已成交</span> 安安安安<span>$999</span></h3>
-                                    <p>3小時前新報價</p>
-                                </div>
-                                <div class="end">
-                                    <h3><span>已成交</span> 安安安安<span>$999</span></h3>
-                                    <p>3小時前新報價</p>
-                                </div>
-                                <div class="end">
-                                    <h3><span>已成交</span> 安安安安<span>$999</span></h3>
-                                    <p>3小時前新報價</p>
+                                <div class="carousel-item py-5">
+
+                                    @foreach (var item in ViewBag.caseList)
+                                    {
+                                        if (item.SortNum == 3)
+                                        {
+                                            <div class="end mb-2">
+                                                <h4 class="text-left mr-2">
+                                                    <span class="border border-success mr-2">已成交</span>
+                                                    @item.title
+
+                                                    <span class=" ml-2 text-danger PriceToString">$@item.PriceToString</span>
+
+                                                </h4>
+                                                <p class="text-left mb-0 ">@item.DiffDateTime</p>
+                                            </div>
+                                        }
+                                    }
+
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -233,24 +246,25 @@
                 <li data-target="#carouselExampleIndicatorss" data-slide-to="1"></li>
                 <li data-target="#carouselExampleIndicatorss" data-slide-to="2"></li>
             </ol>
-            <div class="carousel-inner ">
+            <div class="carousel-inner  ">
 
                 <div class="carousel-item  active">
                     <div class="row">
-                        @foreach (var item in ViewBag.CaseList)
+                        @foreach (var item in ViewBag.QuotationList)
                         {
                             if (item.SortNum == 1)
                             {
 
                                 <div class=" col-3 col-md-3 ">
                                     <div class="card">
-                                        <img src="@item.Img" class="card-img-top" alt="...">
+                                        <div class="imgArea"><img src="@item.Img" class="card-img-top" alt="..."></div>
+                                        
                                         <div class="card-body p-1">
                                             <h5 class="card-title">@item.SubcategoryName</h5>
                                             <p class="card-text">
                                                 <span class="text-danger font-weight-bold">$@item.Price</span> / @item.UnitToString
                                             </p>
-                                            <a href=/Quotation/Detail?id=@item.QuotationId class="btn btn-primary">服務詳情</a>
+                                            <a href=/Quotation/Detail?id =@item.QuotationId class="btn btn-primary">服務詳情</a>
                                         </div>
                                     </div>
                                 </div>
@@ -263,14 +277,14 @@
 
                 <div class="carousel-item">
                     <div class="row">
-                        @foreach (var item in ViewBag.CaseList)
+                        @foreach (var item in ViewBag.QuotationList)
                         {
                             if (item.SortNum == 2)
                             {
 
                                 <div class=" col-3 col-md-3 ">
                                     <div class="card">
-                                        <img src="@item.Img" class="card-img-top" alt="...">
+                                        <div class="imgArea"><img src="@item.Img" class="card-img-top" alt="..."></div>
                                         <div class="card-body p-1">
                                             <h5 class="card-title">@item.SubcategoryName</h5>
                                             <p class="card-text">
@@ -289,14 +303,14 @@
 
                 <div class="carousel-item">
                     <div class="row">
-                        @foreach (var item in ViewBag.CaseList)
+                        @foreach (var item in ViewBag.QuotationList)
                         {
                             if (item.SortNum == 3)
                             {
 
                                 <div class=" col-3 col-md-3 ">
                                     <div class="card">
-                                        <img src="@item.Img" class="card-img-top" alt="...">
+                                        <div class="imgArea"><img src="@item.Img" class="card-img-top" alt="..."></div>
                                         <div class="card-body p-1">
                                             <h5 class="card-title">@item.SubcategoryName</h5>
                                             <p class="card-text">
@@ -325,65 +339,98 @@
                 </div>
             </div>
         </div>
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <div id="carouselExampleIndicatorseeee" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            </ol>            <div class="carousel-inner ">
+                <li data-target="#carouselExampleIndicatorseeee" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicatorseeee" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicatorseeee" data-slide-to="2"></li>
+            </ol>            
+            <div class="carousel-inner ">
+
                 <div class="carousel-item  active">
                     <div class="row">
-                        <div class=" col-3 col-md-3 ">
-                            <div class="card">
-                                <img src="..." class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+
+                        @foreach (var item in ViewBag.workList)
+                        {
+                            if (item.SortNum == 1)
+                            {
+
+                                <div class=" col-3 col-md-3 ">
+                                    <div class="card">
+                                        <div class="imgArea"><img src="@item.WorkPicture[0]" class="w-100" alt="..."></div>
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card title</h5>
+                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class=" col-3 col-md-3 ">
-                            <div class="card">
-                                <img src="..." class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class=" col-3 col-md-3 ">
-                            <div class="card">
-                                <img src="..." class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class=" col-3 col-md-3 ">
-                            <div class="card">
-                                <img src="..." class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-                        </div>
+                            }
+                        }
                     </div>
                 </div>
+
+                <div class="carousel-item  ">
+                    <div class="row">
+
+                        @foreach (var item in ViewBag.workList)
+                        {
+                            if (item.SortNum == 2)
+                            {
+
+                                <div class=" col-3 col-md-3 ">
+                                    <div class="card">
+                                        <div class="imgArea"><img src="@item.WorkPicture[0]" class="w-100" alt="..."></div>
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card title</h5>
+                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+
+                <div class="carousel-item  ">
+                    <div class="row">
+
+                        @foreach (var item in ViewBag.workList)
+                        {
+                            if (item.SortNum == 2)
+                            {
+
+                                <div class=" col-3 col-md-3 ">
+                                    <div class="card">
+                                        <div class="imgArea"><img src="@item.WorkPicture[0]" class="w-100" alt="..."></div>
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card title</h5>
+                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+
             </div>
+
         </div>
     </div>
 </section>
-    <!-- SCRIPTS -->
+<!-- SCRIPTS -->
 @section endJS{
 
     <script>
-    
+
 
 
 
@@ -391,12 +438,12 @@
             interval: 2000
         })
 
-        let OptionImg = document.querySelectorAll('.OptionImg')
-        document.querySelector(".CheckedkImg").src = OptionImg[0].src
-        OptionImg.forEach(x => x.addEventListener('mouseover', function (e) {
-            let url = e.target.src
-            document.querySelector(".CheckedkImg").src = url;
-        }))
+                //let OptionImg = document.querySelectorAll('.OptionImg')
+
+                //OptionImg.forEach(x => x.addEventListener('mouseover', function (e) {
+                //    let url = e.target.src
+                //    document.querySelectorAll(".CheckedkImg").forEach(p => {p.src = url;})
+                //}))
 
 
 
@@ -405,10 +452,13 @@
 }
 @section topCSS{
     <style>
+        
+
         #carouselExampleIndicators {
             height: 23REM;
             width: 100%
         }
+
         .HomeIndex a {
             color: #89ba16 !important;
             background-color: white
@@ -417,8 +467,10 @@
         .works {
         }
 
+
         .imgs {
             width: 100%;
+            max-height: 13vh;
             border-radius: 6px;
             overflow: hidden;
         }
@@ -539,6 +591,31 @@
             transform: translateY(100%);
         }
 
-       
+        .PriceToString {
+            font-size: 10px;
+        }
+
+        .CheckedkImg {
+            height: 100%;
+            width: 100%;
+            max-height: 42VH;
+            max-width: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .imgArea {
+            height: 23VH;
+            width: 100%;
+            object-fit: cover;
+            overflow: hidden;
+        }
+        .card{
+            height:100%;
+        }
+        .carousel-inner {
+            height: 60vh;
+        }
+        
     </style>
 }
