@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
@@ -257,6 +258,22 @@ namespace PRO_finder.Controllers
             int memberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == userID).MemberID;
             var myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
             return View(myQuotation);
+        }
+        
+
+        //[HttpPost]
+        public ActionResult DeleteQuotation(int? id)
+        {
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            _quotaService.DeleteQ(id);
+
+            string userID = HttpContext.User.Identity.GetUserId();
+            int memberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == userID).MemberID;
+            var remainQ = _quotaService.GetMyQuotations(memberID).ToList();
+            return View("MyQuotationIndex", remainQ);
         }
 
         //Api

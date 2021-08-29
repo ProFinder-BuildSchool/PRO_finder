@@ -252,5 +252,20 @@ namespace PRO_finder.Service
             }
             return result;
         }
+
+        public void DeleteQ(int? id)
+        {
+            var theQuotation = _repo.GetAll<Quotation>().FirstOrDefault(x => x.QuotationID == id);
+            var pictures = _repo.GetAll<OtherPicture>().Where(x => x.QuotationID == id).ToList();
+            _repo.Delete(theQuotation);
+            _repo.SaveChanges();
+
+            foreach(var item in pictures)
+            {
+                _repo.Delete(item);
+                _repo.SaveChanges();
+            }
+            
+        }
     }
 }
