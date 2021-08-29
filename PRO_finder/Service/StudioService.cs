@@ -158,15 +158,15 @@ namespace PRO_finder.Service
       
 
 
-        public IEnumerable<SaveStaff> GetFavorite(int MemberID, int TalentID)
+        public IEnumerable<SaveStaffViewModel> GetFavorite(int MemberID, int TalentID)
         {
-            var GetFavorRepository = new GeneralRepository(new ProFinderContext());
+            var SaveStaffList = _ctx.GetAll<SaveStaff>();
 
-            return from savestaff in GetFavorRepository.GetAll<SaveStaff>()
-                   where savestaff.MemberID == MemberID //AND savestaff.SavedTalentID== TalentID
+            return from savestaff in SaveStaffList
+                   where savestaff.MemberID == MemberID && savestaff.SavedTalentID== TalentID
 
 
-                   select new SaveStaff
+                   select new SaveStaffViewModel
                    {
                        MemberID = savestaff.MemberID,
                        SavedTalentID = savestaff.SavedTalentID,
