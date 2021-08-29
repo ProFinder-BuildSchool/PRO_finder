@@ -225,5 +225,32 @@ namespace PRO_finder.Service
             }
             return locationlist;
         }
+
+        public IEnumerable<QuotationDetailViewModel> GetMyQuotations(int memberID)
+        {
+            var temp =  from q in _ctx.GetAll<Quotation>()
+                   join s in _ctx.GetAll<SubCategory>() on q.SubCategoryID equals s.SubCategoryID
+                   where q.MemberID == memberID
+                   select new QuotationDetailViewModel
+                   {
+                       QuotationId = q.QuotationID,
+                       MainPicture = q.MainPicture,
+                       SubcategoryId = q.SubCategoryID,
+                       SubcategoryName = s.SubCategoryName,
+                       CategoryId = s.CategoryID,
+                       Price = q.Price.ToString(),
+                       Unit = (QuotationDetailViewModel.UnitEnum)q.QuotationUnit,
+                       UpdateDateOrigin = q.UpdateDate,
+                       QuotationTitle = q.QuotationTitle
+                       //Status = q.Status
+                   };
+            var result = temp.ToList();
+            for(int i = 0; i < result.Count(); i++)
+            {
+                string date = result[i].UpdateDateOrigin.ToString("yyyy-MM-dd");
+                result[i].UpdateDate = date;
+            }
+            return result;
+        }
     }
 }

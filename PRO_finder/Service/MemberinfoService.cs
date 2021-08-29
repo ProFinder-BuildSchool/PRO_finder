@@ -116,13 +116,19 @@ namespace PRO_finder.Service
                 {
                     ToolCategoryID = item.ToolCategoryID,
                     ToolSubCategoryID = item.ToolSubCategoryID,
-                    ToolSubCategoryName = item.ToolSubCategoryName,
+                    //ToolSubCategoryName = item.ToolSubCategoryName,
+                    ToolSubCategoryName = 1,
                     MemberID = memberID
                 };
                 _ctx.Create(t);
                 _ctx.SaveChanges();
             }
             
+        }
+        public string GetToolRecord(int memberID)
+        {
+            var record = _ctx.GetAll<TalentTool>().Where(x => x.MemberID == memberID).ToList();
+            return JsonConvert.SerializeObject(record);
         }
     }
 }

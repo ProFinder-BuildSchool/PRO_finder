@@ -68,6 +68,7 @@ public class QuotationDetailViewModel
 
     public IEnumerable<OtherPictureViewModel> OtherPicture { get; set; }
     public string UpdateDate { get; set; }
+    public DateTime UpdateDateOrigin { get; set; }
     public int ExecuteDate { get; set; }
 
     public string Description { get; set; }
