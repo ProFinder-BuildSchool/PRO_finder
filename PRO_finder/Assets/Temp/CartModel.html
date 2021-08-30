@@ -17,15 +17,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
     <style>
         .sidenav {
-            display: flex;
-            flex-wrap: wrap;
-            height: 600px;
-            width: 1200px;
+            max-width: 1200px;
+            height: 0px;
+            width: 100vw;
             position: fixed;
-            z-index: 1;
+            z-index: 1000;
             bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
             transition: .5s;
             overflow: auto;
+            background-color: white;
         }
 
             .sidenav::-webkit-scrollbar {
@@ -35,14 +38,15 @@
 
         .closefilter {
             background-color: transparent;
-            margin: 20px 0 0 0px;
+            justify-content: left;
             border: none;
+            margin-bottom: 5%;
             font-size: 25px;
             font-weight: bolder;
         }
 
         .productdetail {
-            margin-left: 80px;
+            padding: 0 20% 0 20%;
             font-family: 'Noto Sans TC', sans-serif;
             line-height: 2;
         }
@@ -79,7 +83,7 @@
         }
 
         .confirmProduct {
-            margin: 10px 0 0 40px;
+            padding: 0 20% 0 20%;
             font-family: 'Noto Sans TC', sans-serif;
             font-size: 23px;
         }
@@ -87,8 +91,8 @@
         .minuscount,
         .pluscount {
             background-color: transparent;
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             border: 1px solid rgb(165, 163, 163);
             font-size: 20px;
@@ -107,8 +111,8 @@
 
         .addProduct {
             display: block;
-            width: 500px;
-            margin-top: 180px;
+            width: 100%;
+            /* margin-top: 180px; */
             background-color: black;
             color: white;
             border: none;
@@ -116,67 +120,107 @@
             font-size: 20px;
             padding: 8px;
         }
+
+        form {
+            font-size: 15px;
+        }
+
+        .closefilter:focus,
+        .more:focus {
+            outline: none;
+        }
     </style>
 </head>
 
 <body>
     <button class="btn">btn</button>
-    <div class="container">
-        <div class="filtermodal">
-            <div class="row">
-                <div id="Sidenav" class="sidenav">
-                    <div class="container"><button class="closefilter">X</button></div>
-                    <div class="col-lg-6 col-12">
-                        <div class="productdetail">
-                            <h2>織品服裝設計</h2>
-                            <span class="price">1,200</span><span>/ 件</span>
-                            <p><a href="" class="studioName">Q點設計</a></p>
-                            <p>執行時間：<span>5 天</span></p>
-                            <div class="detailInf">
-                                <p>
-                                    服務內容：
-                                    <br>
-                                    <span>
-                                        報價金額"僅供參考"，詳細報價請與我們聯絡作品參考:http://qdotdesign.mystrikingly.com/
-                                        Logo/商標設計服務範例：
-                                        1、能為您製作1款向量類型的品牌Logo設計(提案2款選擇1款進行細修)
-                                        2、請提供您的品牌名稱(中文、英文)
+    <div class="row sidenav" id="Sidenav">
+        <div class=" col-12">
+            <button class="closefilter">X</button>
+        </div>
 
-                                        3、請提供LOGO相關參考風格圖片，以便我們更了解您的風格需求
-                                        4、校稿:LOGO版型確認(確認1款)，
-                                        提供免費3次以內細部修改，超過3次以上，額外酌收修改費用。
-                                        5、完成後交付可印刷之AI檔案格式
-                                        3、請提供LOGO相關參考風格圖片，以便我們更了解您的風格需求
-                                        4、校稿:LOGO版型確認(確認1款)，
-                                        提供免費3次以內細部修改，超過3次以上，額外酌收修改費用。
-                                        5、完成後交付可印刷之AI檔案格式
-                                        3、請提供LOGO相關參考風格圖片，以便我們更了解您的風格需求
-                                        4、校稿:LOGO版型確認(確認1款)，
-                                        提供免費3次以內細部修改，超過3次以上，額外酌收修改費用。
-                                        5、完成後交付可印刷之AI檔案格式
-                                        3、請提供LOGO相關參考風格圖片，以便我們更了解您的風格需求
-                                        4、校稿:LOGO版型確認(確認1款)，
-                                        提供免費3次以內細部修改，超過3次以上，額外酌收修改費用。
-                                        5、完成後交付可印刷之AI檔案格式
-                                    </span>
-                                </p>
-                            </div>
-                            <button class="more">查看更多</button>
+        <div class="col-lg-6 col-12">
+            <div class="productdetail">
+                <h3>織品服裝設計</h3>
+                <span class="price">1,200</span><span>/ 件</span>
+                <p><a href="" class="studioName">Q點設計</a></p>
+                <p>執行時間：<span>5 天</span></p>
+                <div class="detailInf">
+                    <p>
+                        服務內容：
+                        <br>
+                        <span>
+                            報價金額"僅供參考"，詳細報價請與我們聯絡作品參考:http://qdotdesign.mystrikingly.com/
+                            Logo/商標設計服務範例：
+                            1、能為您製作1款向量類型的品牌Logo設計(提案2款選擇1款進行細修)
+                            2、請提供您的品牌名稱(中文、英文)
+
+                            3、請提供LOGO相關參考風格圖片，以便我們更了解您的風格需求
+                            4、校稿:LOGO版型確認(確認1款)，
+                            提供免費3次以內細部修改，超過3次以上，額外酌收修改費用。
+                            5、完成後交付可印刷之AI檔案格式
+                            3、請提供LOGO相關參考風格圖片，以便我們更了解您的風格需求
+                            4、校稿:LOGO版型確認(確認1款)，
+                            提供免費3次以內細部修改，超過3次以上，額外酌收修改費用。
+                            5、完成後交付可印刷之AI檔案格式
+                            3、請提供LOGO相關參考風格圖片，以便我們更了解您的風格需求
+                            4、校稿:LOGO版型確認(確認1款)，
+                            提供免費3次以內細部修改，超過3次以上，額外酌收修改費用。
+                            5、完成後交付可印刷之AI檔案格式
+                            3、請提供LOGO相關參考風格圖片，以便我們更了解您的風格需求
+                            4、校稿:LOGO版型確認(確認1款)，
+                            提供免費3次以內細部修改，超過3次以上，額外酌收修改費用。
+                            5、完成後交付可印刷之AI檔案格式
+                        </span>
+                    </p>
+                </div>
+                <button class="more">查看更多</button>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12">
+            <div class="confirmProduct">
+                <div class="row justify-content-center">
+                    <form class="col-12">
+                        <p class="h3">確認數量</p>
+                        <div>
+                            <button class="minuscount">–</button>
+                            <span class="count"></span>
+                            <button class="pluscount">+</button>
                         </div>
-                    </div>
-                    <div class="col-lg-6 col-12">
-                        <div class="confirmProduct">
-                            <p>確認數量</p>
-                            <div>
-                                <button class="minuscount">–</button>
-                                <span class="count"></span>
-                                <button class="pluscount">+</button>
-                            </div>
-                            <button class="addProduct disabled">加入購物車</button>
+                        <h5 class="text-start text-dark pb-2 border-bottom">
+                            輸入訂購人資訊
+                        </h5>
+                        <div class="form-group text-start text-dark mb-2">
+                            <label class="" for="useremail">Email</label>
+                            <input type="email" class="form-control" name="email" id="useremail"
+                                   v-model="form.user.email" placeholder="請輸入 Email" required /> <span class="text-danger"></span>
                         </div>
-                    </div>
+                        <div class="form-group text-start text-dark mb-2">
+                            <label class="" for="username ">收件人姓名</label>
+                            <input type="text" class="form-control" name="name" id="username" v-model="form.user.name"
+                                   placeholder="輸入姓名" required /> <span class="text-danger"></span>
+                        </div>
+                        <div class="form-group text-start text-dark mb-2">
+                            <label class="" for="usertel">收件人電話</label>
+                            <input type="tel" class="form-control" id="usertel" v-model="form.user.tel"
+                                   placeholder="請輸入電話" />
+                        </div>
+                        <div class="form-group text-start text-dark mb-2">
+                            <label class=""
+                                   for="useraddress">收件人地址</label> <input type="text" class="form-control" name="address"
+                                                                          id="useraddress" v-model="form.user.address" placeholder="請輸入地址" /> <span class="text-danger">地址欄位不得留空</span>
+                        </div>
+                        <div class="form-group text-start text-dark">
+                            <label for="comment">留言</label> <textarea name=""
+                                                                      id="comment" class="form-control" cols="30" rows="5" v-model="form.message"></textarea>
+                        </div>
+                        <div class="mt-3 text-right">
+                            <button class="addProduct disabled" type="submit"> 加入購物車</button>
+                        </div>
+                    </form>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -188,7 +232,7 @@
         let countNumber = document.querySelector('.count');
 
         document.querySelector('.btn').addEventListener('click', function () {
-            let height = window.screen.availHeight - 110;
+            let height = window.screen.availHeight - 220;
             side.style.height = `${height}px`;
 
         });
