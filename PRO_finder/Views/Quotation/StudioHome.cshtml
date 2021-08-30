@@ -36,8 +36,8 @@
 
                         <div class="contactp">
                             <p>
-                                @*<a href="#"><i class="icon-heart-o" onclick=@Html.ActionLink() ></i>收藏</a>*@
-                                @Html.ActionLink("收藏", "FavorInsertorDelete", new { MemberID = ViewBag.MemberID, TalentID = ViewBag.MemberID, time = DateTime.UtcNow, StaffID = ViewBag.MemberID, AddorRemove = ViewBag.FavorExist }, new { @class = "icon-heart-o" })
+                                <a href="#"><i class="icon-heart-o" id="heart" ></i>收藏</a>
+                                @*@Html.ActionLink("收藏", "FavorInsertorDelete", new { MemberID = ViewBag.MemberID, TalentID = ViewBag.MemberID, time = DateTime.UtcNow, StaffID = ViewBag.MemberID, AddorRemove = ViewBag.FavorExist }, new { @class = "icon-heart-o" })*@
                                 <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
                             </p>
                             <p><a href="#" class="btn btn-primary btn-md">邀請報價</a></p>
@@ -63,12 +63,12 @@
 
 
                     <h4 class="mb-4" id="part">關於</h4>
-                    @if (Model.Description.IsEmpty())
+                    @*@if (Model.Description.IsEmpty())
                     {
                         <p>暫無簡介</p>
                     }
                     else
-                    {
+                    {*@
                         <div class="aboutText">
                             <p class="aboutp">
                                 @Model.Description
@@ -77,7 +77,7 @@
                                     <a href="javascript:;" class="put">顯示較少</a>
                                 </div>
                         </div>
-                    }
+                    @*}*@
                     </div>
                     
 
@@ -93,7 +93,7 @@
                 {
                     foreach (var work in Model.Studioworks)
                     {
-                        //如果subcate重複，選擇第一個(firstordefault)
+                            //如果subcate重複，選擇第一個(firstordefault)
                         <div class="row justify-content-center mb-5" data-aos="fade-up">
                             <div id="filters" class="filters text-center button-group col-md-7">
                                 <button class="btn btn-primary active" data-filter="*">All</button>
@@ -102,6 +102,7 @@
                                     <button class="btn btn-primary" data-filter=".brand">Brand</button>*@
                             </div>
                         </div>
+                        
 
                         <div id="posts" class="row no-gutter">
                             <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
@@ -326,8 +327,6 @@
                         {
                             foreach (var quot in Model.StudioQuotation)
                             {
-                                @*@foreach (var item in ViewBag.StudioQuotationList)
-                                {*@
                                     <div class="col-lg-3 col-md-6">
                                         <div class="listing__item">
                                             <div class="listing__item__pic" id="quoimglimit">
@@ -640,7 +639,7 @@
     </div>
 
     <div class="contacts">
-        <a href="#"><i class="icon-heart-o"></i>收藏</a>
+        <button id="hearts"><i class="icon-heart-o"></i>收藏</button>
         <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
         <a href="#" class="btn btn-primary btn-md">邀請報價</a>
     </div>
@@ -1159,9 +1158,9 @@
         var aboutp = document.getElementsByClassName('aboutp')[0]
         var show = document.getElementsByClassName('show')[0]
         var put = document.getElementsByClassName('put')[0]
+        var hearts = document.getElementById('hearts')
         var ischange = false
-        //if aboutp.line 如果文字少於十行不顯示closeupbtn
-        /* https://www.codenong.com/cs106865709/*/
+
         closeup.addEventListener("click", function () {
             if (ischange) {
                 aboutp.style.display = "-webkit-box"
@@ -1178,19 +1177,60 @@
         })
 
 
+        document.getElementById('hearts').addEventListener("click", function () {
+
+            fetch('/api/Studio/FavorInsertorDelete', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ MemberID: @ViewBag.UserId, SavedTalentID: @ViewBag.TalentID, SavedDate: '@DateTime.UtcNow', SaveStaffID: @ViewBag.UserId })
+            })
+
+                .then(response => {
+                    
+                    //console.log(response.json());
+
+                    //response.json();
+                    //處理 response
+                    //hearts.click(function () {
+                    //    hearts.toggle('1000');
+                    //    icon = $(this).find("i");
+                    //    icon.toggleClass("icon-heart-o icon-heart")
+                    //})
+                    // document.getElementById('hearts').html( <i class="icon-heart">icon-heart</i>);
+
+                    console.log("ok");
+                    return response.json();
+                })
+                .then(data => {
+                    
+                    var favorexist = data.Result;
+                    //console.log(data);
+                    //console.log(result);
+
+                    if (favorexist) hearts.innerText = '已收藏';
+                    else hearts.innerText = '未收藏';
+                });
+            
+
+            //.catch(function (err) {
+            //    // Error :(
+            //})
+
+    })
+    
+
+        //hearts.addEventListener("click",function changeheart(x) {
+        //    icon = hearts.find("i");
+        //    x.classList.toggle()
+        //    icon.toggleClass("icon-heart-o icon-heart")
+        //})
+
+
 
     </script>
-
-
-    @*<script>
-        window.onload = function ()
-        {
-            document.querySelector('#heart').addEventListener("click", function () {
-                @FavorInsert
-
-            })
-            }
-
-        </script>*@
 }
+
+    
 

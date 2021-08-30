@@ -5,14 +5,14 @@
 
 
 @{
-    ViewBag.Title = "CreateQuotation";
+    ViewBag.Title = "UpdateMyQuotation";
     Layout = "~/Views/Shared/_LayoutMemberTalent.cshtml";
 
 
 }
 
 
-@using (Html.BeginForm("CreateQuotation", "Talent"))
+@using (Html.BeginForm("UpdateMyQuotation", "Talent"))
 {
     @Html.AntiForgeryToken()
     <div class="myContainer">
@@ -98,15 +98,27 @@
                 <div class="container">
                     <p class="text-danger mb-0">&ensp;*拖曳交換順序</p>
                     <div class="row" id="displayUpload">
+                        @foreach (var item in Model.OtherPicList)
+                        {
+                            <div class="col-12 col-md-6 col-lg-4 origin">
+                                <span class="btn btn-outline-danger"><i class='fas fa-trash-alt'></i></span>
+                                <img src="@item.OtherPictureLink" data-content="WorkPicture" class="origin"/>
+                                @*<video src="" data-content="WorkPicture"/>*@
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
-            
+
             @*服務内容描述*@
             <div class="form-group mt-5">
                 @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-12" })
                 <div class="col-md-12">
-                    <div id="editor"></div>
+                    <div id="editor">
+                        <div>
+                            @Html.Raw(Model.Description)
+                        </div>
+                    </div>
                     <input type="hidden" name="Description" />
                     @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                 </div>
@@ -123,8 +135,9 @@
         </div>
     </div>
     //hidden inputs
-    <input type="hidden" name="MainPicture" id="MainPicture"/>
-    <input type="hidden" name="OtherPictureList" id="OtherPictureList"/>
+    <input type="hidden" name="QuotationID" value="@Model.QuotationID"/>
+    <input type="hidden" name="MainPicture" id="MainPicture" />
+    <input type="hidden" name="OtherPictureList" id="OtherPictureList" />
 
 }
 @*picture template*@
@@ -228,6 +241,9 @@
                         background-color: unset !important;
                         cursor: pointer;
                     }
+                    body.wait{
+                        cursor:wait;
+                    }
 
         @@media screen and (min-width:768px) {
             span.uploadIcon {
@@ -241,6 +257,7 @@
     <script src="~/Assets/js/quill.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js" integrity="sha512-zYXldzJsDrNKV+odAwFYiDXV2Cy37cwizT+NkuiPGsa9X1dOz04eHvUWVuxaJ299GvcJT31ug2zO4itXBjFx4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>var originSubcateID = @Model.SubCategoryID; var originCateID = @Model.CategoryID</script>
     <script>
 
         //服務類別轉換
@@ -250,20 +267,32 @@
         axios.get("/api/Talent/GetAllCategoryAndSubCategoryList").then(result => {
             let data = JSON.parse(result.data.Result);
             subCategoryList.push(...data);
+
+            //呈現subcatgory dropdown list
+            if (originSubcateID != null && originCateID != null) {
+                selector.innerHTML = "<option class='text - center'>選擇服務子類型</option>";
+                let originSubList = subCategoryList.filter(x => x.CategoryID == originCateID)[0].JsonSubCategoryList;
+                let allOriginSubList = JSON.parse(originSubList);
+                allOriginSubList.forEach(s => {
+                    let option = document.createElement("option");
+                    option.innerText = s.SubCateName;
+                    option.value = s.SubCateID;
+                    if (s.SubCateID == originSubcateID) { option.selected = true; }
+                    selector.append(option);
+                });
+            }
         });
+        
 
         document.querySelector("#categoryDropdown").addEventListener("change", function () {
             selector.innerHTML = "<option class='text - center'>選擇服務子類型</option>";
-            subCategoryList.forEach(sub => {
-                if (sub.CategoryID == this.value) {
-                    let allsub = JSON.parse(sub.JsonSubCategoryList);
-                    allsub.forEach(s => {
-                        let option = document.createElement("option");
-                        option.innerText = s.SubCateName;
-                        option.value = s.SubCateID;
-                        selector.append(option);
-                    });
-                };
+            let subJsonList = subCategoryList.filter(x => x.CategoryID == this.value)[0].JsonSubCategoryList;
+            let allSub = JSON.parse(subJsonList);
+            allSub.forEach(s => {
+                let option = document.createElement("option");
+                option.innerText = s.SubCateName;
+                option.value = s.SubCateID;
+                selector.append(option);
             });
         });
 
@@ -297,6 +326,46 @@
         let countMedia = 0;
         let displayUpload = $g("#displayUpload");
         let uploadArray = []; //上傳圖床用的
+        //將資料庫原有圖片加入uploadArray
+        let originImgs = document.querySelectorAll("img.origin");
+        if (originImgs != null) {
+            originImgs.forEach((img, index) => {
+                const urlToObject = async () => {
+                    let url = img.src;
+                    let len = url.length;
+                    var http = url.substring(0, 5)
+                    if (http != "https") {
+                        url = "https://" + url.substring(7, len);
+                    }
+                    const response = await fetch(url);
+                    // here image is url/location of image
+                    const blob = await response.blob();
+                    const file = new File([blob], `image${index}.jpg`, { type: blob.type });
+                    uploadArray.push(file);
+                }
+                urlToObject();
+                
+            });
+        }
+        //原有圖片顯示的div顯示
+        let originImgDiv = document.querySelectorAll("div.origin");
+        if (originImgDiv != null) {
+            originImgDiv.forEach(div => {
+                div.setAttribute("id", `count${countMedia}`);
+                let span = div.querySelector("span");
+                span.dataset.count = countMedia;
+                //刪除設定
+                span.addEventListener("click", function () {
+                    let theCount = this.dataset.count
+                    let theDiv = $g(`div#count${theCount}`);
+                    displayUpload.removeChild(theDiv);
+                    uploadArray.splice(theCount, 1);
+                    //console.log(theDiv);
+                });
+
+                countMedia++;
+            })
+        }
         $g("input#upload").addEventListener("change", function () {
             /*console.dir(this);*/
             let files = Array.from(this.files);
@@ -336,7 +405,7 @@
                 countMedia++;
             });
         });
-
+        
         //sortable
         const displayArea = $g("#displayUpload");
         new Sortable(displayArea, {
@@ -351,7 +420,7 @@
 
         $g("input#send").addEventListener("click", function (e) {
             e.preventDefault();
-
+            $g("body").classList.add("wait");
             //富文本編輯器儲存
             $g("input[name='Description']").value = $g("div.ql-editor").innerHTML;
 
@@ -376,7 +445,7 @@
                 $g("input#OtherPictureList").value = otherPics;
                 console.log(otherPics);
 
-                document.querySelector("form[action='/Talent/CreateQuotation']").submit();
+                document.querySelector("form[action='/Talent/UpdateMyQuotation/@Model.QuotationID']").submit();
             };
             asyncRun();
 
@@ -396,7 +465,6 @@
                 })
                 .then(data => data.url);
         }
-    </script>
-
+    </script> 
 }
 

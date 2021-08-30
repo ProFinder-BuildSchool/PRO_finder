@@ -208,6 +208,7 @@
 
 </section>
 
+
 <section class="pb-lg-5">
 </section>
 
@@ -319,12 +320,10 @@
 
         let btnSaveCase = document.querySelector('#btnSaveCase');
         let caseid = @Html.Raw(Json.Encode(Model.CaseId));
+
         btnSaveCase.addEventListener('click', function () {
-            //axios({ method: "post", data: caseid, url: "/SaveCase/AddToSaveCase" })
-            //    .then(res => console.log(res));
             axios.post('/SaveCase/AddToSaveCase', { caseid: caseid }).then(res => console.log(res));
         })
-
 
     </script>
 

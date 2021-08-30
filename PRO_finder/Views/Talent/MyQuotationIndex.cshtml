@@ -1,0 +1,59 @@
+﻿@model List<QuotationDetailViewModel>
+@{
+    ViewBag.Title = "MyQuotationIndex";
+    Layout = "~/Views/Shared/_LayoutMemberTalent.cshtml";
+}
+
+<div class="myContainer">
+    <h4>我的服務</h4>
+    <hr />
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class=" col-12 col-md-6 col-lg-4 mt-3">
+                    <div class="card">
+                        <img src="@item.MainPicture" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.QuotationTitle</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">類別：<a href="/Quotation/Index?CategoryId=@item.CategoryId">@item.SubcategoryName</a></li>
+                            <li class="list-group-item">服務定價：@item.Price 元&ensp;/ @item.Unit</li>
+                            <li class="list-group-item">更新日期：@item.UpdateDate</li>
+                            <li class="list-group-item">服務狀態：</li>
+                        </ul>
+                        <div class="card-body text-right">
+                            <a href="/Talent/UpdateMyQuotation/@item.QuotationId" class="btn btn-primary">修改服務</a>
+                            <a href="/Talent/DeleteQuotation/@item.QuotationId" class="btn btn-danger">刪除服務</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@section TopCss
+    {
+    <style>
+        h4 {
+            color: #89ba16;
+            font-weight: 900;
+            padding: 0 15px;
+        }h5 {
+            color: #89ba16;
+            font-weight: 900;
+            padding: 0px 15px;
+            /*margin: 0px !important;*/
+        }
+        .myContainer {
+            @*max-width: 510px;
+            *@ margin: auto;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            padding: 25px;
+        }
+        
+    </style>
+}
+

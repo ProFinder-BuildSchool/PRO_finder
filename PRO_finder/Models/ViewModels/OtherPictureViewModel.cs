@@ -17,5 +17,6 @@ namespace PRO_finder.Models.ViewModel
         public bool IsDefault { get; set; }
 
         public string OtherPicture { get; set; }
+        public string OtherPictureLink { get; set; }
     }
 }
