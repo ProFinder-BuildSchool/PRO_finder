@@ -47,7 +47,7 @@ namespace PRO_finder.Controllers
         }
 
         [HttpPost]
-        public void DeleFromSaveCase(int caseid)
+        public ActionResult DeleFromSaveCase(int caseid)
         {
             string user = HttpContext.User.Identity.GetUserId();
             int MemberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == user).MemberID;
@@ -55,7 +55,14 @@ namespace PRO_finder.Controllers
             if (caseid != null)
             {
                 _savecaseService.DeleItemFromSaveCase(caseid, MemberID);
+
+                var SaveCaseViewModel = _savecaseService.GetSaveCaseData(MemberID);
+                return RedirectToAction("SaveCase", SaveCaseViewModel);
             }
+            
+
+            return View();
+
         }
 
     }

@@ -23,7 +23,7 @@
                 <div class="row">
                     <div class="col-6">
                         <button id="btnSaveCase" href="#" class="btn btn-block btn-light btn-md border">
-                            <span class="icon-heart-o mr-2 text-danger"></span>收藏
+                            <span id="farHeart" class="far fa-heart mr-2 text-danger"></span>收藏
                         </button>
                     </div>
                     <div class="col-6">
@@ -321,8 +321,22 @@
         let btnSaveCase = document.querySelector('#btnSaveCase');
         let caseid = @Html.Raw(Json.Encode(Model.CaseId));
 
+        
+
         btnSaveCase.addEventListener('click', function () {
-            axios.post('/SaveCase/AddToSaveCase', { caseid: caseid }).then(res => console.log(res));
+            let b =! 0;
+            if (b=0) {
+                
+                axios.post('/SaveCase/AddToSaveCase', { caseid: caseid }).then(res => console.log(res));
+            }
+            else if (b=1) {
+                let farHeart = document.querySelector('#farHeart');
+                farHeart.classList.remove("far");
+                farHeart.classList.add("fas");
+                btnSaveCase.disabled = true;
+                alert('已收藏過此案件 ! ')
+            }
+            
         })
 
     </script>

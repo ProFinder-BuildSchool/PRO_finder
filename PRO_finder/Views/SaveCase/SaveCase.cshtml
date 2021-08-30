@@ -25,22 +25,22 @@
                         <th>預算金額</th>
                         <th>發案人</th>
                         <th>案件狀態</th>
+
                         @*<th>刊登日期</th>*@
                     </tr>
                 </thead>
                 <tbody id="Savecase">
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td class="text-center">@item.title</td>
-                            <td class="text-center">@item.Price</td>
-                            <td class="text-center">@item.Contact</td>
-                            <td class="text-center">@item.CaseStatus</td>
+                    <tr>
+                        <td class="text-center">@item.title</td>
+                        <td class="text-center">@item.Price</td>
+                        <td class="text-center">@item.Contact</td>
+                        <td class="text-center">@item.CaseStatus</td>
+                        <td class="text-center" ><button class="text-center btnDele btn btn-primary "data-content="@item.CaseID">刪除</button></td>
 
-                            <td class="text-center btnDele"><button style="display:none;" onclick="@Url.Action("DeleFromSaveCase","SaveCase")"></button>刪除</td>
-
-                            @*<td class="text-center">@item.UpdateDate</td>*@
-                        </tr>
+                        @*<td class="text-center">@item.UpdateDate</td>*@
+                    </tr>
                     }
                 </tbody>
 
@@ -65,15 +65,24 @@
     </style>
 }
 
-@*@section endJS{
+@section endJS{
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        let btnDele = document.querySelector('#btnDele');
-        let caseid = @Html.Raw(Json.Encode(Model.CaseID));
+        let btnDele = document.querySelectorAll('.btnDele');
+        
+        
 
-        btnDele.addEventListener('click', function () {
-            axios.post('/SaveCase/DeleFromSaveCase', { caseid: caseid }).then(res => console.log(res));
+        btnDele.forEach(function (item) {
+
+            let caseid = item.getAttribute("data-content");
+            console.log(caseid);
+            item.addEventListener('click', function () {
+                item.disabled=true;
+                axios.post('/SaveCase/DeleFromSaveCase', { caseid: caseid }).then(res => console.log(res));
+            })
         })
+
+        
     </script>
 
-}*@
+}
