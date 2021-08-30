@@ -306,7 +306,7 @@ namespace PRO_finder.Service
             {
                 QuotationID = found.QuotationID,
                 QuotationTitle = found.QuotationTitle,
-                Price = (decimal)found.Price,
+                Price = Math.Round((decimal)found.Price),
                 QuotationUnit = (CreateQuotationViewModel.UnitEnum)found.QuotationUnit,
                 ExecuteDate = found.ExecuteDate,
                 SubCategoryID = found.SubCategoryID,

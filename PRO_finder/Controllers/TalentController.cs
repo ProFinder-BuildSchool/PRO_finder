@@ -54,7 +54,7 @@ namespace PRO_finder.Controllers
             if (ModelState.IsValid)
             {
                 string userID = HttpContext.User.Identity.GetUserId();
-                quotation.MemberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == userID).MemberID;
+                quotation.MemberID = _memberInfoService.GetMemberID(userID);
 
                 var newQ = _quotaService.CreateQuotation(quotation);
                 int quotationID = newQ.QuotationID;
@@ -83,7 +83,7 @@ namespace PRO_finder.Controllers
 
             //取得memberID,並加至newWorks
             string userID = HttpContext.User.Identity.GetUserId();
-            newWorks.MemberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == userID).MemberID;
+            newWorks.MemberID = _memberInfoService.GetMemberID(userID);
 
 
             if (ModelState.IsValid)
@@ -113,7 +113,8 @@ namespace PRO_finder.Controllers
         public ActionResult CaseSetting()
         {
             string userID = HttpContext.User.Identity.GetUserId();
-            var memInfo = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == userID);
+            int memberID = _memberInfoService.GetMemberID(userID);
+            var memInfo = _memberInfoService.GetMemberInfo(memberID);
             //居住地
             if (memInfo.LiveCity != null)
             {
@@ -127,10 +128,10 @@ namespace PRO_finder.Controllers
                 ViewBag.LocationDropdownListForLiveCity = _quotaService.GetLocationSelectList();
             }
             //理想接案城市
-            if (memInfo.LocationID != null)
+            if (memInfo.LocationIDInt != null)
             {
                 var locaList = _quotaService.GetLocationSelectList();
-                var loca = (int)memInfo.LocationID;
+                var loca = (int)memInfo.LocationIDInt;
                 locaList.FirstOrDefault(x => Int32.Parse(x.Value) == loca).Selected = true;
                 ViewBag.LocationDropdownList = locaList;
             }
@@ -158,7 +159,7 @@ namespace PRO_finder.Controllers
             return View(memInfo);
         }
         [HttpPost]
-        public ActionResult CaseSetting([Bind(Include = "Status, NickName, Identity, LiveCity, Cellphone, Email, JsonToolList, LocationID, SubCategoryID, AllPieceworkExp, JsonExDList, Description")] MemberInfoViewModel caseSettings)
+        public ActionResult CaseSetting([Bind(Include = "Status, NickName, Identity, LiveCity, Cellphone, Email, JsonToolList, LocationIDInt, SubCategoryID, AllPieceworkExp, JsonExDList, Description")] MemberInfoViewModel caseSettings)
         {
             //view 畫面資料
             //大類別CategoryDropDown
@@ -177,10 +178,10 @@ namespace PRO_finder.Controllers
                 ViewBag.LocationDropdownListForLiveCity = _quotaService.GetLocationSelectList();
             }
             //理想接案城市
-            if (caseSettings.LocationID != null)
+            if (caseSettings.LocationIDInt != null)
             {
                 var locaList = _quotaService.GetLocationSelectList();
-                var loca = (int)caseSettings.LocationID;
+                var loca = (int)caseSettings.LocationIDInt;
                 locaList.FirstOrDefault(x => Int32.Parse(x.Value) == loca).Selected = true;
                 ViewBag.LocationDropdownList = locaList;
             }
@@ -206,7 +207,7 @@ namespace PRO_finder.Controllers
 
             //取得memberID,並加至newWorks
             string userID = HttpContext.User.Identity.GetUserId();
-            int memberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == userID).MemberID;
+            int memberID = _memberInfoService.GetMemberID(userID);
 
 
             if (ModelState.IsValid)
@@ -255,7 +256,7 @@ namespace PRO_finder.Controllers
         {
             
             string userID = HttpContext.User.Identity.GetUserId();
-            int memberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == userID).MemberID;
+            int memberID = _memberInfoService.GetMemberID(userID);
             var myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
             return View(myQuotation);
         }
@@ -278,8 +279,14 @@ namespace PRO_finder.Controllers
         {
             if (ModelState.IsValid)
             {
+                //更新資料庫
                 _quotaService.UpdateQuotation(quotation);
-                return RedirectToAction("Index");
+
+                //重新導向
+                string userID = HttpContext.User.Identity.GetUserId();
+                int memberID = _memberInfoService.GetMemberID(userID);
+                var myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
+                return RedirectToAction("MyQuotationIndex", myQuotation);
             }
             return View("Index");
         }
@@ -293,7 +300,7 @@ namespace PRO_finder.Controllers
             _quotaService.DeleteQ(id);
 
             string userID = HttpContext.User.Identity.GetUserId();
-            int memberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == userID).MemberID;
+            int memberID = _memberInfoService.GetMemberID(userID);
             var remainQ = _quotaService.GetMyQuotations(memberID).ToList();
             return View("MyQuotationIndex", remainQ);
         }
@@ -304,7 +311,7 @@ namespace PRO_finder.Controllers
         {
             //取得memberID,並加至newWorks
             string userID = HttpContext.User.Identity.GetUserId();
-            int memberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == userID).MemberID;
+            int memberID = _memberInfoService.GetMemberID(userID);
             string result = _memberInfoService.GetToolRecord(memberID);
             return Json(result, JsonRequestBehavior.AllowGet);
             

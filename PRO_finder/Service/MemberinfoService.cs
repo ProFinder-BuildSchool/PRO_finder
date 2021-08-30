@@ -23,14 +23,14 @@ namespace PRO_finder.Service
             _ctx = new GeneralRepository(new ProFinderContext());
         }
 
-        public List<MemberInfo> getMemberInfoItem()
-        {
-            using (ProFinderContext context = new ProFinderContext())
-            {
-                List<MemberInfo> memberinfoList = context.MemberInfo.ToList();
-                return memberinfoList;
-            }
-        }
+        //public List<MemberInfo> getMemberInfoItem()
+        //{
+        //    using (ProFinderContext context = new ProFinderContext())
+        //    {
+        //        List<MemberInfo> memberinfoList = context.MemberInfo.ToList();
+        //        return memberinfoList;
+        //    }
+        //}
 
         public List<SelectListItem> GetToolSelectList()
         {
@@ -53,7 +53,39 @@ namespace PRO_finder.Service
             }
             return JsonConvert.SerializeObject(subToolVMList);
         }
-
+        public int GetMemberID(string userID)
+        {
+            return _ctx.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == userID).MemberID;
+        }
+        public MemberInfoViewModel GetMemberInfo(int memberID)
+        {
+            var exp = (from e in _ctx.GetAll<Experience>()
+                       where e.MemberID == memberID
+                       select new ExperienceViewModel
+                       {
+                           MemberID = e.MemberID,
+                           CategoryID = e.CategoryID,
+                           SubCategoryID = e.SubCategoryID,
+                           PieceworkExp = e.PieceworkExp
+                       });
+            return (from m in _ctx.GetAll<MemberInfo>()
+                    where m.MemberID == memberID 
+                    select new MemberInfoViewModel
+                    {
+                        MemberID = m.MemberID,
+                        Cellphone = m.Cellphone,
+                        Email = m.Email,
+                        Status = m.Status,
+                        NickName = m.NickName,
+                        Identity = (MemberInfoViewModel.IdentityStatus)m.Identity,
+                        LiveCity = m.LiveCity,
+                        LocationIDInt = (int)m.LocationID,
+                        SubCategoryID = m.SubCategoryID,
+                        AllPieceworkExp = m.AllPieceworkExp,
+                        Description = m.Description,
+                        Exeriences = exp
+                    }).FirstOrDefault();
+        }
         public MemberInfo UpdateMemberInfo(int memberID ,MemberInfoViewModel newSettings)
         {
             var entity = _ctx.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == memberID);
@@ -63,7 +95,7 @@ namespace PRO_finder.Service
             entity.LiveCity = newSettings.LiveCity;
             entity.Cellphone = newSettings.Cellphone;
             entity.Email = newSettings.Email;
-            entity.LocationID = (int)newSettings.LocationID;
+            entity.LocationID = (int)newSettings.LocationIDInt;
             entity.AllPieceworkExp = newSettings.AllPieceworkExp;
             entity.Description = newSettings.Description;
             entity.SubCategoryID = newSettings.SubCategoryID;
@@ -117,7 +149,6 @@ namespace PRO_finder.Service
                     ToolCategoryID = item.ToolCategoryID,
                     ToolSubCategoryID = item.ToolSubCategoryID,
                     ToolSubCategoryName = item.ToolSubCategoryName,
-
                     MemberID = memberID
                 };
                 _ctx.Create(t);
