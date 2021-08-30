@@ -23,6 +23,7 @@ namespace PRO_finder.Models.DBModel
             SaveStaff1 = new HashSet<SaveStaff>();
             ServicePlus = new HashSet<ServicePlus>();
             ProposalRecord = new HashSet<ProposalRecord>();
+            QuotationDetail = new HashSet<QuotationDetail>();
         }
 
         [Key]
@@ -122,6 +123,7 @@ namespace PRO_finder.Models.DBModel
 
         public virtual ReplyFrequency ReplyFrequency { get; set; }
 
-        public virtual QuotationDetail QuotationDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<QuotationDetail> QuotationDetail { get; set; }
     }
 }
