@@ -116,7 +116,7 @@
                 <div class="col-md-12">
                     <div id="editor">
                         <div>
-                            @Html.Raw(Model.Description);
+                            @Html.Raw(Model.Description)
                         </div>
                     </div>
                     <input type="hidden" name="Description" />
@@ -241,6 +241,9 @@
                         background-color: unset !important;
                         cursor: pointer;
                     }
+                    body.wait{
+                        cursor:wait;
+                    }
 
         @@media screen and (min-width:768px) {
             span.uploadIcon {
@@ -328,7 +331,13 @@
         if (originImgs != null) {
             originImgs.forEach((img, index) => {
                 const urlToObject = async () => {
-                    const response = await fetch(img.src);
+                    let url = img.src;
+                    let len = url.length;
+                    var http = url.substring(0, 5)
+                    if (http != "https") {
+                        url = "https://" + url.substring(7, len);
+                    }
+                    const response = await fetch(url);
                     // here image is url/location of image
                     const blob = await response.blob();
                     const file = new File([blob], `image${index}.jpg`, { type: blob.type });
@@ -411,7 +420,7 @@
 
         $g("input#send").addEventListener("click", function (e) {
             e.preventDefault();
-
+            $g("body").classList.add("wait");
             //富文本編輯器儲存
             $g("input[name='Description']").value = $g("div.ql-editor").innerHTML;
 
@@ -436,7 +445,7 @@
                 $g("input#OtherPictureList").value = otherPics;
                 console.log(otherPics);
 
-                document.querySelector("form[action='/Talent/CreateQuotation']").submit();
+                document.querySelector("form[action='/Talent/UpdateMyQuotation/@Model.QuotationID']").submit();
             };
             asyncRun();
 

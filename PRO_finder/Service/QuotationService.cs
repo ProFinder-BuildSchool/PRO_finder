@@ -11,6 +11,8 @@ using System.Web.Mvc;
 using PRO_finder.Models.ViewModel;
 using static PRO_finder.Models.ViewModels.QuotationViewModel;
 using Newtonsoft.Json.Linq;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace PRO_finder.Service
 {
@@ -298,7 +300,7 @@ namespace PRO_finder.Service
             var entity = _repo.GetAll<Quotation>().FirstOrDefault(x => x.QuotationID == quo.QuotationID);
             entity.QuotationTitle = quo.QuotationTitle;
             entity.UpdateDate = DateTime.UtcNow;
-            entity.Price = quo.Price;
+            entity.Price = Math.Round(quo.Price);
             entity.QuotationUnit = (int)quo.QuotationUnit;
             entity.ExecuteDate = quo.ExecuteDate;
             entity.Description = quo.Description;
@@ -317,9 +319,15 @@ namespace PRO_finder.Service
                 }
                 JArray temp = JArray.Parse(quo.OtherPictureList);
                 List<OtherPicture> newPictureList = temp.ToObject<List<OtherPicture>>();
-                foreach(var item in newPictureList)
+                foreach (var item in newPictureList)
                 {
-                    _repo.Create(item);
+                    OtherPicture p = new OtherPicture
+                    {
+                        QuotationID = quo.QuotationID,
+                        OtherPictureLink = item.OtherPictureLink,
+                        SortNumber = item.SortNumber
+                    };
+                    _repo.Create(p);
                     _repo.SaveChanges();
                 }
 
