@@ -22,6 +22,7 @@ namespace PRO_finder.Models.ViewModels
         public int CaseStatus { get; set; }
 
         //public DateTime UpdateDate { get; set; }
+        //public List<SaveCaseViewModel> SaveCaseItems { get; set; }
 
 
     }

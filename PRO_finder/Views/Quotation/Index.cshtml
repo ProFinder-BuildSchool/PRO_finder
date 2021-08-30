@@ -1151,9 +1151,17 @@
 
             }
 
-            filterCard = OptionTwo;            IdArr = locatIdArr.concat(subcatIdArr);            console.log(IdArr);            if (IdArr.length == 0) {                window.history.replaceState({}, 0, "Index?");
-            }            else {                window.history.replaceState({}, 0, "Index?filter=" + `${IdArr}`);
-            }                        pagination(filterCard, 1)
+            filterCard = OptionTwo;
+            IdArr = locatIdArr.concat(subcatIdArr);
+            console.log(IdArr);
+            if (IdArr.length == 0) {
+                window.history.replaceState({}, 0, "Index?");
+            }
+            else {
+                window.history.replaceState({}, 0, "Index?filter=" + `${IdArr}`);
+            }
+            
+            pagination(filterCard, 1)
 
         }
 

@@ -37,17 +37,27 @@ namespace PRO_finder.Controllers
         [HttpPost]
         public void AddToSaveCase(int caseid)
         {
-
             string user = HttpContext.User.Identity.GetUserId();
             int MemberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == user).MemberID;
-            
 
-            if (caseid != null)
+            if (ModelState.IsValid)
             {
                 _savecaseService.AddItemToSaveCase(caseid, MemberID);
             }
-            
         }
+
+        [HttpPost]
+        public void DeleFromSaveCase(int caseid)
+        {
+            string user = HttpContext.User.Identity.GetUserId();
+            int MemberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == user).MemberID;
+
+            if (caseid != null)
+            {
+                _savecaseService.DeleItemFromSaveCase(caseid, MemberID);
+            }
+        }
+
     }
     
 }
