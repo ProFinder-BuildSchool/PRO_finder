@@ -638,6 +638,7 @@
     <Content Include="Views\SaveCase\SaveCase.cshtml" />
     <Content Include="Views\SaveCase\AddToSaveCase.cshtml" />
     <Content Include="Views\Talent\MyQuotationIndex.cshtml" />
+    <Content Include="Views\Talent\UpdateMyQuotation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PRO_finder.Models.DBModel;
-
+using PRO_finder.Models.ViewModel;
 
 namespace PRO_finder.ViewModels
 {
@@ -30,7 +30,7 @@ namespace PRO_finder.ViewModels
 
         public enum UnitEnum
         {
-            件, 張, 頁, 份, 字, 個, 天, 時, 坪, 才, 秒, 月, 則, 幅 
+            件, 張, 頁, 份, 字, 個, 天, 時, 坪, 才, 秒, 月, 則, 幅
         }
 
         public UnitEnum QuotationUnit { get; set; }
@@ -51,7 +51,9 @@ namespace PRO_finder.ViewModels
         public string MainPicture { get; set; }
 
         public string OtherPictureList { get; set; }
+        public List<OtherPictureViewModel> OtherPicList {get;set;}
 
-
+        public int CategoryID { get; set; }
     }
+    
 }

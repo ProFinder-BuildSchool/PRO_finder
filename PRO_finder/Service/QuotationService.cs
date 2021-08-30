@@ -267,5 +267,64 @@ namespace PRO_finder.Service
             }
             
         }
+
+        public CreateQuotationViewModel GetQuotation(int? id)
+        {
+            var found = _repo.GetAll<Quotation>().FirstOrDefault(x => x.QuotationID == id);
+            string pictures = JsonConvert.SerializeObject(_repo.GetAll<OtherPicture>().Where(x => x.QuotationID == id).ToList());
+            var result = new CreateQuotationViewModel
+            {
+                QuotationID = found.QuotationID,
+                QuotationTitle = found.QuotationTitle,
+                Price = (decimal)found.Price,
+                QuotationUnit = (CreateQuotationViewModel.UnitEnum)found.QuotationUnit,
+                ExecuteDate = found.ExecuteDate,
+                SubCategoryID = found.SubCategoryID,
+                OtherPictureList = pictures,
+                CategoryID = _repo.GetAll<SubCategory>().FirstOrDefault(x => x.SubCategoryID == found.SubCategoryID).CategoryID,
+                Description = found.Description,
+                OtherPicList = _repo.GetAll<OtherPicture>().Where(x => x.QuotationID == id).Select(x => new OtherPictureViewModel
+                {
+                    QuotationID = x.QuotationID,
+                    SortNumber = x.SortNumber,
+                    OtherPictureLink = x.OtherPictureLink
+                }).ToList()
+            };
+            return result;
+        }
+
+        public void UpdateQuotation(CreateQuotationViewModel quo)
+        {
+            var entity = _repo.GetAll<Quotation>().FirstOrDefault(x => x.QuotationID == quo.QuotationID);
+            entity.QuotationTitle = quo.QuotationTitle;
+            entity.UpdateDate = DateTime.UtcNow;
+            entity.Price = quo.Price;
+            entity.QuotationUnit = (int)quo.QuotationUnit;
+            entity.ExecuteDate = quo.ExecuteDate;
+            entity.Description = quo.Description;
+            entity.SubCategoryID = quo.SubCategoryID;
+            entity.MainPicture = quo.MainPicture;
+            _repo.Update(entity);
+            _repo.SaveChanges();
+
+            if(quo.OtherPictureList != null)
+            {
+                var oldPictures = _repo.GetAll<OtherPicture>().Where(x => x.QuotationID == quo.QuotationID).ToList();
+                foreach(var item in oldPictures)
+                {
+                    _repo.Delete(item);
+                    _repo.SaveChanges();
+                }
+                JArray temp = JArray.Parse(quo.OtherPictureList);
+                List<OtherPicture> newPictureList = temp.ToObject<List<OtherPicture>>();
+                foreach(var item in newPictureList)
+                {
+                    _repo.Create(item);
+                    _repo.SaveChanges();
+                }
+
+            }
+
+        }
     }
 }

@@ -32,7 +32,6 @@ namespace PRO_finder.Controllers
             _cateService = new CategoryService();
             _worksService = new WorksService();
             _quotaService = new QuotationService();
-            //_caseService = new CaseService();
             _memberInfoService = new MemberinfoService();
         }
 
@@ -45,7 +44,6 @@ namespace PRO_finder.Controllers
         public ActionResult CreateQuotation()
         {
             ViewBag.CategoryList = _cateService.GetCategorySelectList();
-
             return View();
         }
         [HttpPost]
@@ -254,14 +252,37 @@ namespace PRO_finder.Controllers
         }
         public ActionResult MyQuotationIndex()
         {
+            
             string userID = HttpContext.User.Identity.GetUserId();
             int memberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == userID).MemberID;
             var myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
             return View(myQuotation);
         }
-        
 
-        //[HttpPost]
+        public ActionResult UpdateMyQuotation(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
+            var theQuotation = _quotaService.GetQuotation(id);
+            var cateList= _cateService.GetCategorySelectList();
+            cateList.FirstOrDefault(x => x.Value == theQuotation.CategoryID.ToString()).Selected = true;
+            ViewBag.CategoryList = cateList;
+            return View(theQuotation);
+        }
+        [HttpPost]
+        public ActionResult UpdateMyQuotation([Bind(Include = "QuotationID, QuotationTitle,Price,QuotationUnit,ExecuteDate,Description,SubCategoryID,MainPicture,OtherPictureList")] CreateQuotationViewModel quotation)
+        {
+            if (ModelState.IsValid)
+            {
+                _quotaService.UpdateQuotation(quotation);
+                return RedirectToAction("Index");
+            }
+            return View("Index");
+        }
+
         public ActionResult DeleteQuotation(int? id)
         {
             if(id == null)
@@ -275,6 +296,7 @@ namespace PRO_finder.Controllers
             var remainQ = _quotaService.GetMyQuotations(memberID).ToList();
             return View("MyQuotationIndex", remainQ);
         }
+        
 
         //Api
         public JsonResult GetMemberToolRecord()
