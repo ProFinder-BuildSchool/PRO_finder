@@ -116,8 +116,8 @@ namespace PRO_finder.Service
                 {
                     ToolCategoryID = item.ToolCategoryID,
                     ToolSubCategoryID = item.ToolSubCategoryID,
-                    //ToolSubCategoryName = item.ToolSubCategoryName,
-                    ToolSubCategoryName = 1,
+                    ToolSubCategoryName = item.ToolSubCategoryName,
+
                     MemberID = memberID
                 };
                 _ctx.Create(t);
