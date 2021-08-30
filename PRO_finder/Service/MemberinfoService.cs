@@ -130,10 +130,6 @@ namespace PRO_finder.Service
             var record = _ctx.GetAll<TalentTool>().Where(x => x.MemberID == memberID).ToList();
             return JsonConvert.SerializeObject(record);
         }
-        public string GetToolRecord(int memberID)
-        {
-            List<TalentTool> record = _ctx.GetAll<TalentTool>().Where(x => x.MemberID == memberID).ToList();
-            return JsonConvert.SerializeObject(record);
-        }
+        
     }
 }
