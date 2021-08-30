@@ -14,7 +14,7 @@ namespace PRO_finder.Models.ViewModels
        
         public int Price { get; set; }
 
-
+        public int CaseStatus { get; set; }
 
         public int LocationID{ get; set; }
 
@@ -26,11 +26,32 @@ namespace PRO_finder.Models.ViewModels
 
         public DateTime UpdateDate { get; set; }
 
+        public int SortNum { get; set; }
 
         public string SubCategoryName { get; set; }
 
         public string DiffDateTime { get; set; }
 
         public int CategoryID { get; set; }
+
+
+        public string PriceToString { get; set; }
+
+
+
     }
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
 }

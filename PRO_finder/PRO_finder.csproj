@@ -303,10 +303,12 @@
     <Compile Include="Controllers\SaveCaseController.cs" />
     <Compile Include="Controllers\TalentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Enum\Enum.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\DateToString.cs" />
+    <Compile Include="Helper\PriceToString.cs" />
     <Compile Include="Migrations\202108111415486_worktest.cs" />
     <Compile Include="Migrations\202108111415486_worktest.Designer.cs">
       <DependentUpon>202108111415486_worktest.cs</DependentUpon>
@@ -363,6 +365,18 @@
     <Compile Include="Migrations\202108280921101_2021-08-28.Designer.cs">
       <DependentUpon>202108280921101_2021-08-28.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202108280937242_why.cs" />
+    <Compile Include="Migrations\202108280937242_why.Designer.cs">
+      <DependentUpon>202108280937242_why.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108281040383_OMG.cs" />
+    <Compile Include="Migrations\202108281040383_OMG.Designer.cs">
+      <DependentUpon>202108281040383_OMG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108300339074_2021-08-30.cs" />
+    <Compile Include="Migrations\202108300339074_2021-08-30.Designer.cs">
+      <DependentUpon>202108300339074_2021-08-30.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DBModel\AspNetRoles.cs" />
@@ -418,6 +432,7 @@
     <Compile Include="Models\ViewModels\WorkAttachmentViewModel.cs" />
     <Compile Include="Models\ViewModels\WorkDetailViewModel.cs" />
     <Compile Include="Models\ViewModels\WorkPicturesViewModel.cs" />
+    <Compile Include="Models\ViewModels\WorkViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CaseRepository.cs" />
     <Compile Include="Repositories\GeneralRepository.cs" />
@@ -570,6 +585,7 @@
     <Content Include="Assets\js\owl.carousel.min.js" />
     <Content Include="Assets\js\quill.min.js" />
     <Content Include="Assets\js\stickyfill.min.js" />
+    <Content Include="Assets\Temp\CartModel.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Assets\css\custom-bs.css.map" />
@@ -723,10 +739,12 @@
     <Content Include="Views\FindQuotation\Othercase.cshtml" />
     <Content Include="Views\SaveCase\SaveCase.cshtml" />
     <Content Include="Views\SaveCase\AddToSaveCase.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Talent\MyQuotationIndex.cshtml" />
+    <Content Include="Views\Talent\UpdateMyQuotation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Cart\" />
     <Folder Include="Views\Default\" />
     <Folder Include="WorkAttachments\" />
   </ItemGroup>
@@ -794,6 +812,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202108280921101_2021-08-28.resx">
       <DependentUpon>202108280921101_2021-08-28.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108280937242_why.resx">
+      <DependentUpon>202108280937242_why.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108281040383_OMG.resx">
+      <DependentUpon>202108281040383_OMG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108300339074_2021-08-30.resx">
+      <DependentUpon>202108300339074_2021-08-30.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

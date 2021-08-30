@@ -171,7 +171,7 @@ namespace PRO_finder.Models.DBModel
 
             modelBuilder.Entity<Quotation>()
                 .Property(e => e.Price)
-                .HasPrecision(5, 0);
+                .HasPrecision(18, 0);
 
             modelBuilder.Entity<ReplyFrequency>()
                 .Property(e => e.Degree)

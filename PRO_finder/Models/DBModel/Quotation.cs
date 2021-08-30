@@ -34,6 +34,8 @@ namespace PRO_finder.Models.DBModel
 
         public string MainPicture { get; set; }
 
+        public bool? Status { get; set; }
+
         public virtual SubCategory SubCategory { get; set; }
     }
 }
