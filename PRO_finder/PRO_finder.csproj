@@ -476,6 +476,7 @@
     <Content Include="Assets\js\owl.carousel.min.js" />
     <Content Include="Assets\js\quill.min.js" />
     <Content Include="Assets\js\stickyfill.min.js" />
+    <Content Include="Assets\Temp\CartModel.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Assets\css\custom-bs.css.map" />
@@ -629,10 +630,10 @@
     <Content Include="Views\FindQuotation\Othercase.cshtml" />
     <Content Include="Views\SaveCase\SaveCase.cshtml" />
     <Content Include="Views\SaveCase\AddToSaveCase.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Cart\" />
     <Folder Include="Views\Default\" />
     <Folder Include="WorkAttachments\" />
   </ItemGroup>
