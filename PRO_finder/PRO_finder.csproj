@@ -363,6 +363,14 @@
     <Compile Include="Migrations\202108280921101_2021-08-28.Designer.cs">
       <DependentUpon>202108280921101_2021-08-28.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202108280937242_why.cs" />
+    <Compile Include="Migrations\202108280937242_why.Designer.cs">
+      <DependentUpon>202108280937242_why.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108281040383_OMG.cs" />
+    <Compile Include="Migrations\202108281040383_OMG.Designer.cs">
+      <DependentUpon>202108281040383_OMG.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DBModel\AspNetRoles.cs" />
@@ -726,6 +734,8 @@
     <Content Include="Views\SaveCase\SaveCase.cshtml" />
     <Content Include="Views\SaveCase\AddToSaveCase.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Talent\MyQuotationIndex.cshtml" />
+    <Content Include="Views\Talent\UpdateMyQuotation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -796,6 +806,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202108280921101_2021-08-28.resx">
       <DependentUpon>202108280921101_2021-08-28.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108280937242_why.resx">
+      <DependentUpon>202108280937242_why.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108281040383_OMG.resx">
+      <DependentUpon>202108281040383_OMG.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
