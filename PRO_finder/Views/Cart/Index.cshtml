@@ -21,7 +21,7 @@
 
 </div>
 
-<div class="tabs-contents">
+<div class="tabs-contents" id="cart">
     <section class="cart_area section_padding tab-c active" id="tabs-1">
         <div class="container">
             <div class="cart_inner">
@@ -38,100 +38,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr v-for="(item,index) in cartsProduct">
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <img class="img-thumbnail" src="~/Assets/images/sq_img_5.jpg" alt="" />
+                                        <img class="img-thumbnail"  :src="item.productImg" alt=""/>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="media-body">
-                                        <p>織品服裝設計</p>
+                                        <p>{{ item.productName }}</p>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <p>Q點設計</p>
+                                        <p>{{ item.studioName }}</p>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="product_count">
-                                        <button class="minuscount">–</button>
-                                        <span class="count">0</span>
-                                        <button class="pluscount">+</button>
+                                        <button class="minuscount" v-on:click="changeCountMinus(index)">–</button>
+                                        <span class="count">{{ item.Amount }}</span>
+                                        <button class="pluscount" v-on:click="changeCountPlus(index)">+</button>
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <p>1,200<span>/件</span></p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="delete">
-                                        <i class="far fa-trash-alt"></i>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex justify-content-center">
-                                        <img class="img-thumbnail" src="~/Assets/images/sq_img_5.jpg" alt="" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="media-body">
-                                        <p>織品服裝設計</p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <p>Q點設計</p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="product_count">
-                                        <button class="minuscount">–</button>
-                                        <span class="count">0</span>
-                                        <button class="pluscount">+</button>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <p>1,200<span>/件</span></p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="delete">
-                                        <i class="far fa-trash-alt"></i>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex justify-content-center">
-                                        <img class="img-thumbnail" src="~/Assets/images/sq_img_5.jpg" alt="" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="media-body">
-                                        <p>織品服裝設計</p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <p>Q點設計</p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="product_count">
-                                        <button class="minuscount">–</button>
-                                        <span class="count">0</span>
-                                        <button class="pluscount">+</button>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div>
-                                        <p>1,200<span>/件</span></p>
+                                        <p>{{ item.Price }}<span>/件</span></p>
                                     </div>
                                 </td>
                                 <td>
@@ -143,7 +75,7 @@
                         </tbody>
                     </table>
                     <div class="text-right mb-5 checkout">
-                        <p>商品金額：<span>$3,600</span></p>
+                        <p>商品金額：<span>{{ cartTotal }}</span></p>
                         <button class="checkoutbtn">結帳</button>
                     </div>
                 </div>
@@ -245,6 +177,7 @@
             display: flex;
             justify-content: flex-end;
         }
+
         .nav-tabs {
             border-bottom: none !important;
         }
@@ -252,26 +185,39 @@
 }
 
 @section endJS{
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script>
 
-        let count = 0;
-        let countNumber = document.querySelector('.count');
-        document.querySelector('.minuscount').addEventListener('click', function () {
-            if (count != 0) {
-                count--
-                countNumber.innerText = count;
-                console.log(count)
-                countNumber.innerText = count;
+        let cart = new Vue({
+            el: '#cart',
+            data: {
+                cartsProduct: [
+                    { productImg: '/Assets/images/sq_img_5.jpg', productName: '織品服裝設計', studioName: 'Q點設計', Amount:0, Price: 1200 },
+                    { productImg: '/Assets/images/sq_img_1.jpg', productName: '織品服裝設計', studioName: 'Q點設計', Amount:0, Price: 2200 },
+                    { productImg: '/Assets/images/sq_img_2.jpg', productName: '織品服裝設計', studioName: 'Q點設計', Amount:0, Price: 5000 }
+                ],
+                
+
+            },
+            methods: {
+                changeCountPlus(index) {
+                    this.cartsProduct[index].Amount++;
+                },
+                changeCountMinus(index) {
+                    if (this.cartsProduct[index].Amount != 0) {
+                        this.cartsProduct[index].Amount--;
+                    }
+                }
+            },
+            computed: {
+                cartTotal() {
+                    let temp = this.cartsProduct.map(x => x.Price * x.Amount).reduce((a, b) => a + b)
+                    return temp.toLocaleString('zh-TW', { style: 'currency', currency: 'TWD', minimumFractionDigits: 0 })
+                    console.log(this.cartsProduct)
+                }
             }
-        })
-        document.querySelector('.pluscount').addEventListener('click', function () {
-            count++
-            countNumber.innerText = count;
-            console.log(count)
-            countNumber.innerText = count;
-        })
 
-
+        })
     </script>
 
 }
