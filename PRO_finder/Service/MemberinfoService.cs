@@ -59,17 +59,60 @@ namespace PRO_finder.Service
         }
         public MemberInfoViewModel GetMemberInfo(int memberID)
         {
-            var exp = (from e in _ctx.GetAll<Experience>()
-                       where e.MemberID == memberID
-                       select new ExperienceViewModel
+            //製作Experience 主類型Category選單（MemberInfo資料庫中的記錄尚未Selected）
+            var categoryDropdownList = new List<SelectListItem>
+            {
+                new SelectListItem{ Value= "-1", Text = "請選擇主類型"}
+            };
+            var allCate = _ctx.GetAll<Category>().ToList();
+            foreach (var item in allCate)
+            {
+                categoryDropdownList.Add(new SelectListItem { Value = item.CategoryID.ToString(), Text = item.CategoryName });
+            }
+
+            //製作Experience 子類型SubCategory選單（資料庫尚未Selected）
+            var subCategoryDropdownList = new List<SelectListItem>
+            {
+                new SelectListItem{ Value= "-1", Text = "請選擇子類型"}
+            };
+            var allSubCate = _ctx.GetAll<SubCategory>();
+            foreach(var item in allSubCate)
+            {
+                subCategoryDropdownList.Add(new SelectListItem { Value = item.SubCategoryID.ToString(), Text = item.SubCategoryName });
+            }
+
+            //製作Experience Piecework 選單（資料庫尚未Selected）
+            var pieceworkDropdownList = new List<SelectListItem>
+            {
+                new SelectListItem{ Value= "-1", Text = "請選擇工作期間"}
+            };
+            var allPiecework = new List<SelectListItem>
+            {
+                new SelectListItem {Value="無工作經驗", Text = "無工作經驗"},
+                new SelectListItem {Value="0-1年工作經驗", Text = "0-1年工作經驗"},
+                new SelectListItem {Value="1-2年工作經驗", Text = "1-2年工作經驗"},
+                new SelectListItem {Value="2-3年工作經驗", Text = "2-3年工作經驗"},
+                new SelectListItem {Value="3-4年工作經驗", Text = "3-4年工作經驗"},
+                new SelectListItem {Value="4-5年工作經驗", Text = "4-5年工作經驗"},
+                new SelectListItem {Value="5-6年工作經驗", Text = "5-6年工作經驗"},
+                new SelectListItem {Value="6-7年工作經驗", Text = "6-7年工作經驗"},
+                new SelectListItem {Value="7-8年工作經驗", Text = "7-8年工作經驗"},
+                new SelectListItem {Value="8-9年工作經驗", Text = "8-9年工作經驗"},
+                new SelectListItem {Value="9-10年工作經驗", Text = "9-10年工作經驗"},
+                new SelectListItem {Value="10年以上工作經驗", Text = "10年以上工作經驗"},
+            };
+            
+
+            var expirences = _ctx.GetAll<Experience>().Select(x => new ExperienceViewModel
                        {
-                           MemberID = e.MemberID,
-                           CategoryID = e.CategoryID,
-                           SubCategoryID = e.SubCategoryID,
-                           PieceworkExp = e.PieceworkExp
+                           MemberID = x.MemberID,
+                           CategoryID = x.CategoryID,
+                           SubCategoryID = x.SubCategoryID,
+                           PieceworkExp = x.PieceworkExp
                        });
+
             return (from m in _ctx.GetAll<MemberInfo>()
-                    where m.MemberID == memberID 
+                    where m.MemberID == memberID
                     select new MemberInfoViewModel
                     {
                         MemberID = m.MemberID,
@@ -86,7 +129,7 @@ namespace PRO_finder.Service
                         Exeriences = exp
                     }).FirstOrDefault();
         }
-        public MemberInfo UpdateMemberInfo(int memberID ,MemberInfoViewModel newSettings)
+        public MemberInfo UpdateMemberInfo(int memberID, MemberInfoViewModel newSettings)
         {
             var entity = _ctx.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == memberID);
             entity.Status = newSettings.Status;
@@ -108,7 +151,7 @@ namespace PRO_finder.Service
         {
             //先刪除原有記錄
             List<Experience> origin = _ctx.GetAll<Experience>().Where(x => x.MemberID == memberID).ToList();
-            foreach(var item in origin)
+            foreach (var item in origin)
             {
                 _ctx.Delete(item);
                 _ctx.SaveChanges();
@@ -116,7 +159,7 @@ namespace PRO_finder.Service
             //加入新記錄
             JArray tempArray = JArray.Parse(jsonExDList);
             List<Experience> expList = tempArray.ToObject<List<Experience>>();
-            foreach(var item in expList)
+            foreach (var item in expList)
             {
                 Experience e = new Experience
                 {
@@ -133,16 +176,16 @@ namespace PRO_finder.Service
         {
             //刪除原有記錄
             List<TalentTool> origin = _ctx.GetAll<TalentTool>().Where(x => x.MemberID == memberID).ToList();
-            foreach(var item in origin)
+            foreach (var item in origin)
             {
                 _ctx.Delete(item);
                 _ctx.SaveChanges();
             }
-            
+
             //加入新紀錄
             JArray tempArray = JArray.Parse(jsonToolList);
             List<TalentTool> toolList = tempArray.ToObject<List<TalentTool>>();
-            foreach(var item in toolList)
+            foreach (var item in toolList)
             {
                 TalentTool t = new TalentTool
                 {
@@ -154,13 +197,13 @@ namespace PRO_finder.Service
                 _ctx.Create(t);
                 _ctx.SaveChanges();
             }
-            
+
         }
         public string GetToolRecord(int memberID)
         {
             var record = _ctx.GetAll<TalentTool>().Where(x => x.MemberID == memberID).ToList();
             return JsonConvert.SerializeObject(record);
         }
-        
+
     }
 }

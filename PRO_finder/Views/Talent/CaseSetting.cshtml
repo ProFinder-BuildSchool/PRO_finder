@@ -6,7 +6,8 @@
 
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()<div class="myContainer">
+    @Html.AntiForgeryToken()
+    <div class="myContainer">
         <h5>接案設定</h5>
         <hr>
         <div class="form-horizontal">
@@ -202,18 +203,203 @@
             <label for="AllPieceworkExp" class="col-md-12 control-label">累計接案經驗</label>
             <div class="col-md-6">
                 <select id="AllPieceworkExp" class="form-control" name="AllPieceworkExp">
-                    <option value="無年工作經驗">無工作經驗</option>
-                    <option value="0-1年工作經驗">0-1年工作經驗</option>
-                    <option value="1-2年工作經驗">1-2年工作經驗</option>
-                    <option value="2-3年工作經驗">2-3年工作經驗</option>
-                    <option value="3-4年工作經驗">3-4年工作經驗</option>
-                    <option value="4-5年工作經驗">4-5年工作經驗</option>
-                    <option value="5-6年工作經驗">5-6年工作經驗</option>
-                    <option value="6-7年工作經驗">6-7年工作經驗</option>
-                    <option value="7-8年工作經驗">7-8年工作經驗</option>
-                    <option value="8-9年工作經驗">8-9年工作經驗</option>
-                    <option value="9-10年工作經驗">9-10年工作經驗</option>
-                    <option value="10年以上工作經驗">10年以上工作經驗</option>
+                    @switch(Model.AllPieceworkExp)
+                    {
+                        case "無年工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無年工作經驗" selected>無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "0-1年工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無年工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗" selected>0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "1-2年工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無年工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗" selected>1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "2-3年工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無年工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗" selected>2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "3-4年工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無年工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗" selected>3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "4-5年工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無年工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗" selected>4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "5-6年工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無年工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗" selected>5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "6-7年工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無年工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗" selected>6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "7-8年工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無年工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗" selected>7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "8-9年工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無年工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗" selected>8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "9-10年工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無年工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗" selected>9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "10年以上工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無年工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗" selected>10年以上工作經驗</option>
+                            break;
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </select>
             </div>
         </div>
@@ -328,14 +514,14 @@
     </template>
 }
 @section topCSS
-    {
+                    {
     <link href="~/Assets/css/quill.snow.css" rel="stylesheet" />
     <style>
         h5 {
-            color: #89ba16;
+                        color: #89ba16;
             font-weight: 900;
-            padding: 0 15px;
-        }
+                        padding: 0 15px;
+                        }
 
             .myContainer {
                 @*max-width: 510px;
@@ -640,7 +826,7 @@
                     obj.PieceworkExp = ExDPieceworkExp[i].value;
                     ExDArray.push(obj);
                 }
-                
+
             }
             console.log(ExDArray);
             $g("input#JsonExDList").value = JSON.stringify(ExDArray);

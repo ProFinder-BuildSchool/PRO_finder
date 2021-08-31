@@ -73,8 +73,15 @@ namespace PRO_finder.Models.ViewModels
         public string UserId { get; set; }
         public string JsonToolList { get; set; }
         public string JsonExDList { get; set; }
-        public IEnumerable<ExperienceViewModel> Exeriences { get; set; }
-
+        public IEnumerable<ExperienceSelectItemViewModel> Exeriences { get; set; }
+        
+    }
+    public class ExperienceSelectItemViewModel
+    {
+        public int MemberID { get; set; }
+        public List<SelectListItem> SubCategoryDropdown { get; set; }
+        public List<SelectListItem> CategoryDropdown { get; set; }
+        public List<SelectListItem> PieceworkDropdown { get; set; }
     }
     public class ExperienceViewModel
     {
