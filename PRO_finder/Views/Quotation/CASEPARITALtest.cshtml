@@ -66,11 +66,11 @@
                     </h3>
                     <p class="text-black">
                         一.案件說明：<br>
-                            1.飾品配件拋光<br>
-                            2.拋光材質為鋁<br>
-                            3.可先試做、報價<br>
-                            二.注意事項：具備相關能力或實務經驗，能獨立作業。
-                       
+                        1.飾品配件拋光<br>
+                        2.拋光材質為鋁<br>
+                        3.可先試做、報價<br>
+                        二.注意事項：具備相關能力或實務經驗，能獨立作業。
+
                     </p>
 
                 </div>
@@ -85,8 +85,10 @@
                     <div class="col-4">
                         @*<a href="#" class="btn btn-block btn-primary btn-md mt-2 ">我要報價</a>*@
                         @Html.Partial("_QuotationforCasePartial")
+
                     </div>
                 </div>
+            
 
                 <div class="othercaseMore">
                     <div class="mb-4">
@@ -271,4 +273,26 @@
             }
         }
     </style>
+}
+
+@section endJS{
+    <script>
+        const showDialog = () => {
+            document.getElementById('dialog').classList.add('show')
+            const scrollY = document.documentElement.style.getPropertyValue('--scroll-y');
+            const body = document.body;
+        };
+        const closeDialog = () => {
+            const body = document.body;
+            const scrollY = body.style.top;
+            body.style.position = '';
+            body.style.top = '';
+            window.scrollTo(0, parseInt(scrollY || '0') * -1);
+            document.getElementById('dialog').classList.remove('show');
+        }
+        window.addEventListener('scroll', () => {
+            document.documentElement.style.setProperty('--scroll-y', `${window.scrollY}px`);
+        });
+
+    </script>
 }
