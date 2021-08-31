@@ -35,15 +35,19 @@ namespace PRO_finder.Controllers
             return View(SaveCaseViewModel);
         }
         [HttpPost]
-        public void AddToSaveCase(int caseid)
+        public void AddToSaveCase(int? caseid)
         {
             string user = HttpContext.User.Identity.GetUserId();
             int MemberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == user).MemberID;
 
-            if (ModelState.IsValid)
+
+
+            //&& caseid !=
+            if (caseid != null  )
             {
                 _savecaseService.AddItemToSaveCase(caseid, MemberID);
             }
+            
         }
 
         [HttpPost]
@@ -55,15 +59,24 @@ namespace PRO_finder.Controllers
             if (caseid != null)
             {
                 _savecaseService.DeleItemFromSaveCase(caseid, MemberID);
-
-                var SaveCaseViewModel = _savecaseService.GetSaveCaseData(MemberID);
-                return RedirectToAction("SaveCase", SaveCaseViewModel);
             }
-            
-
-            return View();
-
+            var SaveCaseViewModel = _savecaseService.GetSaveCaseData(MemberID);
+            return RedirectToAction("SaveCase", SaveCaseViewModel);
         }
+
+        //[HttpPost]
+        //public ActionResult ClearAllSaveCase(int caseid)
+        //{
+        //    string user = HttpContext.User.Identity.GetUserId();
+        //    int MemberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == user).MemberID;
+
+        //    if (caseid != null)
+        //    {
+        //        _savecaseService.ClearSaveCase(caseid, MemberID);
+        //    }
+        //    var SaveCaseViewModel = _savecaseService.GetSaveCaseData(MemberID);
+        //    return RedirectToAction("SaveCase", SaveCaseViewModel);
+        //}
 
     }
     

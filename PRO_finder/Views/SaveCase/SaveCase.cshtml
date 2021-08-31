@@ -49,9 +49,9 @@
     </div>
 
 
-    <div class="text-center mb-5">
+    @*<div class="text-center mb-5">
         <button id="btnClear" class="btn btn-primary">Clear</button>
-    </div>
+    </div>*@
 
 
 </body>
@@ -70,8 +70,6 @@
     <script>
         let btnDele = document.querySelectorAll('.btnDele');
         
-        
-
         btnDele.forEach(function (item) {
 
             let caseid = item.getAttribute("data-content");
@@ -81,6 +79,16 @@
                 axios.post('/SaveCase/DeleFromSaveCase', { caseid: caseid }).then(res => console.log(res));
             })
         })
+
+
+
+
+        //let btnClear = document.querySelector('.btnClear');
+        //let caseid = 
+
+        //btnClear.addEventListener('click', function () {
+        //    axios.post('/SaveCase/ClearAllSaveCase', { caseid: caseid }).then(res => console.log(res));
+        //}
 
         
     </script>

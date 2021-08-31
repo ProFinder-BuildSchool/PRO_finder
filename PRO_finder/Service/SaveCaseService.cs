@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using HttpContext = System.Web.HttpContext;
+using HttpResponse = System.Web.HttpResponse;
 
 namespace PRO_finder.Service
 {
@@ -41,13 +43,13 @@ namespace PRO_finder.Service
             return saveCases;
         }
 
-        public void AddItemToSaveCase(int CaseID, int MemberID)
+        public void AddItemToSaveCase(int? CaseID, int MemberID)
         {
 
             DateTime now = DateTime.UtcNow;
             SaveCase entity = new SaveCase()
             {
-                CaseID = CaseID,
+                CaseID = (int)CaseID,
                 SavedDate = now,
                 MemberID = MemberID
 
@@ -56,9 +58,9 @@ namespace PRO_finder.Service
             _ctx.SaveChanges();
         }
 
-        public void DeleItemFromSaveCase(int CaseID, int MemberID) 
+        public void DeleItemFromSaveCase(int CaseID, int MemberID)
         {
-            
+
             DateTime now = DateTime.UtcNow;
             SaveCase entity = new SaveCase()
             {
@@ -71,6 +73,31 @@ namespace PRO_finder.Service
             _ctx.SaveChanges();
         }
 
+
+
+
+
+
+        //public void AlertWhenSecondPressbtn(int? CaseID, int MemberID)
+        //{
+        //    SaveCase entity = new SaveCase()
+        //    {
+        //        CaseID = (int)CaseID,
+        //        MemberID = MemberID
+        //    };
+
+        //    HttpContext.Current.Response.Write
+        //        ("< script  language = 'JavaScript' > alert('已收藏此案件！') </ script >");
+        //}
+
+        //public void ClearSaveCase(int CaseID, int MemberID)
+        //{
+        //    var saved = _ctx.GetAll<SaveCase>().Where(x => x.MemberID == MemberID).Count();
+        //    GetSaveCaseData(MemberID).Clear();
+        //    _ctx.SaveChanges();
+
+        //}
+        //RemoveRange(0,saved)
     }
 
 }
