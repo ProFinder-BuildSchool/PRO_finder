@@ -20,12 +20,14 @@ namespace PRO_finder.Models.DBModel
         public virtual DbSet<CaseNotification> CaseNotification { get; set; }
         public virtual DbSet<CaseReference> CaseReference { get; set; }
         public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<ClientCart> ClientCart { get; set; }
         public virtual DbSet<Experience> Experience { get; set; }
         public virtual DbSet<HostingDetail> HostingDetail { get; set; }
         public virtual DbSet<Locations> Locations { get; set; }
         public virtual DbSet<MemberInfo> MemberInfo { get; set; }
         public virtual DbSet<Message> Message { get; set; }
         public virtual DbSet<Order> Order { get; set; }
+        public virtual DbSet<OrdersInformation> OrdersInformation { get; set; }
         public virtual DbSet<OtherPicture> OtherPicture { get; set; }
         public virtual DbSet<ProposalRecord> ProposalRecord { get; set; }
         public virtual DbSet<Quotation> Quotation { get; set; }
@@ -68,6 +70,10 @@ namespace PRO_finder.Models.DBModel
                 .HasMany(e => e.SubCategory)
                 .WithRequired(e => e.Category)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ClientCart>()
+                .Property(e => e.Price)
+                .HasPrecision(18, 0);
 
             modelBuilder.Entity<HostingDetail>()
                 .Property(e => e.HostedAmount)
@@ -154,8 +160,10 @@ namespace PRO_finder.Models.DBModel
                 .WithRequired(e => e.MemberInfo);
 
             modelBuilder.Entity<MemberInfo>()
-                .HasOptional(e => e.QuotationDetail)
-                .WithRequired(e => e.MemberInfo);
+                .HasMany(e => e.QuotationDetail)
+                .WithRequired(e => e.MemberInfo)
+                .HasForeignKey(e => e.ProposerID)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Order>()
                 .Property(e => e.CaseReview)
@@ -171,6 +179,10 @@ namespace PRO_finder.Models.DBModel
 
             modelBuilder.Entity<Quotation>()
                 .Property(e => e.Price)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<QuotationDetail>()
+                .Property(e => e.ProposePrice)
                 .HasPrecision(18, 0);
 
             modelBuilder.Entity<ReplyFrequency>()

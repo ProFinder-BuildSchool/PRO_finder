@@ -377,6 +377,10 @@
     <Compile Include="Migrations\202108300339074_2021-08-30.Designer.cs">
       <DependentUpon>202108300339074_2021-08-30.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202108301555108_2021-08-30購物車data.cs" />
+    <Compile Include="Migrations\202108301555108_2021-08-30購物車data.Designer.cs">
+      <DependentUpon>202108301555108_2021-08-30購物車data.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DBModel\AspNetRoles.cs" />
@@ -387,12 +391,14 @@
     <Compile Include="Models\DBModel\CaseNotification.cs" />
     <Compile Include="Models\DBModel\CaseReference.cs" />
     <Compile Include="Models\DBModel\Category.cs" />
+    <Compile Include="Models\DBModel\ClientCart.cs" />
     <Compile Include="Models\DBModel\Experience.cs" />
     <Compile Include="Models\DBModel\HostingDetail.cs" />
     <Compile Include="Models\DBModel\Locations.cs" />
     <Compile Include="Models\DBModel\MemberInfo.cs" />
     <Compile Include="Models\DBModel\Message.cs" />
     <Compile Include="Models\DBModel\Order.cs" />
+    <Compile Include="Models\DBModel\OrdersInformation.cs" />
     <Compile Include="Models\DBModel\OtherPicture.cs" />
     <Compile Include="Models\DBModel\ProFinderContext.cs" />
     <Compile Include="Models\DBModel\ProposalRecord.cs" />
@@ -821,6 +827,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202108300339074_2021-08-30.resx">
       <DependentUpon>202108300339074_2021-08-30.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108301555108_2021-08-30購物車data.resx">
+      <DependentUpon>202108301555108_2021-08-30購物車data.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
