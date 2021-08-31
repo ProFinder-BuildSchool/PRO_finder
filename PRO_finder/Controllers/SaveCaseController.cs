@@ -64,6 +64,8 @@ namespace PRO_finder.Controllers
             return RedirectToAction("SaveCase", SaveCaseViewModel);
         }
 
+
+
         //[HttpPost]
         //public ActionResult ClearAllSaveCase(int caseid)
         //{

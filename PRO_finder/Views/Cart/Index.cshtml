@@ -80,6 +80,57 @@
                     </div>
                 </div>
             </div>
+
+            <div class="talentCart">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">人才影像</th>
+                                <th scope="col">人才資訊</th>
+                                <th scope="col">報價資訊</th>
+                                @*<th scope="col"></th>*@
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item,index) in cartsProduct">
+                                <td>
+                                    <div class="d-flex justify-content-center">
+                                        <img class="img-thumbnail" :src="item.productImg" alt="" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="text-left">
+                                        <p><span class="text-primary"> 涂小姐</span></p>
+                                        <p>提案日期 : <span > 2021-08-03</span></p>
+                                        <p>成交 : <span > 3 筆 ( 1 筆好評)</span></p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="text-left QTInfo">
+                                        <p>報價金額 : <span> $5000元</span> </p>
+                                        <p>預估天數 : <span> 7天內完成</span> </p>
+                                        <p>報價信息 : <span>  您好 , 以上是我針對您需求提出的報價與執行時間 , 希望能有接案的機會 , 謝謝 !</span></p>
+                                    </div>
+                                    <div class="RefuseOrChoose text-right">
+                                        <button class="refusebtn btn btn-outline-primary">婉拒報價</button>
+                                        <button class="choosebtn btn btn-primary">完成訂單</button>
+                                    </div>
+                                </td>
+                                @*<td>
+                                    
+                                </td>*@
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-right mb-5 checkout">
+                        
+
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </div>
@@ -180,6 +231,23 @@
 
         .nav-tabs {
             border-bottom: none !important;
+        }
+
+        /*----.talentCart---*/
+        .talentCart p {
+            color: #524545;
+        }
+        .talentCart span {
+            color: black;
+        }
+        .talentCart{
+            margin: 50px 0px
+        }
+        .QTInfo{
+            padding-top:43px
+        }
+        .RefuseOrChoose{
+            padding-bottom:5px
         }
     </style>
 }

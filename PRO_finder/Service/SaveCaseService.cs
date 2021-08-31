@@ -19,8 +19,6 @@ namespace PRO_finder.Service
             _ctx = new GeneralRepository(new ProFinderContext());
         }
 
-
-
         public List<SaveCaseViewModel> GetSaveCaseData(int MemberID)
         {
             List<SaveCaseViewModel> saveCases = new List<SaveCaseViewModel>();
@@ -42,7 +40,6 @@ namespace PRO_finder.Service
 
             return saveCases;
         }
-
         public void AddItemToSaveCase(int? CaseID, int MemberID)
         {
 

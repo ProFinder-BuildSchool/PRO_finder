@@ -25,8 +25,8 @@
                         <th>預算金額</th>
                         <th>發案人</th>
                         <th>案件狀態</th>
-
                         @*<th>刊登日期</th>*@
+
                     </tr>
                 </thead>
                 <tbody id="Savecase">
@@ -36,10 +36,10 @@
                         <td class="text-center">@item.title</td>
                         <td class="text-center">@item.Price</td>
                         <td class="text-center">@item.Contact</td>
-                        <td class="text-center">@item.CaseStatus</td>
-                        <td class="text-center" ><button class="text-center btnDele btn btn-primary "data-content="@item.CaseID">刪除</button></td>
-
+                        <td class="text-center">開啟中</td>
                         @*<td class="text-center">@item.UpdateDate</td>*@
+                        <td class="text-center"><button class="text-center btnDele btn btn-primary " data-content="@item.CaseID">刪除</button></td>
+
                     </tr>
                     }
                 </tbody>
@@ -79,6 +79,9 @@
                 axios.post('/SaveCase/DeleFromSaveCase', { caseid: caseid }).then(res => console.log(res));
             })
         })
+
+
+
 
 
 
