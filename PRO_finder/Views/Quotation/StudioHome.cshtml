@@ -70,11 +70,13 @@
                     {*@
                         <div class="aboutText">
                             <p class="aboutp">
-                                @Model.Description
+                                <div>
+                                @Html.Raw(Model.Description)
                                 <div class="closeup">
                                     <a href="javascript:;" class="show">顯示更多</a>
                                     <a href="javascript:;" class="put">顯示較少</a>
                                 </div>
+                                    </div>
                         </div>
                     @*}*@
                     </div>
@@ -90,22 +92,29 @@
                 }
                 else
                 {
-                    foreach (var work in Model.Studioworks)
-                    {
+                    
                             //如果subcate重複，選擇第一個(firstordefault)
                         <div class="row justify-content-center mb-5" data-aos="fade-up">
                             <div id="filters" class="filters text-center button-group col-md-7">
                                 <button class="btn btn-primary active" data-filter="*">All</button>
+ 
+                                @foreach (var work in Model.WorkSubcategory)
+                                {
                                 <button class="btn btn-primary" data-filter=".web">@work.WorkSubCategory</button>
+                                }
                                 @*<button class="btn btn-primary" data-filter=".design">Design</button>
-                                    <button class="btn btn-primary" data-filter=".brand">Brand</button>*@
+                                <button class="btn btn-primary" data-filter=".brand">Brand</button>*@
                             </div>
                         </div>
-                        
+                       
 
                         <div id="posts" class="row no-gutter">
+                             @foreach (var work in Model.Studioworks)
+                        {
                             <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+
                                 <div class="item-wrap">
+
                                     <span class="portfolio-info">
                                         <h5>@work.WorkSubCategory</h5>
                                         <h6>@work.WorkName</h6>
@@ -120,9 +129,9 @@
 
                                 </div>
                             </div>
-
+                             }
                         </div>
-                    }
+                
                 }
 
 

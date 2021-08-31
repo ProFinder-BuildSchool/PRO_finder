@@ -61,7 +61,7 @@ namespace PRO_finder.Controllers
             return View(QuoDetailVM);
         }
 
-        public ActionResult StudioHome(int TalentID=20)//, int MemberID= 1)
+        public ActionResult StudioHome(int TalentID=28)//, int MemberID= 1)
         {
             int currentUserId=14;
             //var result = int.TryParse(System.Web.HttpContext.Current.User.Identity.GetUserId(),out currentUserId);
