@@ -59,57 +59,68 @@ namespace PRO_finder.Service
         }
         public MemberInfoViewModel GetMemberInfo(int memberID)
         {
-            //製作Experience 主類型Category選單（MemberInfo資料庫中的記錄尚未Selected）
-            var categoryDropdownList = new List<SelectListItem>
+            //取得會員Experience資料
+            var experiences = _ctx.GetAll<Experience>().Select(x => new ExperienceViewModel
             {
-                new SelectListItem{ Value= "-1", Text = "請選擇主類型"}
-            };
-            var allCate = _ctx.GetAll<Category>().ToList();
-            foreach (var item in allCate)
+                MemberID = x.MemberID,
+                CategoryID = x.CategoryID,
+                SubCategoryID = x.SubCategoryID,
+                PieceworkExp = x.PieceworkExp
+            }).ToList();
+
+            var exp = new List<ExperienceSelectItemViewModel>();
+            foreach (var item in experiences)
             {
-                categoryDropdownList.Add(new SelectListItem { Value = item.CategoryID.ToString(), Text = item.CategoryName });
+                //製作Experience 主類型Category選單（MemberInfo資料庫中的記錄尚未Selected）
+                var categoryDropdownList = new List<SelectListItem>
+                {
+                    new SelectListItem{ Value= "-1", Text = "請選擇主類型"}
+                };
+                var allCate = _ctx.GetAll<Category>().ToList();
+                foreach (var c in allCate)
+                {
+                    categoryDropdownList.Add(new SelectListItem { Value = c.CategoryID.ToString(), Text = c.CategoryName });
+                }
+                //設定 Category Select
+                categoryDropdownList.FirstOrDefault(x => Int32.Parse(x.Value) == item.CategoryID).Selected = true;
+
+                //製作Experience 子類型SubCategory選單（資料庫尚未Selected）
+                var subCategoryDropdownList = new List<SelectListItem>
+                {
+                    new SelectListItem{ Value= "-1", Text = "請選擇子類型"}
+                };
+                var allSubCate = _ctx.GetAll<SubCategory>();
+                foreach (var s in allSubCate)
+                {
+                    subCategoryDropdownList.Add(new SelectListItem { Value = s.SubCategoryID.ToString(), Text = s.SubCategoryName });
+                }
+                subCategoryDropdownList.FirstOrDefault(x => Int32.Parse(x.Value) == item.SubCategoryID).Selected = true;
+
+                //製作Experience Piecework 選單（資料庫尚未Selected）
+                var pieceworkDropdownList = new List<SelectListItem>
+                {
+                    new SelectListItem{ Value= "-1", Text = "請選擇工作期間"}
+                };
+                var allPiecework = new List<SelectListItem>
+                {
+                    new SelectListItem {Value="無工作經驗", Text = "無工作經驗"},
+                    new SelectListItem {Value="0-1年工作經驗", Text = "0-1年工作經驗"},
+                    new SelectListItem {Value="1-2年工作經驗", Text = "1-2年工作經驗"},
+                    new SelectListItem {Value="2-3年工作經驗", Text = "2-3年工作經驗"},
+                    new SelectListItem {Value="3-4年工作經驗", Text = "3-4年工作經驗"},
+                    new SelectListItem {Value="4-5年工作經驗", Text = "4-5年工作經驗"},
+                    new SelectListItem {Value="5-6年工作經驗", Text = "5-6年工作經驗"},
+                    new SelectListItem {Value="6-7年工作經驗", Text = "6-7年工作經驗"},
+                    new SelectListItem {Value="7-8年工作經驗", Text = "7-8年工作經驗"},
+                    new SelectListItem {Value="8-9年工作經驗", Text = "8-9年工作經驗"},
+                    new SelectListItem {Value="9-10年工作經驗", Text = "9-10年工作經驗"},
+                    new SelectListItem {Value="10年以上工作經驗", Text = "10年以上工作經驗"},
+                };
+                exp.Add(new ExperienceSelectItemViewModel
+                {
+
+                });
             }
-
-            //製作Experience 子類型SubCategory選單（資料庫尚未Selected）
-            var subCategoryDropdownList = new List<SelectListItem>
-            {
-                new SelectListItem{ Value= "-1", Text = "請選擇子類型"}
-            };
-            var allSubCate = _ctx.GetAll<SubCategory>();
-            foreach(var item in allSubCate)
-            {
-                subCategoryDropdownList.Add(new SelectListItem { Value = item.SubCategoryID.ToString(), Text = item.SubCategoryName });
-            }
-
-            //製作Experience Piecework 選單（資料庫尚未Selected）
-            var pieceworkDropdownList = new List<SelectListItem>
-            {
-                new SelectListItem{ Value= "-1", Text = "請選擇工作期間"}
-            };
-            var allPiecework = new List<SelectListItem>
-            {
-                new SelectListItem {Value="無工作經驗", Text = "無工作經驗"},
-                new SelectListItem {Value="0-1年工作經驗", Text = "0-1年工作經驗"},
-                new SelectListItem {Value="1-2年工作經驗", Text = "1-2年工作經驗"},
-                new SelectListItem {Value="2-3年工作經驗", Text = "2-3年工作經驗"},
-                new SelectListItem {Value="3-4年工作經驗", Text = "3-4年工作經驗"},
-                new SelectListItem {Value="4-5年工作經驗", Text = "4-5年工作經驗"},
-                new SelectListItem {Value="5-6年工作經驗", Text = "5-6年工作經驗"},
-                new SelectListItem {Value="6-7年工作經驗", Text = "6-7年工作經驗"},
-                new SelectListItem {Value="7-8年工作經驗", Text = "7-8年工作經驗"},
-                new SelectListItem {Value="8-9年工作經驗", Text = "8-9年工作經驗"},
-                new SelectListItem {Value="9-10年工作經驗", Text = "9-10年工作經驗"},
-                new SelectListItem {Value="10年以上工作經驗", Text = "10年以上工作經驗"},
-            };
-            
-
-            var expirences = _ctx.GetAll<Experience>().Select(x => new ExperienceViewModel
-                       {
-                           MemberID = x.MemberID,
-                           CategoryID = x.CategoryID,
-                           SubCategoryID = x.SubCategoryID,
-                           PieceworkExp = x.PieceworkExp
-                       });
 
             return (from m in _ctx.GetAll<MemberInfo>()
                     where m.MemberID == memberID
