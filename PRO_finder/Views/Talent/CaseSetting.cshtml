@@ -203,7 +203,7 @@
             <label for="AllPieceworkExp" class="col-md-12 control-label">累計接案經驗</label>
             <div class="col-md-6">
                 <select id="AllPieceworkExp" class="form-control" name="AllPieceworkExp">
-                    @switch(Model.AllPieceworkExp)
+                    @switch ((string)Model.AllPieceworkExp)
                     {
                         case "無年工作經驗":
                             <option value="-1">請選擇工作期間</option>
@@ -386,20 +386,6 @@
                             <option value="10年以上工作經驗" selected>10年以上工作經驗</option>
                             break;
                     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </select>
             </div>
         </div>
@@ -807,7 +793,7 @@
             tools.forEach(t => {
                 let obj = new Object();
                 obj.ToolSubCategoryID = t.SubTalentCategoryID;
-                //obj.ToolSubCategoryName = t.SubTalentCategoryName;
+                obj.ToolSubCategoryName = t.SubTalentCategoryName;
                 obj.ToolCategoryID = t.TalentCategoryID;
                 toolArray.push(obj);
             });
@@ -815,6 +801,7 @@
             $g("input#JsonToolList").value = JSON.stringify(toolArray);
 
             //取得接案經歷
+            let ExDCateId = $g("select[name='ExDCategoryID']");
             let ExDSubId = $g("select[name='ExDSubCategoryID']");
             let ExDPieceworkExp = $g("select[name='ExDPieceworkExp']");
             let ExDArray = [];
@@ -822,6 +809,7 @@
             for (let i = 0; i < len; i++) {
                 if ((Number(ExDSubId[i].value) != "-1") && (ExDPieceworkExp[i].value != "-1")) {
                     let obj = new Object();
+                    obj.CategoryID = Number(ExDCateId[i].value);
                     obj.SubCategoryID = Number(ExDSubId[i].value);
                     obj.PieceworkExp = ExDPieceworkExp[i].value;
                     ExDArray.push(obj);

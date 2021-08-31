@@ -243,18 +243,7 @@ namespace PRO_finder.Service
             }
         }
 
-        public List<SelectListItem> GetLocationSelectList()
-        {
-            List<Locations> locationDB = _repo.GetAll<Locations>().ToList();
-            List<SelectListItem> locationlist = new List<SelectListItem>();
-            locationlist.Add(new SelectListItem { Text = "地區" , Value="-1"});
-            foreach (var item in locationDB)
-            {
-                locationlist.Add(
-                    new SelectListItem { Text = item.LocationName, Value = item.LocationID.ToString() });
-            }
-            return locationlist;
-        }
+        
 
         public IEnumerable<QuotationDetailViewModel> GetMyQuotations(int memberID)
         {
@@ -361,6 +350,18 @@ namespace PRO_finder.Service
 
             }
 
+        }
+        public List<SelectListItem> GetLocationSelectList()
+        {
+            List<Locations> locationDB = _repo.GetAll<Locations>().ToList();
+            List<SelectListItem> locationlist = new List<SelectListItem>();
+            locationlist.Add(new SelectListItem { Text = "地區", Value = "-1" });
+            foreach (var item in locationDB)
+            {
+                locationlist.Add(
+                    new SelectListItem { Text = item.LocationName, Value = item.LocationID.ToString() });
+            }
+            return locationlist;
         }
     }
 }
