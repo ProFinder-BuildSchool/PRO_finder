@@ -179,6 +179,8 @@
         </div>
     </div>
 </section>
+
+
 <div class="row sidenav" id="Sidenav">
     <div class=" col-12">
         <button class="closefilter">X</button>
@@ -186,36 +188,16 @@
 
     <div class="col-lg-6 col-12">
         <div class="productdetail">
-            <h3>織品服裝設計</h3>
-            <span class="price">1,200</span><span>/ 件</span>
-            <p><a href="" class="studioName">Q點設計</a></p>
-            <p>執行時間：<span>5 天</span></p>
+            <h3>@Model.QuotationTitle</h3>
+            <span class="price">@Model.Price</span><span>/ @Model.Unit</span>
+            <p><a href="" class="studioName">@Model.NickName</a></p>
+            <p>執行時間：<span>@Model.ExecuteDate 天</span></p>
             <div class="detailInf">
                 <p>
                     服務內容：
                     <br>
                     <span>
-                        報價金額"僅供參考"，詳細報價請與我們聯絡作品參考:http://qdotdesign.mystrikingly.com/
-                        Logo/商標設計服務範例：
-                        1、能為您製作1款向量類型的品牌Logo設計(提案2款選擇1款進行細修)
-                        2、請提供您的品牌名稱(中文、英文)
-
-                        3、請提供LOGO相關參考風格圖片，以便我們更了解您的風格需求
-                        4、校稿:LOGO版型確認(確認1款)，
-                        提供免費3次以內細部修改，超過3次以上，額外酌收修改費用。
-                        5、完成後交付可印刷之AI檔案格式
-                        3、請提供LOGO相關參考風格圖片，以便我們更了解您的風格需求
-                        4、校稿:LOGO版型確認(確認1款)，
-                        提供免費3次以內細部修改，超過3次以上，額外酌收修改費用。
-                        5、完成後交付可印刷之AI檔案格式
-                        3、請提供LOGO相關參考風格圖片，以便我們更了解您的風格需求
-                        4、校稿:LOGO版型確認(確認1款)，
-                        提供免費3次以內細部修改，超過3次以上，額外酌收修改費用。
-                        5、完成後交付可印刷之AI檔案格式
-                        3、請提供LOGO相關參考風格圖片，以便我們更了解您的風格需求
-                        4、校稿:LOGO版型確認(確認1款)，
-                        提供免費3次以內細部修改，超過3次以上，額外酌收修改費用。
-                        5、完成後交付可印刷之AI檔案格式
+                        @Model.Description
                     </span>
                 </p>
             </div>
@@ -238,29 +220,30 @@
                     <div class="form-group text-start text-dark mb-2">
                         <label class="" for="useremail">Email</label>
                         <input type="email" class="form-control" name="email" id="useremail"
-                               v-model="form.user.email" placeholder="請輸入 Email" required /> <span class="text-danger"></span>
+                               placeholder="請輸入 Email" required /> <span class="text-danger"></span>
                     </div>
                     <div class="form-group text-start text-dark mb-2">
                         <label class="" for="username ">收件人姓名</label>
-                        <input type="text" class="form-control" name="name" id="username" v-model="form.user.name"
+                        <input type="text" class="form-control" name="name" id="username"
                                placeholder="輸入姓名" required /> <span class="text-danger"></span>
                     </div>
                     <div class="form-group text-start text-dark mb-2">
                         <label class="" for="usertel">收件人電話</label>
-                        <input type="tel" class="form-control" id="usertel" v-model="form.user.tel"
+                        <input type="tel" class="form-control" id="usertel"
                                placeholder="請輸入電話" />
                     </div>
                     <div class="form-group text-start text-dark mb-2">
                         <label class=""
-                               for="useraddress">收件人地址</label> <input type="text" class="form-control" name="address"
-                                                                      id="useraddress" v-model="form.user.address" placeholder="請輸入地址" /> <span class="text-danger">地址欄位不得留空</span>
+                               for="useraddress">收件人Line</label>
+                        <input type="text" class="form-control" name="line"
+                               id="userline" placeholder="請輸入地址" /> <span class="text-danger">Line欄位不得留空</span>
                     </div>
                     <div class="form-group text-start text-dark">
-                        <label for="comment">留言</label> <textarea name=""
-                                                                  id="comment" class="form-control" cols="30" rows="5" v-model="form.message"></textarea>
+                        <label for="memo">留言</label> <textarea name=""
+                                                               id="memo" class="form-control" cols="30" rows="5"></textarea>
                     </div>
                     <div class="mt-3 text-right">
-                        <button class="addProduct disabled" type="submit"> 加入購物車</button>
+                        <button class="addProduct disabled"> 加入購物車</button>
                     </div>
                 </form>
             </div>
@@ -271,6 +254,9 @@
 @section topCSS
     {
     <style>
+
+
+
         .btn {
             border: none !important;
         }
@@ -451,21 +437,52 @@
         form {
             font-size: 15px;
         }
+
         .closefilter:focus,
-        .more:focus{
+        .more:focus {
             outline: none;
         }
     </style>
 }
 
 @section endJS{
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="~/Assets/js/QuotationDetail.js"></script>
     <script>
+        let addProduct = document.querySelector('.addProduct');
+
         let side = document.getElementById('Sidenav');
         let detailInf = document.querySelector('.detailInf');
         let more = document.querySelector('.more');
         let ismore = true;
         let countNumber = document.querySelector('.count');
+
+
+
+        addProduct.addEventListener('click', function (e) {
+            e.preventDefault()
+            let count = document.querySelector('.count').innerText;
+            let useremail = document.querySelector('#useremail').value;
+            let username = document.querySelector('#username').value;
+            let usertel = document.querySelector('#usertel').value;
+            let userline = document.querySelector('#userline').value;
+            let memo = document.querySelector('#memo').value;
+
+            let OrderInfo = { Email: useremail, Name: username, Tel: usertel, LineID: userline, Memo: memo }
+            let Cart = { MemberID:@Model.MemberID , QuotationImg: "@Model.MainPicture", SubCategory: "@Model.SubcategoryName", StudioName: "@Model.NickName", Count: Number(count), Price:@Model.Price , Unit: "@Model.Unit", OrderInfo: OrderInfo }
+
+
+            console.log(JSON.stringify(Cart))
+           
+
+            axios.post('/Quotation/Detail', Cart).then(res => {
+                console.log(res)
+            })
+        })
+
+
+
+
 
         document.querySelector('.modelBtn').addEventListener('click', function () {
             let height = window.screen.availHeight - 220;

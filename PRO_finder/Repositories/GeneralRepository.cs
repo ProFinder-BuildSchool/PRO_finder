@@ -34,5 +34,6 @@ namespace PRO_finder.Repositories
         {
             return _context.Set<T>();
         }
+
     }
 }

@@ -49,6 +49,8 @@ namespace PRO_finder.Models.DBModel
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            
+
             modelBuilder.Entity<AspNetRoles>()
                 .HasMany(e => e.AspNetUsers)
                 .WithMany(e => e.AspNetRoles)

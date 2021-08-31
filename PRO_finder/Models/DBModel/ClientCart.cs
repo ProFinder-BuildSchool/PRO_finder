@@ -26,5 +26,6 @@ namespace PRO_finder.Models.DBModel
         public decimal? Price { get; set; }
 
         public int? Unit { get; set; }
+       
     }
 }
