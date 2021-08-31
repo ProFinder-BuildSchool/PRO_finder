@@ -742,6 +742,8 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Talent\MyQuotationIndex.cshtml" />
     <Content Include="Views\Talent\UpdateMyQuotation.cshtml" />
+    <Content Include="Views\Shared\_QuotationforCasePartial.cshtml" />
+    <Content Include="Views\Quotation\CASEPARITALtest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

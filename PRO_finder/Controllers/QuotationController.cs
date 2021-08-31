@@ -84,6 +84,13 @@ namespace PRO_finder.Controllers
             
         }
 
+        public ActionResult CASEPARITALtest()
+        {
+
+            return View();
+
+        }
+
 
         //public ActionResult AllcardData()
         //{
