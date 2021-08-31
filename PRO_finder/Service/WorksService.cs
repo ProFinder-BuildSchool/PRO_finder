@@ -90,6 +90,8 @@ namespace PRO_finder.Service
                             Info = work.WorkDescription,
                             studio = work.Client
                         }).ToList();
+
+
             var tempGroup = temp.GroupBy(x => x.WorkID).Select(x => new WorkViewModel {
                 WorkID = x.First().WorkID,
                 WorkPicture = x.Select(p=>p.Picture).ToList(),
@@ -98,24 +100,6 @@ namespace PRO_finder.Service
                 studio = x.First().studio
             }).OrderBy(x=>x.WorkID).ToList();
 
-            foreach (var item in tempGroup)
-            {
-
-                
-
-                if (tempGroup.IndexOf(item) <= 3)
-                {
-                    item.SortNum = 1;
-                }
-                else if (tempGroup.IndexOf(item) > 3 && tempGroup.IndexOf(item) <= 7)
-                {
-                    item.SortNum = 2;
-                }
-                else if (tempGroup.IndexOf(item) > 7 && tempGroup.IndexOf(item) <= 11)
-                {
-                    item.SortNum = 3;
-                }
-            }
 
 
             return tempGroup;
