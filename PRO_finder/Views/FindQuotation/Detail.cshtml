@@ -321,10 +321,9 @@
         let btnSaveCase = document.querySelector('#btnSaveCase');
         let caseid = @Html.Raw(Json.Encode(Model.CaseId));
 
-
-
         btnSaveCase.addEventListener('click', function () {
             axios.post('/SaveCase/AddToSaveCase', { caseid: caseid }).then(res => console.log(res));
+
             let farHeart = document.querySelector('#farHeart');
             farHeart.classList.remove("far");
             farHeart.classList.add("fas");

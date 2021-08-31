@@ -4,14 +4,14 @@
 }
 <h2>您購物車中的項目</h2>
 <div class="container">
-    <div class="most__search__tab mb-3">
+    <div class="most__search__tab mb-3" id="myTab" role="tablist">
         <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item">
+            <li class="nav-item" role="presentation">
                 <a class="nav-link tab active" data-toggle="tab" href="#tabs-1" role="tab">
                     案主
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" role="presentation">
                 <a class="nav-link tab" data-toggle="tab" href="#tabs-2" role="tab">
                     人才
                 </a>
@@ -21,8 +21,9 @@
 
 </div>
 
-<div class="tabs-contents" id="cart">
-    <section class="cart_area section_padding tab-c active" id="tabs-1">
+
+<div class="tabs-content" id="cart">
+    <div class="cart_area   active tab-pane fade show" id="tabs-1" role="tabpanel">
         <div class="container">
             <div class="cart_inner">
                 <div class="table-responsive">
@@ -41,7 +42,7 @@
                             <tr v-for="(item,index) in cartsProduct">
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <img class="img-thumbnail"  :src="item.productImg" alt=""/>
+                                        <img class="img-thumbnail" :src="item.productImg" alt="" />
                                     </div>
                                 </td>
                                 <td>
@@ -80,59 +81,59 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="talentCart">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">人才影像</th>
-                                <th scope="col">人才資訊</th>
-                                <th scope="col">報價資訊</th>
-                                @*<th scope="col"></th>*@
+    <div class="cart_area   tab-pane fade" id="tabs-2" role="tabpanel">
+        <div class="talentCart">
+            <div class="container">
+                <div class="cart_inner">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">人才影像</th>
+                                    <th scope="col">人才資訊</th>
+                                    <th scope="col">報價資訊</th>
+                                    @*<th scope="col"></th>*@
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(item,index) in cartsProduct">
-                                <td>
-                                    <div class="d-flex justify-content-center">
-                                        <img class="img-thumbnail" :src="item.productImg" alt="" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-left">
-                                        <p><span class="text-primary"> 涂小姐</span></p>
-                                        <p>提案日期 : <span > 2021-08-03</span></p>
-                                        <p>成交 : <span > 3 筆 ( 1 筆好評)</span></p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-left QTInfo">
-                                        <p>報價金額 : <span> $5000元</span> </p>
-                                        <p>預估天數 : <span> 7天內完成</span> </p>
-                                        <p>報價信息 : <span>  您好 , 以上是我針對您需求提出的報價與執行時間 , 希望能有接案的機會 , 謝謝 !</span></p>
-                                    </div>
-                                    <div class="RefuseOrChoose text-right">
-                                        <button class="refusebtn btn btn-outline-primary">婉拒報價</button>
-                                        <button class="choosebtn btn btn-primary">完成訂單</button>
-                                    </div>
-                                </td>
-                                @*<td>
-                                    
-                                </td>*@
-                                
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="text-right mb-5 checkout">
-                        
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(item,index) in cartsProduct">
+                                    <td>
+                                        <div class="d-flex justify-content-center">
+                                            <img class="img-thumbnail" :src="item.productImg" alt="" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-left">
+                                            <p><span class="text-primary"> 涂小姐</span></p>
+                                            <p>提案日期 : <span> 2021-08-03</span></p>
+                                            <p>成交 : <span> 3 筆 ( 1 筆好評)</span></p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-left QTInfo">
+                                            <p>報價金額 : <span> $5000元</span> </p>
+                                            <p>預估天數 : <span> 7天內完成</span> </p>
+                                            <p>報價信息 : <span>  您好 , 以上是我針對您需求提出的報價與執行時間 , 希望能有接案的機會 , 謝謝 !</span></p>
+                                        </div>
+                                        <div class="RefuseOrChoose text-right">
+                                            <button class="refusebtn btn btn-outline-primary">婉拒報價</button>
+                                            <button class="choosebtn btn btn-primary">完成訂單</button>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
 
                     </div>
                 </div>
+                </div>
             </div>
-        </div>
-    </section>
+</div>
 </div>
 @section topCSS{
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -237,22 +238,32 @@
         .talentCart p {
             color: #524545;
         }
+
         .talentCart span {
             color: black;
         }
-        .talentCart{
+
+        .talentCart {
             margin: 50px 0px
         }
-        .QTInfo{
-            padding-top:43px
+
+        .QTInfo {
+            padding-top: 43px
         }
-        .RefuseOrChoose{
-            padding-bottom:5px
+
+        .RefuseOrChoose {
+            padding-bottom: 5px
         }
     </style>
 }
 
 @section endJS{
+    <script>
+        $('#myTab a').on('click', function (event) {
+            event.preventDefault()
+            $(this).tab('show')
+        })
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script>
 
@@ -260,11 +271,11 @@
             el: '#cart',
             data: {
                 cartsProduct: [
-                    { productImg: '/Assets/images/sq_img_5.jpg', productName: '織品服裝設計', studioName: 'Q點設計', Amount:0, Price: 1200 },
-                    { productImg: '/Assets/images/sq_img_1.jpg', productName: '織品服裝設計', studioName: 'Q點設計', Amount:0, Price: 2200 },
-                    { productImg: '/Assets/images/sq_img_2.jpg', productName: '織品服裝設計', studioName: 'Q點設計', Amount:0, Price: 5000 }
+                    { productImg: '/Assets/images/sq_img_5.jpg', productName: '織品服裝設計', studioName: 'Q點設計', Amount: 0, Price: 1200 },
+                    { productImg: '/Assets/images/sq_img_1.jpg', productName: '織品服裝設計', studioName: 'Q點設計', Amount: 0, Price: 2200 },
+                    { productImg: '/Assets/images/sq_img_2.jpg', productName: '織品服裝設計', studioName: 'Q點設計', Amount: 0, Price: 5000 }
                 ],
-                
+
 
             },
             methods: {
@@ -287,6 +298,8 @@
 
         })
     </script>
+
+    
 
 }
 
