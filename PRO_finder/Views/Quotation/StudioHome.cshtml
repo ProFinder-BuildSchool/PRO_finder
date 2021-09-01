@@ -36,14 +36,13 @@
 
                         <div class="contactp">
                             <p>
-                                <a href="#"><i class="icon-heart-o" id="heart" ></i>收藏</a>
+                                <button class="heartp" ><i class="icon-heart-o"></i>收藏</button>
                                 @*@Html.ActionLink("收藏", "FavorInsertorDelete", new { MemberID = ViewBag.MemberID, TalentID = ViewBag.MemberID, time = DateTime.UtcNow, StaffID = ViewBag.MemberID, AddorRemove = ViewBag.FavorExist }, new { @class = "icon-heart-o" })*@
                                 <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
                             </p>
                             <p><a href="#" class="btn btn-primary btn-md">邀請報價</a></p>
                         </div>
                     </div>
-                }
             </div>
 
 
@@ -73,11 +72,11 @@
                             <p class="aboutp">
                                 <div>
                                 @Html.Raw(Model.Description)
-                                 </div>
                                 <div class="closeup">
                                     <a href="javascript:;" class="show">顯示更多</a>
                                     <a href="javascript:;" class="put">顯示較少</a>
                                 </div>
+                                    </div>
                         </div>
                     @*}*@
                     </div>
@@ -93,22 +92,29 @@
                 }
                 else
                 {
-                    foreach (var work in Model.Studioworks)
-                    {
+                    
                             //如果subcate重複，選擇第一個(firstordefault)
                         <div class="row justify-content-center mb-5" data-aos="fade-up">
                             <div id="filters" class="filters text-center button-group col-md-7">
                                 <button class="btn btn-primary active" data-filter="*">All</button>
+ 
+                                @foreach (var work in Model.WorkSubcategory)
+                                {
                                 <button class="btn btn-primary" data-filter=".web">@work.WorkSubCategory</button>
+                                }
                                 @*<button class="btn btn-primary" data-filter=".design">Design</button>
-                                    <button class="btn btn-primary" data-filter=".brand">Brand</button>*@
+                                <button class="btn btn-primary" data-filter=".brand">Brand</button>*@
                             </div>
                         </div>
-                        
+                       
 
                         <div id="posts" class="row no-gutter">
+                             @foreach (var work in Model.Studioworks)
+                        {
                             <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+
                                 <div class="item-wrap">
+
                                     <span class="portfolio-info">
                                         <h5>@work.WorkSubCategory</h5>
                                         <h6>@work.WorkName</h6>
@@ -123,9 +129,9 @@
 
                                 </div>
                             </div>
-
+                             }
                         </div>
-                    }
+                
                 }
 
 
@@ -641,7 +647,7 @@
     </div>
 
     <div class="contacts">
-        <button id="hearts"><i class="icon-heart-o"></i>收藏</button>
+        <button class="hearts"><i class="icon-heart-o"></i>收藏</button>
         <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
         <a href="#" class="btn btn-primary btn-md">邀請報價</a>
     </div>
@@ -829,6 +835,8 @@
                         max-height: 220px;
                         /* object-fit: fill;*/
                     }
+
+                
                 /* Listing */
                 #quoimglimit {
                     overflow: hidden;
@@ -1108,6 +1116,18 @@
                     display: none;
                 }
 
+                .hearts{
+                 /* outline: none;*/
+                    border: none;
+                    background:none;
+                }
+
+                .heartp{
+                 /* outline: none;*/
+                    border: none;
+                    background:none;
+                }
+
                 @@media screen and (min-width:1024px) {
 
                     .studionav {
@@ -1160,7 +1180,9 @@
         var aboutp = document.getElementsByClassName('aboutp')[0]
         var show = document.getElementsByClassName('show')[0]
         var put = document.getElementsByClassName('put')[0]
-        var hearts = document.getElementById('hearts')
+        var hearts = document.getElementsByClassName('hearts')[0]
+        var heartp = document.getElementsByClassName('heartp')[0];
+        var favoricon = document.getElementsByClassName('icon-heart-o')[1]
         var ischange = false
 
         closeup.addEventListener("click", function () {
@@ -1179,49 +1201,90 @@
         })
 
 
-        document.getElementById('hearts').addEventListener("click", function () {
 
-            fetch('/api/Studio/FavorInsertorDelete', {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ MemberID: @ViewBag.UserId, SavedTalentID: @ViewBag.TalentID, SavedDate: '@DateTime.UtcNow', SaveStaffID: @ViewBag.UserId })
+        heartp.addEventListener("click", function () {
+
+                fetch('/api/Studio/FavorInsertorDelete', {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ MemberID: @ViewBag.UserId, SavedTalentID: @ViewBag.TalentID, SavedDate: '@DateTime.UtcNow', SaveStaffID: @ViewBag.UserId })
+                })
+
+                    .then(response => {
+                        return response.json();
+                    })
+                    .then(data => {
+
+                        var favorexist = data.Result;
+
+                        //if (favorexist) favoricon.setAttribute("icon-heart-o", "icon-heart");
+                        //else favoricon.setAttribute("icon-heart", "icon-heart-o");
+                        if (favorexist) heartp.innerText = '未收藏';
+                        else heartp.innerText = '已收藏';
+
+                    });
             })
 
-                .then(response => {
-                    
-                    //console.log(response.json());
 
-                    //response.json();
-                    //處理 response
-                    //hearts.click(function () {
-                    //    hearts.toggle('1000');
-                    //    icon = $(this).find("i");
-                    //    icon.toggleClass("icon-heart-o icon-heart")
-                    //})
-                    // document.getElementById('hearts').html( <i class="icon-heart">icon-heart</i>);
 
-                    console.log("ok");
-                    return response.json();
+
+        //for (var i = 0; i < hearts.length; i++) {
+        //    hearts[i].
+
+                hearts.addEventListener("click", function () {
+
+                fetch('/api/Studio/FavorInsertorDelete', {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ MemberID: @ViewBag.UserId, SavedTalentID: @ViewBag.TalentID, SavedDate: '@DateTime.UtcNow', SaveStaffID: @ViewBag.UserId })
                 })
-                .then(data => {
-                    
-                    var favorexist = data.Result;
-                    //console.log(data);
-                    //console.log(result);
 
-                    if (favorexist) hearts.innerText = '已收藏';
-                    else hearts.innerText = '未收藏';
-                });
-            
+                    .then(response => {
 
-            //.catch(function (err) {
-            //    // Error :(
-            //})
+                        //console.log(response.json());
 
-    })
-    
+                        //response.json();
+                        //處理 response
+                        //hearts.click(function () {
+                        //    hearts.toggle('1000');
+                        //    icon = $(this).find("i");
+                        //    icon.toggleClass("icon-heart-o icon-heart")
+                        //})
+                        // document.getElementById('hearts').html( <i class="icon-heart">icon-heart</i>);
+
+                        console.log("ok");
+                        return response.json();
+                    })
+                    .then(data => {
+
+                        var favorexist = data.Result;
+                        //console.log(data);
+                        //console.log(result);
+
+                        if (favorexist) hearts.innerText = '未收藏';
+                        else hearts.innerText = '已收藏';
+
+
+                        //if (favorexist) favoricon.setAttribute("icon-heart-o", "icon-heart");
+                        //else favoricon.setAttribute("icon-heart", "icon-heart-o");
+                    });
+
+
+                //.catch(function (err) {
+                //    // Error :(
+                //})
+
+                })
+
+
+
+
+
+
 
         //hearts.addEventListener("click",function changeheart(x) {
         //    icon = hearts.find("i");

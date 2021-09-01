@@ -19,6 +19,7 @@ namespace PRO_finder.Models.ViewModels
 
         public IEnumerable<StudioQuotationViewModel> StudioQuotation { get; set; }
         public IEnumerable<StudioworksViewModel> Studioworks { get; set; }
+        public IEnumerable<WorkSubcategoryViewModel> WorkSubcategory { get; set; }
         public IEnumerable<StudioReviewViewModel> StudioReview { get; set; }
 
 

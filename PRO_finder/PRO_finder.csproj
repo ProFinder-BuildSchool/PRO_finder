@@ -380,6 +380,14 @@
     <Compile Include="Migrations\202108301555108_2021-08-30購物車data.Designer.cs">
       <DependentUpon>202108301555108_2021-08-30購物車data.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202108311251135_firstwork.cs" />
+    <Compile Include="Migrations\202108311251135_firstwork.Designer.cs">
+      <DependentUpon>202108311251135_firstwork.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109010211398_second3.cs" />
+    <Compile Include="Migrations\202109010211398_second3.Designer.cs">
+      <DependentUpon>202109010211398_second3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DBModel\AspNetRoles.cs" />
@@ -438,6 +446,7 @@
     <Compile Include="Models\ViewModels\WorkAttachmentViewModel.cs" />
     <Compile Include="Models\ViewModels\WorkDetailViewModel.cs" />
     <Compile Include="Models\ViewModels\WorkPicturesViewModel.cs" />
+    <Compile Include="Models\ViewModels\WorkSubcategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\WorkViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CaseRepository.cs" />
@@ -749,6 +758,8 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Talent\MyQuotationIndex.cshtml" />
     <Content Include="Views\Talent\UpdateMyQuotation.cshtml" />
+    <Content Include="Views\Shared\_QuotationforCasePartial.cshtml" />
+    <Content Include="Views\Quotation\CASEPARITALtest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -831,6 +842,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202108301555108_2021-08-30購物車data.resx">
       <DependentUpon>202108301555108_2021-08-30購物車data.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108311251135_firstwork.resx">
+      <DependentUpon>202108311251135_firstwork.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109010211398_second3.resx">
+      <DependentUpon>202109010211398_second3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
