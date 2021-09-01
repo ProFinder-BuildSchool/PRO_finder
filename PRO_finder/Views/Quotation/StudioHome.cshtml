@@ -71,7 +71,9 @@
                     {*@
                         <div class="aboutText">
                             <p class="aboutp">
-                                @Model.Description
+                                <div>
+                                @Html.Raw(Model.Description)
+                                 </div>
                                 <div class="closeup">
                                     <a href="javascript:;" class="show">顯示更多</a>
                                     <a href="javascript:;" class="put">顯示較少</a>
