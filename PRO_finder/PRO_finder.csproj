@@ -19,8 +19,10 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44375</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -380,13 +382,9 @@
     <Compile Include="Migrations\202108301555108_2021-08-30購物車data.Designer.cs">
       <DependentUpon>202108301555108_2021-08-30購物車data.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202108311251135_firstwork.cs" />
-    <Compile Include="Migrations\202108311251135_firstwork.Designer.cs">
-      <DependentUpon>202108311251135_firstwork.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202109010211398_second3.cs" />
-    <Compile Include="Migrations\202109010211398_second3.Designer.cs">
-      <DependentUpon>202109010211398_second3.cs</DependentUpon>
+    <Compile Include="Migrations\202109010912353_2021-09-01.cs" />
+    <Compile Include="Migrations\202109010912353_2021-09-01.Designer.cs">
+      <DependentUpon>202109010912353_2021-09-01.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -405,7 +403,6 @@
     <Compile Include="Models\DBModel\MemberInfo.cs" />
     <Compile Include="Models\DBModel\Message.cs" />
     <Compile Include="Models\DBModel\Order.cs" />
-    <Compile Include="Models\DBModel\OrdersInformation.cs" />
     <Compile Include="Models\DBModel\OtherPicture.cs" />
     <Compile Include="Models\DBModel\ProFinderContext.cs" />
     <Compile Include="Models\DBModel\ProposalRecord.cs" />
@@ -843,11 +840,8 @@
     <EmbeddedResource Include="Migrations\202108301555108_2021-08-30購物車data.resx">
       <DependentUpon>202108301555108_2021-08-30購物車data.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202108311251135_firstwork.resx">
-      <DependentUpon>202108311251135_firstwork.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202109010211398_second3.resx">
-      <DependentUpon>202109010211398_second3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202109010912353_2021-09-01.resx">
+      <DependentUpon>202109010912353_2021-09-01.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

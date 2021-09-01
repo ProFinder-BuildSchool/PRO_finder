@@ -9,10 +9,10 @@ namespace PRO_finder.Models.DBModel
     [Table("ClientCart")]
     public partial class ClientCart
     {
-        public int? MemberID { get; set; }
-
         [Key]
         public int CartID { get; set; }
+
+        public int? MemberID { get; set; }
 
         public string QuotationImg { get; set; }
 
@@ -26,6 +26,20 @@ namespace PRO_finder.Models.DBModel
         public decimal? Price { get; set; }
 
         public int? Unit { get; set; }
-       
+
+        public string Email { get; set; }
+
+        [StringLength(50)]
+        public string Name { get; set; }
+
+        [StringLength(50)]
+        public string Tel { get; set; }
+
+        [StringLength(50)]
+        public string LineID { get; set; }
+
+        public string Memo { get; set; }
+
+        public int? ContactTime { get; set; }
     }
 }
