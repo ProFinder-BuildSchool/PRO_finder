@@ -40,8 +40,6 @@ namespace PRO_finder.Controllers
             string user = HttpContext.User.Identity.GetUserId();
             int MemberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == user).MemberID;
 
-
-
             //&& caseid !=
             if (caseid != null  )
             {
@@ -51,7 +49,7 @@ namespace PRO_finder.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleFromSaveCase(int caseid)
+        public ActionResult DeleFromSaveCase(int? caseid)
         {
             string user = HttpContext.User.Identity.GetUserId();
             int MemberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == user).MemberID;
@@ -65,9 +63,8 @@ namespace PRO_finder.Controllers
         }
 
 
-
         //[HttpPost]
-        //public ActionResult ClearAllSaveCase(int caseid)
+        //public ActionResult ClearAllSaveCase(int? caseid)
         //{
         //    string user = HttpContext.User.Identity.GetUserId();
         //    int MemberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == user).MemberID;

@@ -49,9 +49,9 @@
     </div>
 
 
-    @*<div class="text-center mb-5">
-        <button id="btnClear" class="btn btn-primary">Clear</button>
-    </div>*@
+    <div class="text-center mb-5">
+        <button id="btnClear" class="btn btn-primary text-right" >Clear</button>
+    </div>
 
 
 </body>
@@ -75,23 +75,18 @@
             let caseid = item.getAttribute("data-content");
             console.log(caseid);
             item.addEventListener('click', function () {
-                item.disabled=true;
-                axios.post('/SaveCase/DeleFromSaveCase', { caseid: caseid }).then(res => console.log(res));
+                item.disabled = true;
+
+                const asyncRun = async () => {
+                    await axios.post('/SaveCase/DeleFromSaveCase', { caseid: caseid }).then(res => console.log(res));
+                    window.location.reload();
+                }
+                asyncRun();
             })
         })
 
 
-
-
-
-
-
-        //let btnClear = document.querySelector('.btnClear');
-        //let caseid = 
-
-        //btnClear.addEventListener('click', function () {
-        //    axios.post('/SaveCase/ClearAllSaveCase', { caseid: caseid }).then(res => console.log(res));
-        //}
+        
 
         
     </script>
