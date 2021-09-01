@@ -150,7 +150,7 @@ namespace PRO_finder.Service
 
             if (exp != null)
             {
-                memberInfoVM.Exeriences = exp;
+                memberInfoVM.Experiences = exp;
             }
             return memberInfoVM;
         }

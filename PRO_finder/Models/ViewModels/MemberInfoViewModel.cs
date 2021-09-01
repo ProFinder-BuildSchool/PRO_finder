@@ -73,7 +73,7 @@ namespace PRO_finder.Models.ViewModels
         public string UserId { get; set; }
         public string JsonToolList { get; set; }
         public string JsonExDList { get; set; }
-        public List<ExperienceSelectItemViewModel> Exeriences { get; set; }
+        public List<ExperienceSelectItemViewModel> Experiences { get; set; }
         
     }
     public class ExperienceSelectItemViewModel
