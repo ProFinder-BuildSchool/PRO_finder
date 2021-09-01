@@ -36,7 +36,8 @@
 
                         <div class="contactp">
                             <p>
-                                <button class="heartp" ><i class="icon-heart-o"></i>收藏</button>
+                                
+                                <button class="heartp"><span id="farHeart" class="far fa-heart mr-2 text-danger"></span>收藏</button>
                                 @*@Html.ActionLink("收藏", "FavorInsertorDelete", new { MemberID = ViewBag.MemberID, TalentID = ViewBag.MemberID, time = DateTime.UtcNow, StaffID = ViewBag.MemberID, AddorRemove = ViewBag.FavorExist }, new { @class = "icon-heart-o" })*@
                                 <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
                             </p>
@@ -1182,7 +1183,7 @@
         var put = document.getElementsByClassName('put')[0]
         var hearts = document.getElementsByClassName('hearts')[0]
         var heartp = document.getElementsByClassName('heartp')[0];
-        var favoricon = document.getElementsByClassName('icon-heart-o')[1]
+        let farHeart = document.querySelector('#farHeart');
         var ischange = false
 
         closeup.addEventListener("click", function () {
@@ -1209,7 +1210,8 @@
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({ MemberID: @ViewBag.UserId, SavedTalentID: @ViewBag.TalentID, SavedDate: '@DateTime.UtcNow', SaveStaffID: @ViewBag.UserId })
+                    body: JSON.stringify({ MemberID: @ViewBag.UserId, SavedTalentID: @ViewBag.TalentID, SavedDate: '@DateTime.UtcNow' })
+                    @*, SaveStaffID: @ViewBag.UserId })*@
                 })
 
                     .then(response => {
@@ -1221,8 +1223,17 @@
 
                         //if (favorexist) favoricon.setAttribute("icon-heart-o", "icon-heart");
                         //else favoricon.setAttribute("icon-heart", "icon-heart-o");
-                        if (favorexist) heartp.innerText = '未收藏';
-                        else heartp.innerText = '已收藏';
+                        if (!favorexist) {
+                            farHeart.classList.remove("far");
+                            farHeart.classList.add("fas");
+                        }
+                        else {
+                            farHeart.classList.remove("fas")
+                            farHeart.classList.add("far");
+                        }
+
+                        //if (favorexist) heartp.innerText = '未收藏';
+                        //else heartp.innerText = '已收藏';
 
                     });
             })

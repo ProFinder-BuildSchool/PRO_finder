@@ -386,6 +386,14 @@
     <Compile Include="Migrations\202109010912353_2021-09-01.Designer.cs">
       <DependentUpon>202109010912353_2021-09-01.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109010939087_testwork.cs" />
+    <Compile Include="Migrations\202109010939087_testwork.Designer.cs">
+      <DependentUpon>202109010939087_testwork.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109010950567_testwork2.cs" />
+    <Compile Include="Migrations\202109010950567_testwork2.Designer.cs">
+      <DependentUpon>202109010950567_testwork2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DBModel\AspNetRoles.cs" />
@@ -842,6 +850,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109010912353_2021-09-01.resx">
       <DependentUpon>202109010912353_2021-09-01.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109010939087_testwork.resx">
+      <DependentUpon>202109010939087_testwork.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109010950567_testwork2.resx">
+      <DependentUpon>202109010950567_testwork2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
