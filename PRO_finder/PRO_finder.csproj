@@ -385,13 +385,9 @@
     <Compile Include="Migrations\202108311251135_firstwork.Designer.cs">
       <DependentUpon>202108311251135_firstwork.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202108311253360_firstwork1.cs" />
-    <Compile Include="Migrations\202108311253360_firstwork1.Designer.cs">
-      <DependentUpon>202108311253360_firstwork1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202108311257428_firstwork2.cs" />
-    <Compile Include="Migrations\202108311257428_firstwork2.Designer.cs">
-      <DependentUpon>202108311257428_firstwork2.cs</DependentUpon>
+    <Compile Include="Migrations\202109010211398_second3.cs" />
+    <Compile Include="Migrations\202109010211398_second3.Designer.cs">
+      <DependentUpon>202109010211398_second3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -849,11 +845,8 @@
     <EmbeddedResource Include="Migrations\202108311251135_firstwork.resx">
       <DependentUpon>202108311251135_firstwork.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202108311253360_firstwork1.resx">
-      <DependentUpon>202108311253360_firstwork1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202108311257428_firstwork2.resx">
-      <DependentUpon>202108311257428_firstwork2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202109010211398_second3.resx">
+      <DependentUpon>202109010211398_second3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

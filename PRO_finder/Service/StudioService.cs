@@ -181,9 +181,6 @@ namespace PRO_finder.Service
                        SavedTalentID = savestaff.SavedTalentID,
                        SavedDate = savestaff.SavedDate,
                        SaveStaffID = savestaff.SaveStaffID
-
-
-
                    };
 
         }

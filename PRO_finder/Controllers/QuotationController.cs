@@ -61,9 +61,9 @@ namespace PRO_finder.Controllers
             return View(QuoDetailVM);
         }
 
-        public ActionResult StudioHome(int TalentID=15)//, int MemberID= 1)
+        public ActionResult StudioHome(int TalentID=17)//, int MemberID= 1)
         {
-            int currentUserId=14;
+            int currentUserId=7;
             //var result = int.TryParse(System.Web.HttpContext.Current.User.Identity.GetUserId(),out currentUserId);
             StudioDetailViewModel StudioDetailVM = _studioService.GetStudioDetailData (TalentID);
             //IEnumerable<SaveStaffViewModel> favorlist = _studioService.GetFavorite(currentUserId, TalentID);

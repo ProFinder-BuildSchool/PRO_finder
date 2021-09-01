@@ -39,7 +39,7 @@ namespace PRO_finder.Migrations
                 WebsiteURL = "https://bhuntr.com/tw/work/dm-she-ji-2",
                 SubCategoryID=9,
                 WorkAttachmentID = null,
-                MemberID =1
+                MemberID =32
 
             });
 
@@ -68,7 +68,7 @@ namespace PRO_finder.Migrations
                 WebsiteURL = "https://bhuntr.com/tw/work/city-cafe-ka-fei-bei-2",
                 SubCategoryID =13,
                 WorkAttachmentID = null,
-                MemberID =1
+                MemberID =32
 
             });
             context.Works.AddOrUpdate(x => x.WorkID, new Works
@@ -82,7 +82,7 @@ namespace PRO_finder.Migrations
                 WebsiteURL = "https://bhuntr.com/tw/work/brighteeth",
                 SubCategoryID =18,
                 WorkAttachmentID = null,
-                MemberID =1
+                MemberID =32
 
             });
             context.Works.AddOrUpdate(x => x.WorkID, new Works
@@ -96,7 +96,7 @@ namespace PRO_finder.Migrations
                 WebsiteURL = "https://bhuntr.com/tw/work/ka-fei-dian-can-che",
                 SubCategoryID =14,
                 WorkAttachmentID = null,
-                MemberID =1
+                MemberID =32
 
             });
             context.Works.AddOrUpdate(x => x.WorkID, new Works
@@ -110,7 +110,7 @@ namespace PRO_finder.Migrations
                 WebsiteURL = "https://bhuntr.com/tw/work/ban-she-ji-zheng-jian-zhanmuji-wu-yin-liang-pin-tai-wan15zhou-nian-tong-shang",
                 SubCategoryID =16,
                 WorkAttachmentID=null,
-                MemberID =1
+                MemberID =32
 
             });
             context.Works.AddOrUpdate(x => x.WorkID, new Works
@@ -124,7 +124,7 @@ namespace PRO_finder.Migrations
                 WebsiteURL = "https://bhuntr.com/tw/work/jian-dan-de-xian-tiao-liu-xing-de-se-cai-biao-xian-ming-pian-she-ji-de-zui-gao-jia-zhihe-sheng-gong-cheng-kai-fa-ming-pian-she-ji",
                 SubCategoryID =11,
                 WorkAttachmentID = null,
-                MemberID =1
+                MemberID =32
 
             });
         }

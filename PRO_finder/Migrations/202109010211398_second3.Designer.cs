@@ -7,13 +7,13 @@ namespace PRO_finder.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class firstwork1 : IMigrationMetadata
+    public sealed partial class second3 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(firstwork1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(second3));
         
         string IMigrationMetadata.Id
         {
-            get { return "202108311253360_firstwork1"; }
+            get { return "202109010211398_second3"; }
         }
         
         string IMigrationMetadata.Source

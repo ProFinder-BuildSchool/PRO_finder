@@ -3,7 +3,7 @@ namespace PRO_finder.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class firstwork1 : DbMigration
+    public partial class second3 : DbMigration
     {
         public override void Up()
         {

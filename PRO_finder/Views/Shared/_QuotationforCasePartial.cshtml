@@ -3,6 +3,7 @@
     ViewBag.Title = "_QuotationforCasePartial";
 }
 
+
 @*<a class="addCart"> @Html.Partial("_QuotationforCasePartial")</a>*@
 @*@Html.Partial("_QuotationforCasePartial")*@
 
@@ -16,9 +17,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel">報價細節</h4>
-                @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>*@
             </div>
             <div class="modal-body">
                 <form>
@@ -47,95 +45,4 @@
 
 
 
-
-@section topCSS{
-    @*<style>
-         #estimatedDays-name {
-            width:30px;
-         }
-        </style>*@
-
-    @*<style>
-
-           /* .modal-backdrop {
-                z-index: 0;
-            }*/
-            .modal {
-                overflow-y: auto;
-            }
-        </style>*@
-    @*<style>
-            .model {
-                position: absolute;
-                z-index: 220000;
-                bottom: 10px;
-            }
-        </style>*@
-    @*<style>
-            .modal-open {
-                overflow: hidden;
-            }
-
-            .modal-backdrop {
-                display: none;
-                /*position: fixed;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                z-index: 1040;
-                background-color: #000;*/
-            }
-        </style>*@
-
-}
-
-
-@section endJS{
-
-
-    @*<script>
-
-            var modalbtn = document.getElementByClassName('modalbtn')
-            var mymodal = document.getElementById('#mymodal')
-
-            modalbtn.addEventListener("click", function () {
-                mymodal.modal();
-            }
-
-
-        </script>*@
-    @*<script>
-            document.getElementById('#myButton').click(function () {
-
-                document.getElementById('#myModal').modal();
-
-            });
-
-
-        </script>*@
-    @*<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-        <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>*@
-    @*<script>
-            var exampleModal = document.getElementById('exampleModal')
-            exampleModal.addEventListener('show.bs.modal', function (event) {
-                // Button that triggered the modal
-                var button = event.relatedTarget
-                // Extract info from data-bs-* attributes
-                var recipient = button.getAttribute('data-bs-whatever')
-                // If necessary, you could initiate an AJAX request here
-                // and then do the updating in a callback.
-                //
-                // Update the modal's content.
-                var modalTitle = exampleModal.querySelector('.modal-title')
-                var modalBodyInput = exampleModal.querySelector('.modal-body input')
-
-                modalTitle.textContent = 'New message to ' + recipient
-                modalBodyInput.value = recipient
-            })
-        </script>*@
-
-
-
-}
 
