@@ -13,7 +13,7 @@ namespace PRO_finder.Models.ViewModels
 
     public class MemberInfoViewModel
     {
-      
+
         public int MemberID { get; set; }
 
         public string Cellphone { get; set; }
@@ -59,6 +59,7 @@ namespace PRO_finder.Models.ViewModels
             屏東縣, 澎湖縣, 台東縣, 花蓮縣, 其他離島
         }
         public LocationCity LocationID { get; set; }
+        public int LocationIDInt { get; set; }
 
         public int? CategoryID { get; set; }
 
@@ -72,6 +73,21 @@ namespace PRO_finder.Models.ViewModels
         public string UserId { get; set; }
         public string JsonToolList { get; set; }
         public string JsonExDList { get; set; }
-
+        public List<ExperienceSelectItemViewModel> Experiences { get; set; }
+        
+    }
+    public class ExperienceSelectItemViewModel
+    {
+        public int MemberID { get; set; }
+        public List<SelectListItem> SubCategoryDropdown { get; set; }
+        public List<SelectListItem> CategoryDropdown { get; set; }
+        public List<SelectListItem> PieceworkDropdown { get; set; }
+    }
+    public class ExperienceViewModel
+    {
+        public int MemberID { get; set; }
+        public int SubCategoryID { get; set; }
+        public string PieceworkExp { get; set; }
+        public int CategoryID { get; set; }
     }
 }

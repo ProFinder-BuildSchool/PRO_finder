@@ -632,7 +632,8 @@
 
 
 
-            setCaseCount(AllCardArray);
+        setCaseCount(AllCardArray);
+        document.querySelector('.aaaaaaa').innerHTML = ''
             if (AllCardArray.length == 0 || AllCardArray == null || AllCardArray == undefined) {
                 document.querySelector('.aaaaaaa').innerHTML = '<p class="text-danger">查無資料!!!</p>'
                 document.querySelector('.priceOption').innerHTML = ' <option value="" disabled selected hidden>-請選擇價格-</option>';

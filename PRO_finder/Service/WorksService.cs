@@ -20,7 +20,7 @@ namespace PRO_finder.Service
         }
         public Works CreateWorks(UploadMyWorksViewModel input)
         {
-            int lastworkID = _repo.GetAll<Works>().ToList().Last().WorkID;
+            int lastworkID = _repo.GetAll<Works>().OrderBy(x => x.WorkID).ToList().Last().WorkID;
             int newID = lastworkID+1;
             Works entity = new Works()
             {
@@ -44,8 +44,11 @@ namespace PRO_finder.Service
             var parseAttachmentList = tempArray.ToObject<List<WorkAttachment>>();
             foreach(var item in parseAttachmentList)
             {
+                int lastAttachmentID = _repo.GetAll<WorkAttachment>().OrderBy(x => x.WorkAttachmentID).ToList().Last().WorkAttachmentID;
+                int newID = lastAttachmentID + 1;
                 WorkAttachment entity = new WorkAttachment
                 {
+                    WorkAttachmentID = newID,
                     WorkID = workID,
                     WorkAttachmentName = item.WorkAttachmentName,
                     WorkAttachmentLink = item.WorkAttachmentLink
@@ -57,12 +60,16 @@ namespace PRO_finder.Service
 
         public void CreateWorkPictures(int workID, string pictureList)
         {
+
             JArray tempArray = JArray.Parse(pictureList);
             var parsePictureList = tempArray.ToObject<List<WorkPictures>>();
             foreach(var item in parsePictureList)
             {
+                int lastPicID = _repo.GetAll<WorkPictures>().OrderBy(x => x.WorkPictureID).ToList().Last().WorkPictureID;
+                int newID = lastPicID + 1;
                 WorkPictures entity = new WorkPictures
                 {
+                    WorkPictureID = newID,
                     WorkID = workID,
                     WorkPicture = item.WorkPicture,
                     SortNumber = item.SortNumber
@@ -98,25 +105,7 @@ namespace PRO_finder.Service
                 studio = x.First().studio
             }).OrderBy(x=>x.WorkID).ToList();
 
-            foreach (var item in tempGroup)
-            {
-
-                
-
-                if (tempGroup.IndexOf(item) <= 3)
-                {
-                    item.SortNum = 1;
-                }
-                else if (tempGroup.IndexOf(item) > 3 && tempGroup.IndexOf(item) <= 7)
-                {
-                    item.SortNum = 2;
-                }
-                else if (tempGroup.IndexOf(item) > 7 && tempGroup.IndexOf(item) <= 11)
-                {
-                    item.SortNum = 3;
-                }
-            }
-
+       
 
             return tempGroup;
 

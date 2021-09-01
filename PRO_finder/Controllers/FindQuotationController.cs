@@ -24,7 +24,7 @@ namespace PRO_finder.Controllers
 
         [HttpGet]
         // GET: FindQuotation
-        public ActionResult Index(string id =null, string searchStr = null)
+        public ActionResult Index(string id ="0", string searchStr = null)
         {
 
             ViewBag.CateId = id;
@@ -32,12 +32,12 @@ namespace PRO_finder.Controllers
             if (string.IsNullOrEmpty(id))
             {
                 result = _caseService.GetCasesList().ToList();
-                ViewBag.CateId = 13;
+                
             }
             else if (string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(searchStr))
             {
                 result = _caseService.GetCasesList().Where(x => x.Description.Contains(searchStr)).ToList();
-                ViewBag.CateId = 13;
+                
             }
             else if(!string.IsNullOrEmpty(id) && string.IsNullOrEmpty(searchStr))
             {

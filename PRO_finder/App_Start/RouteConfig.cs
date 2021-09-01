@@ -15,12 +15,6 @@ namespace PRO_finder
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
-                name: "Origin",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
-
-            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}",
                 defaults: new { controller = "Home", action = "Index" }
@@ -30,7 +24,18 @@ namespace PRO_finder
                 url: "{controller}/{action}/{Memberid}/{Quotationid}",
                 defaults: new { controller = "Quotation", action = "Detail"}
             );
-          
+            //routes.MapRoute(
+            //    name: "Index",
+            //    url: "{controller}/{action}/{CategoryId}",
+            //    defaults: new { controller = "Quotation", action = "Index", CategoryId = UrlParameter.Optional }
+            //);
+
+            routes.MapRoute(
+                name: "Origin",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
+
             //routes.MapRoute(
             //    name: "StudioHome",
             //    url: "{controller}/{action}/{Memberid}",

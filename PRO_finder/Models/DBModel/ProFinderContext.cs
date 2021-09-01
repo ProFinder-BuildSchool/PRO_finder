@@ -27,7 +27,6 @@ namespace PRO_finder.Models.DBModel
         public virtual DbSet<MemberInfo> MemberInfo { get; set; }
         public virtual DbSet<Message> Message { get; set; }
         public virtual DbSet<Order> Order { get; set; }
-        public virtual DbSet<OrdersInformation> OrdersInformation { get; set; }
         public virtual DbSet<OtherPicture> OtherPicture { get; set; }
         public virtual DbSet<ProposalRecord> ProposalRecord { get; set; }
         public virtual DbSet<Quotation> Quotation { get; set; }
@@ -108,10 +107,6 @@ namespace PRO_finder.Models.DBModel
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<MemberInfo>()
-                .HasOptional(e => e.Works)
-                .WithRequired(e => e.MemberInfo);
-
-            modelBuilder.Entity<MemberInfo>()
                 .HasMany(e => e.Message)
                 .WithRequired(e => e.MemberInfo)
                 .HasForeignKey(e => e.TargetID)
@@ -145,10 +140,6 @@ namespace PRO_finder.Models.DBModel
                 .HasMany(e => e.ServicePlus)
                 .WithRequired(e => e.MemberInfo)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<MemberInfo>()
-                .HasOptional(e => e.Works1)
-                .WithRequired(e => e.MemberInfo1);
 
             modelBuilder.Entity<MemberInfo>()
                 .HasMany(e => e.ProposalRecord)

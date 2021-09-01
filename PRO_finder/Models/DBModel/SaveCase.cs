@@ -9,12 +9,12 @@ namespace PRO_finder.Models.DBModel
     [Table("SaveCase")]
     public partial class SaveCase
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int CaseID { get; set; }
-
         public DateTime SavedDate { get; set; }
 
         public int MemberID { get; set; }
+
+        public int? CaseID { get; set; }
+
+        public int SaveCaseID { get; set; }
     }
 }

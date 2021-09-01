@@ -28,7 +28,7 @@ namespace PRO_finder.Service
                 Case theCase = _ctx.GetAll<Case>().FirstOrDefault(x => x.CaseID == item.CaseID);
                 saveCases.Add(new SaveCaseViewModel
                 {
-                    CaseID = item.CaseID,
+                    CaseID = (int)item.CaseID,
                     SavedDate = item.SavedDate,
                     MemberID = MemberID,
                     title = theCase.CaseTitle,

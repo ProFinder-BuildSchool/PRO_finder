@@ -91,6 +91,8 @@ namespace PRO_finder.Service
             {
                 return null;
             }
+
+ 
             var StudioWorkVM = (from w in WorkList
                                 join m in MemInfoList on w.MemberID equals m.MemberID
                                 where w.MemberID == MemberID
@@ -105,6 +107,11 @@ namespace PRO_finder.Service
                                     WorkSubCategory = sub.SubCategoryName,
                                     WorkPicture = wp.WorkPicture
                                 });
+            var WorkSubcategoryVM = (from s in StudioWorkVM
+                                     select new WorkSubcategoryViewModel
+                                     { 
+                                         WorkSubCategory = s.WorkSubCategory
+                                     }).Distinct();
             var StudioQuotVM = (from q in QuotList
                                 where q.MemberID == MemberID
                                 join sub in SubCateList on q.SubCategoryID equals sub.SubCategoryID
@@ -145,7 +152,9 @@ namespace PRO_finder.Service
                                       Identity = m.Identity,
                                       StudioReview = StudioReviewVM,
                                       Studioworks = StudioWorkVM,
-                                      StudioQuotation = StudioQuotVM
+                                      StudioQuotation = StudioQuotVM,
+                                      WorkSubcategory = WorkSubcategoryVM
+
                                   }).FirstOrDefault();
 
             return StudioDetailVM;
@@ -172,9 +181,6 @@ namespace PRO_finder.Service
                        SavedTalentID = savestaff.SavedTalentID,
                        SavedDate = savestaff.SavedDate,
                        SaveStaffID = savestaff.SaveStaffID
-
-
-
                    };
 
         }
