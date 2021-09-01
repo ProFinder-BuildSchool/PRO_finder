@@ -1294,6 +1294,7 @@
 
         function switchPage(e,arr) {
             e.preventDefault();
+            console.log(e);
             if (e.target.nodeName !== 'A') return;
             const page = e.target.dataset.page;
             pagination(arr, page);
