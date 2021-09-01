@@ -24,6 +24,12 @@ namespace PRO_finder
                 url: "{controller}/{action}/{Memberid}/{Quotationid}",
                 defaults: new { controller = "Quotation", action = "Detail"}
             );
+            //routes.MapRoute(
+            //    name: "Index",
+            //    url: "{controller}/{action}/{CategoryId}",
+            //    defaults: new { controller = "Quotation", action = "Index", CategoryId = UrlParameter.Optional }
+            //);
+
             routes.MapRoute(
                 name: "Origin",
                 url: "{controller}/{action}/{id}",
