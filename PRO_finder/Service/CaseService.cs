@@ -64,7 +64,6 @@ namespace PRO_finder.Service
                        CaseId = Case.CaseID,
                        title = Case.CaseTitle,
                        Price = (int)Case.Price,
-                       
                        LocationID = (int)Case.Location,
                        LocationName = Locations.LocationName,
                        SubCategoryID = SubCategory.SubCategoryID,

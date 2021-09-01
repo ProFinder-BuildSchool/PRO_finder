@@ -36,11 +36,9 @@ namespace PRO_finder.Controllers
 
             var list = _CategoryService.Home_Index_GetCategoryItem();
 
-
             var QuotationList = _quotationService.GetAllCardDataGroupByIndex();
 
             var workList = _worksService.GetWorks_HomeIndex();
-
 
             var caseList = _caseService.GetFinishCases();
 

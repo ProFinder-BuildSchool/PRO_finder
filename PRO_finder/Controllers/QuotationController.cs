@@ -13,6 +13,7 @@ using System.Data.SqlClient;
 using Dapper;
 using PRO_finder.Models.DBModel;
 using Microsoft.AspNet.Identity;
+using static PRO_finder.Enum.Enum;
 
 namespace PRO_finder.Controllers
 {
@@ -21,11 +22,12 @@ namespace PRO_finder.Controllers
     {
         private readonly QuotationService _quotService;
         private readonly StudioService _studioService;
-
+        private readonly CartService _cartService;
         public QuotationController()
         {
             _quotService = new QuotationService();
             _studioService = new StudioService();
+            _cartService = new CartService();
         }
         // GET: Quotation
         public ActionResult Index(int? CategoryId, string keyword,string[] filter)
@@ -54,12 +56,29 @@ namespace PRO_finder.Controllers
             return View();
 
         }
-        public ActionResult Detail(int Memberid=1,int Quotationid=2019)
+        public ActionResult Detail(int Memberid,int Quotationid)
         {
             QuotationDetailViewModel QuoDetailVM = _quotService.GetQuoDetailData(Memberid, Quotationid);
             //ViewBag.QID = Quotationid;
             return View(QuoDetailVM);
         }
+
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult Detail(ClientCartViewModel Cart)
+        {
+
+            var memberID = HttpContext.User.Identity.GetUserId();
+
+            _cartService.addCart(Cart, memberID);
+
+
+            return Content("成功");
+        }
+
+
+
 
         public ActionResult StudioHome(int TalentID=20)//, int MemberID= 1)
         {

@@ -71,7 +71,7 @@
                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
             </ol>
             <div class="carousel-inner h-100 p-4">
-                @for (var i = 0; i < 3; i++)
+                @for (var i = 0; i < 2; i++)
                 {
                     var item = @ViewBag.workList[i];
                     <div class="carousel-item  @(i == 0 ? "active": string.Empty)">
@@ -79,7 +79,7 @@
                             <div class=" col-6 col-md-8 ">
                                 <div class="row picArea">
                                     <div class="col-md-3  d-md-flex d-none flex-wrap justify-content-around">
-                                        @for (var j = 0; j < 3; j++)
+                                        @for (var j = 0; j <3; j++)
                                         {<div class="imgs mb-3">
                                                 <img class="w-100  h-100  OptionImg " src="@item.WorkPicture[j]">
                                             </div>
@@ -258,7 +258,7 @@
                                 <div class=" col-3 col-md-3 ">
                                     <div class="card">
                                         <div class="imgArea"><img src="@item.Img" class="card-img-top" alt="..."></div>
-                                        
+
                                         <div class="card-body p-1">
                                             <h5 class="card-title">@item.SubcategoryName</h5>
                                             <p class="card-text">
@@ -339,90 +339,27 @@
                 </div>
             </div>
         </div>
-        <div id="carouselExampleIndicatorseeee" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicatorseeee" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicatorseeee" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicatorseeee" data-slide-to="2"></li>
-            </ol>            
-            <div class="carousel-inner ">
-
-                <div class="carousel-item  active">
-                    <div class="row">
-
-                        @foreach (var item in ViewBag.workList)
-                        {
-                            if (item.SortNum == 1)
-                            {
-
-                                <div class=" col-3 col-md-3 ">
-                                    <div class="card">
-                                        <div class="imgArea"><img src="@item.WorkPicture[0]" class="w-100" alt="..."></div>
-
-                                        <div class="card-body">
-                                            <h5 class="card-title">Card title</h5>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                                        </div>
-                                    </div>
+        <div class="row mb-5 justify-content-center">
+            @foreach (var item in ViewBag.workList)
+            {
+                <div class="col-md-3 text-center mb-3">
+                    <div class="card">
+                        <div class="listing__item__pic">
+                            <a href="" target="_blank"><img src="@item.WorkPicture[0]" alt="Image" class="h-100 w-100"></a>
+                        </div>
+                        <div class="listing__item__text">
+                            <div class="text-left p-2">
+                                <h5 class="font-weight-bold " >@item.studio</h5>
+                                <p class="text-success">專長:#@item.SubCategoryName</p> 
+                                <div class="text-right">
+                                    <a class="btn border" href="@Url.Action("Detail", "Quotation")" target="_blank">服務詳情</a>
                                 </div>
-                            }
-                        }
+                            </div>
+                            
+                        </div>
                     </div>
                 </div>
-
-                <div class="carousel-item  ">
-                    <div class="row">
-
-                        @foreach (var item in ViewBag.workList)
-                        {
-                            if (item.SortNum == 2)
-                            {
-
-                                <div class=" col-3 col-md-3 ">
-                                    <div class="card">
-                                        <div class="imgArea"><img src="@item.WorkPicture[0]" class="w-100" alt="..."></div>
-
-                                        <div class="card-body">
-                                            <h5 class="card-title">Card title</h5>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                        }
-                    </div>
-                </div>
-
-
-                <div class="carousel-item  ">
-                    <div class="row">
-
-                        @foreach (var item in ViewBag.workList)
-                        {
-                            if (item.SortNum == 2)
-                            {
-
-                                <div class=" col-3 col-md-3 ">
-                                    <div class="card">
-                                        <div class="imgArea"><img src="@item.WorkPicture[0]" class="w-100" alt="..."></div>
-
-                                        <div class="card-body">
-                                            <h5 class="card-title">Card title</h5>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                        }
-                    </div>
-                </div>
-
-
-            </div>
-
+            }
         </div>
     </div>
 </section>
@@ -438,12 +375,12 @@
             interval: 2000
         })
 
-                //let OptionImg = document.querySelectorAll('.OptionImg')
+                        //let OptionImg = document.querySelectorAll('.OptionImg')
 
-                //OptionImg.forEach(x => x.addEventListener('mouseover', function (e) {
-                //    let url = e.target.src
-                //    document.querySelectorAll(".CheckedkImg").forEach(p => {p.src = url;})
-                //}))
+                        //OptionImg.forEach(x => x.addEventListener('mouseover', function (e) {
+                        //    let url = e.target.src
+                        //    document.querySelectorAll(".CheckedkImg").forEach(p => {p.src = url;})
+                        //}))
 
 
 
@@ -452,7 +389,7 @@
 }
 @section topCSS{
     <style>
-        
+
 
         #carouselExampleIndicators {
             height: 23REM;
@@ -610,12 +547,19 @@
             object-fit: cover;
             overflow: hidden;
         }
-        .card{
-            height:100%;
+
+        .card {
+            height: 100%;
         }
+
         .carousel-inner {
             height: 60vh;
         }
-        
+        .listing__item__pic {
+            height: 23VH;
+            width: 100%;
+            object-fit: cover;
+            overflow: hidden;
+        }
     </style>
 }

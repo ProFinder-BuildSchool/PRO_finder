@@ -303,7 +303,7 @@
                                     </div>
                                 </div>
                                 <div class="listing__item__text__info">
-                                    <a class="listing__item__text__info__right" href="@Url.Action("Detail", "Quotation")" target="_blank">服務詳情</a>
+                                    <a class="listing__item__text__info__right" href="" target="_blank">服務詳情</a>
                                 </div>
                             </div>
                         </div>
@@ -1087,6 +1087,7 @@
                 cloneContent.querySelector('.test2').innerText = `sub${item.SubcategoryId}`;
                 cloneContent.querySelector('.test3').innerText = `location${item.Location}`;
                 cloneContent.querySelector('.test4').innerText = `QuotationId${item.QuotationId}`;
+                cloneContent.querySelector('.listing__item__text__info__right').href = `/Quotation/Detail/${item.MemberID}/${item.QuotationId}`;
                 itemZone.append(cloneContent);
             });
         }
