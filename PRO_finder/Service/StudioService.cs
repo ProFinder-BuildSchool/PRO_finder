@@ -105,12 +105,14 @@ namespace PRO_finder.Service
                                     WorkName = w.WorkName,
                                     WebsiteURL = w.WebsiteURL,
                                     WorkSubCategory = sub.SubCategoryName,
+                                    SubCategoryID=sub.SubCategoryID,
                                     WorkPicture = wp.WorkPicture
                                 });
             var WorkSubcategoryVM = (from s in StudioWorkVM
                                      select new WorkSubcategoryViewModel
                                      { 
-                                         WorkSubCategory = s.WorkSubCategory
+                                         WorkSubCategory = s.WorkSubCategory,
+                                         SubCategoryID = s.SubCategoryID
                                      }).Distinct();
             var StudioQuotVM = (from q in QuotList
                                 where q.MemberID == MemberID

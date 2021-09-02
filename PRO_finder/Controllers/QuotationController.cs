@@ -23,11 +23,13 @@ namespace PRO_finder.Controllers
         private readonly QuotationService _quotService;
         private readonly StudioService _studioService;
         private readonly CartService _cartService;
+        private readonly GeneralRepository _repo;
         public QuotationController()
         {
             _quotService = new QuotationService();
             _studioService = new StudioService();
             _cartService = new CartService();
+            _repo = new GeneralRepository(new ProFinderContext());
         }
         // GET: Quotation
         public ActionResult Index(int? CategoryId, string keyword,string[] filter)
@@ -82,7 +84,9 @@ namespace PRO_finder.Controllers
 
         public ActionResult StudioHome(int TalentID=1)//, int MemberID= 1)
         {
-            int currentUserId=7;
+            //int currentUserId=7;
+            var UserId = HttpContext.User.Identity.GetUserId();
+            int currentUserId = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == UserId).MemberID;
             //var result = int.TryParse(System.Web.HttpContext.Current.User.Identity.GetUserId(),out currentUserId);
             StudioDetailViewModel StudioDetailVM = _studioService.GetStudioDetailData (TalentID);
             //IEnumerable<SaveStaffViewModel> favorlist = _studioService.GetFavorite(currentUserId, TalentID);
