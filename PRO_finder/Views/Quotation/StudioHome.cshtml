@@ -679,7 +679,7 @@
                 .sidebar-box {
                     text-align: center;
                     position: sticky;
-                    top: 48px;
+                    top: 0px;
                     z-index: 1000;
                 }
 
@@ -734,7 +734,7 @@
                     padding-right: 15px;
                     padding-left: 15px;
                     position: sticky;
-                    top: 35px;
+                    top: 0px;
                     background-color: white;
                     border-bottom: 1px solid rgb(214, 213, 213);
                     z-index: 1000;
@@ -1128,13 +1128,6 @@
                     background:none;
                 }
 
-                @@media screen and (min-width:1024px) {
-
-                    .studionav {
-                        top: 40px
-                    }
-                }
-
                 @@media screen and (min-width:1025px) {
                     .contacts {
                         display: none;
@@ -1144,9 +1137,7 @@
                         display: block;
                     }
 
-                    .studionav {
-                        top: 125px;
-                    }
+                   
 
                     :target:before {
                         content: "";
@@ -1154,12 +1145,12 @@
                         height: 180px;
                     }
 
-                    .sidebar-box {
-                        top: 110px;
-                    }
+                    
                 }
 
-
+        .site-navbar {
+            position: static !important;
+        }
                 /*@@media screen and (max-width:1023px) {
 
 

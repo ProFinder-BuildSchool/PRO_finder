@@ -13,10 +13,10 @@
             <!-- 右欄-報價細節 -->
             <div class="col-lg-8  blog-content position-relative">
                 <section id="primary" class="content-area">
-                    <header id="backwork" style="position:sticky;top:155px;z-index:2;background-color:#fff;">
-                        <h3>
-                            <a href="@Url.Action("StudioHome", new { TalentID = @Model.MemberID })" class="fas fa-angle-double-left mr-2">回到工作室 </a>
-                        </h3>
+                    <header id="backwork" style="position:sticky;top:0px;z-index:2;background-color:#fff;">
+                        <p class=" h-5 border-bottom">
+                            <a href="@Url.Action("StudioHome", new { TalentID = @Model.MemberID })" class="py-3 fas fa-angle-double-left mr-2">回到工作室 </a>
+                        </p>
                     </header>
                     <div class="container">
                         <div class="row align-items-center mb-5">
@@ -442,6 +442,11 @@
         .pluscount:focus {
             outline: none;
         }
+        .site-navbar {
+            
+            position: static !important; 
+        }
+
     </style>
 }
 
