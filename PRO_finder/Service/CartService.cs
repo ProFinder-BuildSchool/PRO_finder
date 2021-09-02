@@ -99,9 +99,9 @@ namespace PRO_finder.Service
 
 
 
-        public bool addCart(ClientCartViewModel Cart, string memberId)
+        public bool addCart(ClientCartViewModel Cart, int memberId)
         {
-            var member = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == memberId);
+            var member = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == memberId);
             if (member == null) return false;
             var clientCart = new ClientCart()
             {

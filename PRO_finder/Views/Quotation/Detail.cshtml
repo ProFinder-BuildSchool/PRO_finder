@@ -255,7 +255,10 @@
     {
     <style>
 
-
+        .Quotation > a:first-child {
+            color: #89ba16 !important;
+            background-color: white
+        }
 
         .btn {
             border: none !important;
@@ -442,11 +445,10 @@
         .pluscount:focus {
             outline: none;
         }
-        .site-navbar {
-            
-            position: static !important; 
-        }
 
+        .site-navbar {
+            position: static !important;
+        }
     </style>
 }
 
@@ -473,7 +475,7 @@
             let usertel = document.querySelector('#usertel').value;
             let userline = document.querySelector('#userline').value;
             let memo = document.querySelector('#memo').value;
-            
+
 
             let OrderInfo = {
                 Email: useremail, Name: username, Tel: usertel, LineID: userline, Memo: memo,
@@ -499,15 +501,14 @@
                         '點擊按鈕關閉',
                         'success'
                     )
-
+                   
 
 
             }
             )
         })
 
-
-
+      
 
 
         document.querySelector('.modelBtn').addEventListener('click', function () {

@@ -4,8 +4,9 @@
 }
 
 
-<h2>您購物車中的項目</h2>
+
 <div class="container">
+    <h2>您購物車中的項目</h2>
     <div class="most__search__tab mb-3" id="myTab" role="tablist">
         <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item" role="presentation">
@@ -356,6 +357,9 @@
         .RefuseOrChoose {
             padding-bottom: 5px
         }
+        .CartListindex{
+            display:none;
+        }
     </style>
 }
 
@@ -368,6 +372,7 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    
     <script>
 
         let cart = new Vue({

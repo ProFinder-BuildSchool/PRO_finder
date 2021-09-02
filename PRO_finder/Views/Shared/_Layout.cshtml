@@ -17,6 +17,7 @@
     @RenderSection("topCSS", required: false)
     @RenderSection("topJS", required: false)
     <style>
+       
         .container-fluid.list {
             background-color: #89ba16 !important;
         }
@@ -37,11 +38,43 @@
 
         #search_form {
         }
+        .CartListindex {
+            background: radial-gradient(circle at center,#cff576,#89ba16);
+            position: fixed;
+            top: 80%;
+            bottom: 0;
+            left: 90%;
+            right: 0;
+            margin: auto;
+            z-index: 30;
+            width: 60px;
+            height: 60px;
+            font-weight: 400;
+            line-height: 1;
+            box-shadow: 3px 3px 5px rgba(0,0,0,.3);
+            transition:.3s;
+        }
+            .CartListindex a {
+                color: white;
+                position: absolute;
+                top: 30%;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+                text-decoration:none;
+                font-size:25px;
+            }
+
+        .CartListindex:hover{
+            transform:scale(1.1);
+        }
+
     </style>
 </head>
 
 <body id="top">
-    
+    <div class="CartList CartListindex rounded-circle text-center"><a href="@Url.Action("CartList","Cart")" class="px-0"><i class="fas fa-inbox"></i></a></div>
     <div id="overlayer"></div>
     <div class="loader">
         <div class="spinner-border text-primary" role="status">
@@ -68,6 +101,7 @@
         </footer>
 
     </div>
+    
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
 

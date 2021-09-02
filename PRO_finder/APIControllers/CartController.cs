@@ -23,6 +23,8 @@ namespace PRO_finder.APIControllers
         //[Route("{id}")]
         public APIResult GetCart(int id)
         {
+
+            
             var result = _cartservice.GetCart(id);
 
             try
@@ -75,7 +77,7 @@ namespace PRO_finder.APIControllers
 
         [HttpPost]
         [Authorize]
-        public APIResult AddCart(ClientCartViewModel Cart ,string memberID)
+        public APIResult AddCart(ClientCartViewModel Cart ,int memberID)
         {
 
             if (_cartservice.addCart(Cart, memberID))
