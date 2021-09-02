@@ -182,7 +182,7 @@
 
 
 <div class="row sidenav" id="Sidenav">
-    <div class=" col-12">
+    <div class=" col-12 d-flex align-content-center">
         <button class="closefilter">X</button>
     </div>
 
@@ -330,11 +330,10 @@
 
         /*---------CartModel---------------*/
         .sidenav {
-            max-width: 1200px;
-            height: 0px;
-            width: 100vw;
+            height: 0;
+            width: 100%;
             position: fixed;
-            z-index: 1000;
+            z-index: 10000;
             bottom: 0;
             left: 0;
             right: 0;
@@ -353,7 +352,6 @@
             background-color: transparent;
             justify-content: left;
             border: none;
-            margin-bottom: 5%;
             font-size: 25px;
             font-weight: bolder;
         }
@@ -441,14 +439,15 @@
         .closefilter:focus,
         .more:focus,
         .minuscount:focus,
-        .pluscount:focus{
+        .pluscount:focus {
             outline: none;
         }
     </style>
 }
 
 @section endJS{
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
     <script src="~/Assets/js/QuotationDetail.js"></script>
     <script>
         let addProduct = document.querySelector('.addProduct');
@@ -469,17 +468,37 @@
             let usertel = document.querySelector('#usertel').value;
             let userline = document.querySelector('#userline').value;
             let memo = document.querySelector('#memo').value;
+            
 
-            let OrderInfo = { Email: useremail, Name: username, Tel: usertel, LineID: userline, Memo: memo }
-            let Cart = { MemberID:@Model.MemberID , QuotationImg: "@Model.MainPicture", SubCategory: "@Model.SubcategoryName", StudioName: "@Model.NickName", Count: Number(count), Price:@Model.Price , Unit: "@Model.Unit", OrderInfo: OrderInfo }
+            let OrderInfo = {
+                Email: useremail, Name: username, Tel: usertel, LineID: userline, Memo: memo,
+                MemberID:@Model.MemberID , QuotationImg: "@Model.MainPicture", SubCategory: "@Model.QuotationTitle", StudioName: "@Model.NickName", Count: Number(count),
+                Price:@Model.Price , Unit: "@Model.Unit" }
 
 
-            console.log(JSON.stringify(Cart))
-           
 
-            axios.post('/Quotation/Detail', Cart).then(res => {
-                console.log(res)
-            })
+
+            axios.post('/api/Cart/AddCart?memberID=@ViewBag.memberID', OrderInfo)
+                .then(res => {
+                    console.log(res)
+                    if (res.data.Status == 0) {
+
+                        side.style.height = "0px"
+
+                    }
+                })
+                .then(re => {
+
+                    Swal.fire(
+                        '更新成功!',
+                        '點擊按鈕關閉',
+                        'success'
+                    )
+
+
+
+            }
+            )
         })
 
 
@@ -487,8 +506,9 @@
 
 
         document.querySelector('.modelBtn').addEventListener('click', function () {
-            let height = window.screen.availHeight - 220;
-            side.style.height = `${height}px`;
+            let height = 100
+            side.style.height = `${height}%`;
+
 
         });
         document.querySelector('.closefilter').addEventListener('click', function () {

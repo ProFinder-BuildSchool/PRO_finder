@@ -41,6 +41,14 @@ namespace PRO_finder
             //    url: "{controller}/{action}/{Memberid}",
             //    defaults: new { controller = "Quotation", action = "StudioHome" }
             //);
+
+
+
+            //routes.MapRoute(
+            //     name: "Case",
+            //     url: "Case/{cate}/{subcate}",
+            //     defaults: new { controller = "Find", action = "Find", subcate = UrlParameter.Optional }
+            // );
         }
     }
 }

@@ -14,9 +14,11 @@ using Dapper;
 using PRO_finder.Models.DBModel;
 using Microsoft.AspNet.Identity;
 using static PRO_finder.Enum.Enum;
+using PRO_finder.Models.ViewModels.APIModels.APIBase;
 
 namespace PRO_finder.Controllers
 {
+   
 
     public class QuotationController : Controller
     {
@@ -56,26 +58,33 @@ namespace PRO_finder.Controllers
             return View();
 
         }
+       
         public ActionResult Detail(int Memberid,int Quotationid)
         {
             QuotationDetailViewModel QuoDetailVM = _quotService.GetQuoDetailData(Memberid, Quotationid);
-            //ViewBag.QID = Quotationid;
+            var memberID = HttpContext.User.Identity.GetUserId();
+            ViewBag.memberID = memberID;
+            
             return View(QuoDetailVM);
         }
 
+        
+        //[HttpPost]
+        //[Authorize]
+        //public APIResult Detail(ClientCartViewModel Cart)
+        //{
 
-        [HttpPost]
-        [Authorize]
-        public ActionResult Detail(ClientCartViewModel Cart)
-        {
+        //    var memberID = HttpContext.User.Identity.GetUserId();
+      
+        //    if (_cartService.addCart(Cart, memberID))
+        //    {
 
-            var memberID = HttpContext.User.Identity.GetUserId();
+        //        return new APIResult(APIStatus.Success, string.Empty, null);
+        //    }
+            
 
-            _cartService.addCart(Cart, memberID);
-
-
-            return Content("成功");
-        }
+        //    return new APIResult(APIStatus.Fail, string.Empty, null);
+        //}
 
 
 
