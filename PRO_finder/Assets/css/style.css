@@ -1689,7 +1689,7 @@ h1, h2, h3, h4 {
 .site-navbar {
     background-color: #89ba16;
     top: 0px !important;
-    position: sticky ;
+    position: static ;
     
 }
 
