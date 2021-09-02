@@ -94,7 +94,6 @@
                 else
                 {
 
-                    //如果subcate重複，選擇第一個(firstordefault)
                     <div class="row justify-content-center mb-5" data-aos="fade-up">
                         <div id="filters" class="filters text-center button-group col-md-7">
                             <button class="btn btn-primary active" data-filter="*">All</button>
@@ -836,7 +835,6 @@
         var aboutp = document.getElementsByClassName('aboutp')[0]
         var show = document.getElementsByClassName('show')[0]
         var put = document.getElementsByClassName('put')[0]
-   /*     var hearts = document.getElementsByClassName('hearts')[0]*/
         var heartp = document.getElementsByClassName('heartp')
         let farHeart = document.querySelector('#farHeart');
         var ischange = false
@@ -890,71 +888,6 @@
                     });
             })
         }
-
-
-
-
-        //for (var i = 0; i < hearts.length; i++) {
-        //    hearts[i].
-
-                @*hearts.addEventListener("click", function () {
-
-                fetch('/api/Studio/FavorInsertorDelete', {
-                    method: 'POST',
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ MemberID: @ViewBag.UserId, SavedTalentID: @ViewBag.TalentID, SavedDate: '@DateTime.UtcNow', SaveStaffID: @ViewBag.UserId })
-                })
-
-                    .then(response => {
-
-                        //console.log(response.json());
-
-                        //response.json();
-                        //處理 response
-                        //hearts.click(function () {
-                        //    hearts.toggle('1000');
-                        //    icon = $(this).find("i");
-                        //    icon.toggleClass("icon-heart-o icon-heart")
-                        //})
-                        // document.getElementById('hearts').html( <i class="icon-heart">icon-heart</i>);
-
-                        console.log("ok");
-                        return response.json();
-                    })
-                    .then(data => {
-
-                        var favorexist = data.Result;
-                        //console.log(data);
-                        //console.log(result);
-
-                        if (favorexist) hearts.innerText = '未收藏';
-                        else hearts.innerText = '已收藏';
-
-
-                        //if (favorexist) favoricon.setAttribute("icon-heart-o", "icon-heart");
-                        //else favoricon.setAttribute("icon-heart", "icon-heart-o");
-                    });
-
-
-                //.catch(function (err) {
-                //    // Error :(
-                //})
-
-                })*@
-
-
-
-
-
-
-
-        //hearts.addEventListener("click",function changeheart(x) {
-        //    icon = hearts.find("i");
-        //    x.classList.toggle()
-        //    icon.toggleClass("icon-heart-o icon-heart")
-        //})
 
 
 
