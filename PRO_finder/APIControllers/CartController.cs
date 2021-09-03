@@ -17,10 +17,14 @@ namespace PRO_finder.APIControllers
     public class CartController : ApiController
     {
         private readonly CartService _cartservice;
+        private readonly MemberinfoService _memInfoService;
+        private readonly CartService _cartService;
 
         public CartController()
         {
             _cartservice = new CartService();
+            _memInfoService = new MemberinfoService();
+            _cartService = new CartService();
         }
         //[Route("{id}")]
         public APIResult GetCart(int id)
@@ -89,6 +93,42 @@ namespace PRO_finder.APIControllers
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             };
            
+        }
+        
+        
+        //人才報價cart api
+        //1. 接收報價資料表單
+        [HttpPost]
+        public APIResult PostQuotationInfo([FromBody] QuotationCartViewModel newQ)
+        {
+            string userID = User.Identity.GetUserId();
+            int memberID = _memInfoService.GetMemberID(userID);
+            var operationResult = _cartService.CreateQuotationCart(memberID, newQ);
+            if (operationResult.IsSuccessful)
+            {
+                return new APIResult(APIStatus.Success, string.Empty, "加入成功");
+            }
+            else
+            {
+                return new APIResult(APIStatus.Fail, operationResult.Exception.ToString(), "");
+            }
+
+        }
+        //2.提取當前QuotationDetail cart資料
+        public APIResult GetQuotationCart()
+        {
+            string result = "";
+            try
+            {
+                string userID = User.Identity.GetUserId();
+                int memberID = _memInfoService.GetMemberID(userID);
+                result = _cartService.GetAllQuotationCart(memberID);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            }
         }
 
     }
