@@ -15,7 +15,7 @@ namespace PRO_finder
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
-                name: "FindCategory",
+                name: "FindCaseCategory",
                 url: "Case/Category/{categoryName}",
                 defaults: new { controller = "FindQuotation", action = "FindCategory" }
             );
