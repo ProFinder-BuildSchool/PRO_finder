@@ -13,7 +13,12 @@ namespace PRO_finder.Models.ViewModels
         public string NickName { get; set; }
         public string ExpertSubCategory { get; set; }
         
-        public int? Identity { get; set; }
+        public enum IdentityStatus
+        {
+            個人兼職, 專職SOHO, 工作室, 兼職上班族, 公司, 學生
+        }
+        public IdentityStatus Identity { get; set; }
+
         public string Description { get; set; }
         public string LocationName { get; set; }
 
