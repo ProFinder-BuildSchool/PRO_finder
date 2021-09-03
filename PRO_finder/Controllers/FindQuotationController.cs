@@ -9,7 +9,7 @@ using System.Web.Script.Serialization;
 
 namespace PRO_finder.Controllers
 {
-    public class FindQuotationController : Controller
+    public class FindQuotationController : MyControllerBase
     {
 
         private readonly CaseService _caseService;

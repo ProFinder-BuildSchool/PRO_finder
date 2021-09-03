@@ -20,7 +20,7 @@ namespace PRO_finder.Controllers
 {
    
 
-    public class QuotationController : Controller
+    public class QuotationController : MyControllerBase
     {
         private readonly QuotationService _quotService;
         private readonly StudioService _studioService;

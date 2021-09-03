@@ -17,7 +17,7 @@ using PRO_finder.ViewModels;
 namespace PRO_finder.Controllers
 {
     [Authorize]
-    public class TalentController : Controller
+    public class TalentController : MyControllerBase
     {
         // GET: AccountCenter
         private readonly GeneralRepository _repo;

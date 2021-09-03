@@ -9,7 +9,7 @@ using System.Web.Mvc;
 namespace PRO_finder.Controllers
 {
     
-    public class CartController : Controller
+    public class CartController : MyControllerBase
     {
         private readonly CartService _cartservice;
 

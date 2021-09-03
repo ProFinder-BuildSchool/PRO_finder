@@ -501,14 +501,19 @@
                         '點擊按鈕關閉',
                         'success'
                     )
-                   
+                   axios.get(`/api/Cart/GetCart?id=@ViewBag.memberID`).then(res => {
+            let counts = res.data.Result.length
+
+            CartCount.innerHTML=counts
+
+        })
 
 
             }
             )
         })
 
-      
+
 
 
         document.querySelector('.modelBtn').addEventListener('click', function () {

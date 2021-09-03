@@ -298,6 +298,7 @@
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\FindQuotationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MyControllerBase.cs" />
     <Compile Include="Controllers\QuotationController.cs" />
     <Compile Include="Controllers\SaveCaseController.cs" />
     <Compile Include="Controllers\TalentController.cs" />
@@ -759,6 +760,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Default\" />
+    <Folder Include="Views\MyControllerBase\" />
     <Folder Include="WorkAttachments\" />
   </ItemGroup>
   <ItemGroup>
