@@ -10,12 +10,10 @@ using System.Web.Script.Serialization;
 namespace PRO_finder.Controllers
 {
     public class FindQuotationController : MyControllerBase
-    {
-
+    
     {
         private readonly CategoryService _categoryService;
         private readonly CaseService _caseService;
-        private readonly CategoryService _categoryService;
 
         public FindQuotationController()
         {
