@@ -22,18 +22,31 @@ namespace PRO_finder.Service
 
         public int GetMemberID(string userID)
         {
-            var memberId = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == userID).MemberID;
+           
 
-            return memberId;
+            try 
+            {
+                if (userID == null) { return -1; }
+
+                var memberId = _repo.GetAll<MemberInfo>().First(x => x.UserId == userID).MemberID;
+
+                return memberId;
+
+            }
+
+            catch (Exception)
+            {
+                return -1;
+            }
+
+            
         }
         public bool DelCart(int Id, int cartId)
         {
             var CartDBList = _repo.GetAll<ClientCart>().FirstOrDefault(x => (int)x.MemberID == Id  && x.CartID == cartId);
-
             _repo.Delete<ClientCart>(CartDBList);
             _repo.SaveChanges();
             return true;
-
         }
 
 
@@ -74,21 +87,18 @@ namespace PRO_finder.Service
         public bool UpDateCart(int Id ,UpDateCartViewModel VM)
         {
 
-            
-            var CartDBList = _repo.GetAll<ClientCart>().Where(x => (int)x.MemberID == Id).FirstOrDefault(y => y.CartID == VM.CartID);
-
-            CartDBList.Email = VM.Email;
-            CartDBList.Count = VM.Count;
-            CartDBList.Name = VM.Name;
-            CartDBList.LineID = VM.LineID;
-            CartDBList.Memo = VM.Memo;
-            CartDBList.Tel = VM.Tel;
-
-
-            _repo.Update<ClientCart>(CartDBList);
-            _repo.SaveChanges();
-
-            return true;
+  
+                var CartDBList = _repo.GetAll<ClientCart>().Where(x => (int)x.MemberID == Id).First(y => y.CartID == VM.CartID);
+                CartDBList.Email = VM.Email;
+                CartDBList.Count = VM.Count;
+                CartDBList.Name = VM.Name;
+                CartDBList.LineID = VM.LineID;
+                CartDBList.Memo = VM.Memo;
+                CartDBList.Tel = VM.Tel;
+                _repo.Update<ClientCart>(CartDBList);
+                _repo.SaveChanges();
+                return true;
+  
         }
 
 
@@ -101,8 +111,7 @@ namespace PRO_finder.Service
 
         public bool addCart(ClientCartViewModel Cart, int memberId)
         {
-            var member = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == memberId);
-            if (member == null) return false;
+            var member = _repo.GetAll<MemberInfo>().First(x => x.MemberID == memberId);
             var clientCart = new ClientCart()
             {
                 MemberID = member.MemberID,

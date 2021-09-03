@@ -58,7 +58,7 @@ namespace PRO_finder.Controllers
             return View();
 
         }
-       
+       [Authorize]
         public ActionResult Detail(int Memberid,int Quotationid)
         {
 

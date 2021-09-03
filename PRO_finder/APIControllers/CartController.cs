@@ -23,19 +23,9 @@ namespace PRO_finder.APIControllers
         //[Route("{id}")]
         public APIResult GetCart(int id)
         {
-
-            
-            var result = _cartservice.GetCart(id);
-
-            try
-            {
+                var result = _cartservice.GetCart(id);
                 return new APIResult(APIStatus.Success, string.Empty, result);
 
-            }
-            catch (Exception ex)
-            {
-                return new APIResult(APIStatus.Fail, ex.Message, result);
-            };
 
         }
 
@@ -43,15 +33,16 @@ namespace PRO_finder.APIControllers
         [HttpPut]
         public APIResult UpDateCart(int id , UpDateCartViewModel updateVM)
         {
-            var result = _cartservice.UpDateCart(id, updateVM);
-
+            bool result;
             try
             {
+                result = _cartservice.UpDateCart(id, updateVM);
                 return new APIResult(APIStatus.Success, string.Empty, result);
 
             }
             catch (Exception ex)
             {
+                result = false;
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             };
 
@@ -61,14 +52,16 @@ namespace PRO_finder.APIControllers
         [HttpDelete]
         public APIResult DelCart(int id, int CartID)
         {
-            var result = _cartservice.DelCart(id, CartID);
+            bool result;
             try
             {
+                result = _cartservice.DelCart(id, CartID);
                 return new APIResult(APIStatus.Success, string.Empty, result);
 
             }
             catch (Exception ex)
             {
+                result = false;
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             };
 
@@ -80,14 +73,20 @@ namespace PRO_finder.APIControllers
         public APIResult AddCart(ClientCartViewModel Cart ,int memberID)
         {
 
-            if (_cartservice.addCart(Cart, memberID))
+
+            bool result ;
+            try
             {
+                result = _cartservice.addCart(Cart, memberID);
+                return new APIResult(APIStatus.Success, string.Empty, result);
 
-                return new APIResult(APIStatus.Success, string.Empty, null);
             }
-
-
-            return new APIResult(APIStatus.Fail, string.Empty, null);
+            catch (Exception ex)
+            {
+                result = false;
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            };
+           
         }
 
     }

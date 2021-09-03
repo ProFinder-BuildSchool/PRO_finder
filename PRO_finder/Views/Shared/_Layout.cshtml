@@ -127,14 +127,26 @@
 
         let CartCount = document.querySelector('.CartCount')
 
-        
-            axios.get(`/api/Cart/GetCart?id=@userId`).then(res => {
-            let counts = res.data.Result.length
 
-            CartCount.innerHTML=counts
+
+        if (@userId== -1) {
+            CartCount.classList.add('d-none');
+        }
+        else {
+          axios.get(`/api/Cart/GetCart?id=@userId`).then(res => {
+            let counts = res.data.Result.length
+              if (counts == 0) {
+                  CartCount.classList.add('d-none');
+              }
+              else {
+                  CartCount.innerHTML = counts
+              }
+           
 
         })
-            
+
+}
+
 
 
 
