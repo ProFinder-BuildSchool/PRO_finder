@@ -68,8 +68,6 @@ namespace PRO_finder.APIControllers
             };
 
         }
-        //2.提取當前QuotationDetail cart資料
-        public APIResult GetQuotationCart()
 
 
         [HttpPost]
