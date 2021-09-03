@@ -42,7 +42,7 @@ namespace PRO_finder.APIControllers
             try
             {
                 _memberInfoService.GetJsonSubTool();
-                result = "加入成功";
+                result = "提取成功";
                 return new APIResult(APIStatus.Success, string.Empty, result);
             }
             catch (Exception ex)
@@ -56,7 +56,7 @@ namespace PRO_finder.APIControllers
             string result = "";
             try
             {
-                _quotationService.ChangeQStatus();
+                _quotationService.ChangeQStatus(newStatus.QuotationId, newStatus.Status);
                 result = "加入成功";
                 return new APIResult(APIStatus.Success, string.Empty, result);
             }

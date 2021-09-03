@@ -366,8 +366,12 @@ namespace PRO_finder.Service
             return locationlist;
         }
 
-        public string ChangeQStatus()
+        public string ChangeQStatus(int quotationID, bool status)
         {
+            var theQuotation = _ctx.GetAll<Quotation>().FirstOrDefault(x => x.QuotationID == quotationID);
+            theQuotation.Status = status;
+            _ctx.Update(theQuotation);
+            _ctx.SaveChanges();
             return "";
         }
     }
