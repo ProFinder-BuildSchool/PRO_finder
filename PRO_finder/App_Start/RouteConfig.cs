@@ -25,23 +25,6 @@ namespace PRO_finder
                 defaults: new { controller = "FindQuotation", action = "CaseSearch" }
             );
 
-
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}",
-                defaults: new { controller = "Home", action = "Index" }
-            );
-
-            routes.MapRoute(
-                name: "CaseSearch",
-                url: "Case/Search/{id}/{searchStr}",
-                defaults: new { controller = "FindQuotation", action = "Index", id = UrlParameter.Optional, searchStr = UrlParameter.Optional }
-                );
-
-              name: "SearchCase",
-              url: "Case/Search/{content}",
-              defaults: new { controller = "FindQuotation", action = "CaseSearch" }
-          );
             routes.MapRoute(
             name: "FindQuotationCategory",
             url: "Quotation/Category/{categoryName}",
@@ -53,7 +36,17 @@ namespace PRO_finder
                defaults: new { controller = "Quotation", action = "SearchQuotation" }
            );
 
+            routes.MapRoute(
+                          name: "Default",
+                          url: "{controller}/{action}",
+                          defaults: new { controller = "Home", action = "Index" }
+                      );
 
+            routes.MapRoute(
+                name: "CaseSearch",
+                url: "Case/Search/{id}/{searchStr}",
+                defaults: new { controller = "FindQuotation", action = "Index", id = UrlParameter.Optional, searchStr = UrlParameter.Optional }
+                );
 
 
             routes.MapRoute(
