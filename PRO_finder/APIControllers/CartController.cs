@@ -16,17 +16,90 @@ namespace PRO_finder.APIControllers
 {
     public class CartController : ApiController
     {
+        private readonly CartService _cartservice;
         private readonly MemberinfoService _memInfoService;
         private readonly CartService _cartService;
+
         public CartController()
         {
+            _cartservice = new CartService();
             _memInfoService = new MemberinfoService();
             _cartService = new CartService();
         }
+        //[Route("{id}")]
+        public APIResult GetCart(int id)
+        {
+                var result = _cartservice.GetCart(id);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+
+
+        }
+
+
+        [HttpPut]
+        public APIResult UpDateCart(int id , UpDateCartViewModel updateVM)
+        {
+            bool result;
+            try
+            {
+                result = _cartservice.UpDateCart(id, updateVM);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            };
+
+        }
+
+
+        [HttpDelete]
+        public APIResult DelCart(int id, int CartID)
+        {
+            bool result;
+            try
+            {
+                result = _cartservice.DelCart(id, CartID);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            };
+
+        }
+
+
+        [HttpPost]
+        [Authorize]
+        public APIResult AddCart(ClientCartViewModel Cart ,int memberID)
+        {
+
+
+            bool result ;
+            try
+            {
+                result = _cartservice.addCart(Cart, memberID);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            };
+           
+        }
+        
+        
         //人才報價cart api
         //1. 接收報價資料表單
         [HttpPost]
-        public APIResult PostQuotationInfo([FromBody]QuotationCartViewModel newQ)
+        public APIResult PostQuotationInfo([FromBody] QuotationCartViewModel newQ)
         {
             string userID = User.Identity.GetUserId();
             int memberID = _memInfoService.GetMemberID(userID);
@@ -39,8 +112,9 @@ namespace PRO_finder.APIControllers
             {
                 return new APIResult(APIStatus.Fail, operationResult.Exception.ToString(), "");
             }
-            
+
         }
+        //2.提取當前QuotationDetail cart資料
         public APIResult GetQuotationCart()
         {
             string result = "";
@@ -51,7 +125,7 @@ namespace PRO_finder.APIControllers
                 result = _cartService.GetAllQuotationCart(memberID);
                 return new APIResult(APIStatus.Success, string.Empty, result);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             }

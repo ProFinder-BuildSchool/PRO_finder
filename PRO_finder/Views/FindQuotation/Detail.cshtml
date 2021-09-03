@@ -2,213 +2,220 @@
 @{
     ViewBag.Title = "Detail";
 }
+<!DOCTYPE html>
 
-<section class="site-section">
-    <div class="container ">
-        <div class="row align-items-center mb-5">
-            <div class="col-lg-8 mb-4 mb-lg-0">
-                <div class="d-flex align-items-center ">
+<html >
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <section class="site-section">
+        <div class="container ">
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-8 mb-4 mb-lg-0">
+                    <div class="d-flex align-items-center ">
 
-                    <div>
-                        <h2>@Model.title</h2>
                         <div>
-                            <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>案件編號 : </span><span>@Model.CaseId</span>
-                            <span class="m-2"><span class="icon-room mr-2"></span>@Model.LocationName</span>
-                            <span class="m-2"><span class="icon-clock-o mr-2"></span><span class="text-danger">@Model.Type</span></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="row">
-                    <div class="col-6">
-                        <button id="btnSaveCase" href="#" class="btn btn-block btn-light btn-md border">
-                            <span id="farHeart" class="far fa-heart mr-2 text-danger"></span>收藏
-                        </button>
-                    </div>
-                    <div class="col-6">
-                        <a href="#" class="btn btn-block btn-light btn-md border">
-                            <span class="fas fa-info-circle text-secondary mr-2"></span>檢舉
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row ">
-            <div class="col-lg-8">
-                <div class="mb-4 row pl-3">
-                    <h3 class="h5 d-flex align-items-center mb-1 mr-3 text-primary">
-                        <span class="fas fa-caret-right mr-2"></span>預算金額
-                    </h3>
-                    <span class="text-black">@Model.Price</span>
-                </div>
-
-                <div class="mb-4 row pl-3">
-                    <h3 class="h5 d-flex align-items-center mb-1 mr-3 text-primary">
-                        <span class="fas fa-caret-right mr-2"></span>執行地點
-                    </h3><span class="text-black">@Model.LocationName</span>
-                </div>
-
-                <div class="mb-4 row pl-3">
-                    <h3 class="h5 d-flex align-items-center mb-1 mr-3 text-primary">
-                        <span class="fas fa-caret-right mr-2"></span>預計完成日
-                    </h3>
-                    <span class="text-black">@Model.CompleteDate</span>
-                </div>
-
-                <div class="mb-5 ">
-
-                    <h3 class="h5 d-flex align-items-center mb-4 text-primary">
-                        <span class="fas fa-caret-right mr-2"></span>案件說明
-                    </h3>
-                    <p class="text-black">
-                        @*一.案件說明：<br>
-                            1.飾品配件拋光<br>
-                            2.拋光材質為鋁<br>
-                            3.可先試做、報價<br>
-                            二.注意事項：具備相關能力或實務經驗，能獨立作業。*@
-                        @Model.Description
-                    </p>
-
-                </div>
-
-                <div id="IWantThisCase" class="row mb-5 justify-content-center">
-                    <div class="col-12">
-                        <p class="bg-light p-3 text-black">
-                            ※提醒：<br>1.聯繫時請務必先說明您是Tasker出任務會員，謝謝。<br>
-                            2.接案如需赴約請注意安全，若遇行為不軌，請立即離開，並向執法單位備案。
-                        </p>
-                    </div>
-                    <div class="col-4">
-                        <a href="#" class="btn btn-block btn-primary btn-md mt-2 ">我要報價</a>
-
-                    </div>
-                </div>
-
-                <div class="othercaseMore">
-                    <div class="mb-4">
-                        <p class="h4 text-black">您可能感興趣的案件</p>
-                    </div>
-                    <div id="item_zone" class="list row mb-3 "></div>
-                    <template id="templateCard">
-                        <div class="col-4 d-md-block mb-4 ">
-                            <div class="border rounded  pl-2 pr-2 p-1">
-                                <a class="case-a">
-                                    <div class="d-flex justify-content-between  mb-2">
-                                        <span class="case-price   text-danger"></span>
-                                        <span class="case-location "></span>
-                                    </div>
-                                    <span class="case-title"></span>
-                                </a>
+                            <h2>@Model.title</h2>
+                            <div>
+                                <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>案件編號 : </span><span>@Model.CaseId</span>
+                                <span class="m-2"><span class="icon-room mr-2"></span>@Model.LocationName</span>
+                                <span class="m-2"><span class="icon-clock-o mr-2"></span><span class="text-danger">@Model.Type</span></span>
                             </div>
                         </div>
-                    </template>
-
-                    <div id="othercaseMore" class="row  justify-content-center">
-                        <a href="@Url.Action("Index",new { id=Model.CategoryID})" class="border rounded ">看更多</a>
                     </div>
                 </div>
-                <div class="mt-4 mb-3">
-                    <p class=" h4 text-black">報價會員</p>
-                    <!-- 缺小頭貼 -->
-                    <p class=" text-black">2人參與報價</p>
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-6">
+                            <button id="btnSaveCase" href="#" class="btn btn-block btn-light btn-md border">
+                                <span id="farHeart" class="far fa-heart mr-2 text-danger"></span>收藏
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <a href="#" class="btn btn-block btn-light btn-md border">
+                                <span class="fas fa-info-circle text-secondary mr-2"></span>檢舉
+                            </a>
+                        </div>
+                    </div>
                 </div>
-
-
-
-
-
             </div>
-            <div class="col-lg-4">
-                <div class=" p-3 border rounded mb-4">
-                    <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">案主資訊</h3>
-                    <ul class="list-unstyled pl-3 mb-0">
-                        <li class="mb-2 text-black">
-                            <strong class="text-black">
-                                <span class="far fa-user-circle mr-2"></span>稱呼
-                                :
-                            </strong> @Model.Contact
-                        </li>
-                        <li class="mb-2 text-black">
-                            <strong class="text-black">
-                                <span class="far fa-calendar-check mr-2"></span>聯絡時段 :
-                            </strong> @Model.ContactTime
-                        </li>
-                        <li class="mb-2 text-info">
-                            <strong class="text-black">
-                                <span class="fas fa-mobile-alt mr-2"></span>手機
-                                :
-                            </strong> @Model.LocalCallsCode
-                        </li>
-                        <li class="mb-2 text-info">
-                            <strong class="text-black">
-                                <span class="fas fa-phone mr-2"></span>市話
-                                :
-                            </strong> @Model.LocalCalls
-                        </li>
-                        <li class="mb-2 text-info">
-                            <strong class="text-black">
-                                <span class="fas fa-envelope mr-2"></span>E-mail
-                                :
-                            </strong>@Model.ContactEmail
-                        </li>
-                        <li class="mb-2 text-info">
-                            <strong class="text-black">
-                                <span class="far fa-star mr-2"></span>Line ID
-                                :
-                            </strong> @Model.LineID
-                        </li>
-                    </ul>
-
-                    <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">案主積極度</h3>
-                    <ul class="list-unstyled pl-3 mb-0">
-                        <li class="mb-2 text-black">
-                            <span class="far fa-star mr-2"></span><span class="far fa-star mr-2"></span><span class="far fa-star mr-2"></span><span class="far fa-star mr-2"></span><span class="far fa-star mr-2"></span><strong class="text-black">
-                                高
-                            </strong>
-                        </li>
-                        <li class="mb-2 text-black">
-                            <strong class="text-black">
-                                已讀取報價
-                                :
-                            </strong> 73封(97%)
-                        </li>
-                        <li class="mb-2 text-black">
-                            <strong class="text-black">已回覆問答 :</strong> 0封(0%)
-                        </li>
-                        <li class="mb-2 text-black">
-                            <strong class="text-black">
-                                已邀請報價
-                                :
-                            </strong> 1人
-                        </li>
-                        <li class="mb-2 text-black">
-                            <strong class="text-black">
-                                最後上線時間
-                                :
-                            </strong> 6天前
-                        </li>
-
-                    </ul>
-                </div>
-
-                <div class=" p-3 border rounded">
-                    <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">分享</h3>
-                    <div class="px-3">
-                        <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-facebook"></span></a>
-                        <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-twitter"></span></a>
-                        <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-instagram"></span></a>
+            <div class="row ">
+                <div class="col-lg-8">
+                    <div class="mb-4 row pl-3">
+                        <h3 class="h5 d-flex align-items-center mb-1 mr-3 text-primary">
+                            <span class="fas fa-caret-right mr-2"></span>預算金額
+                        </h3>
+                        <span class="text-black">@Model.Price</span>
                     </div>
+
+                    <div class="mb-4 row pl-3">
+                        <h3 class="h5 d-flex align-items-center mb-1 mr-3 text-primary">
+                            <span class="fas fa-caret-right mr-2"></span>執行地點
+                        </h3><span class="text-black">@Model.LocationName</span>
+                    </div>
+
+                    <div class="mb-4 row pl-3">
+                        <h3 class="h5 d-flex align-items-center mb-1 mr-3 text-primary">
+                            <span class="fas fa-caret-right mr-2"></span>預計完成日
+                        </h3>
+                        <span class="text-black">@Model.CompleteDate</span>
+                    </div>
+
+                    <div class="mb-5 ">
+
+                        <h3 class="h5 d-flex align-items-center mb-4 text-primary">
+                            <span class="fas fa-caret-right mr-2"></span>案件說明
+                        </h3>
+                        <p class="text-black">
+                            @*一.案件說明：<br>
+                                1.飾品配件拋光<br>
+                                2.拋光材質為鋁<br>
+                                3.可先試做、報價<br>
+                                二.注意事項：具備相關能力或實務經驗，能獨立作業。*@
+                            @Model.Description
+                        </p>
+
+                    </div>
+
+                    <div id="IWantThisCase" class="row mb-5 justify-content-center">
+                        <div class="col-12">
+                            <p class="bg-light p-3 text-black">
+                                ※提醒：<br>1.聯繫時請務必先說明您是Tasker出任務會員，謝謝。<br>
+                                2.接案如需赴約請注意安全，若遇行為不軌，請立即離開，並向執法單位備案。
+                            </p>
+                        </div>
+                        <div class="col-4">
+                            <a href="#" class="btn btn-block btn-primary btn-md mt-2 ">我要報價</a>
+                        </div>
+                    </div>
+
+                    <div class="othercaseMore">
+                        <div class="mb-4">
+                            <p class="h4 text-black">您可能感興趣的案件</p>
+                        </div>
+                        <div id="item_zone" class="list row mb-3 "></div>
+                        <template id="templateCard">
+                            <div class="col-4 d-md-block mb-4 ">
+                                <div class="border rounded  pl-2 pr-2 p-1">
+                                    <a class="case-a">
+                                        <div class="d-flex justify-content-between  mb-2">
+                                            <span class="case-price   text-danger"></span>
+                                            <span class="case-location "></span>
+                                        </div>
+                                        <span class="case-title"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </template>
+
+                        <div id="othercaseMore" class="row  justify-content-center">
+                            <a href="@Url.Action("Index",new { id=Model.CategoryID})" class="border rounded ">看更多</a>
+                        </div>
+                    </div>
+                    <div class="mt-4 mb-3">
+                        <p class=" h4 text-black">報價會員</p>
+                        <!-- 缺小頭貼 -->
+                        <p class=" text-black">2人參與報價</p>
+                    </div>
+
+
+
+
+
+                </div>
+                <div class="col-lg-4">
+                    <div class=" p-3 border rounded mb-4">
+                        <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">案主資訊</h3>
+                        <ul class="list-unstyled pl-3 mb-0">
+                            <li class="mb-2 text-black">
+                                <strong class="text-black">
+                                    <span class="far fa-user-circle mr-2"></span>稱呼
+                                    :
+                                </strong> @Model.Contact
+                            </li>
+                            <li class="mb-2 text-black">
+                                <strong class="text-black">
+                                    <span class="far fa-calendar-check mr-2"></span>聯絡時段 :
+                                </strong> @Model.ContactTime
+                            </li>
+                            <li class="mb-2 text-info">
+                                <strong class="text-black">
+                                    <span class="fas fa-mobile-alt mr-2"></span>手機
+                                    :
+                                </strong> @Model.LocalCallsCode
+                            </li>
+                            <li class="mb-2 text-info">
+                                <strong class="text-black">
+                                    <span class="fas fa-phone mr-2"></span>市話
+                                    :
+                                </strong> @Model.LocalCalls
+                            </li>
+                            <li class="mb-2 text-info">
+                                <strong class="text-black">
+                                    <span class="fas fa-envelope mr-2"></span>E-mail
+                                    :
+                                </strong>@Model.ContactEmail
+                            </li>
+                            <li class="mb-2 text-info">
+                                <strong class="text-black">
+                                    <span class="far fa-star mr-2"></span>Line ID
+                                    :
+                                </strong> @Model.LineID
+                            </li>
+                        </ul>
+
+                        <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">案主積極度</h3>
+                        <ul class="list-unstyled pl-3 mb-0">
+                            <li class="mb-2 text-black">
+                                <span class="far fa-star mr-2"></span><span class="far fa-star mr-2"></span><span class="far fa-star mr-2"></span><span class="far fa-star mr-2"></span><span class="far fa-star mr-2"></span><strong class="text-black">
+                                    高
+                                </strong>
+                            </li>
+                            <li class="mb-2 text-black">
+                                <strong class="text-black">
+                                    已讀取報價
+                                    :
+                                </strong> 73封(97%)
+                            </li>
+                            <li class="mb-2 text-black">
+                                <strong class="text-black">已回覆問答 :</strong> 0封(0%)
+                            </li>
+                            <li class="mb-2 text-black">
+                                <strong class="text-black">
+                                    已邀請報價
+                                    :
+                                </strong> 1人
+                            </li>
+                            <li class="mb-2 text-black">
+                                <strong class="text-black">
+                                    最後上線時間
+                                    :
+                                </strong> 6天前
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div class=" p-3 border rounded">
+                        <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">分享</h3>
+                        <div class="px-3">
+                            <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-facebook"></span></a>
+                            <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-twitter"></span></a>
+                            <a href="#" class="pt-3 pb-3 pr-3 pl-0"><span class="icon-instagram"></span></a>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
 
         </div>
 
-    </div>
-
-</section>
-
+    </section>
+</body>
+</html>
 
 <section class="pb-lg-5">
 </section>
@@ -321,18 +328,38 @@
 
         let btnSaveCase = document.querySelector('#btnSaveCase');
         let caseid = @Html.Raw(Json.Encode(Model.CaseId));
+        let farHeart = document.querySelector('#farHeart');
+
+        let clickCount = 0;
 
         btnSaveCase.addEventListener('click', function () {
-            axios.post('/SaveCase/AddToSaveCase', { caseid: caseid }).then(res => console.log(res));
+            if (clickCount > 1) { clickCount = 0; }
 
-            let farHeart = document.querySelector('#farHeart');
-            farHeart.classList.remove("far");
-            farHeart.classList.add("fas");
-            btnSaveCase.disabled = true;
-            alert('已收藏此案件 ! ')
+            if (clickCount == 0) {
+                axios.post('/SaveCase/AddOrDeleSaveCase', { caseid: caseid }).then(res => console.log(res));
+                //localStorage.setItem("saved", caseid);
+                //if (localStorage.getItem("saved") ) {
+                    farHeart.classList.remove("far");
+                    farHeart.classList.add("fas");
+                    alert('已收藏此案件 ! ')
+                //}
+            }
+            if (clickCount == 1) {
+                axios.post('/SaveCase/AddOrDeleSaveCase', { caseid: caseid }).then(res => console.log(res));
+                //localStorage.setItem("Notsaved", "Notsaved");
+                //if (localStorage.getItem("Notsaved")){
+                    farHeart.classList.add("far");
+                    farHeart.classList.remove("fas");
+                    alert('已取消此收藏 ')
+                //}
+            }
+            clickCount++;
+
         })
+
+        
 
     </script>
 
 
-} 
+}

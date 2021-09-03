@@ -21,11 +21,28 @@
                             <li class="list-group-item">類別：<a href="/Quotation/Index?CategoryId=@item.CategoryId">@item.SubcategoryName</a></li>
                             <li class="list-group-item">服務定價：@item.Price 元&ensp;/ @item.Unit</li>
                             <li class="list-group-item">更新日期：@item.UpdateDate</li>
-                            <li class="list-group-item" class="d-flex"><p>服務狀態：</p>
-                                <select class="form-control service-status">
-                                    <option class="status-open">開啓</option>
-                                    <option class="status-close">關閉</option>
-                                </select>
+                            <li class="list-group-item" class="d-flex  service-status">
+                                <div class="container">
+                                    <div class="row">
+                                        @if (item.Status == true)
+                                        {
+                                            <div class="col-md-12 col-lg-6 control-label service-status-label">服務狀態：</div>
+                                            <select class="form-control col-md-12 col-lg-6 service-status-selector selector-open" data-content="@item.QuotationId">
+                                                <option class="status-open selector-open" value="true" selected>開啓</option>
+                                                <option class="status-close selector-close" value="false">關閉</option>
+                                            </select>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-md-12 col-lg-6 control-label service-status-label">服務狀態：</div>
+                                            <select class="form-control col-md-12 col-lg-6 service-status-selector selector-close" data-content="@item.QuotationId">
+                                                <option class="status-open selector-open" value=true>開啓</option>
+                                                <option class="status-close selector-close" value=false selected>關閉</option>
+                                            </select>
+                                        }
+
+                                    </div>
+                                </div>
                             </li>
                         </ul>
                         <div class="card-body text-right">
@@ -58,8 +75,8 @@
             box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
             padding: 25px;
         }
-        .service-status{
-            width:30%
+        .service-status-label{
+            line-height:40px;
         }
         .status-open {
             color: #89ba16;
@@ -67,12 +84,56 @@
         .status-close{
             color:#DC3545;
         }
+        .selector-open {
+            color: #89ba16;
+        }
+        .selector-close {
+            color: #DC3545;
+        }
     </style>
 }
 @section endJS
     {
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script>
+            let service_selector = document.querySelectorAll(".service-status-selector");
+            service_selector.forEach(ss => {
+                ss.addEventListener("change", function () {
+                    console.log("in event");
+                    if (this.value == "true") {
+                        try {
+                            this.classList.remove("selector-close");
+                            this.classList.add("selector-open");
+                        }
+                        catch {
+                            this.classList.add("selector-open");
+                        } finally {
+                            postNewStatus(Number(this.getAttribute("data-content")), true);
+                        }
+                        
+                    } else if(this.value == "false"){
+                        try {
+                            this.classList.remove("selector-open");
+                            this.classList.add("selector-close");
+                        }
+                        catch {
+                            this.classList.add("selector-close");
+                        }
+                        finally {
+                            postNewStatus(Number(this.getAttribute("data-content")), false);
+                        }
+                    }
+                });
+            })
 
+            function postNewStatus(id, TF) {
+                let obj = new Object();
+                obj['QuotationId'] = id;
+                obj['Status'] = TF;
+                axios({ method: "post", url:"/api/Talent/ChangeQuotationStatus", headers: { "Content-Type": "application/json" }, data: JSON.stringify(obj) })
+                    .then(res => { console.log(res) })
+            }
+            
         </script>
     }
 

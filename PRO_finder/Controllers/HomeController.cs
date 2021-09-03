@@ -12,7 +12,7 @@ using PRO_finder.Service;
 
 namespace PRO_finder.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : MyControllerBase
     {
 
         private readonly ProFinderContext _ctx;
