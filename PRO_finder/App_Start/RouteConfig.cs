@@ -38,6 +38,24 @@ namespace PRO_finder
                 defaults: new { controller = "FindQuotation", action = "Index", id = UrlParameter.Optional, searchStr = UrlParameter.Optional }
                 );
 
+              name: "SearchCase",
+              url: "Case/Search/{content}",
+              defaults: new { controller = "FindQuotation", action = "CaseSearch" }
+          );
+            routes.MapRoute(
+            name: "FindQuotationCategory",
+            url: "Quotation/Category/{categoryName}",
+            defaults: new { controller = "Quotation", action = "FindQuotationCategory" }
+        );
+            routes.MapRoute(
+               name: "SearchQuotation",
+               url: "Quotation/Search/{content}",
+               defaults: new { controller = "Quotation", action = "SearchQuotation" }
+           );
+
+
+
+
             routes.MapRoute(
                 name: "Detail",
                 url: "Quotation/Detail/{Memberid}/{Quotationid}",

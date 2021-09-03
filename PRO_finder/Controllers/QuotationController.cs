@@ -26,11 +26,13 @@ namespace PRO_finder.Controllers
         private readonly StudioService _studioService;
         private readonly CartService _cartService;
         private readonly GeneralRepository _repo;
+        private readonly CategoryService _categoryService;
         public QuotationController()
         {
             _quotService = new QuotationService();
             _studioService = new StudioService();
             _cartService = new CartService();
+            _categoryService= new CategoryService();
             _repo = new GeneralRepository(new ProFinderContext());
         }
         // GET: Quotation
@@ -135,6 +137,60 @@ namespace PRO_finder.Controllers
         //    return Json(allCardData, JsonRequestBehavior.AllowGet);
         //}
 
-        
+        //static string connString = ConfigurationManager.ConnectionStrings["ProFinderContext"].ConnectionString;
+        //public ActionResult FavorInsertorDelete(int MemberID, int TalentID, DateTime time, int StaffID, bool AddorRemove)
+        //{
+        //    int affectedRow = 0; //
+
+        //    using (SqlConnection conn = new SqlConnection(connString))
+        //    {
+        //        if (AddorRemove)
+        //        {
+        //            string sql = "Insert into SaveStaff(MemberID, SavedTalentID, SavedDate, SaveStaffID)values( @MemberID, @TalentID, @time, @StaffID)";
+        //            affectedRow = conn.Execute(sql, new { MemberID, TalentID, time, StaffID });
+        //        }
+        //        else
+        //        {
+        //            string sql = "DELETE FROM SaveStaff WHERE MemberID = @MemberID and SavedTalentID = @SavedTalentID and SaveStaffID=@SaveStaffID";
+        //            affectedRow = conn.Execute(sql, new { MemberID = MemberID, SavedTalentID = TalentID, SaveStaffID = StaffID });
+
+        //            //remove from DB
+        //        }
+        //    }
+        //    return  RedirectToAction("StudioHome"); //new EmptyResult();
+        //}
+
+
+        public ActionResult FindQuotationCategory(string categoryName)
+        {
+            int categoryID = _categoryService.GetCategoryID(categoryName);
+            if(categoryID != -1)
+            {
+                ViewBag.pageData = _quotService.GetCategoryPageData(categoryID);
+                ViewBag.cateNameList = _quotService.GetsubcatrgotyName(categoryID);
+
+            }
+            else
+            {
+                ViewBag.pageData = _quotService.GetCategoryPageData(0);
+                ViewBag.cateNameList = _quotService.GetsubcatrgotyName(0);
+            }
+     
+
+
+            ViewBag.LocationList = _quotService.GetLocationName();
+            return View("Index");
+        }
+
+       public ActionResult SearchQuotation(string content)
+        {
+
+            ViewBag.pageData = _quotService.GetKeyWordCardData(content);
+            ViewBag.cateNameList = _quotService.GetsubcatrgotyName(0);
+            ViewBag.LocationList = _quotService.GetLocationName();
+
+            return View("Index");
+        }
+
     }
 }
