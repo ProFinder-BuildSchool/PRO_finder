@@ -14,22 +14,26 @@ using Dapper;
 using PRO_finder.Models.DBModel;
 using Microsoft.AspNet.Identity;
 using static PRO_finder.Enum.Enum;
+using PRO_finder.Models.ViewModels.APIModels.APIBase;
 
 namespace PRO_finder.Controllers
 {
+   
 
-    public class QuotationController : Controller
+    public class QuotationController : MyControllerBase
     {
         private readonly QuotationService _quotService;
         private readonly StudioService _studioService;
         private readonly CartService _cartService;
+        private readonly GeneralRepository _repo;
         private readonly CategoryService _categoryService;
         public QuotationController()
         {
             _quotService = new QuotationService();
             _studioService = new StudioService();
             _cartService = new CartService();
-            _categoryService = new CategoryService();
+            _categoryService= new CategoryService();
+            _repo = new GeneralRepository(new ProFinderContext());
         }
         // GET: Quotation
         public ActionResult Index(int? CategoryId, string keyword,string[] filter)
@@ -58,34 +62,47 @@ namespace PRO_finder.Controllers
             return View();
 
         }
+       [Authorize]
         public ActionResult Detail(int Memberid,int Quotationid)
         {
 
+            
+           
+         
             QuotationDetailViewModel QuoDetailVM = _quotService.GetQuoDetailData(Memberid, Quotationid);
-            //ViewBag.QID = Quotationid;
+            var memberID = HttpContext.User.Identity.GetUserId();
+            int MemberID = _cartService.GetMemberID(memberID);
+            ViewBag.memberID = MemberID;
+            
             return View(QuoDetailVM);
         }
 
+        
+        //[HttpPost]
+        //[Authorize]
+        //public APIResult Detail(ClientCartViewModel Cart)
+        //{
 
-        [HttpPost]
-        [Authorize]
-        public ActionResult Detail(ClientCartViewModel Cart)
+        //    var memberID = HttpContext.User.Identity.GetUserId();
+      
+        //    if (_cartService.addCart(Cart, memberID))
+        //    {
+
+        //        return new APIResult(APIStatus.Success, string.Empty, null);
+        //    }
+            
+
+        //    return new APIResult(APIStatus.Fail, string.Empty, null);
+        //}
+
+
+
+
+        public ActionResult StudioHome(int TalentID=1)//, int MemberID= 1)
         {
-
-            var memberID = HttpContext.User.Identity.GetUserId();
-
-            _cartService.addCart(Cart, memberID);
-
-
-            return Content("成功");
-        }
-
-
-
-
-        public ActionResult StudioHome(int TalentID=20)//, int MemberID= 1)
-        {
-            int currentUserId=7;
+            //int currentUserId=7;
+            var UserId = HttpContext.User.Identity.GetUserId();
+            int currentUserId = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == UserId).MemberID;
             //var result = int.TryParse(System.Web.HttpContext.Current.User.Identity.GetUserId(),out currentUserId);
             StudioDetailViewModel StudioDetailVM = _studioService.GetStudioDetailData (TalentID);
             //IEnumerable<SaveStaffViewModel> favorlist = _studioService.GetFavorite(currentUserId, TalentID);
@@ -143,6 +160,7 @@ namespace PRO_finder.Controllers
         //    return  RedirectToAction("StudioHome"); //new EmptyResult();
         //}
 
+
         public ActionResult FindQuotationCategory(string categoryName)
         {
             int categoryID = _categoryService.GetCategoryID(categoryName);
@@ -150,23 +168,29 @@ namespace PRO_finder.Controllers
             {
                 ViewBag.pageData = _quotService.GetCategoryPageData(categoryID);
                 ViewBag.cateNameList = _quotService.GetsubcatrgotyName(categoryID);
+
             }
             else
             {
                 ViewBag.pageData = _quotService.GetCategoryPageData(0);
                 ViewBag.cateNameList = _quotService.GetsubcatrgotyName(0);
             }
+     
+
 
             ViewBag.LocationList = _quotService.GetLocationName();
             return View("Index");
         }
 
-        public ActionResult SearchQuotation(string content)
+       public ActionResult SearchQuotation(string content)
         {
+
             ViewBag.pageData = _quotService.GetKeyWordCardData(content);
             ViewBag.cateNameList = _quotService.GetsubcatrgotyName(0);
             ViewBag.LocationList = _quotService.GetLocationName();
+
             return View("Index");
         }
+
     }
 }

@@ -11,7 +11,7 @@ using PRO_finder.Models;
 namespace PRO_finder.Controllers
 {
     [Authorize]
-    public class ManageController : Controller
+    public class ManageController : MyControllerBase
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;

@@ -69,13 +69,13 @@ namespace PRO_finder.APIControllers
             {
                 if (!favorexist)
                 {
-                    string sql = "Insert into SaveStaff(MemberID, SavedTalentID, SavedDate, SaveStaffID)values( @MemberID, @SavedTalentID, @time, @StaffID)";
-                    affectedRow = conn.Execute(sql, new { MemberID=data.MemberID, SavedTalentID = data.SavedTalentID, time=DateTime.UtcNow, StaffID=data.SaveStaffID });
+                    string sql = "Insert into SaveStaff(MemberID, SavedTalentID, SavedDate)values( @MemberID, @SavedTalentID, @time)"; //, @StaffID)";
+                    affectedRow = conn.Execute(sql, new { MemberID=data.MemberID, SavedTalentID = data.SavedTalentID, time=DateTime.UtcNow });//, StaffID =data.SaveStaffID });
                 }
                 else
                 {
-                    string sql = "DELETE FROM SaveStaff WHERE MemberID = @MemberID and SavedTalentID = @SavedTalentID and SaveStaffID=@SaveStaffID";
-                    affectedRow = conn.Execute(sql, new { MemberID = data.MemberID, SavedTalentID = data.SavedTalentID, SaveStaffID = data.SaveStaffID });
+                    string sql = "DELETE FROM SaveStaff WHERE MemberID = @MemberID and SavedTalentID = @SavedTalentID";  /*and SaveStaffID=@SaveStaffID";*/
+                    affectedRow = conn.Execute(sql, new { MemberID = data.MemberID, SavedTalentID = data.SavedTalentID });//, SaveStaffID = data.SaveStaffID });
 
                     //remove from DB
                 }

@@ -11,6 +11,7 @@ namespace PRO_finder.Models.ViewModels
         public string WorkName { get; set; }
         public string WebsiteURL { get; set; }
         public string WorkSubCategory { get; set; }
+        public int SubCategoryID { get; set; }
         public int WorkAttachmentID { get; set; }
         public int WorkPictureID { get; set; }
         public int SortNumber { get; set; }

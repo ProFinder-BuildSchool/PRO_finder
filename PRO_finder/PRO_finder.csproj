@@ -300,6 +300,7 @@
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\FindQuotationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MyControllerBase.cs" />
     <Compile Include="Controllers\QuotationController.cs" />
     <Compile Include="Controllers\SaveCaseController.cs" />
     <Compile Include="Controllers\TalentController.cs" />
@@ -385,6 +386,18 @@
     <Compile Include="Migrations\202109010912353_2021-09-01.cs" />
     <Compile Include="Migrations\202109010912353_2021-09-01.Designer.cs">
       <DependentUpon>202109010912353_2021-09-01.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109010939087_testwork.cs" />
+    <Compile Include="Migrations\202109010939087_testwork.Designer.cs">
+      <DependentUpon>202109010939087_testwork.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109010950567_testwork2.cs" />
+    <Compile Include="Migrations\202109010950567_testwork2.Designer.cs">
+      <DependentUpon>202109010950567_testwork2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109031445372_2021-09-03.cs" />
+    <Compile Include="Migrations\202109031445372_2021-09-03.Designer.cs">
+      <DependentUpon>202109031445372_2021-09-03.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -754,7 +767,7 @@
     <Content Include="Views\FindQuotation\Othercase.cshtml" />
     <Content Include="Views\SaveCase\SaveCase.cshtml" />
     <Content Include="Views\SaveCase\AddToSaveCase.cshtml" />
-    <Content Include="Views\Cart\Index.cshtml" />
+    <None Include="Views\Cart\CartList.cshtml" />
     <Content Include="Views\Talent\MyQuotationIndex.cshtml" />
     <Content Include="Views\Talent\UpdateMyQuotation.cshtml" />
     <Content Include="Views\Shared\_QuotationforCasePartial.cshtml" />
@@ -764,6 +777,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Default\" />
+    <Folder Include="Views\MyControllerBase\" />
     <Folder Include="WorkAttachments\" />
   </ItemGroup>
   <ItemGroup>
@@ -845,6 +859,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109010912353_2021-09-01.resx">
       <DependentUpon>202109010912353_2021-09-01.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109010939087_testwork.resx">
+      <DependentUpon>202109010939087_testwork.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109010950567_testwork2.resx">
+      <DependentUpon>202109010950567_testwork2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109031445372_2021-09-03.resx">
+      <DependentUpon>202109031445372_2021-09-03.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

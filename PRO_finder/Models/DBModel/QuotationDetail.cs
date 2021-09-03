@@ -25,6 +25,8 @@ namespace PRO_finder.Models.DBModel
         [Key]
         public int QuotaionDetailID { get; set; }
 
+        public bool? Status { get; set; }
+
         public virtual MemberInfo MemberInfo { get; set; }
     }
 }

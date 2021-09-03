@@ -4,6 +4,7 @@ using PRO_finder.Models.ViewModels;
 using PRO_finder.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 using HttpContext = System.Web.HttpContext;
@@ -40,35 +41,44 @@ namespace PRO_finder.Service
 
             return saveCases;
         }
-        public void AddItemToSaveCase(int? CaseID, int MemberID)
+        public void AddOrDeleOfSaveCase(int? CaseID, int MemberID)
         {
-
-            DateTime now = DateTime.UtcNow;
-            SaveCase entity = new SaveCase()
+            var SaveCase = _ctx.GetAll<SaveCase>()
+                .SingleOrDefault(s => s.CaseID == CaseID && s.MemberID == MemberID);
+            
+            if (SaveCase == null)
             {
+                DateTime now = DateTime.UtcNow;
+                SaveCase  = new SaveCase()
+                {
                 CaseID = (int)CaseID,
                 SavedDate = now,
                 MemberID = MemberID
-
-            };
-            _ctx.Create(entity);
-            _ctx.SaveChanges();
-        }
-
-        public void DeleItemFromSaveCase(int? CaseID, int MemberID)
-        {
-
-            DateTime now = DateTime.UtcNow;
-            SaveCase entity = new SaveCase()
+                };
+                _ctx.Create(SaveCase);
+                _ctx.SaveChanges();
+            }
+            else
             {
-                CaseID = (int)CaseID,
-                SavedDate = now,
-                MemberID = MemberID
-
-            };
-            _ctx.Delete(entity);
-            _ctx.SaveChanges();
+                _ctx.Delete(SaveCase);
+                _ctx.SaveChanges();
+            }
         }
+
+        //public void DeleItemFromSaveCase(int? CaseID, int MemberID)
+        //{
+        //    var saveCaseItem = _ctx.GetAll<SaveCase>()
+        //        .SingleOrDefault(s => s.CaseID == CaseID && s.MemberID == MemberID);
+
+        //    if (saveCaseItem != null)
+        //    {
+        //        _ctx.Delete(saveCaseItem);
+        //        _ctx.SaveChanges();
+        //    }
+
+        //}
+
+
 
         //public void ClearSaveCase(int? CaseID, int MemberID)
         //{
@@ -77,6 +87,8 @@ namespace PRO_finder.Service
         //    _ctx.SaveChanges();
         //}
         //RemoveRange(0, saved)
+
+        
     }
 
 }
