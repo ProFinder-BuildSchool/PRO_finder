@@ -19,8 +19,10 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44375</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -392,6 +394,10 @@
     <Compile Include="Migrations\202109010950567_testwork2.cs" />
     <Compile Include="Migrations\202109010950567_testwork2.Designer.cs">
       <DependentUpon>202109010950567_testwork2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109031445372_2021-09-03.cs" />
+    <Compile Include="Migrations\202109031445372_2021-09-03.Designer.cs">
+      <DependentUpon>202109031445372_2021-09-03.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -859,6 +865,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109010950567_testwork2.resx">
       <DependentUpon>202109010950567_testwork2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109031445372_2021-09-03.resx">
+      <DependentUpon>202109031445372_2021-09-03.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
