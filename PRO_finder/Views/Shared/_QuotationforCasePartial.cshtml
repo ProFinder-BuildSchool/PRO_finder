@@ -24,62 +24,52 @@
     我要報價
 </button>
 
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" data-backdrop="false">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">報價細節</h4>
-            </div>
-            <div class="modal-body" id="inputinfo">
-                <form>
-                    <div class="form-group">
-                        <label for="estimatedDays" class="control-label">預估天數:</label>
-                        <input v-model="inputData.days" type="number" min="0" class="form-control" id="estimatedDays-name" style="width: 55%;display: inline;"><span>天內完成</span>
-                        <div class="text-danger small mt-1">
-                            {{ inputDataCheck.daysErrorMsg }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="price" class="control-label">價格:</label>
-                        <input v-model="inputData.price" type="number" min="0" class="form-control" id="price-name" style="width: 55%;display: inline;"><span>元</span>
-                        <div class="text-danger small mt-1">
-                            {{ inputDataCheck.priceErrorMsg }}
-                        </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="message-text" class="control-label">訊息Message:</label>
-                        <textarea v-model="inputData.message" class="form-control" id="message-text" placeholder="請輸入要給案主的訊息"></textarea>
-                        <div class="text-danger small mt-1">
-                            {{ inputDataCheck.MessageErrorMsg }}
+    <div class="modal fade" id="myModal" data-backdrop="false" style="margin-top:50px" > @*tabindex="-1" aria-labelledby="myModalLabel" data-backdrop="false">*@
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">報價細節</h4>
+                </div>
+                <div class="modal-body" id="inputinfo">
+                    <form>
+                        <div class="form-group">
+                            <label for="estimatedDays" class="control-label">預估天數:</label>
+                            <input v-model="inputData.days" type="number" min="0" class="form-control" id="estimatedDays-name" style="width: 55%;display: inline;"><span>天內完成</span>
+                            <div class="text-danger small mt-1">
+                                {{ inputDataCheck.daysErrorMsg }}
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
-                <button :disabled="!addVerify" type="button" class="btn btn-primary">送出報價</button>
+                        <div class="form-group">
+                            <label for="price" class="control-label">價格:</label>
+                            <input v-model="inputData.price" type="number" min="0" class="form-control" id="price-name" style="width: 55%;display: inline;"><span>元</span>
+                            <div class="text-danger small mt-1">
+                                {{ inputDataCheck.priceErrorMsg }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message-text" class="control-label">訊息Message:</label>
+                            <textarea v-model="inputData.message" class="form-control" id="message-text" placeholder="請輸入要給案主的訊息"></textarea>
+                            <div class="text-danger small mt-1">
+                                {{ inputDataCheck.MessageErrorMsg }}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+                    <button v-bind:disabled="!addVerify" type="button" class="btn btn-primary">送出報價</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
-@section topCSS{
-    <style>
-        #myModal {
-            position: fixed;
-            z-index: 40000000000;
-        }
-    </style>
 
-}
 
-@section endJS{
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <script>
-    
-    </script>
+ 
     <script>
         let inputinfo = new Vue({
             el: '#inputinfo',
@@ -87,15 +77,15 @@
                 inputData: {
                     days: '',
                     price: '',
-                    message: ''
+                    /*message: ''*/
                 },
                 inputDataCheck: {
                     daysError: false,
                     daysErrorMsg: '',
                     priceError: false,
                     priceErrorMsg: '',
-                    messageError: false,
-                    messageErrorMsg: ''
+                    //messageError: false,
+                    //messageErrorMsg: ''
                 },
                 addVerify: true
             },
@@ -140,19 +130,19 @@
                         this.checkAddVerify();
                     }
                 },
-                'inputData.message': {
-                    immediate: false,
-                    handler: function () {
-                        if (this.inputData.message == '') {
-                            this.inputDataCheck.messageError = true;
-                            this.inputDataCheck.messageErrorMsg = '訊息不得為空';
-                        } else {
-                            this.inputDataCheck.messageError = false;
-                            this.inputDataCheck.messageErrorMsg = '';
-                        }
-                        this.checkAddVerify();
-                    }
-                }
+                //'inputData.message': {
+                //    immediate: false,
+                //    handler: function () {
+                //        if (this.inputData.message == '') {
+                //            this.inputDataCheck.messageError = true;
+                //            this.inputDataCheck.messageErrorMsg = '訊息不得為空';
+                //        } else {
+                //            this.inputDataCheck.messageError = false;
+                //            this.inputDataCheck.messageErrorMsg = '';
+                //        }
+                //        this.checkAddVerify();
+                //    }
+                //}
             },
             methods: {
                 checkAddVerify() {
@@ -168,7 +158,7 @@
         });
     </script>
 
-}
+
 
 
 
