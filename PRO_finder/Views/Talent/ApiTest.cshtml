@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "ApiTest";
+}
+
+<div class="container">
+    <div class="row">
+        <button class="btn btn-success" id="test_post">測試cart post</button>
+        
+    </div>
+</div>
+    
+@section endJS{
+    
+    <script>
+        let obj = new Object();
+        obj['CaseID'] = 1;
+        obj['PredictDays'] = 10;
+        obj['ProposeDescription'] = "您好，歡迎光臨";
+        obj['ProposePrice'] = 3000;
+        document.querySelector("#test_post").addEventListener("click", function () {
+            fetch('/api/Cart/PostQuotationInfo', { method: 'post', headers: { "Content-Type": "application/json"},body: JSON.stringify(obj) }).then(res => res.text())
+
+        });
+        
+    </script>
+    }
+

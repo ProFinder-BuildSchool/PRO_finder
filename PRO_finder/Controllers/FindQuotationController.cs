@@ -21,7 +21,7 @@ namespace PRO_finder.Controllers
         }
 
 
-
+        [Route("Case/Search/{id}/{searchStr}")]
         [HttpGet]
         // GET: FindQuotation
         public ActionResult Index(string id ="0", string searchStr = null)

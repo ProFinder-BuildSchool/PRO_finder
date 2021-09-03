@@ -209,7 +209,6 @@ namespace PRO_finder.Controllers
             string userID = HttpContext.User.Identity.GetUserId();
             int memberID = _memberInfoService.GetMemberID(userID);
 
-
             if (ModelState.IsValid)
             {
                 //更新MemberInfo資料庫
@@ -323,5 +322,10 @@ namespace PRO_finder.Controllers
         //    int memberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == userID).MemberID;
         //    _memberInfoService.GetToolRecord(memberID);
         //}
+
+        public ActionResult ApiTest()
+        {
+            return View();
+        }
     }
 }
