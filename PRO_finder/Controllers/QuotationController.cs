@@ -23,11 +23,13 @@ namespace PRO_finder.Controllers
         private readonly QuotationService _quotService;
         private readonly StudioService _studioService;
         private readonly CartService _cartService;
+        private readonly CategoryService _categoryService;
         public QuotationController()
         {
             _quotService = new QuotationService();
             _studioService = new StudioService();
             _cartService = new CartService();
+            _categoryService = new CategoryService();
         }
         // GET: Quotation
         public ActionResult Index(int? CategoryId, string keyword,string[] filter)
@@ -140,5 +142,19 @@ namespace PRO_finder.Controllers
         //    }
         //    return  RedirectToAction("StudioHome"); //new EmptyResult();
         //}
+
+        public ActionResult FindQuotationCategory(string categoryName)
+        {
+            int categoryID = _categoryService.GetCategoryID(categoryName);
+            if(categoryID != -1)
+            {
+                ViewBag.pageData = _quotService.GetCategoryPageData(categoryID);
+                ViewBag.cateNameList = _quotService.GetsubcatrgotyName(categoryID);
+            }
+            
+
+            ViewBag.LocationList = _quotService.GetLocationName();
+            return View();
+        }
     }
 }

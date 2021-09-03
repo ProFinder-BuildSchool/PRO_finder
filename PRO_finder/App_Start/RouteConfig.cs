@@ -15,7 +15,7 @@ namespace PRO_finder
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
-                name: "FindCategory",
+                name: "FindCaseCategory",
                 url: "Case/Category/{categoryName}",
                 defaults: new { controller = "FindQuotation", action = "FindCategory" }
             );
@@ -24,14 +24,17 @@ namespace PRO_finder
                 url: "Case/Search/{content}",
                 defaults: new { controller = "FindQuotation", action = "CaseSearch" }
             );
-
+            routes.MapRoute(
+                name: "FindQuotationCategory",
+                url: "Quotation/Category/{categoryName}",
+                defaults: new { controller = "Quotation", action = "FindQuotationCategory" }
+            );
 
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}",
                 defaults: new { controller = "Home", action = "Index" }
             );
-
             routes.MapRoute(
                 name: "CaseSearch",
                 url: "Case/Search/{id}/{searchStr}",
