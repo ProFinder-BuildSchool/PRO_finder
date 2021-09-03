@@ -29,6 +29,11 @@ namespace PRO_finder
                 url: "Quotation/Category/{categoryName}",
                 defaults: new { controller = "Quotation", action = "FindQuotationCategory" }
             );
+            routes.MapRoute(
+                name: "SearchQuotation",
+                url: "Quotation/Search/{content}",
+                defaults: new { controller = "Quotation", action = "SearchQuotation" }
+            );
 
             routes.MapRoute(
                 name: "Default",

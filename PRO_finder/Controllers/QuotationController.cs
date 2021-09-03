@@ -151,10 +151,22 @@ namespace PRO_finder.Controllers
                 ViewBag.pageData = _quotService.GetCategoryPageData(categoryID);
                 ViewBag.cateNameList = _quotService.GetsubcatrgotyName(categoryID);
             }
-            
+            else
+            {
+                ViewBag.pageData = _quotService.GetCategoryPageData(0);
+                ViewBag.cateNameList = _quotService.GetsubcatrgotyName(0);
+            }
 
             ViewBag.LocationList = _quotService.GetLocationName();
-            return View();
+            return View("Index");
+        }
+
+        public ActionResult SearchQuotation(string content)
+        {
+            ViewBag.pageData = _quotService.GetKeyWordCardData(content);
+            ViewBag.cateNameList = _quotService.GetsubcatrgotyName(0);
+            ViewBag.LocationList = _quotService.GetLocationName();
+            return View("Index");
         }
     }
 }
