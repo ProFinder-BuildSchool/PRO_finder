@@ -11,7 +11,7 @@
         <div class="row">
             @foreach (var item in Model)
             {
-                <div class=" col-12 col-md-6 col-lg-4 mt-3">
+                <div class=" col-12 col-md-6 mt-3">
                     <div class="card">
                         <img src="@item.MainPicture" class="card-img-top" alt="">
                         <div class="card-body">
@@ -21,7 +21,12 @@
                             <li class="list-group-item">類別：<a href="/Quotation/Index?CategoryId=@item.CategoryId">@item.SubcategoryName</a></li>
                             <li class="list-group-item">服務定價：@item.Price 元&ensp;/ @item.Unit</li>
                             <li class="list-group-item">更新日期：@item.UpdateDate</li>
-                            <li class="list-group-item">服務狀態：</li>
+                            <li class="list-group-item" class="d-flex"><p>服務狀態：</p>
+                                <select class="form-control service-status">
+                                    <option class="status-open">開啓</option>
+                                    <option class="status-close">關閉</option>
+                                </select>
+                            </li>
                         </ul>
                         <div class="card-body text-right">
                             <a href="/Talent/UpdateMyQuotation/@item.QuotationId" class="btn btn-primary">修改服務</a>
@@ -53,7 +58,21 @@
             box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
             padding: 25px;
         }
-        
+        .service-status{
+            width:30%
+        }
+        .status-open {
+            color: #89ba16;
+        }
+        .status-close{
+            color:#DC3545;
+        }
     </style>
 }
+@section endJS
+    {
+        <script>
+
+        </script>
+    }
 

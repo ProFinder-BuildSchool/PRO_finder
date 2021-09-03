@@ -74,9 +74,9 @@ namespace PRO_finder.Service
                 {
                     //製作Experience 主類型Category選單（MemberInfo資料庫中的記錄尚未Selected）
                     var categoryDropdownList = new List<SelectListItem>
-                {
-                    new SelectListItem{ Value= "-1", Text = "請選擇主類型"}
-                };
+                    {
+                        new SelectListItem{ Value= "-1", Text = "請選擇主類型"}
+                    };
                     var allCate = _ctx.GetAll<Category>().ToList();
                     foreach (var c in allCate)
                     {
@@ -99,7 +99,7 @@ namespace PRO_finder.Service
                     subCategoryDropdownList.FirstOrDefault(x => Int32.Parse(x.Value) == item.SubCategoryID).Selected = true;
 
                     //製作Experience Piecework 選單（資料庫尚未Selected）
-                    var pieceworkDropdownList = new List<SelectListItem>
+                    var pieceworkDropdownList = new List<SelectListItem>()
                     {
                         new SelectListItem{ Value= "-1", Text = "請選擇工作期間"},
                         new SelectListItem {Value="無工作經驗", Text = "無工作經驗"},
@@ -115,6 +115,7 @@ namespace PRO_finder.Service
                         new SelectListItem {Value="9-10年工作經驗", Text = "9-10年工作經驗"},
                         new SelectListItem {Value="10年以上工作經驗", Text = "10年以上工作經驗"},
                     };
+                    Console.WriteLine(item.PieceworkExp);
                     //設定Experience Selected
                     pieceworkDropdownList.FirstOrDefault(x => x.Value == item.PieceworkExp).Selected = true;
 

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuildSchoolBizApp.Service
+namespace PRO_finder.Service
 {
     public class OperationResult
     {

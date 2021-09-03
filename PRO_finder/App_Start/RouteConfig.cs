@@ -14,14 +14,22 @@ namespace PRO_finder
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}",
                 defaults: new { controller = "Home", action = "Index" }
             );
+
+            routes.MapRoute(
+                name: "CaseSearch",
+                url: "Case/Search/{id}/{searchStr}",
+                defaults: new { controller = "FindQuotation", action = "Index", id = UrlParameter.Optional, searchStr = UrlParameter.Optional }
+                );
+
             routes.MapRoute(
                 name: "Detail",
-                url: "{controller}/{action}/{Memberid}/{Quotationid}",
+                url: "Quotation/Detail/{Memberid}/{Quotationid}",
                 defaults: new { controller = "Quotation", action = "Detail"}
             );
             //routes.MapRoute(
@@ -29,12 +37,15 @@ namespace PRO_finder
             //    url: "{controller}/{action}/{CategoryId}",
             //    defaults: new { controller = "Quotation", action = "Index", CategoryId = UrlParameter.Optional }
             //);
+            
 
             routes.MapRoute(
                 name: "Origin",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            
 
             //routes.MapRoute(
             //    name: "StudioHome",

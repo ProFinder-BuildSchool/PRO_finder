@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <button class="btn btn-success" id="test">測試</button>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        let obj = new Object();
+        obj['CaseID'] = 1;
+        obj['PredictDays'] = 10;
+        obj['ProposeDescription'] = "您好，歡迎光臨";
+        obj['ProposePrice'] = 3000;
+        document.querySelector("#test").addEventListener("click", function () {
+            fetch('https://localhost:44375/api/Cart/PostQuotationInfo', { method: 'post', headers: { "Content-Type": "application/json"},body: JSON.stringify(obj) }).then(res => res.text())
+            
+        });
+    </script>
+</body>
+</html>
