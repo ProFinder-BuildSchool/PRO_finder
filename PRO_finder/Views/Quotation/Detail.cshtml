@@ -13,10 +13,10 @@
             <!-- 右欄-報價細節 -->
             <div class="col-lg-8  blog-content position-relative">
                 <section id="primary" class="content-area">
-                    <header id="backwork" style="position:sticky;top:155px;z-index:2;background-color:#fff;">
-                        <h3>
-                            <a href="@Url.Action("StudioHome", new { TalentID = @Model.MemberID })" class="fas fa-angle-double-left mr-2">回到工作室 </a>
-                        </h3>
+                    <header id="backwork" style="position:sticky;top:0px;z-index:2;background-color:#fff;">
+                        <p class=" h-5 border-bottom">
+                            <a href="@Url.Action("StudioHome", new { TalentID = @Model.MemberID })" class="py-3 fas fa-angle-double-left mr-2">回到工作室 </a>
+                        </p>
                     </header>
                     <div class="container">
                         <div class="row align-items-center mb-5">
@@ -70,7 +70,7 @@
                                             </p>
                                             <p>執行時間：@Model.ExecuteDate 天</p>
                                             <p>服務地點：@Model.Location</p>
-                                            <button class="btn btn-danger modelBtn">站內詢問</button>
+                                            <button class="btn bg-danger  text-white  modelBtn"><i class="fas fa-plus mr-2"></i>興趣清單</button>
                                         </div>
                                     </div>
                                 </div>
@@ -182,7 +182,7 @@
 
 
 <div class="row sidenav" id="Sidenav">
-    <div class=" col-12">
+    <div class=" col-12 d-flex align-content-center">
         <button class="closefilter">X</button>
     </div>
 
@@ -207,12 +207,12 @@
     <div class="col-lg-6 col-12">
         <div class="confirmProduct">
             <div class="row justify-content-center">
-                <form class="col-12">
+                <div class="col-12">
                     <p class="h3">確認數量</p>
                     <div>
-                        <button class="minuscount">–</button>
+                        <button class="minuscount"><i class="fas fa-minus"></i></button>
                         <span class="count"></span>
-                        <button class="pluscount">+</button>
+                        <button class="pluscount"><i class="fas fa-plus"></i></button>
                     </div>
                     <h5 class="text-start text-dark pb-2 border-bottom">
                         輸入訂購人資訊
@@ -220,12 +220,12 @@
                     <div class="form-group text-start text-dark mb-2">
                         <label class="" for="useremail">Email</label>
                         <input type="email" class="form-control" name="email" id="useremail"
-                               placeholder="請輸入 Email" required /> <span class="text-danger"></span>
+                               placeholder="請輸入 Email" /> <span class="text-danger"></span>
                     </div>
                     <div class="form-group text-start text-dark mb-2">
                         <label class="" for="username ">收件人姓名</label>
                         <input type="text" class="form-control" name="name" id="username"
-                               placeholder="輸入姓名" required /> <span class="text-danger"></span>
+                               placeholder="輸入姓名" /> <span class="text-danger"></span>
                     </div>
                     <div class="form-group text-start text-dark mb-2">
                         <label class="" for="usertel">收件人電話</label>
@@ -245,7 +245,7 @@
                     <div class="mt-3 text-right">
                         <button class="addProduct disabled"> 加入購物車</button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
 
@@ -255,7 +255,10 @@
     {
     <style>
 
-
+        .Quotation > a:first-child {
+            color: #89ba16 !important;
+            background-color: white
+        }
 
         .btn {
             border: none !important;
@@ -330,11 +333,10 @@
 
         /*---------CartModel---------------*/
         .sidenav {
-            max-width: 1200px;
-            height: 0px;
-            width: 100vw;
+            height: 0;
+            width: 100%;
             position: fixed;
-            z-index: 1000;
+            z-index: 10000;
             bottom: 0;
             left: 0;
             right: 0;
@@ -353,7 +355,6 @@
             background-color: transparent;
             justify-content: left;
             border: none;
-            margin-bottom: 5%;
             font-size: 25px;
             font-weight: bolder;
         }
@@ -404,17 +405,17 @@
         .minuscount,
         .pluscount {
             background-color: transparent;
-            width: 30px;
-            height: 30px;
+/*            width: 30px;
+            height: 30px;*/
             border-radius: 50%;
-            border: 1px solid rgb(165, 163, 163);
+            border: none;
             font-size: 20px;
             text-align: center;
         }
 
             .minuscount:hover,
             .pluscount:hover {
-                background-color: rgb(187, 186, 183);
+                transform:scale(1.2);
             }
 
         .count {
@@ -439,16 +440,25 @@
         }
 
         .closefilter:focus,
-        .more:focus,
-        .minuscount:focus,
-        .pluscount:focus{
+        .more:focus
+        {
             outline: none;
+
+        }
+        .minuscount:focus,
+        .pluscount:focus {
+            outline: none;
+            background: radial-gradient(circle at center,white,rgba(0,0,0,.05));
+        }
+        .site-navbar {
+            position: static !important;
         }
     </style>
 }
 
 @section endJS{
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
     <script src="~/Assets/js/QuotationDetail.js"></script>
     <script>
         let addProduct = document.querySelector('.addProduct');
@@ -470,25 +480,45 @@
             let userline = document.querySelector('#userline').value;
             let memo = document.querySelector('#memo').value;
 
-            let OrderInfo = { Email: useremail, Name: username, Tel: usertel, LineID: userline, Memo: memo }
-            let Cart = { MemberID:@Model.MemberID , QuotationImg: "@Model.MainPicture", SubCategory: "@Model.SubcategoryName", StudioName: "@Model.NickName", Count: Number(count), Price:@Model.Price , Unit: "@Model.Unit", OrderInfo: OrderInfo }
 
+            let OrderInfo = {
+                Email: useremail, Name: username, Tel: usertel, LineID: userline, Memo: memo,
+                MemberID:@Model.MemberID , QuotationImg: "@Model.MainPicture", SubCategory: "@Model.QuotationTitle", StudioName: "@Model.NickName", Count: Number(count),
+                Price:@Model.Price , Unit: "@Model.Unit" }
 
-            console.log(JSON.stringify(Cart))
-           
+          
+            axios.post('/api/Cart/AddCart?memberID=@ViewBag.memberID', OrderInfo)
+                .then(res => {
+                    side.style.height = "0px"
+                    if (res.data.Result == true) {
+                        Swal.fire(
+                            '已加入清單',
+                            '點擊按鈕關閉',
+                            'success'
+                        )
+                        axios.get(`/api/Cart/GetCart?id=@ViewBag.memberID`).then(res => {
+                            let counts = res.data.Result.length
+                            CartCount.innerHTML = counts
+                        })
+                    }
+                    else
+                    {
 
-            axios.post('/Quotation/Detail', Cart).then(res => {
-                console.log(res)
+                        Swal.fire({
+                            icon: 'error',
+                            title: '系統發生錯誤!',
+                            text: '請喝杯咖啡再點選一次~ :)',
+                        })
+                    }
+                })
             })
-        })
-
-
 
 
 
         document.querySelector('.modelBtn').addEventListener('click', function () {
-            let height = window.screen.availHeight - 220;
-            side.style.height = `${height}px`;
+            let height = 100
+            side.style.height = `${height}%`;
+
 
         });
         document.querySelector('.closefilter').addEventListener('click', function () {
@@ -508,23 +538,25 @@
             }
         })
 
-        count();
-        function count() {
+        
+       
             let count = 0
-            document.querySelector('.minuscount').addEventListener('click', function () {
+            document.querySelector('.minuscount').addEventListener('click', function (e) {
+                e.preventDefault();
                 if (count != 0) {
                     count--
                     countNumber.innerText = count;
                     console.log(count)
                 }
             })
-            document.querySelector('.pluscount').addEventListener('click', function () {
+            document.querySelector('.pluscount').addEventListener('click', function (e) {
+                e.preventDefault();
                 count++
                 countNumber.innerText = count;
                 console.log(count)
             })
 
             countNumber.innerText = count;
-        }
+        
     </script>
 }

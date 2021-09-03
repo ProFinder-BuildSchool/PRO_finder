@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace PRO_finder.Controllers
 {
-    public class SaveCaseController : Controller
+    public class SaveCaseController : MyControllerBase
     {
         private readonly CaseService _caseService;
         private readonly SaveCaseService _savecaseService;

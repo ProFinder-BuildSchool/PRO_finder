@@ -19,10 +19,8 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44375</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>
-    </IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>
-    </IISExpressWindowsAuthentication>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -300,6 +298,7 @@
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\FindQuotationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MyControllerBase.cs" />
     <Compile Include="Controllers\QuotationController.cs" />
     <Compile Include="Controllers\SaveCaseController.cs" />
     <Compile Include="Controllers\TalentController.cs" />
@@ -754,7 +753,7 @@
     <Content Include="Views\FindQuotation\Othercase.cshtml" />
     <Content Include="Views\SaveCase\SaveCase.cshtml" />
     <Content Include="Views\SaveCase\AddToSaveCase.cshtml" />
-    <Content Include="Views\Cart\Index.cshtml" />
+    <None Include="Views\Cart\CartList.cshtml" />
     <Content Include="Views\Talent\MyQuotationIndex.cshtml" />
     <Content Include="Views\Talent\UpdateMyQuotation.cshtml" />
     <Content Include="Views\Shared\_QuotationforCasePartial.cshtml" />
@@ -764,6 +763,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Default\" />
+    <Folder Include="Views\MyControllerBase\" />
     <Folder Include="WorkAttachments\" />
   </ItemGroup>
   <ItemGroup>

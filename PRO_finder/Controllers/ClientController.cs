@@ -9,7 +9,7 @@ using PRO_finder.Models;
 namespace PRO_finder.Controllers
 {
     
-    public class ClientController : Controller
+    public class ClientController : MyControllerBase
     {
         // GET: Client
        

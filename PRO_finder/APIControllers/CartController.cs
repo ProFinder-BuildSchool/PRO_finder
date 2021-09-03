@@ -16,45 +16,79 @@ namespace PRO_finder.APIControllers
 {
     public class CartController : ApiController
     {
-        private readonly MemberinfoService _memInfoService;
-        private readonly CartService _cartService;
+        private readonly CartService _cartservice;
+
         public CartController()
         {
-            _memInfoService = new MemberinfoService();
-            _cartService = new CartService();
+            _cartservice = new CartService();
         }
-        //人才報價cart api
-        //1. 接收報價資料表單
-        [HttpPost]
-        public APIResult PostQuotationInfo([FromBody]QuotationCartViewModel newQ)
+        //[Route("{id}")]
+        public APIResult GetCart(int id)
         {
-            string userID = User.Identity.GetUserId();
-            int memberID = _memInfoService.GetMemberID(userID);
-            var operationResult = _cartService.CreateQuotationCart(memberID, newQ);
-            if (operationResult.IsSuccessful)
-            {
-                return new APIResult(APIStatus.Success, string.Empty, "加入成功");
-            }
-            else
-            {
-                return new APIResult(APIStatus.Fail, operationResult.Exception.ToString(), "");
-            }
-            
+                var result = _cartservice.GetCart(id);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+
+
         }
-        public APIResult GetQuotationCart()
+
+
+        [HttpPut]
+        public APIResult UpDateCart(int id , UpDateCartViewModel updateVM)
         {
-            string result = "";
+            bool result;
             try
             {
-                string userID = User.Identity.GetUserId();
-                int memberID = _memInfoService.GetMemberID(userID);
-                result = _cartService.GetAllQuotationCart(memberID);
+                result = _cartservice.UpDateCart(id, updateVM);
                 return new APIResult(APIStatus.Success, string.Empty, result);
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
+                result = false;
                 return new APIResult(APIStatus.Fail, ex.Message, result);
+            };
+
+        }
+
+
+        [HttpDelete]
+        public APIResult DelCart(int id, int CartID)
+        {
+            bool result;
+            try
+            {
+                result = _cartservice.DelCart(id, CartID);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+
             }
+            catch (Exception ex)
+            {
+                result = false;
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            };
+
+        }
+
+
+        [HttpPost]
+        [Authorize]
+        public APIResult AddCart(ClientCartViewModel Cart ,int memberID)
+        {
+
+
+            bool result ;
+            try
+            {
+                result = _cartservice.addCart(Cart, memberID);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            };
+           
         }
 
     }

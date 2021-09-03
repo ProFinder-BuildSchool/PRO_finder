@@ -1,4 +1,15 @@
-﻿@*@{Html.RenderAction("Index", "Home");}*@
+﻿@using PRO_finder.Controllers
+@{
+    MyControllerBase controller = ViewContext.Controller as MyControllerBase;
+    if (controller == null)
+    {
+        throw new ApplicationException("Controller 必須繼承自 MyControllerBase.");
+    }
+    var userId = controller.memberID;
+    
+}
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +28,7 @@
     @RenderSection("topCSS", required: false)
     @RenderSection("topJS", required: false)
     <style>
+
         .container-fluid.list {
             background-color: #89ba16 !important;
         }
@@ -37,11 +49,54 @@
 
         #search_form {
         }
+
+        .CartListindex {
+            background: radial-gradient(circle at center,#cff576,#89ba16);
+            position: fixed;
+            top: 80%;
+            bottom: 0;
+            left: 90%;
+            right: 0;
+            margin: auto;
+            z-index: 30;
+            width: 60px;
+            height: 60px;
+            font-weight: 400;
+            line-height: 1;
+            box-shadow: 3px 3px 5px rgba(0,0,0,.3);
+            transition: .3s;
+        }
+
+            .CartListindex a {
+                color: white;
+                position: absolute;
+                top: 30%;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+                text-decoration: none;
+                font-size: 25px;
+            }
+
+            .CartListindex:hover {
+                transform: scale(1.1);
+            }
+        .CartCount {
+            font-size:15px;
+            line-height:1;
+            width: 15px;
+            height: 15px;
+            position: relative;
+            top: -80%;
+            right: -80%;
+            background-color: red;
+        }
     </style>
 </head>
 
 <body id="top">
-    
+    <div class="CartList CartListindex rounded-circle text-center"><a href="@Url.Action("CartList","Cart")" class="px-0"><i class="fas fa-inbox"></i><p class="CartCount rounded-circle"></p></a></div>
     <div id="overlayer"></div>
     <div class="loader">
         <div class="spinner-border text-primary" role="status">
@@ -68,6 +123,34 @@
         </footer>
 
     </div>
+    <script>
+
+        let CartCount = document.querySelector('.CartCount')
+
+
+
+        if (@userId== -1) {
+            CartCount.classList.add('d-none');
+        }
+        else {
+          axios.get(`/api/Cart/GetCart?id=@userId`).then(res => {
+            let counts = res.data.Result.length
+              if (counts == 0) {
+                  CartCount.classList.add('d-none');
+              }
+              else {
+                  CartCount.innerHTML = counts
+              }
+           
+
+        })
+
+}
+
+
+
+
+    </script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
 
