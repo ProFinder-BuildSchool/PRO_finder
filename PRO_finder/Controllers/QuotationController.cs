@@ -25,11 +25,13 @@ namespace PRO_finder.Controllers
         private readonly QuotationService _quotService;
         private readonly StudioService _studioService;
         private readonly CartService _cartService;
+        private readonly GeneralRepository _repo;
         public QuotationController()
         {
             _quotService = new QuotationService();
             _studioService = new StudioService();
             _cartService = new CartService();
+            _repo = new GeneralRepository(new ProFinderContext());
         }
         // GET: Quotation
         public ActionResult Index(int? CategoryId, string keyword,string[] filter)
@@ -94,9 +96,11 @@ namespace PRO_finder.Controllers
 
 
 
-        public ActionResult StudioHome(int TalentID=20)//, int MemberID= 1)
+        public ActionResult StudioHome(int TalentID=1)//, int MemberID= 1)
         {
-            int currentUserId=7;
+            //int currentUserId=7;
+            var UserId = HttpContext.User.Identity.GetUserId();
+            int currentUserId = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == UserId).MemberID;
             //var result = int.TryParse(System.Web.HttpContext.Current.User.Identity.GetUserId(),out currentUserId);
             StudioDetailViewModel StudioDetailVM = _studioService.GetStudioDetailData (TalentID);
             //IEnumerable<SaveStaffViewModel> favorlist = _studioService.GetFavorite(currentUserId, TalentID);
@@ -131,27 +135,6 @@ namespace PRO_finder.Controllers
         //    return Json(allCardData, JsonRequestBehavior.AllowGet);
         //}
 
-        //static string connString = ConfigurationManager.ConnectionStrings["ProFinderContext"].ConnectionString;
-        //public ActionResult FavorInsertorDelete(int MemberID, int TalentID, DateTime time, int StaffID, bool AddorRemove)
-        //{
-        //    int affectedRow = 0; //
-
-        //    using (SqlConnection conn = new SqlConnection(connString))
-        //    {
-        //        if (AddorRemove)
-        //        {
-        //            string sql = "Insert into SaveStaff(MemberID, SavedTalentID, SavedDate, SaveStaffID)values( @MemberID, @TalentID, @time, @StaffID)";
-        //            affectedRow = conn.Execute(sql, new { MemberID, TalentID, time, StaffID });
-        //        }
-        //        else
-        //        {
-        //            string sql = "DELETE FROM SaveStaff WHERE MemberID = @MemberID and SavedTalentID = @SavedTalentID and SaveStaffID=@SaveStaffID";
-        //            affectedRow = conn.Execute(sql, new { MemberID = MemberID, SavedTalentID = TalentID, SaveStaffID = StaffID });
-
-        //            //remove from DB
-        //        }
-        //    }
-        //    return  RedirectToAction("StudioHome"); //new EmptyResult();
-        //}
+        
     }
 }

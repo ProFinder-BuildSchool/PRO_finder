@@ -8,5 +8,6 @@ namespace PRO_finder.Models.ViewModels
     public class WorkSubcategoryViewModel
     {
         public string WorkSubCategory { get; set; }
+        public int SubCategoryID { get; set; }
     }
 }
