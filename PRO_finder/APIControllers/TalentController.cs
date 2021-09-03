@@ -14,10 +14,12 @@ namespace PRO_finder.APIControllers
     {
         private readonly CategoryService _cateService;
         private readonly MemberinfoService _memberInfoService;
+        private readonly QuotationService _quotationService;
         public TalentController()
         {
             _cateService = new CategoryService();
             _memberInfoService = new MemberinfoService();
+            _quotationService = new QuotationService();
         }
         
         public APIResult GetAllCategoryAndSubCategoryList()
@@ -39,13 +41,29 @@ namespace PRO_finder.APIControllers
             string result = "";
             try
             {
-                result = _memberInfoService.GetJsonSubTool();
+                _memberInfoService.GetJsonSubTool();
+                result = "加入成功";
                 return new APIResult(APIStatus.Success, string.Empty, result);
             }
             catch (Exception ex)
             {
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             } 
+        }
+
+        public APIResult ChangeQuotationStatus([FromBody]QuotationDetailViewModel newStatus)
+        {
+            string result = "";
+            try
+            {
+                _quotationService.ChangeQStatus();
+                result = "加入成功";
+                return new APIResult(APIStatus.Success, string.Empty, result);
+            }
+            catch(Exception ex)
+            {
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            }
         }
     }
 }

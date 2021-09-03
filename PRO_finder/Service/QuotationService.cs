@@ -90,6 +90,8 @@ namespace PRO_finder.Service
 
         }
 
+        
+
         public List<QuotationViewModel> GetCategoryPageData(int categoryId)
         {
 
@@ -260,8 +262,8 @@ namespace PRO_finder.Service
                        Price = q.Price.ToString(),
                        Unit = (QuotationDetailViewModel.UnitEnum)q.QuotationUnit,
                        UpdateDateOrigin = q.UpdateDate,
-                       QuotationTitle = q.QuotationTitle
-                       //Status = q.Status
+                       QuotationTitle = q.QuotationTitle,
+                       Status = (bool)q.Status
                    };
             var result = temp.ToList();
             for(int i = 0; i < result.Count(); i++)
@@ -362,6 +364,11 @@ namespace PRO_finder.Service
                     new SelectListItem { Text = item.LocationName, Value = item.LocationID.ToString() });
             }
             return locationlist;
+        }
+
+        public string ChangeQStatus()
+        {
+            return "";
         }
     }
 }

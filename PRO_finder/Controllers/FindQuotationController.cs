@@ -13,15 +13,14 @@ namespace PRO_finder.Controllers
     {
 
         private readonly CaseService _caseService;
+        private readonly CategoryService _categoryService;
 
         public FindQuotationController()
         {
            _caseService = new CaseService();
-
+            _categoryService = new CategoryService();
         }
 
-
-        [Route("Case/Search/{id}/{searchStr}")]
         [HttpGet]
         // GET: FindQuotation
         public ActionResult Index(string id ="0", string searchStr = null)
@@ -32,7 +31,6 @@ namespace PRO_finder.Controllers
             if (string.IsNullOrEmpty(id))
             {
                 result = _caseService.GetCasesList().ToList();
-                
             }
             else if (string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(searchStr))
             {
@@ -72,6 +70,26 @@ namespace PRO_finder.Controllers
                 ();
 
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult FindCategory(string categoryName)
+        {
+            ViewBag.CateId = "0";
+            List<CaseViewModel> result = new List<CaseViewModel>();
+            int id = _categoryService.GetCategoryID(categoryName);
+            if(id != -1)
+            {
+                result = _caseService.GetCasesList().Where(x => x.CategoryID == id).ToList();
+            }
+            return View("Index", result);
+        }
+
+        public ActionResult CaseSearch(string content)
+        {
+            ViewBag.CateId = "0";
+            List<CaseViewModel> result = new List<CaseViewModel>();
+            result = _caseService.GetCasesList().Where(x => x.Description.Contains(content)).ToList();
+            return View("Index", result);
         }
     }
 }

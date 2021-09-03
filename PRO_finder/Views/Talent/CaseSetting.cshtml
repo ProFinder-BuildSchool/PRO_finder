@@ -670,41 +670,45 @@
         //擅長工具Dropdown & checkbox
         let subToolArray = []
         let subToolArrayInRecord = []
-        //擅長工具-取得所有類別
-        axios.get("/api/Talent/GetSubTool").then(res => {
-            let tools = JSON.parse(res.data.Result);
-            subToolArray.push(...tools);
-        });
-        ////擅長工具-顯示既有資料
-        axios.get("/Talent/GetMemberToolRecord").then(res => {
-            let record = JSON.parse(res.data);
-            subToolArrayInRecord.push(...record);
-            subToolArrayInRecord.forEach(tRecord => {
-                console.log(tRecord)
-                subToolArray.forEach(t => {
-                    if (t.SubTalentCategoryID == tRecord.ToolSubCategoryID) {
-                        t.IsChecked = true;
-                        clone_tag = $g("template#toolCheckedTag").content.cloneNode(true);
-                        clone_tag.querySelector("p").innerText = t.SubTalentCategoryName;
-                        clone_tag.querySelector("div").setAttribute("id", `toolTag${t.SubTalentCategoryID}`);
-                        clone_tag.querySelector("div").setAttribute("data-content", t.SubTalentCategoryID);
-                        clone_tag.querySelector("button").setAttribute("data-content", t.SubTalentCategoryID);
-                        clone_tag.querySelector("button").addEventListener("click", function (e) {
-                            e.preventDefault();
-                            let value = t.SubTalentCategoryID;
-                            let theTag = $g(`div#toolTag${value}`);
-                            $g("#displayTool").removeChild(theTag);
-                            $g(`input#toolInput${value}`).checked = false;
-                            subToolArray[value]["IsChecked"] = false;
-                        });
-                        $g("#displayTool").appendChild(clone_tag);
-                    }
-                });
-
+        //從資料庫中獲取member儲存的talentTools
+        const getTalentTools = async () => {
+            //擅長工具-取得所有類別
+            await axios.get("/api/Talent/GetSubTool").then(res => {
+                let tools = JSON.parse(res.data.Result);
+                subToolArray.push(...tools);
             });
+            ////擅長工具-顯示既有資料
+            await axios.get("/Talent/GetMemberToolRecord").then(res => {
+                let record = JSON.parse(res.data);
+                subToolArrayInRecord.push(...record);
+                subToolArrayInRecord.forEach(tRecord => {
+                    console.log(tRecord)
+                    subToolArray.forEach(t => {
+                        if (t.SubTalentCategoryID == tRecord.ToolSubCategoryID) {
+                            t.IsChecked = true;
+                            clone_tag = $g("template#toolCheckedTag").content.cloneNode(true);
+                            clone_tag.querySelector("p").innerText = t.SubTalentCategoryName;
+                            clone_tag.querySelector("div").setAttribute("id", `toolTag${t.SubTalentCategoryID}`);
+                            clone_tag.querySelector("div").setAttribute("data-content", t.SubTalentCategoryID);
+                            clone_tag.querySelector("button").setAttribute("data-content", t.SubTalentCategoryID);
+                            clone_tag.querySelector("button").addEventListener("click", function (e) {
+                                e.preventDefault();
+                                let value = t.SubTalentCategoryID;
+                                let theTag = $g(`div#toolTag${value}`);
+                                $g("#displayTool").removeChild(theTag);
+                                $g(`input#toolInput${value}`).checked = false;
+                                subToolArray[value]["IsChecked"] = false;
+                            });
+                            $g("#displayTool").appendChild(clone_tag);
+                        }
+                    });
 
-
-        });
+                });
+            });
+        };
+        getTalentTools();
+        
+        
         ////擅長工具-使用者選擇更換
         $g("select#ToolCategoryID").addEventListener("change", function () {
             let cateID = Number(this.value);

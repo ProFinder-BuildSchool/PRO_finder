@@ -81,6 +81,7 @@ public class QuotationDetailViewModel
     public decimal Evaluation { get; set; }
 
     public IEnumerable<QuotationReview> QuotationReview { get; set; }
+    public bool Status { get; set; }
 
 }
 
