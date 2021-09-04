@@ -222,6 +222,7 @@ namespace PRO_finder.Service
                 SubCategoryID = newQ.SubCategoryID,
                 Price = newQ.Price,
                 MainPicture = newQ.MainPicture,
+                Status = true
             };
             _repo.Create(entity);
             _repo.SaveChanges();

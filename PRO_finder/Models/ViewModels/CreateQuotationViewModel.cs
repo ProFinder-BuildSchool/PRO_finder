@@ -56,5 +56,10 @@ namespace PRO_finder.ViewModels
 
         public int CategoryID { get; set; }
     }
-    
+    public class UploadOtherPicture
+    {
+        public HttpPostedFile Picture;
+        public int SortNumber;
+        public string OtherPictureLink;
+    }
 }

@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-6">
                             <select class="form-control" id="subcategorySelect" name="SubCategoryID">
-                                <option class="text-center">選擇子類型</option>
+                                <option>選擇子類型</option>
                             </select>
                             @Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })
                         </div>
@@ -101,7 +101,12 @@
                     </div>
                 </div>
             </div>
-            
+            @*測試後端上傳圖片cloudinary*@
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-12 text-center">
+                    <input type="button" value="上傳測試" class="btn btn-primary mt-3" id="test" />
+                </div>
+            </div>
             @*服務内容描述*@
             <div class="form-group mt-5">
                 @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-12" })
@@ -111,8 +116,6 @@
                     @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                 </div>
             </div>
-
-
 
 
             <div class="form-group">
@@ -254,16 +257,12 @@
 
         document.querySelector("#categoryDropdown").addEventListener("change", function () {
             selector.innerHTML = "<option class='text - center'>選擇服務子類型</option>";
-            subCategoryList.forEach(sub => {
-                if (sub.CategoryID == this.value) {
-                    let allsub = JSON.parse(sub.JsonSubCategoryList);
-                    allsub.forEach(s => {
-                        let option = document.createElement("option");
-                        option.innerText = s.SubCateName;
-                        option.value = s.SubCateID;
-                        selector.append(option);
-                    });
-                };
+            let allsub = JSON.parse(subCategoryList.filter(x => x.CategoryID == this.value)[0].JsonSubCategoryList);
+            allsub.forEach(s => {
+                let option = document.createElement("option");
+                option.innerText = s.SubCateName;
+                option.value = s.SubCateID;
+                selector.append(option);
             });
         });
 
@@ -322,7 +321,9 @@
                 let regexVideo = "^video.+";
                 let fileType = file.type;
                 let img = document.createElement("img");
+                img.classList.add("uploadImg")
                 let video = document.createElement("video");
+                video.classList.add("uploadVideo")
 
                 if (fileType.match(regexImg)) {
                     img.src = URL.createObjectURL(file);
@@ -381,7 +382,20 @@
             asyncRun();
 
         });
-
+        const uploadImage = async () => {
+            let imgs = document.querySelectorAll(".uploadImg");
+            for (let i = 0; i < imgs.length; i++) {
+                const blobData = await getBlobData(imgs[i].src);
+                const fileObject = new File([blobData], imgs[i].src, { type: blobData.type });
+                const form = new FormData();
+                form.append("picture", fileObject);
+                let url_result = axiosImageFile(form);
+                console.log(url_result);
+            };
+        }
+        $g("#test").addEventListener("click", function () {
+            uploadImage();
+        });
         function $g(element) {
             let temp = document.querySelectorAll(element);
             return temp.length == 1 ? temp[0] : temp;
@@ -395,6 +409,20 @@
                     return response.json();
                 })
                 .then(data => data.url);
+        }
+        function getBlobData(img_src) {
+            return fetch(img_src).then(res => res.blob());
+        }
+        function axiosImageFile(picture) {
+            console.log(picture);
+            return axios({
+                method: 'post',
+                url: '/Talent/CreateOtherPictures',
+                data: picture,
+                contentType: false,
+                processData: false,
+                enctype: "multipart/form-data"
+            }).then(res => res.data.Result);
         }
     </script>
 

@@ -11,7 +11,7 @@ namespace PRO_finder.Models.ViewModels
         public int ProposerID { get; set; }
         public int PredictDays { get; set; }
         public string ProposeDescription { get; set; }
-        public DateTime ProposeDate { get; set; }
+        public string ProposeDate { get; set; }
         public decimal ProposePrice { get; set; }
         public string NickName { get; set; }
 

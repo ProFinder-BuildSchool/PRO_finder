@@ -141,18 +141,8 @@ namespace PRO_finder.Service
         public OperationResult CreateQuotationCart(int memberID,QuotationCartViewModel newQ)
         {
             var result = new OperationResult();
-            //var input = JObject.Parse(newQ);
             try
             {
-                //var entity = new QuotationDetail
-                //{
-                //    ProposerID = memberID,
-                //    CaseID = input.GetValue("CaseID").ToObject<int>(),
-                //    PredictDays = input.GetValue("PredictDays").ToObject<int>(),
-                //    ProposeDescription = input.GetValue("ProposeDescription").ToString(),
-                //    ProposeDate = DateTime.UtcNow,
-                //    ProposePrice = input.GetValue("ProposePrice").ToObject<int>()
-                //};
                 var entity = new QuotationDetail
                 {
                     ProposerID = memberID,
@@ -206,11 +196,12 @@ namespace PRO_finder.Service
                 
                 foreach (var item in quoCart)
                 {
+                    string date = item.ProposeDate.ToString("yyyy-MM-dd");
                     allInfoInCart.Add(new QuotationCartViewModel
                     {
                         //ProfilePicture = memInfo.ProfilePicture,
                         NickName = memInfo.NickName,
-                        ProposeDate = item.ProposeDate,
+                        ProposeDate = date,
                         ProposePrice = item.ProposePrice,
                         PredictDays = item.PredictDays,
                         ProposeDescription = item.ProposeDescription

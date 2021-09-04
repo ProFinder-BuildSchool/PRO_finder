@@ -29,7 +29,7 @@
                         </div>
                         <div class="col-6">
                             <select class="form-control" id="subcategorySelect" name="SubCategoryID">
-                                <option class="text-center">選擇子類型</option>
+                                <option>選擇子類型</option>
                             </select>
                             @Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })
                         </div>
@@ -304,16 +304,12 @@
 
         $g("#categoryDropdown").addEventListener("change", function () {
             selector.innerHTML = "<option class='text - center'>選擇服務子類型</option>";
-            subCategoryList.forEach(sub => {
-                if (sub.CategoryID == this.value) {
-                    let allsub = JSON.parse(sub.JsonSubCategoryList);
-                    allsub.forEach(s => {
-                        let option = document.createElement("option");
-                        option.innerText = s.SubCateName;
-                        option.value = s.SubCateID;
-                        selector.append(option);
-                    });
-                };
+            let allsub = JSON.parse(subCategoryList.filter(x => x.CategoryID == this.value)[0].JsonSubCategoryList);
+            allsub.forEach(s => {
+                let option = document.createElement("option");
+                option.innerText = s.SubCateName;
+                option.value = s.SubCateID;
+                selector.append(option);
             });
         });
 
