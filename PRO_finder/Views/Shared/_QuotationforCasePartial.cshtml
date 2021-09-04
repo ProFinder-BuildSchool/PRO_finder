@@ -48,13 +48,13 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        @*<div class="form-group">
                             <label for="message-text" class="control-label">訊息Message:</label>
                             <textarea v-model="inputData.message" class="form-control" id="message-text" placeholder="請輸入要給案主的訊息"></textarea>
                             <div class="text-danger small mt-1">
                                 {{ inputDataCheck.MessageErrorMsg }}
                             </div>
-                        </div>
+                        </div>*@
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -130,19 +130,19 @@
                         this.checkAddVerify();
                     }
                 },
-                //'inputData.message': {
-                //    immediate: false,
-                //    handler: function () {
-                //        if (this.inputData.message == '') {
-                //            this.inputDataCheck.messageError = true;
-                //            this.inputDataCheck.messageErrorMsg = '訊息不得為空';
-                //        } else {
-                //            this.inputDataCheck.messageError = false;
-                //            this.inputDataCheck.messageErrorMsg = '';
-                //        }
-                //        this.checkAddVerify();
-                //    }
-                //}
+                'inputData.message': {
+                    immediate: false,
+                    handler: function () {
+                        if (this.inputData.message == '') {
+                            this.inputDataCheck.messageError = true;
+                            this.inputDataCheck.messageErrorMsg = '訊息不得為空';
+                        } else {
+                            this.inputDataCheck.messageError = false;
+                            this.inputDataCheck.messageErrorMsg = '';
+                        }
+                        this.checkAddVerify();
+                    }
+                }
             },
             methods: {
                 checkAddVerify() {
