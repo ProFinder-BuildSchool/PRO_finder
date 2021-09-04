@@ -170,13 +170,14 @@ namespace PRO_finder.Service
                               });
             var OrderList = _ctx.GetAll<Order>();
             var OrderVM = (from o in OrderList
-                           join m in MemInfoList on o.DealedTalentMemberID equals m.MemberID
-                           where o.SourceID == QuotationId
+                           join m in MemInfoList on o.ProposerID equals m.MemberID
+                           join q in QuoList  on o.ProposerID equals q.MemberID
+                           where o.ProposerID == q.MemberID
                            select new QuotationReview
                            {
                                ReviewName = m.NickName,
-                               SubmitDate = o.SubmitDate.ToString(),
-                               CaseReview = o.CaseReview,
+                               SubmitDate = o.DealedDate.ToString(),
+                               CaseReview = (decimal)o.CaseReview,
                                CaseMessage = o.CaseMessage
                            });
 

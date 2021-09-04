@@ -129,10 +129,10 @@ namespace PRO_finder.Service
                                 });
 
             var StudioReviewVM = (from o in OrderList
-                                  join m in MemInfoList on o.DealedTalentMemberID equals m.MemberID
+                                  join m in MemInfoList on o.ProposerID equals m.MemberID
                                   select new StudioReviewViewModel
                                   {
-                                      CaseReview = o.CaseReview,
+                                      CaseReview = (decimal)o.CaseReview,
                                       CaseMessage = o.CaseMessage,
                                       CaseReplyMessage = o.CaseReplyMessage,
                                       MemberID = m.MemberID,

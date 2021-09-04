@@ -119,12 +119,6 @@ namespace PRO_finder.Models.DBModel
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<MemberInfo>()
-                .HasMany(e => e.Order)
-                .WithRequired(e => e.MemberInfo)
-                .HasForeignKey(e => e.DealedTalentMemberID)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<MemberInfo>()
                 .HasMany(e => e.SaveStaff)
                 .WithRequired(e => e.MemberInfo)
                 .HasForeignKey(e => e.MemberID)
@@ -162,7 +156,7 @@ namespace PRO_finder.Models.DBModel
 
             modelBuilder.Entity<Order>()
                 .Property(e => e.Price)
-                .HasPrecision(19, 4);
+                .HasPrecision(18, 0);
 
             modelBuilder.Entity<Quotation>()
                 .Property(e => e.Evaluation)

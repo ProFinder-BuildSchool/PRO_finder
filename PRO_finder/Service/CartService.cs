@@ -45,7 +45,7 @@ namespace PRO_finder.Service
         }
         public bool DelCart(int Id, int cartId)
         {
-            var CartDBList = _repo.GetAll<ClientCart>().FirstOrDefault(x => (int)x.MemberID == Id  && x.CartID == cartId);
+            var CartDBList = _repo.GetAll<ClientCart>().FirstOrDefault(x => (int)x.ClientID == Id  && x.CartID == cartId);
             _repo.Delete<ClientCart>(CartDBList);
             _repo.SaveChanges();
             return true;
@@ -56,7 +56,7 @@ namespace PRO_finder.Service
         {
          
 
-            var CartDBList = _repo.GetAll<ClientCart>().Where(x => (int)x.MemberID == memberId);
+            var CartDBList = _repo.GetAll<ClientCart>().Where(x => (int)x.ClientID == memberId);
 
             List<ClientCartViewModel> CartList = new List<ClientCartViewModel>();
 
@@ -65,7 +65,7 @@ namespace PRO_finder.Service
                 CartList.Add(new ClientCartViewModel
                 {
                     CartID=item.CartID,
-                    MemberID = (int)item.MemberID,
+                    MemberID = (int)item.ClientID,
                     QuotationImg = item.QuotationImg,
                     SubCategory = item.SubCategoryName,
                     StudioName = item.StudioName,
@@ -90,7 +90,7 @@ namespace PRO_finder.Service
         {
 
   
-                var CartDBList = _repo.GetAll<ClientCart>().Where(x => (int)x.MemberID == Id).First(y => y.CartID == VM.CartID);
+                var CartDBList = _repo.GetAll<ClientCart>().Where(x => (int)x.ClientID == Id).First(y => y.CartID == VM.CartID);
                 CartDBList.Email = VM.Email;
                 CartDBList.Count = VM.Count;
                 CartDBList.Name = VM.Name;
@@ -116,9 +116,7 @@ namespace PRO_finder.Service
             var member = _repo.GetAll<MemberInfo>().First(x => x.MemberID == memberId);
             var clientCart = new ClientCart()
             {
-                //購買者ID(案主) = cart's memberID
-                //BuyerMemberID = member.MemberID,//購買者ID(案主)
-                //SalerMemberID = Cart.SalerMemberID,//販賣者ID(人才)
+                ClientID = member.MemberID,
                 QuotationImg = Cart.QuotationImg,
                 SubCategoryName = Cart.SubCategory,
                 StudioName = Cart.StudioName,
@@ -184,7 +182,7 @@ namespace PRO_finder.Service
             int count = 0;
             try
             {
-                count = _repo.GetAll<Order>().Where(x => x.DealedTalentMemberID == memberID).Count();
+                count = _repo.GetAll<Order>().Where(x => x.ProposerID == memberID).Count();
             }
             catch
             {
