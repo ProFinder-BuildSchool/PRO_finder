@@ -8,6 +8,7 @@ namespace PRO_finder.Models.ViewModels
     public class QuotationCartViewModel
     {
         public int CaseID { get; set; }
+        public string CaseTitle { get; set; }
         public int ProposerID { get; set; }
         public int PredictDays { get; set; }
         public string ProposeDescription { get; set; }

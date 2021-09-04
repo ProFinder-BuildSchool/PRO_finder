@@ -126,14 +126,15 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="text-left">
+                                        <div class="text-left ">
                                             <p><span class="text-primary"> {{item.NickName}}</span></p>
                                             <p>提案日期 : <span> {{item.ProposeDate}}</span></p>
-                                            <p>成交 : <span> {{item.DealedCount}}</span></p>
+                                            <p>已成交 : <span> {{item.DealedCount}}件</span></p>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="text-left QTInfo">
+                                            <p>案件 : <span>{{item.CaseTitle}}</span></p>
                                             <p>報價金額 : <span> {{item.ProposePrice}}</span> </p>
                                             <p>預估天數 : <span> {{item.PredictDays}}天內完成</span></p>
                                             <p>報價信息 : <span> {{item.ProposeDescription}}</span></p>
@@ -357,7 +358,7 @@
         }
 
         .QTInfo {
-            padding-top: 43px
+            padding-top: 45px
         }
 
         .RefuseOrChoose {

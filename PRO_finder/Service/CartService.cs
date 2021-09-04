@@ -206,6 +206,7 @@ namespace PRO_finder.Service
                 
                 foreach (var item in quoCart)
                 {
+                    Case theCase = _repo.GetAll<Case>().FirstOrDefault(x => x.CaseID == item.CaseID);
                     allInfoInCart.Add(new QuotationCartViewModel
                     {
                         //ProfilePicture = memInfo.ProfilePicture,
@@ -217,7 +218,8 @@ namespace PRO_finder.Service
                         ProposeDescription = item.ProposeDescription,
                         ProposerID = item.ProposerID,
                         CaseID = item.CaseID,
-                        DealedCount= count
+                        DealedCount= count,
+                        CaseTitle = theCase.CaseTitle
                     });
                 }
             }

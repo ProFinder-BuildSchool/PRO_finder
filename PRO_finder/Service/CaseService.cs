@@ -147,6 +147,7 @@ namespace PRO_finder.Service
                        ContactEmail = Case.ContactEmail,
                        LineID = Case.LineID,
                        CategoryID = SubCategory.CategoryID,
+                       SubCategoryName = SubCategory.SubCategoryName,
                        SavedOrNot = savedOrNot
                    }).FirstOrDefault();
         }

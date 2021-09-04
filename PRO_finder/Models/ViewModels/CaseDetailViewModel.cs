@@ -34,10 +34,17 @@ namespace PRO_finder.Models.ViewModels
         public string ContactEmail { get; set; }
         public string LineID { get; set; }
         public int CategoryID { get; set; }
-
+        public string SubCategoryName { get; set; }
         //public string LogInTime { get; set; }
         public bool SavedOrNot { get; set; }
 
+
+        //案主積極度
+        public decimal Degree { get; set; }
+        public int Readed { get; set; }
+        public int Replyed { get; set; }
+        public int Propose { get; set; }
+        public DateTime OnlineTime { get; set; }
 
 
     }
