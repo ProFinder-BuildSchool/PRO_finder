@@ -640,7 +640,7 @@
             let idealSubCateID = @Html.Raw(Json.Encode(ViewBag.IdealSubCategoryID)) != null ? @Html.Raw(Json.Encode(ViewBag.IdealSubCategoryID)) : -1;
             let idealCateID = @Html.Raw(Json.Encode(ViewBag.IdealCategoryID)) != null ? @Html.Raw(Json.Encode(ViewBag.IdealCategoryID)) : -1;
             if (idealSubCateID != -1) {
-                selector.innerHTML = "<option class='text-center'>選擇子類型</option>";
+                selector.innerHTML = "<option>選擇子類型</option>";
                 let theSubList = subCategoryList.filter(x => x.CategoryID == idealCateID)[0].JsonSubCategoryList;
                 let allSub = JSON.parse(theSubList);
                 allSub.forEach(s => {

@@ -41,8 +41,8 @@ namespace PRO_finder.APIControllers
             string result = "";
             try
             {
-                _memberInfoService.GetJsonSubTool();
-                result = "提取成功";
+                
+                result = _memberInfoService.GetJsonSubTool();
                 return new APIResult(APIStatus.Success, string.Empty, result);
             }
             catch (Exception ex)
