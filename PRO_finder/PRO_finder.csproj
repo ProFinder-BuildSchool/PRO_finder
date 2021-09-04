@@ -399,6 +399,10 @@
     <Compile Include="Migrations\202109031445372_2021-09-03.Designer.cs">
       <DependentUpon>202109031445372_2021-09-03.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109041346366_2021-09-04.cs" />
+    <Compile Include="Migrations\202109041346366_2021-09-04.Designer.cs">
+      <DependentUpon>202109041346366_2021-09-04.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DBModel\AspNetRoles.cs" />
@@ -868,6 +872,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109031445372_2021-09-03.resx">
       <DependentUpon>202109031445372_2021-09-03.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109041346366_2021-09-04.resx">
+      <DependentUpon>202109041346366_2021-09-04.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
