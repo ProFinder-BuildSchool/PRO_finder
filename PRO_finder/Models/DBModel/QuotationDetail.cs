@@ -27,6 +27,8 @@ namespace PRO_finder.Models.DBModel
 
         public bool? Status { get; set; }
 
+        public int? Unit { get; set; }
+
         public virtual MemberInfo MemberInfo { get; set; }
     }
 }
