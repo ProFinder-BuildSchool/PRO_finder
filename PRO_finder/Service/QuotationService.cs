@@ -186,7 +186,7 @@ namespace PRO_finder.Service
                                select new QuotationDetailViewModel
                                {
                                    QuotationId = q.QuotationID,
-                                   MemberID = m.MemberID,
+                                   MemberID = (int)q.MemberID,
                                    NickName = m.NickName,
                                    LogInTime = m.LogInTime.ToString(),
                                    Identity = (QuotationDetailViewModel.IdentityStatus)m.Identity,

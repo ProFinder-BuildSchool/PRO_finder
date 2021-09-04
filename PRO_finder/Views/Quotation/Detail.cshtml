@@ -486,20 +486,24 @@
                 MemberID:@Model.MemberID , QuotationImg: "@Model.MainPicture", SubCategory: "@Model.QuotationTitle", StudioName: "@Model.NickName", Count: Number(count),
                 Price:@Model.Price , Unit: "@Model.Unit" }
 
-          
+
             axios.post('/api/Cart/AddCart?memberID=@ViewBag.memberID', OrderInfo)
                 .then(res => {
                     side.style.height = "0px"
                     if (res.data.Result == true) {
+
+                        axios.get(`/api/Cart/GetCart?id=@ViewBag.memberID`).then(res => {
+                            let counts = res.data.Result.length
+                            CartCount.innerHTML = counts
+                        })
+
                         Swal.fire(
                             '已加入清單',
                             '點擊按鈕關閉',
                             'success'
                         )
-                        axios.get(`/api/Cart/GetCart?id=@ViewBag.memberID`).then(res => {
-                            let counts = res.data.Result.length
-                            CartCount.innerHTML = counts
-                        })
+
+
                     }
                     else
                     {
@@ -538,8 +542,8 @@
             }
         })
 
-        
-       
+
+
             let count = 0
             document.querySelector('.minuscount').addEventListener('click', function (e) {
                 e.preventDefault();
@@ -557,6 +561,6 @@
             })
 
             countNumber.innerText = count;
-        
+
     </script>
 }
