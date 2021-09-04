@@ -12,7 +12,7 @@ namespace PRO_finder.Models.DBModel
         [Key]
         public int CartID { get; set; }
 
-        public int? MemberID { get; set; }
+        public int? ClientID { get; set; }
 
         public string QuotationImg { get; set; }
 
@@ -41,5 +41,9 @@ namespace PRO_finder.Models.DBModel
         public string Memo { get; set; }
 
         public int? ContactTime { get; set; }
+
+        public int? ProposerID { get; set; }
+
+        public int? PredictDays { get; set; }
     }
 }
