@@ -330,34 +330,32 @@
         let caseid = @Html.Raw(Json.Encode(Model.CaseId));
         let farHeart = document.querySelector('#farHeart');
 
-        let clickCount = 0;
 
+        let saved = @Html.Raw(Json.Encode(Model.SavedOrNot));
+        if (saved) {
+            farHeart.classList.remove("far");
+            farHeart.classList.add("fas");
+        }
         btnSaveCase.addEventListener('click', function () {
-            if (clickCount > 1) { clickCount = 0; }
+            saved = !saved;
 
-            if (clickCount == 0) {
+            if (saved ) {
                 axios.post('/SaveCase/AddOrDeleSaveCase', { caseid: caseid }).then(res => console.log(res));
-                //localStorage.setItem("saved", caseid);
-                //if (localStorage.getItem("saved") ) {
+
                     farHeart.classList.remove("far");
                     farHeart.classList.add("fas");
                     alert('已收藏此案件 ! ')
-                //}
             }
-            if (clickCount == 1) {
+            if (!saved) {
                 axios.post('/SaveCase/AddOrDeleSaveCase', { caseid: caseid }).then(res => console.log(res));
-                //localStorage.setItem("Notsaved", "Notsaved");
-                //if (localStorage.getItem("Notsaved")){
+
                     farHeart.classList.add("far");
                     farHeart.classList.remove("fas");
                     alert('已取消此收藏 ')
-                //}
             }
-            clickCount++;
-
         })
 
-        
+
 
     </script>
 

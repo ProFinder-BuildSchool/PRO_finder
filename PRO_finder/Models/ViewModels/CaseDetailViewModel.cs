@@ -36,6 +36,7 @@ namespace PRO_finder.Models.ViewModels
         public int CategoryID { get; set; }
 
         //public string LogInTime { get; set; }
+        public bool SavedOrNot { get; set; }
 
 
 

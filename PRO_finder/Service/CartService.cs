@@ -209,11 +209,15 @@ namespace PRO_finder.Service
                     allInfoInCart.Add(new QuotationCartViewModel
                     {
                         //ProfilePicture = memInfo.ProfilePicture,
+                        ProfilePicture = "https://s1.tasker.com.tw/img/62M4ye/Zg/BL?update=1",
                         NickName = memInfo.NickName,
                         ProposeDate = item.ProposeDate,
                         ProposePrice = item.ProposePrice,
                         PredictDays = item.PredictDays,
-                        ProposeDescription = item.ProposeDescription
+                        ProposeDescription = item.ProposeDescription,
+                        ProposerID = item.ProposerID,
+                        CaseID = item.CaseID,
+                        DealedCount= count
                     });
                 }
             }

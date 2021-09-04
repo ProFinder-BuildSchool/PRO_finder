@@ -16,7 +16,7 @@ namespace PRO_finder.Models.ViewModels
         public string NickName { get; set; }
 
         //大頭貼
-        //public string ProfilePicture { get; set; }
+        public string ProfilePicture { get; set; }
 
         //成交筆數
         public int DealedCount { get; set; }
