@@ -207,7 +207,7 @@
     <div class="col-lg-6 col-12">
         <div class="confirmProduct">
             <div class="row justify-content-center">
-                <div class="col-12">
+                <form class="col-12" id="form">
                     <p class="h3">確認數量</p>
                     <div>
                         <button class="minuscount"><i class="fas fa-minus"></i></button>
@@ -220,32 +220,31 @@
                     <div class="form-group text-start text-dark mb-2">
                         <label class="" for="useremail">Email</label>
                         <input type="email" class="form-control" name="email" id="useremail"
-                               placeholder="請輸入 Email" /> <span class="text-danger"></span>
+                               placeholder="請輸入 Email" required /> <span class="text-danger">Email欄位不得留空</span>
                     </div>
                     <div class="form-group text-start text-dark mb-2">
                         <label class="" for="username ">收件人姓名</label>
                         <input type="text" class="form-control" name="name" id="username"
-                               placeholder="輸入姓名" /> <span class="text-danger"></span>
+                               placeholder="輸入姓名" required /> <span class="text-danger">姓名欄位不得留空</span>
                     </div>
                     <div class="form-group text-start text-dark mb-2">
                         <label class="" for="usertel">收件人電話</label>
                         <input type="tel" class="form-control" id="usertel"
-                               placeholder="請輸入電話" />
+                               placeholder="請輸入電話" required /> <span class="text-danger">電話欄位不得留空</span>
                     </div>
                     <div class="form-group text-start text-dark mb-2">
                         <label class=""
-                               for="useraddress">收件人Line</label>
+                               for="useraddress">收件人LineID</label>
                         <input type="text" class="form-control" name="line"
-                               id="userline" placeholder="請輸入地址" /> <span class="text-danger">Line欄位不得留空</span>
+                               id="userline" placeholder="請輸入LineID" /> <span class="text-danger">Line欄位不得留空</span>
                     </div>
                     <div class="form-group text-start text-dark">
-                        <label for="memo">留言</label> <textarea name=""
-                                                               id="memo" class="form-control" cols="30" rows="5"></textarea>
+                        <label for="memo">留言</label> <textarea name="" id="memo" class="form-control" cols="30" rows="5"></textarea>
                     </div>
                     <div class="mt-3 text-right">
                         <button class="addProduct disabled"> 加入購物車</button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
 
@@ -405,7 +404,7 @@
         .minuscount,
         .pluscount {
             background-color: transparent;
-/*            width: 30px;
+            /*            width: 30px;
             height: 30px;*/
             border-radius: 50%;
             border: none;
@@ -415,7 +414,7 @@
 
             .minuscount:hover,
             .pluscount:hover {
-                transform:scale(1.2);
+                transform: scale(1.2);
             }
 
         .count {
@@ -440,16 +439,16 @@
         }
 
         .closefilter:focus,
-        .more:focus
-        {
+        .more:focus {
             outline: none;
-
         }
+
         .minuscount:focus,
         .pluscount:focus {
             outline: none;
             background: radial-gradient(circle at center,white,rgba(0,0,0,.05));
         }
+
         .site-navbar {
             position: static !important;
         }
@@ -458,9 +457,35 @@
 
 @section endJS{
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 
     <script src="~/Assets/js/QuotationDetail.js"></script>
+    
     <script>
+        Vue.use(VueForm);
+        let formIdentuty = new Vue({
+            el: '#form',
+            data: {
+                formModel: { name: '', email, '' },
+                formState: {}
+            },
+            methods: {
+                fieldClassName() {
+                    if (!field) {
+                        return '';
+                    }
+                    if (field.$touched || field.$subitted && field.$valid) {
+                        return 'is-valid';
+                    }
+                    if (field.$touched || field.$subitted && field.$invalid) {
+                        return 'is-invalid';
+                    }
+                }
+            }
+        })
+    </script>
+    <script>
+        
         let addProduct = document.querySelector('.addProduct');
 
         let side = document.getElementById('Sidenav');
@@ -486,7 +511,7 @@
                 MemberID:@Model.MemberID , QuotationImg: "@Model.MainPicture", SubCategory: "@Model.QuotationTitle", StudioName: "@Model.NickName", Count: Number(count),
                 Price:@Model.Price , Unit: "@Model.Unit" }
 
-          
+
             axios.post('/api/Cart/AddCart?memberID=@ViewBag.memberID', OrderInfo)
                 .then(res => {
                     side.style.height = "0px"
@@ -513,8 +538,6 @@
                 })
             })
 
-
-
         document.querySelector('.modelBtn').addEventListener('click', function () {
             let height = 100
             side.style.height = `${height}%`;
@@ -538,12 +561,12 @@
             }
         })
 
-        
-       
-            let count = 0
+
+
+            let count = 1
             document.querySelector('.minuscount').addEventListener('click', function (e) {
                 e.preventDefault();
-                if (count != 0) {
+                if (count != 1) {
                     count--
                     countNumber.innerText = count;
                     console.log(count)
@@ -556,7 +579,7 @@
                 console.log(count)
             })
 
-            countNumber.innerText = count;
-        
+        countNumber.innerText = count;
+
     </script>
 }
