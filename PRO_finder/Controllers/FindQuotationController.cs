@@ -1,4 +1,6 @@
-﻿using PRO_finder.Models.ViewModels;
+﻿using Microsoft.AspNet.Identity;
+using PRO_finder.Models.DBModel;
+using PRO_finder.Models.ViewModels;
 using PRO_finder.Service;
 using System;
 using System.Collections.Generic;
@@ -14,11 +16,13 @@ namespace PRO_finder.Controllers
     {
         private readonly CategoryService _categoryService;
         private readonly CaseService _caseService;
+        private readonly MemberinfoService _memberinfoService;
 
         public FindQuotationController()
         {
             _caseService = new CaseService();
             _categoryService = new CategoryService();
+            _memberinfoService = new MemberinfoService();
 
         }
 
@@ -59,16 +63,18 @@ namespace PRO_finder.Controllers
         [Authorize]
         public ActionResult Detail(int id = 1)
         {
+            string user = HttpContext.User.Identity.GetUserId();
+            int memberID = _memberinfoService.GetMemberID(user);
 
             ViewBag.CateId = id;
-            var result = _caseService.GetCaseDetail().FirstOrDefault(x => x.CaseId == id);
+            var result = _caseService.GetCaseDetail(id, memberID);
             return View(result);
 
         }
 
         public ActionResult Othercase(string Cateid)
         {
-            var result = _caseService.GetCaseDetail().Where(x => x.CategoryID == Int32.Parse(Cateid)).ToList
+            var result = _caseService.GetOtherCase().Where(x => x.CategoryID == Int32.Parse(Cateid)).ToList
                 ();
 
             return Json(result, JsonRequestBehavior.AllowGet);

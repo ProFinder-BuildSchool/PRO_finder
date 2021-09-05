@@ -8,6 +8,7 @@ namespace PRO_finder.Models.ViewModels
     public class QuotationCartViewModel
     {
         public int CaseID { get; set; }
+        public string CaseTitle { get; set; }
         public int ProposerID { get; set; }
         public int PredictDays { get; set; }
         public string ProposeDescription { get; set; }
@@ -16,7 +17,7 @@ namespace PRO_finder.Models.ViewModels
         public string NickName { get; set; }
 
         //大頭貼
-        //public string ProfilePicture { get; set; }
+        public string ProfilePicture { get; set; }
 
         //成交筆數
         public int DealedCount { get; set; }

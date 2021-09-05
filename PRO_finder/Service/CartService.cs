@@ -197,14 +197,20 @@ namespace PRO_finder.Service
                 foreach (var item in quoCart)
                 {
                     string date = item.ProposeDate.ToString("yyyy-MM-dd");
+                    Case theCase = _repo.GetAll<Case>().FirstOrDefault(x => x.CaseID == item.CaseID);
                     allInfoInCart.Add(new QuotationCartViewModel
                     {
                         //ProfilePicture = memInfo.ProfilePicture,
+                        ProfilePicture = "https://s1.tasker.com.tw/img/62M4ye/Zg/BL?update=1",
                         NickName = memInfo.NickName,
                         ProposeDate = date,
                         ProposePrice = item.ProposePrice,
                         PredictDays = item.PredictDays,
-                        ProposeDescription = item.ProposeDescription
+                        ProposeDescription = item.ProposeDescription,
+                        ProposerID = item.ProposerID,
+                        CaseID = item.CaseID,
+                        DealedCount= count,
+                        CaseTitle = theCase.CaseTitle
                     });
                 }
             }
