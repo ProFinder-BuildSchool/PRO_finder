@@ -126,8 +126,8 @@
         </div>
     </div>
     //hidden inputs
-    <input type="hidden" name="MainPicture" id="MainPicture"/>
-    <input type="hidden" name="OtherPictureList" id="OtherPictureList"/>
+    <input type="hidden" name="MainPicture" id="MainPicture" />
+    <input type="hidden" name="OtherPictureList" id="OtherPictureList" />
 
 }
 @*picture template*@
@@ -269,17 +269,13 @@
         //quill 富文本編輯器
         var toolbarOptions = [
             ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-
             [{ 'list': 'ordered' }, { 'list': 'bullet' }],
             [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
             [{ 'direction': 'rtl' }],                         // text direction
-
             [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
             [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
             [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
             [{ 'align': [] }],
-
             ['clean']                                         // remove formatting button
         ];
         var quill = new Quill('#editor', {
@@ -295,12 +291,10 @@
         //上傳圖檔呈現
         let countMedia = 0;
         let displayUpload = $g("#displayUpload");
-        let uploadArray = []; //上傳圖床用的
         $g("input#upload").addEventListener("change", function () {
             /*console.dir(this);*/
             let files = Array.from(this.files);
             files.forEach(file => {
-                uploadArray.push(file);
                 let clone = $g("#displayPictureTemplate").content.cloneNode(true);
                 let div = clone.querySelector("div");
                 let span = clone.querySelector("span");
@@ -312,7 +306,6 @@
                     let theCount = this.dataset.count
                     let theDiv = $g(`div#count${theCount}`);
                     displayUpload.removeChild(theDiv);
-                    uploadArray.splice(theCount, 1);
                     //console.log(theDiv);
                 });
 
@@ -344,85 +337,51 @@
             animation: 200
         });
 
-        //提交，送出WorkAttachmentList、WorkPicturesList
-        //cloudinary 影音圖檔上傳
-        const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/syjy97jq/image/upload";
-        const upload_preset = "syjy97jq";
-        const myApiKey = "691819382586651"
-
         $g("input#send").addEventListener("click", function (e) {
             e.preventDefault();
 
             //富文本編輯器儲存
             $g("input[name='Description']").value = $g("div.ql-editor").innerHTML;
 
-            //OtherPictureList
-            //let sortNum = 0;
+            //儲存參考圖檔
             let otherPictureArray = [];
-
-            const asyncRun = async () => {
-                for (let i = 0; i < uploadArray.length; i++) {
-                    let formData = new FormData();
-                    formData.append("file", uploadArray[i]);
-                    formData.append("upload_preset", upload_preset);
-                    formData.append("api_key", myApiKey);
-                    let result_url = await fetchCloudinary(formData);
-                    let obj = new Object();
-                    obj.OtherPictureLink = result_url;
-                    obj.SortNumber = i;
-                    otherPictureArray.push(obj);
-                }
-                $g("input#MainPicture").value = otherPictureArray[0].OtherPictureLink;
-                let otherPics = JSON.stringify(otherPictureArray);
-                $g("input#OtherPictureList").value = otherPics;
-                console.log(otherPics);
-
-                document.querySelector("form[action='/Talent/CreateQuotation']").submit();
-            };
-            asyncRun();
-
-        });
-        const uploadImage = async () => {
             let imgs = document.querySelectorAll(".uploadImg");
-            for (let i = 0; i < imgs.length; i++) {
-                const blobData = await getBlobData(imgs[i].src);
-                const fileObject = new File([blobData], imgs[i].src, { type: blobData.type });
-                const form = new FormData();
-                form.append("picture", fileObject);
-                let url_result = axiosImageFile(form);
-                console.log(url_result);
-            };
-        }
-        $g("#test").addEventListener("click", function () {
-            uploadImage();
+            //上傳雲端
+            const uploadImage_SendForm = async () => {
+                for (let i = 0; i < imgs.length; i++) {
+                    const blobData = await getBlobData(imgs[i].src);
+                    const fileObject = new File([blobData], imgs[i].src, { type: blobData.type });
+                    const form = new FormData();
+                    form.append("picture", fileObject);
+                    let url_result = await axiosImageFile(form);
+                    otherPictureArray.push({ OtherPictureLink: url_result, SortNumber: i });
+                    $g("input#MainPicture").value = otherPictureArray[0].OtherPictureLink;
+                    let otherPics = JSON.stringify(otherPictureArray);
+                    $g("input#OtherPictureList").value = otherPics;
+                    console.log(otherPics);
+                    document.querySelector("form[action='/Talent/CreateQuotation']").submit();
+                };
+            }
+            uploadImage_SendForm();
+
         });
+
         function $g(element) {
             let temp = document.querySelectorAll(element);
             return temp.length == 1 ? temp[0] : temp;
-        }
-        function fetchCloudinary(form_data) {
-            return fetch(CLOUDINARY_URL, {
-                method: "POST",
-                body: form_data
-            })
-                .then((response) => {
-                    return response.json();
-                })
-                .then(data => data.url);
         }
         function getBlobData(img_src) {
             return fetch(img_src).then(res => res.blob());
         }
         function axiosImageFile(picture) {
-            console.log(picture);
             return axios({
                 method: 'post',
-                url: '/Talent/CreateOtherPictures',
+                url: '/Talent/UploadCloudinary',
                 data: picture,
                 contentType: false,
                 processData: false,
                 enctype: "multipart/form-data"
-            }).then(res => res.data.Result);
+            }).then(res => res.data);
         }
     </script>
 

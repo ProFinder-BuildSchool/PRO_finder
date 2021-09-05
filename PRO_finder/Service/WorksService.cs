@@ -1,6 +1,4 @@
-﻿using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PRO_finder.Models.DBModel;
 using PRO_finder.Models.ViewModels;
@@ -16,14 +14,10 @@ namespace PRO_finder.Service
     public class WorksService
     {
         private readonly GeneralRepository _repo;
-        private readonly Account _account;
-        private readonly Cloudinary _cloudinary;
+        
         public WorksService()
         {
             _repo = new GeneralRepository(new ProFinderContext());
-            _account = new Account("dwwmf9pyq", "691819382586651", "wOf6jj4sSd582t4ohD85sQ7k5ag");
-            _cloudinary = new Cloudinary(_account);
-            _cloudinary.Api.Secure = true;
         }
         public Works CreateWorks(UploadMyWorksViewModel input)
         {
@@ -118,15 +112,7 @@ namespace PRO_finder.Service
             return tempGroup;
 
         }
-        public string UploadCloudinary(HttpPostedFileBase file)
-        {
-            var uploadParams = new ImageUploadParams()
-            {
-                File = new FileDescription(file.FileName, file.InputStream)
-            };
-            var uploadResult = _cloudinary.Upload(uploadParams);
-            return uploadResult.SecureUri.AbsoluteUri;
-        }
+        
 
 
     }

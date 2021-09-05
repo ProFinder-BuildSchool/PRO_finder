@@ -318,6 +318,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\CloudinaryHelper.cs" />
     <Compile Include="Helper\DateToString.cs" />
     <Compile Include="Helper\PriceToString.cs" />
     <Compile Include="Migrations\202108111415486_worktest.cs" />

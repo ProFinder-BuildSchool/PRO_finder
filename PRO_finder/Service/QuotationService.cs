@@ -261,7 +261,7 @@ namespace PRO_finder.Service
                        SubcategoryId = q.SubCategoryID,
                        SubcategoryName = s.SubCategoryName,
                        CategoryId = s.CategoryID,
-                       Price = q.Price.ToString(),
+                       Price = ((int)q.Price).ToString(),
                        Unit = (QuotationDetailViewModel.UnitEnum)q.QuotationUnit,
                        UpdateDateOrigin = q.UpdateDate,
                        QuotationTitle = q.QuotationTitle,

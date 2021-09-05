@@ -102,7 +102,7 @@
                         {
                             <div class="col-12 col-md-6 col-lg-4 origin">
                                 <span class="btn btn-outline-danger"><i class='fas fa-trash-alt'></i></span>
-                                <img src="@item.OtherPictureLink" data-content="WorkPicture" class="origin"/>
+                                <img src="@item.OtherPictureLink" data-content="WorkPicture" class="origin uploadImg"/>
                                 @*<video src="" data-content="WorkPicture"/>*@
                             </div>
                         }
@@ -270,7 +270,7 @@
 
             //呈現subcatgory dropdown list
             if (originSubcateID != null && originCateID != null) {
-                selector.innerHTML = "<option class='text - center'>選擇服務子類型</option>";
+                selector.innerHTML = "<option>選擇服務子類型</option>";
                 let originSubList = subCategoryList.filter(x => x.CategoryID == originCateID)[0].JsonSubCategoryList;
                 let allOriginSubList = JSON.parse(originSubList);
                 allOriginSubList.forEach(s => {
@@ -285,7 +285,7 @@
         
 
         document.querySelector("#categoryDropdown").addEventListener("change", function () {
-            selector.innerHTML = "<option class='text - center'>選擇服務子類型</option>";
+            selector.innerHTML = "<option>選擇服務子類型</option>";
             let subJsonList = subCategoryList.filter(x => x.CategoryID == this.value)[0].JsonSubCategoryList;
             let allSub = JSON.parse(subJsonList);
             allSub.forEach(s => {
@@ -299,17 +299,13 @@
         //quill 富文本編輯器
         var toolbarOptions = [
             ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-
             [{ 'list': 'ordered' }, { 'list': 'bullet' }],
             [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
             [{ 'direction': 'rtl' }],                         // text direction
-
             [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
             [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
             [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
             [{ 'align': [] }],
-
             ['clean']                                         // remove formatting button
         ];
         var quill = new Quill('#editor', {
@@ -325,29 +321,31 @@
         //上傳圖檔呈現
         let countMedia = 0;
         let displayUpload = $g("#displayUpload");
-        let uploadArray = []; //上傳圖床用的
-        //將資料庫原有圖片加入uploadArray
-        let originImgs = document.querySelectorAll("img.origin");
-        if (originImgs != null) {
-            originImgs.forEach((img, index) => {
-                const urlToObject = async () => {
-                    let url = img.src;
-                    let len = url.length;
-                    var http = url.substring(0, 5)
-                    if (http != "https") {
-                        url = "https://" + url.substring(7, len);
-                    }
-                    const response = await fetch(url);
-                    // here image is url/location of image
-                    const blob = await response.blob();
-                    const file = new File([blob], `image${index}.jpg`, { type: blob.type });
-                    uploadArray.push(file);
-                }
-                urlToObject();
+        //let uploadArray = []; //上傳圖床用的
+        ////將資料庫原有圖片加入uploadArray
+        //let originImgs = document.querySelectorAll("img.origin");
+        //if (originImgs != null) {
+        //    originImgs.forEach((img, index) => {
+        //        const urlToObject = async () => {
+        //            let url = img.src;
+        //            let len = url.length;
+        //            var http = url.substring(0, 5)
+        //            if (http != "https") {
+        //                url = "https://" + url.substring(7, len);
+        //            }
+        //            const response = await fetch(url);
+        //            // here image is url/location of image
+        //            const blob = await response.blob();
+        //            const file = new File([blob], `image${index}.jpg`, { type: blob.type });
+        //            uploadArray.push(file);
+        //        }
+        //        urlToObject();
                 
-            });
-        }
-        //原有圖片顯示的div顯示
+        //    });
+        //}
+
+
+        //原有圖片顯示的div顯示設定
         let originImgDiv = document.querySelectorAll("div.origin");
         if (originImgDiv != null) {
             originImgDiv.forEach(div => {
@@ -359,18 +357,13 @@
                     let theCount = this.dataset.count
                     let theDiv = $g(`div#count${theCount}`);
                     displayUpload.removeChild(theDiv);
-                    uploadArray.splice(theCount, 1);
-                    //console.log(theDiv);
                 });
-
                 countMedia++;
             })
         }
         $g("input#upload").addEventListener("change", function () {
-            /*console.dir(this);*/
             let files = Array.from(this.files);
             files.forEach(file => {
-                uploadArray.push(file);
                 let clone = $g("#displayPictureTemplate").content.cloneNode(true);
                 let div = clone.querySelector("div");
                 let span = clone.querySelector("span");
@@ -382,8 +375,6 @@
                     let theCount = this.dataset.count
                     let theDiv = $g(`div#count${theCount}`);
                     displayUpload.removeChild(theDiv);
-                    uploadArray.splice(theCount, 1);
-                    //console.log(theDiv);
                 });
 
                 //新增圖片影片預覽
@@ -391,7 +382,9 @@
                 let regexVideo = "^video.+";
                 let fileType = file.type;
                 let img = document.createElement("img");
+                img.classList.add('uploadImg');
                 let video = document.createElement("video");
+                video.classList.add('uploadVideo');
 
                 if (fileType.match(regexImg)) {
                     img.src = URL.createObjectURL(file);
@@ -412,42 +405,32 @@
             animation: 200
         });
 
-        //提交，送出WorkAttachmentList、WorkPicturesList
-        //cloudinary 影音圖檔上傳
-        const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/syjy97jq/image/upload";
-        const upload_preset = "syjy97jq";
-        const myApiKey = "691819382586651"
-
         $g("input#send").addEventListener("click", function (e) {
             e.preventDefault();
             $g("body").classList.add("wait");
             //富文本編輯器儲存
             $g("input[name='Description']").value = $g("div.ql-editor").innerHTML;
 
-            //OtherPictureList
-            //let sortNum = 0;
+            //儲存參考圖檔
             let otherPictureArray = [];
-
-            const asyncRun = async () => {
-                for (let i = 0; i < uploadArray.length; i++) {
-                    let formData = new FormData();
-                    formData.append("file", uploadArray[i]);
-                    formData.append("upload_preset", upload_preset);
-                    formData.append("api_key", myApiKey);
-                    let result_url = await fetchCloudinary(formData);
-                    let obj = new Object();
-                    obj.OtherPictureLink = result_url;
-                    obj.SortNumber = i;
-                    otherPictureArray.push(obj);
-                }
-                $g("input#MainPicture").value = otherPictureArray[0].OtherPictureLink;
-                let otherPics = JSON.stringify(otherPictureArray);
-                $g("input#OtherPictureList").value = otherPics;
-                console.log(otherPics);
-
-                document.querySelector("form[action='/Talent/UpdateMyQuotation']").submit();
-            };
-            asyncRun();
+            let imgs = document.querySelectorAll(".uploadImg");
+            //上傳雲端
+            const uploadImage_SendForm = async () => {
+                for (let i = 0; i < imgs.length; i++) {
+                    const blobData = await getBlobData(imgs[i].src);
+                    const fileObject = new File([blobData], imgs[i].src, { type: blobData.type });
+                    const form = new FormData();
+                    form.append("picture", fileObject);
+                    let url_result = await axiosImageFile(form);
+                    otherPictureArray.push({ OtherPictureLink: url_result, SortNumber: i });
+                    $g("input#MainPicture").value = otherPictureArray[0].OtherPictureLink;
+                    let otherPics = JSON.stringify(otherPictureArray);
+                    $g("input#OtherPictureList").value = otherPics;
+                    console.log(otherPics);
+                    document.querySelector("form[action='/Talent/UpdateMyQuotation']").submit();
+                };
+            }
+            uploadImage_SendForm();
 
         });
 
@@ -464,6 +447,25 @@
                     return response.json();
                 })
                 .then(data => data.url);
+        }
+        function getBlobData(img_src) {
+            let url = img_src;
+            let len = url.length;
+            var http = url.substring(0, 5)
+            if (http != "https") {
+                url = "https://" + url.substring(7, len);
+            }
+            return fetch(url).then(res => res.blob());
+        }
+        function axiosImageFile(picture) {
+            return axios({
+                method: 'post',
+                url: '/Talent/UploadCloudinary',
+                data: picture,
+                contentType: false,
+                processData: false,
+                enctype: "multipart/form-data"
+            }).then(res => res.data);
         }
     </script> 
 }

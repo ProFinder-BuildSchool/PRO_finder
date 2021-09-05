@@ -13,8 +13,8 @@ using PRO_finder.Models.ViewModels;
 using PRO_finder.Repositories;
 using PRO_finder.Service;
 using PRO_finder.ViewModels;
-using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
+using Newtonsoft.Json;
+using PRO_finder.Helper;
 
 namespace PRO_finder.Controllers
 {
@@ -27,6 +27,7 @@ namespace PRO_finder.Controllers
         private readonly WorksService _worksService;
         private readonly QuotationService _quotaService;
         private readonly MemberinfoService _memberInfoService;
+        private readonly CloudinaryHelper _cloudinaryHelper;
 
         public TalentController()
         {
@@ -35,34 +36,13 @@ namespace PRO_finder.Controllers
             _worksService = new WorksService();
             _quotaService = new QuotationService();
             _memberInfoService = new MemberinfoService();
+            _cloudinaryHelper = new CloudinaryHelper();
         }
 
         public ActionResult Index()
         {
             return View();
         }
-
-        [HttpPost]
-        public void UploadFile(HttpPostedFile file)
-        {
-
-            HttpPostedFileBase uploadFile = Request.Files["file"] as HttpPostedFileBase;
-            if (uploadFile != null && uploadFile.ContentLength > 0)
-            {
-                string fileSavePath = WebConfigurationManager.AppSettings["UploadPath"];
-                string newFileName = string.Concat(Path.GetRandomFileName().Replace(".", ""), Path.GetExtension(uploadFile.FileName).ToLower());
-                string fullFilePath = Path.Combine(Server.MapPath(fileSavePath), newFileName);
-                uploadFile.SaveAs(fullFilePath);
-                Response.Write(fullFilePath);
-                return;
-            }
-            else
-            {
-                Response.Write("Oops");
-            }
-
-        }
-        
         public ActionResult CreateQuotation()
         {
             ViewBag.CategoryList = _cateService.GetCategorySelectList();
@@ -91,19 +71,13 @@ namespace PRO_finder.Controllers
             return View(quotation);
         }
         
-        [HttpPost]
-       
-        public JsonResult CreateOtherPictures()
-        {
-            HttpPostedFileBase file = Request.Files["picture"];
-            string url = _worksService.UploadCloudinary(file);
-            return Json(url, JsonRequestBehavior.AllowGet);
-        }
+        
         public ActionResult UploadMyWorks()
         {
             ViewBag.CategoryList = _cateService.GetCategorySelectList();
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UploadMyWorks([Bind(Include = "WorkName, SubCategoryID, Client, Role, YearStarted, WebsiteURL, WorkDescription, WorkAttachmentList, WorkPictureList, WorkAttachmentName, WorkAttachmentLink, Attachments, ")] UploadMyWorksViewModel newWorks)
@@ -258,10 +232,6 @@ namespace PRO_finder.Controllers
             }
             return View(caseSettings);
         }
-
-
-        
-        
         public ActionResult MyQuotationIndex()
         {
             
@@ -275,7 +245,10 @@ namespace PRO_finder.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                string userID = HttpContext.User.Identity.GetUserId();
+                int memberID = _memberInfoService.GetMemberID(userID);
+                var myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
+                return View("MyQuotationIndex", myQuotation);
             }
             var theQuotation = _quotaService.GetQuotation(id);
             var cateList= _cateService.GetCategorySelectList();
@@ -317,6 +290,34 @@ namespace PRO_finder.Controllers
         public ActionResult ApiTest()
         {
             return View();
+        }
+
+        [HttpPost]
+        public void UploadFile(HttpPostedFile file)
+        {
+
+            HttpPostedFileBase uploadFile = Request.Files["file"] as HttpPostedFileBase;
+            if (uploadFile != null && uploadFile.ContentLength > 0)
+            {
+                string fileSavePath = WebConfigurationManager.AppSettings["UploadPath"];
+                string newFileName = string.Concat(Path.GetRandomFileName().Replace(".", ""), Path.GetExtension(uploadFile.FileName).ToLower());
+                string fullFilePath = Path.Combine(Server.MapPath(fileSavePath), newFileName);
+                uploadFile.SaveAs(fullFilePath);
+                Response.Write(fullFilePath);
+                return;
+            }
+            else
+            {
+                Response.Write("Oops");
+            }
+
+        }
+        [HttpPost]
+        public void UploadCloudinary()
+        {
+            HttpPostedFileBase file = Request.Files["picture"];
+            string url = _cloudinaryHelper.UploadCloudinary(file);
+            Response.Write(url);
         }
     }
 }
