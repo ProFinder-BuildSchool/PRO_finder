@@ -165,8 +165,7 @@ namespace PRO_finder.Service
         }
         public string GetAllQuotationCart(int memberID)
         {
-            //取得memberInfo
-            MemberInfo memInfo = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == memberID);
+            
             
             //取得成交order數量
             int count = 0;
@@ -183,7 +182,16 @@ namespace PRO_finder.Service
             List<QuotationDetail> quoCart = new List<QuotationDetail>();
             try
             {
-                quoCart = _repo.GetAll<QuotationDetail>().Where(x => x.ProposerID == memberID).ToList();
+                var myCase = _repo.GetAll<Case>().Where(x => x.MemberID == memberID).ToList();
+                foreach(var item in myCase)
+                {
+                    var qd = _repo.GetAll<QuotationDetail>().Where(x => x.CaseID == item.CaseID).ToList();
+                    foreach(var j in qd)
+                    {
+                        quoCart.Add(j);
+                    }
+                }
+                
             }
             catch
             {
@@ -198,6 +206,8 @@ namespace PRO_finder.Service
                 {
                     string date = item.ProposeDate.ToString("yyyy-MM-dd");
                     Case theCase = _repo.GetAll<Case>().FirstOrDefault(x => x.CaseID == item.CaseID);
+                    //取得proposer memberInfo
+                    MemberInfo memInfo = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == item.ProposerID);
                     allInfoInCart.Add(new QuotationCartViewModel
                     {
                         //ProfilePicture = memInfo.ProfilePicture,
