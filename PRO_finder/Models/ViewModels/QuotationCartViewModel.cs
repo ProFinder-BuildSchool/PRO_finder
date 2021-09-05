@@ -22,5 +22,8 @@ namespace PRO_finder.Models.ViewModels
         //成交筆數
         public int DealedCount { get; set; }
 
+        public bool DealedOrNot { get; set; }
+
     }
+
 }

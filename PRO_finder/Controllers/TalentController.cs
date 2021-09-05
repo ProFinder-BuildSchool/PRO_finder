@@ -319,5 +319,7 @@ namespace PRO_finder.Controllers
             string url = _cloudinaryHelper.UploadCloudinary(file);
             Response.Write(url);
         }
+
+        
     }
 }

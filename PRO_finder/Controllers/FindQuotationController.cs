@@ -17,13 +17,14 @@ namespace PRO_finder.Controllers
         private readonly CategoryService _categoryService;
         private readonly CaseService _caseService;
         private readonly MemberinfoService _memberinfoService;
+        private readonly CartService _cartService;
 
         public FindQuotationController()
         {
             _caseService = new CaseService();
             _categoryService = new CategoryService();
             _memberinfoService = new MemberinfoService();
-
+            _cartService = new CartService();
         }
 
         [HttpGet]
@@ -79,6 +80,28 @@ namespace PRO_finder.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult QTRecord()
+        {
+            string user = HttpContext.User.Identity.GetUserId();
+            int memberID = _memberinfoService.GetMemberID(user);
+
+            var QuotationCartViewModel = _cartService.GetAllQTRecords(memberID);
+            return View(QuotationCartViewModel);
+        }
+
+        //public void DeleQTRecord(int? caseid)
+        //{
+        //    string user = HttpContext.User.Identity.GetUserId();
+        //    int memberID = _memberinfoService.GetMemberID(user);
+
+
+        //    if (caseid != null)
+        //    {
+        //        _cartService.DeleOfQTRecord(caseid, memberID);
+        //    }
+
+        //}
 
         public ActionResult FindCategory(string categoryName)
         {

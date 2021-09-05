@@ -227,5 +227,50 @@ namespace PRO_finder.Service
             
             return JsonConvert.SerializeObject(allInfoInCart);
         }
+
+
+        public List<QuotationCartViewModel> GetAllQTRecords(int memberID)
+        {
+            List<QuotationCartViewModel> allInfoInQTR = new List<QuotationCartViewModel>();
+            var quoRecord = _repo.GetAll<QuotationDetail>()
+                .Where(x => x.ProposerID == memberID).ToList();
+
+                foreach (var item in quoRecord)
+                {
+                    string date = item.ProposeDate.ToString("yyyy-MM-dd");
+                    Case theCase = _repo.GetAll<Case>().FirstOrDefault(x => x.CaseID == item.CaseID);
+                    allInfoInQTR.Add(new QuotationCartViewModel
+                    {
+                        ProposeDate = date,
+                        ProposePrice = item.ProposePrice,
+                        CaseTitle = theCase.CaseTitle,
+                        CaseID = item.CaseID,
+                        //DealedOrNot = dealedOrNot
+                    });
+                }
+            return allInfoInQTR;
+        }
+
+        //public void DeleOfQTRecord(int? CaseID, int MemberID)
+        //{
+        //    var QuotationDetail = _repo.GetAll<QuotationDetail>()
+        //        .SingleOrDefault(s => s.CaseID == CaseID && s.ProposerID == MemberID);
+
+        //    if (QuotationDetail != null)
+        //    {
+        //        QuotationDetail = new QuotationDetail()
+        //        {
+        //          CaseID = (int)CaseID,
+        //          ProposerID = MemberID,
+        //          PredictDays = QuotationDetail.PredictDays,
+        //          ProposeDescription = QuotationDetail.ProposeDescription,
+        //          ProposeDate = QuotationDetail.ProposeDate,
+        //          ProposePrice = QuotationDetail.ProposePrice,
+        //          QuotaionDetailID = QuotationDetail.QuotaionDetailID
+        //        };
+        //        _repo.Delete(QuotationDetail);
+        //        _repo.SaveChanges();
+        //    }
+        //}
     }
 }

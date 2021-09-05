@@ -47,36 +47,6 @@ namespace PRO_finder.Controllers
             }
             
         }
-
-        //[HttpPost]
-        //public ActionResult DeleFromSaveCase(int? caseid)
-        //{
-        //    string user = HttpContext.User.Identity.GetUserId();
-        //    int MemberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == user).MemberID;
-
-        //    if (caseid != null)
-        //    {
-        //        _savecaseService.DeleItemFromSaveCase(caseid, MemberID);
-        //    }
-        //    var SaveCaseViewModel = _savecaseService.GetSaveCaseData(MemberID);
-        //    return RedirectToAction("SaveCase", SaveCaseViewModel);
-        //}
-
-
-        //[HttpPost]
-        //public ActionResult ClearAllSaveCase(int? caseid)
-        //{
-        //    string user = HttpContext.User.Identity.GetUserId();
-        //    int MemberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == user).MemberID;
-
-        //    if (caseid != null)
-        //    {
-        //        _savecaseService.ClearSaveCase(caseid, MemberID);
-        //    }
-        //    var SaveCaseViewModel = _savecaseService.GetSaveCaseData(MemberID);
-        //    return RedirectToAction("SaveCase", SaveCaseViewModel);
-        //}
-
     }
     
 }

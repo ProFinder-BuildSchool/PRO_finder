@@ -64,31 +64,6 @@ namespace PRO_finder.Service
                 _ctx.SaveChanges();
             }
         }
-
-        //public void DeleItemFromSaveCase(int? CaseID, int MemberID)
-        //{
-        //    var saveCaseItem = _ctx.GetAll<SaveCase>()
-        //        .SingleOrDefault(s => s.CaseID == CaseID && s.MemberID == MemberID);
-
-        //    if (saveCaseItem != null)
-        //    {
-        //        _ctx.Delete(saveCaseItem);
-        //        _ctx.SaveChanges();
-        //    }
-
-        //}
-
-
-
-        //public void ClearSaveCase(int? CaseID, int MemberID)
-        //{
-        //    var saved = _ctx.GetAll<SaveCase>().Where(x => x.MemberID == MemberID).Count();
-        //    GetSaveCaseData(MemberID).Clear();
-        //    _ctx.SaveChanges();
-        //}
-        //RemoveRange(0, saved)
-
-        
     }
 
 }
