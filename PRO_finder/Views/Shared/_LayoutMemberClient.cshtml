@@ -1,4 +1,16 @@
-﻿<!DOCTYPE html>
+﻿@using PRO_finder.Controllers
+@{
+    MyControllerBase controller = ViewContext.Controller as MyControllerBase;
+    if (controller == null)
+    {
+        throw new ApplicationException("Controller 必須繼承自 MyControllerBase.");
+    }
+    var userId = controller.memberID;
+
+}
+
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -16,6 +28,7 @@
         .container-fluid.list {
             background-color: #89ba16 !important;
         }
+
         .site-section#next-section {
             min-height: 200vh;
         }
@@ -28,6 +41,7 @@
             box-sizing: border-box;
             padding: 20px 10px;
         }
+
         .nav-item .card-header, .card-body {
             padding: 5px;
         }
@@ -35,6 +49,7 @@
         .myHeader {
             padding: 5px;
         }
+
         #myTabContent nav ul {
             position: relative;
             width: 170px;
@@ -62,6 +77,7 @@
         section {
             overflow: hidden;
         }
+
         @@media screen and (min-width: 768px) {
             .navbar-toggler {
                 display: none;
@@ -150,14 +166,14 @@
                                                 <div id="collapseOne" class="collapse show multi-collapse" aria-labelledby="headingOne"
                                                      data-parent="#accordionExample">
                                                     <div class="card-body">
-                                                        <li class="nav-item">
+                                                        @*<li class="nav-item">
                                                             <a class="nav-link" href="#unsolvedcase.html">案件草稿</a>
                                                         </li>
                                                         <li class="nav-item">
                                                             <a class="nav-link" href="#unsolvedcase.html">審核中的案件</a>
-                                                        </li>
+                                                        </li>*@
                                                         <li class="nav-item">
-                                                            <a class="nav-link" href="#caseOnProgress.html">進行中的案件</a>
+                                                            <a class="nav-link" href="@Url.Action("OrderinProgress", "Client")">進行中的案件</a>
                                                         </li>
                                                         <li class="nav-item">
                                                             <a class="nav-link" href="#caseDealed.html">已成交的案件</a>
@@ -227,9 +243,9 @@
                                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
                                          aria-labelledby="v-pills-home-tab">
                                         <!-- 我是案主主頁 -->
-                                        
-                                           @RenderBody();
-                                        
+
+                                        @RenderBody()
+
                                     </div>
                                 </div>
                             </div>

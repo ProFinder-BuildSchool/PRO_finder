@@ -22,7 +22,9 @@ namespace PRO_finder.Models.ViewModels
         public class ClientCartViewModel
         {
             public  int CartID { get; set; }
-            public int MemberID { get; set; }
+            public int ProposerID { get; set; }
+
+            public int ClientID { get; set; }
             public string QuotationImg { get; set; }
             public string SubCategory { get; set; }
             public string StudioName { get; set; }

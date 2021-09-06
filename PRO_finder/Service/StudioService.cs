@@ -128,16 +128,16 @@ namespace PRO_finder.Service
                                     QuotationImg = q.MainPicture
                                 });
 
-            var StudioReviewVM = (from o in OrderList
-                                  join m in MemInfoList on o.ProposerID equals m.MemberID
-                                  select new StudioReviewViewModel
-                                  {
-                                      CaseReview = (decimal)o.CaseReview,
-                                      CaseMessage = o.CaseMessage,
-                                      CaseReplyMessage = o.CaseReplyMessage,
-                                      MemberID = m.MemberID,
-                                      NickName = m.NickName
-                                  });
+            //var StudioReviewVM = (from o in OrderList
+            //                      join m in MemInfoList on o.ProposerID equals m.MemberID
+            //                      select new StudioReviewViewModel
+            //                      {
+            //                          CaseReview = (decimal)o.CaseReview,
+            //                          CaseMessage = o.CaseMessage,
+            //                          CaseReplyMessage = o.CaseReplyMessage,
+            //                          MemberID = m.MemberID,
+            //                          NickName = m.NickName
+            //                      });
 
 
             var StudioDetailVM = (from m in MemInfoList
@@ -152,7 +152,7 @@ namespace PRO_finder.Service
                                       LogInTime = m.LogInTime,
                                       ProfilePicture = m.ProfilePicture,
                                       Identity = m.Identity,
-                                      StudioReview = StudioReviewVM,
+                                      //StudioReview = StudioReviewVM,
                                       Studioworks = StudioWorkVM,
                                       StudioQuotation = StudioQuotVM,
                                       WorkSubcategory = WorkSubcategoryVM

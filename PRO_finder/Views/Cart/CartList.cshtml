@@ -95,7 +95,7 @@
                     </table>
                     <div class="text-right mb-5 checkout">
                         <p>商品金額：<span>{{ cartTotal }}</span></p>
-                        <button class="checkoutbtn">結帳</button>
+                        <button class="checkoutbtn" v-on:click="addOrder">結帳</button>
                     </div>
                 </div>
             </div>
@@ -142,6 +142,7 @@
                                         <div class="RefuseOrChoose text-right">
                                             <button class="refusebtn btn btn-outline-primary">婉拒報價</button>
                                             <button class="choosebtn btn btn-primary">完成訂單</button>
+                                            
                                         </div>
                                     </td>
 
@@ -372,6 +373,7 @@
 }
 
 @section endJS{
+
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script>
@@ -429,18 +431,43 @@
                                 this.cartsProduct = res.data.Result.map(x => Object.assign(x, { selected: false }))
                                 if (this.cartsProduct.length == 0 || this.cartsProduct == null) {
                                     this.get = false;
+                                    
                                 }
                                 else {
                                     this.get = true
+                                    console.log(this.cartsProduct,id)
                                 }
-                    })
+                        })
+                   
                 },
                 addcheckoutList(index) {
                     this.productchecked = [];
                     this.cartsProduct[index].selected = !this.cartsProduct[index].selected
-                    this.productchecked=this.cartsProduct.filter(x => x.selected ==true)
+                    this.productchecked = this.cartsProduct.filter(x => x.selected == true)
                     console.log(this.productchecked)
+                    
+
                 },
+                addOrder() {
+                    axios.post(`/api/Order/AddOrder`, this.productchecked).then(res => {
+                        if (res.data.Result) {
+                            $('#staticBackdrop').modal('hide')
+                            this.getCart()
+                            this.orderSuccess()
+                        }
+                        else {
+                            //TODO 加alert
+                            alert("更新失敗:" + res.data.ErrMsg)
+                        }
+                    })
+                },
+                orderSuccess() {
+                    Swal.fire(
+                        '訂單已成立!',
+                        '請至會員中心查看，並點擊關閉',
+                        'success'
+                    ) },
+
                 confirmTest() {
                     Swal.fire(
                         '更新成功!',
