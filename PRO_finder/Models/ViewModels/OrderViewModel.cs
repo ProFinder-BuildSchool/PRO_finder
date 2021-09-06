@@ -8,6 +8,9 @@ namespace PRO_finder.Models.ViewModels
 {
     public class OrderViewModel
     {
+        public string OrderSetupDay { get; set; }
+        public string PredictDays { get; set; }
+        public int TotalDays { get; set; }
         public int OrderID { get; set; }
         public int CartID { get; set; }
         public int ProposerID { get; set; }

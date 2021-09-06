@@ -514,7 +514,7 @@
         }
 
         function nameValidation() {
-            let telReg = ;
+            let telReg = '';
             let telInput = document.getElementById("usertel").value;
             let telSpan = document.querySelector('.telspan');
 
@@ -554,9 +554,9 @@
 
         addProduct.addEventListener('click', function (e) {
 
-            b_tel();
-            console.log(b_tel());
-            @*e.preventDefault()
+            //b_tel();
+            //console.log(b_tel());
+            e.preventDefault()
             let count = document.querySelector('.count').innerText;
             let useremail = document.querySelector('#useremail').value;
             let username = document.querySelector('#username').value;
@@ -598,7 +598,7 @@
                             text: '請喝杯咖啡再點選一次~ :)',
                         })
                     }
-                })*@
+                })
             })
 
         document.querySelector('.modelBtn').addEventListener('click', function () {

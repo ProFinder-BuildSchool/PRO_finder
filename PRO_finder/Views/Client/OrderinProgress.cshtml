@@ -8,10 +8,12 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col" class="p-1  ">產品</th>
+                    <th scope="col" class="p-1 ">產品</th>
+                    <th scope="col" class="p-1 ">訂單成立日期</th>
+                    <th scope="col" class="p-1 ">執行最後日期</th>
                     <th scope="col" class="p-1 m-0">案件標題</th>
-                    <th scope="col" class="p-1 m-0">訂單狀態</th>
                     <th scope="col" class="p-1 m-0">訂單金額</th>
+                    <th scope="col" class="p-1 m-0">訂單狀態</th>
                     <th scope="col" class="p-1 m-0">操作</th>
                 </tr>
             </thead>
@@ -24,10 +26,19 @@
                     </td>
                     <td>
 
+                        <p class="mb-0">{{item.OrderSetupDay}}</p>
+
+                    </td>
+                    <td>
+
+                        <p class="mb-0">{{item.PredictDays}}</p>
+
+                    </td>
+                    <td>
+
                         <p class="mb-0">{{item.ProposerQuotationTitle}}</p>
 
                     </td>
-
                     <td>
 
                         <p class="mb-0">{{item.Price * item.Count}}</p>
