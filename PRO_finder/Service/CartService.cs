@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
@@ -165,14 +167,17 @@ namespace PRO_finder.Service
             return result;
         }
 
-        
+        //人才提案紀錄刪除 //取消提案
+
+        public void DeleOfQTRecord(int? caseID,int memberID)
+        {
+            var QTRecordDB = _repo.GetAll<QuotationDetail>().FirstOrDefault(q => q.CaseID == caseID && q.ProposerID == memberID);
+            _repo.Delete<QuotationDetail>(QTRecordDB);
+            _repo.SaveChanges();
+        }
 
         public string GetAllQuotationCart(int memberID)
         {
-            
-            
-            
-
             //取得quotationCart
             List<QuotationDetail> quoCart = new List<QuotationDetail>();
             try
@@ -260,27 +265,7 @@ namespace PRO_finder.Service
             return allInfoInQTR;
         }
 
-        //public void DeleOfQTRecord(int? CaseID, int MemberID)
-        //{
-        //    var QuotationDetail = _repo.GetAll<QuotationDetail>()
-        //        .SingleOrDefault(s => s.CaseID == CaseID && s.ProposerID == MemberID);
-
-        //    if (QuotationDetail != null)
-        //    {
-        //        QuotationDetail = new QuotationDetail()
-        //        {
-        //          CaseID = (int)CaseID,
-        //          ProposerID = MemberID,
-        //          PredictDays = QuotationDetail.PredictDays,
-        //          ProposeDescription = QuotationDetail.ProposeDescription,
-        //          ProposeDate = QuotationDetail.ProposeDate,
-        //          ProposePrice = QuotationDetail.ProposePrice,
-        //          QuotaionDetailID = QuotationDetail.QuotaionDetailID
-        //        };
-        //        _repo.Delete(QuotationDetail);
-        //        _repo.SaveChanges();
-        //    }
-        //}
+        
         public void QdToOrder(int qdID)
         {
             var qdCart = _repo.GetAll<QuotationDetail>().FirstOrDefault(x => x.QuotaionDetailID == qdID);
