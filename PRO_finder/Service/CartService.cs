@@ -117,7 +117,6 @@ namespace PRO_finder.Service
             var member = _repo.GetAll<MemberInfo>().First(x => x.MemberID == memberId);
             var clientCart = new ClientCart()
             {
-                ProposerID = Cart.ProposerID,
                 ClientID = member.MemberID,
                 QuotationImg = Cart.QuotationImg,
                 SubCategoryName = Cart.SubCategory,
