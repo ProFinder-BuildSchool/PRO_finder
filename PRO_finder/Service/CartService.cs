@@ -65,17 +65,16 @@ namespace PRO_finder.Service
                 CartList.Add(new ClientCartViewModel
                 {
 
-                    CartID=item.CartID,
-                    ClientID = (int)item.ClientID,
-                    ProposerID = (int)item.ProposerID,
+                    CartID = item.CartID,
+                    MemberID = (int)item.ClientID,
                     QuotationImg = item.QuotationImg,
                     SubCategory = item.SubCategoryName,
                     StudioName = item.StudioName,
-                    Count =(int)item.Count,
+                    Count = (int)item.Count,
                     Price = (int)item.Price,
                     Unit = System.Enum.GetName(typeof(UnitEnum), item.Unit),
                     Email = item.Email,
-                    Name =item.Name,
+                    Name = item.Name,
                     Tel = item.Tel,
                     LineID = item.LineID,
                     Memo = item.Memo
