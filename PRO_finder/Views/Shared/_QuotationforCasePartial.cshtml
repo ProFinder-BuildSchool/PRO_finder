@@ -59,7 +59,7 @@
                 </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
-                    <button class="btn btn-primary" v-bind:disabled="!addVerify" type="button" id="report" v-on:click="AddQuotation" >送出報價</button>
+                    <button class="btn btn-primary" v-bind:disabled="!addVerify" type="button" id="report" v-on:click="AddQuotation"  data-dismiss="modal" >送出報價</button>
                 </div>
             </div>
         </div>
@@ -162,6 +162,11 @@
                 obj['ProposeDescription'] = this.inputData.message;
                 obj['ProposePrice'] = this.inputData.price;
                 fetch('/api/Cart/PostQuotationInfo', { method: 'post', headers: { "Content-Type": "application/json" }, body: JSON.stringify(obj) }).then(res => res.text())
+
+                alert('已提交報價!')
+               
+                
+
             }
 
         },
