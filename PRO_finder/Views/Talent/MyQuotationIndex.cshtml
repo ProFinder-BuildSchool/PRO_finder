@@ -109,6 +109,7 @@
                             this.classList.add("selector-open");
                         } finally {
                             postNewStatus(Number(this.getAttribute("data-content")), true);
+                            console.log(this.getAttribute("data-content"))
                         }
                         
                     } else if(this.value == "false"){
@@ -121,17 +122,17 @@
                         }
                         finally {
                             postNewStatus(Number(this.getAttribute("data-content")), false);
+                            this.getAttribute("data-content")
                         }
                     }
                 });
             })
 
             function postNewStatus(id, TF) {
-                let obj = new Object();
-                obj['QuotationId'] = id;
-                obj['Status'] = TF;
-                axios({ method: "post", url:"/api/Talent/ChangeQuotationStatus", headers: { "Content-Type": "application/json" }, data: JSON.stringify(obj) })
-                    .then(res => { console.log(res) })
+                let newStatus = { QuotationId: id, Status: TF};
+                //axios({ method: "post", url: "/api/Talent/ChangeQuotationStatus", headers: { "Content-Type": "application/json" }, data: JSON.stringify(newStatus) })
+                //    .then(res => { console.log(res) })
+                fetch('/api/Talent/ChangeQuotationStatus', { method: 'post', headers: { "Content-Type": "application/json" }, body: JSON.stringify(newStatus) }).then(res => console.log(res));
             }
             
         </script>

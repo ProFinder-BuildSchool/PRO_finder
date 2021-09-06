@@ -318,6 +318,13 @@
     <Compile Include="Controllers\SaveCaseController.cs" />
     <Compile Include="Controllers\TalentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="ECPay\AioCheckOut.aspx.cs">
+      <DependentUpon>AioCheckOut.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ECPay\AioCheckOut.aspx.designer.cs">
+      <DependentUpon>AioCheckOut.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Enum\Enum.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -638,6 +645,7 @@
     <Content Include="Assets\js\stickyfill.min.js" />
     <Content Include="Assets\Temp\CartModel.html" />
     <Content Include="Assets\Temp\Test.html" />
+    <Content Include="ECPay\AioCheckOut.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Assets\css\custom-bs.css.map" />
