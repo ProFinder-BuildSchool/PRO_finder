@@ -567,23 +567,27 @@
 
             let OrderInfo = {
                 Email: useremail, Name: username, Tel: usertel, LineID: userline, Memo: memo,
-                MemberID:@Model.MemberID , QuotationImg: "@Model.MainPicture", SubCategory: "@Model.QuotationTitle", StudioName: "@Model.NickName", Count: Number(count),
-                Price:@Model.Price , Unit: "@Model.Unit" }
+                MemberID:@ViewBag.memberID , QuotationImg: "@Model.MainPicture", SubCategory: "@Model.QuotationTitle", StudioName: "@Model.NickName", Count: Number(count),
+                Price:@Model.Price , Unit: "@Model.Unit" ,ProposerID:@Model.MemberID }
 
 
             axios.post('/api/Cart/AddCart?memberID=@ViewBag.memberID', OrderInfo)
                 .then(res => {
                     side.style.height = "0px"
                     if (res.data.Result == true) {
+
+                        axios.get(`/api/Cart/GetCart?id=@ViewBag.memberID`).then(res => {
+                            let counts = res.data.Result.length
+                            CartCount.innerHTML = counts
+                        })
+
                         Swal.fire(
                             '已加入清單',
                             '點擊按鈕關閉',
                             'success'
                         )
-                        axios.get(`/api/Cart/GetCart?id=@ViewBag.memberID`).then(res => {
-                            let counts = res.data.Result.length
-                            CartCount.innerHTML = counts
-                        })
+
+
                     }
                     else
                     {

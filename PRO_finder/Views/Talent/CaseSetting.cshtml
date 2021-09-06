@@ -640,7 +640,7 @@
             let idealSubCateID = @Html.Raw(Json.Encode(ViewBag.IdealSubCategoryID)) != null ? @Html.Raw(Json.Encode(ViewBag.IdealSubCategoryID)) : -1;
             let idealCateID = @Html.Raw(Json.Encode(ViewBag.IdealCategoryID)) != null ? @Html.Raw(Json.Encode(ViewBag.IdealCategoryID)) : -1;
             if (idealSubCateID != -1) {
-                selector.innerHTML = "<option class='text-center'>選擇子類型</option>";
+                selector.innerHTML = "<option>選擇子類型</option>";
                 let theSubList = subCategoryList.filter(x => x.CategoryID == idealCateID)[0].JsonSubCategoryList;
                 let allSub = JSON.parse(theSubList);
                 allSub.forEach(s => {
@@ -656,7 +656,7 @@
 
         //change轉換子類別
         document.querySelector("#categoryDropdown").addEventListener("change", function () {
-            selector.innerHTML = "<option class='text-center'>選擇子類型</option>";
+            selector.innerHTML = "<option>選擇子類型</option>";
             let theSubList = subCategoryList.filter(x => x.CategoryID == this.value)[0].JsonSubCategoryList;
             let allSub = JSON.parse(theSubList);
             allSub.forEach(s => {
@@ -678,8 +678,8 @@
                 subToolArray.push(...tools);
             });
             ////擅長工具-顯示既有資料
-            await axios.get("/Talent/GetMemberToolRecord").then(res => {
-                let record = JSON.parse(res.data);
+            await axios.get("/api/Talent/GetMemberToolRecord").then(res => {
+                let record = JSON.parse(res.data.Result);
                 subToolArrayInRecord.push(...record);
                 subToolArrayInRecord.forEach(tRecord => {
                     console.log(tRecord)

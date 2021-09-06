@@ -18,6 +18,7 @@ namespace PRO_finder.Models.DBModel
             HostingDetail = new HashSet<HostingDetail>();
             Message = new HashSet<Message>();
             Message1 = new HashSet<Message>();
+            Order = new HashSet<Order>();
             SaveStaff = new HashSet<SaveStaff>();
             SaveStaff1 = new HashSet<SaveStaff>();
             ServicePlus = new HashSet<ServicePlus>();
@@ -55,9 +56,6 @@ namespace PRO_finder.Models.DBModel
         [Column(TypeName = "money")]
         public decimal? Balance { get; set; }
 
-        [Column(TypeName = "image")]
-        public byte[] ProfilePicture { get; set; }
-
         public bool? Status { get; set; }
 
         [StringLength(50)]
@@ -83,6 +81,13 @@ namespace PRO_finder.Models.DBModel
 
         public bool? IsThirdLogin { get; set; }
 
+        public string ProfilePicture { get; set; }
+
+        [StringLength(50)]
+        public string BankCode { get; set; }
+
+        public string BankAccount { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Case> Case { get; set; }
 
@@ -100,6 +105,9 @@ namespace PRO_finder.Models.DBModel
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Message1 { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Order { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SaveStaff> SaveStaff { get; set; }

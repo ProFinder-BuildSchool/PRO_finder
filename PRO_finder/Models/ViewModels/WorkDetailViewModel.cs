@@ -29,7 +29,7 @@ namespace PRO_finder.Models.ViewModels
         //工作室
         public int MemberID { get; set; }
 
-        public byte[] ProfilePicture { get; set; }
+        public string ProfilePicture { get; set; }
         public string NickName { get; set; }
         public int TalentCategoryID { get; set; }
 

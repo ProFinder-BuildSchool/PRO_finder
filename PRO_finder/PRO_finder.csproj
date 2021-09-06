@@ -48,8 +48,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CloudinaryDotNet, Version=1.15.2.0, Culture=neutral, PublicKeyToken=c8234dc617ae7841, processorArchitecture=MSIL">
+      <HintPath>..\packages\CloudinaryDotNet.1.15.2\lib\net452\CloudinaryDotNet.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.0.90\lib\net461\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="ECPay.Payment.Integration">
+      <HintPath>..\ECPay.Payment.Integration.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -83,6 +89,9 @@
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Server.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Html.Abstractions, Version=1.0.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Html.Abstractions.1.0.3\lib\netstandard1.0\Microsoft.AspNetCore.Html.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Http, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Http.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.dll</HintPath>
@@ -145,6 +154,9 @@
     <Reference Include="Microsoft.Extensions.Primitives, Version=5.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.5.0.1\lib\net461\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Extensions.WebEncoders, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.WebEncoders.1.0.0\lib\netstandard1.0\Microsoft.Extensions.WebEncoders.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Net.Http.Headers, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.Headers.2.2.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
     </Reference>
@@ -168,6 +180,9 @@
     </Reference>
     <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -203,8 +218,8 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
-    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
@@ -272,9 +287,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -287,6 +299,7 @@
   <ItemGroup>
     <Compile Include="APIControllers\CartController.cs" />
     <Compile Include="APIControllers\CaseController.cs" />
+    <Compile Include="APIControllers\OrderController.cs" />
     <Compile Include="APIControllers\StudioController.cs" />
     <Compile Include="APIControllers\TalentController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -309,6 +322,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\CloudinaryHelper.cs" />
     <Compile Include="Helper\DateToString.cs" />
     <Compile Include="Helper\PriceToString.cs" />
     <Compile Include="Migrations\202108111415486_worktest.cs" />
@@ -403,6 +417,10 @@
     <Compile Include="Migrations\202109041346366_2021-09-04.Designer.cs">
       <DependentUpon>202109041346366_2021-09-04.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109060432018_2021-09-06 DB Update.cs" />
+    <Compile Include="Migrations\202109060432018_2021-09-06 DB Update.Designer.cs">
+      <DependentUpon>202109060432018_2021-09-06 DB Update.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DBModel\AspNetRoles.cs" />
@@ -446,6 +464,7 @@
     <Compile Include="Models\ViewModels\ClientCartViewModel.cs" />
     <Compile Include="Models\ViewModels\Home_IndexViewModel.cs" />
     <Compile Include="Models\ViewModels\MemberInfoViewModel.cs" />
+    <Compile Include="Models\ViewModels\OrderViewModel.cs" />
     <Compile Include="Models\ViewModels\OtherPictureViewModel.cs" />
     <Compile Include="Models\ViewModels\QuotationCartViewModel.cs" />
     <Compile Include="Models\ViewModels\QuotationViewModel.cs" />
@@ -475,6 +494,7 @@
     <Compile Include="Service\CategoryService.cs" />
     <Compile Include="Service\MemberinfoService.cs" />
     <Compile Include="Service\OperationResult.cs" />
+    <Compile Include="Service\OrderService.cs" />
     <Compile Include="Service\QuotationService.cs" />
     <Compile Include="Service\SaveCaseService.cs" />
     <Compile Include="Service\StudioService.cs" />
@@ -777,6 +797,9 @@
     <Content Include="Views\Shared\_QuotationforCasePartial.cshtml" />
     <Content Include="Views\Quotation\CASEPARITALtest.cshtml" />
     <Content Include="Views\Talent\ApiTest.cshtml" />
+    <Content Include="Views\FindQuotation\QTRecord.cshtml" />
+    <Content Include="Views\Client\OrderinProgress.cshtml" />
+    <Content Include="Views\Cart\PaymentTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -875,6 +898,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109041346366_2021-09-04.resx">
       <DependentUpon>202109041346366_2021-09-04.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109060432018_2021-09-06 DB Update.resx">
+      <DependentUpon>202109060432018_2021-09-06 DB Update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

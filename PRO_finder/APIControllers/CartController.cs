@@ -29,15 +29,15 @@ namespace PRO_finder.APIControllers
         //[Route("{id}")]
         public APIResult GetCart(int id)
         {
-                var result = _cartservice.GetCart(id);
-                return new APIResult(APIStatus.Success, string.Empty, result);
+            var result = _cartservice.GetCart(id);
+            return new APIResult(APIStatus.Success, string.Empty, result);
 
 
         }
 
 
         [HttpPut]
-        public APIResult UpDateCart(int id , UpDateCartViewModel updateVM)
+        public APIResult UpDateCart(int id, UpDateCartViewModel updateVM)
         {
             bool result;
             try
@@ -76,11 +76,11 @@ namespace PRO_finder.APIControllers
 
         [HttpPost]
         [Authorize]
-        public APIResult AddCart(ClientCartViewModel Cart ,int memberID)
+        public APIResult AddCart(ClientCartViewModel Cart, int memberID)
         {
 
 
-            bool result ;
+            bool result;
             try
             {
                 result = _cartservice.addCart(Cart, memberID);
@@ -92,10 +92,10 @@ namespace PRO_finder.APIControllers
                 result = false;
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             };
-           
+
         }
-        
-        
+
+
         //人才報價cart api
         //1. 接收報價資料表單
         [HttpPost]
@@ -130,6 +130,19 @@ namespace PRO_finder.APIControllers
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             }
         }
-
+        public APIResult AddQuotationOrder(int qdID)
+        {
+            string result = "";
+            try
+            {
+                _cartService.QdToOrder(qdID);
+                result = "加入成功";
+                return new APIResult(APIStatus.Success, string.Empty, result);
+            }
+            catch(Exception ex)
+            {
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            }
+        }
     }
 }

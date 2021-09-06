@@ -13,6 +13,9 @@ using PRO_finder.Models.ViewModels;
 using PRO_finder.Repositories;
 using PRO_finder.Service;
 using PRO_finder.ViewModels;
+using Newtonsoft.Json;
+using PRO_finder.Helper;
+using Newtonsoft.Json.Linq;
 
 namespace PRO_finder.Controllers
 {
@@ -25,6 +28,7 @@ namespace PRO_finder.Controllers
         private readonly WorksService _worksService;
         private readonly QuotationService _quotaService;
         private readonly MemberinfoService _memberInfoService;
+        private readonly CloudinaryHelper _cloudinaryHelper;
 
         public TalentController()
         {
@@ -33,14 +37,13 @@ namespace PRO_finder.Controllers
             _worksService = new WorksService();
             _quotaService = new QuotationService();
             _memberInfoService = new MemberinfoService();
+            _cloudinaryHelper = new CloudinaryHelper();
         }
 
         public ActionResult Index()
         {
             return View();
         }
-
-        //[HttpGet]
         public ActionResult CreateQuotation()
         {
             ViewBag.CategoryList = _cateService.GetCategorySelectList();
@@ -58,7 +61,7 @@ namespace PRO_finder.Controllers
 
                 var newQ = _quotaService.CreateQuotation(quotation);
                 int quotationID = newQ.QuotationID;
-
+                //Response.Write(quotationID);
                 if (quotation.OtherPictureList != null)
                 {
                     _quotaService.CreateOtherPics(quotationID, quotation.OtherPictureList);
@@ -68,12 +71,14 @@ namespace PRO_finder.Controllers
             }
             return View(quotation);
         }
-
+        
+        
         public ActionResult UploadMyWorks()
         {
             ViewBag.CategoryList = _cateService.GetCategorySelectList();
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UploadMyWorks([Bind(Include = "WorkName, SubCategoryID, Client, Role, YearStarted, WebsiteURL, WorkDescription, WorkAttachmentList, WorkPictureList, WorkAttachmentName, WorkAttachmentLink, Attachments, ")] UploadMyWorksViewModel newWorks)
@@ -228,29 +233,6 @@ namespace PRO_finder.Controllers
             }
             return View(caseSettings);
         }
-
-
-        
-        [HttpPost]
-        public void UploadFile(HttpPostedFile file)
-        {
-
-            HttpPostedFileBase uploadFile = Request.Files["file"] as HttpPostedFileBase;
-            if (uploadFile != null && uploadFile.ContentLength > 0)
-            {
-                string fileSavePath = WebConfigurationManager.AppSettings["UploadPath"];
-                string newFileName = string.Concat(Path.GetRandomFileName().Replace(".", ""), Path.GetExtension(uploadFile.FileName).ToLower());
-                string fullFilePath = Path.Combine(Server.MapPath(fileSavePath), newFileName);
-                uploadFile.SaveAs(fullFilePath);
-                Response.Write(fullFilePath);
-                return;
-            }
-            else
-            {
-                Response.Write("Oops");
-            }
-           
-        }
         public ActionResult MyQuotationIndex()
         {
             
@@ -264,9 +246,11 @@ namespace PRO_finder.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                string userID = HttpContext.User.Identity.GetUserId();
+                int memberID = _memberInfoService.GetMemberID(userID);
+                var myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
+                return View("MyQuotationIndex", myQuotation);
             }
-            
             var theQuotation = _quotaService.GetQuotation(id);
             var cateList= _cateService.GetCategorySelectList();
             cateList.FirstOrDefault(x => x.Value == theQuotation.CategoryID.ToString()).Selected = true;
@@ -304,28 +288,42 @@ namespace PRO_finder.Controllers
             return View("MyQuotationIndex", remainQ);
         }
         
-
-        //Api
-        public JsonResult GetMemberToolRecord()
-        {
-            //取得memberID,並加至newWorks
-            string userID = HttpContext.User.Identity.GetUserId();
-            int memberID = _memberInfoService.GetMemberID(userID);
-            string result = _memberInfoService.GetToolRecord(memberID);
-            return Json(result, JsonRequestBehavior.AllowGet);
-            
-        }
-        //[HttpPost]
-        //public JsonResult GetToolRecord()
-        //{
-        //    string userID = "64547da8-0789-42f7-a193-e001cec76873";
-        //    int memberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == userID).MemberID;
-        //    _memberInfoService.GetToolRecord(memberID);
-        //}
-
         public ActionResult ApiTest()
         {
             return View();
         }
+
+        [HttpPost]
+        public void UploadFile(HttpPostedFile file)
+        {
+
+            HttpPostedFileBase uploadFile = Request.Files["file"] as HttpPostedFileBase;
+            if (uploadFile != null && uploadFile.ContentLength > 0)
+            {
+                string fileSavePath = WebConfigurationManager.AppSettings["UploadPath"];
+                string newFileName = string.Concat(Path.GetRandomFileName().Replace(".", ""), Path.GetExtension(uploadFile.FileName).ToLower());
+                string fullFilePath = Path.Combine(Server.MapPath(fileSavePath), newFileName);
+                uploadFile.SaveAs(fullFilePath);
+                Response.Write(fullFilePath);
+                return;
+            }
+            else
+            {
+                Response.Write("Oops");
+            }
+
+        }
+        [HttpPost]
+        public void UploadCloudinary()
+        {
+            HttpPostedFileBase file = Request.Files["picture"];
+            var result = _cloudinaryHelper.UploadCloudinaryAsync(file);
+            var url = JObject.Parse(result.Result);
+            Response.Write(url);
+        }
+
+       
+
+
     }
 }

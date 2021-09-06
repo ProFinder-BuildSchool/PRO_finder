@@ -29,7 +29,7 @@
                         </div>
                         <div class="col-6">
                             <select class="form-control" id="subcategorySelect" name="SubCategoryID">
-                                <option class="text-center">選擇子類型</option>
+                                <option>選擇子類型</option>
                             </select>
                             @Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })
                         </div>
@@ -81,8 +81,8 @@
                     <span class="btn btn-light" id="addFile"><i class="fas fa-plus"></i>&ensp;新增作品附件</span>
                 </div>
                 @*<div>
-                    <button id="test">test</button>
-                </div>*@
+                        <button id="test">test</button>
+                    </div>*@
             </div>
             <hr>
             <div class="form-group">
@@ -304,16 +304,12 @@
 
         $g("#categoryDropdown").addEventListener("change", function () {
             selector.innerHTML = "<option class='text - center'>選擇服務子類型</option>";
-            subCategoryList.forEach(sub => {
-                if (sub.CategoryID == this.value) {
-                    let allsub = JSON.parse(sub.JsonSubCategoryList);
-                    allsub.forEach(s => {
-                        let option = document.createElement("option");
-                        option.innerText = s.SubCateName;
-                        option.value = s.SubCateID;
-                        selector.append(option);
-                    });
-                };
+            let allsub = JSON.parse(subCategoryList.filter(x => x.CategoryID == this.value)[0].JsonSubCategoryList);
+            allsub.forEach(s => {
+                let option = document.createElement("option");
+                option.innerText = s.SubCateName;
+                option.value = s.SubCateID;
+                selector.append(option);
             });
         });
 
@@ -336,13 +332,9 @@
         //上傳圖檔呈現
         let countMedia = 0;
         let displayUpload = $g("#displayUpload");
-        let uploadArray = []; //上傳圖床用的
         $g("input#newWorks").addEventListener("change", function () {
-            /*console.dir(this);*/
             let files = Array.from(this.files);
             files.forEach(file => {
-                uploadArray.push(file);
-
                 let clone = $g("#displayPictureTemplate").content.cloneNode(true);
                 let div = clone.querySelector("div");
                 let span = clone.querySelector("span");
@@ -354,8 +346,6 @@
                     let theCount = this.dataset.count
                     let theDiv = $g(`div#count${theCount}`);
                     displayUpload.removeChild(theDiv);
-                    uploadArray.splice(theCount, 1);
-                    //console.log(theDiv);
                 });
 
                 //新增圖片影片預覽
@@ -363,7 +353,9 @@
                 let regexVideo = "^video.+";
                 let fileType = file.type;
                 let img = document.createElement("img");
+                img.classList.add("uploadImg");
                 let video = document.createElement("video");
+                video.classList.add("uploadVideo");
 
                 if (fileType.match(regexImg)) {
                     img.src = URL.createObjectURL(file);
@@ -406,18 +398,13 @@
         $g('#editor').style.setProperty('border-radius', '0 0 .25rem .25rem');
         $g('#editor').style.setProperty('min-height', '200px');
 
-        //提交，送出WorkAttachmentList、WorkPicturesList
-        //cloudinary 影音圖檔上傳
-        const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/syjy97jq/image/upload";
-        const upload_preset = "syjy97jq";
-        const myApiKey = "691819382586651"
-
         $g("input[type='submit']").addEventListener("click", function (e) {
             e.preventDefault();
 
             //富文本編輯器儲存
             $g("input[name='WorkDescription']").value = $g("div.ql-editor").innerHTML;
 
+            //上傳cloudinary及作品檔案
             let workAttachmentArray = [];
             let workPictureArray = [];
             const asyncRun = async () => {
@@ -440,46 +427,57 @@
                     };
                     let newAttachments = JSON.stringify(workAttachmentArray);
                     $g("input#WorkAttachmentList").value = newAttachments;
-                    console.log(newAttachments);
+
                 };
 
-                //WorkPictureList
-                for (let i = 0; i < uploadArray.length; i++) {
-                    let formData = new FormData();
-                    formData.append("file", uploadArray[i]);
-                    formData.append("upload_preset", upload_preset);
-                    formData.append("api_key", myApiKey);
-                    let result_url = await fetchCloudinary(formData);
-                    let obj = new Object();
-                    obj.WorkPicture = result_url;
-                    obj.SortNumber = i;
-                    workPictureArray.push(obj);
-                };
+                //儲存作品圖例
+                let imgs = document.querySelectorAll(".uploadImg");
+                //上傳雲端
+                for (let i = 0; i < imgs.length; i++) {
+                        const blobData = await getBlobData(imgs[i].src);
+                        const fileObject = new File([blobData], imgs[i].src, { type: blobData.type });
+                        const form = new FormData();
+                        form.append("picture", fileObject);
+                        let url_result = await axiosImageFile(form);
+                        workPictureArray.push({ WorkPicture: url_result, SortNumber: i });
+                 };
                 let newPictures = JSON.stringify(workPictureArray);
                 $g("input#WorkPictureList").value = newPictures;
-                
                 document.querySelector("form[action='/Talent/UploadMyWorks']").submit();
             }
             asyncRun();
         })
 
-            function $g(element) {
-                let temp = document.querySelectorAll(element);
-                return temp.length == 1 ? temp[0] : temp;
-            }
-            function fetchCloudinary(form_data) {
-                return fetch(CLOUDINARY_URL, {
-                    method: "POST",
-                    body: form_data
+        function $g(element) {
+            let temp = document.querySelectorAll(element);
+            return temp.length == 1 ? temp[0] : temp;
+        }
+        function fetchCloudinary(form_data) {
+            return fetch(CLOUDINARY_URL, {
+                method: "POST",
+                body: form_data
+            })
+                .then((response) => {
+                    return response.json();
                 })
-                    .then((response) => {
-                        return response.json();
-                    })
-                    .then(data => data.url);
+                .then(data => data.url);
         }
         function axiosFiles(file) {
             return axios({ method: "post", data: file, url: "/Talent/UploadFile", contentType: false, processData: false, enctype: "multipart/form-data" })
                 .then(res => res.data)
+        }
+        function getBlobData(img_src) {
+            return fetch(img_src).then(res => res.blob());
+        }
+        function axiosImageFile(picture) {
+            return axios({
+                method: 'post',
+                url: '/Talent/UploadCloudinary',
+                data: picture,
+                contentType: false,
+                processData: false,
+                enctype: "multipart/form-data"
+            }).then(res => res.data);
         }
     </script>
 

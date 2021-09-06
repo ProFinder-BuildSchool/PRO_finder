@@ -117,15 +117,19 @@ namespace PRO_finder.Service
 
 
 
-        public IEnumerable<CaseDetailViewModel> GetCaseDetail()
+        public CaseDetailViewModel GetCaseDetail(int caseID,int memberID)
         {
+            var savedData = _ctx.GetAll<SaveCase>().FirstOrDefault(x => x.CaseID == caseID && x.MemberID == memberID);
+            bool savedOrNot = false;
+            if (savedData != null)
+            {
+                savedOrNot = true;
+            }
 
-
-            return from Case in _ctx.GetAll<Case>()
-                   //join MemberInfo in _ctx.GetAll<MemberInfo>() on Case.MemberID equals MemberInfo.MemberID
-                   join SubCategory in _ctx.GetAll<SubCategory>() on Case.SubCategoryID equals SubCategory.SubCategoryID
-                   join Locations in _ctx.GetAll<Locations>() on Case.Location equals Locations.LocationID
-                   //join Category in _ctx.GetAll<Category>() on SubCategory.CategoryID equals Category.CategoryID
+            return  ( from Case in _ctx.GetAll<Case>()
+                             join SubCategory in _ctx.GetAll<SubCategory>() on Case.SubCategoryID equals SubCategory.SubCategoryID
+                             join Locations in _ctx.GetAll<Locations>() on Case.Location equals Locations.LocationID
+                             where Case.CaseID == caseID
                    select new CaseDetailViewModel
                    {
                        title = Case.CaseTitle,
@@ -143,14 +147,37 @@ namespace PRO_finder.Service
                        ContactEmail = Case.ContactEmail,
                        LineID = Case.LineID,
                        CategoryID = SubCategory.CategoryID,
+                       SubCategoryName = SubCategory.SubCategoryName,
+                       SavedOrNot = savedOrNot
+                   }).FirstOrDefault();
+        }
 
+        public IEnumerable<CaseDetailViewModel> GetOtherCase()
+        {
+            
 
-                   };
-
-
-
-
-
+            return from Case in _ctx.GetAll<Case>()
+                    join SubCategory in _ctx.GetAll<SubCategory>() on Case.SubCategoryID equals SubCategory.SubCategoryID
+                    join Locations in _ctx.GetAll<Locations>() on Case.Location equals Locations.LocationID
+                    
+                    select new CaseDetailViewModel
+                    {
+                        title = Case.CaseTitle,
+                        CaseId = Case.CaseID,
+                        LocationID = (int)Case.Location,
+                        LocationName = Locations.LocationName,
+                        Price = (CaseDetailViewModel.PriceEnum)Case.Price,
+                        CompleteDate = Case.CompleteDate,
+                        Type = (CaseDetailViewModel.TypeEnum)(TypeEnum)Case.Type,
+                        Description = Case.Description,
+                        Contact = Case.Contact,
+                        ContactTime = Case.ContactTime,
+                        LocalCallsCode = Case.LocalCallsCode,
+                        LocalCalls = Case.LocalCalls,
+                        ContactEmail = Case.ContactEmail,
+                        LineID = Case.LineID,
+                        CategoryID = SubCategory.CategoryID
+                    };
         }
 
         public enum TypeEnum

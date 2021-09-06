@@ -14,6 +14,7 @@ namespace PRO_finder.Service
     public class WorksService
     {
         private readonly GeneralRepository _repo;
+        
         public WorksService()
         {
             _repo = new GeneralRepository(new ProFinderContext());
@@ -21,7 +22,7 @@ namespace PRO_finder.Service
         public Works CreateWorks(UploadMyWorksViewModel input)
         {
             int lastworkID = _repo.GetAll<Works>().OrderBy(x => x.WorkID).ToList().Last().WorkID;
-            int newID = lastworkID+1;
+            int newID = lastworkID + 1;
             Works entity = new Works()
             {
                 WorkID = newID,
@@ -42,7 +43,7 @@ namespace PRO_finder.Service
         {
             JArray tempArray = JArray.Parse(attachmentList);
             var parseAttachmentList = tempArray.ToObject<List<WorkAttachment>>();
-            foreach(var item in parseAttachmentList)
+            foreach (var item in parseAttachmentList)
             {
                 int lastAttachmentID = _repo.GetAll<WorkAttachment>().OrderBy(x => x.WorkAttachmentID).ToList().Last().WorkAttachmentID;
                 int newID = lastAttachmentID + 1;
@@ -63,7 +64,7 @@ namespace PRO_finder.Service
 
             JArray tempArray = JArray.Parse(pictureList);
             var parsePictureList = tempArray.ToObject<List<WorkPictures>>();
-            foreach(var item in parsePictureList)
+            foreach (var item in parsePictureList)
             {
                 int lastPicID = _repo.GetAll<WorkPictures>().OrderBy(x => x.WorkPictureID).ToList().Last().WorkPictureID;
                 int newID = lastPicID + 1;
@@ -86,10 +87,10 @@ namespace PRO_finder.Service
 
             WorkViewModel WorkVM = new WorkViewModel();
 
-            var temp =  (from work in _repo.GetAll<Works>()
+            var temp = (from work in _repo.GetAll<Works>()
                         join workpic in _repo.GetAll<WorkPictures>() on work.WorkID equals workpic.WorkID
                         join S in _repo.GetAll<SubCategory>() on work.SubCategoryID equals S.SubCategoryID
-                        select new 
+                        select new
                         {
                             WorkID = work.WorkID,
                             Picture = workpic.WorkPicture,
@@ -97,20 +98,22 @@ namespace PRO_finder.Service
                             Info = work.WorkDescription,
                             studio = work.Client
                         }).ToList();
-            var tempGroup = temp.GroupBy(x => x.WorkID).Select(x => new WorkViewModel {
+            var tempGroup = temp.GroupBy(x => x.WorkID).Select(x => new WorkViewModel
+            {
                 WorkID = x.First().WorkID,
-                WorkPicture = x.Select(p=>p.Picture).ToList(),
+                WorkPicture = x.Select(p => p.Picture).ToList(),
                 SubCategoryName = x.First().SubCategoryName,
                 Info = x.First().Info,
                 studio = x.First().studio
-            }).OrderBy(x=>x.WorkID).ToList();
+            }).OrderBy(x => x.WorkID).ToList();
 
-       
+
 
             return tempGroup;
 
         }
-      
+        
+
 
     }
 }

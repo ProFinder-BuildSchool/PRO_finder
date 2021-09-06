@@ -218,6 +218,7 @@ namespace PRO_finder.Service
                 SubCategoryID = newQ.SubCategoryID,
                 Price = newQ.Price,
                 MainPicture = newQ.MainPicture,
+                Status = true
             };
             _repo.Create(entity);
             _repo.SaveChanges();
@@ -255,7 +256,7 @@ namespace PRO_finder.Service
                        SubcategoryId = q.SubCategoryID,
                        SubcategoryName = s.SubCategoryName,
                        CategoryId = s.CategoryID,
-                       Price = q.Price.ToString(),
+                       Price = ((int)q.Price).ToString(),
                        Unit = (QuotationDetailViewModel.UnitEnum)q.QuotationUnit,
                        UpdateDateOrigin = q.UpdateDate,
                        QuotationTitle = q.QuotationTitle,
@@ -362,8 +363,12 @@ namespace PRO_finder.Service
             return locationlist;
         }
 
-        public string ChangeQStatus()
+        public string ChangeQStatus(int quotationID, bool status)
         {
+            var theQuotation = _ctx.GetAll<Quotation>().FirstOrDefault(x => x.QuotationID == quotationID);
+            theQuotation.Status = status;
+            _ctx.Update(theQuotation);
+            _ctx.SaveChanges();
             return "";
         }
     }

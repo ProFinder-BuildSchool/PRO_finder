@@ -48,12 +48,6 @@ namespace PRO_finder
                 defaults: new { controller = "FindQuotation", action = "Index", id = UrlParameter.Optional, searchStr = UrlParameter.Optional }
                 );
 
-
-            routes.MapRoute(
-                name: "Detail",
-                url: "Quotation/Detail/{Memberid}/{Quotationid}",
-                defaults: new { controller = "Quotation", action = "Detail"}
-            );
             //routes.MapRoute(
             //    name: "Index",
             //    url: "{controller}/{action}/{CategoryId}",
@@ -67,8 +61,14 @@ namespace PRO_finder
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
-            
 
+
+
+            routes.MapRoute(
+                name: "Detail",
+                url: "Quotation/Detail/{Memberid}/{Quotationid}",
+                defaults: new { controller = "Quotation", action = "Detail" }
+            );
             //routes.MapRoute(
             //    name: "StudioHome",
             //    url: "{controller}/{action}/{Memberid}",

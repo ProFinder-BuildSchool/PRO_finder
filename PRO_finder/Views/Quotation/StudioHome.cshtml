@@ -14,7 +14,7 @@
                     <div class="sidebar-box">
                         <img src="~/Assets/images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4 w-50 rounded-circle">
                         <h3>@Model.NickName</h3>
-                        <p class="LV lv00"><a href="#" title="會員等級說明" target="_blank">LV0</a></p>
+                        @*<p class="LV lv00"><a href="#" title="會員等級說明" target="_blank">LV0</a></p>*@
                         <!-- <p class="vipTag" title="VIP會員">VIP</p> -->
                         <p class="designerType">接案身分: @Model.Identity</p>
                         <p class="designerActivity">上線時間: @Model.LogInTime</p>
@@ -23,7 +23,7 @@
 
                         <div id="designerinfoNumber">
                             <p class="designerDeal">成交件數: <a class="blueLink" href="javascript:;" title="成交件數">1</a></p>
-                            <p class="designerInvited">受邀次數: 2</p>
+                            @*<p class="designerInvited">受邀次數: 2</p>*@
                         </div>
                         <p class="designerSkill">
                             <span class="designerSkillTit">專長:</span>
@@ -41,7 +41,7 @@
                                 @*@Html.ActionLink("收藏", "FavorInsertorDelete", new { MemberID = ViewBag.MemberID, TalentID = ViewBag.MemberID, time = DateTime.UtcNow, StaffID = ViewBag.MemberID, AddorRemove = ViewBag.FavorExist }, new { @class = "icon-heart-o" })*@
                                 <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
                             </p>
-                            <p><a href="#" class="btn btn-primary btn-md">邀請報價</a></p>
+                            @*<p><a href="#" class="btn btn-primary btn-md">邀請報價</a></p>*@
                         </div>
                     </div>
             </div>
@@ -74,6 +74,7 @@
                             <div>
                                 @Html.Raw(Model.Description)
                                 <div class="closeup">
+                                 
                                     <a href="javascript:;" class="show">顯示更多</a>
                                     <a href="javascript:;" class="put">顯示較少</a>
                                 </div>
@@ -191,7 +192,7 @@
 
 
 
-                <div class="pt-5">
+                @*<div class="pt-5">
                     <a name="04">
                         <a name="0ˋ"><h4 class="mb-4" id="part">評價</h4></a>
                         @if (Model.StudioReview.Count() == 0)
@@ -201,98 +202,99 @@
                         else
                         {
                             foreach (var rev in Model.StudioReview)
-                            {
-                                <ul class="comment-list">
-                                    <li class="comment">
-                                        <div class="vcard bio">
-                                            <img src="~/Assets/images/person_2.jpg" alt="Image placeholder">
-                                        </div>
-                                        <div class="comment-body">
-                                            <h3>Jacob Smith</h3>
-                                            <div class="meta">January 9, 2018 at 2:21pm</div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                            <p><a href="#" class="reply">Reply</a></p>
-                                        </div>
-                                    </li>
+                            {*@
+                                <!--<ul class="comment-list">
+                <li class="comment">
+                    <div class="vcard bio">
+                        <img src="~/Assets/images/person_2.jpg" alt="Image placeholder">
+                    </div>
+                    <div class="comment-body">
+                        <h3>Jacob Smith</h3>
+                        <div class="meta">January 9, 2018 at 2:21pm</div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                        <p><a href="#" class="reply">Reply</a></p>
+                    </div>
+                </li>
 
-                                    <li class="comment">
-                                        <div class="vcard bio">
-                                            <img src="~/Assets/images/person_3.jpg" alt="Image placeholder">
-                                        </div>
-                                        <div class="comment-body">
-                                            <h3>Chris Meyer</h3>
-                                            <div class="meta">January 9, 2018 at 2:21pm</div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                            <p><a href="#" class="reply">Reply</a></p>
-                                        </div>
+                <li class="comment">
+                    <div class="vcard bio">
+                        <img src="~/Assets/images/person_3.jpg" alt="Image placeholder">
+                    </div>
+                    <div class="comment-body">
+                        <h3>Chris Meyer</h3>
+                        <div class="meta">January 9, 2018 at 2:21pm</div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                        <p><a href="#" class="reply">Reply</a></p>
+                    </div>
 
-                                        <ul class="children">
-                                            <li class="comment">
-                                                <div class="vcard bio">
-                                                    <img src="~/Assets/images/person_5.jpg" alt="Image placeholder">
-                                                </div>
-                                                <div class="comment-body">
-                                                    <h3>Chintan Patel</h3>
-                                                    <div class="meta">January 9, 2018 at 2:21pm</div>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                                    <p><a href="#" class="reply">Reply</a></p>
-                                                </div>
+                    <ul class="children">
+                        <li class="comment">
+                            <div class="vcard bio">
+                                <img src="~/Assets/images/person_5.jpg" alt="Image placeholder">
+                            </div>
+                            <div class="comment-body">
+                                <h3>Chintan Patel</h3>
+                                <div class="meta">January 9, 2018 at 2:21pm</div>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                <p><a href="#" class="reply">Reply</a></p>
+                            </div>
 
 
-                                                <ul class="children">
-                                                    <li class="comment">
-                                                        <div class="vcard bio">
-                                                            <img src="~/Assets/images/person_1.jpg" alt="Image placeholder">
-                                                        </div>
-                                                        <div class="comment-body">
-                                                            <h3>Jean Doe</h3>
-                                                            <div class="meta">January 9, 2018 at 2:21pm</div>
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                                            <p><a href="#" class="reply">Reply</a></p>
-                                                        </div>
+                            <ul class="children">
+                                <li class="comment">
+                                    <div class="vcard bio">
+                                        <img src="~/Assets/images/person_1.jpg" alt="Image placeholder">
+                                    </div>
+                                    <div class="comment-body">
+                                        <h3>Jean Doe</h3>
+                                        <div class="meta">January 9, 2018 at 2:21pm</div>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                        <p><a href="#" class="reply">Reply</a></p>
+                                    </div>
 
-                                                        <ul class="children">
-                                                            <li class="comment">
-                                                                <div class="vcard bio">
-                                                                    <img src="~/Assets/images/person_4.jpg" alt="Image placeholder">
-                                                                </div>
-                                                                <div class="comment-body">
-                                                                    <h3>Ben Afflick</h3>
-                                                                    <div class="meta">January 9, 2018 at 2:21pm</div>
-                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                                                    <p><a href="#" class="reply">Reply</a></p>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
+                                    <ul class="children">
+                                        <li class="comment">
+                                            <div class="vcard bio">
+                                                <img src="~/Assets/images/person_4.jpg" alt="Image placeholder">
+                                            </div>
+                                            <div class="comment-body">
+                                                <h3>Ben Afflick</h3>
+                                                <div class="meta">January 9, 2018 at 2:21pm</div>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                                <p><a href="#" class="reply">Reply</a></p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
 
-                                    <li class="comment">
-                                        <div class="vcard bio">
-                                            <img src="~/Assets/images/person_1.jpg" alt="Image placeholder">
-                                        </div>
-                                        <div class="comment-body">
-                                            <h3>Jean Doe</h3>
-                                            <div class="meta">January 9, 2018 at 2:21pm</div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                            <p><a href="#" class="reply">Reply</a></p>
-                                        </div>
-                                    </li>
-                                </ul>
+                <li class="comment">
+                    <div class="vcard bio">
+                        <img src="~/Assets/images/person_1.jpg" alt="Image placeholder">
+                    </div>
+                    <div class="comment-body">
+                        <h3>Jean Doe</h3>
+                        <div class="meta">January 9, 2018 at 2:21pm</div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                        <p><a href="#" class="reply">Reply</a></p>
+                    </div>
+                </li>
+            </ul>-->
                                 <!-- END comment-list -->
 
-                                <div class="comment-form-wrap pt-5">
+                                <!--<div class="comment-form-wrap pt-5">
 
-                                </div>
+                                                         </div>-->
 
-                            }
+                            @*}
                         }
+                    </a>
                 </div>
-                </a>
-            </div>
+              
+            </div>*@
                        
         </div>
     </div>
@@ -301,7 +303,7 @@
         @*<button class="heartp"><i class="icon-heart-o"></i>收藏</button>*@
         <button class="heartp"><span id="farHeart" class="far fa-heart mr-2 text-danger"></span>收藏</button>
         <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
-        <a href="#" class="btn btn-primary btn-md">邀請報價</a>
+        @*<a href="#" class="btn btn-primary btn-md">邀請報價</a>*@
     </div>
 </section>
 
@@ -841,6 +843,7 @@
         var heartp = document.getElementsByClassName('heartp')
         let farHeart = document.querySelector('#farHeart');
         var ischange = false
+
 
         closeup.addEventListener("click", function () {
             if (ischange) {

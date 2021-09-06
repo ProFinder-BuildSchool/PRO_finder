@@ -1,5 +1,4 @@
-﻿@model IEnumerable<PRO_finder.Models.ViewModels.SaveCaseViewModel>
-
+﻿@model IEnumerable<PRO_finder.Models.ViewModels.QuotationCartViewModel>
 
 
 @{
@@ -15,44 +14,37 @@
     <title></title>
 </head>
 <body>
+
     <div class="container">
         <div class="col-12 mt-5 mb-4">
-            <h2>已收藏案件</h2>
+            <h2>提案紀錄</h2>
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>案件標題</th>
-                        <th>預算金額</th>
-                        <th>發案人</th>
-                        <th>案件狀態</th>
-                        @*<th>刊登日期</th>*@
-
+                        <th>案件名稱</th>
+                        <th>案件金額</th>
+                        <th>提案日期</th>
+                        <th>成交提醒</th>
+                        @*<th></th>*@
                     </tr>
                 </thead>
-                <tbody id="Savecase">
+                <tbody>
+
                     @foreach (var item in Model)
                     {
-                    <tr>
-                        <td class="text-center">@item.title</td>
-                        <td class="text-center">@item.Price</td>
-                        <td class="text-center">@item.Contact</td>
-                        <td class="text-center">開啟中</td>
-                        @*<td class="text-center">@item.UpdateDate</td>*@
-                        <td class="text-center"><button class="text-center btnDele btn btn-primary " data-content="@item.CaseID">刪除</button></td>
-
-                    </tr>
+                        <tr>
+                            <td class="text-center">@item.CaseTitle</td>
+                            <td class="text-center">@item.ProposePrice</td>
+                            <td class="text-center">@item.ProposeDate</td>
+                            <td class="text-center">@item.DealedOrNot</td>
+                            @*<td class="text-center"><button class="text-center btnDele btn btn-primary " data-content="@item.CaseID">刪除</button></td>*@
+                        </tr>
                     }
                 </tbody>
 
             </table>
         </div>
     </div>
-
-
-    @*<div class="text-center mb-5">
-        <button id="btnClear" class="btn btn-primary text-right" >Clear</button>
-    </div>*@
-
 
 </body>
 </html>
@@ -65,11 +57,11 @@
     </style>
 }
 
-@section endJS{
+@*@section endJS{
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         let btnDele = document.querySelectorAll('.btnDele');
-        
+
         btnDele.forEach(function (item) {
 
             let caseid = item.getAttribute("data-content");
@@ -78,7 +70,7 @@
                 item.disabled = true;
 
                 const asyncRun = async () => {
-                    await axios.post('/SaveCase/AddOrDeleSaveCase', { caseid: caseid }).then(res => console.log(res));
+                    await axios.post('/FindQuotation/DeleQTRecord', { caseid: caseid }).then(res => console.log(res));
                     window.location.reload();
                 }
                 asyncRun();
@@ -86,4 +78,4 @@
         })
     </script>
 
-}
+}*@

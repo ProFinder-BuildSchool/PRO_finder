@@ -64,16 +64,17 @@ namespace PRO_finder.Service
             {
                 CartList.Add(new ClientCartViewModel
                 {
-                    CartID=item.CartID,
+
+                    CartID = item.CartID,
                     MemberID = (int)item.ClientID,
                     QuotationImg = item.QuotationImg,
                     SubCategory = item.SubCategoryName,
                     StudioName = item.StudioName,
-                    Count =(int)item.Count,
+                    Count = (int)item.Count,
                     Price = (int)item.Price,
                     Unit = System.Enum.GetName(typeof(UnitEnum), item.Unit),
                     Email = item.Email,
-                    Name =item.Name,
+                    Name = item.Name,
                     Tel = item.Tel,
                     LineID = item.LineID,
                     Memo = item.Memo
@@ -141,18 +142,8 @@ namespace PRO_finder.Service
         public OperationResult CreateQuotationCart(int memberID,QuotationCartViewModel newQ)
         {
             var result = new OperationResult();
-            //var input = JObject.Parse(newQ);
             try
             {
-                //var entity = new QuotationDetail
-                //{
-                //    ProposerID = memberID,
-                //    CaseID = input.GetValue("CaseID").ToObject<int>(),
-                //    PredictDays = input.GetValue("PredictDays").ToObject<int>(),
-                //    ProposeDescription = input.GetValue("ProposeDescription").ToString(),
-                //    ProposeDate = DateTime.UtcNow,
-                //    ProposePrice = input.GetValue("ProposePrice").ToObject<int>()
-                //};
                 var entity = new QuotationDetail
                 {
                     ProposerID = memberID,
@@ -173,27 +164,29 @@ namespace PRO_finder.Service
             }
             return result;
         }
+
+        
+
         public string GetAllQuotationCart(int memberID)
         {
-            //取得memberInfo
-            MemberInfo memInfo = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == memberID);
             
-            //取得成交order數量
-            int count = 0;
-            try
-            {
-                count = _repo.GetAll<Order>().Where(x => x.ProposerID == memberID).Count();
-            }
-            catch
-            {
-                count = 0;
-            }
+            
+            
 
             //取得quotationCart
             List<QuotationDetail> quoCart = new List<QuotationDetail>();
             try
             {
-                quoCart = _repo.GetAll<QuotationDetail>().Where(x => x.ProposerID == memberID).ToList();
+                var myCase = _repo.GetAll<Case>().Where(x => x.MemberID == memberID).ToList();
+                foreach(var item in myCase)
+                {
+                    var qd = _repo.GetAll<QuotationDetail>().Where(x => x.CaseID == item.CaseID).ToList();
+                    foreach(var j in qd)
+                    {
+                        quoCart.Add(j);
+                    }
+                }
+                
             }
             catch
             {
@@ -206,19 +199,111 @@ namespace PRO_finder.Service
                 
                 foreach (var item in quoCart)
                 {
+                    string date = item.ProposeDate.ToString("yyyy-MM-dd");
+                    Case theCase = _repo.GetAll<Case>().FirstOrDefault(x => x.CaseID == item.CaseID);
+
+                    //取得proposer memberInfo
+                    MemberInfo memInfo = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == item.ProposerID);
+                    //取得成交order數量
+                    int count = 0;
+                    try
+                    {
+                        count = _repo.GetAll<Order>().Where(x => x.ProposerID == item.ProposerID).Count();
+                    }
+                    catch
+                    {
+                        count = 0;
+                    }
+
+                    //回傳資料
                     allInfoInCart.Add(new QuotationCartViewModel
                     {
                         //ProfilePicture = memInfo.ProfilePicture,
+                        ProfilePicture = "https://s1.tasker.com.tw/img/62M4ye/Zg/BL?update=1",
                         NickName = memInfo.NickName,
-                        ProposeDate = item.ProposeDate,
+                        ProposeDate = date,
                         ProposePrice = item.ProposePrice,
                         PredictDays = item.PredictDays,
-                        ProposeDescription = item.ProposeDescription
+                        ProposeDescription = item.ProposeDescription,
+                        ProposerID = item.ProposerID,
+                        CaseID = item.CaseID,
+                        DealedCount = count,
+                        CaseTitle = theCase.CaseTitle,
+                        QuotationDetailID = item.QuotaionDetailID
                     });
                 }
             }
             
             return JsonConvert.SerializeObject(allInfoInCart);
+        }
+
+
+        public List<QuotationCartViewModel> GetAllQTRecords(int memberID)
+        {
+            List<QuotationCartViewModel> allInfoInQTR = new List<QuotationCartViewModel>();
+            var quoRecord = _repo.GetAll<QuotationDetail>()
+                .Where(x => x.ProposerID == memberID).ToList();
+
+                foreach (var item in quoRecord)
+                {
+                    string date = item.ProposeDate.ToString("yyyy-MM-dd");
+                    Case theCase = _repo.GetAll<Case>().FirstOrDefault(x => x.CaseID == item.CaseID);
+                    allInfoInQTR.Add(new QuotationCartViewModel
+                    {
+                        ProposeDate = date,
+                        ProposePrice = item.ProposePrice,
+                        CaseTitle = theCase.CaseTitle,
+                        CaseID = item.CaseID,
+                        //DealedOrNot = dealedOrNot
+                    });
+                }
+            return allInfoInQTR;
+        }
+
+        //public void DeleOfQTRecord(int? CaseID, int MemberID)
+        //{
+        //    var QuotationDetail = _repo.GetAll<QuotationDetail>()
+        //        .SingleOrDefault(s => s.CaseID == CaseID && s.ProposerID == MemberID);
+
+        //    if (QuotationDetail != null)
+        //    {
+        //        QuotationDetail = new QuotationDetail()
+        //        {
+        //          CaseID = (int)CaseID,
+        //          ProposerID = MemberID,
+        //          PredictDays = QuotationDetail.PredictDays,
+        //          ProposeDescription = QuotationDetail.ProposeDescription,
+        //          ProposeDate = QuotationDetail.ProposeDate,
+        //          ProposePrice = QuotationDetail.ProposePrice,
+        //          QuotaionDetailID = QuotationDetail.QuotaionDetailID
+        //        };
+        //        _repo.Delete(QuotationDetail);
+        //        _repo.SaveChanges();
+        //    }
+        //}
+        public void QdToOrder(int qdID)
+        {
+            var qdCart = _repo.GetAll<QuotationDetail>().FirstOrDefault(x => x.QuotaionDetailID == qdID);
+            var caseInfo = _repo.GetAll<Case>().FirstOrDefault(x => x.CaseID == qdCart.CaseID);
+            var clientInfo = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == caseInfo.MemberID);
+            var proposerInfo = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == qdCart.ProposerID);
+            Order newOrder = new Order()
+            {
+                ProposerID = qdCart.ProposerID,
+                OrderStatus = 1,
+                DepositStatus = 0,
+                Price = qdCart.ProposePrice,
+                DealedDate = DateTime.UtcNow,
+                ClientID = caseInfo.MemberID,
+                QuotationImg = "~/Assets/images/hero_1.jpg",
+                Email = clientInfo.Email,
+                //Name = clientInfo.NickName,
+                StudioName = proposerInfo.NickName,
+                Tel = clientInfo.Cellphone,
+                PredictDays = qdCart.PredictDays
+            };
+            _repo.Create(newOrder);
+            _repo.SaveChanges();
         }
     }
 }

@@ -24,7 +24,7 @@
                             <li class="list-group-item" class="d-flex  service-status">
                                 <div class="container">
                                     <div class="row">
-                                        @if (item.Status == true)
+                                        @if (item.Status)
                                         {
                                             <div class="col-md-12 col-lg-6 control-label service-status-label">服務狀態：</div>
                                             <select class="form-control col-md-12 col-lg-6 service-status-selector selector-open" data-content="@item.QuotationId">
@@ -36,8 +36,8 @@
                                         {
                                             <div class="col-md-12 col-lg-6 control-label service-status-label">服務狀態：</div>
                                             <select class="form-control col-md-12 col-lg-6 service-status-selector selector-close" data-content="@item.QuotationId">
-                                                <option class="status-open selector-open" value=true>開啓</option>
-                                                <option class="status-close selector-close" value=false selected>關閉</option>
+                                                <option class="status-open selector-open" value="true">開啓</option>
+                                                <option class="status-close selector-close" value="false" selected>關閉</option>
                                             </select>
                                         }
 

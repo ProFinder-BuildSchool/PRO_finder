@@ -28,5 +28,12 @@ namespace PRO_finder.Controllers
             ViewBag.MemberID = MemberID;
             return View();
         }
+
+        public ActionResult PaymentTest()
+        {
+            string userID = HttpContext.User.Identity.GetUserId();
+            int MemberID = _cartservice.GetMemberID(userID);
+            return View();
+        }
     }
 }

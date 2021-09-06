@@ -16,7 +16,7 @@
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link tab" data-toggle="tab" href="#tabs-2" role="tab">
-                    人才
+                    人才報價紀錄
                 </a>
             </li>
         </ul>
@@ -28,11 +28,12 @@
 
 
 <div class="tab-content" id="cart">
-    <div v-if="get==false" class="text-center py-5 my-5">
-        暫時沒東西喔!!，再去逛逛吧~~
-    </div>
-    <div class="cart_area   active tab-pane fade show" id="tabs-1" role="tabpanel" v-if="get">
-        <div class="container">
+    
+    <div class="cart_area   active tab-pane fade show" id="tabs-1" role="tabpanel" >
+        <div v-if="get==false" class="text-center py-5 my-5">
+            暫時沒東西喔!!，再去逛逛吧~~
+        </div>
+        <div class="container" v-if="get">
             <div class="cart_inner">
                 <div class="table-responsive">
                     <table class="table">
@@ -94,7 +95,7 @@
                     </table>
                     <div class="text-right mb-5 checkout">
                         <p>商品金額：<span>{{ cartTotal }}</span></p>
-                        <button class="checkoutbtn">結帳</button>
+                        <button class="checkoutbtn" v-on:click="addOrder">結帳</button>
                     </div>
                 </div>
             </div>
@@ -103,7 +104,10 @@
 
     <div class="cart_area   tab-pane fade" id="tabs-2" role="tabpanel">
         <div class="talentCart">
-            <div class="container">
+            <div v-if="getQT==false" class="text-center py-5 my-5">
+                暫時沒東西喔!!，再去逛逛吧~~
+            </div>
+            <div class="container"v-if="getQT" >
                 <div class="cart_inner">
                     <div class="table-responsive">
                         <table class="table">
@@ -112,33 +116,33 @@
                                     <th scope="col">人才影像</th>
                                     <th scope="col">人才資訊</th>
                                     <th scope="col">報價資訊</th>
-                                    @*<th scope="col"></th>*@
-
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(item,index) in cartsProduct">
+                                <tr v-for="(item,index) in qtsProduct">
                                     <td>
                                         <div class="d-flex justify-content-center">
-                                            <img class="img-thumbnail" :src="item.productImg" alt="" />
+                                            <img class="img-thumbnail" :src="item.ProfilePicture" alt="" />
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="text-left">
-                                            <p><span class="text-primary"> 涂小姐</span></p>
-                                            <p>提案日期 : <span> 2021-08-03</span></p>
-                                            <p>成交 : <span> 3 筆 ( 1 筆好評)</span></p>
+                                        <div class="text-left ">
+                                            <p><span class="text-primary"> {{item.NickName}}</span></p>
+                                            <p>提案日期 : <span> {{item.ProposeDate}}</span></p>
+                                            <p>已成交 : <span> {{item.DealedCount}}件</span></p>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="text-left QTInfo">
-                                            <p>報價金額 : <span> $5000元</span> </p>
-                                            <p>預估天數 : <span> 7天內完成</span> </p>
-                                            <p>報價信息 : <span>  您好 , 以上是我針對您需求提出的報價與執行時間 , 希望能有接案的機會 , 謝謝 !</span></p>
+                                            <p>案件 : <span>{{item.CaseTitle}}</span></p>
+                                            <p>報價金額 : <span> {{item.ProposePrice}}</span> </p>
+                                            <p>預估天數 : <span> {{item.PredictDays}}天內完成</span></p>
+                                            <p>報價信息 : <span> {{item.ProposeDescription}}</span></p>
                                         </div>
                                         <div class="RefuseOrChoose text-right">
                                             <button class="refusebtn btn btn-outline-primary">婉拒報價</button>
                                             <button class="choosebtn btn btn-primary">完成訂單</button>
+                                            
                                         </div>
                                     </td>
 
@@ -355,7 +359,7 @@
         }
 
         .QTInfo {
-            padding-top: 43px
+            padding-top: 45px
         }
 
         .RefuseOrChoose {
@@ -369,6 +373,7 @@
 }
 
 @section endJS{
+
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script>
@@ -383,9 +388,12 @@
             el: '#cart',
             data: {
                 cartsProduct: {},
-                get:false,
+                get: false,
                 modal: {},
                 productchecked: [],
+
+                getQT: false,
+                qtsProduct: [],
 
             },
             methods:
@@ -423,18 +431,43 @@
                                 this.cartsProduct = res.data.Result.map(x => Object.assign(x, { selected: false }))
                                 if (this.cartsProduct.length == 0 || this.cartsProduct == null) {
                                     this.get = false;
+                                    
                                 }
                                 else {
                                     this.get = true
+                                    console.log(this.cartsProduct,id)
                                 }
-                    })
+                        })
+                   
                 },
                 addcheckoutList(index) {
                     this.productchecked = [];
                     this.cartsProduct[index].selected = !this.cartsProduct[index].selected
-                    this.productchecked=this.cartsProduct.filter(x => x.selected ==true)
+                    this.productchecked = this.cartsProduct.filter(x => x.selected == true)
                     console.log(this.productchecked)
+                    
+
                 },
+                addOrder() {
+                    axios.post(`/api/Order/AddOrder`, this.productchecked).then(res => {
+                        if (res.data.Result) {
+                            $('#staticBackdrop').modal('hide')
+                            this.getCart()
+                            this.orderSuccess()
+                        }
+                        else {
+                            //TODO 加alert
+                            alert("更新失敗:" + res.data.ErrMsg)
+                        }
+                    })
+                },
+                orderSuccess() {
+                    Swal.fire(
+                        '訂單已成立!',
+                        '請至會員中心查看，並點擊關閉',
+                        'success'
+                    ) },
+
                 confirmTest() {
                     Swal.fire(
                         '更新成功!',
@@ -466,7 +499,24 @@
                            })
                           }
                         })
-                       }
+                       },
+                
+                getQTCart() {
+                    axios.get('/api/Cart/GetQuotationCart').then(res => {
+                        this.qtsProduct = JSON.parse(res.data.Result);
+                        console.log(this.qtsProduct);
+                        if (this.qtsProduct.length == 0 || this.qtsProduct == null) {
+                            this.getQT = false;
+                        }
+                        else {
+                            this.getQT = true
+                        }
+                        console.log(this.getQT);
+                        this.qtsProduct.forEach(q => console.log(q.NickName));
+                    })
+                        
+                    
+                }
             },
             computed: {
                 cartTotal()
@@ -475,7 +525,10 @@
                 return temp.toLocaleString('zh-TW', { style: 'currency', currency: 'TWD', minimumFractionDigits: 0 })
                 }
             },
-            created: function () {this.getCart()}
+            created: function () {
+                this.getCart();
+                this.getQTCart();
+            }
         })
 
     </script>
