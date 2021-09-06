@@ -168,18 +168,18 @@ namespace PRO_finder.Service
                                   //IsDefault = (op.IsDefault == 0 ? false : true),
                                   OtherPicture = op.OtherPictureLink
                               });
-            var OrderList = _ctx.GetAll<Order>();
-            var OrderVM = (from o in OrderList
-                           join m in MemInfoList on o.ProposerID equals m.MemberID
-                           join q in QuoList  on o.ProposerID equals q.MemberID
-                           where o.ProposerID == q.MemberID
-                           select new QuotationReview
-                           {
-                               ReviewName = m.NickName,
-                               SubmitDate = o.DealedDate.ToString(),
-                               CaseReview = (decimal)o.CaseReview,
-                               CaseMessage = o.CaseMessage
-                           });
+            //var OrderList = _ctx.GetAll<Order>();
+            //var OrderVM = (from o in OrderList
+            //               join m in MemInfoList on o.ProposerID equals m.MemberID
+            //               join q in QuoList on o.ProposerID equals q.MemberID
+            //               where o.ProposerID == q.MemberID
+            //               select new QuotationReview
+            //               {
+            //                   ReviewName = m.NickName,
+            //                   SubmitDate = o.DealedDate.ToString(),
+            //                   CaseReview = (decimal)o.CaseReview,
+            //                   CaseMessage = o.CaseMessage
+            //               });
 
             var QuoDetailVM = (from m in MemInfoList
                                join q in QuoList on m.MemberID equals q.MemberID
@@ -191,7 +191,7 @@ namespace PRO_finder.Service
                                    NickName = m.NickName,
                                    LogInTime = m.LogInTime.ToString(),
                                    Identity = (QuotationDetailViewModel.IdentityStatus)m.Identity,
-                                   //SubcategoryId = (int)m.SubCategoryID,
+                                   SubcategoryId = q.SubCategoryID,
                                    MainPicture = q.MainPicture,
                                    OtherPicture = OtherPicVM,
                                    QuotationTitle = q.QuotationTitle,
@@ -200,8 +200,8 @@ namespace PRO_finder.Service
                                    UpdateDate = q.UpdateDate.ToString(),
                                    ExecuteDate = q.ExecuteDate,
                                    Description = m.Description,
-                                   Evaluation = q.Evaluation == null ? (-1) : (decimal)q.Evaluation,
-                                   QuotationReview = OrderVM
+                                   Evaluation = q.Evaluation == null ? -1 : (decimal)q.Evaluation ,
+                    
 
                                }).FirstOrDefault();
 

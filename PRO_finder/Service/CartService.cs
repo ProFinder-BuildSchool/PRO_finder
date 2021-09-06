@@ -64,8 +64,10 @@ namespace PRO_finder.Service
             {
                 CartList.Add(new ClientCartViewModel
                 {
+
                     CartID=item.CartID,
-                    MemberID = (int)item.ClientID,
+                    ClientID = (int)item.ClientID,
+                    ProposerID = (int)item.ProposerID,
                     QuotationImg = item.QuotationImg,
                     SubCategory = item.SubCategoryName,
                     StudioName = item.StudioName,
@@ -116,6 +118,7 @@ namespace PRO_finder.Service
             var member = _repo.GetAll<MemberInfo>().First(x => x.MemberID == memberId);
             var clientCart = new ClientCart()
             {
+                ProposerID = Cart.ProposerID,
                 ClientID = member.MemberID,
                 QuotationImg = Cart.QuotationImg,
                 SubCategoryName = Cart.SubCategory,
