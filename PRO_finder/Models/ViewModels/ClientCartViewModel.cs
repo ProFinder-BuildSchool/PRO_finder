@@ -22,9 +22,11 @@ namespace PRO_finder.Models.ViewModels
         public class ClientCartViewModel
         {
             public  int CartID { get; set; }
-            public int ProposerID { get; set; }
-
-            public int ClientID { get; set; }
+            public int MemberID { get; set; }
+            //public int BuyerMemberID { get; set; } 改欄位名稱
+            //public int SalerMemberID { get; set; } 增加
+            //再加一個預計完成日欄位
+            public int ContactTime { get; set; }
             public string QuotationImg { get; set; }
             public string SubCategory { get; set; }
             public string StudioName { get; set; }

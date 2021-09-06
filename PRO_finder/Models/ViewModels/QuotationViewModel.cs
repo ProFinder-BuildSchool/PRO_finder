@@ -6,13 +6,12 @@ using System.Linq;
 using System.Web;
 using PRO_finder.Enum;
 using static PRO_finder.Enum.Enum;
-
 namespace PRO_finder.Models.ViewModels
 {
-
     public class QuotationViewModel
     {
-        public int QuotationId { get; set; } //QuotationId
+        public int QuotationId { get; set; } 
+        //QuotationId
         public int Id { get; set; } 
         public int CategoryId { get; set; }
         public int SubcategoryId { get; set; }
@@ -23,40 +22,30 @@ namespace PRO_finder.Models.ViewModels
         public string StudioName { get; set; }
         public string Img { get; set; }
         public string Location { get; set; }
-
         //報價細節
         public int MemberID { get; set; }
-
-      
-
         public UnitEnum UnitToString { get; set; }
         public int SortNum { get; set; }
     }
 }
-
 public class QuotationDetailViewModel
 {
-    public int QuotationId { get; set; } 
+    public int QuotationId { get; set; }
     public int CategoryId { get; set; }
     public int SubcategoryId { get; set; }
     public string SubcategoryName { get; set; }
     public string CategoryName { get; set; }
     public string Price { get; set; }
-
     public enum UnitEnum
     {
-        件,張,頁,份,字,個,天,時,坪,才,秒,月,則,幅
+        件, 張, 頁, 份, 字, 個, 天, 時, 坪, 才, 秒, 月, 則, 幅
     }
     public UnitEnum Unit { get; set; }
-
     //public string StudioName { get; set; }
     public string MainPicture { get; set; }
-
     public int MemberID { get; set; }
     public string NickName { get; set; }
-
     public string LogInTime { get; set; }
-
     public enum IdentityStatus
     {
         個人兼職, 專職SOHO, 工作室, 兼職上班族, 公司, 學生
@@ -69,27 +58,20 @@ public class QuotationDetailViewModel
         屏東縣, 澎湖縣, 台東縣, 花蓮縣, 其他離島
     }
     public LocationCity Location { get; set; }
-
     public string QuotationTitle { get; set; }
-
     public IEnumerable<OtherPictureViewModel> OtherPicture { get; set; }
     public string UpdateDate { get; set; }
     public DateTime UpdateDateOrigin { get; set; }
     public int ExecuteDate { get; set; }
-
     public string Description { get; set; }
     public decimal Evaluation { get; set; }
-
     public IEnumerable<QuotationReview> QuotationReview { get; set; }
     public bool Status { get; set; }
-
 }
-
 public class QuotationReview
-    {
-        public string ReviewName { get; set; }
-        public string SubmitDate { get; set; }
-        public decimal CaseReview { get; set; }
-        public string CaseMessage { get; set; }
-
-    }
+{
+    public string ReviewName { get; set; }
+    public string SubmitDate { get; set; }
+    public decimal CaseReview { get; set; }
+    public string CaseMessage { get; set; }
+}

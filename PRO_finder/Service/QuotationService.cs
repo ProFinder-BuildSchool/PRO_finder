@@ -148,14 +148,12 @@ namespace PRO_finder.Service
         }
 
         //報價細節
-        public QuotationDetailViewModel GetQuoDetailData(int MemId,int QuotationId)
+        public QuotationDetailViewModel GetQuoDetailData(int MemId, int QuotationId)
         {
             var MemInfoList = _ctx.GetAll<MemberInfo>();
             var QuoList = _ctx.GetAll<Quotation>();
             var OtherPicList = _ctx.GetAll<OtherPicture>();
-    
-
-            if (MemInfoList.Count() == 0 && QuoList.Count()==0 )
+            if (MemInfoList.Count() == 0 && QuoList.Count() == 0)
             {
                 return null;
             }
@@ -165,12 +163,12 @@ namespace PRO_finder.Service
                               {
                                   QuotationID = op.QuotationID,
                                   SortNumber = op.SortNumber,
-                                  //IsDefault = (op.IsDefault == 0 ? false : true),
+                                  //    IsDefault = (op.IsDefault == 0 ? false : true),
                                   OtherPicture = op.OtherPictureLink
                               });
-            //var OrderList = _ctx.GetAll<Order>();
+            var OrderList = _ctx.GetAll<Order>();
             //var OrderVM = (from o in OrderList
-            //               join m in MemInfoList on o.ProposerID equals m.MemberID
+            //               //join m in MemInfoList on o.ProposerID equals m.MemberID
             //               join q in QuoList on o.ProposerID equals q.MemberID
             //               where o.ProposerID == q.MemberID
             //               select new QuotationReview
@@ -180,7 +178,6 @@ namespace PRO_finder.Service
             //                   CaseReview = (decimal)o.CaseReview,
             //                   CaseMessage = o.CaseMessage
             //               });
-
             var QuoDetailVM = (from m in MemInfoList
                                join q in QuoList on m.MemberID equals q.MemberID
                                where m.MemberID == MemId && q.QuotationID == QuotationId
@@ -200,14 +197,12 @@ namespace PRO_finder.Service
                                    UpdateDate = q.UpdateDate.ToString(),
                                    ExecuteDate = q.ExecuteDate,
                                    Description = m.Description,
-                                   Evaluation = q.Evaluation == null ? -1 : (decimal)q.Evaluation ,
-                    
-
+                                   Evaluation = q.Evaluation == null ? -1 : (decimal)q.Evaluation,
+                                   //QuotationReview = OrderVM
                                }).FirstOrDefault();
-
             return QuoDetailVM;
         }
-            
+
 
         //刊登新服務 CreateQuotation
         public Quotation CreateQuotation(CreateQuotationViewModel newQ)
