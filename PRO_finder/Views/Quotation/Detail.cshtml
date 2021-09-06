@@ -142,7 +142,7 @@
                             </div>
                         </div>
                         <!-- 顯示評價 (如果評價太多要有分頁)-->
-                        <div class="comment-content" style="display:none;">
+                        @*<div class="comment-content" style="display:none;">
                             <h3 class="h5 d-flex align-items-center mb-4 text-primary">
                                 <span class="icon-turned_in mr-3"></span>服務評價 @Model.QuotationReview.Count() 則
                             </h3>
@@ -172,7 +172,7 @@
                                     }
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
                     </main>
                 </section>
             </div>
@@ -218,31 +218,51 @@
                         輸入訂購人資訊
                     </h5>
                     <div class="form-group text-start text-dark mb-2">
-                        <label class="" for="useremail">Email</label>
-                        <input type="email" class="form-control" name="email" id="useremail"
-                               placeholder="請輸入 Email" required /> <span class="text-danger">Email欄位不得留空</span>
-                    </div>
-                    <div class="form-group text-start text-dark mb-2">
                         <label class="" for="username ">收件人姓名</label>
                         <input type="text" class="form-control" name="name" id="username"
-                               placeholder="輸入姓名" required /> <span class="text-danger">姓名欄位不得留空</span>
+                               placeholder="輸入姓名" /> <span class="text-danger font-weight-bold"></span>
+                    </div>
+                    <div class="form-group text-start text-dark mb-2">
+                        <label class="" for="useremail">Email</label>
+                        <input type="email" class="form-control" name="email" id="useremail"
+                               placeholder="請輸入 Email" /> <span class="text-danger font-weight-bold"></span>
                     </div>
                     <div class="form-group text-start text-dark mb-2">
                         <label class="" for="usertel">收件人電話</label>
                         <input type="tel" class="form-control" id="usertel"
-                               placeholder="請輸入電話" required /> <span class="text-danger">電話欄位不得留空</span>
+                               placeholder="請輸入電話" /> <span class="text-danger telspan font-weight-bold"></span>
                     </div>
                     <div class="form-group text-start text-dark mb-2">
                         <label class=""
                                for="useraddress">收件人LineID</label>
                         <input type="text" class="form-control" name="line"
-                               id="userline" placeholder="請輸入LineID" /> <span class="text-danger">Line欄位不得留空</span>
+                               id="userline" placeholder="請輸入LineID" />
+                    </div>
+                    <div>
+                        <label class="text-black"
+                               for="useraddress">可聯繫時段</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="morningtime" value="0">
+                        <label class="form-check-label" for="morningtime">上午 7-12</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="aternoontime" value="1">
+                        <label class="form-check-label" for="aternoontime">下午 12-18</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="eveningtime" value="2">
+                        <label class="form-check-label" for="eveningtime">晚上 18-22</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="unlimitedtime" value="3">
+                        <label class="form-check-label" for="unlimitedtime">不限時段</label>
                     </div>
                     <div class="form-group text-start text-dark">
                         <label for="memo">留言</label> <textarea name="" id="memo" class="form-control" cols="30" rows="5"></textarea>
                     </div>
                     <div class="mt-3 text-right">
-                        <button class="addProduct disabled"> 加入購物車</button>
+                        <button class="addProduct"> 加入購物車</button>
                     </div>
                 </form>
             </div>
@@ -452,6 +472,9 @@
         .site-navbar {
             position: static !important;
         }
+        .addProduct:disabled {
+            background: #808080;
+        }
     </style>
 }
 
@@ -462,30 +485,7 @@
     <script src="~/Assets/js/QuotationDetail.js"></script>
     
     <script>
-        Vue.use(VueForm);
-        let formIdentuty = new Vue({
-            el: '#form',
-            data: {
-                formModel: { name: '', email, '' },
-                formState: {}
-            },
-            methods: {
-                fieldClassName() {
-                    if (!field) {
-                        return '';
-                    }
-                    if (field.$touched || field.$subitted && field.$valid) {
-                        return 'is-valid';
-                    }
-                    if (field.$touched || field.$subitted && field.$invalid) {
-                        return 'is-invalid';
-                    }
-                }
-            }
-        })
-    </script>
-    <script>
-        
+
         let addProduct = document.querySelector('.addProduct');
 
         let side = document.getElementById('Sidenav');
@@ -494,10 +494,69 @@
         let ismore = true;
         let countNumber = document.querySelector('.count');
 
+        function telValidation() {
+            let telReg = /^09[0-9]{8}$/;
+            let telInput = document.getElementById("usertel").value;
+            let telSpan = document.querySelector('.telspan');
 
+            if (telInput == '') {
+                telSpan.innerText = '電話欄位不得留空';
+                return;
+            }
+            if (!telReg.test(telInput)) {
+                telSpan.innerText = '電話欄位格式錯誤'
+                return false;
+                
+            } else {
+                telSpan.innerText = ''
+                return true;
+            }
+        }
+
+        function nameValidation() {
+            let telReg = ;
+            let telInput = document.getElementById("usertel").value;
+            let telSpan = document.querySelector('.telspan');
+
+            if (telInput == '') {
+                telSpan.innerText = '電話欄位不得留空';
+                return;
+            }
+            if (!telReg.test(telInput)) {
+                telSpan.innerText = '電話欄位格式錯誤'
+                return false;
+
+            } else {
+                telSpan.innerText = ''
+                return true;
+            }
+        }
+
+        function telValidation() {
+            let telReg = /^09[0-9]{8}$/;
+            let telInput = document.getElementById("usertel").value;
+            let telSpan = document.querySelector('.telspan');
+
+            if (telInput == '') {
+                telSpan.innerText = '電話欄位不得留空';
+                return;
+            }
+            if (!telReg.test(telInput)) {
+                telSpan.innerText = '電話欄位格式錯誤'
+                return false;
+
+            } else {
+                telSpan.innerText = ''
+                return true;
+            }
+        }
+        
 
         addProduct.addEventListener('click', function (e) {
-            e.preventDefault()
+
+            b_tel();
+            console.log(b_tel());
+            @*e.preventDefault()
             let count = document.querySelector('.count').innerText;
             let useremail = document.querySelector('#useremail').value;
             let username = document.querySelector('#username').value;
@@ -535,7 +594,7 @@
                             text: '請喝杯咖啡再點選一次~ :)',
                         })
                     }
-                })
+                })*@
             })
 
         document.querySelector('.modelBtn').addEventListener('click', function () {

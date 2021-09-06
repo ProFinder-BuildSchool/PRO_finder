@@ -148,14 +148,12 @@ namespace PRO_finder.Service
         }
 
         //報價細節
-        public QuotationDetailViewModel GetQuoDetailData(int MemId,int QuotationId)
+        public QuotationDetailViewModel GetQuoDetailData(int MemId, int QuotationId)
         {
             var MemInfoList = _ctx.GetAll<MemberInfo>();
             var QuoList = _ctx.GetAll<Quotation>();
             var OtherPicList = _ctx.GetAll<OtherPicture>();
-    
-
-            if (MemInfoList.Count() == 0 && QuoList.Count()==0 )
+            if (MemInfoList.Count() == 0 && QuoList.Count() == 0)
             {
                 return null;
             }
@@ -165,33 +163,32 @@ namespace PRO_finder.Service
                               {
                                   QuotationID = op.QuotationID,
                                   SortNumber = op.SortNumber,
-                                  //IsDefault = (op.IsDefault == 0 ? false : true),
+                                  //    IsDefault = (op.IsDefault == 0 ? false : true),
                                   OtherPicture = op.OtherPictureLink
                               });
             var OrderList = _ctx.GetAll<Order>();
-            var OrderVM = (from o in OrderList
-                           join m in MemInfoList on o.ProposerID equals m.MemberID
-                           join q in QuoList  on o.ProposerID equals q.MemberID
-                           where o.ProposerID == q.MemberID
-                           select new QuotationReview
-                           {
-                               ReviewName = m.NickName,
-                               SubmitDate = o.DealedDate.ToString(),
-                               CaseReview = (decimal)o.CaseReview,
-                               CaseMessage = o.CaseMessage
-                           });
-
+            //var OrderVM = (from o in OrderList
+            //               //join m in MemInfoList on o.ProposerID equals m.MemberID
+            //               join q in QuoList on o.ProposerID equals q.MemberID
+            //               where o.ProposerID == q.MemberID
+            //               select new QuotationReview
+            //               {
+            //                   ReviewName = m.NickName,
+            //                   SubmitDate = o.DealedDate.ToString(),
+            //                   CaseReview = (decimal)o.CaseReview,
+            //                   CaseMessage = o.CaseMessage
+            //               });
             var QuoDetailVM = (from m in MemInfoList
                                join q in QuoList on m.MemberID equals q.MemberID
                                where m.MemberID == MemId && q.QuotationID == QuotationId
                                select new QuotationDetailViewModel
                                {
                                    QuotationId = q.QuotationID,
-                                   MemberID = m.MemberID, //人才的
+                                   MemberID = (int)q.MemberID,
                                    NickName = m.NickName,
                                    LogInTime = m.LogInTime.ToString(),
                                    Identity = (QuotationDetailViewModel.IdentityStatus)m.Identity,
-                                   //SubcategoryId = (int)m.SubCategoryID,
+                                   SubcategoryId = q.SubCategoryID,
                                    MainPicture = q.MainPicture,
                                    OtherPicture = OtherPicVM,
                                    QuotationTitle = q.QuotationTitle,
@@ -200,14 +197,12 @@ namespace PRO_finder.Service
                                    UpdateDate = q.UpdateDate.ToString(),
                                    ExecuteDate = q.ExecuteDate,
                                    Description = m.Description,
-                                   Evaluation = q.Evaluation == null ? (-1) : (decimal)q.Evaluation,
-                                   QuotationReview = OrderVM
-
+                                   Evaluation = q.Evaluation == null ? -1 : (decimal)q.Evaluation,
+                                   //QuotationReview = OrderVM
                                }).FirstOrDefault();
-
             return QuoDetailVM;
         }
-            
+
 
         //刊登新服務 CreateQuotation
         public Quotation CreateQuotation(CreateQuotationViewModel newQ)
