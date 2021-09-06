@@ -163,20 +163,14 @@ namespace PRO_finder.Service
             }
             return result;
         }
+
+        
+
         public string GetAllQuotationCart(int memberID)
         {
             
             
-            //取得成交order數量
-            int count = 0;
-            try
-            {
-                count = _repo.GetAll<Order>().Where(x => x.ProposerID == memberID).Count();
-            }
-            catch
-            {
-                count = 0;
-            }
+            
 
             //取得quotationCart
             List<QuotationDetail> quoCart = new List<QuotationDetail>();
@@ -206,8 +200,21 @@ namespace PRO_finder.Service
                 {
                     string date = item.ProposeDate.ToString("yyyy-MM-dd");
                     Case theCase = _repo.GetAll<Case>().FirstOrDefault(x => x.CaseID == item.CaseID);
+
                     //取得proposer memberInfo
                     MemberInfo memInfo = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == item.ProposerID);
+                    //取得成交order數量
+                    int count = 0;
+                    try
+                    {
+                        count = _repo.GetAll<Order>().Where(x => x.ProposerID == item.ProposerID).Count();
+                    }
+                    catch
+                    {
+                        count = 0;
+                    }
+
+                    //回傳資料
                     allInfoInCart.Add(new QuotationCartViewModel
                     {
                         //ProfilePicture = memInfo.ProfilePicture,
@@ -219,13 +226,38 @@ namespace PRO_finder.Service
                         ProposeDescription = item.ProposeDescription,
                         ProposerID = item.ProposerID,
                         CaseID = item.CaseID,
-                        DealedCount= count,
-                        CaseTitle = theCase.CaseTitle
+                        DealedCount = count,
+                        CaseTitle = theCase.CaseTitle,
+                        QuotationDetailID = item.QuotaionDetailID
                     });
                 }
             }
             
             return JsonConvert.SerializeObject(allInfoInCart);
+        }
+        public void QdToOrder(int qdID)
+        {
+            var qdCart = _repo.GetAll<QuotationDetail>().FirstOrDefault(x => x.QuotaionDetailID == qdID);
+            var caseInfo = _repo.GetAll<Case>().FirstOrDefault(x => x.CaseID == qdCart.CaseID);
+            var clientInfo = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == caseInfo.MemberID);
+            var proposerInfo = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == qdCart.ProposerID);
+            Order newOrder = new Order()
+            {
+                ProposerID = qdCart.ProposerID,
+                OrderStatus = 1,
+                DepositStatus = 0,
+                Price = qdCart.ProposePrice,
+                DealedDate = DateTime.UtcNow,
+                ClientID = caseInfo.MemberID,
+                QuotationImg = "~/Assets/images/hero_1.jpg",
+                Email = clientInfo.Email,
+                //Name = clientInfo.NickName,
+                StudioName = proposerInfo.NickName,
+                Tel = clientInfo.Cellphone,
+                PredictDays = qdCart.PredictDays
+            };
+            _repo.Create(newOrder);
+            _repo.SaveChanges();
         }
     }
 }

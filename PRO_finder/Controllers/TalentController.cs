@@ -60,7 +60,7 @@ namespace PRO_finder.Controllers
 
                 var newQ = _quotaService.CreateQuotation(quotation);
                 int quotationID = newQ.QuotationID;
-
+                //Response.Write(quotationID);
                 if (quotation.OtherPictureList != null)
                 {
                     _quotaService.CreateOtherPics(quotationID, quotation.OtherPictureList);
