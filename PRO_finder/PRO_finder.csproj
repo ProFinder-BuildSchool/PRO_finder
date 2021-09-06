@@ -52,6 +52,9 @@
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.0.90\lib\net461\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="ECPay.Payment.Integration">
+      <HintPath>..\ECPay.Payment.Integration.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -790,6 +793,7 @@
     <Content Include="Views\Talent\ApiTest.cshtml" />
     <Content Include="Views\FindQuotation\QTRecord.cshtml" />
     <Content Include="Views\Client\OrderinProgress.cshtml" />
+    <Content Include="Views\Cart\PaymentTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -3,6 +3,7 @@ using CloudinaryDotNet.Actions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace PRO_finder.Helper
@@ -17,13 +18,14 @@ namespace PRO_finder.Helper
             _cloudinary = new Cloudinary(_account);
             _cloudinary.Api.Secure = true;
         }
-        public string UploadCloudinary(HttpPostedFileBase file)
+        public async Task<string> UploadCloudinaryAsync(HttpPostedFileBase file)
         {
             var uploadParams = new ImageUploadParams()
             {
                 File = new FileDescription(file.FileName, file.InputStream)
             };
-            var uploadResult = _cloudinary.Upload(uploadParams);
+            Task<ImageUploadResult> imageUploadTask = _cloudinary.UploadAsync(uploadParams);
+            var uploadResult = await imageUploadTask;
             return uploadResult.SecureUri.AbsoluteUri;
         }
 
