@@ -316,7 +316,7 @@ namespace PRO_finder.Controllers
         public void UploadCloudinary()
         {
             HttpPostedFileBase file = Request.Files["picture"];
-            string url = _cloudinaryHelper.UploadCloudinary(file);
+            string url = _cloudinaryHelper.UploadCloudinaryAsync(file);
             Response.Write(url);
         }
     }

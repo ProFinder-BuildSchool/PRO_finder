@@ -438,23 +438,15 @@
             let temp = document.querySelectorAll(element);
             return temp.length == 1 ? temp[0] : temp;
         }
-        function fetchCloudinary(form_data) {
-            return fetch(CLOUDINARY_URL, {
-                method: "POST",
-                body: form_data
-            })
-                .then((response) => {
-                    return response.json();
-                })
-                .then(data => data.url);
-        }
         function getBlobData(img_src) {
+            console.log(img_src)
             let url = img_src;
-            let len = url.length;
-            var http = url.substring(0, 5)
-            if (http != "https") {
-                url = "https://" + url.substring(7, len);
+            //let len = url.length;
+            const b = url.substring(0, 5)
+            if (b == "blob:") {
+                return url;
             }
+            console.log(url);
             return fetch(url).then(res => res.blob());
         }
         function axiosImageFile(picture) {
