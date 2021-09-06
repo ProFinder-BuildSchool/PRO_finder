@@ -220,12 +220,12 @@
                     <div class="form-group text-start text-dark mb-2">
                         <label class="" for="username ">收件人姓名</label>
                         <input type="text" class="form-control" name="name" id="username"
-                               placeholder="輸入姓名" /> <span class="text-danger font-weight-bold"></span>
+                               placeholder="輸入姓名" /> <span class="text-danger font-weight-bold namespan"></span>
                     </div>
                     <div class="form-group text-start text-dark mb-2">
                         <label class="" for="useremail">Email</label>
                         <input type="email" class="form-control" name="email" id="useremail"
-                               placeholder="請輸入 Email" /> <span class="text-danger font-weight-bold"></span>
+                               placeholder="請輸入 Email" /> <span class="text-danger font-weight-bold emailspan"></span>
                     </div>
                     <div class="form-group text-start text-dark mb-2">
                         <label class="" for="usertel">收件人電話</label>
@@ -506,7 +506,7 @@
             if (!telReg.test(telInput)) {
                 telSpan.innerText = '電話欄位格式錯誤'
                 return false;
-                
+
             } else {
                 telSpan.innerText = ''
                 return true;
@@ -514,43 +514,43 @@
         }
 
         function nameValidation() {
-            let telReg = ;
-            let telInput = document.getElementById("usertel").value;
-            let telSpan = document.querySelector('.telspan');
+            let nameReg = /^([\u4e00-\u9fa5]{1,20}|[a-zA-Z\s]{1,20})$/;
+            let nameInput = document.getElementById("username").value;
+            let nameSpan = document.querySelector('.namespan');
 
-            if (telInput == '') {
-                telSpan.innerText = '電話欄位不得留空';
+            if (nameReg == '') {
+                nameSpan.innerText = '姓名欄位不得留空';
                 return;
             }
-            if (!telReg.test(telInput)) {
-                telSpan.innerText = '電話欄位格式錯誤'
+            if (!nameReg.test(nameInput)) {
+                nameSpan.innerText = '姓名欄位格式錯誤(不包含數字及特殊符號)'
                 return false;
 
             } else {
-                telSpan.innerText = ''
+                nameSpan.innerText = ''
                 return true;
             }
         }
 
-        function telValidation() {
-            let telReg = /^09[0-9]{8}$/;
-            let telInput = document.getElementById("usertel").value;
-            let telSpan = document.querySelector('.telspan');
+        function emailValidation() {
+            let emailReg = /\w @@\w \.\w /;
+            let emailInput = document.getElementById("useremail").value;
+            let emailSpan = document.querySelector('.emailspan');
 
-            if (telInput == '') {
-                telSpan.innerText = '電話欄位不得留空';
+            if (emailInput == '') {
+                emailSpan.innerText = 'Email欄位不得留空';
                 return;
             }
-            if (!telReg.test(telInput)) {
-                telSpan.innerText = '電話欄位格式錯誤'
+            if (!emailReg.test(emailSpan)) {
+                emailSpan.innerText = 'Email欄位格式錯誤'
                 return false;
 
             } else {
-                telSpan.innerText = ''
+                emailSpan.innerText = ''
                 return true;
             }
         }
-        
+
 
         addProduct.addEventListener('click', function (e) {
 
