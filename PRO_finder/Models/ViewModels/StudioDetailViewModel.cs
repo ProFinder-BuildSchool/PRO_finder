@@ -8,7 +8,7 @@ namespace PRO_finder.Models.ViewModels
     public class StudioDetailViewModel
     {
         public int MemberID { get; set; }
-        public byte[] ProfilePicture { get; set; }
+        public string ProfilePicture { get; set; }
         public DateTime? LogInTime { get; set; }
         public string NickName { get; set; }
         public string ExpertSubCategory { get; set; }

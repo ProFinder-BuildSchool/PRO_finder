@@ -11,7 +11,6 @@ namespace PRO_finder.Models.DBModel
     {
         public int? OrderType { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int OrderID { get; set; }
 
         public int? ProposerID { get; set; }
@@ -63,5 +62,9 @@ namespace PRO_finder.Models.DBModel
         public int? ContactTime { get; set; }
 
         public int? PredictDays { get; set; }
+
+        public int? MemberID { get; set; }
+
+        public virtual MemberInfo MemberInfo { get; set; }
     }
 }
