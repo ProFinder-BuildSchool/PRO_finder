@@ -15,6 +15,7 @@ using PRO_finder.Service;
 using PRO_finder.ViewModels;
 using Newtonsoft.Json;
 using PRO_finder.Helper;
+using Newtonsoft.Json.Linq;
 
 namespace PRO_finder.Controllers
 {
@@ -316,7 +317,8 @@ namespace PRO_finder.Controllers
         public void UploadCloudinary()
         {
             HttpPostedFileBase file = Request.Files["picture"];
-            string url = _cloudinaryHelper.UploadCloudinaryAsync(file);
+            var result = _cloudinaryHelper.UploadCloudinaryAsync(file);
+            var url = JObject.Parse(result.Result);
             Response.Write(url);
         }
     }
