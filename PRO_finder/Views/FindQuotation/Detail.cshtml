@@ -1,6 +1,7 @@
 ﻿@model PRO_finder.Models.ViewModels.CaseDetailViewModel
 @{
     ViewBag.Title = "Detail";
+    ViewBag.caseID = @Model.CaseId;
 }
 <!DOCTYPE html>
 
@@ -88,7 +89,8 @@
                             </p>
                         </div>
                         <div class="col-4">
-                            <a href="#" class="btn btn-block btn-primary btn-md mt-2 ">我要報價</a>
+                            @*<a href="#" class="btn btn-block btn-primary btn-md mt-2 ">我要報價</a>*@
+                            @Html.Partial("_QuotationforCasePartial")
                         </div>
                     </div>
 

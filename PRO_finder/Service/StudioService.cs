@@ -124,7 +124,7 @@ namespace PRO_finder.Service
                                     SubcategoryName = sub.SubCategoryName,
                                     CategoryName = cate.CategoryName,
                                     Price = q.Price,
-                                    Unit = q.QuotationUnit,
+                                    Unit = (StudioQuotationViewModel.UnitEnum)q.QuotationUnit,
                                     QuotationImg = q.MainPicture
                                 });
 
@@ -151,8 +151,8 @@ namespace PRO_finder.Service
                                       LocationName = L.LocationName,
                                       LogInTime = m.LogInTime,
                                       ProfilePicture = m.ProfilePicture,
-                                      Identity = m.Identity,
-                                      //StudioReview = StudioReviewVM,
+                                      Identity = (StudioDetailViewModel.IdentityStatus)m.Identity,
+                                      StudioReview = StudioReviewVM,
                                       Studioworks = StudioWorkVM,
                                       StudioQuotation = StudioQuotVM,
                                       WorkSubcategory = WorkSubcategoryVM
