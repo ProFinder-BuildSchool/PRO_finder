@@ -69,6 +69,7 @@ namespace PRO_finder
                 url: "Quotation/Detail/{Memberid}/{Quotationid}",
                 defaults: new { controller = "Quotation", action = "Detail" }
             );
+
             //routes.MapRoute(
             //    name: "StudioHome",
             //    url: "{controller}/{action}/{Memberid}",

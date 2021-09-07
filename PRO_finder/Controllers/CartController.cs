@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using ECPay.Payment.Integration;
+using Microsoft.AspNet.Identity;
+using PRO_finder.Models.ViewModels;
 using PRO_finder.Service;
 using System;
 using System.Collections.Generic;
@@ -35,5 +37,13 @@ namespace PRO_finder.Controllers
             int MemberID = _cartservice.GetMemberID(userID);
             return View();
         }
+        [HttpPost]
+        public ActionResult PostECPayment([System.Web.Http.FromBody]List<PaymentViewModel> data)
+        {
+            Session["thePayment"] = data;
+            Response.Write("成功進入");
+            return Redirect("/ECPay/AioCheckOut.aspx");
+        }
+
     }
 }

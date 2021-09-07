@@ -186,7 +186,7 @@ namespace PRO_finder.Service
                 var myCase = _repo.GetAll<Case>().Where(x => x.MemberID == memberID).ToList();
                 foreach(var item in myCase)
                 {
-                    var qd = _repo.GetAll<QuotationDetail>().Where(x => x.CaseID == item.CaseID).ToList();
+                    var qd = _repo.GetAll<QuotationDetail>().Where(x => x.CaseID == item.CaseID && x.Status != false).ToList();
                     foreach(var j in qd)
                     {
                         quoCart.Add(j);
@@ -270,6 +270,8 @@ namespace PRO_finder.Service
         public void QdToOrder(int qdID)
         {
             var qdCart = _repo.GetAll<QuotationDetail>().FirstOrDefault(x => x.QuotaionDetailID == qdID);
+
+            //加入order訂單
             var caseInfo = _repo.GetAll<Case>().FirstOrDefault(x => x.CaseID == qdCart.CaseID);
             var clientInfo = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == caseInfo.MemberID);
             var proposerInfo = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == qdCart.ProposerID);
@@ -289,6 +291,19 @@ namespace PRO_finder.Service
                 PredictDays = qdCart.PredictDays
             };
             _repo.Create(newOrder);
+            _repo.SaveChanges();
+
+            //QuotationDetail表格的Status改成true
+            qdCart.Status = true;
+            _repo.Update(qdCart);
+            _repo.SaveChanges();
+        }
+
+        public void RefuseQd(int qdID)
+        {
+            var theQd =  _repo.GetAll<QuotationDetail>().FirstOrDefault(x => x.QuotaionDetailID == qdID);
+            theQd.Status = false;
+            _repo.Update(theQd);
             _repo.SaveChanges();
         }
     }

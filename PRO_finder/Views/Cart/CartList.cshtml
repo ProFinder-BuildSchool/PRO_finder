@@ -140,8 +140,8 @@
                                             <p>報價信息 : <span> {{item.ProposeDescription}}</span></p>
                                         </div>
                                         <div class="RefuseOrChoose text-right">
-                                            <button class="refusebtn btn btn-outline-primary">婉拒報價</button>
-                                            <button class="choosebtn btn btn-primary">完成訂單</button>
+                                            <button class="refusebtn btn btn-outline-primary" @@click="refuse(item.QuotationDetailID)">婉拒報價</button>
+                                            <button class="choosebtn btn btn-primary" @@click="complete(item.QuotationDetailID)">完成訂單</button>
                                             
                                         </div>
                                     </td>
@@ -514,8 +514,19 @@
                         console.log(this.getQT);
                         this.qtsProduct.forEach(q => console.log(q.NickName));
                     })
-                        
-                    
+                },
+                refuse(arg) {
+                    axios.post('/api/Cart/RefuseQuotation', arg).then(res => {
+                        console.log(res.text());
+                        window.location.reload();
+                    })
+                },
+                complete(arg) {
+                    axios.post('/api/Cart/AddQuotationOrder', arg).then(res => {
+                        console.log(res.text());
+                        window.location.reload();
+                        //需要導向到其他頁面嗎？
+                    });
                 }
             },
             computed: {
