@@ -25,7 +25,7 @@
                         <th>案件金額</th>
                         <th>提案日期</th>
                         <th>成交提醒</th>
-                        @*<th></th>*@
+                        <th>取消提案</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,8 +36,8 @@
                             <td class="text-center">@item.CaseTitle</td>
                             <td class="text-center">@item.ProposePrice</td>
                             <td class="text-center">@item.ProposeDate</td>
-                            <td class="text-center">@item.DealedOrNot</td>
-                            @*<td class="text-center"><button class="text-center btnDele btn btn-primary " data-content="@item.CaseID">刪除</button></td>*@
+                            <td class="text-center">@item.Status</td>
+                            <td class="text-center"><button class="text-center btnDele btn btn-primary " data-content="@item.CaseID">取消</button></td>
                         </tr>
                     }
                 </tbody>
@@ -45,7 +45,6 @@
             </table>
         </div>
     </div>
-
 </body>
 </html>
 
@@ -57,25 +56,28 @@
     </style>
 }
 
-@*@section endJS{
+@section endJS{
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
+
         let btnDele = document.querySelectorAll('.btnDele');
+        
 
         btnDele.forEach(function (item) {
-
             let caseid = item.getAttribute("data-content");
             console.log(caseid);
             item.addEventListener('click', function () {
-                item.disabled = true;
-
                 const asyncRun = async () => {
                     await axios.post('/FindQuotation/DeleQTRecord', { caseid: caseid }).then(res => console.log(res));
+                    alert('已刪除此提案 ! 若有需要請重新提出報價 ! ')
                     window.location.reload();
                 }
                 asyncRun();
             })
         })
+
+        
+        
     </script>
 
-}*@
+}

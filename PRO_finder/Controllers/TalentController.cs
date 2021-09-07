@@ -40,6 +40,7 @@ namespace PRO_finder.Controllers
             _cloudinaryHelper = new CloudinaryHelper();
         }
 
+        [Authorize]
         public ActionResult Index()
         {
             return View();

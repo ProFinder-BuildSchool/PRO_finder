@@ -318,6 +318,20 @@
     <Compile Include="Controllers\SaveCaseController.cs" />
     <Compile Include="Controllers\TalentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="ECPay\AioCheckOut.aspx.cs">
+      <DependentUpon>AioCheckOut.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ECPay\AioCheckOut.aspx.designer.cs">
+      <DependentUpon>AioCheckOut.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ECPay\CheckOutFeedback.aspx.cs">
+      <DependentUpon>CheckOutFeedback.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ECPay\CheckOutFeedback.aspx.designer.cs">
+      <DependentUpon>CheckOutFeedback.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Enum\Enum.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -466,6 +480,7 @@
     <Compile Include="Models\ViewModels\MemberInfoViewModel.cs" />
     <Compile Include="Models\ViewModels\OrderViewModel.cs" />
     <Compile Include="Models\ViewModels\OtherPictureViewModel.cs" />
+    <Compile Include="Models\ViewModels\PaymentViewModel.cs" />
     <Compile Include="Models\ViewModels\QuotationCartViewModel.cs" />
     <Compile Include="Models\ViewModels\QuotationViewModel.cs" />
     <Compile Include="Models\ViewModels\SaveCaseViewModel.cs" />
@@ -638,6 +653,8 @@
     <Content Include="Assets\js\stickyfill.min.js" />
     <Content Include="Assets\Temp\CartModel.html" />
     <Content Include="Assets\Temp\Test.html" />
+    <Content Include="ECPay\AioCheckOut.aspx" />
+    <Content Include="ECPay\CheckOutFeedback.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Assets\css\custom-bs.css.map" />
@@ -800,6 +817,7 @@
     <Content Include="Views\FindQuotation\QTRecord.cshtml" />
     <Content Include="Views\Client\OrderinProgress.cshtml" />
     <Content Include="Views\Cart\PaymentTest.cshtml" />
+    <Content Include="Views\Cart\PostECPayment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
