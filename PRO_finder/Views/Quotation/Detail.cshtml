@@ -514,7 +514,7 @@
         }
 
         function nameValidation() {
-            let telReg = ;
+            let telReg = '';
             let telInput = document.getElementById("usertel").value;
             let telSpan = document.querySelector('.telspan');
 
@@ -554,9 +554,9 @@
 
         addProduct.addEventListener('click', function (e) {
 
-            b_tel();
-            console.log(b_tel());
-            @*e.preventDefault()
+            //b_tel();
+            //console.log(b_tel());
+            e.preventDefault()
             let count = document.querySelector('.count').innerText;
             let useremail = document.querySelector('#useremail').value;
             let username = document.querySelector('#username').value;
@@ -575,10 +575,13 @@
                 .then(res => {
                     side.style.height = "0px"
                     if (res.data.Result == true) {
-
+                        
                         axios.get(`/api/Cart/GetCart?id=@ViewBag.memberID`).then(res => {
                             let counts = res.data.Result.length
+                            let CartCount = document.querySelector('.CartCount')
+                            CartCount.classList.remove('d-none')
                             CartCount.innerHTML = counts
+                            console.log('測試',res.data.Result.length)
                         })
 
                         Swal.fire(
@@ -598,7 +601,7 @@
                             text: '請喝杯咖啡再點選一次~ :)',
                         })
                     }
-                })*@
+                })
             })
 
         document.querySelector('.modelBtn').addEventListener('click', function () {

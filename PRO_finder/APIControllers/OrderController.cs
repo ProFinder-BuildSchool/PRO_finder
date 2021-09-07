@@ -31,7 +31,7 @@ namespace PRO_finder.APIControllers
             }
             
         }
-
+       
         public APIResult CancelOrder(int id)
         {
             try
@@ -63,6 +63,26 @@ namespace PRO_finder.APIControllers
                 return new APIResult(APIStatus.Fail, ex.Message, "");
             }
            
+        }
+
+
+
+    
+        public APIResult UpdateOrderMemo(int Orderid, OrderViewModel data)
+        {
+
+            var result = false;
+            try
+            {
+                 result = _orderService.UpdateOrderMemo(Orderid, data);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            }
+
         }
     }
 }
