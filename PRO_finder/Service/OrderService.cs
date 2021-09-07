@@ -17,7 +17,14 @@ namespace PRO_finder.Service
             _repo = new GeneralRepository(new ProFinderContext());
         }
 
+        public bool UpdateOrderMemo(int Orderid, OrderViewModel data)
+        {
+           
+            _repo.GetAll<Order>().First(x => x.OrderID == Orderid).Memo = data.Memo;
+            _repo.SaveChanges();
 
+            return true;
+        }
 
 
         public int GetMemberID(string userID)
@@ -78,7 +85,9 @@ namespace PRO_finder.Service
                     OrderID = item.OrderID,
                     ProposerID = (int)item.ProposerID,
                     OrderSetupDay = ((DateTime)item.DealedDate).ToString("yyyy-MM-dd"),
-                    PredictDays = calcLastDate(item.DealedDate, ProposerExecuteDate),
+                    PredictDays = CalcLastDate(item.DealedDate, ProposerExecuteDate),
+                    Schedule = GetSchedule(item.DealedDate,ProposerExecuteDate),
+                    Remaindays = GetRemaindays(item.DealedDate, ProposerExecuteDate),
                     ClientID = (int)item.ClientID,
                     QuotationImg = item.QuotationImg,
                     StudioName = item.StudioName,
@@ -100,12 +109,21 @@ namespace PRO_finder.Service
 
             return OrderList;
         }
-        public static string calcLastDate(DateTime? dateTime,int days)
+        public static string CalcLastDate(DateTime? dateTime,int days)
         {
             var one = (DateTime)dateTime;
             return (one.AddDays(days).Date).ToString("yyyy-MM-dd");
         }
-     
+        public static decimal GetSchedule(DateTime? dateTime, int days)
+        {
+            var temp = ((DateTime)dateTime).AddDays(days);
+            return  (temp - DateTime.UtcNow).Days * 100 / days;
+        }
+        public static int GetRemaindays(DateTime? dateTime, int days)
+        {
+            var temp = ((DateTime)dateTime).AddDays(days);
+            return (temp - DateTime.UtcNow).Days;
+        }
 
 
 

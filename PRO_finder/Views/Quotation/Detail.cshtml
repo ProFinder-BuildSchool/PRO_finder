@@ -575,10 +575,13 @@
                 .then(res => {
                     side.style.height = "0px"
                     if (res.data.Result == true) {
-
+                        
                         axios.get(`/api/Cart/GetCart?id=@ViewBag.memberID`).then(res => {
                             let counts = res.data.Result.length
+                            let CartCount = document.querySelector('.CartCount')
+                            CartCount.classList.remove('d-none')
                             CartCount.innerHTML = counts
+                            console.log('測試',res.data.Result.length)
                         })
 
                         Swal.fire(
