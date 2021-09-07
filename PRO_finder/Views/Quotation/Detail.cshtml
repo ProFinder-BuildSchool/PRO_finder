@@ -501,7 +501,7 @@
 
             if (telInput == '') {
                 telSpan.innerText = '電話欄位不得留空';
-                return;
+                return false;
             }
             if (!telReg.test(telInput)) {
                 telSpan.innerText = '電話欄位格式錯誤'
@@ -518,9 +518,9 @@
             let nameInput = document.getElementById("username").value;
             let nameSpan = document.querySelector('.namespan');
 
-            if (nameReg == '') {
+            if (nameInput == '') {
                 nameSpan.innerText = '姓名欄位不得留空';
-                return;
+                return false;
             }
             if (!nameReg.test(nameInput)) {
                 nameSpan.innerText = '姓名欄位格式錯誤(不包含數字及特殊符號)'
@@ -533,13 +533,13 @@
         }
 
         function emailValidation() {
-            let emailReg = /\w @@\w \.\w /;
+            let emailReg = /^([\w-\.]+%40([\w-]+\.)+[\w-]{2,4})?$/;
             let emailInput = document.getElementById("useremail").value;
             let emailSpan = document.querySelector('.emailspan');
 
             if (emailInput == '') {
                 emailSpan.innerText = 'Email欄位不得留空';
-                return;
+                return false;
             }
             if (!emailReg.test(emailSpan)) {
                 emailSpan.innerText = 'Email欄位格式錯誤'
@@ -549,14 +549,30 @@
                 emailSpan.innerText = ''
                 return true;
             }
+
+            console.log(emailReg);
         }
 
+        function validateForm() {
+            let tel = telValidation();
+            let name = nameValidation();
+            let email = emailValidation();
+            console.log(tel)
+            console.log(name)
+            console.log(email)
+            //if (telValidation && nameValidation && emailValidation) {
+            //    console.log('success')
+            //}
+            //else {
+            //    console.log('false')
+            //}
+        }
 
         addProduct.addEventListener('click', function (e) {
 
-            b_tel();
-            console.log(b_tel());
-            @*e.preventDefault()
+            /*validateForm();*/
+
+            e.preventDefault()
             let count = document.querySelector('.count').innerText;
             let useremail = document.querySelector('#useremail').value;
             let username = document.querySelector('#username').value;
@@ -598,7 +614,7 @@
                             text: '請喝杯咖啡再點選一次~ :)',
                         })
                     }
-                })*@
+                })
             })
 
         document.querySelector('.modelBtn').addEventListener('click', function () {
@@ -643,6 +659,5 @@
             })
 
         countNumber.innerText = count;
-
     </script>
 }
