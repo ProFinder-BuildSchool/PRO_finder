@@ -10,6 +10,7 @@ using PRO_finder.Models.DBModel;
 using PRO_finder.Models.ViewModels;
 using PRO_finder.Repositories;
 using static PRO_finder.Enum.Enum;
+using static PRO_finder.Models.ViewModels.QuotationCartViewModel;
 
 namespace PRO_finder.Service
 {
@@ -259,7 +260,7 @@ namespace PRO_finder.Service
                         ProposePrice = item.ProposePrice,
                         CaseTitle = theCase.CaseTitle,
                         CaseID = item.CaseID,
-                        //DealedOrNot = dealedOrNot
+                        //Status = (QuotationCartViewModel.statusEnum)(statusEnum)item.Status
                     });
                 }
             return allInfoInQTR;
