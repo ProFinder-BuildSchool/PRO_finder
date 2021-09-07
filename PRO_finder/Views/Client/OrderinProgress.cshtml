@@ -63,14 +63,15 @@
     </div>
 
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+        <div class="modal-dialog-scrollable modal-lg modal-dialog  ">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">查看訂單</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
+                    
                 </div>
                 <div class="modal-body">
                     <div class="row pb-3 ">
@@ -114,14 +115,28 @@
                         </div>
 
                         <div class="col-12 mt-2">
-                            <h5 class="border-bottom">訂單明細</h5>
-                            <p class="mb-0" >
-                                訂單狀態：{{modal.OrderStatus}}     <a href="#" v-if="modal.OrderStatus == '待付款'">[付款去]</a>
-                            </p>
-                            <p class="mb-0">
-                                備註:{{modal.Memo}}
-                            </p>
 
+                            <h5 class="border-bottom">訂單明細</h5>
+                            <p class="mb-0">剩餘天數: {{modal.Remaindays}} 天</p>
+                            <div class="linediv mx-auto  w-100 mb-1">
+                                <div class="line" :style="{ width:Scheduleline + '%' }"></div>
+                            </div>
+                            <p class="mb-0 text-danger">
+                                訂單狀態：{{modal.OrderStatus}}
+                            </p>
+                            <div class=" d-flex justify-content-between">
+                                <p class="mb-0">
+                                    備註:{{Memo}}
+                                </p>
+                                <a class="" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    編輯
+                                </a>
+                            </div>
+
+                            <div class="collapse" id="collapseExample">
+                                <textarea class=" w-100" v-model="Memo"></textarea>
+                                <a href="#" class=" btn btn-success text-white w-100"   v-on:click.prevent="AddNewMemo">提交</a>
+                            </div>
                         </div>
                     </div>
 
@@ -148,6 +163,17 @@
 
 @section topCSS{
     <style>
+
+        .linediv {
+            background: linear-gradient(90deg,red, yellow 50%,green 100%);
+            border: 1px rgba(0,0,0,.9) solid;
+        }
+        .line {
+            margin-left:auto;
+            
+            background-color:white;
+            height: 9px;
+        }
         .modal-dialog {
             z-index: 1050;
         }
@@ -196,9 +222,6 @@
         }
 
 
-
-
-
         img {
             width: 150px;
             height: 150px;
@@ -221,17 +244,22 @@
     <script>
 
 
-        let Order = new Vue({
+
+
+        let app = new Vue({
             el: '#Order',
             data: {
                 OrderList: [],
                 modal: {},
                 email: '',
                 Line: '',
-                Phone:'',
+                Phone: '',
                 ProposerEmail: '',
                 ProposerCellPhone: '',
-                StudioHref:''
+                StudioHref: '',
+                Scheduleline: '',
+                Remaindays: '',
+                Memo: '',
             },
             methods:
             {
@@ -250,11 +278,24 @@
                     this.ProposerEmail = "mailto:" + this.modal.ProposerEmail
                     this.ProposerCellPhone = "tel:" + this.modal.ProposerCellPhone
                     this.StudioHref = "/Quotation/StudioHome?TalentID=" + this.modal.ProposerID
+                    this.Scheduleline = 100 - this.modal.Schedule
+                    this.Remaindays = this.modal.Remaindays
+                    this.Memo = this.modal.Memo
                     console.log(this.StudioHref)
                     $('#exampleModal').modal('show')
 
                 },
-                
+                AddNewMemo() {
+                   
+                    axios.post(`/api/Order/UpdateOrderMemo?Orderid=${this.modal.OrderID}`, { Memo:this.Memo } ).then(res => {
+                        if (res.data.Result) {
+                            $('#collapseExample').collapse('hide')
+                        }
+                        
+                        this.GetOrder()
+                    })
+                }
+
             },
             created() {
                 this.GetOrder();
