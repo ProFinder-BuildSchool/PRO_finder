@@ -69,7 +69,8 @@ namespace PRO_finder.Service
                 {
 
                     CartID = item.CartID,
-                    MemberID = (int)item.ClientID,
+                    ClientID = (int)item.ClientID,
+                    ProposerID = (int)item.ProposerID,
                     QuotationImg = item.QuotationImg,
                     SubCategory = item.SubCategoryName,
                     StudioName = item.StudioName,
@@ -123,6 +124,7 @@ namespace PRO_finder.Service
                 ClientID = member.MemberID,
                 QuotationImg = Cart.QuotationImg,
                 SubCategoryName = Cart.SubCategory,
+                ProposerID = Cart.ProposerID,
                 StudioName = Cart.StudioName,
                 Count = Cart.Count,
                 Price = Cart.Price,
