@@ -220,12 +220,12 @@
                     <div class="form-group text-start text-dark mb-2">
                         <label class="" for="username ">收件人姓名</label>
                         <input type="text" class="form-control" name="name" id="username"
-                               placeholder="輸入姓名" /> <span class="text-danger font-weight-bold namespan"></span>
+                               placeholder="輸入姓名" /> <span class="text-danger font-weight-bold"></span>
                     </div>
                     <div class="form-group text-start text-dark mb-2">
                         <label class="" for="useremail">Email</label>
                         <input type="email" class="form-control" name="email" id="useremail"
-                               placeholder="請輸入 Email" /> <span class="text-danger font-weight-bold emailspan"></span>
+                               placeholder="請輸入 Email" /> <span class="text-danger font-weight-bold"></span>
                     </div>
                     <div class="form-group text-start text-dark mb-2">
                         <label class="" for="usertel">收件人電話</label>
@@ -501,7 +501,26 @@
 
             if (telInput == '') {
                 telSpan.innerText = '電話欄位不得留空';
+                return;
+            }
+            if (!telReg.test(telInput)) {
+                telSpan.innerText = '電話欄位格式錯誤'
                 return false;
+                
+            } else {
+                telSpan.innerText = ''
+                return true;
+            }
+        }
+
+        function nameValidation() {
+            let telReg = '';
+            let telInput = document.getElementById("usertel").value;
+            let telSpan = document.querySelector('.telspan');
+
+            if (telInput == '') {
+                telSpan.innerText = '電話欄位不得留空';
+                return;
             }
             if (!telReg.test(telInput)) {
                 telSpan.innerText = '電話欄位格式錯誤'
@@ -513,65 +532,30 @@
             }
         }
 
-        function nameValidation() {
-            let nameReg = /^([\u4e00-\u9fa5]{1,20}|[a-zA-Z\s]{1,20})$/;
-            let nameInput = document.getElementById("username").value;
-            let nameSpan = document.querySelector('.namespan');
+        function telValidation() {
+            let telReg = /^09[0-9]{8}$/;
+            let telInput = document.getElementById("usertel").value;
+            let telSpan = document.querySelector('.telspan');
 
-            if (nameInput == '') {
-                nameSpan.innerText = '姓名欄位不得留空';
-                return false;
+            if (telInput == '') {
+                telSpan.innerText = '電話欄位不得留空';
+                return;
             }
-            if (!nameReg.test(nameInput)) {
-                nameSpan.innerText = '姓名欄位格式錯誤(不包含數字及特殊符號)'
-                return false;
-
-            } else {
-                nameSpan.innerText = ''
-                return true;
-            }
-        }
-
-        function emailValidation() {
-            let emailReg = /^([\w-\.]+%40([\w-]+\.)+[\w-]{2,4})?$/;
-            let emailInput = document.getElementById("useremail").value;
-            let emailSpan = document.querySelector('.emailspan');
-
-            if (emailInput == '') {
-                emailSpan.innerText = 'Email欄位不得留空';
-                return false;
-            }
-            if (!emailReg.test(emailSpan)) {
-                emailSpan.innerText = 'Email欄位格式錯誤'
+            if (!telReg.test(telInput)) {
+                telSpan.innerText = '電話欄位格式錯誤'
                 return false;
 
             } else {
-                emailSpan.innerText = ''
+                telSpan.innerText = ''
                 return true;
             }
-
-            console.log(emailReg);
         }
-
-        function validateForm() {
-            let tel = telValidation();
-            let name = nameValidation();
-            let email = emailValidation();
-            console.log(tel)
-            console.log(name)
-            console.log(email)
-            //if (telValidation && nameValidation && emailValidation) {
-            //    console.log('success')
-            //}
-            //else {
-            //    console.log('false')
-            //}
-        }
+        
 
         addProduct.addEventListener('click', function (e) {
 
-            /*validateForm();*/
-
+            //b_tel();
+            //console.log(b_tel());
             e.preventDefault()
             let count = document.querySelector('.count').innerText;
             let useremail = document.querySelector('#useremail').value;
@@ -591,10 +575,13 @@
                 .then(res => {
                     side.style.height = "0px"
                     if (res.data.Result == true) {
-
+                        
                         axios.get(`/api/Cart/GetCart?id=@ViewBag.memberID`).then(res => {
                             let counts = res.data.Result.length
+                            let CartCount = document.querySelector('.CartCount')
+                            CartCount.classList.remove('d-none')
                             CartCount.innerHTML = counts
+                            console.log('測試',res.data.Result.length)
                         })
 
                         Swal.fire(
@@ -659,5 +646,6 @@
             })
 
         countNumber.innerText = count;
+
     </script>
 }
