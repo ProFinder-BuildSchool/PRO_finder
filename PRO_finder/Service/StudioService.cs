@@ -152,7 +152,7 @@ namespace PRO_finder.Service
                                       LogInTime = m.LogInTime,
                                       ProfilePicture = m.ProfilePicture,
                                       Identity = (StudioDetailViewModel.IdentityStatus)m.Identity,
-                                      StudioReview = StudioReviewVM,
+                                      //StudioReview = StudioReviewVM,
                                       Studioworks = StudioWorkVM,
                                       StudioQuotation = StudioQuotVM,
                                       WorkSubcategory = WorkSubcategoryVM
