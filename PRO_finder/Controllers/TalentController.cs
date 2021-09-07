@@ -68,7 +68,7 @@ namespace PRO_finder.Controllers
                     _quotaService.CreateOtherPics(quotationID, quotation.OtherPictureList);
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("MyQuotationIndex");
             }
             return View(quotation);
         }
@@ -318,9 +318,8 @@ namespace PRO_finder.Controllers
         public void UploadCloudinary()
         {
             HttpPostedFileBase file = Request.Files["picture"];
-            var result = _cloudinaryHelper.UploadCloudinaryAsync(file);
-            var url = JObject.Parse(result.Result);
-            Response.Write(url);
+            var result = _cloudinaryHelper.UploadToCloudinary(file);
+            Response.Write(result);
         }
 
        
