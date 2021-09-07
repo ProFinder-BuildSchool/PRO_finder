@@ -5,15 +5,36 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ECPay.Payment.Integration;
+using PRO_finder.Models.ViewModels;
 
 //訂單產生
 namespace AioCheckOut
 {
     public partial class AioCheckOut : System.Web.UI.Page
     {
+        public List<PaymentViewModel> Pay
+        {
+            get
+            {
+                object obj = Session["thePayment"];
+                if (obj == null) return new List<PaymentViewModel>();
+                return (List<PaymentViewModel>)Session["thePayment"];
+            }
+            set
+            {
+                if (value == null)
+                {
+                    Session.Remove("thePayment");
+                }
+                else
+                {
+                    Session["thePayment"] = value;
+                }
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-
 
             List<string> enErrors = new List<string>();
             try
@@ -29,12 +50,13 @@ namespace AioCheckOut
 
                     /* 基本參數 */
                     oPayment.Send.ReturnURL = "http://example.com";//付款完成通知回傳的網址
-                    oPayment.Send.ClientBackURL = "http://www.ecpay.com.tw/";//瀏覽器端返回的廠商網址
-                    oPayment.Send.OrderResultURL = "http://localhost:52413/CheckOutFeedback.aspx";//瀏覽器端回傳付款結果網址
-                    oPayment.Send.MerchantTradeNo = "ECPay" + new Random().Next(0, 99999).ToString();//廠商的交易編號
+                    oPayment.Send.ClientBackURL = Request.Url.Scheme + "://" + Request.Url.Host + ":" + Request.Url.Port + "/Home/Index";//瀏覽器端返回的廠商網址
+                    //oPayment.Send.OrderResultURL = "http://localhost:52413/CheckOutFeedback.aspx";//瀏覽器端回傳付款結果網址
+                    oPayment.Send.OrderResultURL = Request.Url.Scheme + "://" + Request.Url.Host + ":" + Request.Url.Port + "/ECPay/CheckOutFeedback.aspx";//瀏覽器端回傳付款結果網址
+                    oPayment.Send.MerchantTradeNo = "ProFinder" + new Random().Next(0, 999999999).ToString();//廠商的交易編號
                     oPayment.Send.MerchantTradeDate = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");//廠商的交易時間
                     oPayment.Send.TotalAmount = Decimal.Parse("3280");//交易總金額
-                    oPayment.Send.TradeDesc = "交易描述";//交易描述
+                    oPayment.Send.TradeDesc = "ProFinder交易";//交易描述
                     oPayment.Send.ChoosePayment = PaymentMethod.ALL;//使用的付款方式
                     oPayment.Send.Remark = "";//備註欄位
                     oPayment.Send.ChooseSubPayment = PaymentMethodItem.None;//使用的付款子項目
@@ -48,16 +70,20 @@ namespace AioCheckOut
                     oPayment.Send.CustomField4 = "";
                     oPayment.Send.EncryptType = 1;
 
-                    //訂單的商品資料
-                    oPayment.Send.Items.Add(new Item()
+                    foreach(var p in Pay)
                     {
-                        Name = "蘋果",//商品名稱
-                        Price = Decimal.Parse("3280"),//商品單價
-                        Currency = "新台幣",//幣別單位
-                        Quantity = Int32.Parse("1"),//購買數量
-                        URL = "http://google.com",//商品的說明網址
-                        
-                    });
+                        oPayment.Send.Items.Add(new Item()
+                        {
+                            Name = p.Name,//商品名稱
+                            Price = Decimal.Parse(p.Price.ToString()),//商品單價
+                            Currency = "新台幣",//幣別單位
+                            Quantity = Int32.Parse(p.Quantity.ToString()),//購買數量
+                            URL = "http://google.com",//商品的說明網址
+
+                        });
+                    }
+                    //訂單的商品資料
+                    
 
                     /*************************非即時性付款:ATM、CVS 額外功能參數**************/
 
