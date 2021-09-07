@@ -4,29 +4,46 @@
 }
 
 <h2>PaymentTest</h2>
-<form id="app">
-    <label for="Name" class="control-label">商品名稱</label>
-    <input type="text" id="Name" class="form-control" v-model="details.name" />
-    <label for="Amount" class="control-label">交易金額</label>
-    <input type="text" id="Amount" class="form-control" v-model="details.amount" />
-</form>
-<button id="submit" @@click="send">結帳</button>
+<div class="container"id="app">
+    <div class="row">
+        <div class="col-6">
+            <form>
+                <label for="Name" class="control-label">商品名稱</label>
+                <input type="text" id="Name" class="form-control" v-model="result.Name" />
+                <label for="Price" class="control-label">交易金額</label>
+                <input type="text" id="Price" class="form-control" v-model="result.Price" />
+                <label for="Quantity" class="control-label">交易數量</label>
+                <input type="text" id="Quantity" class="form-control" v-model="result.Quantity" />
+                <button id="send" v-on:click="send()" class="btn btn-primary" type="button">結帳</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 @section endJS
     {
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    @*<script src="https://unpkg.com/axios/dist/axios.min.js"></script>*@
     <script>
         let app = new Vue({
             el: "#app",
             data: {
-                details: {
-                    name: "",
-                    amount: 0
-                }
+                result: {
+                    Name: "Test",
+                    Price: 1000,
+                    Quantity: 10
+                },
+                fakeDeal: [{ Name: "Test1", Price: 3000, Quantity: 8 }, { Name: "Test2", Price: 4000, Quantity: 8 }, { Name: "Test3", Price: 500, Quantity: 4 }]
             },
             methods: {
-                send: function () {
-                    axios.post("/api/Cart/PostECPayment", details).then(res => console.log(res));
+                send() {
+                    this.fakeDeal.push(this.result);
+                    fetch("/Cart/PostECPayment", { method: "post", headers: { "Content-Type": "application/json" }, body: JSON.stringify(this.fakeDeal) }).then(res => window.location = res.url);
+                }
+            },
+            watch: {
+                details: function () {
+                    console.log(this.details)
                 }
             }
         });

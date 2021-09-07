@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using ECPay.Payment.Integration;
+using Microsoft.AspNet.Identity;
 using PRO_finder.Models.DBModel;
 using PRO_finder.Models.ViewModels;
 using PRO_finder.Models.ViewModels.APIModels.APIBase;
@@ -123,6 +124,20 @@ namespace PRO_finder.APIControllers
                 string userID = User.Identity.GetUserId();
                 int memberID = _memInfoService.GetMemberID(userID);
                 result = _cartService.GetAllQuotationCart(memberID);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            }
+        }
+        public APIResult RefuseQuotation(int qdID)
+        {
+            string result = "";
+            try
+            {
+                _cartService.RefuseQd(qdID);
+                result = "加入成功";
                 return new APIResult(APIStatus.Success, string.Empty, result);
             }
             catch (Exception ex)

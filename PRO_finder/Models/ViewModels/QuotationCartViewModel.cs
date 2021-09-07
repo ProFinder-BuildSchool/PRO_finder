@@ -22,8 +22,10 @@ namespace PRO_finder.Models.ViewModels
         //成交筆數
         public int DealedCount { get; set; }
         public int QuotationDetailID { get; set; }
+        public bool Status { get; set; }
 
-        public bool DealedOrNot { get; set; }
+        //public enum statusEnum { 已成交,未成交 }
+        //public statusEnum Status { get; set; }
 
     }
 

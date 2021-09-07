@@ -71,6 +71,7 @@ namespace PRO_finder.APIControllers
             }
         }
 
+        [HttpPost]
         public APIResult ChangeQuotationStatus([FromBody]QuotationDetailViewModel newStatus)
         {
             string result = "";

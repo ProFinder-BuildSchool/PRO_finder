@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
@@ -8,6 +10,7 @@ using PRO_finder.Models.DBModel;
 using PRO_finder.Models.ViewModels;
 using PRO_finder.Repositories;
 using static PRO_finder.Enum.Enum;
+using static PRO_finder.Models.ViewModels.QuotationCartViewModel;
 
 namespace PRO_finder.Service
 {
@@ -66,7 +69,8 @@ namespace PRO_finder.Service
                 {
 
                     CartID = item.CartID,
-                    MemberID = (int)item.ClientID,
+                    ClientID = (int)item.ClientID,
+                    ProposerID = (int)item.ProposerID,
                     QuotationImg = item.QuotationImg,
                     SubCategory = item.SubCategoryName,
                     StudioName = item.StudioName,
@@ -120,6 +124,7 @@ namespace PRO_finder.Service
                 ClientID = member.MemberID,
                 QuotationImg = Cart.QuotationImg,
                 SubCategoryName = Cart.SubCategory,
+                ProposerID = Cart.ProposerID,
                 StudioName = Cart.StudioName,
                 Count = Cart.Count,
                 Price = Cart.Price,
@@ -165,14 +170,17 @@ namespace PRO_finder.Service
             return result;
         }
 
-        
+        //人才提案紀錄刪除 //取消提案
+
+        public void DeleOfQTRecord(int? caseID,int memberID)
+        {
+            var QTRecordDB = _repo.GetAll<QuotationDetail>().FirstOrDefault(q => q.CaseID == caseID && q.ProposerID == memberID);
+            _repo.Delete<QuotationDetail>(QTRecordDB);
+            _repo.SaveChanges();
+        }
 
         public string GetAllQuotationCart(int memberID)
         {
-            
-            
-            
-
             //取得quotationCart
             List<QuotationDetail> quoCart = new List<QuotationDetail>();
             try
@@ -180,7 +188,7 @@ namespace PRO_finder.Service
                 var myCase = _repo.GetAll<Case>().Where(x => x.MemberID == memberID).ToList();
                 foreach(var item in myCase)
                 {
-                    var qd = _repo.GetAll<QuotationDetail>().Where(x => x.CaseID == item.CaseID).ToList();
+                    var qd = _repo.GetAll<QuotationDetail>().Where(x => x.CaseID == item.CaseID && x.Status != false).ToList();
                     foreach(var j in qd)
                     {
                         quoCart.Add(j);
@@ -254,36 +262,18 @@ namespace PRO_finder.Service
                         ProposePrice = item.ProposePrice,
                         CaseTitle = theCase.CaseTitle,
                         CaseID = item.CaseID,
-                        //DealedOrNot = dealedOrNot
+                        //Status = (QuotationCartViewModel.statusEnum)(statusEnum)item.Status
                     });
                 }
             return allInfoInQTR;
         }
 
-        //public void DeleOfQTRecord(int? CaseID, int MemberID)
-        //{
-        //    var QuotationDetail = _repo.GetAll<QuotationDetail>()
-        //        .SingleOrDefault(s => s.CaseID == CaseID && s.ProposerID == MemberID);
-
-        //    if (QuotationDetail != null)
-        //    {
-        //        QuotationDetail = new QuotationDetail()
-        //        {
-        //          CaseID = (int)CaseID,
-        //          ProposerID = MemberID,
-        //          PredictDays = QuotationDetail.PredictDays,
-        //          ProposeDescription = QuotationDetail.ProposeDescription,
-        //          ProposeDate = QuotationDetail.ProposeDate,
-        //          ProposePrice = QuotationDetail.ProposePrice,
-        //          QuotaionDetailID = QuotationDetail.QuotaionDetailID
-        //        };
-        //        _repo.Delete(QuotationDetail);
-        //        _repo.SaveChanges();
-        //    }
-        //}
+        
         public void QdToOrder(int qdID)
         {
             var qdCart = _repo.GetAll<QuotationDetail>().FirstOrDefault(x => x.QuotaionDetailID == qdID);
+
+            //加入order訂單
             var caseInfo = _repo.GetAll<Case>().FirstOrDefault(x => x.CaseID == qdCart.CaseID);
             var clientInfo = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == caseInfo.MemberID);
             var proposerInfo = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == qdCart.ProposerID);
@@ -303,6 +293,19 @@ namespace PRO_finder.Service
                 PredictDays = qdCart.PredictDays
             };
             _repo.Create(newOrder);
+            _repo.SaveChanges();
+
+            //QuotationDetail表格的Status改成true
+            qdCart.Status = true;
+            _repo.Update(qdCart);
+            _repo.SaveChanges();
+        }
+
+        public void RefuseQd(int qdID)
+        {
+            var theQd =  _repo.GetAll<QuotationDetail>().FirstOrDefault(x => x.QuotaionDetailID == qdID);
+            theQd.Status = false;
+            _repo.Update(theQd);
             _repo.SaveChanges();
         }
     }
