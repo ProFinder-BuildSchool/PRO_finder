@@ -42,9 +42,15 @@
                 }
             },
             watch: {
-                details: function () {
-                    console.log(this.details)
-                }
+                'result.Name': function () {
+                    console.log(this.result.Name);
+                },
+                'result.Price': function () {
+                    console.log(this.result.Price);
+                },
+                'result.Quantity': function () {
+                    console.log(this.result.Quantity);
+                },
             }
         });
     </script>

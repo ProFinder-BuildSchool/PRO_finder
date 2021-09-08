@@ -44,7 +44,13 @@ namespace PRO_finder.Models.ViewModels
 
         public enum IdentityStatus
         {
-            個人兼職, 專職SOHO, 工作室, 兼職上班族, 公司, 學生
+            NoRecord = -1,
+            個人兼職 = 0, 
+            專職SOHO = 1,
+            工作室 = 2,
+            兼職上班族 = 3,
+            公司 = 4,
+            學生 = 5
         }
         public IdentityStatus Identity { get; set; }
 
