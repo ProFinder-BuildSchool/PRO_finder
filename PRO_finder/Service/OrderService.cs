@@ -105,49 +105,7 @@ namespace PRO_finder.Service
             return OrderList;
         }
 
-        public List<OrderViewModel> GetQtOrderList(int memberId)
-        {
-            List<OrderViewModel> OrderList = new List<OrderViewModel>();
-            var OrderDB = _repo.GetAll<Order>().Where(x => x.ProposerID == memberId && x.OrderStatus == 1).ToList();
-            foreach (var item in OrderDB)
-            {
-                
-                var ProposerEmail = _repo.GetAll<MemberInfo>().First(x => x.MemberID == memberId).Email;
-                var ProposerCellPhone = _repo.GetAll<MemberInfo>().First(x => x.MemberID == memberId).Cellphone;
-
-                var ProposerQuotationTitle = _repo.GetAll<Quotation>().First(x => x.MemberID == (int)memberId).QuotationTitle;
-
-                var ProposerExecuteDate = _repo.GetAll<Quotation>().First(x => x.MemberID == (int)memberId).ExecuteDate;
-                OrderList.Add(new OrderViewModel
-                {
-
-                    OrderID = item.OrderID,
-                    ProposerID = (int)item.ProposerID,
-                    OrderSetupDay = ((DateTime)item.DealedDate).ToString("yyyy-MM-dd"),
-                    PredictDays = CalcLastDate(item.DealedDate, ProposerExecuteDate),
-                    Schedule = GetSchedule(item.DealedDate, ProposerExecuteDate),
-                    Remaindays = GetRemaindays(item.DealedDate, ProposerExecuteDate),
-                    ClientID = (int)item.ClientID,
-                    QuotationImg = item.QuotationImg,
-                    StudioName = item.StudioName,
-                    Count = (int)item.Count,
-                    Price = (decimal)item.Price,
-                    Unit = System.Enum.GetName(typeof(UnitEnum), item.Unit),
-                    Email = item.Email,
-                    Name = item.Name,
-                    Tel = item.Tel,
-                    LineID = item.LineID,
-                    Memo = item.Memo,
-                    OrderStatus = System.Enum.GetName(typeof(OrderStatus), item.OrderStatus),
-                    ProposerQuotationTitle = ProposerQuotationTitle,
-                    ProposerEmail = ProposerEmail,
-                    ProposerCellPhone = ProposerCellPhone
-
-                });
-            }
-
-            return OrderList;
-        }
+        
 
         public static string CalcLastDate(DateTime? dateTime,int days)
         {

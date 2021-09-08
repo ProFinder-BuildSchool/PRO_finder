@@ -327,13 +327,7 @@ namespace PRO_finder.Controllers
         }
 
 
-        public ActionResult QtOrderInProgress()
-        {
-            string userID = HttpContext.User.Identity.GetUserId();
-            var MemberId = _orderservice.GetMemberID(userID);
-            ViewBag.MemberId = MemberId;
-            return View();
-        }
+        
 
     }
 }
