@@ -293,11 +293,12 @@ namespace PRO_finder.Service
                 PredictDays = qdCart.PredictDays
             };
             _repo.Create(newOrder);
-            _repo.SaveChanges();
 
             //QuotationDetail表格的Status改成true
-            qdCart.Status = true;
-            _repo.Update(qdCart);
+            //qdCart.Status = true;
+
+            //改成直接從cart刪掉OK?
+            _repo.Delete(qdCart);
             _repo.SaveChanges();
         }
 

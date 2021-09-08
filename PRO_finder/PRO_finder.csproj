@@ -818,6 +818,7 @@
     <Content Include="Views\Client\OrderinProgress.cshtml" />
     <Content Include="Views\Cart\PaymentTest.cshtml" />
     <Content Include="Views\Cart\PostECPayment.cshtml" />
+    <Content Include="Views\Talent\QtOrderInProgress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -62,7 +62,7 @@ namespace PRO_finder.Controllers
 
 
         [Authorize]
-        public ActionResult Detail(int id = 1)
+        public ActionResult Detail(int id = 1 )
         {
             string user = HttpContext.User.Identity.GetUserId();
             int memberID = _memberinfoService.GetMemberID(user);

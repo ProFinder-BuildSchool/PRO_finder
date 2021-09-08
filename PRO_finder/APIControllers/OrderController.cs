@@ -31,7 +31,23 @@ namespace PRO_finder.APIControllers
             }
             
         }
-       
+
+        public APIResult GetQtOrder(int id)
+        {
+            try
+            {
+                var result = _orderService.GetQtOrderList(id);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                return new APIResult(APIStatus.Fail, ex.Message, "");
+            }
+
+        }
+
+
+
         public APIResult CancelOrder(int id)
         {
             try

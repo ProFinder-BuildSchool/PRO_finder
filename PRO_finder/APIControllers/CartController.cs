@@ -131,33 +131,34 @@ namespace PRO_finder.APIControllers
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             }
         }
-        public APIResult RefuseQuotation(int qdID)
-        {
-            string result = "";
-            try
-            {
-                _cartService.RefuseQd(qdID);
-                result = "加入成功";
-                return new APIResult(APIStatus.Success, string.Empty, result);
-            }
-            catch (Exception ex)
-            {
-                return new APIResult(APIStatus.Fail, ex.Message, result);
-            }
-        }
-        public APIResult AddQuotationOrder(int qdID)
-        {
-            string result = "";
-            try
-            {
-                _cartService.QdToOrder(qdID);
-                result = "加入成功";
-                return new APIResult(APIStatus.Success, string.Empty, result);
-            }
-            catch(Exception ex)
-            {
-                return new APIResult(APIStatus.Fail, ex.Message, result);
-            }
-        }
+        //public APIResult RefuseQuotation(int qdID)
+        //{
+        //    string result = "";
+        //    try
+        //    {
+        //        _cartService.RefuseQd(qdID);
+        //        result = "加入成功";
+        //        return new APIResult(APIStatus.Success, string.Empty, result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return new APIResult(APIStatus.Fail, ex.Message, result);
+        //    }
+        //}
+
+        //public APIResult AddQuotationOrder(int qdID)
+        //{
+        //    string result = "";
+        //    try
+        //    {
+        //        _cartService.QdToOrder(qdID);
+        //        result = "加入成功";
+        //        return new APIResult(APIStatus.Success, string.Empty, result);
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        return new APIResult(APIStatus.Fail, ex.Message, result);
+        //    }
+        //}
     }
 }

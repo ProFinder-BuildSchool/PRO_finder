@@ -29,6 +29,8 @@ namespace PRO_finder.Controllers
         private readonly QuotationService _quotaService;
         private readonly MemberinfoService _memberInfoService;
         private readonly CloudinaryHelper _cloudinaryHelper;
+        private readonly OrderService _orderservice;
+
 
         public TalentController()
         {
@@ -38,6 +40,8 @@ namespace PRO_finder.Controllers
             _quotaService = new QuotationService();
             _memberInfoService = new MemberinfoService();
             _cloudinaryHelper = new CloudinaryHelper();
+            _orderservice = new OrderService();
+
         }
 
         [Authorize]
@@ -323,8 +327,14 @@ namespace PRO_finder.Controllers
             Response.Write(url);
         }
 
-       
 
+        public ActionResult QtOrderInProgress()
+        {
+            string userID = HttpContext.User.Identity.GetUserId();
+            var MemberId = _orderservice.GetMemberID(userID);
+            ViewBag.MemberId = MemberId;
+            return View();
+        }
 
     }
 }

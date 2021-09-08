@@ -33,7 +33,7 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td class="text-center">@item.CaseTitle</td>
+                            <td class="text-center"><a href="/FindQuotation/Detail?id=@item.CaseID">@item.CaseTitle</a></td>
                             <td class="text-center">@item.ProposePrice</td>
                             <td class="text-center">@item.ProposeDate</td>
                             <td class="text-center">@item.Status</td>
