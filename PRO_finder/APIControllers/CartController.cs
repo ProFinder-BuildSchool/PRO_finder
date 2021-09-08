@@ -122,8 +122,8 @@ namespace PRO_finder.APIControllers
             try
             {
                 string userID = User.Identity.GetUserId();
-                int memberID = _memInfoService.GetMemberID(userID);
-                result = _cartService.GetAllQuotationCart(memberID);
+                int clientID = _memInfoService.GetMemberID(userID);
+                result = _cartService.GetAllQuotationCart(clientID);
                 return new APIResult(APIStatus.Success, string.Empty, result);
             }
             catch (Exception ex)
@@ -131,34 +131,35 @@ namespace PRO_finder.APIControllers
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             }
         }
-        //public APIResult RefuseQuotation(int qdID)
-        //{
-        //    string result = "";
-        //    try
-        //    {
-        //        _cartService.RefuseQd(qdID);
-        //        result = "加入成功";
-        //        return new APIResult(APIStatus.Success, string.Empty, result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return new APIResult(APIStatus.Fail, ex.Message, result);
-        //    }
-        //}
-
-        //public APIResult AddQuotationOrder(int qdID)
-        //{
-        //    string result = "";
-        //    try
-        //    {
-        //        _cartService.QdToOrder(qdID);
-        //        result = "加入成功";
-        //        return new APIResult(APIStatus.Success, string.Empty, result);
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        return new APIResult(APIStatus.Fail, ex.Message, result);
-        //    }
-        //}
+        [HttpPost]
+        public APIResult RefuseQuotation([FromBody]int qdID)
+        {
+            string result = "";
+            try
+            {
+                _cartService.RefuseQd(qdID);
+                result = "婉拒報價成功";
+                return new APIResult(APIStatus.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            }
+        }
+        [HttpPost]
+        public APIResult AddQuotationOrder([FromBody]int qdID)
+        {
+            string result = "";
+            try
+            {
+                string orderPaymentCode = _cartService.QdToOrder(qdID);
+                result = orderPaymentCode;
+                return new APIResult(APIStatus.Success, string.Empty, result);
+            }
+            catch(Exception ex)
+            {
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            }
+        }
     }
 }

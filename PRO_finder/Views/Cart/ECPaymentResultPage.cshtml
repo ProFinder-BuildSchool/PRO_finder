@@ -1,0 +1,33 @@
+﻿@model PaymentResultViewModel
+@{
+    ViewBag.Title = "ECPaymentResultPage";
+}
+<div class="container">
+    <div class="myContainer text-center my-5 p-4">
+        @if (Model.Result == true)
+        {
+            <h4 class="text-primary text-center w-100">@Model.ResultMsg</h4>
+        }
+        else
+        {
+            <h4 class="text-danger text-center w-100">@Model.ResultMsg</h4>
+        }
+    <a href="@Url.Action(Model.ReturnPageUrl,"Client")"><p class="btn btn-primary">查看【@Model.ReturnPageTitle 】</p></a>
+    </div>
+</div>
+@section TopCSS
+    {
+    <style>
+        h4{
+            height: 200px;
+            line-height:200px;
+        }
+        .myContainer {
+             max-width: 510px; 
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            padding: 30px;
+        }
+    </style>
+}
