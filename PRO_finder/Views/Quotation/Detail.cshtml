@@ -494,6 +494,8 @@
         let ismore = true;
         let countNumber = document.querySelector('.count');
 
+
+
         function telValidation() {
             let telReg = /^09[0-9]{8}$/;
             let telInput = document.getElementById("usertel").value;
@@ -533,7 +535,7 @@
         }
 
         function emailValidation() {
-            let emailReg = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            let emailReg =  /^[a-zA-Z0-9_.-]+@@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{0,4}$/;
             let emailInput = document.getElementById("useremail").value;
             let emailSpan = document.querySelector('.emailspan');
 
@@ -544,7 +546,7 @@
                 emailSpan.innerText = 'Email欄位不得留空';
                 return false;
             }
-            if (!emailReg.test(emailSpan)) {
+            if (!emailReg.test(emailInput)) {
                 emailSpan.innerText = 'Email欄位格式錯誤'
                 return false;
 
@@ -576,7 +578,6 @@
 
             let result = validateAll();
             if (result == true) {
-                console.log('cccc')
                 e.preventDefault()
              let count = document.querySelector('.count').innerText;
             let useremail = document.querySelector('#useremail').value;
@@ -585,11 +586,21 @@
             let userline = document.querySelector('#userline').value;
             let memo = document.querySelector('#memo').value;
 
+                let contacttime= '';
+                document.querySelectorAll('.form-check-input').forEach(function (item) {
+            if (item.checked == true) {
+
+                    contacttime = item.value
+                    
+                    }
+                })
+
+
 
             let OrderInfo = {
                 Email: useremail, Name: username, Tel: usertel, LineID: userline, Memo: memo,
                 MemberID:@ViewBag.memberID , QuotationImg: "@Model.MainPicture", SubCategory: "@Model.QuotationTitle", StudioName: "@Model.NickName", Count: Number(count),
-                    Price: @Model.Price , Unit: "@Model.Unit", ProposerID: @Model.MemberID
+                    Price: @Model.Price , Unit: "@Model.Unit", ProposerID: @Model.MemberID,ContactTime:contacttime
         }
 
 
@@ -626,7 +637,6 @@
             }
             else {
                 e.preventDefault()
-                console.log('aaa')
             }
 
             })

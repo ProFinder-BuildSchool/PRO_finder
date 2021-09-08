@@ -798,8 +798,11 @@
     <Content Include="Views\Quotation\CASEPARITALtest.cshtml" />
     <Content Include="Views\Talent\ApiTest.cshtml" />
     <Content Include="Views\FindQuotation\QTRecord.cshtml" />
-    <Content Include="Views\Client\OrderinProgress.cshtml" />
+    <Content Include="Views\Client\OrderPendingPayment.cshtml" />
     <Content Include="Views\Cart\PaymentTest.cshtml" />
+    <Content Include="Views\Client\OrderDoing.cshtml" />
+    <Content Include="Views\Client\OrderAccepting.cshtml" />
+    <Content Include="Views\Client\OrderDeal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
