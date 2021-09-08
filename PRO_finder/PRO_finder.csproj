@@ -817,7 +817,9 @@
     <Content Include="Views\FindQuotation\QTRecord.cshtml" />
     <Content Include="Views\Client\OrderinProgress.cshtml" />
     <Content Include="Views\Cart\PaymentTest.cshtml" />
-    <Content Include="Views\Cart\PostECPayment.cshtml" />
+    <Content Include="Views\Cart\ConfirmPayment.cshtml" />
+    <Content Include="Views\Cart\ECPaymentResult.cshtml" />
+    <Content Include="Views\Cart\ECPaymentResultPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
