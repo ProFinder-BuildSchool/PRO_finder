@@ -286,8 +286,7 @@ namespace PRO_finder.Service
                 PredictDays = qdCart.PredictDays,
                 Unit=0,
                 Count=1,
-                CloseReason = paymentRandomCode,
-                //PaymentCode = paymentRandomCode,
+                PaymentCode = paymentRandomCode,
             };
             _repo.Create(newOrder);
             _repo.SaveChanges();
@@ -311,13 +310,12 @@ namespace PRO_finder.Service
         public List<PaymentViewModel> GetOrderDetail(string paymentCode)
         {
             List<PaymentViewModel> result = new List<PaymentViewModel>();
-            List<Order> theOrder = _repo.GetAll<Order>().Where(x => x.CloseReason == paymentCode).ToList();
-            //List<Order> theOrder = _repo.GetAll<Order>().Where(x => x.Payment == paymentCode).ToList();
-            foreach(var item in theOrder)
+            List<Order> theOrder = _repo.GetAll<Order>().Where(x => x.PaymentCode == paymentCode).ToList();
+            foreach (var item in theOrder)
             {
                 result.Add(new PaymentViewModel
                 {
-                    Name = "【" + item.StudioName + "】的報價",
+                    Name = $"【{item.StudioName}】的報價",
                     Price = Decimal.ToInt32((decimal)item.Price),
                     Quantity = (int)item.Count
                 });
@@ -328,14 +326,13 @@ namespace PRO_finder.Service
         }
         public List<PaymentViewModel> GetTheOrderToPay(string paymentCode)
         {
-            var theOrder = _repo.GetAll<Order>().Where(x => x.CloseReason == paymentCode).ToList();
-            //var theOrder = _repo.GetAll<Order>().Where(x => x.PaymentCode == paymentCode);
+            var theOrder = _repo.GetAll<Order>().Where(x => x.PaymentCode == paymentCode).ToList();
             List<PaymentViewModel> pays = new List<PaymentViewModel>();
             foreach(var item in theOrder)
             {
                 pays.Add(new PaymentViewModel
                 {
-                    Name = "【" + item.StudioName + "】的報價",
+                    Name = $"【{item.StudioName}】的報價",
                     Price = Decimal.ToInt32((decimal)item.Price),
                     Quantity = 1,
                 });
@@ -345,7 +342,7 @@ namespace PRO_finder.Service
         }
         public void PaymentSucceed(string paymentCode)
         {
-            var payedOrder = _repo.GetAll<Order>().Where(x => x.CloseReason == paymentCode).ToList();
+            var payedOrder = _repo.GetAll<Order>().Where(x => x.PaymentCode == paymentCode).ToList();
             foreach(var item in payedOrder)
             {
                 item.OrderStatus = 1;
