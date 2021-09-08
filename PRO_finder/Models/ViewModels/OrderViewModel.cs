@@ -13,8 +13,9 @@ namespace PRO_finder.Models.ViewModels
         public string PredictDays { get; set; }
         public int Remaindays{ get; set; }
         public int OrderID { get; set; }
-        public int CartID { get; set; }
+        public int CartID { get; set; } 
         public int ProposerID { get; set; }
+       
         public int ClientID { get; set; }
         public string QuotationImg { get; set; }
         public string StudioName { get; set; }
@@ -33,6 +34,8 @@ namespace PRO_finder.Models.ViewModels
         public string ProposerQuotationTitle { get; set; }
 
         public string ProposerCellPhone { get; set; }
+        public int ContactTime { get; set; }
+        public int OrderStatusNumber { get; set; }
 
     }
 

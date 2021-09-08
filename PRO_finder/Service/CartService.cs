@@ -80,8 +80,10 @@ namespace PRO_finder.Service
                     Email = item.Email,
                     Name = item.Name,
                     Tel = item.Tel,
+
                     LineID = item.LineID,
-                    Memo = item.Memo
+                    Memo = item.Memo,
+                    ContactTime = (int)item.ContactTime
                 });
             }
 
@@ -124,8 +126,8 @@ namespace PRO_finder.Service
                 Name = Cart.Name,
                 Tel = Cart.Tel,
                 LineID = Cart.LineID,
-                Memo = Cart.Memo
-                //TODO ContactTime 
+                Memo = Cart.Memo,
+                ContactTime = Cart.ContactTime
 
             };
             _repo.Create<ClientCart>(clientCart);

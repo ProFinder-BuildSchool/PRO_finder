@@ -19,8 +19,17 @@ namespace PRO_finder.Service
 
         public bool UpdateOrderMemo(int Orderid, OrderViewModel data)
         {
-           
+
             _repo.GetAll<Order>().First(x => x.OrderID == Orderid).Memo = data.Memo;
+            _repo.SaveChanges();
+
+            return true;
+        }
+
+        public bool UpdateOrderStatus(int Orderid, OrderViewModel OrderStatusNumber)
+        {
+
+            _repo.GetAll<Order>().First(x => x.OrderID == Orderid).OrderStatus = OrderStatusNumber.OrderStatusNumber;
             _repo.SaveChanges();
 
             return true;
@@ -50,7 +59,7 @@ namespace PRO_finder.Service
 
         public bool CancelOrder(int OrderID)
         {
-            var Order = _repo.GetAll<Order>().First(x => x.OrderID == OrderID );
+            var Order = _repo.GetAll<Order>().First(x => x.OrderID == OrderID);
             Order.OrderStatus = 2;
             _repo.Update<Order>(Order);
             _repo.SaveChanges();
@@ -61,33 +70,37 @@ namespace PRO_finder.Service
 
         }
 
-        public List<OrderViewModel> GetOrderList(int memberId)
+        public List<OrderViewModel> GetOrderList(int memberId, int status)
         {
-   
+            List<Order> OrderDB;
+            if (status != 3)
+            {
+                 OrderDB = _repo.GetAll<Order>().Where(x => x.ClientID == memberId && x.OrderStatus == status ).ToList();
+            }
+            else
+            {
+                 OrderDB = _repo.GetAll<Order>().Where(x => x.ClientID == memberId && x.OrderStatus == status || x.ClientID == memberId && x.OrderStatus == 4).ToList();
+            }
 
-          
+
             List<OrderViewModel> OrderList = new List<OrderViewModel>();
-            var OrderDB = _repo.GetAll<Order>().Where(x => x.ClientID == memberId && x.OrderStatus == 1).ToList();
+           
             foreach (var item in OrderDB)
             {
-                
 
                 var ProposerID = item.ProposerID;
                 var ProposerEmail = _repo.GetAll<MemberInfo>().First(x => x.MemberID == ProposerID).Email;
                 var ProposerCellPhone = _repo.GetAll<MemberInfo>().First(x => x.MemberID == ProposerID).Cellphone;
-
                 var ProposerQuotationTitle = _repo.GetAll<Quotation>().First(x => x.MemberID == (int)ProposerID).QuotationTitle;
-
                 var ProposerExecuteDate = _repo.GetAll<Quotation>().First(x => x.MemberID == (int)ProposerID).ExecuteDate;
                 OrderList.Add(new OrderViewModel
                 {
-                   
                     OrderID = item.OrderID,
                     ProposerID = (int)item.ProposerID,
                     OrderSetupDay = ((DateTime)item.DealedDate).ToString("yyyy-MM-dd"),
-                    PredictDays = CalcLastDate(item.DealedDate, ProposerExecuteDate),
-                    Schedule = GetSchedule(item.DealedDate,ProposerExecuteDate),
-                    Remaindays = GetRemaindays(item.DealedDate, ProposerExecuteDate),
+                    PredictDays = CalcLastDate(item.DealedDate, ProposerExecuteDate*(int)item.Count),
+                    Schedule = GetSchedule(item.DealedDate, ProposerExecuteDate * (int)item.Count),
+                    Remaindays = GetRemaindays(item.DealedDate, ProposerExecuteDate * (int)item.Count),
                     ClientID = (int)item.ClientID,
                     QuotationImg = item.QuotationImg,
                     StudioName = item.StudioName,
@@ -102,8 +115,8 @@ namespace PRO_finder.Service
                     OrderStatus = System.Enum.GetName(typeof(OrderStatus), item.OrderStatus),
                     ProposerQuotationTitle = ProposerQuotationTitle,
                     ProposerEmail= ProposerEmail,
-                    ProposerCellPhone= ProposerCellPhone
-
+                    ProposerCellPhone= ProposerCellPhone,
+                    OrderStatusNumber=(int)item.OrderStatus
                 });
             }
 
@@ -136,7 +149,7 @@ namespace PRO_finder.Service
                 var Order = new Order()
                 {
                     DealedDate = DateTime.UtcNow,
-                    OrderStatus = 1,
+                    OrderStatus = 0,
                     DepositStatus = 1,
                     ProposerID = item.ProposerID,
                     ClientID = item.ClientID,
@@ -149,8 +162,8 @@ namespace PRO_finder.Service
                     Name = item.Name,
                     Tel = item.Tel,
                     LineID = item.LineID,
-                    Memo = item.Memo
-                    //TODO ContactTime 
+                    Memo = item.Memo,
+                    ContactTime =item.ContactTime
 
                 };
                 _repo.Create<Order>(Order);
