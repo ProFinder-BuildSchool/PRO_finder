@@ -460,16 +460,8 @@
                 },
                 addOrder() {
                     axios.post(`/api/Order/AddOrder`, this.productchecked).then(res => {
-                        if (res.data.Result) {                         
-                            $('#staticBackdrop').modal('hide')
-                            this.getCart()
-                            this.orderSuccess()
-                        }
-                        else {
-                            //TODO 加alert
-                            alert("更新失敗:" + res.data.ErrMsg)
-                        }
-                    })
+                        window.location.replace(`/Cart/GoToConfirmPayment/${res.data.Result}`);
+                    });
                 },
                 orderSuccess() {
                     Swal.fire(

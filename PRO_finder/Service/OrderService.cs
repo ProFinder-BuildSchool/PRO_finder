@@ -140,15 +140,18 @@ namespace PRO_finder.Service
 
 
 
-        public bool AddOrder(OrderViewModel[] OrderVM)
+        public string AddOrder(OrderViewModel[] OrderVM)
         {
+            //PaymentCode
+            string paymentRandomCode = Guid.NewGuid().ToString("N").Substring(5, 10);
+
             var ClientCart = _repo.GetAll<ClientCart>();
             foreach (var item in OrderVM)
             {
-                
+
                 var Order = new Order()
                 {
-                    DealedDate = DateTime.UtcNow,
+                    DealedDate = DateTime.UtcNow.AddHours(8),
                     OrderStatus = 0,
                     DepositStatus = 1,
                     ProposerID = item.ProposerID,
@@ -166,13 +169,15 @@ namespace PRO_finder.Service
                     ContactTime =item.ContactTime,
                     QuotationID = item.QuotationID
 
+                    ContactTime = item.ContactTime,
+                    PaymentCode = paymentRandomCode
                 };
                 _repo.Create<Order>(Order);
                 var DelCart = ClientCart.First(x => x.CartID == item.CartID);
                 _repo.Delete<ClientCart>(DelCart);
             }
             _repo.SaveChanges();
-            return true;
+            return paymentRandomCode;
 
         }
 
