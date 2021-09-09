@@ -823,9 +823,6 @@
     <Content Include="Views\FindQuotation\QTRecord.cshtml" />
     <Content Include="Views\Client\OrderinProgress.cshtml" />
     <Content Include="Views\Cart\PaymentTest.cshtml" />
-    <Content Include="Views\Client\OrderDoing.cshtml" />
-    <Content Include="Views\Client\OrderAccepting.cshtml" />
-    <Content Include="Views\Client\OrderDeal.cshtml" />
     <Content Include="Views\Cart\ConfirmPayment.cshtml" />
     <Content Include="Views\Cart\ECPaymentResult.cshtml" />
     <Content Include="Views\Cart\ECPaymentResultPage.cshtml" />

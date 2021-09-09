@@ -39,6 +39,8 @@ namespace PRO_finder.Models.ViewModels
 
         public int QuotationID { get; set; }
 
+        public string PaymentCode { get; set; }
+
     }
 
     

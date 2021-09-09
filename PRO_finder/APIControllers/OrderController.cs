@@ -100,5 +100,24 @@ namespace PRO_finder.APIControllers
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             }
         }
+
+
+        [HttpDelete]
+        public APIResult DelOrder(int MemberId,int OrderId)
+        {
+            bool result;
+            try
+            {
+                result = _orderService.DelCart(MemberId,OrderId);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            };
+
+        }
     }
 }

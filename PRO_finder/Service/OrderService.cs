@@ -116,7 +116,9 @@ namespace PRO_finder.Service
                     ProposerQuotationTitle = ProposerQuotationTitle,
                     ProposerEmail= ProposerEmail,
                     ProposerCellPhone= ProposerCellPhone,
-                    OrderStatusNumber=(int)item.OrderStatus
+                    OrderStatusNumber=(int)item.OrderStatus,
+                    PaymentCode = item.PaymentCode,
+                    QuotationID = (int)item.QuotationID
                 });
             }
 
@@ -167,9 +169,7 @@ namespace PRO_finder.Service
                     LineID = item.LineID,
                     Memo = item.Memo,
                     ContactTime =item.ContactTime,
-                    QuotationID = item.QuotationID
-
-                    ContactTime = item.ContactTime,
+                    QuotationID = item.QuotationID,
                     PaymentCode = paymentRandomCode
                 };
                 _repo.Create<Order>(Order);
@@ -179,6 +179,15 @@ namespace PRO_finder.Service
             _repo.SaveChanges();
             return paymentRandomCode;
 
+        }
+
+
+        public bool DelCart(int MemberId,int OrderId)
+        {
+            var OrderDBList = _repo.GetAll<Order>().FirstOrDefault(x => (int)x.OrderID == OrderId && x.ClientID == MemberId);
+            _repo.Delete<Order>(OrderDBList);
+            _repo.SaveChanges();
+            return true;
         }
 
     }
