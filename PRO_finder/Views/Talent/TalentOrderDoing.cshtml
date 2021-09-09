@@ -36,7 +36,7 @@
                     </td>
                     <td>
 
-                        <p class="mb-0">{{item.ProposerQuotationTitle}}</p>
+                        <p class="mb-0">{{item.Title}}</p>
 
                     </td>
                     <td>
@@ -95,9 +95,7 @@
                                 <p class="mb-0">
                                     備註:{{Memo}}
                                 </p>
-                                <a class="" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                    編輯
-                                </a>
+                                
                             </div>
 
                             <div class="collapse" id="collapseExample">
@@ -153,9 +151,9 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger">取消訂單</button>
+                    <button type="button" class="btn btn-primary">取消訂單</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-danger" v-on:click="Finished">製作完成</button>
                 </div>
             </div>
         </div>
@@ -316,16 +314,16 @@
 
                     }
                 },
-                //AddNewMemo() {
 
-                //    axios.post(`/api/Order/UpdateOrderMemo?Orderid=${this.modal.OrderID}`, { Memo:this.Memo } ).then(res => {
-                //        if (res.data.Result) {
-                //            $('#collapseExample').collapse('hide')
-                //        }
 
-                //        this.GetOrder()
-                //    })
-                //}
+
+                Finished() {
+                    axios({ method: "post", url: "/api/Cart/AddQuotationOrder", data: arg, headers: { 'Content-Type': 'application/json; charset=utf-8', 'strict': false } })
+                        .then(res => {
+                            console.log(res.data.Result);
+                            window.location.replace(`/Cart/GoToConfirmPayment/${res.data.Result}`);
+                        });
+                }
 
             },
             created() {
