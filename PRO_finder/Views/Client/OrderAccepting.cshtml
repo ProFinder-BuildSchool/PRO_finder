@@ -340,7 +340,24 @@
                 ChangeOrderStatus(item) {
 
                     axios.post(`/api/Order/UpdateOrderStatus?Orderid=${item.OrderID}`, { OrderStatusNumber: item.OrderStatusNumber + 1 }).then(res => {
-                        this.GetOrder();
+                        if (res.data.Result) {
+                            Swal.fire({
+                                title: '已提出撥款需求',
+                                imageUrl: 'https://dinamegahed.com/wp-content/uploads/2021/03/0_Uyq1O1gziwll1PCt_.jpg',
+                                imageWidth: 400,
+                                imageHeight: 200,
+                                imageAlt: 'Custom image',
+                            })
+
+                            this.GetOrder();
+                        }
+                        else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: '系統發生錯誤!',
+                                text: '請喝杯咖啡再點選一次~ :)',
+                            })
+                        }
                     })
                     //OrderStatusNumber = item.OrderStatusNumber +1
                     //console.log(OrderStatusNumber)
