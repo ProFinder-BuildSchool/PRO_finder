@@ -87,11 +87,11 @@ namespace PRO_finder.Service
            
             foreach (var item in OrderDB)
             {
-
+                var QuotationID = item.QuotationID;
                 var ProposerID = item.ProposerID;
                 var ProposerEmail = _repo.GetAll<MemberInfo>().First(x => x.MemberID == ProposerID).Email;
                 var ProposerCellPhone = _repo.GetAll<MemberInfo>().First(x => x.MemberID == ProposerID).Cellphone;
-                var ProposerQuotationTitle = _repo.GetAll<Quotation>().First(x => x.MemberID == (int)ProposerID).QuotationTitle;
+                var ProposerQuotationTitle = _repo.GetAll<Quotation>().First(x => x.QuotationID == (int)QuotationID).QuotationTitle;
                 var ProposerExecuteDate = _repo.GetAll<Quotation>().First(x => x.MemberID == (int)ProposerID).ExecuteDate;
                 OrderList.Add(new OrderViewModel
                 {
@@ -163,7 +163,8 @@ namespace PRO_finder.Service
                     Tel = item.Tel,
                     LineID = item.LineID,
                     Memo = item.Memo,
-                    ContactTime =item.ContactTime
+                    ContactTime =item.ContactTime,
+                    QuotationID = item.QuotationID
 
                 };
                 _repo.Create<Order>(Order);

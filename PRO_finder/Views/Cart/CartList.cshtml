@@ -436,7 +436,7 @@
                                 this.cartsProduct = res.data.Result.map(x => Object.assign(x, { selected: false }))
                                 if (this.cartsProduct.length == 0 || this.cartsProduct == null) {
                                     this.get = false;
-                                    
+                                    console.log(this.cartsProduct)
                                 }
                                 else {
                                     this.get = true
@@ -460,7 +460,7 @@
                 },
                 addOrder() {
                     axios.post(`/api/Order/AddOrder`, this.productchecked).then(res => {
-                        if (res.data.Result) {
+                        if (res.data.Result) {                         
                             $('#staticBackdrop').modal('hide')
                             this.getCart()
                             this.orderSuccess()

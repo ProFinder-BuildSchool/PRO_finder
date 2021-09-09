@@ -37,6 +37,8 @@ namespace PRO_finder.Models.ViewModels
         public int ContactTime { get; set; }
         public int OrderStatusNumber { get; set; }
 
+        public int QuotationID { get; set; }
+
     }
 
     
