@@ -102,11 +102,11 @@
                 </div>
             </div>
             @*測試後端上傳圖片cloudinary*@
-            <div class="form-group">
+            @*<div class="form-group">
                 <div class="col-md-offset-2 col-md-12 text-center">
                     <input type="button" value="上傳測試" class="btn btn-primary mt-3" id="test" />
                 </div>
-            </div>
+            </div>*@
             @*服務内容描述*@
             <div class="form-group mt-5">
                 @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-12" })
@@ -231,6 +231,9 @@
                         background-color: unset !important;
                         cursor: pointer;
                     }
+        body.wait {
+            cursor: wait;
+        }
 
         @@media screen and (min-width:768px) {
             span.uploadIcon {
@@ -339,7 +342,7 @@
 
         $g("input#send").addEventListener("click", function (e) {
             e.preventDefault();
-
+            document.querySelector("body").classList.add("wait");
             //富文本編輯器儲存
             $g("input[name='Description']").value = $g("div.ql-editor").innerHTML;
 
@@ -354,16 +357,20 @@
                     const form = new FormData();
                     form.append("picture", fileObject);
                     let url_result = await axiosImageFile(form);
+                    
                     otherPictureArray.push({ OtherPictureLink: url_result, SortNumber: i });
                     $g("input#MainPicture").value = otherPictureArray[0].OtherPictureLink;
                     let otherPics = JSON.stringify(otherPictureArray);
                     $g("input#OtherPictureList").value = otherPics;
                     console.log(otherPics);
-                    document.querySelector("form[action='/Talent/CreateQuotation']").submit();
+                    console.log(url_result);
+                    
                 };
+                console.log("in");
+                document.querySelector("form[action='/Talent/CreateQuotation']").submit();
             }
             uploadImage_SendForm();
-
+            
         });
 
         function $g(element) {

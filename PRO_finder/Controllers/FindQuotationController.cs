@@ -80,7 +80,7 @@ namespace PRO_finder.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
+        //會員中心-人才-提案紀錄
         public ActionResult QTRecord()
         {
             string user = HttpContext.User.Identity.GetUserId();
@@ -90,18 +90,18 @@ namespace PRO_finder.Controllers
             return View(QuotationCartViewModel);
         }
 
-        //public void DeleQTRecord(int? caseid)
-        //{
-        //    string user = HttpContext.User.Identity.GetUserId();
-        //    int memberID = _memberinfoService.GetMemberID(user);
+        public void DeleQTRecord(int? caseid)
+        {
+            string user = HttpContext.User.Identity.GetUserId();
+            int memberID = _memberinfoService.GetMemberID(user);
 
 
-        //    if (caseid != null)
-        //    {
-        //        _cartService.DeleOfQTRecord(caseid, memberID);
-        //    }
+            if (caseid != null)
+            {
+                _cartService.DeleOfQTRecord(caseid, memberID);
+            }
 
-        //}
+        }
 
         public ActionResult FindCategory(string categoryName)
         {

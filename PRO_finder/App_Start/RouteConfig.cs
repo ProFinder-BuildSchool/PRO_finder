@@ -35,6 +35,17 @@ namespace PRO_finder
                url: "Quotation/Search/{content}",
                defaults: new { controller = "Quotation", action = "SearchQuotation" }
            );
+            routes.MapRoute(
+                name: "ConfirmPaymentPage",
+                url:"Cart/GoToConfirmPayment/{paymentCode}",
+                defaults: new { controller = "Cart", action="GoToConfirmPayment"}
+                );
+            routes.MapRoute(
+                name: "ECPayment",
+                url: "Cart/ECPaymentPage/{paymentCode}",
+                defaults: new { controller = "Cart", action= "ECPaymentPage" }
+                );
+           
 
             routes.MapRoute(
                           name: "Default",
@@ -69,6 +80,7 @@ namespace PRO_finder
                 url: "Quotation/Detail/{Memberid}/{Quotationid}",
                 defaults: new { controller = "Quotation", action = "Detail" }
             );
+
             //routes.MapRoute(
             //    name: "StudioHome",
             //    url: "{controller}/{action}/{Memberid}",

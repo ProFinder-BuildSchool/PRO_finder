@@ -318,6 +318,20 @@
     <Compile Include="Controllers\SaveCaseController.cs" />
     <Compile Include="Controllers\TalentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="ECPay\AioCheckOut.aspx.cs">
+      <DependentUpon>AioCheckOut.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ECPay\AioCheckOut.aspx.designer.cs">
+      <DependentUpon>AioCheckOut.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ECPay\CheckOutFeedback.aspx.cs">
+      <DependentUpon>CheckOutFeedback.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ECPay\CheckOutFeedback.aspx.designer.cs">
+      <DependentUpon>CheckOutFeedback.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Enum\Enum.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -421,6 +435,14 @@
     <Compile Include="Migrations\202109060432018_2021-09-06 DB Update.Designer.cs">
       <DependentUpon>202109060432018_2021-09-06 DB Update.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109081248443_2021-09-08 DB update.cs" />
+    <Compile Include="Migrations\202109081248443_2021-09-08 DB update.Designer.cs">
+      <DependentUpon>202109081248443_2021-09-08 DB update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109090316287_2021-09-09 DB update.cs" />
+    <Compile Include="Migrations\202109090316287_2021-09-09 DB update.Designer.cs">
+      <DependentUpon>202109090316287_2021-09-09 DB update.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DBModel\AspNetRoles.cs" />
@@ -466,6 +488,7 @@
     <Compile Include="Models\ViewModels\MemberInfoViewModel.cs" />
     <Compile Include="Models\ViewModels\OrderViewModel.cs" />
     <Compile Include="Models\ViewModels\OtherPictureViewModel.cs" />
+    <Compile Include="Models\ViewModels\PaymentViewModel.cs" />
     <Compile Include="Models\ViewModels\QuotationCartViewModel.cs" />
     <Compile Include="Models\ViewModels\QuotationViewModel.cs" />
     <Compile Include="Models\ViewModels\SaveCaseViewModel.cs" />
@@ -638,6 +661,8 @@
     <Content Include="Assets\js\stickyfill.min.js" />
     <Content Include="Assets\Temp\CartModel.html" />
     <Content Include="Assets\Temp\Test.html" />
+    <Content Include="ECPay\AioCheckOut.aspx" />
+    <Content Include="ECPay\CheckOutFeedback.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Assets\css\custom-bs.css.map" />
@@ -798,11 +823,11 @@
     <Content Include="Views\Quotation\CASEPARITALtest.cshtml" />
     <Content Include="Views\Talent\ApiTest.cshtml" />
     <Content Include="Views\FindQuotation\QTRecord.cshtml" />
-    <Content Include="Views\Client\OrderPendingPayment.cshtml" />
+    <Content Include="Views\Client\OrderinProgress.cshtml" />
     <Content Include="Views\Cart\PaymentTest.cshtml" />
-    <Content Include="Views\Client\OrderDoing.cshtml" />
-    <Content Include="Views\Client\OrderAccepting.cshtml" />
-    <Content Include="Views\Client\OrderDeal.cshtml" />
+    <Content Include="Views\Cart\ConfirmPayment.cshtml" />
+    <Content Include="Views\Cart\ECPaymentResult.cshtml" />
+    <Content Include="Views\Cart\ECPaymentResultPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -904,6 +929,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109060432018_2021-09-06 DB Update.resx">
       <DependentUpon>202109060432018_2021-09-06 DB Update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109081248443_2021-09-08 DB update.resx">
+      <DependentUpon>202109081248443_2021-09-08 DB update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109090316287_2021-09-09 DB update.resx">
+      <DependentUpon>202109090316287_2021-09-09 DB update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

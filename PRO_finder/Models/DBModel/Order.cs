@@ -65,6 +65,21 @@ namespace PRO_finder.Models.DBModel
 
         public int? MemberID { get; set; }
 
+        public DateTime? CompleteDate { get; set; }
+
+        [StringLength(50)]
+        public string PaymentCode { get; set; }
+
+        public int? QuotationID { get; set; }
+
+        public int? CaseID { get; set; }
+
+        public string Title { get; set; }
+
+        public string ProposerEmail { get; set; }
+
+        public string ProposerPhone { get; set; }
+
         public virtual MemberInfo MemberInfo { get; set; }
     }
 }
