@@ -326,8 +326,15 @@ namespace PRO_finder.Controllers
             Response.Write(result);
         }
 
+        public ActionResult TalentOdInProgress()
+        {
+            string userID = HttpContext.User.Identity.GetUserId();
+            var MemberId = _orderservice.GetMemberID(userID);
+            ViewBag.MemberId = MemberId;
 
-        
+            return View();
+        }
+
 
     }
 }

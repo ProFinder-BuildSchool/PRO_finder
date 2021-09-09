@@ -252,7 +252,7 @@ namespace PRO_finder.Service
                         ProposePrice = item.ProposePrice,
                         CaseTitle = theCase.CaseTitle,
                         CaseID = item.CaseID,
-                        //Status = (QuotationCartViewModel.statusEnum)(statusEnum)item.Status
+                        //Status = (bool)item.Status
                     });
                 }
             return allInfoInQTR;
