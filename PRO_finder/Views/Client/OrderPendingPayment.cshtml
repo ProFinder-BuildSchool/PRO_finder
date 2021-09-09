@@ -42,7 +42,7 @@
                         <div class="OrderStatus">
 
                             <div class="OrderStatus text-danger">{{item.OrderStatus}}</div>
-                            <a href="" class="font-weight-bolder">
+                            <a href="" class="font-weight-bolder" v-on:click.prevent="payment(index)">
                                 [付款去]
                             </a>
 
@@ -61,7 +61,7 @@
     </div>
 
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog-scrollable modal-lg modal-dialog  ">
             <div class="modal-content">
                 <div class="modal-header">
@@ -76,7 +76,7 @@
                         <div class="col-12  px-2 mb-3 border-bottom">
 
                             <h5 class="border-bottom text-black">訂單明細</h5>
-                            <p class="mb-0">訂購服務名稱:{{modal.ProposerQuotationTitle}}</p>
+                            <p class="mb-0">訂購服務名稱:<a :href="QuotationLink">{{modal.ProposerQuotationTitle}}</a></p>
                             <div class="d-flex justify-content-between">
                                 <p class="mb-0">訂購數量: {{ modal.Count }} / {{ modal.Unit }}</p>
                                 <span class="mb-0 mr-1">訂購單價: {{ modal.Price }} / {{ modal.Unit }} </span>
@@ -128,7 +128,7 @@
                             <h5 class="border-bottom text-black">接案者資訊</h5>
                             <p class="mb-0">
                                 接案者名稱：<br />
-                                {{modal.StudioName}}   <a href="/Quotation/StudioHome?TalentID=">[工作室]</a>
+                                {{modal.StudioName}}   <a :href="StudioHref">[工作室]</a>
                             </p>
                             <p class="mb-0">
                                 接案者信箱：<br />
@@ -147,7 +147,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger">取消訂單</button>
+                    <button type="button" class="btn btn-danger"  v-on:click.prevent="OrderDelete(deleteOrderID)">取消訂單</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
@@ -172,15 +172,16 @@
         .linediv {
             background: linear-gradient(90deg,#aed8fc,#0587f7 100%);
             border: 1px rgba(0,0,0,.5) solid;
-            border-radius:10px;
-            overflow:hidden;
+            border-radius: 10px;
+            overflow: hidden;
         }
+
         .line {
-            margin-left:auto;
-            
-            background-color:white;
+            margin-left: auto;
+            background-color: white;
             height: 15px;
         }
+
         .modal-dialog {
             z-index: 1050;
         }
@@ -267,7 +268,9 @@
                 Scheduleline: '',
                 Remaindays: '',
                 Memo: '',
-                Contacttostring:''
+                Contacttostring: '',
+                deleteOrderID: '',
+                QuotationLink: '',
             },
             methods:
             {
@@ -290,6 +293,8 @@
                     this.Remaindays = this.modal.Remaindays
                     this.Memo = this.modal.Memo
                     this.Contacttostring = this.ChangeContact(this.modal.ContactTime)
+                    this.deleteOrderID = this.modal.OrderID
+                    this.QuotationLink = "/Quotation/Detail/" + this.modal.ProposerID + "/" + this.modal.QuotationID
                     console.log(this.StudioHref)
                     $('#exampleModal').modal('show')
 
@@ -310,15 +315,46 @@
                     }
                 },
                 AddNewMemo() {
-                   
+
                     axios.post(`/api/Order/UpdateOrderMemo?Orderid=${this.modal.OrderID}`, { Memo:this.Memo } ).then(res => {
                         if (res.data.Result) {
                             $('#collapseExample').collapse('hide')
                         }
-                        
+
                         this.GetOrder()
                     })
-                }
+                },
+                payment(index) {
+                console.log(this.OrderList)
+                    window.location.replace(`/Cart/GoToConfirmPayment/${this.OrderList[index].PaymentCode}`);
+                },
+                OrderDelete(deleteOrderID) {
+                    Swal.fire({
+                        title: '確定要刪除此服務嗎?',
+                        text: "您將無法還原此服務!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            let id =@ViewBag.MemberID
+                                axios.delete(`/api/Order/DelOrder?MemberId=${id}&OrderId=${deleteOrderID}`).then(res => {
+                            if (res.data.Result == true) {
+                            Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                                )
+
+                                $('#exampleModal').modal('hide')
+                                this.GetOrder();
+                            }
+                           })
+                          }
+                        })
+                       },
 
             },
             created() {

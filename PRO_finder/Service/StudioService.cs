@@ -121,7 +121,7 @@ namespace PRO_finder.Service
                                 select new StudioQuotationViewModel
                                 {
                                     QuotationId = q.QuotationID,
-                                    SubcategoryName = sub.SubCategoryName,
+                                    SubcategoryName = q.QuotationTitle,
                                     CategoryName = cate.CategoryName,
                                     Price = q.Price,
                                     Unit = (StudioQuotationViewModel.UnitEnum)q.QuotationUnit,
