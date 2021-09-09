@@ -84,7 +84,7 @@ namespace AioCheckOut
 
                     /* 基本參數 */
                     oPayment.Send.ReturnURL = "http://example.com";//付款完成通知回傳的網址
-                    oPayment.Send.ClientBackURL = Request.Url.Scheme + "://" + Request.Url.Host + ":" + Request.Url.Port + "/Cart/CartList";//瀏覽器端返回的廠商網址
+                    oPayment.Send.ClientBackURL = Request.Url.Scheme + "://" + Request.Url.Host + ":" + Request.Url.Port + "/Client/OrderPendingPayment";//瀏覽器端返回的廠商網址
                     //oPayment.Send.OrderResultURL = "http://localhost:52413/CheckOutFeedback.aspx";//瀏覽器端回傳付款結果網址
                     oPayment.Send.OrderResultURL = Request.Url.Scheme + "://" + Request.Url.Host + ":" + Request.Url.Port + "/Cart/ECPaymentResult";//瀏覽器端回傳付款結果網址
                     oPayment.Send.MerchantTradeNo = "ProFinder" + PaymentCode;//廠商的交易編號

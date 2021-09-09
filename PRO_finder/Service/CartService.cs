@@ -278,7 +278,7 @@ namespace PRO_finder.Service
                 Price = qdCart.ProposePrice,
                 DealedDate = DateTime.UtcNow.AddHours(8),
                 ClientID = caseInfo.MemberID,
-                QuotationImg = "~/Assets/images/hero_1.jpg",
+                QuotationImg = "https://res.cloudinary.com/dwwmf9pyq/image/upload/v1631091232/ulqkhpiwu78f5afwruji.jpg",
                 Email = clientInfo.Email,
                 PredictDays = qdCart.PredictDays,
                 Unit = 0,
@@ -288,6 +288,7 @@ namespace PRO_finder.Service
                 CaseID = qdCart.CaseID,
                 Title = caseInfo.CaseTitle,
                 ProposerEmail = proposerInfo.Email,
+                CloseReason = qdCart.QuotaionDetailID.ToString()
             };
             //案主接案名稱 Order Name
             newOrder.Name = clientInfo.NickName == null ? "無接案名稱" : clientInfo.NickName;
@@ -330,8 +331,6 @@ namespace PRO_finder.Service
                     Quantity = (int)item.Count
                 });
             }
-
-
             return result;
         }
         public List<PaymentViewModel> GetTheOrderToPay(string paymentCode)
@@ -359,6 +358,12 @@ namespace PRO_finder.Service
                 item.DealedDate = DateTime.UtcNow.AddHours(8);
                 _repo.Update(item);
                 _repo.SaveChanges();
+
+                ////QuotationDetail表格的Status改成true
+                //var qdCart = _repo.GetAll<QuotationDetail>().FirstOrDefault(x => item.CloseReason == x.QuotaionDetailID.ToString());
+                //qdCart.Status = true;
+                //_repo.Update(qdCart);
+                //_repo.SaveChanges();
             };
         }
     }
