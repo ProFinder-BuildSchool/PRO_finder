@@ -220,12 +220,12 @@
                     <div class="form-group text-start text-dark mb-2">
                         <label class="" for="username ">收件人姓名</label>
                         <input type="text" class="form-control" name="name" id="username"
-                               placeholder="輸入姓名" /> <span class="text-danger font-weight-bold"></span>
+                               placeholder="輸入姓名" /> <span class="text-danger font-weight-bold namespan"></span>
                     </div>
                     <div class="form-group text-start text-dark mb-2">
                         <label class="" for="useremail">Email</label>
                         <input type="email" class="form-control" name="email" id="useremail"
-                               placeholder="請輸入 Email" /> <span class="text-danger font-weight-bold"></span>
+                               placeholder="請輸入 Email" /> <span class="text-danger font-weight-bold emailspan"></span>
                     </div>
                     <div class="form-group text-start text-dark mb-2">
                         <label class="" for="usertel">收件人電話</label>
@@ -255,7 +255,7 @@
                         <label class="form-check-label" for="eveningtime">晚上 18-22</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="unlimitedtime" value="3">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="unlimitedtime" value="3" checked>
                         <label class="form-check-label" for="unlimitedtime">不限時段</label>
                     </div>
                     <div class="form-group text-start text-dark">
@@ -494,6 +494,8 @@
         let ismore = true;
         let countNumber = document.querySelector('.count');
 
+
+
         function telValidation() {
             let telReg = /^09[0-9]{8}$/;
             let telInput = document.getElementById("usertel").value;
@@ -501,12 +503,12 @@
 
             if (telInput == '') {
                 telSpan.innerText = '電話欄位不得留空';
-                return;
+                return false;
             }
             if (!telReg.test(telInput)) {
                 telSpan.innerText = '電話欄位格式錯誤'
                 return false;
-                
+
             } else {
                 telSpan.innerText = ''
                 return true;
@@ -514,74 +516,105 @@
         }
 
         function nameValidation() {
-            let telReg = '';
-            let telInput = document.getElementById("usertel").value;
-            let telSpan = document.querySelector('.telspan');
+            let nameReg = /^([\u4e00-\u9fa5]{1,20}|[a-zA-Z\s]{1,20})$/;
+            let nameInput = document.getElementById("username").value;
+            let nameSpan = document.querySelector('.namespan');
 
-            if (telInput == '') {
-                telSpan.innerText = '電話欄位不得留空';
-                return;
+            if (nameInput == '') {
+                nameSpan.innerText = '姓名欄位不得留空';
+                return false;
             }
-            if (!telReg.test(telInput)) {
-                telSpan.innerText = '電話欄位格式錯誤'
+            if (!nameReg.test(nameInput)) {
+                nameSpan.innerText = '姓名欄位格式錯誤(不包含數字及特殊符號)'
                 return false;
 
             } else {
-                telSpan.innerText = ''
+                nameSpan.innerText = ''
                 return true;
             }
         }
 
-        function telValidation() {
-            let telReg = /^09[0-9]{8}$/;
-            let telInput = document.getElementById("usertel").value;
-            let telSpan = document.querySelector('.telspan');
+        function emailValidation() {
+            let emailReg =  /^[a-zA-Z0-9_.-]+@@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{0,4}$/;
+            let emailInput = document.getElementById("useremail").value;
+            let emailSpan = document.querySelector('.emailspan');
 
-            if (telInput == '') {
-                telSpan.innerText = '電話欄位不得留空';
-                return;
+            console.log(emailReg);
+            console.log(emailInput);
+
+            if (emailInput == '') {
+                emailSpan.innerText = 'Email欄位不得留空';
+                return false;
             }
-            if (!telReg.test(telInput)) {
-                telSpan.innerText = '電話欄位格式錯誤'
+            if (!emailReg.test(emailInput)) {
+                emailSpan.innerText = 'Email欄位格式錯誤'
                 return false;
 
             } else {
-                telSpan.innerText = ''
+                emailSpan.innerText = ''
                 return true;
             }
         }
-        
+
+        function validateAll() {
+            let tel = telValidation();
+            let name = nameValidation();
+            let email = emailValidation();
+            console.log(tel)
+            console.log(name)
+            console.log(email)
+            if (tel && name && email) {
+                console.log('true')
+                return true;
+            }
+            else {
+                console.log('false')
+                return false;
+            }
+        }
+
 
         addProduct.addEventListener('click', function (e) {
 
-            //b_tel();
-            //console.log(b_tel());
-            e.preventDefault()
-            let count = document.querySelector('.count').innerText;
+            let result = validateAll();
+            if (result == true) {
+                e.preventDefault()
+             let count = document.querySelector('.count').innerText;
             let useremail = document.querySelector('#useremail').value;
             let username = document.querySelector('#username').value;
             let usertel = document.querySelector('#usertel').value;
             let userline = document.querySelector('#userline').value;
             let memo = document.querySelector('#memo').value;
 
+                let contacttime= '';
+                document.querySelectorAll('.form-check-input').forEach(function (item) {
+            if (item.checked == true) {
+
+                    contacttime = item.value
+                    
+                    }
+                })
+
+
 
             let OrderInfo = {
                 Email: useremail, Name: username, Tel: usertel, LineID: userline, Memo: memo,
                 MemberID:@ViewBag.memberID , QuotationImg: "@Model.MainPicture", SubCategory: "@Model.QuotationTitle", StudioName: "@Model.NickName", Count: Number(count),
-                Price:@Model.Price , Unit: "@Model.Unit" ,ProposerID:@Model.MemberID }
+                    Price: @Model.Price , Unit: "@Model.Unit", ProposerID: @Model.MemberID,ContactTime:contacttime
+        }
 
 
             axios.post('/api/Cart/AddCart?memberID=@ViewBag.memberID', OrderInfo)
                 .then(res => {
                     side.style.height = "0px"
                     if (res.data.Result == true) {
-                        
+
                         axios.get(`/api/Cart/GetCart?id=@ViewBag.memberID`).then(res => {
                             let counts = res.data.Result.length
                             let CartCount = document.querySelector('.CartCount')
                             CartCount.classList.remove('d-none')
                             CartCount.innerHTML = counts
-                            console.log('測試',res.data.Result.length)
+                            console.log('測試', res.data.Result.length)
                         })
 
                         Swal.fire(
@@ -592,8 +625,7 @@
 
 
                     }
-                    else
-                    {
+                    else {
 
                         Swal.fire({
                             icon: 'error',
@@ -602,6 +634,11 @@
                         })
                     }
                 })
+            }
+            else {
+                e.preventDefault()
+            }
+
             })
 
         document.querySelector('.modelBtn').addEventListener('click', function () {

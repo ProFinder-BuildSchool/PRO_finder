@@ -8,13 +8,12 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col" class="p-1 ">產品</th>
-                    <th scope="col" class="p-1 ">訂單成立日期</th>
-                    <th scope="col" class="p-1 ">執行最後日期</th>
-                    <th scope="col" class="p-1 m-0">案件標題</th>
-                    <th scope="col" class="p-1 m-0">訂單金額</th>
-                    <th scope="col" class="p-1 m-0">訂單狀態</th>
-                    <th scope="col" class="p-1 m-0">操作</th>
+                    <th scope="col" class=" ">產品</th>
+                    <th scope="col" class=" ">訂單成立日期</th>
+                    <th scope="col" class=" m-0">案件標題</th>
+                    <th scope="col" class=" m-0">訂單金額</th>
+                    <th scope="col" class=" m-0">訂單狀態</th>
+                    <th scope="col" class=" m-0 ">操作</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,15 +24,10 @@
                         </div>
                     </td>
                     <td>
-
                         <p class="mb-0">{{item.OrderSetupDay}}</p>
 
                     </td>
-                    <td>
 
-                        <p class="mb-0">{{item.PredictDays}}</p>
-
-                    </td>
                     <td>
 
                         <p class="mb-0">{{item.ProposerQuotationTitle}}</p>
@@ -47,7 +41,10 @@
                     <td>
                         <div class="OrderStatus">
 
-                            <span class="OrderStatus text-danger">{{item.OrderStatus}}</span>
+                            <div class="OrderStatus text-danger">{{item.OrderStatus}}</div>
+                            <a href="" class="font-weight-bolder">
+                                [付款去]
+                            </a>
 
                         </div>
                     </td>
@@ -55,6 +52,7 @@
                         <a v-on:click.prevent="clickModal(index)">
                             <i class="fas fa-edit"></i>
                         </a>
+
                     </td>
                 </tr>
 
@@ -71,12 +69,38 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    
+
                 </div>
                 <div class="modal-body">
                     <div class="row pb-3 ">
+                        <div class="col-12  px-2 mb-3 border-bottom">
+
+                            <h5 class="border-bottom text-black">訂單明細</h5>
+                            <p class="mb-0">訂購服務名稱:{{modal.ProposerQuotationTitle}}</p>
+                            <div class="d-flex justify-content-between">
+                                <p class="mb-0">訂購數量: {{ modal.Count }} / {{ modal.Unit }}</p>
+                                <span class="mb-0 mr-1">訂購單價: {{ modal.Price }} / {{ modal.Unit }} </span>
+                                <span class="mb-0 font-weight-bolder">訂購總金額:NTD {{ modal.Price * modal.Count }} </span>
+                            </div>
+                            <p class="mb-0 text-danger">
+                                訂單狀態：{{modal.OrderStatus}}
+                            </p>
+                            <div class=" d-flex justify-content-between">
+                                <p class="mb-0">
+                                    備註:{{Memo}}
+                                </p>
+                                <a class="" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    編輯
+                                </a>
+                            </div>
+
+                            <div class="collapse" id="collapseExample">
+                                <textarea class=" w-100" v-model="Memo"></textarea>
+                                <a href="#" class=" btn btn-success text-white w-100" v-on:click.prevent="AddNewMemo">提交</a>
+                            </div>
+                        </div>
                         <div class="col-6">
-                            <h5 class="border-bottom">訂購人資訊</h5>
+                            <h5 class="border-bottom text-black">訂購人資訊</h5>
                             <p class="mb-0">
                                 訂購人姓名：<br />
                                 {{modal.Name}}
@@ -88,16 +112,20 @@
                             <p class="mb-0">
                                 訂購人LineID：<br />
                                 <a :href="Line">{{modal.LineID}}</a>
-                            </p>   
+                            </p>
                             <p class="mb-0">
                                 訂購人電話：<br />
-                                 <a :href="Phone">{{modal.Tel}}</a>
+                                <a :href="Phone">{{modal.Tel}}</a>
+                            </p>
+                            <p class="mb-0">
+                                可聯繫時段：<br />
+                                <span>{{ Contacttostring }}</span>
                             </p>
 
 
                         </div>
                         <div class="col-6">
-                            <h5 class="border-bottom">接案者資訊</h5>
+                            <h5 class="border-bottom text-black">接案者資訊</h5>
                             <p class="mb-0">
                                 接案者名稱：<br />
                                 {{modal.StudioName}}   <a href="/Quotation/StudioHome?TalentID=">[工作室]</a>
@@ -114,35 +142,12 @@
 
                         </div>
 
-                        <div class="col-12 mt-2">
 
-                            <h5 class="border-bottom">訂單明細</h5>
-                            <p class="mb-0">剩餘天數: {{modal.Remaindays}} 天</p>
-                            <div class="linediv mx-auto  w-100 mb-1">
-                                <div class="line" :style="{ width:Scheduleline + '%' }"></div>
-                            </div>
-                            <p class="mb-0 text-danger">
-                                訂單狀態：{{modal.OrderStatus}}
-                            </p>
-                            <div class=" d-flex justify-content-between">
-                                <p class="mb-0">
-                                    備註:{{Memo}}
-                                </p>
-                                <a class="" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                    編輯
-                                </a>
-                            </div>
-
-                            <div class="collapse" id="collapseExample">
-                                <textarea class=" w-100" v-model="Memo"></textarea>
-                                <a href="#" class=" btn btn-success text-white w-100"   v-on:click.prevent="AddNewMemo">提交</a>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger"  >取消訂單</button>
+                    <button type="button" class="btn btn-danger">取消訂單</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
@@ -165,14 +170,16 @@
     <style>
 
         .linediv {
-            background: linear-gradient(90deg,red, yellow 50%,green 100%);
-            border: 1px rgba(0,0,0,.9) solid;
+            background: linear-gradient(90deg,#aed8fc,#0587f7 100%);
+            border: 1px rgba(0,0,0,.5) solid;
+            border-radius:10px;
+            overflow:hidden;
         }
         .line {
             margin-left:auto;
             
             background-color:white;
-            height: 9px;
+            height: 15px;
         }
         .modal-dialog {
             z-index: 1050;
@@ -260,11 +267,12 @@
                 Scheduleline: '',
                 Remaindays: '',
                 Memo: '',
+                Contacttostring:''
             },
             methods:
             {
                 GetOrder() {
-                    axios.get('/api/Order/GetOrder?id=@ViewBag.MemberId').then(res => {
+                    axios.get('/api/Order/GetOrder?id=@ViewBag.MemberId&status=0').then(res => {
                         this.OrderList = res.data.Result
                         console.log(this.OrderList)
                     })
@@ -281,9 +289,25 @@
                     this.Scheduleline = 100 - this.modal.Schedule
                     this.Remaindays = this.modal.Remaindays
                     this.Memo = this.modal.Memo
+                    this.Contacttostring = this.ChangeContact(this.modal.ContactTime)
                     console.log(this.StudioHref)
                     $('#exampleModal').modal('show')
 
+                },
+                ChangeContact(num) {
+                    switch (num) {
+                        case 0:
+                            return "上午 7-12"
+                        case 1:
+                            return "下午 12-18"
+                        case 2:
+                            return "晚上 18-22"
+                        case 3:
+                            return "不限時段"
+                        default:
+                            return "不限時段"
+
+                    }
                 },
                 AddNewMemo() {
                    
