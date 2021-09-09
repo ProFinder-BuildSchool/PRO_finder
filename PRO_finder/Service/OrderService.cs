@@ -65,43 +65,47 @@ namespace PRO_finder.Service
         {
             List<OrderViewModel> OrderList = new List<OrderViewModel>();
             var OrderDB = _repo.GetAll<Order>().Where(x => x.ClientID == memberId && x.OrderStatus == 1).ToList();
-            foreach (var item in OrderDB)
-            {
-                var ProposerID = item.ProposerID;
-                var ProposerEmail = _repo.GetAll<MemberInfo>().First(x => x.MemberID == ProposerID).Email;
-                var ProposerCellPhone = _repo.GetAll<MemberInfo>().First(x => x.MemberID == ProposerID).Cellphone;
+            
 
-                var ProposerQuotationTitle = _repo.GetAll<Quotation>().First(x => x.MemberID == (int)ProposerID).QuotationTitle;
-
-                var ProposerExecuteDate = _repo.GetAll<Quotation>().First(x => x.MemberID == (int)ProposerID).ExecuteDate;
-                OrderList.Add(new OrderViewModel
+                foreach (var item in OrderDB)
                 {
-                   
-                    OrderID = item.OrderID,
-                    ProposerID = (int)item.ProposerID,
-                    OrderSetupDay = ((DateTime)item.DealedDate).ToString("yyyy-MM-dd"),
-                    PredictDays = CalcLastDate(item.DealedDate, ProposerExecuteDate),
-                    Schedule = GetSchedule(item.DealedDate,ProposerExecuteDate),
-                    Remaindays = GetRemaindays(item.DealedDate, ProposerExecuteDate),
-                    ClientID = (int)item.ClientID,
-                    QuotationImg = item.QuotationImg,
-                    StudioName = item.StudioName,
-                    Count = (int)item.Count,
-                    Price = (decimal)item.Price,
-                    Unit = System.Enum.GetName(typeof(UnitEnum), item.Unit),
-                    Email = item.Email,
-                    Name = item.Name,
-                    Tel = item.Tel,
-                    LineID = item.LineID,
-                    Memo = item.Memo,
-                    OrderStatus = System.Enum.GetName(typeof(OrderStatus), item.OrderStatus),
-                    ProposerQuotationTitle = ProposerQuotationTitle,
-                    ProposerEmail= ProposerEmail,
-                    ProposerCellPhone= ProposerCellPhone
+                    var ProposerID = item.ProposerID;
+                    var ProposerEmail = _repo.GetAll<MemberInfo>().First(x => x.MemberID == ProposerID).Email;
+                    var ProposerCellPhone = _repo.GetAll<MemberInfo>().First(x => x.MemberID == ProposerID).Cellphone;
+                    var ProposerQuotationTitle = _repo.GetAll<Quotation>().First(x => x.MemberID == (int)ProposerID).QuotationTitle;
+                    var ProposerExecuteDate = _repo.GetAll<Quotation>().First(x => x.MemberID == (int)ProposerID).ExecuteDate;
 
-                });
-            }
 
+                    OrderList.Add(new OrderViewModel
+                    {
+
+                        OrderID = item.OrderID,
+                        ProposerID = (int)item.ProposerID,
+                        OrderSetupDay = ((DateTime)item.DealedDate).ToString("yyyy-MM-dd"),
+                        PredictDays = CalcLastDate(item.DealedDate, ProposerExecuteDate),
+                        Schedule = GetSchedule(item.DealedDate, ProposerExecuteDate),
+                        Remaindays = GetRemaindays(item.DealedDate, ProposerExecuteDate),
+                        ClientID = (int)item.ClientID,
+                        QuotationImg = item.QuotationImg,
+                        StudioName = item.StudioName,
+                        Count = (int)item.Count,
+                        Price = (decimal)item.Price,
+                        Unit = System.Enum.GetName(typeof(UnitEnum), item.Unit),
+                        Email = item.Email,
+                        Name = item.Name,
+                        Tel = item.Tel,
+                        LineID = item.LineID,
+                        Memo = item.Memo,
+                        OrderStatus = System.Enum.GetName(typeof(OrderStatus), item.OrderStatus),
+                        ProposerQuotationTitle = ProposerQuotationTitle,
+                        ProposerEmail = ProposerEmail,
+                        ProposerCellPhone = ProposerCellPhone
+
+                    });
+                }
+
+            
+            
             return OrderList;
         }
 
