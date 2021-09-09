@@ -26,15 +26,39 @@ namespace PRO_finder.Controllers
         }
 
         [Authorize]
-        public ActionResult OrderinProgress()
+        public ActionResult OrderPendingPayment()
         {
-            string userID = HttpContext.User.Identity.GetUserId();
-            var MemberId = _orderservice.GetMemberID(userID);
+            
+            var MemberId = _orderservice.GetMemberID(HttpContext.User.Identity.GetUserId());
             ViewBag.MemberId = MemberId;
 
+            return View();
+        }
 
 
+        public ActionResult OrderDoing()
+        {
 
+            var MemberId = _orderservice.GetMemberID(HttpContext.User.Identity.GetUserId());
+            ViewBag.MemberId = MemberId;
+
+            return View();
+        }
+
+        public ActionResult OrderAccepting()
+        {
+
+            var MemberId = _orderservice.GetMemberID(HttpContext.User.Identity.GetUserId());
+            ViewBag.MemberId = MemberId;
+
+            return View();
+        }
+
+        public ActionResult OrderDeal()
+        {
+
+            var MemberId = _orderservice.GetMemberID(HttpContext.User.Identity.GetUserId());
+            ViewBag.MemberId = MemberId;
 
             return View();
         }
