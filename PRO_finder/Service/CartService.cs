@@ -287,6 +287,7 @@ namespace PRO_finder.Service
                 Unit=0,
                 Count=1,
                 PaymentCode = paymentRandomCode,
+                Memo = qdCart.ProposeDescription
             };
             _repo.Create(newOrder);
             _repo.SaveChanges();

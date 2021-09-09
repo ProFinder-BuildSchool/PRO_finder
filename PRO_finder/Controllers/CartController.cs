@@ -78,7 +78,7 @@ namespace PRO_finder.Controllers
                 paymentRst = new PaymentResultViewModel()
                 {
                     ResultMsg = "付款成功",
-                    ReturnPageTitle = "已成立案件",
+                    ReturnPageTitle = "進行中案件",
                     ReturnPageUrl = "OrderDoing",
                     Result = true
                 };
