@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ECPay.Payment.Integration;
+using Newtonsoft.Json;
 using PRO_finder.Models.ViewModels;
 
 //訂單產生
@@ -33,6 +34,39 @@ namespace AioCheckOut
             }
         }
 
+        public int TotalPay
+        {
+            get
+            {
+                int temp = 0;
+                foreach (var item in Pay)
+                {
+                    temp += item.Sum;
+                }
+                return temp;
+            }
+        }
+        public string PaymentCode
+        {
+            get
+            {
+                object paymentCode = Session["PaymentCode"];
+                if (paymentCode == null) return "";
+                return (string)Session["PaymentCode"];
+            }
+            set
+            {
+                if (value == null)
+                {
+                    Session.Remove("PaymentCode");
+                }
+                else
+                {
+                    Session["PaymentCode"] = value;
+                }
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -50,12 +84,12 @@ namespace AioCheckOut
 
                     /* 基本參數 */
                     oPayment.Send.ReturnURL = "http://example.com";//付款完成通知回傳的網址
-                    oPayment.Send.ClientBackURL = Request.Url.Scheme + "://" + Request.Url.Host + ":" + Request.Url.Port + "/Home/Index";//瀏覽器端返回的廠商網址
+                    oPayment.Send.ClientBackURL = Request.Url.Scheme + "://" + Request.Url.Host + ":" + Request.Url.Port + "/Client/OrderPendingPayment";//瀏覽器端返回的廠商網址
                     //oPayment.Send.OrderResultURL = "http://localhost:52413/CheckOutFeedback.aspx";//瀏覽器端回傳付款結果網址
-                    oPayment.Send.OrderResultURL = Request.Url.Scheme + "://" + Request.Url.Host + ":" + Request.Url.Port + "/ECPay/CheckOutFeedback.aspx";//瀏覽器端回傳付款結果網址
-                    oPayment.Send.MerchantTradeNo = "ProFinder" + new Random().Next(0, 999999999).ToString();//廠商的交易編號
+                    oPayment.Send.OrderResultURL = Request.Url.Scheme + "://" + Request.Url.Host + ":" + Request.Url.Port + "/Cart/ECPaymentResult";//瀏覽器端回傳付款結果網址
+                    oPayment.Send.MerchantTradeNo = "ProFinder" + PaymentCode;//廠商的交易編號
                     oPayment.Send.MerchantTradeDate = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");//廠商的交易時間
-                    oPayment.Send.TotalAmount = Decimal.Parse("3280");//交易總金額
+                    oPayment.Send.TotalAmount = Convert.ToDecimal(TotalPay);//交易總金額
                     oPayment.Send.TradeDesc = "ProFinder交易";//交易描述
                     oPayment.Send.ChoosePayment = PaymentMethod.ALL;//使用的付款方式
                     oPayment.Send.Remark = "";//備註欄位
@@ -64,7 +98,7 @@ namespace AioCheckOut
                     oPayment.Send.DeviceSource = DeviceType.PC;//來源裝置
                     oPayment.Send.IgnorePayment = ""; //不顯示的付款方式
                     oPayment.Send.PlatformID = "";//特約合作平台商代號
-                    oPayment.Send.CustomField1 = "";
+                    oPayment.Send.CustomField1 = PaymentCode;
                     oPayment.Send.CustomField2 = "";
                     oPayment.Send.CustomField3 = "";
                     oPayment.Send.CustomField4 = "";

@@ -1,0 +1,83 @@
+﻿@model List<PaymentViewModel>
+@{
+    ViewBag.Title = "ConfirmPayment";
+}
+<div class="container-lg" id="app">
+    <div class="row">
+        <div class="myContainer text-center my-5">
+            <h5 class="text-left">訂單資訊</h5>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-left">商品</th>
+                        <th scope="col">單價</th>
+                        <th scope="col">數量</th>
+                        <th scope="col">總價</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var item in Model) {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Price</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Sum</td>
+                    </tr>
+                    }
+                    @*<tr>
+                        <td>XX工作室的報價</td>
+                        <td>3000元/件</td>
+                        <td>1</td>
+                        <td>3000</td>
+                    </tr>*@
+
+                </tbody>
+            </table>
+            <p class="w-100 text-right text-danger">合計： @ViewBag.Total 元</p>
+            <input id="confirm" type="button" value="確認付款" class="btn btn-primary" data-content="@ViewBag.PaymentCode">
+        </div>
+    </div>
+</div>
+@section TopCss
+    {
+    <style>
+        .myContainer {
+            /* max-width: 510px; */
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            padding: 30px;
+        }
+        .table thead th {
+            border-bottom: 1px solid #f0eded !important;
+        }
+
+        .table th {
+            border-top: none !important;
+            color: #524545;
+        }
+
+        .table td {
+            border-top: 1px solid #f0eded !important;
+            display: table-cell;
+            vertical-align: middle !important;
+            border-bottom: 1px solid #f0eded !important;
+            color: #000;
+        }
+
+
+        tr {
+            color: rgb(170, 165, 165);
+            text-align: center;
+        }
+    </style>
+}
+@section endJS
+    {
+    <script>
+        let paymentCode = document.querySelector("#confirm").getAttribute("data-content");
+        document.querySelector("#confirm").addEventListener("click", function () {
+            window.location.replace(`/Cart/ECPaymentPage/${paymentCode}`);
+        });
+    </script>
+}

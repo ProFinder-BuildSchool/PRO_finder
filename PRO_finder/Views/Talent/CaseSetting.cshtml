@@ -15,7 +15,7 @@
                 <p for="CaseStatus" class="col-md-12 text-black font-weight-bold">接案狀態</p>
                 <div class="container">
                     <div class="row caseStatus">
-                        @if (Model.Status)
+                        @if (Model.Status == true)
                         {
                             <div class="col-12 col-md-auto">
                                 <input type="radio" name="Status" value="true" id="CaseStatus-open" checked>
@@ -30,7 +30,7 @@
                                 <label for="CaseStatus-closed" style="font-size: 14px;">關閉</label>
                             </div>
                         }
-                        else
+                        else if (Model.Status == false)
                         {
                             <div class="col-12 col-md-auto">
                                 <input type="radio" name="Status" value="true" id="CaseStatus-open">
@@ -45,6 +45,21 @@
                                 <label for="CaseStatus-closed" style="font-size: 14px;">關閉</label>
                             </div>
                         }
+                        else
+                        {
+                            <div class="col-12 col-md-auto">
+                                <input type="radio" name="Status" value="true" id="CaseStatus-open">
+                                <label for="CaseStatus-open" style="font-size: 14px;" class="d-inline">開啓</label>
+                            </div>
+                            @*<div class="col-12 col-md-auto">
+                                    <input type="radio" name="Status" value="true" id="CaseStatus-openRestricted">
+                                    <label for="CaseStatus-openRestricted" style="font-size: 14px;" class="d-inline">開啟，隱藏聯絡資訊【建議】</label>
+                                </div>*@
+                            <div class="col-12 col-md-auto">
+                                <input type="radio" name="Status" value="false" id="CaseStatus-closed">
+                                <label for="CaseStatus-closed" style="font-size: 14px;">關閉</label>
+                            </div>
+                        }
 
                     </div>
                 </div>
@@ -53,7 +68,7 @@
             <div class="form-group">
                 <label for="NickName" class="col-md-12 control-label">接案暱稱</label>
                 <div class="col-md-12">
-                    <input type="text" class="form-control text-box single-line" id="NickName" placeholder="tasker" name="NickName" value="@Model.NickName">
+                    <input type="text" class="form-control text-box single-line" id="NickName" name="NickName" value="@Model.NickName">
                 </div>
             </div>
             <hr />
@@ -142,7 +157,7 @@
             <div class="form-group">
                 <label for="Cellphone" class="col-md-12 control-label">行動電話</label>
                 <div class="col-md-12">
-                    <input type="text" class="form-control" id="Cellphone" placeholder="Product Designer" name="Cellphone" value="@Model.Cellphone">
+                    <input type="text" class="form-control" id="Cellphone" name="Cellphone" value="@Model.Cellphone">
                 </div>
             </div>
 
@@ -188,7 +203,7 @@
                     </div>
                     <div class="col-6">
                         <select class="form-control" id="subcategorySelect" name="SubCategoryID">
-                            <option class="text-center">選擇子類型</option>
+                            <option>選擇子類型</option>
                         </select>
                         @*@Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })*@
                     </div>
@@ -490,7 +505,7 @@
     </div>
     <div class="form-group mt-3">
         <div class="col-md-offset-2 col-md-12 text-center">
-            <input value="儲存設定" class="btn btn-primary" id="send" />
+            <input value="儲存設定" class="btn btn-primary" id="send" type="button" />
         </div>
     </div>
     <input type="hidden" name="JsonToolList" id="JsonToolList">
@@ -707,8 +722,8 @@
             });
         };
         getTalentTools();
-        
-        
+
+
         ////擅長工具-使用者選擇更換
         $g("select#ToolCategoryID").addEventListener("change", function () {
             let cateID = Number(this.value);
@@ -798,7 +813,7 @@
             });
         }
 
-        
+
 
 
 

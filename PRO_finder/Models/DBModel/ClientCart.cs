@@ -45,5 +45,7 @@ namespace PRO_finder.Models.DBModel
         public int? ProposerID { get; set; }
 
         public int? PredictDays { get; set; }
+
+        public int? QuotationID { get; set; }
     }
 }

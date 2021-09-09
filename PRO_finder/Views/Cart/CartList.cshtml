@@ -95,7 +95,7 @@
                     </table>
                     <div class="text-right mb-5 checkout">
                         <p>商品金額：<span>{{ cartTotal }}</span></p>
-                        <button class="checkoutbtn" v-on:click="addOrder">結帳</button>
+                        <button class="checkoutbtn" v-bind:disabled="disabled" v-on:click="addOrder">結帳</button>
                     </div>
                 </div>
             </div>
@@ -308,6 +308,11 @@
                 outline: none;
             }
 
+        .checkoutbtn:disabled {
+            background-color: gray;
+            color: rgb(170, 165, 165);
+        }
+
         .count {
             margin: 0 10px 0 10px;
             font-size: 20px;
@@ -394,7 +399,7 @@
 
                 getQT: false,
                 qtsProduct: [],
-
+                disabled:true
             },
             methods:
             {
@@ -431,7 +436,7 @@
                                 this.cartsProduct = res.data.Result.map(x => Object.assign(x, { selected: false }))
                                 if (this.cartsProduct.length == 0 || this.cartsProduct == null) {
                                     this.get = false;
-                                    
+                                    console.log(this.cartsProduct)
                                 }
                                 else {
                                     this.get = true
@@ -444,22 +449,19 @@
                     this.productchecked = [];
                     this.cartsProduct[index].selected = !this.cartsProduct[index].selected
                     this.productchecked = this.cartsProduct.filter(x => x.selected == true)
-                    console.log(this.productchecked)
+                    if (this.productchecked.length == 0) {
+                        this.disabled = true
+                    }
+                    else {
+                        this.disabled = false;
+                    }
                     
 
                 },
                 addOrder() {
                     axios.post(`/api/Order/AddOrder`, this.productchecked).then(res => {
-                        if (res.data.Result) {
-                            $('#staticBackdrop').modal('hide')
-                            this.getCart()
-                            this.orderSuccess()
-                        }
-                        else {
-                            //TODO 加alert
-                            alert("更新失敗:" + res.data.ErrMsg)
-                        }
-                    })
+                        window.location.replace(`/Cart/GoToConfirmPayment/${res.data.Result}`);
+                    });
                 },
                 orderSuccess() {
                     Swal.fire(
@@ -516,17 +518,20 @@
                     })
                 },
                 refuse(arg) {
-                    axios.post('/api/Cart/RefuseQuotation', arg).then(res => {
-                        console.log(res.text());
-                        window.location.reload();
-                    })
+                    console.log("in");
+                    console.log(arg);
+                    axios({ method: "post", url: "/api/Cart/RefuseQuotation", data: arg, headers: { 'Content-Type': 'application/json; charset=utf-8', 'strict':false } })
+                        .then(res => {
+                            window.location.reload();
+                        })
                 },
                 complete(arg) {
-                    axios.post('/api/Cart/AddQuotationOrder', arg).then(res => {
-                        console.log(res.text());
-                        window.location.reload();
-                        //需要導向到其他頁面嗎？
-                    });
+                    axios({ method: "post", url: "/api/Cart/AddQuotationOrder", data: arg, headers: { 'Content-Type': 'application/json; charset=utf-8', 'strict': false } })
+                        .then(res => {
+                            console.log(res.data.Result);
+                            window.location.replace(`/Cart/GoToConfirmPayment/${res.data.Result}`);
+                        });
+
                 }
             },
             computed: {

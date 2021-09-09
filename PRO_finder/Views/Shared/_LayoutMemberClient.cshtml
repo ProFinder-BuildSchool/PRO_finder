@@ -172,14 +172,20 @@
         <li class="nav-item">
             <a class="nav-link" href="#unsolvedcase.html">審核中的案件</a>
         </li>*@
+
+
                                                         <li class="nav-item">
-                                                            <a class="nav-link" href="@Url.Action("OrderinProgress", "Client")">進行中的案件</a>
+                                                            <a class="nav-link" href="@Url.Action("OrderPendingPayment", "Client")">待付款的案件</a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link" href="#caseClosed.html">待驗收的案件</a>
+                                                            <a class="nav-link" href="@Url.Action("OrderDoing", "Client")">進行中的案件</a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link" href="#caseClosed.html">已成交的案件</a>
+                                                            <a class="nav-link" href="@Url.Action("OrderAccepting", "Client")">待驗收的案件</a>
+                                                        </li>
+
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="@Url.Action("OrderDeal", "Client")">已成交的案件</a>
                                                         </li>
                                                     </div>
                                                 </div>
