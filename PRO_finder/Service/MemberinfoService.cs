@@ -146,23 +146,10 @@ namespace PRO_finder.Service
                 AllPieceworkExp = memInfo.AllPieceworkExp,
                 Description = memInfo.Description,
             };
-            if (memInfo.Identity != null)
-            {
-                memberInfoVM.Identity = (MemberInfoViewModel.IdentityStatus)memInfo.Identity;
-            }
-            else
-            {
-                memberInfoVM.Identity = (MemberInfoViewModel.IdentityStatus)(-1);
-            }
-            
-            if(memInfo.LocationID != null)
-            {
-                memberInfoVM.LocationIDInt = (int)memInfo.LocationID;
-            }
-            else
-            {
-                memberInfoVM.LocationIDInt = -1;
-            }
+            //接案身份
+            memberInfoVM.Identity = memInfo.Identity == null ? (MemberInfoViewModel.IdentityStatus)(-1): (MemberInfoViewModel.IdentityStatus)memInfo.Identity;
+            //理想接案城市
+            memberInfoVM.LocationIDInt = memInfo.LocationID == null? -1: (int)memInfo.LocationID;
             
             if (exp != null)
             {

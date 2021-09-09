@@ -151,7 +151,7 @@ namespace PRO_finder.Service
 
                 var Order = new Order()
                 {
-                    DealedDate = DateTime.UtcNow,
+                    DealedDate = DateTime.UtcNow.AddHours(8),
                     OrderStatus = 0,
                     DepositStatus = 1,
                     ProposerID = item.ProposerID,

@@ -27,9 +27,9 @@ namespace PRO_finder.Service
 
         public int GetMemberID(string userID)
         {
-           
 
-            try 
+
+            try
             {
                 if (userID == null) { return -1; }
 
@@ -44,11 +44,11 @@ namespace PRO_finder.Service
                 return -1;
             }
 
-            
+
         }
         public bool DelCart(int Id, int cartId)
         {
-            var CartDBList = _repo.GetAll<ClientCart>().FirstOrDefault(x => (int)x.ClientID == Id  && x.CartID == cartId);
+            var CartDBList = _repo.GetAll<ClientCart>().FirstOrDefault(x => (int)x.ClientID == Id && x.CartID == cartId);
             _repo.Delete<ClientCart>(CartDBList);
             _repo.SaveChanges();
             return true;
@@ -57,7 +57,7 @@ namespace PRO_finder.Service
 
         public List<ClientCartViewModel> GetCart(int memberId)
         {
-         
+
 
             var CartDBList = _repo.GetAll<ClientCart>().Where(x => (int)x.ClientID == memberId);
 
@@ -92,21 +92,21 @@ namespace PRO_finder.Service
 
         }
 
-        public bool UpDateCart(int Id ,UpDateCartViewModel VM)
+        public bool UpDateCart(int Id, UpDateCartViewModel VM)
         {
 
-  
-                var CartDBList = _repo.GetAll<ClientCart>().Where(x => (int)x.ClientID == Id).First(y => y.CartID == VM.CartID);
-                CartDBList.Email = VM.Email;
-                CartDBList.Count = VM.Count;
-                CartDBList.Name = VM.Name;
-                CartDBList.LineID = VM.LineID;
-                CartDBList.Memo = VM.Memo;
-                CartDBList.Tel = VM.Tel;
-                _repo.Update<ClientCart>(CartDBList);
-                _repo.SaveChanges();
-                return true;
-  
+
+            var CartDBList = _repo.GetAll<ClientCart>().Where(x => (int)x.ClientID == Id).First(y => y.CartID == VM.CartID);
+            CartDBList.Email = VM.Email;
+            CartDBList.Count = VM.Count;
+            CartDBList.Name = VM.Name;
+            CartDBList.LineID = VM.LineID;
+            CartDBList.Memo = VM.Memo;
+            CartDBList.Tel = VM.Tel;
+            _repo.Update<ClientCart>(CartDBList);
+            _repo.SaveChanges();
+            return true;
+
         }
 
         public bool addCart(ClientCartViewModel Cart, int memberId)
@@ -137,7 +137,7 @@ namespace PRO_finder.Service
         }
 
         //人才【我要報價】
-        public OperationResult CreateQuotationCart(int memberID,QuotationCartViewModel newQ)
+        public OperationResult CreateQuotationCart(int memberID, QuotationCartViewModel newQ)
         {
             var result = new OperationResult();
             try
@@ -155,7 +155,7 @@ namespace PRO_finder.Service
                 _repo.SaveChanges();
                 result.IsSuccessful = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 result.IsSuccessful = false;
                 result.Exception = ex;
@@ -164,7 +164,7 @@ namespace PRO_finder.Service
         }
 
         //人才提案紀錄刪除 //取消提案
-        public void DeleOfQTRecord(int? caseID,int memberID)
+        public void DeleOfQTRecord(int? caseID, int memberID)
         {
             var QTRecordDB = _repo.GetAll<QuotationDetail>().FirstOrDefault(q => q.CaseID == caseID && q.ProposerID == memberID);
             _repo.Delete<QuotationDetail>(QTRecordDB);
@@ -178,15 +178,15 @@ namespace PRO_finder.Service
             try
             {
                 var myCase = _repo.GetAll<Case>().Where(x => x.MemberID == clientID).ToList();
-                foreach(var item in myCase)
+                foreach (var item in myCase)
                 {
                     var qd = _repo.GetAll<QuotationDetail>().Where(x => x.CaseID == item.CaseID && x.Status == null).ToList();
-                    foreach(var j in qd)
+                    foreach (var j in qd)
                     {
                         quoCart.Add(j);
                     }
                 }
-                
+
             }
             catch
             {
@@ -196,7 +196,7 @@ namespace PRO_finder.Service
             List<QuotationCartViewModel> allInfoInCart = new List<QuotationCartViewModel>();
             if (quoCart != null)
             {
-                
+
                 foreach (var item in quoCart)
                 {
                     string date = item.ProposeDate.ToString("yyyy-MM-dd");
@@ -233,7 +233,7 @@ namespace PRO_finder.Service
                     });
                 }
             }
-            
+
             return JsonConvert.SerializeObject(allInfoInCart);
         }
 
@@ -244,23 +244,23 @@ namespace PRO_finder.Service
             var quoRecord = _repo.GetAll<QuotationDetail>()
                 .Where(x => x.ProposerID == memberID).ToList();
 
-                foreach (var item in quoRecord)
+            foreach (var item in quoRecord)
+            {
+                string date = item.ProposeDate.ToString("yyyy-MM-dd");
+                Case theCase = _repo.GetAll<Case>().FirstOrDefault(x => x.CaseID == item.CaseID);
+                allInfoInQTR.Add(new QuotationCartViewModel
                 {
-                    string date = item.ProposeDate.ToString("yyyy-MM-dd");
-                    Case theCase = _repo.GetAll<Case>().FirstOrDefault(x => x.CaseID == item.CaseID);
-                    allInfoInQTR.Add(new QuotationCartViewModel
-                    {
-                        ProposeDate = date,
-                        ProposePrice = item.ProposePrice,
-                        CaseTitle = theCase.CaseTitle,
-                        CaseID = item.CaseID,
-                        //Status = (QuotationCartViewModel.statusEnum)(statusEnum)item.Status
-                    });
-                }
+                    ProposeDate = date,
+                    ProposePrice = item.ProposePrice,
+                    CaseTitle = theCase.CaseTitle,
+                    CaseID = item.CaseID,
+                    //Status = (QuotationCartViewModel.statusEnum)(statusEnum)item.Status
+                });
+            }
             return allInfoInQTR;
         }
 
-        
+
         public string QdToOrder(int qdID)
         {
             var qdCart = _repo.GetAll<QuotationDetail>().FirstOrDefault(x => x.QuotaionDetailID == qdID);
@@ -276,19 +276,28 @@ namespace PRO_finder.Service
                 OrderStatus = 0,
                 DepositStatus = 0,
                 Price = qdCart.ProposePrice,
-                DealedDate = DateTime.UtcNow,
+                DealedDate = DateTime.UtcNow.AddHours(8),
                 ClientID = caseInfo.MemberID,
                 QuotationImg = "~/Assets/images/hero_1.jpg",
                 Email = clientInfo.Email,
-                Name = clientInfo.NickName,
-                StudioName = proposerInfo.NickName,
-                Tel = clientInfo.Cellphone,
                 PredictDays = qdCart.PredictDays,
-                Unit=0,
-                Count=1,
+                Unit = 0,
+                Count = 1,
                 PaymentCode = paymentRandomCode,
-                Memo = qdCart.ProposeDescription
+                Memo = qdCart.ProposeDescription,
+                CaseID = qdCart.CaseID,
+                Title = caseInfo.CaseTitle,
+                ProposerEmail = proposerInfo.Email,
             };
+            //案主接案名稱 Order Name
+            newOrder.Name = clientInfo.NickName == null ? "無接案名稱" : clientInfo.NickName;
+            //人才接案名稱 Order StudioName
+            newOrder.StudioName = proposerInfo.NickName == null ? "無接案名稱" : proposerInfo.NickName;
+            //案主電話
+            newOrder.Tel = clientInfo.Cellphone == null ? "無聯絡電話" : clientInfo.Cellphone;
+            //人才電話 
+            newOrder.ProposerPhone = proposerInfo.Cellphone == null ? "無聯絡電話" : proposerInfo.Cellphone;
+
             _repo.Create(newOrder);
             _repo.SaveChanges();
 
@@ -302,7 +311,7 @@ namespace PRO_finder.Service
 
         public void RefuseQd(int qdID)
         {
-            var theQd =  _repo.GetAll<QuotationDetail>().FirstOrDefault(x => x.QuotaionDetailID == qdID);
+            var theQd = _repo.GetAll<QuotationDetail>().FirstOrDefault(x => x.QuotaionDetailID == qdID);
             theQd.Status = false;
             _repo.Update(theQd);
             _repo.SaveChanges();
@@ -321,15 +330,15 @@ namespace PRO_finder.Service
                     Quantity = (int)item.Count
                 });
             }
-            
-            
+
+
             return result;
         }
         public List<PaymentViewModel> GetTheOrderToPay(string paymentCode)
         {
             var theOrder = _repo.GetAll<Order>().Where(x => x.PaymentCode == paymentCode).ToList();
             List<PaymentViewModel> pays = new List<PaymentViewModel>();
-            foreach(var item in theOrder)
+            foreach (var item in theOrder)
             {
                 pays.Add(new PaymentViewModel
                 {
@@ -338,15 +347,16 @@ namespace PRO_finder.Service
                     Quantity = 1,
                 });
             }
-            
+
             return pays;
         }
         public void PaymentSucceed(string paymentCode)
         {
             var payedOrder = _repo.GetAll<Order>().Where(x => x.PaymentCode == paymentCode).ToList();
-            foreach(var item in payedOrder)
+            foreach (var item in payedOrder)
             {
                 item.OrderStatus = 1;
+                item.DealedDate = DateTime.UtcNow.AddHours(8);
                 _repo.Update(item);
                 _repo.SaveChanges();
             };
