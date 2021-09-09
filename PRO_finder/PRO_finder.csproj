@@ -435,6 +435,14 @@
     <Compile Include="Migrations\202109060432018_2021-09-06 DB Update.Designer.cs">
       <DependentUpon>202109060432018_2021-09-06 DB Update.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109081248443_2021-09-08 DB update.cs" />
+    <Compile Include="Migrations\202109081248443_2021-09-08 DB update.Designer.cs">
+      <DependentUpon>202109081248443_2021-09-08 DB update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109090316287_2021-09-09 DB update.cs" />
+    <Compile Include="Migrations\202109090316287_2021-09-09 DB update.Designer.cs">
+      <DependentUpon>202109090316287_2021-09-09 DB update.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DBModel\AspNetRoles.cs" />
@@ -817,7 +825,9 @@
     <Content Include="Views\FindQuotation\QTRecord.cshtml" />
     <Content Include="Views\Client\OrderinProgress.cshtml" />
     <Content Include="Views\Cart\PaymentTest.cshtml" />
-    <Content Include="Views\Cart\PostECPayment.cshtml" />
+    <Content Include="Views\Cart\ConfirmPayment.cshtml" />
+    <Content Include="Views\Cart\ECPaymentResult.cshtml" />
+    <Content Include="Views\Cart\ECPaymentResultPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -919,6 +929,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109060432018_2021-09-06 DB Update.resx">
       <DependentUpon>202109060432018_2021-09-06 DB Update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109081248443_2021-09-08 DB update.resx">
+      <DependentUpon>202109081248443_2021-09-08 DB update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109090316287_2021-09-09 DB update.resx">
+      <DependentUpon>202109090316287_2021-09-09 DB update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -60,7 +60,7 @@ namespace PRO_finder.Service
         public MemberInfoViewModel GetMemberInfo(int memberID)
         {
             //取得會員Experience資料
-            var experiences = _ctx.GetAll<Experience>().Select(x => new ExperienceViewModel
+            var experiences = _ctx.GetAll<Experience>().Where(x => x.MemberID == memberID).Select(x => new ExperienceViewModel
             {
                 MemberID = x.MemberID,
                 CategoryID = x.CategoryID,
@@ -133,22 +133,37 @@ namespace PRO_finder.Service
                 exp = null;
             }
 
-
-            var memberInfoVM = _ctx.GetAll<MemberInfo>().Where(x => x.MemberID == memberID).Select(x => new MemberInfoViewModel
+            var memInfo = _ctx.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == memberID);
+            var memberInfoVM = new MemberInfoViewModel
             {
-                MemberID = x.MemberID,
-                Cellphone = x.Cellphone,
-                Email = x.Email,
-                Status = x.Status,
-                NickName = x.NickName,
-                Identity = (MemberInfoViewModel.IdentityStatus)x.Identity,
-                LiveCity = x.LiveCity,
-                LocationIDInt = (int)x.LocationID,
-                SubCategoryID = x.SubCategoryID,
-                AllPieceworkExp = x.AllPieceworkExp,
-                Description = x.Description,
-            }).FirstOrDefault();
-
+                MemberID = memInfo.MemberID,
+                Cellphone = memInfo.Cellphone,
+                Email = memInfo.Email,
+                Status = memInfo.Status,
+                NickName = memInfo.NickName, 
+                LiveCity = memInfo.LiveCity,
+                SubCategoryID = memInfo.SubCategoryID,
+                AllPieceworkExp = memInfo.AllPieceworkExp,
+                Description = memInfo.Description,
+            };
+            if (memInfo.Identity != null)
+            {
+                memberInfoVM.Identity = (MemberInfoViewModel.IdentityStatus)memInfo.Identity;
+            }
+            else
+            {
+                memberInfoVM.Identity = (MemberInfoViewModel.IdentityStatus)(-1);
+            }
+            
+            if(memInfo.LocationID != null)
+            {
+                memberInfoVM.LocationIDInt = (int)memInfo.LocationID;
+            }
+            else
+            {
+                memberInfoVM.LocationIDInt = -1;
+            }
+            
             if (exp != null)
             {
                 memberInfoVM.Experiences = exp;

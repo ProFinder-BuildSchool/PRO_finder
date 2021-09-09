@@ -321,30 +321,6 @@
         //上傳圖檔呈現
         let countMedia = 0;
         let displayUpload = $g("#displayUpload");
-        //let uploadArray = []; //上傳圖床用的
-        ////將資料庫原有圖片加入uploadArray
-        //let originImgs = document.querySelectorAll("img.origin");
-        //if (originImgs != null) {
-        //    originImgs.forEach((img, index) => {
-        //        const urlToObject = async () => {
-        //            let url = img.src;
-        //            let len = url.length;
-        //            var http = url.substring(0, 5)
-        //            if (http != "https") {
-        //                url = "https://" + url.substring(7, len);
-        //            }
-        //            const response = await fetch(url);
-        //            // here image is url/location of image
-        //            const blob = await response.blob();
-        //            const file = new File([blob], `image${index}.jpg`, { type: blob.type });
-        //            uploadArray.push(file);
-        //        }
-        //        urlToObject();
-                
-        //    });
-        //}
-
-
         //原有圖片顯示的div顯示設定
         let originImgDiv = document.querySelectorAll("div.origin");
         if (originImgDiv != null) {
@@ -427,8 +403,9 @@
                     let otherPics = JSON.stringify(otherPictureArray);
                     $g("input#OtherPictureList").value = otherPics;
                     console.log(otherPics);
-                    document.querySelector("form[action='/Talent/UpdateMyQuotation']").submit();
+                    
                 };
+                document.querySelector("form[action='/Talent/UpdateMyQuotation']").submit();
             }
             uploadImage_SendForm();
 
@@ -439,15 +416,7 @@
             return temp.length == 1 ? temp[0] : temp;
         }
         function getBlobData(img_src) {
-            console.log(img_src)
-            let url = img_src;
-            //let len = url.length;
-            const b = url.substring(0, 5)
-            if (b == "blob:") {
-                return url;
-            }
-            console.log(url);
-            return fetch(url).then(res => res.blob());
+            return fetch(img_src).then(res => res.blob());
         }
         function axiosImageFile(picture) {
             return axios({

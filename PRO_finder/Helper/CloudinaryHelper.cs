@@ -18,15 +18,14 @@ namespace PRO_finder.Helper
             _cloudinary = new Cloudinary(_account);
             _cloudinary.Api.Secure = true;
         }
-        public async Task<string> UploadCloudinaryAsync(HttpPostedFileBase file)
+        public string UploadToCloudinary(HttpPostedFileBase file)
         {
             var uploadParams = new ImageUploadParams()
             {
                 File = new FileDescription(file.FileName, file.InputStream)
             };
-            Task<ImageUploadResult> imageUploadTask = _cloudinary.UploadAsync(uploadParams);
-            var uploadResult = await imageUploadTask;
-            return uploadResult.SecureUri.AbsoluteUri;
+            ImageUploadResult uploadResult = _cloudinary.Upload(uploadParams);
+            return uploadResult.SecureUrl.AbsoluteUri;
         }
 
     }
