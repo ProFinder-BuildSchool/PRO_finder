@@ -81,7 +81,7 @@
                         <div class="col-12  px-2 mb-3 border-bottom">
 
                             <h5 class="border-bottom text-black">訂單明細</h5>
-                            <p class="mb-0">訂購服務名稱:{{modal.ProposerQuotationTitle}}</p>
+                            <p class="mb-0">訂購服務名稱:<a :href="QuotationLink">{{modal.ProposerQuotationTitle}}</a></p>
                             <div class="d-flex justify-content-between">
                                 <p class="mb-0">訂購數量: {{ modal.Count }} / {{ modal.Unit }}</p>
                                 <span class="mb-0 mr-1">訂購單價: {{ modal.Price }} / {{ modal.Unit }} </span>
@@ -138,7 +138,7 @@
                             <h5 class="border-bottom text-black">接案者資訊</h5>
                             <p class="mb-0">
                                 接案者名稱：<br />
-                                {{modal.StudioName}}   <a href="/Quotation/StudioHome?TalentID=">[工作室]</a>
+                                {{modal.StudioName}}   <a :href="StudioHref">[工作室]</a>
                             </p>
                             <p class="mb-0">
                                 接案者信箱：<br />
@@ -283,7 +283,8 @@
                 Remaindays: '',
                 Memo: '',
                 Contacttostring: '',
-                OrderStatusNumber:''
+                OrderStatusNumber: '',
+                QuotationLink: '',
             },
             methods:
             {
@@ -306,6 +307,7 @@
                     this.Remaindays = this.modal.Remaindays
                     this.Memo = this.modal.Memo
                     this.Contacttostring = this.ChangeContact(this.modal.ContactTime)
+                    this.QuotationLink = "/Quotation/Detail/" + this.modal.ProposerID + "/" + this.modal.QuotationID
                     console.log(this.StudioHref)
                     $('#exampleModal').modal('show')
 
