@@ -318,13 +318,12 @@
 
 
                 Finished() {
-                    axios({ method: "post", url: "/api/Cart/AddQuotationOrder", data: arg, headers: { 'Content-Type': 'application/json; charset=utf-8', 'strict': false } })
-                        .then(res => {
-                            console.log(res.data.Result);
-                            window.location.replace(`/Cart/GoToConfirmPayment/${res.data.Result}`);
-                        });
+                    axios.post(`/api/Order/UpdateOrderStatus?Orderid=${this.modal.OrderID}`, { OrderStatusNumber: this.modal.OrderStatusNumber + 1 }).then(res => {
+                        this.GetOrder();
+                        window.location.replace(`/Talent/TalentOrderDoing/${res.data.Result}`);
+                    })
                 }
-
+                
             },
             created() {
                 this.GetOrder();
