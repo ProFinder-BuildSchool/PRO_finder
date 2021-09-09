@@ -18,11 +18,12 @@ namespace PRO_finder.APIControllers
         {
             _orderService = new OrderService();
         }
-        public APIResult GetOrder(int id)
+        public APIResult GetOrder(int id, int status)
         {
+           
             try 
             {
-                var result = _orderService.GetOrderList(id);
+                var result = _orderService.GetOrderList(id, status);
                  return new APIResult(APIStatus.Success, string.Empty, result);
             }
             catch (Exception ex)
@@ -32,19 +33,19 @@ namespace PRO_finder.APIControllers
             
         }
        
-        public APIResult CancelOrder(int id)
-        {
-            try
-            {
-                var result = _orderService.GetOrderList(id);
-                return new APIResult(APIStatus.Success, string.Empty, result);
-            }
-            catch (Exception ex)
-            {
-                return new APIResult(APIStatus.Fail, ex.Message, "");
-            }
+        //public APIResult CancelOrder(int id )
+        //{
+        //    try
+        //    {
+        //        var result = _orderService.GetOrderList(id);
+        //        return new APIResult(APIStatus.Success, string.Empty, result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return new APIResult(APIStatus.Fail, ex.Message, "");
+        //    }
 
-        }
+        //}
 
 
 
@@ -83,6 +84,21 @@ namespace PRO_finder.APIControllers
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             }
 
+        }
+        [HttpPost]
+        public APIResult UpdateOrderStatus(int Orderid, OrderViewModel data)
+        {
+            var result = false;
+            try
+            {
+                result = _orderService.UpdateOrderStatus(Orderid, data);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            }
         }
     }
 }

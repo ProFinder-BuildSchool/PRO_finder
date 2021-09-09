@@ -78,8 +78,8 @@ namespace PRO_finder.Controllers
                 paymentRst = new PaymentResultViewModel()
                 {
                     ResultMsg = "付款成功",
-                    ReturnPageTitle = "已成立案件",
-                    ReturnPageUrl = "OrderinProgress",
+                    ReturnPageTitle = "進行中案件",
+                    ReturnPageUrl = "OrderDoing",
                     Result = true
                 };
                 string paymenCode = result.CustomField1;
@@ -90,7 +90,7 @@ namespace PRO_finder.Controllers
                 {
                     ResultMsg = "付款失敗",
                     ReturnPageTitle = "待付款案件",
-                    ReturnPageUrl = "",
+                    ReturnPageUrl = "OrderPendingPayment",
                     Result = false
                 };
             }

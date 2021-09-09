@@ -21,7 +21,8 @@ namespace PRO_finder.Enum
 
         public enum OrderStatus
         {
-            製作中=1,待驗收=2
+            待付款=0,製作中=1,待驗收=2,已提出撥款需求=3,撥款完成=4
         }
+
     }
 }
