@@ -322,7 +322,14 @@ namespace PRO_finder.Controllers
             Response.Write(result);
         }
 
-       
+        public ActionResult AcountSetting()
+        {
+
+            return View();
+        }
+
+
+
 
 
     }

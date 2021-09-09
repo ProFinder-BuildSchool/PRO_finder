@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "AcountSetting";
+    Layout = "~/Views/Shared/_LayoutMemberTalent.cshtml";
+}
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div class="container">
+        <div class="col-12 mt-5 mb-4">
+            <h2>已收藏案件</h2>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>案件標題</th>
+                        <th>預算金額</th>
+                        <th>發案人</th>
+                        <th>案件狀態</th>
+                        @*<th>刊登日期</th>*@
+
+                    </tr>
+                </thead>
+                <tbody id="Savecase">
+                   
+                    
+                        <tr>
+                            <td class="text-center">title</td>
+                            <td class="text-center">Price</td>
+                            <td class="text-center">Contact</td>
+                            <td class="text-center">開啟中</td>
+                            @*<td class="text-center">@item.UpdateDate</td>*@
+                            <td class="text-center"><button class="text-center btnDele btn btn-primary " data-content="CaseID">刪除</button></td>
+
+                        </tr>
+                    
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+
+    @*<div class="text-center mb-5">
+            <button id="btnClear" class="btn btn-primary text-right" >Clear</button>
+        </div>*@
+
+
+</body>
+</html>
+
+@section topCSS{
+    <style>
+        .btnDele:hover {
+            cursor: pointer;
+        }
+    </style>
+}
+
+@*@section endJS{
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        let btnDele = document.querySelectorAll('.btnDele');
+
+        btnDele.forEach(function (item) {
+
+            let caseid = item.getAttribute("data-content");
+            console.log(caseid);
+            item.addEventListener('click', function () {
+                item.disabled = true;
+
+                const asyncRun = async () => {
+                    await axios.post('/SaveCase/AddOrDeleSaveCase', { caseid: caseid }).then(res => console.log(res));
+                    window.location.reload();
+                }
+                asyncRun();
+            })
+        })
+    </script>
+
+}*@
+
+
+
+
+
+
