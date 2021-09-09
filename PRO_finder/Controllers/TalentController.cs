@@ -326,10 +326,10 @@ namespace PRO_finder.Controllers
             Response.Write(result);
         }
 
-        public ActionResult TalentOdInProgress()
+        public ActionResult TalentOrderDoing()
         {
-            string userID = HttpContext.User.Identity.GetUserId();
-            var MemberId = _orderservice.GetMemberID(userID);
+
+            var MemberId = _orderservice.GetMemberID(HttpContext.User.Identity.GetUserId());
             ViewBag.MemberId = MemberId;
 
             return View();

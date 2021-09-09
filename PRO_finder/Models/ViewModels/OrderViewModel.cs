@@ -37,6 +37,9 @@ namespace PRO_finder.Models.ViewModels
         public int ContactTime { get; set; }
         public int OrderStatusNumber { get; set; }
 
+        public string Title { get; set; }
+        public int CaseID { get; set; }
+
     }
 
     

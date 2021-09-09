@@ -32,7 +32,22 @@ namespace PRO_finder.APIControllers
             }
             
         }
-       
+        [HttpGet]
+        public APIResult TalentGetOrder(int id, int status)
+        {
+
+            try
+            {
+                var result = _orderService.TalentGetOrderList(id, status);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                return new APIResult(APIStatus.Fail, ex.Message, "");
+            }
+
+        }
+
         //public APIResult CancelOrder(int id )
         //{
         //    try

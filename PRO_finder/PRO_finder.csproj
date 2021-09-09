@@ -831,7 +831,7 @@
     <Content Include="Views\Cart\ConfirmPayment.cshtml" />
     <Content Include="Views\Cart\ECPaymentResult.cshtml" />
     <Content Include="Views\Cart\ECPaymentResultPage.cshtml" />
-    <Content Include="Views\Talent\TalentOdInProgress.cshtml" />
+    <Content Include="Views\Talent\TalentOrderDoing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

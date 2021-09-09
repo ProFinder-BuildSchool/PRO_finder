@@ -278,7 +278,7 @@ namespace PRO_finder.Service
                 Price = qdCart.ProposePrice,
                 DealedDate = DateTime.UtcNow.AddHours(8),
                 ClientID = caseInfo.MemberID,
-                QuotationImg = "~/Assets/images/hero_1.jpg",
+                QuotationImg = "https://s1.tasker.com.tw/img/62M4ye/Zg/BL?update=1",
                 Email = clientInfo.Email,
                 PredictDays = qdCart.PredictDays,
                 Unit = 0,
