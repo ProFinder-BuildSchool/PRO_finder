@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "TalentOrderDoing";
+    ViewBag.Title = "TalentOrderFinished";
     Layout = "~/Views/Shared/_LayoutMemberTalent.cshtml";
 }
 <div id="Order">
@@ -45,9 +45,9 @@
 
                     </td>
                     <td>
-                        <div class="OrderStatus" >
+                        <div class="OrderStatus">
 
-                            <span class="OrderStatus text-danger" >{{item.OrderStatus}}</span>
+                            <span class="OrderStatus text-danger">{{item.OrderStatus}}</span>
 
                         </div>
                     </td>
@@ -95,7 +95,7 @@
                                 <p class="mb-0">
                                     備註:{{Memo}}
                                 </p>
-                                
+
                             </div>
 
                             <div class="collapse" id="collapseExample">
@@ -151,9 +151,9 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">取消訂單</button>
+                    
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" v-on:click="Finished">製作完成</button>
+                    
                 </div>
             </div>
         </div>
@@ -277,7 +277,7 @@
             methods:
             {
                 GetOrder() {
-                    axios.get('/api/Order/TalentGetOrder?id=@ViewBag.MemberId&status=9').then(res => {
+                    axios.get('/api/Order/TalentGetOrder?id=@ViewBag.MemberId&status=3').then(res => {
                         this.OrderList = res.data.Result
                         console.log(this.OrderList)
                     })
@@ -317,12 +317,7 @@
 
 
 
-                Finished() {
-                    axios.post(`/api/Order/UpdateOrderStatus?Orderid=${this.modal.OrderID}`, { OrderStatusNumber: this.modal.OrderStatusNumber + 1 }).then(res => {
-                        this.GetOrder();
-                        window.location.replace(`/Talent/TalentOrderDoing/${res.data.Result}`);
-                    })
-                }
+                
 
             },
             created() {

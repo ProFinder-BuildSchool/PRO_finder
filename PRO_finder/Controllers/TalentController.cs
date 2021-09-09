@@ -334,6 +334,16 @@ namespace PRO_finder.Controllers
 
             return View();
         }
+        public ActionResult TalentOrderFinished()
+        {
+
+            var MemberId = _orderservice.GetMemberID(HttpContext.User.Identity.GetUserId());
+            ViewBag.MemberId = MemberId;
+
+            return View();
+        }
+
+       
 
 
     }

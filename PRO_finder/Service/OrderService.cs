@@ -124,19 +124,19 @@ namespace PRO_finder.Service
             return OrderList;
         }
 
-        public List<OrderViewModel> TalentGetOrderList(int memberId, int status)
+        public List<OrderViewModel> TalentGetOrderList(int memberId,int status)
         {
-            List<Order> OrderDB;
+            List<Order> OrderDB = new List<Order>();
             
 
-            if (status != 3)
+            if (status == 9)
             {
-                OrderDB = _repo.GetAll<Order>().Where(x => x.ProposerID == memberId && x.OrderStatus == status).ToList();
+                OrderDB = _repo.GetAll<Order>().Where(x => (x.ProposerID == memberId && x.OrderStatus == 1)|| (x.ProposerID == memberId && x.OrderStatus == 2)).ToList();
 
             }
-            else
+            else if (status == 3)
             {
-                OrderDB = _repo.GetAll<Order>().Where(x => x.ProposerID == memberId && x.OrderStatus == status || x.ProposerID == memberId && x.OrderStatus == 4).ToList();
+                OrderDB = _repo.GetAll<Order>().Where(x => x.ProposerID == memberId && x.OrderStatus == 3 ).ToList();
             }
 
             List<OrderViewModel> OrderList = new List<OrderViewModel>();

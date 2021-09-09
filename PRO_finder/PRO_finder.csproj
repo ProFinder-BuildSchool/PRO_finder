@@ -19,8 +19,10 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44375</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -833,6 +835,7 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\PostECPayment.cshtml" />
     <Content Include="Views\Talent\TalentOrderDoing.cshtml" />
+    <Content Include="Views\Talent\TalentOrderFinished.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
