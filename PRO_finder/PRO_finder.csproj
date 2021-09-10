@@ -828,6 +828,12 @@
     <Content Include="Views\Cart\ConfirmPayment.cshtml" />
     <Content Include="Views\Cart\ECPaymentResult.cshtml" />
     <Content Include="Views\Cart\ECPaymentResultPage.cshtml" />
+    <Content Include="Views\Client\OrderAccepting.cshtml" />
+    <Content Include="Views\Client\OrderDeal.cshtml" />
+    <Content Include="Views\Client\OrderDoing.cshtml" />
+    <Content Include="Views\Client\OrderPendingPayment.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\PostECPayment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
