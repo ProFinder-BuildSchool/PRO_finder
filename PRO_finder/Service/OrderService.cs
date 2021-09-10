@@ -87,11 +87,11 @@ namespace PRO_finder.Service
            
             foreach (var item in OrderDB)
             {
-
+                var QuotationID = item.QuotationID;
                 var ProposerID = item.ProposerID;
                 var ProposerEmail = _repo.GetAll<MemberInfo>().First(x => x.MemberID == ProposerID).Email;
                 var ProposerCellPhone = _repo.GetAll<MemberInfo>().First(x => x.MemberID == ProposerID).Cellphone;
-                var ProposerQuotationTitle = _repo.GetAll<Quotation>().First(x => x.MemberID == (int)ProposerID).QuotationTitle;
+                var ProposerQuotationTitle = _repo.GetAll<Quotation>().First(x => x.QuotationID == (int)QuotationID).QuotationTitle;
                 var ProposerExecuteDate = _repo.GetAll<Quotation>().First(x => x.MemberID == (int)ProposerID).ExecuteDate;
                 OrderList.Add(new OrderViewModel
                 {
@@ -116,7 +116,9 @@ namespace PRO_finder.Service
                     ProposerQuotationTitle = ProposerQuotationTitle,
                     ProposerEmail= ProposerEmail,
                     ProposerCellPhone= ProposerCellPhone,
-                    OrderStatusNumber=(int)item.OrderStatus
+                    OrderStatusNumber=(int)item.OrderStatus,
+                    PaymentCode = item.PaymentCode,
+                    QuotationID = (int)item.QuotationID
                 });
             }
 
@@ -140,15 +142,18 @@ namespace PRO_finder.Service
 
 
 
-        public bool AddOrder(OrderViewModel[] OrderVM)
+        public string AddOrder(OrderViewModel[] OrderVM)
         {
+            //PaymentCode
+            string paymentRandomCode = Guid.NewGuid().ToString("N").Substring(5, 10);
+
             var ClientCart = _repo.GetAll<ClientCart>();
             foreach (var item in OrderVM)
             {
-                
+
                 var Order = new Order()
                 {
-                    DealedDate = DateTime.UtcNow,
+                    DealedDate = DateTime.UtcNow.AddHours(8),
                     OrderStatus = 0,
                     DepositStatus = 1,
                     ProposerID = item.ProposerID,
@@ -163,16 +168,26 @@ namespace PRO_finder.Service
                     Tel = item.Tel,
                     LineID = item.LineID,
                     Memo = item.Memo,
-                    ContactTime =item.ContactTime
-
+                    ContactTime =item.ContactTime,
+                    QuotationID = item.QuotationID,
+                    PaymentCode = paymentRandomCode
                 };
                 _repo.Create<Order>(Order);
                 var DelCart = ClientCart.First(x => x.CartID == item.CartID);
                 _repo.Delete<ClientCart>(DelCart);
             }
             _repo.SaveChanges();
-            return true;
+            return paymentRandomCode;
 
+        }
+
+
+        public bool DelCart(int MemberId,int OrderId)
+        {
+            var OrderDBList = _repo.GetAll<Order>().FirstOrDefault(x => (int)x.OrderID == OrderId && x.ClientID == MemberId);
+            _repo.Delete<Order>(OrderDBList);
+            _repo.SaveChanges();
+            return true;
         }
 
     }

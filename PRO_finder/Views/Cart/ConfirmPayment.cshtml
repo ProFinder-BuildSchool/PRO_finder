@@ -21,7 +21,7 @@
                         <td>@item.Name</td>
                         <td>@item.Price</td>
                         <td>@item.Quantity</td>
-                        <td class="text-danger">@item.Sum</td>
+                        <td>@item.Sum</td>
                     </tr>
                     }
                     @*<tr>
@@ -33,7 +33,7 @@
 
                 </tbody>
             </table>
-            <p class="w-100 text-right">合計： @ViewBag.Total 元</p>
+            <p class="w-100 text-right text-danger">合計： @ViewBag.Total 元</p>
             <input id="confirm" type="button" value="確認付款" class="btn btn-primary" data-content="@ViewBag.PaymentCode">
         </div>
     </div>

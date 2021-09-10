@@ -200,7 +200,7 @@
                                     <label class=""
                                            for="useraddress">收件人Line</label>
                                     <input type="text" class="form-control" name="line"
-                                           id="userline" placeholder="請輸入LineID" v-model="modal.LineID" /> <span class="text-danger">Line欄位不得留空</span>
+                                           id="userline" placeholder="請輸入LineID" v-model="modal.LineID" />
                                 </div>
                                 <div class="form-group text-start text-dark">
                                     <label for="memo">留言</label>
@@ -436,7 +436,7 @@
                                 this.cartsProduct = res.data.Result.map(x => Object.assign(x, { selected: false }))
                                 if (this.cartsProduct.length == 0 || this.cartsProduct == null) {
                                     this.get = false;
-                                    
+                                    console.log(this.cartsProduct)
                                 }
                                 else {
                                     this.get = true
@@ -460,16 +460,8 @@
                 },
                 addOrder() {
                     axios.post(`/api/Order/AddOrder`, this.productchecked).then(res => {
-                        if (res.data.Result) {
-                            $('#staticBackdrop').modal('hide')
-                            this.getCart()
-                            this.orderSuccess()
-                        }
-                        else {
-                            //TODO 加alert
-                            alert("更新失敗:" + res.data.ErrMsg)
-                        }
-                    })
+                        window.location.replace(`/Cart/GoToConfirmPayment/${res.data.Result}`);
+                    });
                 },
                 orderSuccess() {
                     Swal.fire(
@@ -545,7 +537,10 @@
             computed: {
                 cartTotal()
                 {
-                let temp = this.cartsProduct.map(x => x.Price * x.Count).reduce((a, b) => a + b)
+                    if (this.productchecked.length == 0) {
+                        return 0
+                    }
+                    let temp = this.productchecked.map(x => x.Price * x.Count).reduce((a, b) => a + b)
                 return temp.toLocaleString('zh-TW', { style: 'currency', currency: 'TWD', minimumFractionDigits: 0 })
                 }
             },
