@@ -482,6 +482,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\APIModels\APIBase\APIResult.cs" />
+    <Compile Include="Models\ViewModels\BankAccountViewModel.cs" />
     <Compile Include="Models\ViewModels\CaseViewModel.cs" />
     <Compile Include="Models\ViewModels\ClientCartViewModel.cs" />
     <Compile Include="Models\ViewModels\Home_IndexViewModel.cs" />
@@ -834,7 +835,9 @@
     <Content Include="Views\Client\OrderPendingPayment.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\PostECPayment.cshtml" />
-    <Content Include="Views\Talent\AcountSetting.cshtml" />
+    <Content Include="Views\Talent\AccountSetting.cshtml" />
+    <Content Include="Views\Talent\ReviseBankAccount.cshtml" />
+    <Content Include="Views\Talent\ReviseBank.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

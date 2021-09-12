@@ -322,9 +322,23 @@ namespace PRO_finder.Controllers
             Response.Write(result);
         }
 
-        public ActionResult AcountSetting()
+        public ActionResult AccountSetting()
         {
+            var UserId = HttpContext.User.Identity.GetUserId();
+            int currentUserId = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == UserId).MemberID;
+            ViewBag.userID = currentUserId;
+            BankAccountViewModel BankVM =_memberInfoService.GetBankAccount(currentUserId);
+            ViewBag.check = BankVM.BankAccount == null | BankVM.BankCode == null;
+            return View(BankVM);
 
+        }
+
+
+        public ActionResult ReviseBankAccount()
+        {
+            var UserId = HttpContext.User.Identity.GetUserId();
+            int currentUserId = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == UserId).MemberID;
+            ViewBag.userID = currentUserId;
             return View();
         }
 

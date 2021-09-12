@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using PRO_finder.Models.ViewModels;
 using PRO_finder.Models.ViewModels.APIModels.APIBase;
 using PRO_finder.Service;
 using System;
@@ -86,6 +87,16 @@ namespace PRO_finder.APIControllers
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             }
         }
-        
+
+        [HttpPost]
+        public APIResult ChangeBankAccount([FromBody] BankAccountViewModel newStatus)
+        {
+             var op_result = _memberInfoService.UpdateBankAccount(newStatus);
+             if(op_result.IsSuccessful)
+                return new APIResult(APIStatus.Success, string.Empty, "");
+             else
+                return new APIResult(APIStatus.Fail, op_result.Exception.ToString(), "");
+
+        }
     }
 }

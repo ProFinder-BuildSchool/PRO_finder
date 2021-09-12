@@ -86,7 +86,7 @@
                     }
                     else if (!daysRegexp.test(this.inputData.days)) {
                         this.inputDataCheck.daysError = true;
-                        this.inputDataCheck.daysErrorMsg = '輸入必須為數字';
+                        this.inputDataCheck.daysErrorMsg = '輸入必須為整數';
                     }
                     else {
                         this.inputDataCheck.daysError = false;
@@ -104,7 +104,7 @@
 
                     if (!priceRegexp.test(this.inputData.price)) {
                         this.inputDataCheck.priceError = true;
-                        this.inputDataCheck.priceErrorMsg = '報價必須為數字';
+                        this.inputDataCheck.priceErrorMsg = '報價必須為整數';
                     }
                     else {
                         this.inputDataCheck.passwordError = false;
