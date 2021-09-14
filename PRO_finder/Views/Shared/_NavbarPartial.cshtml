@@ -10,13 +10,17 @@
         </div>
     </div>
 
-    <div class="container-fluid bg-white d-none d-xl-block">
+    <div class="container-fluid bg-white d-none d-xl-block ">
         <div class="row py-1">
-            <div class="col-12  btn-area text-right p-0">
+            <div class="col-3">
+                <img src="~/Assets/images/logo.png" />
+            </div>
+
+            <div class="col-9  btn-area text-right p-0 my-auto">
                 <form class="d-inline-block" id="search_form" autocomplete="off" method="post">
                     <div class="mainInputextbox d-inline-block">
                         <p>
-                            <input type="text" name="contain" id="search_text" maxlength="100" placeholder="請輸入關鍵字" class="textfield" value="@TempData["Contain"]">
+                            <input type="text" name="contain" id="search_text" maxlength=" 100" placeholder="請輸入關鍵字" class="textfield" value="@TempData["Contain"]">
                         </p>
                     </div>
                     <p class="searchTypeSelect  d-inline-block">

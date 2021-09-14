@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using PRO_finder.Models.ViewModels.APIModels.APIBase;
+using PRO_finder.Models.ViewModels;
 using PRO_finder.Service;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace PRO_finder.APIControllers
             _memberInfoService = new MemberinfoService();
             _quotationService = new QuotationService();
         }
-        
+
         public APIResult GetAllCategoryAndSubCategoryList()
         {
             string result = "";
@@ -32,7 +33,7 @@ namespace PRO_finder.APIControllers
                 result = _cateService.GetAllCatAndSubCat();
                 return new APIResult(APIStatus.Success, string.Empty, result);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             }
@@ -43,14 +44,14 @@ namespace PRO_finder.APIControllers
             string result = "";
             try
             {
-                
+
                 result = _memberInfoService.GetJsonSubTool();
                 return new APIResult(APIStatus.Success, string.Empty, result);
             }
             catch (Exception ex)
             {
                 return new APIResult(APIStatus.Fail, ex.Message, result);
-            } 
+            }
         }
 
         public APIResult GetMemberToolRecord()
@@ -72,7 +73,7 @@ namespace PRO_finder.APIControllers
         }
 
         [HttpPost]
-        public APIResult ChangeQuotationStatus([FromBody]QuotationDetailViewModel newStatus)
+        public APIResult ChangeQuotationStatus([FromBody] QuotationDetailViewModel newStatus)
         {
             string result = "";
             try
@@ -81,11 +82,27 @@ namespace PRO_finder.APIControllers
                 result = "加入成功";
                 return new APIResult(APIStatus.Success, string.Empty, result);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             }
         }
-        
+
+        [HttpPost]
+        public APIResult UpdateMemberInfoData(int memberId, MemberInfoViewModel memberdata)
+        {
+            var result = false;
+            try
+            {
+                result = _memberInfoService.UpdateMemberInfoData(memberId, memberdata);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            }
+        }
+
     }
 }

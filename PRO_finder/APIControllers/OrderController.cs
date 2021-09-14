@@ -119,5 +119,56 @@ namespace PRO_finder.APIControllers
             };
 
         }
+
+
+        [HttpPost]
+        public APIResult OrderUnreadNumber(int Memberid,int status)
+        {
+            bool result;
+            try
+            {
+                result = _orderService.UpdateOrderUnreadNumber(Memberid, status);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            };
+
+        }
+
+
+        [HttpGet]
+        public APIResult UnreadCount(int MemberId)
+        {
+            try
+            {
+                var result = _orderService.UnreadCount(MemberId);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+
+            }
+            catch (Exception ex)
+            {
+                var result = "";
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            };
+        }
+
+        [HttpPost]
+        public APIResult UpdateOrderPaymentCode(int OrderId)
+        {
+            try
+            {
+                var result = _orderService.UpdateOrderPaymentCode(OrderId);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                string result ="" ;
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            }
+        }
     }
 }

@@ -19,8 +19,10 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44375</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -603,6 +605,7 @@
     <Content Include="Assets\images\job_logo_4.jpg" />
     <Content Include="Assets\images\job_logo_5.jpg" />
     <Content Include="Assets\images\job_single_img_1.jpg" />
+    <Content Include="Assets\images\logo.png" />
     <Content Include="Assets\images\logo_airbnb.svg" />
     <Content Include="Assets\images\logo_apple.svg" />
     <Content Include="Assets\images\logo_mailchimp.svg" />
@@ -832,6 +835,7 @@
     <Content Include="Views\Client\OrderPendingPayment.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\PostECPayment.cshtml" />
+    <Content Include="Views\Client\ReviseAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

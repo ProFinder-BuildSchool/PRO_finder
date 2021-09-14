@@ -39,7 +39,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">確認結帳</th>
+                                <th scope="col"><input class="checkbox AllChecked" type="checkbox" v-on:change="AllChecked" /> 全選 / 確認結帳</th>
                                 <th scope="col">產品</th>
                                 <th scope="col">名稱</th>
                                 <th scope="col">工作室名稱</th>
@@ -51,7 +51,7 @@
                         <tbody>
                             <tr v-for="(item,index) in cartsProduct">
                                 <td>
-                                    <input class="checkbox" type="checkbox" v-on:change="addcheckoutList(index)" />
+                                    <input class="checkbox paymentcheckbox" type="checkbox" v-on:change="addcheckoutList(index)" />
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-center">
@@ -386,7 +386,16 @@
             event.preventDefault()
             $(this).tab('show')
         })
+
+
+        
+
+
     </script>
+
+
+
+
 
     <script>
         let cart = new Vue({
@@ -452,11 +461,52 @@
                     if (this.productchecked.length == 0) {
                         this.disabled = true
                     }
-                    else {
+                    else
+                    {
                         this.disabled = false;
                     }
-                    
 
+                    if (this.productchecked.length != this.cartsProduct.length) {
+                        document.querySelector('.AllChecked').checked = false;
+                        console.log(2342)
+                    }
+                    else
+                    {
+                        document.querySelector('.AllChecked').checked = true;
+                    }
+
+                },
+                AllChecked() {
+
+                    this.productchecked = [];
+
+                    if (document.querySelector('.AllChecked').checked == true) {
+                        document.querySelectorAll('.paymentcheckbox').forEach(function (item, index) {
+                            item.checked = true;
+
+                        })
+                        this.productchecked = this.cartsProduct
+
+                        this.productchecked.map(x => x.selected = true);
+
+                        console.log(this.productchecked)
+                    }
+                    else {
+                        document.querySelectorAll('.paymentcheckbox').forEach(function (item, index) {
+                            item.checked = false;
+                        })
+                        this.productchecked.map(x => x.selected = false);
+                    }
+                   
+
+
+                    if (this.productchecked.length == 0) {
+                        this.disabled = true
+                    }
+                    else
+                    {
+                        this.disabled = false;
+                    }
                 },
                 addOrder() {
                     axios.post(`/api/Order/AddOrder`, this.productchecked).then(res => {

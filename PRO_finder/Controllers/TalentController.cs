@@ -321,7 +321,6 @@ namespace PRO_finder.Controllers
             var result = _cloudinaryHelper.UploadToCloudinary(file);
             Response.Write(result);
         }
-
        
 
 

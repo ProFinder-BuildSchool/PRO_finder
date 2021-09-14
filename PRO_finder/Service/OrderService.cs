@@ -30,8 +30,25 @@ namespace PRO_finder.Service
         {
 
             _repo.GetAll<Order>().First(x => x.OrderID == Orderid).OrderStatus = OrderStatusNumber.OrderStatusNumber;
+            _repo.GetAll<Order>().First(x => x.OrderID == Orderid).OrderType = 0;
             _repo.SaveChanges();
 
+            return true;
+        }
+
+        public bool UpdateOrderUnreadNumber(int Memberid,int status)
+        {
+
+            var order = _repo.GetAll<Order>().Where(x => x.ClientID == Memberid && x.OrderStatus == status && x.OrderType == 0).ToList();
+
+            foreach (var item in order)
+            {
+                _repo.GetAll<Order>().First(x => x.OrderID == item.OrderID).OrderType = 1;
+                _repo.Update(item);
+
+            }
+
+            _repo.SaveChanges();
             return true;
         }
 
@@ -75,16 +92,17 @@ namespace PRO_finder.Service
             List<Order> OrderDB;
             if (status != 3)
             {
-                 OrderDB = _repo.GetAll<Order>().Where(x => x.ClientID == memberId && x.OrderStatus == status ).ToList();
+                OrderDB = _repo.GetAll<Order>().Where(x => x.ClientID == memberId && x.OrderStatus == status).ToList();
             }
             else
             {
-                 OrderDB = _repo.GetAll<Order>().Where(x => x.ClientID == memberId && x.OrderStatus == status || x.ClientID == memberId && x.OrderStatus == 4).ToList();
+                OrderDB = _repo.GetAll<Order>().Where(x => x.ClientID == memberId && x.OrderStatus == status || x.ClientID == memberId && x.OrderStatus == 4).ToList();
             }
 
 
+
             List<OrderViewModel> OrderList = new List<OrderViewModel>();
-           
+
             foreach (var item in OrderDB)
             {
                 var QuotationID = item.QuotationID;
@@ -98,7 +116,7 @@ namespace PRO_finder.Service
                     OrderID = item.OrderID,
                     ProposerID = (int)item.ProposerID,
                     OrderSetupDay = ((DateTime)item.DealedDate).ToString("yyyy-MM-dd"),
-                    PredictDays = CalcLastDate(item.DealedDate, ProposerExecuteDate*(int)item.Count),
+                    PredictDays = CalcLastDate(item.DealedDate, ProposerExecuteDate * (int)item.Count),
                     Schedule = GetSchedule(item.DealedDate, ProposerExecuteDate * (int)item.Count),
                     Remaindays = GetRemaindays(item.DealedDate, ProposerExecuteDate * (int)item.Count),
                     ClientID = (int)item.ClientID,
@@ -114,9 +132,9 @@ namespace PRO_finder.Service
                     Memo = item.Memo,
                     OrderStatus = System.Enum.GetName(typeof(OrderStatus), item.OrderStatus),
                     ProposerQuotationTitle = ProposerQuotationTitle,
-                    ProposerEmail= ProposerEmail,
-                    ProposerCellPhone= ProposerCellPhone,
-                    OrderStatusNumber=(int)item.OrderStatus,
+                    ProposerEmail = ProposerEmail,
+                    ProposerCellPhone = ProposerCellPhone,
+                    OrderStatusNumber = (int)item.OrderStatus,
                     PaymentCode = item.PaymentCode,
                     QuotationID = (int)item.QuotationID
                 });
@@ -124,7 +142,7 @@ namespace PRO_finder.Service
 
             return OrderList;
         }
-        public static string CalcLastDate(DateTime? dateTime,int days)
+        public static string CalcLastDate(DateTime? dateTime, int days)
         {
             var one = (DateTime)dateTime;
             return (one.AddDays(days).Date).ToString("yyyy-MM-dd");
@@ -132,7 +150,7 @@ namespace PRO_finder.Service
         public static decimal GetSchedule(DateTime? dateTime, int days)
         {
             var temp = ((DateTime)dateTime).AddDays(days);
-            return  (temp - DateTime.UtcNow).Days * 100 / days;
+            return (temp - DateTime.UtcNow).Days * 100 / days;
         }
         public static int GetRemaindays(DateTime? dateTime, int days)
         {
@@ -168,9 +186,10 @@ namespace PRO_finder.Service
                     Tel = item.Tel,
                     LineID = item.LineID,
                     Memo = item.Memo,
-                    ContactTime =item.ContactTime,
+                    ContactTime = item.ContactTime,
                     QuotationID = item.QuotationID,
-                    PaymentCode = paymentRandomCode
+                    PaymentCode = paymentRandomCode,
+                    OrderType = 0
                 };
                 _repo.Create<Order>(Order);
                 var DelCart = ClientCart.First(x => x.CartID == item.CartID);
@@ -182,12 +201,27 @@ namespace PRO_finder.Service
         }
 
 
-        public bool DelCart(int MemberId,int OrderId)
+        public string UpdateOrderPaymentCode(int OrderId)
+        {
+            //PaymentCode
+            string paymentRandomCode = Guid.NewGuid().ToString("N").Substring(5, 10);
+            _repo.GetAll<Order>().First(x => x.OrderID == OrderId).PaymentCode = paymentRandomCode;
+            _repo.SaveChanges();
+
+            return paymentRandomCode;
+        }
+
+        public bool DelCart(int MemberId, int OrderId)
         {
             var OrderDBList = _repo.GetAll<Order>().FirstOrDefault(x => (int)x.OrderID == OrderId && x.ClientID == MemberId);
             _repo.Delete<Order>(OrderDBList);
             _repo.SaveChanges();
             return true;
+        }
+
+        public List<OrderUnreadCount> UnreadCount(int MemberId)
+        {
+            return _repo.GetAll<Order>().Where(g => g.ClientID == MemberId && g.OrderType == 0).GroupBy(x => x.OrderStatus).Select(y => new OrderUnreadCount { Status = (int)y.Key, Counts = y.Count() }).ToList();
         }
 
     }

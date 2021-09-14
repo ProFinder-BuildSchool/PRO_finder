@@ -234,6 +234,13 @@
             width: 150px;
             height: 150px;
         }
+
+        .pendingpayment {
+            color: white !important;
+            background-color: #89ba16 !important;
+            border-radius:6px;
+            font-weight:bolder;
+        }
     </style>
 }
 
@@ -325,8 +332,12 @@
                     })
                 },
                 payment(index) {
-                console.log(this.OrderList)
-                    window.location.replace(`/Cart/GoToConfirmPayment/${this.OrderList[index].PaymentCode}`);
+                    axios.post(`/api/Order/UpdateOrderPaymentCode?OrderId=${this.OrderList[index].OrderID}`)
+                        .then(res => {
+                            if (res.data.Status == 0) {
+                                window.location.replace(`/Cart/GoToConfirmPayment/${res.data.Result}`);
+                            }
+                        })
                 },
                 OrderDelete(deleteOrderID) {
                     Swal.fire({
