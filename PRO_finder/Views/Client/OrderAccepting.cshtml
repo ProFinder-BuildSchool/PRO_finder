@@ -48,7 +48,7 @@
                         <div class="OrderStatus">
 
                             <div class="OrderStatus text-danger">{{item.OrderStatus}}</div>
-                           
+
                             <a href="" class="font-weight-bolder" v-on:click.prevent="ChangeOrderStatus(item)">
                                 [驗收完成]
                             </a>
@@ -186,13 +186,14 @@
             overflow: hidden;
             max-height: 15px;
         }
-        .line-txt{
-           margin:0;
-           font-size:4px;
-           line-height:1;
-           letter-spacing:10px;
-           color:transparent;
-           -webkit-text-stroke:1px #000;
+
+        .line-txt {
+            margin: 0;
+            font-size: 4px;
+            line-height: 1;
+            letter-spacing: 10px;
+            color: transparent;
+            -webkit-text-stroke: 1px #000;
         }
 
 
@@ -248,6 +249,13 @@
             width: 150px;
             height: 150px;
         }
+
+        .accepting {
+            color: white !important;
+            background-color: #89ba16 !important;
+            border-radius: 6px;
+            font-weight: bolder;
+        }
     </style>
 }
 
@@ -285,6 +293,11 @@
                 Contacttostring: '',
                 OrderStatusNumber: '',
                 QuotationLink: '',
+                Status0:'',
+                Status1:'',
+                Status2:'',
+                Status3:'',
+                Status4:''
             },
             methods:
             {
@@ -340,12 +353,63 @@
                 ChangeOrderStatus(item) {
 
                     axios.post(`/api/Order/UpdateOrderStatus?Orderid=${item.OrderID}`, { OrderStatusNumber: item.OrderStatusNumber + 1 }).then(res => {
-                        this.GetOrder();
+                        if (res.data.Result) {
+                            Swal.fire({
+                                title: '已提出撥款需求',
+                                imageUrl: 'https://dinamegahed.com/wp-content/uploads/2021/03/0_Uyq1O1gziwll1PCt_.jpg',
+                                imageWidth: 400,
+                                imageHeight: 200,
+                                imageAlt: 'Custom image',
+                            })
+
+                            this.GetOrder();
+                            this.OrderUnreadNumber();
+                        }
+                        else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: '系統發生錯誤!',
+                                text: '請喝杯咖啡再點選一次~ :)',
+                            })
+                        }
+                        
                     })
-                    //OrderStatusNumber = item.OrderStatusNumber +1
-                    //console.log(OrderStatusNumber)
-                    //console.log(item.OrderID)
-                }
+                },
+                OrderUnreadNumber() {
+                    axios.get('/api/Order/UnreadCount?MemberId=@ViewBag.MemberId')
+                        .then(res => {
+
+                    res.data.Result.forEach(function(item, index) {
+                        item.Status == 0 ? Status0 = item.Counts : item.Status == 1 ? Status1 = item.Counts : item.Status == 2 ? Status2 = item.Counts : item.Status == 3 ? Status3 = item.Counts : item.Status == 4 ? Status4 = item.Counts : Status4 = 0
+                        console.log("Status0" + Status0, "Status1"+Status1, "Status2"+Status2, "Status3"+Status3)
+                    })
+
+                    console.log(res.data.Result)
+                    console.log(this.Status3)
+                    console.log(this.Status4)
+
+                    let badge = document.querySelectorAll('.badge');
+                    badge[0].innerText = Status0;
+                    badge[1].innerText = Status1;
+                    badge[2].innerText = Status2;
+                    badge[3].innerText = Status3 + Status4;
+
+                    document.querySelectorAll('.orderbadge').forEach(function (item,index) {
+                        item.addEventListener('click', function () {
+                            if (index == 3) {
+                                axios.post(`/api/Order/OrderUnreadNumber?Memberid=@ViewBag.MemberId&status=${index + 1}`).then(res => {
+                                    })
+                             }
+                            axios.post(`/api/Order/OrderUnreadNumber?Memberid=@ViewBag.MemberId&status=${index}`).then(res => {
+                            OrderUnreadNumber();
+                                    })
+
+                                    })
+                                })
+                            })
+                    }
+
+
 
             },
             created() {

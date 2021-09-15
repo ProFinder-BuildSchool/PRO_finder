@@ -19,8 +19,10 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44375</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -441,18 +443,24 @@
     <Compile Include="Migrations\202109090316287_2021-09-09 DB update.Designer.cs">
       <DependentUpon>202109090316287_2021-09-09 DB update.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109151359371_2021-09-15.cs" />
+    <Compile Include="Migrations\202109151359371_2021-09-15.Designer.cs">
+      <DependentUpon>202109151359371_2021-09-15.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\DBModel\AspNetRoles.cs" />
     <Compile Include="Models\DBModel\AspNetUserClaims.cs" />
     <Compile Include="Models\DBModel\AspNetUserLogins.cs" />
+    <Compile Include="Models\DBModel\AspNetUserRoles.cs" />
     <Compile Include="Models\DBModel\AspNetUsers.cs" />
+    <Compile Include="Models\DBModel\Banner.cs" />
     <Compile Include="Models\DBModel\Case.cs" />
     <Compile Include="Models\DBModel\CaseNotification.cs" />
     <Compile Include="Models\DBModel\CaseReference.cs" />
     <Compile Include="Models\DBModel\Category.cs" />
     <Compile Include="Models\DBModel\ClientCart.cs" />
     <Compile Include="Models\DBModel\Experience.cs" />
+    <Compile Include="Models\DBModel\FeaturedWork.cs" />
     <Compile Include="Models\DBModel\HostingDetail.cs" />
     <Compile Include="Models\DBModel\Locations.cs" />
     <Compile Include="Models\DBModel\MemberInfo.cs" />
@@ -480,6 +488,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\APIModels\APIBase\APIResult.cs" />
+    <Compile Include="Models\ViewModels\BankAccountViewModel.cs" />
     <Compile Include="Models\ViewModels\CaseViewModel.cs" />
     <Compile Include="Models\ViewModels\ClientCartViewModel.cs" />
     <Compile Include="Models\ViewModels\Home_IndexViewModel.cs" />
@@ -603,6 +612,7 @@
     <Content Include="Assets\images\job_logo_4.jpg" />
     <Content Include="Assets\images\job_logo_5.jpg" />
     <Content Include="Assets\images\job_single_img_1.jpg" />
+    <Content Include="Assets\images\logo.png" />
     <Content Include="Assets\images\logo_airbnb.svg" />
     <Content Include="Assets\images\logo_apple.svg" />
     <Content Include="Assets\images\logo_mailchimp.svg" />
@@ -832,6 +842,12 @@
     <Content Include="Views\Client\OrderPendingPayment.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\PostECPayment.cshtml" />
+    <Content Include="Views\Talent\AccountSetting.cshtml" />
+    <Content Include="Views\Talent\ReviseBankAccount.cshtml" />
+    <Content Include="Views\Talent\ReviseBank.cshtml" />
+    <Content Include="Views\Client\ReviseAccount.cshtml" />
+    <Content Include="Views\Talent\TalentOrderDoing.cshtml" />
+    <Content Include="Views\Talent\TalentOrderFinished.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -939,6 +955,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109090316287_2021-09-09 DB update.resx">
       <DependentUpon>202109090316287_2021-09-09 DB update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109151359371_2021-09-15.resx">
+      <DependentUpon>202109151359371_2021-09-15.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

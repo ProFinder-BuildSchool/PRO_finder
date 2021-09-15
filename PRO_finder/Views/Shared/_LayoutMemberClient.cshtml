@@ -18,10 +18,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
           integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
-    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    <title>@ViewBag.Title - ProFinder</title>
 
     @Styles.Render("~/bundles/css")
 
+    <style>
+        .badge{
+            background-color:red!important;
+            border-radius:60px;
+            color:white;
+        }
+    </style>
     @RenderSection("topCSS", required: false)
     @RenderSection("topJS", required: false)
     <style>
@@ -167,25 +174,25 @@
                                                      data-parent="#accordionExample">
                                                     <div class="card-body">
                                                         @*<li class="nav-item">
-            <a class="nav-link" href="#unsolvedcase.html">案件草稿</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#unsolvedcase.html">審核中的案件</a>
-        </li>*@
+                                                                <a class="nav-link" href="#unsolvedcase.html">案件草稿</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" href="#unsolvedcase.html">審核中的案件</a>
+                                                            </li>*@
 
 
                                                         <li class="nav-item">
-                                                            <a class="nav-link" href="@Url.Action("OrderPendingPayment", "Client")">待付款的案件</a>
+                                                            <a class="nav-link pendingpayment orderbadge" href="@Url.Action("OrderPendingPayment", "Client")"><span class="badge"></span> 待付款的案件</a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link" href="@Url.Action("OrderDoing", "Client")">進行中的案件</a>
+                                                            <a class="nav-link doing orderbadge" href="@Url.Action("OrderDoing", "Client")"><span class="badge"></span> 進行中的案件</a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link" href="@Url.Action("OrderAccepting", "Client")">待驗收的案件</a>
+                                                            <a class="nav-link accepting orderbadge" href="@Url.Action("OrderAccepting", "Client")"><span class="badge"></span> 待驗收的案件</a>
                                                         </li>
 
                                                         <li class="nav-item">
-                                                            <a class="nav-link" href="@Url.Action("OrderDeal", "Client")">已成交的案件</a>
+                                                            <a class="nav-link deal orderbadge" href="@Url.Action("OrderDeal", "Client")"><span class="badge"></span> 已成交的案件</a>
                                                         </li>
                                                     </div>
                                                 </div>
@@ -232,7 +239,7 @@
                                                             <a class="nav-link" href="#myAcount.html">金融帳戶管理</a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link" href="#editAcount.html">修改會籍帳戶</a>
+                                                            <a class="nav-link" href="@Url.Action("ReviseAccount", "Client", new{userId})">修改會籍帳戶</a>
                                                         </li>
                                                         <li class="nav-item">
                                                             <a class="nav-link" href="#clientService.html">客服中心</a>
@@ -272,5 +279,50 @@
     @RenderSection("scripts", required: false)
     @RenderSection("endCSS", required: false)
     @RenderSection("endJS", required: false)
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+            integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        OrderUnreadNumber();
+        let Status0 = '';
+        let Status1 = '';
+        let Status2 = '';
+        let Status3 = '';
+        let Status4 = '';
+
+        function OrderUnreadNumber() {
+            axios.get('/api/Order/UnreadCount?MemberId=@userId')
+                .then(res => {
+
+                    res.data.Result.forEach(function(item, index) {
+                        item.Status == 0 ? Status0 = item.Counts : item.Status == 1 ? Status1 = item.Counts : item.Status == 2 ? Status2 = item.Counts : item.Status == 3 ? Status3 = item.Counts : item.Status == 4 ? Status4 = item.Counts : Status4 = 0
+                        console.log("Status0" + Status0, "Status1"+Status1, "Status2"+Status2, "Status3"+Status3)
+                    })
+
+                    console.log(res.data.Result)
+                    console.log(Status3)
+                    console.log(Status4)
+
+                    let badge = document.querySelectorAll('.badge');
+                    badge[0].innerText = Status0;
+                    badge[1].innerText = Status1;
+                    badge[2].innerText = Status2;
+                    badge[3].innerText = Status3 + Status4;
+            })
+        }
+
+        document.querySelectorAll('.orderbadge').forEach(function (item,index) {
+            item.addEventListener('click', function () {
+                if (index == 3) {
+                    axios.post(`/api/Order/OrderUnreadNumber?Memberid=@userId&status=${index + 1}`).then(res => {
+                    })
+                }
+                   axios.post(`/api/Order/OrderUnreadNumber?Memberid=@userId&status=${index}`).then(res => {
+                   OrderUnreadNumber();
+                })
+
+            })
+        })
+    </script>
 </body>
 </html>

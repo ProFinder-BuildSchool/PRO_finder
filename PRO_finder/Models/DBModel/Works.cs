@@ -11,6 +11,7 @@ namespace PRO_finder.Models.DBModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Works()
         {
+            FeaturedWork = new HashSet<FeaturedWork>();
             WorkPictures = new HashSet<WorkPictures>();
         }
 
@@ -39,6 +40,11 @@ namespace PRO_finder.Models.DBModel
         public int? WorkAttachmentID { get; set; }
 
         public int? MemberID { get; set; }
+
+        public int? Featured { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FeaturedWork> FeaturedWork { get; set; }
 
         public virtual SubCategory SubCategory { get; set; }
 

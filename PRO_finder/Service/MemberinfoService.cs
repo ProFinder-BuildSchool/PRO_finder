@@ -140,17 +140,17 @@ namespace PRO_finder.Service
                 Cellphone = memInfo.Cellphone,
                 Email = memInfo.Email,
                 Status = memInfo.Status,
-                NickName = memInfo.NickName, 
+                NickName = memInfo.NickName,
                 LiveCity = memInfo.LiveCity,
                 SubCategoryID = memInfo.SubCategoryID,
                 AllPieceworkExp = memInfo.AllPieceworkExp,
                 Description = memInfo.Description,
             };
             //接案身份
-            memberInfoVM.Identity = memInfo.Identity == null ? (MemberInfoViewModel.IdentityStatus)(-1): (MemberInfoViewModel.IdentityStatus)memInfo.Identity;
+            memberInfoVM.Identity = memInfo.Identity == null ? (MemberInfoViewModel.IdentityStatus)(-1) : (MemberInfoViewModel.IdentityStatus)memInfo.Identity;
             //理想接案城市
-            memberInfoVM.LocationIDInt = memInfo.LocationID == null? -1: (int)memInfo.LocationID;
-            
+            memberInfoVM.LocationIDInt = memInfo.LocationID == null ? -1 : (int)memInfo.LocationID;
+
             if (exp != null)
             {
                 memberInfoVM.Experiences = exp;
@@ -233,6 +233,65 @@ namespace PRO_finder.Service
             var record = _ctx.GetAll<TalentTool>().Where(x => x.MemberID == memberID).ToList();
             return JsonConvert.SerializeObject(record);
         }
+        public BankAccountViewModel GetBankAccount(int memberID)
+        {
+            var record = _ctx.GetAll<MemberInfo>().Where(x => x.MemberID == memberID).ToList();
+            var BankAccountVM = (from m in record
+                                 select new BankAccountViewModel
+                                 {
+                                     MemberID = m.MemberID,
+                                     BankCode = m.BankCode,
+                                     BankAccount = m.BankAccount
+                    
+                                 });
+            return BankAccountVM.FirstOrDefault();
+        }
+        public OperationResult UpdateBankAccount(BankAccountViewModel newBank)
+        {
+            var entity = _ctx.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == newBank.MemberID);
+            var result = new OperationResult();
+            try
+            {
+                entity.MemberID = newBank.MemberID;
+                entity.BankCode = newBank.BankCode;
+                entity.BankAccount = newBank.BankAccount;
+                _ctx.Update(entity);
+                _ctx.SaveChanges();
+                result.IsSuccessful = true;
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccessful = false;
+                result.Exception = ex;
+            }
+            return result;
+        }
 
+        public MemberInfoViewModel GetAccountInfo(int userId)
+        {
+            var memberInfo = _ctx.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == userId);
+
+            var memberList = new MemberInfoViewModel()
+            {
+                Email = memberInfo.Email,
+                Cellphone = memberInfo.Cellphone
+            };
+
+            return memberList;
+
+        }
+
+
+        public bool UpdateMemberInfoData(int memberId, MemberInfoViewModel memberdata)
+        {
+
+            _ctx.GetAll<MemberInfo>().First(x => x.MemberID == memberId).Email = memberdata.Email;
+            _ctx.GetAll<MemberInfo>().First(x => x.MemberID == memberId).Cellphone = memberdata.Cellphone;
+            _ctx.SaveChanges();
+
+            return true;
+        }
     }
+
+    
 }

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
           integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
-    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    <title>@ViewBag.Title - ProFinder</title>
 
     @Styles.Render("~/bundles/css")
 
@@ -189,10 +189,10 @@
                                                             <a class="nav-link" href="@Url.Action("QTRecord","FindQuotation")">提案記錄</a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link" href="#deal.html.html">成交服務記錄</a>
+                                                            <a class="nav-link" href="@Url.Action("TalentOrderDoing","Talent")">進行中的服務</a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link" href="#inviteQuotation.html">邀請報價通知</a>
+                                                            <a class="nav-link" href="@Url.Action("TalentOrderFinished","Talent")">已完成服務</a>
                                                         </li>
                                                         <li class="nav-item">
                                                             <a class="nav-link" href="@Url.Action("SaveCase","SaveCase")">已收藏案件</a>
@@ -214,7 +214,7 @@
                                                      data-parent="#accordionExample2">
                                                     <div class="card-body">
                                                         <li class="nav-item">
-                                                            <a class="nav-link" href="#v-pills-AcountSetting">金融帳戶管理</a>
+                                                            <a class="nav-link" href="@Url.Action("AccountSetting","Talent")">金融帳戶管理</a>
                                                         </li>
                                                         <li class="nav-item">
                                                             <a class="nav-link" href="#v-pills-edit">修改會籍帳戶</a>

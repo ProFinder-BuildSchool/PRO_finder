@@ -56,7 +56,7 @@ namespace PRO_finder.Controllers
         public ActionResult Index2()
         {
 
-            var list = _worksService.GetWorks_HomeIndex();
+            var list = _Home_IndexService.Test();
 
             return Json(list,JsonRequestBehavior.AllowGet);
         }

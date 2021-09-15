@@ -39,7 +39,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">確認結帳</th>
+                                <th scope="col"><input class="checkbox AllChecked" type="checkbox" v-on:change="AllChecked" /> 全選 / 確認結帳</th>
                                 <th scope="col">產品</th>
                                 <th scope="col">名稱</th>
                                 <th scope="col">工作室名稱</th>
@@ -51,7 +51,7 @@
                         <tbody>
                             <tr v-for="(item,index) in cartsProduct">
                                 <td>
-                                    <input class="checkbox" type="checkbox" v-on:change="addcheckoutList(index)" />
+                                    <input class="checkbox paymentcheckbox" type="checkbox" v-on:change="addcheckoutList(index)" />
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-center">
@@ -141,7 +141,7 @@
                                         </div>
                                         <div class="RefuseOrChoose text-right">
                                             <button class="refusebtn btn btn-outline-primary" @@click="refuse(item.QuotationDetailID)">婉拒</button>
-                                            <button class="choosebtn btn btn-primary" @@click="complete(item.QuotationDetailID)">接受</button>
+                                            <button class="choosebtn btn btn-primary" @@click="complete(item.QuotationDetailID)">結帳</button>
                                             
                                         </div>
                                     </td>
@@ -200,7 +200,7 @@
                                     <label class=""
                                            for="useraddress">收件人Line</label>
                                     <input type="text" class="form-control" name="line"
-                                           id="userline" placeholder="請輸入LineID" v-model="modal.LineID" /> <span class="text-danger">Line欄位不得留空</span>
+                                           id="userline" placeholder="請輸入LineID" v-model="modal.LineID" />
                                 </div>
                                 <div class="form-group text-start text-dark">
                                     <label for="memo">留言</label>
@@ -386,7 +386,16 @@
             event.preventDefault()
             $(this).tab('show')
         })
+
+
+        
+
+
     </script>
+
+
+
+
 
     <script>
         let cart = new Vue({
@@ -452,11 +461,52 @@
                     if (this.productchecked.length == 0) {
                         this.disabled = true
                     }
-                    else {
+                    else
+                    {
                         this.disabled = false;
                     }
-                    
 
+                    if (this.productchecked.length != this.cartsProduct.length) {
+                        document.querySelector('.AllChecked').checked = false;
+                        console.log(2342)
+                    }
+                    else
+                    {
+                        document.querySelector('.AllChecked').checked = true;
+                    }
+
+                },
+                AllChecked() {
+
+                    this.productchecked = [];
+
+                    if (document.querySelector('.AllChecked').checked == true) {
+                        document.querySelectorAll('.paymentcheckbox').forEach(function (item, index) {
+                            item.checked = true;
+
+                        })
+                        this.productchecked = this.cartsProduct
+
+                        this.productchecked.map(x => x.selected = true);
+
+                        console.log(this.productchecked)
+                    }
+                    else {
+                        document.querySelectorAll('.paymentcheckbox').forEach(function (item, index) {
+                            item.checked = false;
+                        })
+                        this.productchecked.map(x => x.selected = false);
+                    }
+                   
+
+
+                    if (this.productchecked.length == 0) {
+                        this.disabled = true
+                    }
+                    else
+                    {
+                        this.disabled = false;
+                    }
                 },
                 addOrder() {
                     axios.post(`/api/Order/AddOrder`, this.productchecked).then(res => {
@@ -537,7 +587,10 @@
             computed: {
                 cartTotal()
                 {
-                let temp = this.cartsProduct.map(x => x.Price * x.Count).reduce((a, b) => a + b)
+                    if (this.productchecked.length == 0) {
+                        return 0
+                    }
+                    let temp = this.productchecked.map(x => x.Price * x.Count).reduce((a, b) => a + b)
                 return temp.toLocaleString('zh-TW', { style: 'currency', currency: 'TWD', minimumFractionDigits: 0 })
                 }
             },

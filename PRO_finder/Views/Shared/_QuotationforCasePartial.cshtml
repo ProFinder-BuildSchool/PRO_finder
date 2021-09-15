@@ -4,21 +4,6 @@
 }
 
 
-@*<a class="addCart"> @Html.Partial("_QuotationforCasePartial")</a>*@
-@*@Html.Partial("_QuotationforCasePartial")*@
-<!--<head>-->
-@*Load required Bootstrap and BootstrapVue CSS*@
-<!--<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
-<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />-->
-@*Load polyfills to support older browsers*@
-<!--<script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"
-        crossorigin="anonymous"></script>-->
-@*Load Vue followed by BootstrapVue*@
-<!--<script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
-<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>-->
-@*Load the following for BootstrapVueIcons support*@
-<!--<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
-</head>-->
 <div id="inputinfo">
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="modalbtn">
         我要報價
@@ -26,7 +11,6 @@
 
 
     <div class="modal fade" id="myModal" data-backdrop="false" style="margin-top:50px">
-        @*tabindex="-1" aria-labelledby="myModalLabel" data-backdrop="false">*@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -89,11 +73,11 @@
                 messageError: false,
                 messageErrorMsg: ''
             },
-            addVerify: true
+            addVerify: true,
+            caseID: @Html.Raw(ViewBag.caseID)
         },
         watch: {
             'inputData.days': {
-                //immediate: true,
                 handler: function () {
                     //天數不得空，且必須為數字
                     let daysRegexp = /^[0-9]{1,10}$/
@@ -103,7 +87,7 @@
                     }
                     else if (!daysRegexp.test(this.inputData.days)) {
                         this.inputDataCheck.daysError = true;
-                        this.inputDataCheck.daysErrorMsg = '輸入必須為數字';
+                        this.inputDataCheck.daysErrorMsg = '輸入必須為整數';
                     }
                     else {
                         this.inputDataCheck.daysError = false;
@@ -113,7 +97,6 @@
                 }
             },
             'inputData.price': {
-                //immediate: true,
                 handler: function () {
                     this.inputDataCheck.priceError = false;
                     this.inputDataCheck.priceErrorMsg = '';
@@ -122,7 +105,7 @@
 
                     if (!priceRegexp.test(this.inputData.price)) {
                         this.inputDataCheck.priceError = true;
-                        this.inputDataCheck.priceErrorMsg = '報價必須為數字';
+                        this.inputDataCheck.priceErrorMsg = '報價必須為整數';
                     }
                     else {
                         this.inputDataCheck.passwordError = false;
@@ -133,7 +116,6 @@
                 }
             },
             'inputData.message': {
-                //immediate: true,
                 handler: function () {
                     if (this.inputData.message == '') {
                         this.inputDataCheck.messageError = true;
@@ -166,47 +148,53 @@
 
                 alert('已提交報價!')
 
-                modalbtn.innerHTML='已報價',
+                modalbtn.innerHTML = '已報價';
                 modalbtn.disabled = true;
 
                 //this.inputData.days = '',
                 //this.inputData.price = '',
                 //this.inputData.message = '您好 我是XXX 想接您的案子'
-               
-                
-
             }
-
         },
+        mounted: function () {
+            axios({ method: "post", url: "/api/Cart/IsAddQuotationCart", data: this.caseID, headers: { 'Content-Type': 'application/json; charset=utf-8', 'strict': false } })
+                .then(res => {
+                    if (res.data.Result) {
+                        let modalbtn = document.querySelector("#modalbtn");
+                        modalbtn.innerHTML = '已報價';
+                            modalbtn.disabled = true;
+                    } 
+                });
+        }
     });
 </script>
 @*<script>
-    let obj = new Object();
-    obj['CaseID'] = 1;
-    obj['PredictDays'] = inputData.days;
-    obj['ProposeDescription'] = inputData.message;
-    obj['ProposePrice'] = inputData.price;
-    document.querySelector("#report").addEventListener("click", function () {
-        fetch('/api/Cart/PostQuotationInfo', { method: 'post', headers: { "Content-Type": "application/json" }, body: JSON.stringify(obj) }).then(res => res.text())
+        let obj = new Object();
+        obj['CaseID'] = 1;
+        obj['PredictDays'] = inputData.days;
+        obj['ProposeDescription'] = inputData.message;
+        obj['ProposePrice'] = inputData.price;
+        document.querySelector("#report").addEventListener("click", function () {
+            fetch('/api/Cart/PostQuotationInfo', { method: 'post', headers: { "Content-Type": "application/json" }, body: JSON.stringify(obj) }).then(res => res.text())
 
-    });
+        });
 
-</script>
-<script>
-    export default {
-        computed: {
-            isDisabled() {
-                return false
+    </script>
+    <script>
+        export default {
+            computed: {
+                isDisabled() {
+                    return false
+
+                },
 
             },
 
-        },
 
 
 
-
-    }
-</script>*@
+        }
+    </script>*@
 
 
 

@@ -271,6 +271,8 @@ namespace PRO_finder.Service
             var caseInfo = _repo.GetAll<Case>().FirstOrDefault(x => x.CaseID == qdCart.CaseID);
             var clientInfo = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == caseInfo.MemberID);
             var proposerInfo = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == qdCart.ProposerID);
+            
+            //PaymentCode 
             string paymentRandomCode = Guid.NewGuid().ToString("N").Substring(5, 10);
             Order newOrder = new Order()
             {
@@ -302,7 +304,6 @@ namespace PRO_finder.Service
             newOrder.ProposerPhone = proposerInfo.Cellphone == null ? "無聯絡電話" : proposerInfo.Cellphone;
 
             _repo.Create(newOrder);
-            _repo.SaveChanges();
 
             //QuotationDetail表格的Status改成true
             qdCart.Status = true;
@@ -361,12 +362,20 @@ namespace PRO_finder.Service
                 _repo.Update(item);
                 _repo.SaveChanges();
 
-                ////QuotationDetail表格的Status改成true
-                //var qdCart = _repo.GetAll<QuotationDetail>().FirstOrDefault(x => item.CloseReason == x.QuotaionDetailID.ToString());
-                //qdCart.Status = true;
-                //_repo.Update(qdCart);
-                //_repo.SaveChanges();
             };
+        }
+
+        public bool IsAddQdCart(int userID, int caseID)
+        {
+            var InQdCart = _repo.GetAll<QuotationDetail>().Where(x => x.ProposerID == userID && x.CaseID == caseID).ToList();
+            if(InQdCart.Count != 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

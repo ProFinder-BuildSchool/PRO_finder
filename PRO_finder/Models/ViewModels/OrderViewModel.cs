@@ -11,11 +11,11 @@ namespace PRO_finder.Models.ViewModels
         public decimal Schedule { get; set; }
         public string OrderSetupDay { get; set; }
         public string PredictDays { get; set; }
-        public int Remaindays{ get; set; }
+        public int Remaindays { get; set; }
         public int OrderID { get; set; }
-        public int CartID { get; set; } 
+        public int CartID { get; set; }
         public int ProposerID { get; set; }
-       
+
         public int ClientID { get; set; }
         public string QuotationImg { get; set; }
         public string StudioName { get; set; }
@@ -41,7 +41,17 @@ namespace PRO_finder.Models.ViewModels
 
         public string PaymentCode { get; set; }
 
+        public string Title { get; set; }
+        public int CaseID { get; set; }
+
+        public int OrderType { get; set; }
+
     }
 
-    
+    public class OrderUnreadCount
+    {
+        public int Status { get; set; }
+        public int Counts { get; set; }
+
+    }
 }

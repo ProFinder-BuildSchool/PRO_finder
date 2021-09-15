@@ -60,6 +60,7 @@ namespace PRO_finder.ViewModels
     {
         public HttpPostedFile Picture;
         public int SortNumber;
+        public int QuotationID;
         public string OtherPictureLink;
     }
 }
