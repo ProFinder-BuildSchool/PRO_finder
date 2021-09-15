@@ -139,10 +139,60 @@ namespace PRO_finder.Service
                     QuotationID = (int)item.QuotationID
                 });
             }
-
             return OrderList;
         }
-        public static string CalcLastDate(DateTime? dateTime, int days)
+
+        public List<OrderViewModel> TalentGetOrderList(int memberId,int status)
+        {
+            List<Order> OrderDB = new List<Order>();
+            
+
+            if (status == 9)
+            {
+                OrderDB = _repo.GetAll<Order>().Where(x => (x.ProposerID == memberId && x.OrderStatus == 1)|| (x.ProposerID == memberId && x.OrderStatus == 2)).ToList();
+
+            }
+            else if (status == 3)
+            {
+                OrderDB = _repo.GetAll<Order>().Where(x => x.ProposerID == memberId && x.OrderStatus == 3 ).ToList();
+            }
+
+            List<OrderViewModel> OrderList = new List<OrderViewModel>();
+
+            foreach (var item in OrderDB)
+            {
+
+                
+                OrderList.Add(new OrderViewModel
+                {
+                    OrderID = item.OrderID,
+                    ProposerID = memberId,
+                    OrderSetupDay = ((DateTime)item.DealedDate).ToString("yyyy-MM-dd"),
+                    PredictDays = CalcLastDate(item.DealedDate, (int)(item.PredictDays * (int)item.Count)),
+                    Schedule = GetSchedule(item.DealedDate, (int)(item.PredictDays * (int)item.Count)),
+                    Remaindays = GetRemaindays(item.DealedDate, (int)(item.PredictDays * (int)item.Count)),
+                    ClientID = (int)item.ClientID,
+                    QuotationImg = item.QuotationImg,
+                    StudioName = item.StudioName,
+                    Count = (int)item.Count,
+                    Price = (decimal)item.Price,
+                    Unit = System.Enum.GetName(typeof(UnitEnum), item.Unit),
+                    Email = item.Email,
+                    Name = item.Name,
+                    Tel = item.Tel,
+                    LineID = item.LineID,
+                    Memo = item.Memo,
+                    OrderStatus = System.Enum.GetName(typeof(OrderStatus), item.OrderStatus),
+                    Title = item.Title,
+                    ProposerEmail = item.ProposerEmail,
+                    ProposerCellPhone = item.ProposerPhone,
+                    OrderStatusNumber = (int)item.OrderStatus
+                });
+            }
+            return OrderList;
+        }
+
+        public static string CalcLastDate(DateTime? dateTime,int days)
         {
             var one = (DateTime)dateTime;
             return (one.AddDays(days).Date).ToString("yyyy-MM-dd");

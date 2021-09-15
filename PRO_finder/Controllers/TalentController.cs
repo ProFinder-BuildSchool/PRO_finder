@@ -29,6 +29,8 @@ namespace PRO_finder.Controllers
         private readonly QuotationService _quotaService;
         private readonly MemberinfoService _memberInfoService;
         private readonly CloudinaryHelper _cloudinaryHelper;
+        private readonly OrderService _orderservice;
+
 
         public TalentController()
         {
@@ -38,6 +40,8 @@ namespace PRO_finder.Controllers
             _quotaService = new QuotationService();
             _memberInfoService = new MemberinfoService();
             _cloudinaryHelper = new CloudinaryHelper();
+            _orderservice = new OrderService();
+
         }
 
         [Authorize]
@@ -365,18 +369,25 @@ namespace PRO_finder.Controllers
             return View();
         }
 
+        public ActionResult TalentOrderDoing()
+        {
 
+            var MemberId = _orderservice.GetMemberID(HttpContext.User.Identity.GetUserId());
+            ViewBag.MemberId = MemberId;
 
+            return View();
+        }
+        public ActionResult TalentOrderFinished()
+        {
 
-        //[HttpPost]
-        //public bool UploadOtherPics()
-        //{
-        //    HttpPostedFileBase file = Request.Files["Picture"];
-        //    int QuotationID = Int32.Parse(Request["QuotationID"]);
-        //    int SortNumber = Int32.Parse(Request["SortNumber"]);
-        //    return true;
-        //}
+            var MemberId = _orderservice.GetMemberID(HttpContext.User.Identity.GetUserId());
+            ViewBag.MemberId = MemberId;
+
+            return View();
+        }
+
        
+
 
     }
 }

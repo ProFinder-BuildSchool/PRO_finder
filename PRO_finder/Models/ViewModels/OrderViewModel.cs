@@ -41,6 +41,9 @@ namespace PRO_finder.Models.ViewModels
 
         public string PaymentCode { get; set; }
 
+        public string Title { get; set; }
+        public int CaseID { get; set; }
+
         public int OrderType { get; set; }
 
     }

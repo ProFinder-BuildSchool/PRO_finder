@@ -304,7 +304,6 @@ namespace PRO_finder.Service
             newOrder.ProposerPhone = proposerInfo.Cellphone == null ? "無聯絡電話" : proposerInfo.Cellphone;
 
             _repo.Create(newOrder);
-            _repo.SaveChanges();
 
             //QuotationDetail表格的Status改成true
             qdCart.Status = true;
