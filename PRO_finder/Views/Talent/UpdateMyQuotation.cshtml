@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-6">
                             <select class="form-control" id="subcategorySelect" name="SubCategoryID">
-                                <option class="text-center">選擇子類型</option>
+                                <option>選擇子類型</option>
                             </select>
                             @Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })
                         </div>
@@ -135,7 +135,7 @@
         </div>
     </div>
     //hidden inputs
-    <input type="hidden" name="QuotationID" value="@Model.QuotationID"/>
+    <input type="hidden" name="QuotationID" value="@Model.QuotationID"/> //請留著
     <input type="hidden" name="MainPicture" id="MainPicture" />
     <input type="hidden" name="OtherPictureList" id="OtherPictureList" />
 
@@ -388,28 +388,63 @@
             $g("input[name='Description']").value = $g("div.ql-editor").innerHTML;
 
             //儲存參考圖檔
-            let otherPictureArray = [];
+            //let otherPictureArray = [];
             let imgs = document.querySelectorAll(".uploadImg");
             //上傳雲端
-            const uploadImage_SendForm = async () => {
-                for (let i = 0; i < imgs.length; i++) {
-                    const blobData = await getBlobData(imgs[i].src);
-                    const fileObject = new File([blobData], imgs[i].src, { type: blobData.type });
-                    const form = new FormData();
-                    form.append("picture", fileObject);
-                    let url_result = await axiosImageFile(form);
-                    otherPictureArray.push({ OtherPictureLink: url_result, SortNumber: i });
-                    $g("input#MainPicture").value = otherPictureArray[0].OtherPictureLink;
-                    let otherPics = JSON.stringify(otherPictureArray);
-                    $g("input#OtherPictureList").value = otherPics;
-                    console.log(otherPics);
-                    
-                };
-                document.querySelector("form[action='/Talent/UpdateMyQuotation']").submit();
-            }
-            uploadImage_SendForm();
+            //const uploadImage_SendForm = async () => {
+            //    for (let i = 0; i < imgs.length; i++) {
+            //        const blobData = await getBlobData(imgs[i].src);
+            //        const fileObject = new File([blobData], imgs[i].src, { type: blobData.type });
+            //        const form = new FormData();
+            //        form.append("picture", fileObject);
+            //        let url_result = await axiosImageFile(form);
+            //        otherPictureArray.push({ OtherPictureLink: url_result, SortNumber: i });
+            //        $g("input#MainPicture").value = otherPictureArray[0].OtherPictureLink;
+            //        let otherPics = JSON.stringify(otherPictureArray);
+            //        $g("input#OtherPictureList").value = otherPics;
+            //        console.log(otherPics);
 
+            //    };
+            //    //document.querySelector("form[action='/Talent/UpdateMyQuotation']").submit();
+            //}
+            //uploadImage_SendForm();
+            let updateQ = new Object();
+            updateQ['QuotationTitle'] = $g("input[name='QuotationTitle']").value;
+            updateQ['Price'] = Number($g("input[name='Price']").value);
+            updateQ['QuotationUnit'] = Number($g("select[name='QuotationUnit']").value);
+            updateQ['ExecuteDate'] = Number($g("input[name='ExecuteDate']").value);
+            updateQ['Description'] = $g("div.ql-editor").innerHTML;
+            updateQ['SubCategoryID'] = Number($g("select[name='SubCategoryID']").value);
+            updateQ['QuotationID'] = Number($g("input[name='QuotationID']").value);
+            axios({
+                method: "post",
+                url: "/api/Talent/UpdateQuotation",
+                headers: { 'Content-Type': 'application/json;charset=utf-8', 'strict': false },
+                data: updateQ
+            }).then(res => {
+                const quotationID = Number($g("input[name='QuotationID']").value);
+                const uploadPics = async () => {
+                    for (let i = 0; i < imgs.length; i++) {
+                        console.log(quotationID);
+                        const blobData = await getBlobData(imgs[i].src);
+                        const fileObject = new File([blobData], imgs[i].src, { type: blobData.type });
+                        const form = new FormData();
+                        form.append("Picture", fileObject);
+                        form.append("SortNumber", i);
+                        form.append("QuotationID", quotationID);
+                        axios({
+                            method: "post",
+                            url: "/api/Talent/UPDATEOtherPics",
+                            headers: { 'Content-Type': 'application/json', 'strict': false },
+                            data: form
+                        }).then(res => console.log(res.data));
+                    };
+                    document.querySelector("form[action='/Talent/UpdateMyQuotation']").submit();
+                }
+                uploadPics();
+            });
         });
+            
 
         function $g(element) {
             let temp = document.querySelectorAll(element);

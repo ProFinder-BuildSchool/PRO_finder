@@ -18,7 +18,16 @@ namespace PRO_finder.Helper
             _cloudinary = new Cloudinary(_account);
             _cloudinary.Api.Secure = true;
         }
-        public string UploadToCloudinary(HttpPostedFileBase file)
+        public string UploadToCloudinaryBase(HttpPostedFileBase file)
+        {
+            var uploadParams = new ImageUploadParams()
+            {
+                File = new FileDescription(file.FileName, file.InputStream)
+            };
+            ImageUploadResult uploadResult = _cloudinary.Upload(uploadParams);
+            return uploadResult.SecureUrl.AbsoluteUri;
+        }
+        public string UploadToCloudinary(HttpPostedFile file)
         {
             var uploadParams = new ImageUploadParams()
             {

@@ -112,8 +112,35 @@ namespace PRO_finder.Service
             return tempGroup;
 
         }
-        
 
+        public void RevisedCreateWorkAttachment(WorkAttachmentViewModel newWorkAttachment)
+        {
+            int lastAttachmentID = _repo.GetAll<WorkAttachment>().OrderBy(x => x.WorkAttachmentID).ToList().Last().WorkAttachmentID;
+            int newID = lastAttachmentID + 1;
+            WorkAttachment entity = new WorkAttachment
+            {
+                WorkAttachmentID = newID,
+                WorkID = newWorkAttachment.WorkID,
+                WorkAttachmentLink = newWorkAttachment.WorkAttachmentLink,
+                WorkAttachmentName = newWorkAttachment.WorkAttachmentName
+            };
+            _repo.Create(entity);
+            _repo.SaveChanges();
+        }
 
+        public void RevisedCreateWorkPictures(WorkPicturesViewModel newPic)
+        {
+            int lastPicID = _repo.GetAll<WorkPictures>().OrderBy(x => x.WorkPictureID).ToList().Last().WorkPictureID;
+            int newID = lastPicID + 1;
+            WorkPictures entity = new WorkPictures
+            {
+                WorkPictureID = newID,
+                WorkID = newPic.WorkID,
+                WorkPicture = newPic.WorkPicture,
+                SortNumber = newPic.SortNumber
+            };
+            _repo.Create(entity);
+            _repo.SaveChanges();
+        }
     }
 }

@@ -842,9 +842,17 @@
         var put = document.getElementsByClassName('put')[0]
         var heartp = document.getElementsByClassName('heartp')
         let farHeart = document.querySelector('#farHeart');
-        var ischange = false
+        var ischange = false;
+        var favorexist_ori = @ViewBag.FavorExist.ToString().ToLower();
 
-
+        if (favorexist_ori) {
+            farHeart.classList.remove("far");
+            farHeart.classList.add("fas");
+        }
+        else {
+            farHeart.classList.remove("fas");
+            farHeart.classList.add("far");
+        }
         closeup.addEventListener("click", function () {
             if (ischange) {
                 aboutp.style.display = "-webkit-box"

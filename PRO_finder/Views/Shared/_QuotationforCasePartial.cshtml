@@ -19,47 +19,48 @@
 @*Load the following for BootstrapVueIcons support*@
 <!--<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
 </head>-->
+<div id="inputinfo">
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="modalbtn">
+        我要報價
+    </button>
 
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="modalbtn">
-    我要報價
-</button>
 
-
-<div class="modal fade" id="myModal" data-backdrop="false" style="margin-top:50px">
-    @*tabindex="-1" aria-labelledby="myModalLabel" data-backdrop="false">*@
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">報價細節</h4>
-            </div>
-            <div class="modal-body" id="inputinfo">
-                <form>
-                    <div class="form-group">
-                        <label for="estimatedDays" class="control-label">預估天數:</label>
-                        <input v-model="inputData.days" type="number" min="0" class="form-control" id="estimatedDays-name" style="width: 55%;display: inline;"><span>天內完成</span>
-                        <div class="text-danger small mt-1">
-                            {{ inputDataCheck.daysErrorMsg }}
+    <div class="modal fade" id="myModal" data-backdrop="false" style="margin-top:50px">
+        @*tabindex="-1" aria-labelledby="myModalLabel" data-backdrop="false">*@
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">報價細節</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="estimatedDays" class="control-label">預估天數:</label>
+                            <input v-model="inputData.days" type="number" min="0" class="form-control" id="estimatedDays-name" style="width: 55%;display: inline;"><span>天內完成</span>
+                            <div class="text-danger small mt-1">
+                                {{ inputDataCheck.daysErrorMsg }}
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="price" class="control-label">價格:</label>
-                        <input v-model="inputData.price" type="number" min="0" class="form-control" id="price-name" style="width: 55%;display: inline;"><span>元</span>
-                        <div class="text-danger small mt-1">
-                            {{ inputDataCheck.priceErrorMsg }}
+                        <div class="form-group">
+                            <label for="price" class="control-label">價格:</label>
+                            <input v-model="inputData.price" type="number" min="0" class="form-control" id="price-name" style="width: 55%;display: inline;"><span>元</span>
+                            <div class="text-danger small mt-1">
+                                {{ inputDataCheck.priceErrorMsg }}
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="message-text" class="control-label">訊息Message:</label>
-                        <textarea v-model="inputData.message" class="form-control" id="message-text" placeholder="請輸入給案主的訊息"></textarea>
-                        <div class="text-danger small mt-1">
-                            {{ inputDataCheck.messageErrorMsg }}
+                        <div class="form-group">
+                            <label for="message-text" class="control-label">訊息Message:</label>
+                            <textarea v-model="inputData.message" class="form-control" id="message-text" placeholder="請輸入給案主的訊息"></textarea>
+                            <div class="text-danger small mt-1">
+                                {{ inputDataCheck.messageErrorMsg }}
+                            </div>
                         </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+                        <button class="btn btn-primary" v-bind:disabled="!addVerify" type="button" id="report" v-on:click="AddQuotation" data-dismiss="modal">送出報價</button>
                     </div>
-                </form>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
-                    <button class="btn btn-primary" v-bind:disabled="!addVerify" type="button" id="report" v-on:click="AddQuotation"  data-dismiss="modal" >送出報價</button>
                 </div>
             </div>
         </div>
@@ -88,7 +89,8 @@
                 messageError: false,
                 messageErrorMsg: ''
             },
-            addVerify: true
+            addVerify: true,
+            caseID: @Html.Raw(ViewBag.caseID)
         },
         watch: {
             'inputData.days': {
@@ -164,41 +166,54 @@
                 fetch('/api/Cart/PostQuotationInfo', { method: 'post', headers: { "Content-Type": "application/json" }, body: JSON.stringify(obj) }).then(res => res.text())
 
                 alert('已提交報價!')
-               
-                
 
+                modalbtn.innerHTML = '已報價';
+                modalbtn.disabled = true;
+
+                //this.inputData.days = '',
+                //this.inputData.price = '',
+                //this.inputData.message = '您好 我是XXX 想接您的案子'
             }
-
         },
+        mounted: function () {
+            axios({ method: "post", url: "/api/Cart/IsAddQuotationCart", data: this.caseID, headers: { 'Content-Type': 'application/json; charset=utf-8', 'strict': false } })
+                .then(res => {
+                    if (res.data.Result) {
+                        let modalbtn = document.querySelector("#modalbtn");
+                        modalbtn.innerHTML = '已報價';
+                            modalbtn.disabled = true;
+                    } 
+                });
+        }
     });
 </script>
 @*<script>
-    let obj = new Object();
-    obj['CaseID'] = 1;
-    obj['PredictDays'] = inputData.days;
-    obj['ProposeDescription'] = inputData.message;
-    obj['ProposePrice'] = inputData.price;
-    document.querySelector("#report").addEventListener("click", function () {
-        fetch('/api/Cart/PostQuotationInfo', { method: 'post', headers: { "Content-Type": "application/json" }, body: JSON.stringify(obj) }).then(res => res.text())
+        let obj = new Object();
+        obj['CaseID'] = 1;
+        obj['PredictDays'] = inputData.days;
+        obj['ProposeDescription'] = inputData.message;
+        obj['ProposePrice'] = inputData.price;
+        document.querySelector("#report").addEventListener("click", function () {
+            fetch('/api/Cart/PostQuotationInfo', { method: 'post', headers: { "Content-Type": "application/json" }, body: JSON.stringify(obj) }).then(res => res.text())
 
-    });
+        });
 
-</script>
-<script>
-    export default {
-        computed: {
-            isDisabled() {
-                return false
+    </script>
+    <script>
+        export default {
+            computed: {
+                isDisabled() {
+                    return false
+
+                },
 
             },
 
-        },
 
 
 
-
-    }
-</script>*@
+        }
+    </script>*@
 
 
 

@@ -99,17 +99,17 @@ namespace PRO_finder.Controllers
 
 
 
-        public ActionResult StudioHome(int TalentID=1)//, int MemberID= 1)
+        public ActionResult StudioHome(int TalentID=10)//, int MemberID= 1)
         {
             //int currentUserId=7;
             var UserId = HttpContext.User.Identity.GetUserId();
             int currentUserId = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == UserId).MemberID;
             //var result = int.TryParse(System.Web.HttpContext.Current.User.Identity.GetUserId(),out currentUserId);
             StudioDetailViewModel StudioDetailVM = _studioService.GetStudioDetailData (TalentID);
-            //IEnumerable<SaveStaffViewModel> favorlist = _studioService.GetFavorite(currentUserId, TalentID);
+            IEnumerable<SaveStaffViewModel> favorlist = _studioService.GetFavorite(currentUserId, TalentID);
             ViewBag.TalentID = TalentID;
             ViewBag.UserID = currentUserId;
-            //ViewBag.FavorExist = favorlist.Count()!=0; //判斷talent是否存在member的list中
+            ViewBag.FavorExist = favorlist.Count()!=0; //判斷talent是否存在member的list中
             return View(StudioDetailVM);
         
 
