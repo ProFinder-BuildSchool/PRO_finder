@@ -50,30 +50,45 @@ namespace PRO_finder.Controllers
             ViewBag.CategoryList = _cateService.GetCategorySelectList();
             return View();
         }
-        [HttpPost]
+        //[HttpPost]
         //[ValidateAntiForgeryToken]
+        //public ActionResult CreateQuotation([Bind(Include = "QuotationTitle,Price,QuotationUnit,ExecuteDate,Description,SubCategoryID,MainPicture,OtherPictureList")] CreateQuotationViewModel quotation)
+        //{
+        //    ViewBag.CategoryList = _cateService.GetCategorySelectList();
+        //    if (ModelState.IsValid)
+        //    {
+        //        string userID = HttpContext.User.Identity.GetUserId();
+        //        quotation.MemberID = _memberInfoService.GetMemberID(userID);
+
+        //        var newQ = _quotaService.CreateQuotation(quotation);
+        //        int quotationID = newQ.QuotationID;
+        //        //Response.Write(quotationID);
+        //        if (quotation.OtherPictureList != null)
+        //        {
+        //            _quotaService.CreateOtherPics(quotationID, quotation.OtherPictureList);
+        //        }
+
+        //        return RedirectToAction("MyQuotationIndex");
+        //    }
+        //    return View(quotation);
+        //}
+        [HttpPost]
         public ActionResult CreateQuotation([Bind(Include = "QuotationTitle,Price,QuotationUnit,ExecuteDate,Description,SubCategoryID,MainPicture,OtherPictureList")] CreateQuotationViewModel quotation)
         {
             ViewBag.CategoryList = _cateService.GetCategorySelectList();
             if (ModelState.IsValid)
             {
-                string userID = HttpContext.User.Identity.GetUserId();
-                quotation.MemberID = _memberInfoService.GetMemberID(userID);
-
-                var newQ = _quotaService.CreateQuotation(quotation);
-                int quotationID = newQ.QuotationID;
-                //Response.Write(quotationID);
-                if (quotation.OtherPictureList != null)
+                var myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
+                while (myQuotation.Last().MainPicture == null)
                 {
-                    _quotaService.CreateOtherPics(quotationID, quotation.OtherPictureList);
+                    myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
                 }
-
-                return RedirectToAction("MyQuotationIndex");
+                return RedirectToAction("MyQuotationIndex", myQuotation);
             }
             return View(quotation);
         }
-        
-        
+
+
         public ActionResult UploadMyWorks()
         {
             ViewBag.CategoryList = _cateService.GetCategorySelectList();
@@ -88,27 +103,27 @@ namespace PRO_finder.Controllers
             ViewBag.CategoryList = _cateService.GetCategorySelectList();
 
             //取得memberID,並加至newWorks
-            string userID = HttpContext.User.Identity.GetUserId();
-            newWorks.MemberID = _memberInfoService.GetMemberID(userID);
+            //string userID = HttpContext.User.Identity.GetUserId();
+            //newWorks.MemberID = _memberInfoService.GetMemberID(userID);
 
 
             if (ModelState.IsValid)
             {
                 //存入Works資料庫
-                var newEntity = _worksService.CreateWorks(newWorks);
-                int workID = newEntity.WorkID;
+                //var newEntity = _worksService.CreateWorks(newWorks);
+                //int workID = newEntity.WorkID;
 
-                //存入WorkAttachment資料庫
-                if (newWorks.WorkAttachmentList != null)
-                {
-                    _worksService.CreateWorkAttachment(workID, newWorks.WorkAttachmentList);
-                }
+                ////存入WorkAttachment資料庫
+                //if (newWorks.WorkAttachmentList != null)
+                //{
+                //    _worksService.CreateWorkAttachment(workID, newWorks.WorkAttachmentList);
+                //}
 
-                //存入WorkPictures資料庫
-                if (newWorks.WorkPictureList != null)
-                {
-                    _worksService.CreateWorkPictures(workID, newWorks.WorkPictureList);
-                }
+                ////存入WorkPictures資料庫
+                //if (newWorks.WorkPictureList != null)
+                //{
+                //    _worksService.CreateWorkPictures(workID, newWorks.WorkPictureList);
+                //}
 
                 return RedirectToAction("Index");
             }
@@ -240,6 +255,10 @@ namespace PRO_finder.Controllers
             string userID = HttpContext.User.Identity.GetUserId();
             int memberID = _memberInfoService.GetMemberID(userID);
             var myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
+            while (myQuotation.Last().MainPicture == null)
+            {
+                myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
+            }
             return View(myQuotation);
         }
 
@@ -264,15 +283,19 @@ namespace PRO_finder.Controllers
             if (ModelState.IsValid)
             {
                 //更新資料庫
-                _quotaService.UpdateQuotation(quotation);
+                //_quotaService.UpdateQuotation(quotation);
 
-                //重新導向
+                //重新導向至MyQuotationIndex
                 string userID = HttpContext.User.Identity.GetUserId();
                 int memberID = _memberInfoService.GetMemberID(userID);
                 var myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
+                while (myQuotation.FirstOrDefault(x => x.QuotationId == quotation.QuotationID).MainPicture == null)
+                {
+                    myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
+                }
                 return RedirectToAction("MyQuotationIndex", myQuotation);
             }
-            return View("Index");
+            return View();
         }
 
         public ActionResult DeleteQuotation(int? id)
@@ -318,10 +341,17 @@ namespace PRO_finder.Controllers
         public void UploadCloudinary()
         {
             HttpPostedFileBase file = Request.Files["picture"];
-            var result = _cloudinaryHelper.UploadToCloudinary(file);
+            var result = _cloudinaryHelper.UploadToCloudinaryBase(file);
             Response.Write(result);
         }
-
+        //[HttpPost]
+        //public bool UploadOtherPics()
+        //{
+        //    HttpPostedFileBase file = Request.Files["Picture"];
+        //    int QuotationID = Int32.Parse(Request["QuotationID"]);
+        //    int SortNumber = Int32.Parse(Request["SortNumber"]);
+        //    return true;
+        //}
        
 
 

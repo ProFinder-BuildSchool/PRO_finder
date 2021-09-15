@@ -6,21 +6,32 @@
     <div class="myContainer text-center my-5 p-4">
         @if (Model.Result == true)
         {
-            <h4 class="text-primary text-center w-100">@Model.ResultMsg</h4>
+            <h4 class="text-primary text-center w-100 result">@Model.ResultMsg</h4>
+            <img src="https://image.flaticon.com/icons/png/512/594/594852.png" class="result"/>
         }
         else
         {
-            <h4 class="text-danger text-center w-100">@Model.ResultMsg</h4>
+            <h4 class="text-danger text-center w-100 result">@Model.ResultMsg</h4>
+            <img src="https://image.flaticon.com/icons/png/512/594/594864.png" class="result"/>
         }
-    <a href="@Url.Action(Model.ReturnPageUrl,"Client")"><p class="btn btn-primary">查看【@Model.ReturnPageTitle 】</p></a>
+    <a href="@Url.Action(Model.ReturnPageUrl,"Client")" class="result"><p class="btn btn-primary">查看【@Model.ReturnPageTitle 】</p></a>
     </div>
 </div>
 @section TopCSS
     {
     <style>
-        h4{
-            height: 200px;
-            line-height:200px;
+        h4.result{
+            height: 50px;
+            line-height:50px;
+        }
+        img.result{
+            width: 150px;
+            margin: auto;
+            display:block;
+        }
+        a.result{
+            display: block;
+            margin-top: 50px;
         }
         .myContainer {
              max-width: 510px; 

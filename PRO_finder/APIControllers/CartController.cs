@@ -161,5 +161,21 @@ namespace PRO_finder.APIControllers
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             }
         }
+        [HttpPost]
+        public APIResult IsAddQuotationCart([FromBody]int caseID)
+        {
+            bool result = false;
+            try
+            {
+                string userID = User.Identity.GetUserId();
+                int proposerID = _memInfoService.GetMemberID(userID);
+                result = _cartService.IsAddQdCart(proposerID, caseID);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+            }
+            catch
+            {
+                return new APIResult(APIStatus.Fail, string.Empty, result);
+            }
+        }
     }
 }

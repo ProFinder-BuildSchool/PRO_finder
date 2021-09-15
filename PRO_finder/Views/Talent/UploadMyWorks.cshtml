@@ -408,41 +408,58 @@
             let workAttachmentArray = [];
             let workPictureArray = [];
             const asyncRun = async () => {
+                //newWork
+                const newWork = new Object();
+                newWork["WorkName"] = $g("input[name='WorkName']").value;
+                newWork["SubCategoryID"] = Number($g("select[name='SubCategoryID']").value);
+                newWork["Client"] = $g("input[name='Client']").value;
+                newWork["Role"] = $g("input[name='Role']").value;
+                newWork["YearStarted"] = Number($g("input[name='YearStarted']").value);
+                newWork["WebsiteURL"] = $g("input[name='WebsiteURL']").value;
+                newWork["WorkDescription"] = $g("input[name='WorkDescription']").value;
+                let workID = await axios({
+                    method: "post",
+                    url: "/api/Talent/UploadMyWork",
+                    headers: { 'Content-Type': "application/json;charset=utf-8", "strict": false },
+                    data: newWork
+                }).then(res => { return res.data.Result });
+
                 //WorkAttachment
                 let input_nameList = document.querySelectorAll("input[data-content='WorkAttachmentName']");
                 let input_linkList = document.querySelectorAll("input[data-content='WorkAttachmentLink']");
-                if (input_nameList == null && input_linkList == null) {
-                    $g("input#WorkAttachmentList").value = null;
-                }
-                else {
+                if (input_nameList != null && input_linkList != null) {
                     let len = input_nameList.length >= input_linkList.length ? input_linkList.length : input_nameList.length;
                     for (let i = 0; i < len; i++) {
-                        let file = new FormData();
-                        file.append("file", input_linkList[i].files[0]);
-
-                        let obj = new Object();
-                        obj['WorkAttachmentName'] = input_nameList[i].value;
-                        obj['WorkAttachmentLink'] = await axiosFiles(file);
-                        workAttachmentArray.push(obj);
+                        let form = new FormData();
+                        form.append("File", input_linkList[i].files[0]);
+                        form.append("WorkAttachmentName", input_nameList[i].value);
+                        form.append("WorkID", workID);
+                        axios({
+                            method: "post",
+                            url: "/api/Talent/UploadFile",
+                            headers: { 'Content-Type': "application/json;charset=utf-8", "strict": false },
+                            data: form
+                        }).then(res => res.data.Result);
                     };
-                    let newAttachments = JSON.stringify(workAttachmentArray);
-                    $g("input#WorkAttachmentList").value = newAttachments;
-
                 };
 
                 //儲存作品圖例
                 let imgs = document.querySelectorAll(".uploadImg");
                 //上傳雲端
-                for (let i = 0; i < imgs.length; i++) {
-                        const blobData = await getBlobData(imgs[i].src);
-                        const fileObject = new File([blobData], imgs[i].src, { type: blobData.type });
-                        const form = new FormData();
-                        form.append("picture", fileObject);
-                        let url_result = await axiosImageFile(form);
-                        workPictureArray.push({ WorkPicture: url_result, SortNumber: i });
-                 };
-                let newPictures = JSON.stringify(workPictureArray);
-                $g("input#WorkPictureList").value = newPictures;
+                for (let j = 0; j < imgs.length; j++) {
+                    const blobData = await getBlobData(imgs[j].src);
+                    const fileObject = new File([blobData], imgs[j].src, { type: blobData.type });
+                    let form = new FormData();
+                    form.append("Picture", fileObject);
+                    form.append("WorkID", workID);
+                    form.append("SortNumber", j);
+                    await axios({
+                        method: "post",
+                        url: "/api/Talent/UploadWorkPics",
+                        headers: { "Content-Type": "application/json;charset=utf-8", "strict": false },
+                        data: form
+                    }).then(res => res.data.Result);
+                };
                 document.querySelector("form[action='/Talent/UploadMyWorks']").submit();
             }
             asyncRun();

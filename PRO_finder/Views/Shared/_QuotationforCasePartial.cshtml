@@ -89,7 +89,8 @@
                 messageError: false,
                 messageErrorMsg: ''
             },
-            addVerify: true
+            addVerify: true,
+            caseID: @Html.Raw(ViewBag.caseID)
         },
         watch: {
             'inputData.days': {
@@ -166,47 +167,53 @@
 
                 alert('已提交報價!')
 
-                modalbtn.innerHTML='已報價',
+                modalbtn.innerHTML = '已報價';
                 modalbtn.disabled = true;
 
                 //this.inputData.days = '',
                 //this.inputData.price = '',
                 //this.inputData.message = '您好 我是XXX 想接您的案子'
-               
-                
-
             }
-
         },
+        mounted: function () {
+            axios({ method: "post", url: "/api/Cart/IsAddQuotationCart", data: this.caseID, headers: { 'Content-Type': 'application/json; charset=utf-8', 'strict': false } })
+                .then(res => {
+                    if (res.data.Result) {
+                        let modalbtn = document.querySelector("#modalbtn");
+                        modalbtn.innerHTML = '已報價';
+                            modalbtn.disabled = true;
+                    } 
+                });
+        }
     });
 </script>
 @*<script>
-    let obj = new Object();
-    obj['CaseID'] = 1;
-    obj['PredictDays'] = inputData.days;
-    obj['ProposeDescription'] = inputData.message;
-    obj['ProposePrice'] = inputData.price;
-    document.querySelector("#report").addEventListener("click", function () {
-        fetch('/api/Cart/PostQuotationInfo', { method: 'post', headers: { "Content-Type": "application/json" }, body: JSON.stringify(obj) }).then(res => res.text())
+        let obj = new Object();
+        obj['CaseID'] = 1;
+        obj['PredictDays'] = inputData.days;
+        obj['ProposeDescription'] = inputData.message;
+        obj['ProposePrice'] = inputData.price;
+        document.querySelector("#report").addEventListener("click", function () {
+            fetch('/api/Cart/PostQuotationInfo', { method: 'post', headers: { "Content-Type": "application/json" }, body: JSON.stringify(obj) }).then(res => res.text())
 
-    });
+        });
 
-</script>
-<script>
-    export default {
-        computed: {
-            isDisabled() {
-                return false
+    </script>
+    <script>
+        export default {
+            computed: {
+                isDisabled() {
+                    return false
+
+                },
 
             },
 
-        },
 
 
 
-
-    }
-</script>*@
+        }
+    </script>*@
 
 
 
