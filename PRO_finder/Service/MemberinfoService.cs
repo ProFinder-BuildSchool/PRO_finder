@@ -233,6 +233,39 @@ namespace PRO_finder.Service
             var record = _ctx.GetAll<TalentTool>().Where(x => x.MemberID == memberID).ToList();
             return JsonConvert.SerializeObject(record);
         }
+        public BankAccountViewModel GetBankAccount(int memberID)
+        {
+            var record = _ctx.GetAll<MemberInfo>().Where(x => x.MemberID == memberID).ToList();
+            var BankAccountVM = (from m in record
+                                 select new BankAccountViewModel
+                                 {
+                                     MemberID = m.MemberID,
+                                     BankCode = m.BankCode,
+                                     BankAccount = m.BankAccount
+                    
+                                 });
+            return BankAccountVM.FirstOrDefault();
+        }
+        public OperationResult UpdateBankAccount(BankAccountViewModel newBank)
+        {
+            var entity = _ctx.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == newBank.MemberID);
+            var result = new OperationResult();
+            try
+            {
+                entity.MemberID = newBank.MemberID;
+                entity.BankCode = newBank.BankCode;
+                entity.BankAccount = newBank.BankAccount;
+                _ctx.Update(entity);
+                _ctx.SaveChanges();
+                result.IsSuccessful = true;
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccessful = false;
+                result.Exception = ex;
+            }
+            return result;
+        }
 
         public MemberInfoViewModel GetAccountInfo(int userId)
         {
@@ -259,4 +292,6 @@ namespace PRO_finder.Service
             return true;
         }
     }
+
+    
 }

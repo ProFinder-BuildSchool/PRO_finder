@@ -1,0 +1,222 @@
+﻿
+@{
+    ViewBag.Title = "AccountSetting";
+    Layout = "~/Views/Shared/_LayoutMemberTalent.cshtml";
+
+    var check = @ViewBag.check;
+}
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div class="myContainer" id="inputinfo">
+        @if (check)
+        {
+            <h5>銀行帳戶設定</h5>
+            <hr>
+            <div class="card-body">
+                <form method="POST" action="">
+
+                    <div class="form-item">
+                        <label for="bank_number" id="" class="">銀行代碼</label>
+                        <div class="col-md-6">
+                            <input v-model="inputData.bankcode" id="bank_number" type="text" class="form-item" name="bank_number" placeholder="@Model.BankCode"
+                                   value="" autofocus required>
+                            <div class="text-danger small mt-1">
+                                {{ inputDataCheck.bankcodeErrorMsg }}
+                            </div>
+                        </div>
+                        <div id="bank_numberInfo"></div>
+                    </div>
+
+                    <div class="form-item">
+                        <label for="account_number" id="" class="">帳戶號碼</label>
+                        <div class="col-md-6">
+                            <input id="account_number" v-model="inputData.bankaccount" type="text" class="form-item" name="account_number" placeholder="@Model.BankAccount"
+                                   value="" autofocus required>
+                            <div class="text-danger small mt-1">
+                                {{ inputDataCheck.bankaccountErrorMsg }}
+                            </div>
+                        </div>
+                        <div id="account_numberInfo"></div>
+                    </div>
+
+                    <div class="form-item">
+                        <div class="col-md-6">
+                            <button type="submit"  v-bind:disabled="!addVerify" v-on:click="AddBank" id="submit" class="btn btn-primary btn-group-sm">
+                                確定送出
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        }
+        else
+        {
+            <div class="col-12 mt-5 mb-4">
+                <h5>銀行帳號</h5>
+                <hr>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>銀行代碼</th>
+                            <th>帳戶號碼</th>
+                        </tr>
+                    </thead>
+                    <tbody id="SaveAccount">
+                        @*@foreach (var item in Model)*@
+                        @*{*@
+                        <tr>
+                            <td class="text-center">@Model.BankCode</td>
+                            <td class="text-center">@Model.BankAccount</td>
+                            @*<td class="text-center"><button class="text-center btn btn-primary" >修改</button></td>*@
+
+                        </tr>
+                        @*}*@
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="text-center mb-5">
+                <a href="@Url.Action("ReviseBankAccount","Talent")">
+                    <button type="submit" id="btnClear"  class="btn btn-primary btn-group-sm">修改</button>
+                </a>
+            </div>
+
+        }
+    </div>
+
+
+</body>
+</html>
+
+@section topCSS{
+    <link href="~/Assets/css/quill.snow.css" rel="stylesheet" />
+    <style>
+
+        h5 {
+            color: #89ba16;
+            font-weight: 900;
+            padding: 0 15px;
+        }
+
+        .myContainer {
+            @*max-width: 510px;
+            *@ margin: auto;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            padding: 25px;
+        }
+
+        label {
+            font-weight: 700;
+        }
+
+        .form-item{
+            margin-bottom:20px;
+        }
+
+
+    </style>
+}
+@section endJS{
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+    let inputinfo = new Vue({
+        el: '#inputinfo',
+        data: {
+            inputData: {
+                bankcode: '@Model.BankCode',
+                bankaccount: '@Model.BankAccount'
+            },
+            inputDataCheck: {
+                bankcodeError: false,
+                bankcodeErrorMsg: '',
+                bankaccountError: false,
+                bankaccountErrorMsg: ''
+            },
+            addVerify: true
+        },
+        watch: {
+            'inputData.bankcode': {
+                handler: function () {
+                    let bankcodeRegexp = /^[0-9]{1,10}$/
+                    if (this.inputData.bankcode == '') {
+                        this.inputDataCheck.bankcodeError = true;
+                        this.inputDataCheck.bankcodeErrorMsg = '不得為空';
+                    }
+                    else if (!bankcodeRegexp.test(this.inputData.bankcode)) {
+                        this.inputDataCheck.bankcodeError = true;
+                        this.inputDataCheck.bankcodeErrorMsg = '輸入必須為數字';
+                    }
+                    else {
+                        this.inputDataCheck.bankcodeError = false;
+                        this.inputDataCheck.bankcodeErrorMsg = '';
+                    }
+                    this.checkAddVerify();
+                }
+            },
+            'inputData.bankaccount': {
+                handler: function () {
+                    this.inputDataCheck.bankaccountError = false;
+                    this.inputDataCheck.bankaccountErrorMsg = '';
+                    let bankaccountRegexp = /^[0-9]{1,100}$/
+
+
+                    if (!bankaccountRegexp.test(this.inputData.bankaccount)) {
+                        this.inputDataCheck.bankaccountError = true;
+                        this.inputDataCheck.bankaccountErrorMsg = '輸入必須為數字';
+                    }
+                    else {
+                        this.inputDataCheck.bankaccountError = false;
+                        this.inputDataCheck.bankaccountErrorMsg = '';
+                    }
+
+                    this.checkAddVerify();
+                }
+            }
+        },
+        methods: {
+            checkAddVerify() {
+                for (let prop in this.inputDataCheck) {
+                    if (this.inputDataCheck[prop] == true) {
+                        this.addVerify = false;
+                        return;
+                    }
+                }
+                this.addVerify = true;
+            },
+            AddBank: function (event) {
+                let obj = new Object();
+                obj['MemberID'] = @ViewBag.userID;
+                obj['Bankcode'] = this.inputData.bankcode;
+                obj['Bankaccount'] = this.inputData.bankaccount;
+                fetch('/api/Talent/ChangeBankAccount', { method: 'post', headers: { "Content-Type": "application/json" }, body: JSON.stringify(obj) }).then(res => res.text())
+
+                alert('已儲存!')
+
+            },
+            @*Updatecheck: function (event) {
+                let obj = new Object();
+                obj['MemberID'] = @ViewBag.userID;
+                obj['Bankcode'] = null;
+                obj['Bankaccount'] = null;
+                fetch('/api/Talent/ChangeBankAccount', { method: 'post', headers: { "Content-Type": "application/json" }, body: JSON.stringify(obj) }).then(res => res.text()).then(window.location.reload());*@
+                //window.location.reload()
+                //$('#inputinfo').load(document.URL + ' #inputinfo');
+        }
+    })
+    </script>
+
+}
+
+
