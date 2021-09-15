@@ -443,18 +443,24 @@
     <Compile Include="Migrations\202109090316287_2021-09-09 DB update.Designer.cs">
       <DependentUpon>202109090316287_2021-09-09 DB update.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109151359371_2021-09-15.cs" />
+    <Compile Include="Migrations\202109151359371_2021-09-15.Designer.cs">
+      <DependentUpon>202109151359371_2021-09-15.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\DBModel\AspNetRoles.cs" />
     <Compile Include="Models\DBModel\AspNetUserClaims.cs" />
     <Compile Include="Models\DBModel\AspNetUserLogins.cs" />
+    <Compile Include="Models\DBModel\AspNetUserRoles.cs" />
     <Compile Include="Models\DBModel\AspNetUsers.cs" />
+    <Compile Include="Models\DBModel\Banner.cs" />
     <Compile Include="Models\DBModel\Case.cs" />
     <Compile Include="Models\DBModel\CaseNotification.cs" />
     <Compile Include="Models\DBModel\CaseReference.cs" />
     <Compile Include="Models\DBModel\Category.cs" />
     <Compile Include="Models\DBModel\ClientCart.cs" />
     <Compile Include="Models\DBModel\Experience.cs" />
+    <Compile Include="Models\DBModel\FeaturedWork.cs" />
     <Compile Include="Models\DBModel\HostingDetail.cs" />
     <Compile Include="Models\DBModel\Locations.cs" />
     <Compile Include="Models\DBModel\MemberInfo.cs" />
@@ -949,6 +955,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109090316287_2021-09-09 DB update.resx">
       <DependentUpon>202109090316287_2021-09-09 DB update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109151359371_2021-09-15.resx">
+      <DependentUpon>202109151359371_2021-09-15.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
