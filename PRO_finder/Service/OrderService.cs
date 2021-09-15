@@ -105,39 +105,76 @@ namespace PRO_finder.Service
 
             foreach (var item in OrderDB)
             {
-                var QuotationID = item.QuotationID;
-                var ProposerID = item.ProposerID;
-                var ProposerEmail = _repo.GetAll<MemberInfo>().First(x => x.MemberID == ProposerID).Email;
-                var ProposerCellPhone = _repo.GetAll<MemberInfo>().First(x => x.MemberID == ProposerID).Cellphone;
-                var ProposerQuotationTitle = _repo.GetAll<Quotation>().First(x => x.QuotationID == (int)QuotationID).QuotationTitle;
-                var ProposerExecuteDate = _repo.GetAll<Quotation>().First(x => x.MemberID == (int)ProposerID).ExecuteDate;
-                OrderList.Add(new OrderViewModel
+                if(item.CaseID == null)
                 {
-                    OrderID = item.OrderID,
-                    ProposerID = (int)item.ProposerID,
-                    OrderSetupDay = ((DateTime)item.DealedDate).ToString("yyyy-MM-dd"),
-                    PredictDays = CalcLastDate(item.DealedDate, ProposerExecuteDate * (int)item.Count),
-                    Schedule = GetSchedule(item.DealedDate, ProposerExecuteDate * (int)item.Count),
-                    Remaindays = GetRemaindays(item.DealedDate, ProposerExecuteDate * (int)item.Count),
-                    ClientID = (int)item.ClientID,
-                    QuotationImg = item.QuotationImg,
-                    StudioName = item.StudioName,
-                    Count = (int)item.Count,
-                    Price = (decimal)item.Price,
-                    Unit = System.Enum.GetName(typeof(UnitEnum), item.Unit),
-                    Email = item.Email,
-                    Name = item.Name,
-                    Tel = item.Tel,
-                    LineID = item.LineID,
-                    Memo = item.Memo,
-                    OrderStatus = System.Enum.GetName(typeof(OrderStatus), item.OrderStatus),
-                    ProposerQuotationTitle = ProposerQuotationTitle,
-                    ProposerEmail = ProposerEmail,
-                    ProposerCellPhone = ProposerCellPhone,
-                    OrderStatusNumber = (int)item.OrderStatus,
-                    PaymentCode = item.PaymentCode,
-                    QuotationID = (int)item.QuotationID
-                });
+                    var QuotationID = item.QuotationID;
+                    var ProposerID = item.ProposerID;
+                    var ProposerEmail = _repo.GetAll<MemberInfo>().First(x => x.MemberID == ProposerID).Email;
+                    var ProposerCellPhone = _repo.GetAll<MemberInfo>().First(x => x.MemberID == ProposerID).Cellphone;
+                    var ProposerQuotationTitle = _repo.GetAll<Quotation>().First(x => x.QuotationID == (int)QuotationID).QuotationTitle;
+                    var ProposerExecuteDate = _repo.GetAll<Quotation>().First(x => x.MemberID == (int)ProposerID).ExecuteDate;
+                    OrderList.Add(new OrderViewModel
+                    {
+                        OrderID = item.OrderID,
+                        ProposerID = (int)item.ProposerID,
+                        OrderSetupDay = ((DateTime)item.DealedDate).ToString("yyyy-MM-dd"),
+                        PredictDays = CalcLastDate(item.DealedDate, ProposerExecuteDate * (int)item.Count),
+                        Schedule = GetSchedule(item.DealedDate, ProposerExecuteDate * (int)item.Count),
+                        Remaindays = GetRemaindays(item.DealedDate, ProposerExecuteDate * (int)item.Count),
+                        ClientID = (int)item.ClientID,
+                        QuotationImg = item.QuotationImg,
+                        StudioName = item.StudioName,
+                        Count = (int)item.Count,
+                        Price = (decimal)item.Price,
+                        Unit = System.Enum.GetName(typeof(UnitEnum), item.Unit),
+                        Email = item.Email,
+                        Name = item.Name,
+                        Tel = item.Tel,
+                        LineID = item.LineID,
+                        Memo = item.Memo,
+                        OrderStatus = System.Enum.GetName(typeof(OrderStatus), item.OrderStatus),
+                        ProposerQuotationTitle = ProposerQuotationTitle,
+                        ProposerEmail = ProposerEmail,
+                        ProposerCellPhone = ProposerCellPhone,
+                        OrderStatusNumber = (int)item.OrderStatus,
+                        PaymentCode = item.PaymentCode,
+                        QuotationID = (int)item.QuotationID
+                    });
+                }
+                else
+                {
+                    var ProposerID = item.ProposerID;
+                    var ProposerEmail = _repo.GetAll<MemberInfo>().First(x => x.MemberID == ProposerID).Email;
+                    var ProposerCellPhone = _repo.GetAll<MemberInfo>().First(x => x.MemberID == ProposerID).Cellphone;
+
+                    OrderList.Add(new OrderViewModel
+                    {
+                        OrderID = item.OrderID,
+                        ProposerID = (int)item.ProposerID,
+                        OrderSetupDay = ((DateTime)item.DealedDate).ToString("yyyy-MM-dd"),
+                        PredictDays = CalcLastDate(item.DealedDate, (int)(item.PredictDays * (int)item.Count)),
+                        Schedule = GetSchedule(item.DealedDate, (int)(item.PredictDays * (int)item.Count)),
+                        Remaindays = GetRemaindays(item.DealedDate, (int)(item.PredictDays * (int)item.Count)),
+                        ClientID = (int)item.ClientID,
+                        QuotationImg = item.QuotationImg,
+                        StudioName = item.StudioName,
+                        Count = (int)item.Count,
+                        Price = item.Price,
+                        Unit = System.Enum.GetName(typeof(UnitEnum), item.Unit),
+                        Email = item.Email,
+                        Name = item.Name,
+                        Tel = item.Tel,
+                        LineID = item.LineID,
+                        Memo = item.Memo,
+                        OrderStatus = System.Enum.GetName(typeof(OrderStatus), item.OrderStatus),
+                        Title = item.Title,
+                        ProposerEmail = ProposerEmail,
+                        ProposerCellPhone = ProposerCellPhone,
+                        OrderStatusNumber = (int)item.OrderStatus,
+                        CaseID = (int)item.CaseID
+                    });
+                }
+                
             }
             return OrderList;
         }
@@ -145,11 +182,11 @@ namespace PRO_finder.Service
         public List<OrderViewModel> TalentGetOrderList(int memberId,int status)
         {
             List<Order> OrderDB = new List<Order>();
-            
 
+            
             if (status == 9)
             {
-                OrderDB = _repo.GetAll<Order>().Where(x => (x.ProposerID == memberId && x.OrderStatus == 1)|| (x.ProposerID == memberId && x.OrderStatus == 2)).ToList();
+                OrderDB = _repo.GetAll<Order>().Where(x => (x.ProposerID == memberId && x.OrderStatus == 1)|| (x.ProposerID == memberId && x.OrderStatus == 2) ).ToList();
 
             }
             else if (status == 3)
@@ -161,33 +198,70 @@ namespace PRO_finder.Service
 
             foreach (var item in OrderDB)
             {
-
-                
-                OrderList.Add(new OrderViewModel
+                if (item.CaseID != null)
                 {
-                    OrderID = item.OrderID,
-                    ProposerID = memberId,
-                    OrderSetupDay = ((DateTime)item.DealedDate).ToString("yyyy-MM-dd"),
-                    PredictDays = CalcLastDate(item.DealedDate, (int)(item.PredictDays * (int)item.Count)),
-                    Schedule = GetSchedule(item.DealedDate, (int)(item.PredictDays * (int)item.Count)),
-                    Remaindays = GetRemaindays(item.DealedDate, (int)(item.PredictDays * (int)item.Count)),
-                    ClientID = (int)item.ClientID,
-                    QuotationImg = item.QuotationImg,
-                    StudioName = item.StudioName,
-                    Count = (int)item.Count,
-                    Price = (decimal)item.Price,
-                    Unit = System.Enum.GetName(typeof(UnitEnum), item.Unit),
-                    Email = item.Email,
-                    Name = item.Name,
-                    Tel = item.Tel,
-                    LineID = item.LineID,
-                    Memo = item.Memo,
-                    OrderStatus = System.Enum.GetName(typeof(OrderStatus), item.OrderStatus),
-                    Title = item.Title,
-                    ProposerEmail = item.ProposerEmail,
-                    ProposerCellPhone = item.ProposerPhone,
-                    OrderStatusNumber = (int)item.OrderStatus
-                });
+                    OrderList.Add(new OrderViewModel
+                    {
+                        OrderID = item.OrderID,
+                        ProposerID = memberId,
+                        OrderSetupDay = ((DateTime)item.DealedDate).ToString("yyyy-MM-dd"),
+                        PredictDays = CalcLastDate(item.DealedDate, (int)(item.PredictDays * (int)item.Count)),
+                        Schedule = GetSchedule(item.DealedDate, (int)(item.PredictDays * (int)item.Count)),
+                        Remaindays = GetRemaindays(item.DealedDate, (int)(item.PredictDays * (int)item.Count)),
+                        ClientID = (int)item.ClientID,
+                        QuotationImg = item.QuotationImg,
+                        StudioName = item.StudioName,
+                        Count = (int)item.Count,
+                        Price = item.Price,
+                        Unit = System.Enum.GetName(typeof(UnitEnum), item.Unit),
+                        Email = item.Email,
+                        Name = item.Name,
+                        Tel = item.Tel,
+                        LineID = item.LineID,
+                        Memo = item.Memo,
+                        OrderStatus = System.Enum.GetName(typeof(OrderStatus), item.OrderStatus),
+                        Title = item.Title,
+                        ProposerEmail = item.ProposerEmail,
+                        ProposerCellPhone = item.ProposerPhone,
+                        OrderStatusNumber = (int)item.OrderStatus,
+                        CaseID = (int)item.CaseID
+                    });
+                }
+                else
+                {
+                    var QuotationID = item.QuotationID;
+                    var ProposerEmail = _repo.GetAll<MemberInfo>().First(x => x.MemberID == memberId).Email;
+                    var ProposerCellPhone = _repo.GetAll<MemberInfo>().First(x => x.MemberID == memberId).Cellphone;
+                    var ProposerQuotationTitle = _repo.GetAll<Quotation>().First(x => x.QuotationID == (int)QuotationID).QuotationTitle;
+                    var ProposerExecuteDate = _repo.GetAll<Quotation>().First(x => x.MemberID == (int)memberId).ExecuteDate;
+                    OrderList.Add(new OrderViewModel
+                    {
+                        OrderID = item.OrderID,
+                        ProposerID = memberId,
+                        OrderSetupDay = ((DateTime)item.DealedDate).ToString("yyyy-MM-dd"),
+                        PredictDays = CalcLastDate(item.DealedDate, ProposerExecuteDate * (int)item.Count),
+                        Schedule = GetSchedule(item.DealedDate, ProposerExecuteDate * (int)item.Count),
+                        Remaindays = GetRemaindays(item.DealedDate, ProposerExecuteDate * (int)item.Count),
+                        ClientID = (int)item.ClientID,
+                        QuotationImg = item.QuotationImg,
+                        StudioName = item.StudioName,
+                        Count = (int)item.Count,
+                        Price = (decimal)item.Price,
+                        Unit = System.Enum.GetName(typeof(UnitEnum), item.Unit),
+                        Email = item.Email,
+                        Name = item.Name,
+                        Tel = item.Tel,
+                        LineID = item.LineID,
+                        Memo = item.Memo,
+                        OrderStatus = System.Enum.GetName(typeof(OrderStatus), item.OrderStatus),
+                        ProposerQuotationTitle = ProposerQuotationTitle,
+                        ProposerEmail = ProposerEmail,
+                        ProposerCellPhone = ProposerCellPhone,
+                        OrderStatusNumber = (int)item.OrderStatus,
+                        PaymentCode = item.PaymentCode,
+                        QuotationID = (int)item.QuotationID
+                    });
+                }
             }
             return OrderList;
         }
