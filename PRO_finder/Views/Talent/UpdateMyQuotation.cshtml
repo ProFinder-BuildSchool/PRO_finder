@@ -432,7 +432,7 @@
                         form.append("Picture", fileObject);
                         form.append("SortNumber", i);
                         form.append("QuotationID", quotationID);
-                        axios({
+                        await axios({
                             method: "post",
                             url: "/api/Talent/UPDATEOtherPics",
                             headers: { 'Content-Type': 'application/json', 'strict': false },
