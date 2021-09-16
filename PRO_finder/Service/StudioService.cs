@@ -91,6 +91,8 @@ namespace PRO_finder.Service
             {
                 return null;
             }
+
+ 
             var StudioWorkVM = (from w in WorkList
                                 join m in MemInfoList on w.MemberID equals m.MemberID
                                 where w.MemberID == MemberID
@@ -103,8 +105,15 @@ namespace PRO_finder.Service
                                     WorkName = w.WorkName,
                                     WebsiteURL = w.WebsiteURL,
                                     WorkSubCategory = sub.SubCategoryName,
+                                    SubCategoryID=sub.SubCategoryID,
                                     WorkPicture = wp.WorkPicture
                                 });
+            var WorkSubcategoryVM = (from s in StudioWorkVM
+                                     select new WorkSubcategoryViewModel
+                                     { 
+                                         WorkSubCategory = s.WorkSubCategory,
+                                         SubCategoryID = s.SubCategoryID
+                                     }).Distinct();
             var StudioQuotVM = (from q in QuotList
                                 where q.MemberID == MemberID
                                 join sub in SubCateList on q.SubCategoryID equals sub.SubCategoryID
@@ -112,18 +121,18 @@ namespace PRO_finder.Service
                                 select new StudioQuotationViewModel
                                 {
                                     QuotationId = q.QuotationID,
-                                    SubcategoryName = sub.SubCategoryName,
+                                    SubcategoryName = q.QuotationTitle,
                                     CategoryName = cate.CategoryName,
                                     Price = q.Price,
-                                    Unit = q.QuotationUnit,
+                                    Unit = (StudioQuotationViewModel.UnitEnum)q.QuotationUnit,
                                     QuotationImg = q.MainPicture
                                 });
 
             var StudioReviewVM = (from o in OrderList
-                                  join m in MemInfoList on o.DealedTalentMemberID equals m.MemberID
+                                  join m in MemInfoList on o.ProposerID equals m.MemberID
                                   select new StudioReviewViewModel
                                   {
-                                      CaseReview = o.CaseReview,
+                                      CaseReview = (decimal)o.CaseReview,
                                       CaseMessage = o.CaseMessage,
                                       CaseReplyMessage = o.CaseReplyMessage,
                                       MemberID = m.MemberID,
@@ -142,10 +151,12 @@ namespace PRO_finder.Service
                                       LocationName = L.LocationName,
                                       LogInTime = m.LogInTime,
                                       ProfilePicture = m.ProfilePicture,
-                                      Identity = m.Identity,
-                                      StudioReview = StudioReviewVM,
+                                      Identity = (StudioDetailViewModel.IdentityStatus)m.Identity,
+                                      //StudioReview = StudioReviewVM,
                                       Studioworks = StudioWorkVM,
-                                      StudioQuotation = StudioQuotVM
+                                      StudioQuotation = StudioQuotVM,
+                                      WorkSubcategory = WorkSubcategoryVM
+
                                   }).FirstOrDefault();
 
             return StudioDetailVM;
@@ -158,23 +169,20 @@ namespace PRO_finder.Service
       
 
 
-        public IEnumerable<SaveStaff> GetFavorite(int MemberID, int TalentID)
+        public IEnumerable<SaveStaffViewModel> GetFavorite(int MemberID, int TalentID)
         {
-            var GetFavorRepository = new GeneralRepository(new ProFinderContext());
+            var SaveStaffList = _ctx.GetAll<SaveStaff>();
 
-            return from savestaff in GetFavorRepository.GetAll<SaveStaff>()
-                   where savestaff.MemberID == MemberID //AND savestaff.SavedTalentID== TalentID
+            return from savestaff in SaveStaffList
+                   where savestaff.MemberID == MemberID && savestaff.SavedTalentID== TalentID
 
 
-                   select new SaveStaff
+                   select new SaveStaffViewModel
                    {
                        MemberID = savestaff.MemberID,
                        SavedTalentID = savestaff.SavedTalentID,
                        SavedDate = savestaff.SavedDate,
                        SaveStaffID = savestaff.SaveStaffID
-
-
-
                    };
 
         }

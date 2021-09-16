@@ -49,6 +49,8 @@ namespace PRO_finder.Service
 
 
 
+
+
             List<Icon> Iconlist = new List<Icon>()
             {
                  new Icon{ Categoryname="平面設計" , Info="fas fa-pencil-ruler"},
@@ -78,6 +80,8 @@ namespace PRO_finder.Service
             return CategoryViewModel;
         }
 
+       
+
         public string GetAllCatAndSubCat()
         {
             var allCategory = _repo.GetAll<Category>();
@@ -102,6 +106,24 @@ namespace PRO_finder.Service
 
 
 
-           
+
+        public int GetCategoryID(string categoryName)
+        {
+            int result = 0;
+            try
+            {
+
+              result = _repo.GetAll<Category>().FirstOrDefault(x => x.CategoryName == categoryName).CategoryID;
+               
+            }
+            catch
+            {
+                result = -1;
+            }
+            return result;
+       
+        }
+
+
     }
 }

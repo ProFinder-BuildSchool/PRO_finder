@@ -6,7 +6,8 @@
 
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()<div class="myContainer">
+    @Html.AntiForgeryToken()
+    <div class="myContainer">
         <h5>接案設定</h5>
         <hr>
         <div class="form-horizontal">
@@ -14,7 +15,7 @@
                 <p for="CaseStatus" class="col-md-12 text-black font-weight-bold">接案狀態</p>
                 <div class="container">
                     <div class="row caseStatus">
-                        @if (Model.Status)
+                        @if (Model.Status == true)
                         {
                             <div class="col-12 col-md-auto">
                                 <input type="radio" name="Status" value="true" id="CaseStatus-open" checked>
@@ -29,7 +30,7 @@
                                 <label for="CaseStatus-closed" style="font-size: 14px;">關閉</label>
                             </div>
                         }
-                        else
+                        else if (Model.Status == false)
                         {
                             <div class="col-12 col-md-auto">
                                 <input type="radio" name="Status" value="true" id="CaseStatus-open">
@@ -44,6 +45,21 @@
                                 <label for="CaseStatus-closed" style="font-size: 14px;">關閉</label>
                             </div>
                         }
+                        else
+                        {
+                            <div class="col-12 col-md-auto">
+                                <input type="radio" name="Status" value="true" id="CaseStatus-open">
+                                <label for="CaseStatus-open" style="font-size: 14px;" class="d-inline">開啓</label>
+                            </div>
+                            @*<div class="col-12 col-md-auto">
+                                    <input type="radio" name="Status" value="true" id="CaseStatus-openRestricted">
+                                    <label for="CaseStatus-openRestricted" style="font-size: 14px;" class="d-inline">開啟，隱藏聯絡資訊【建議】</label>
+                                </div>*@
+                            <div class="col-12 col-md-auto">
+                                <input type="radio" name="Status" value="false" id="CaseStatus-closed">
+                                <label for="CaseStatus-closed" style="font-size: 14px;">關閉</label>
+                            </div>
+                        }
 
                     </div>
                 </div>
@@ -52,7 +68,7 @@
             <div class="form-group">
                 <label for="NickName" class="col-md-12 control-label">接案暱稱</label>
                 <div class="col-md-12">
-                    <input type="text" class="form-control text-box single-line" id="NickName" placeholder="tasker" name="NickName" value="@Model.NickName">
+                    <input type="text" class="form-control text-box single-line" id="NickName" name="NickName" value="@Model.NickName">
                 </div>
             </div>
             <hr />
@@ -141,7 +157,7 @@
             <div class="form-group">
                 <label for="Cellphone" class="col-md-12 control-label">行動電話</label>
                 <div class="col-md-12">
-                    <input type="text" class="form-control" id="Cellphone" placeholder="Product Designer" name="Cellphone" value="@Model.Cellphone">
+                    <input type="text" class="form-control" id="Cellphone" name="Cellphone" value="@Model.Cellphone">
                 </div>
             </div>
 
@@ -156,11 +172,11 @@
                 <label for="TalentCategoryID" class="col-md-12 control-label">擅長軟體工具</label>
                 <div class="container">
                     <div class="row">
-                        <div class="col-12 col-md-6 mb-2">
+                        <div class="col-12 col-lg-6 mb-2">
                             @Html.DropDownList("ToolCategoryID", (List<SelectListItem>)ViewBag.ToolList, new { @class = "form-control" })
                             <div class="mt-3 toolCheckArea" id="toolCheckArea"></div>
                         </div>
-                        <div class="col-12 col-md-6 displayTool" id="displayTool">
+                        <div class="col-12 col-lg-6 displayTool" id="displayTool">
                             @*還沒有display*@
                         </div>
                     </div>
@@ -175,7 +191,7 @@
         <div class="form-group">
             <label for="LocationID" class="col-md-12 control-label">理想接案城市</label>
             <div class="col-md-6">
-                @Html.DropDownList("LocationID", (List<SelectListItem>)ViewBag.LocationDropdownList, new { @class = "form-control", @id = "toolDropdown" })
+                @Html.DropDownList("LocationIDInt", (List<SelectListItem>)ViewBag.LocationDropdownList, new { @class = "form-control", @id = "toolDropdown" })
             </div>
         </div>
         <div class="form-group">
@@ -187,7 +203,7 @@
                     </div>
                     <div class="col-6">
                         <select class="form-control" id="subcategorySelect" name="SubCategoryID">
-                            <option class="text-center">選擇子類型</option>
+                            <option>選擇子類型</option>
                         </select>
                         @*@Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })*@
                     </div>
@@ -202,58 +218,275 @@
             <label for="AllPieceworkExp" class="col-md-12 control-label">累計接案經驗</label>
             <div class="col-md-6">
                 <select id="AllPieceworkExp" class="form-control" name="AllPieceworkExp">
-                    <option value="無年工作經驗">無工作經驗</option>
-                    <option value="0-1年工作經驗">0-1年工作經驗</option>
-                    <option value="1-2年工作經驗">1-2年工作經驗</option>
-                    <option value="2-3年工作經驗">2-3年工作經驗</option>
-                    <option value="3-4年工作經驗">3-4年工作經驗</option>
-                    <option value="4-5年工作經驗">4-5年工作經驗</option>
-                    <option value="5-6年工作經驗">5-6年工作經驗</option>
-                    <option value="6-7年工作經驗">6-7年工作經驗</option>
-                    <option value="7-8年工作經驗">7-8年工作經驗</option>
-                    <option value="8-9年工作經驗">8-9年工作經驗</option>
-                    <option value="9-10年工作經驗">9-10年工作經驗</option>
-                    <option value="10年以上工作經驗">10年以上工作經驗</option>
+                    @switch ((string)Model.AllPieceworkExp)
+                    {
+                        case "無工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無工作經驗" selected>無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "0-1年工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗" selected>0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "1-2年工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗" selected>1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "2-3年工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗" selected>2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "3-4年工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗" selected>3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "4-5年工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗" selected>4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "5-6年工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗" selected>5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "6-7年工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗" selected>6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "7-8年工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗" selected>7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "8-9年工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗" selected>8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "9-10年工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗" selected>9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                        case "10年以上工作經驗":
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗" selected>10年以上工作經驗</option>
+                            break;
+                        default:
+                            <option value="-1">請選擇工作期間</option>
+                            <option value="無工作經驗">無工作經驗</option>
+                            <option value="0-1年工作經驗">0-1年工作經驗</option>
+                            <option value="1-2年工作經驗">1-2年工作經驗</option>
+                            <option value="2-3年工作經驗">2-3年工作經驗</option>
+                            <option value="3-4年工作經驗">3-4年工作經驗</option>
+                            <option value="4-5年工作經驗">4-5年工作經驗</option>
+                            <option value="5-6年工作經驗">5-6年工作經驗</option>
+                            <option value="6-7年工作經驗">6-7年工作經驗</option>
+                            <option value="7-8年工作經驗">7-8年工作經驗</option>
+                            <option value="8-9年工作經驗">8-9年工作經驗</option>
+                            <option value="9-10年工作經驗">9-10年工作經驗</option>
+                            <option value="10年以上工作經驗">10年以上工作經驗</option>
+                            break;
+                    }
                 </select>
             </div>
         </div>
         <hr />
-        <label class="col-md-12 control-label text-black">接案經驗細節</label>
+        <label class="col-md-12 control-label text-black">接案經驗</label>
         <div id="ExDArea">
-            <div class="col-md-12 my-2 ExDWrap" id="ExDWrap0">
-                <p class="col-md-12 text-black mb-2">接案經驗細節</p>
-                <div class="form-group">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12 col-md-6 col-lg-4 mt-2">
-                                @Html.DropDownList("ExDCategoryID", (List<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control", @id = "ExDCategoryID0" })
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-4 mt-2">
-                                <select class="form-control" name="ExDSubCategoryID" id="ExDSubCategoryID0">
-                                    <option class="text-center">選擇子類型</option>
-                                </select>
-                                @*@Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })*@
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-4 mt-2">
-                                <select class="form-control" name="ExDPieceworkExp">
-                                    <option value="無年工作經驗">無工作經驗</option>
-                                    <option value="0-1年工作經驗">0-1年工作經驗</option>
-                                    <option value="1-2年工作經驗">1-2年工作經驗</option>
-                                    <option value="2-3年工作經驗">2-3年工作經驗</option>
-                                    <option value="3-4年工作經驗">3-4年工作經驗</option>
-                                    <option value="4-5年工作經驗">4-5年工作經驗</option>
-                                    <option value="5-6年工作經驗">5-6年工作經驗</option>
-                                    <option value="6-7年工作經驗">6-7年工作經驗</option>
-                                    <option value="7-8年工作經驗">7-8年工作經驗</option>
-                                    <option value="8-9年工作經驗">8-9年工作經驗</option>
-                                    <option value="9-10年工作經驗">9-10年工作經驗</option>
-                                    <option value="10年以上工作經驗">10年以上工作經驗</option>
-                                </select>
+
+            @if (Model.Experiences.Count == 0)
+            {
+                <div class="col-md-12 my-2 ExDWrap" id=`ExDWrap0`>
+                    <p class="col-md-12 text-black mb-2">接案經驗細節</p>
+                    <div class="form-group">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12 col-md-6 col-lg-4 mt-2">
+                                    @Html.DropDownList("ExDCategoryID", (List<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control", @id = "ExDCategoryID0" })
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-4 mt-2">
+                                    <select class="form-control" name="ExDSubCategoryID" id="ExDSubCategoryID0">
+                                        <option>選擇子類型</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-4 mt-2">
+                                    <select class="form-control" name="ExDPieceworkExp">
+                                        <option value="-1">請選擇工作期間</option>
+                                        <option value="無工作經驗">無工作經驗</option>
+                                        <option value="0-1年工作經驗">0-1年工作經驗</option>
+                                        <option value="1-2年工作經驗">1-2年工作經驗</option>
+                                        <option value="2-3年工作經驗">2-3年工作經驗</option>
+                                        <option value="3-4年工作經驗">3-4年工作經驗</option>
+                                        <option value="4-5年工作經驗">4-5年工作經驗</option>
+                                        <option value="5-6年工作經驗">5-6年工作經驗</option>
+                                        <option value="6-7年工作經驗">6-7年工作經驗</option>
+                                        <option value="7-8年工作經驗">7-8年工作經驗</option>
+                                        <option value="8-9年工作經驗">8-9年工作經驗</option>
+                                        <option value="9-10年工作經驗">9-10年工作經驗</option>
+                                        <option value="10年以上工作經驗">10年以上工作經驗</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
+            else
+            {
+                for (int i = 0; i < Model.Experiences.Count; i++)
+                {
+                    <div class="col-md-12 my-2 ExDWrap" id=@string.Concat("ExDWrap", i.ToString())>
+                        <a class="btn removeExD" data-count="@i"><i class="far fa-trash-alt"></i></a>
+                        <p class="col-md-12 text-black mb-2">接案經驗細節</p>
+                        <div class="form-group">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-md-6 col-lg-4 mt-2">
+                                        @Html.DropDownList("ExDCategoryID", (List<SelectListItem>)Model.Experiences[i].CategoryDropdown, new { @class = "form-control", @id = string.Concat("ExDCategoryID", i.ToString()) })
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-4 mt-2">
+                                        @Html.DropDownList("ExDSubCategoryID", (List<SelectListItem>)Model.Experiences[i].SubCategoryDropdown, new { @class = "form-control", @id = string.Concat("ExDSubCategoryID", i.ToString()) })
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-4 mt-2">
+                                        @Html.DropDownList("ExDPieceworkExp", (List<SelectListItem>)Model.Experiences[i].PieceworkDropdown, new { @class = "form-control", @id = string.Concat("PieceworkDropdown", i.ToString()) })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+
         </div>
         <div class="col-md-12 mt-3 text-right">
             <span class="btn btn-light" id="addExD"><i class="fas fa-plus"></i>&ensp;新增接案經歷</span>
@@ -272,7 +505,7 @@
     </div>
     <div class="form-group mt-3">
         <div class="col-md-offset-2 col-md-12 text-center">
-            <input value="儲存設定" class="btn btn-primary" id="send" />
+            <input value="儲存設定" class="btn btn-primary" id="send" type="button" />
         </div>
     </div>
     <input type="hidden" name="JsonToolList" id="JsonToolList">
@@ -301,13 +534,13 @@
                         </div>
                         <div class="col-12 col-md-6 col-lg-4 mt-2">
                             <select class="form-control" name="ExDSubCategoryID">
-                                <option class="text-center">選擇子類型</option>
+                                <option>選擇子類型</option>
                             </select>
-                            @*@Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })*@
                         </div>
                         <div class="col-12 col-md-6 col-lg-4 mt-2">
                             <select class="form-control" name="ExDPieceworkExp">
-                                <option value="無年工作經驗">無工作經驗</option>
+                                <option value="-1">請選擇工作期間</option>
+                                <option value="無工作經驗">無工作經驗</option>
                                 <option value="0-1年工作經驗">0-1年工作經驗</option>
                                 <option value="1-2年工作經驗">1-2年工作經驗</option>
                                 <option value="2-3年工作經驗">2-3年工作經驗</option>
@@ -328,14 +561,14 @@
     </template>
 }
 @section topCSS
-    {
+                    {
     <link href="~/Assets/css/quill.snow.css" rel="stylesheet" />
     <style>
         h5 {
             color: #89ba16;
             font-weight: 900;
             padding: 0 15px;
-        }
+            }
 
             .myContainer {
                 @*max-width: 510px;
@@ -357,6 +590,9 @@
             padding:10px;
             max-height: 200px;
             overflow:auto;
+        }
+        label[for^='toolInput']{
+            word-wrap:break-word;
         }
         .toolTag {
             padding: 3px;
@@ -408,35 +644,87 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
-        //接案類別轉換
+        //理想接案類別
         let selector = document.querySelector("#subcategorySelect");
         var subCategoryList = [];
-
+        ////取得類別資料
         axios.get("/api/Talent/GetAllCategoryAndSubCategoryList").then(result => {
             let data = JSON.parse(result.data.Result);
             subCategoryList.push(...data);
+            ////顯示已經儲存的資料
+            let idealSubCateID = @Html.Raw(Json.Encode(ViewBag.IdealSubCategoryID)) != null ? @Html.Raw(Json.Encode(ViewBag.IdealSubCategoryID)) : -1;
+            let idealCateID = @Html.Raw(Json.Encode(ViewBag.IdealCategoryID)) != null ? @Html.Raw(Json.Encode(ViewBag.IdealCategoryID)) : -1;
+            if (idealSubCateID != -1) {
+                selector.innerHTML = "<option>選擇子類型</option>";
+                let theSubList = subCategoryList.filter(x => x.CategoryID == idealCateID)[0].JsonSubCategoryList;
+                let allSub = JSON.parse(theSubList);
+                allSub.forEach(s => {
+                    let option = document.createElement("option");
+                    option.innerText = s.SubCateName;
+                    option.value = s.SubCateID;
+                    if (idealSubCateID == s.SubCateID) { option.selected = true; }
+                    selector.append(option);
+                });
+            }
         });
-        let idealSubCateID = @Html.Raw(Json.Encode(ViewBag.IdealSubCategoryID)) != null ? @Html.Raw(Json.Encode(ViewBag.IdealSubCategoryID)) : -1;
+
+
+        //change轉換子類別
         document.querySelector("#categoryDropdown").addEventListener("change", function () {
-            selector.innerHTML = "<option class='text-center'>選擇子類型</option>";
+            selector.innerHTML = "<option>選擇子類型</option>";
             let theSubList = subCategoryList.filter(x => x.CategoryID == this.value)[0].JsonSubCategoryList;
-            console.log(theSubList);
             let allSub = JSON.parse(theSubList);
             allSub.forEach(s => {
                 let option = document.createElement("option");
                 option.innerText = s.SubCateName;
                 option.value = s.SubCateID;
-                if (idealSubCateID == s.SubCateID) { option.selected = true; }
                 selector.append(option);
             });
         });
 
         //擅長工具Dropdown & checkbox
         let subToolArray = []
-        axios.get("/Talent/GetSubTool").then(res => {
-            let tools = JSON.parse(res.data);
-            subToolArray.push(...tools);
-        });
+        let subToolArrayInRecord = []
+        //從資料庫中獲取member儲存的talentTools
+        const getTalentTools = async () => {
+            //擅長工具-取得所有類別
+            await axios.get("/api/Talent/GetSubTool").then(res => {
+                let tools = JSON.parse(res.data.Result);
+                subToolArray.push(...tools);
+            });
+            ////擅長工具-顯示既有資料
+            await axios.get("/api/Talent/GetMemberToolRecord").then(res => {
+                let record = JSON.parse(res.data.Result);
+                subToolArrayInRecord.push(...record);
+                subToolArrayInRecord.forEach(tRecord => {
+                    console.log(tRecord)
+                    subToolArray.forEach(t => {
+                        if (t.SubTalentCategoryID == tRecord.ToolSubCategoryID) {
+                            t.IsChecked = true;
+                            clone_tag = $g("template#toolCheckedTag").content.cloneNode(true);
+                            clone_tag.querySelector("p").innerText = t.SubTalentCategoryName;
+                            clone_tag.querySelector("div").setAttribute("id", `toolTag${t.SubTalentCategoryID}`);
+                            clone_tag.querySelector("div").setAttribute("data-content", t.SubTalentCategoryID);
+                            clone_tag.querySelector("button").setAttribute("data-content", t.SubTalentCategoryID);
+                            clone_tag.querySelector("button").addEventListener("click", function (e) {
+                                e.preventDefault();
+                                let value = t.SubTalentCategoryID;
+                                let theTag = $g(`div#toolTag${value}`);
+                                $g("#displayTool").removeChild(theTag);
+                                $g(`input#toolInput${value}`).checked = false;
+                                subToolArray[value]["IsChecked"] = false;
+                            });
+                            $g("#displayTool").appendChild(clone_tag);
+                        }
+                    });
+
+                });
+            });
+        };
+        getTalentTools();
+
+
+        ////擅長工具-使用者選擇更換
         $g("select#ToolCategoryID").addEventListener("change", function () {
             let cateID = Number(this.value);
             $g("#toolCheckArea").innerHTML = "";
@@ -478,33 +766,14 @@
             });
 
         });
-        //接案經歷類別轉換
-        let ExDSubSelector = $g("select#ExDSubCategoryID0");
-        document.querySelector("select#ExDCategoryID0").addEventListener("change", function () {
-            ExDSubSelector.innerHTML = "<option class='text-center'>選擇子類型</option>";
-            subCategoryList.forEach(sub => {
-                if (sub.CategoryID == this.value) {
-                    let allsub = JSON.parse(sub.JsonSubCategoryList);
-                    allsub.forEach(s => {
-                        let option = document.createElement("option");
-                        option.innerText = s.SubCateName;
-                        option.value = s.SubCateID;
-                        ExDSubSelector.append(option);
-                    });
-                };
-            });
-        });
 
-        //新增接案經歷
-        let ExDCount = 1;
-        $g("span#addExD").addEventListener("click", function () {
-            clone_ExD = $g("template#ExDTemplate").content.cloneNode(true);
-            clone_ExD.querySelector("div.ExDWrap").setAttribute("id", `ExDWrap${ExDCount}`);
-            clone_ExD.querySelector("select[name='ExDSubCategoryID']").setAttribute("id", `ExDSubCategoryID${ExDCount}`);
-            clone_ExD.querySelector("select[name='ExDCategoryID']").setAttribute("id", `ExDCategoryID${ExDCount}`);
-            let subSelector = clone_ExD.querySelector(`select#ExDSubCategoryID${ExDCount}`);
-            clone_ExD.querySelector(`select#ExDCategoryID${ExDCount}`).addEventListener("change", function () {
-                subSelector.innerHTML = "<option class='text-center'>選擇子類型</option>";
+
+        //接案經歷類別轉換
+        //如果沒有接案資料
+        if (@Html.Raw(Model.Experiences.Count) == 0) {
+            let ExDSubSelector = $g("select#ExDSubCategoryID0")
+            document.querySelector("select#ExDCategoryID0").addEventListener("change", function () {
+                ExDSubSelector.innerHTML = "<option>選擇子類型</option>";
                 subCategoryList.forEach(sub => {
                     if (sub.CategoryID == this.value) {
                         let allsub = JSON.parse(sub.JsonSubCategoryList);
@@ -512,9 +781,58 @@
                             let option = document.createElement("option");
                             option.innerText = s.SubCateName;
                             option.value = s.SubCateID;
-                            subSelector.append(option);
+                            ExDSubSelector.append(option);
                         });
                     };
+                });
+            });
+        } else {
+            //有接案經驗資料
+            let ExDCategorySelector = document.querySelectorAll("select[id^='ExDCategoryID']");
+            ExDCategorySelector.forEach(s => {
+                let number = s.id.charAt(13);
+                let subSelector = $g(`#ExDSubCategoryID${number}`);
+                s.addEventListener("change", function () {
+                    subSelector.innerHTML = "<option>選擇子類型</option>";
+                    let allsub = JSON.parse(subCategoryList.filter(x => x.CategoryID == this.value)[0].JsonSubCategoryList);
+                    allsub.forEach(s => {
+                        let option = document.createElement("option");
+                        option.innerText = s.SubCateName;
+                        option.value = s.SubCateID;
+                        subSelector.append(option);
+                    });
+                });
+            });
+
+            let removeBtn = document.querySelectorAll("a.removeExD");
+            removeBtn.forEach(r => {
+                r.addEventListener("click", function () {
+                    let theExD = $g(`div#ExDWrap${this.dataset.count}`);
+                    $g("div#ExDArea").removeChild(theExD);
+                });
+            });
+        }
+
+
+
+
+
+        //新增接案經歷
+        let ExDCount = @Html.Raw(Model.Experiences.Count) + 1;
+        $g("span#addExD").addEventListener("click", function () {
+            clone_ExD = $g("template#ExDTemplate").content.cloneNode(true);
+            clone_ExD.querySelector("div.ExDWrap").setAttribute("id", `ExDWrap${ExDCount}`);
+            clone_ExD.querySelector("select[name='ExDSubCategoryID']").setAttribute("id", `ExDSubCategoryID${ExDCount}`);
+            clone_ExD.querySelector("select[name='ExDCategoryID']").setAttribute("id", `ExDCategoryID${ExDCount}`);
+            let subSelector = clone_ExD.querySelector(`select#ExDSubCategoryID${ExDCount}`);
+            clone_ExD.querySelector(`select#ExDCategoryID${ExDCount}`).addEventListener("change", function () {
+                subSelector.innerHTML = "<option>選擇子類型</option>";
+                let allsub = JSON.parse(subCategoryList.filter(x => x.CategoryID == this.value)[0].JsonSubCategoryList);
+                allsub.forEach(s => {
+                    let option = document.createElement("option");
+                    option.innerText = s.SubCateName;
+                    option.value = s.SubCateID;
+                    subSelector.append(option);
                 });
             });
             //clone_ExD.querySelector("p").innerText = `接案經驗細節${ExDCount + 1}`;
@@ -562,30 +880,33 @@
             const formD = new FormData(form);
 
             //取得擅長軟體
-            let tools = $g("div[id^=toolTag]");
-            console.log(tools);
+            let tools = subToolArray.filter(x => x.IsChecked == true);
             let toolArray = [];
             tools.forEach(t => {
-                let toolId = t.dataset.content;
-                let p = $g(`div#toolTag${toolId}>p`);
                 let obj = new Object();
-                obj.ToolSubCategoryID = toolId;
-                obj.ToolSubCategoryName = p.innerText;
+                obj.ToolSubCategoryID = t.SubTalentCategoryID;
+                obj.ToolSubCategoryName = t.SubTalentCategoryName;
+                obj.ToolCategoryID = t.TalentCategoryID;
                 toolArray.push(obj);
             });
             console.log(toolArray)
             $g("input#JsonToolList").value = JSON.stringify(toolArray);
 
             //取得接案經歷
-            let ExDSubId = $g("select[name='ExDSubCategoryID']");
-            let ExDPieceworkExp = $g("select[name='ExDPieceworkExp']");
+            let ExDCateId = document.querySelectorAll("select[name='ExDCategoryID']");
+            let ExDSubId = document.querySelectorAll("select[name='ExDSubCategoryID']");
+            let ExDPieceworkExp = document.querySelectorAll("select[name='ExDPieceworkExp']");
             let ExDArray = [];
             let len = ExDSubId.length >= ExDPieceworkExp.length ? ExDPieceworkExp.length : ExDSubId.length;
             for (let i = 0; i < len; i++) {
-                let obj = new Object();
-                obj.SubCategoryID = ExDSubId[i].value;
-                obj.PieceworkExp = ExDPieceworkExp[i].value;
-                ExDArray.push(obj);
+                if ((Number(ExDSubId[i].value) != "-1") && (ExDPieceworkExp[i].value != "-1")) {
+                    let obj = new Object();
+                    obj.CategoryID = Number(ExDCateId[i].value);
+                    obj.SubCategoryID = Number(ExDSubId[i].value);
+                    obj.PieceworkExp = ExDPieceworkExp[i].value;
+                    ExDArray.push(obj);
+                }
+
             }
             console.log(ExDArray);
             $g("input#JsonExDList").value = JSON.stringify(ExDArray);

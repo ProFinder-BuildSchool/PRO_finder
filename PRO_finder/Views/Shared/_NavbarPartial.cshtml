@@ -1,4 +1,8 @@
 ﻿<header class="site-navbar ">
+
+
+
+
     <div class="container-fluid d-none d-xl-block bg-light">
         <div class="row justify-content-end py-0">
             @*<p class="m-0">您好，歡迎來到 Tasker出任務！ [<a href="">登入</a>] [<a href="">註冊</a>]</p>*@
@@ -6,16 +10,17 @@
         </div>
     </div>
 
-    <div class="container-fluid bg-white d-none d-xl-block">
+    <div class="container-fluid bg-white d-none d-xl-block ">
         <div class="row py-1">
-            <div class="col-4 ">
-
+            <div class="col-3">
+                <img src="~/Assets/images/logo.png" />
             </div>
-            <div class="col-8  btn-area text-right p-0">
+
+            <div class="col-9  btn-area text-right p-0 my-auto">
                 <form class="d-inline-block" id="search_form" autocomplete="off" method="post">
                     <div class="mainInputextbox d-inline-block">
                         <p>
-                            <input type="text" name="contain" id="search_text" maxlength="100" placeholder="請輸入關鍵字" class="textfield" value="@TempData["Contain"]">
+                            <input type="text" name="contain" id="search_text" maxlength=" 100" placeholder="請輸入關鍵字" class="textfield" value="@TempData["Contain"]">
                         </p>
                     </div>
                     <p class="searchTypeSelect  d-inline-block">
@@ -39,7 +44,7 @@
             <div class="col-6">
                 <nav class="site-navigation">
                     <ul class="site-menu js-clone-nav d-none d-xl-block pl-0 py-0">
-                        <li><a class="py-0" href="@Url.Action("Index","Home")"><i class="fas fa-home mr-2"></i>首頁</a></li>
+                        <li class="HomeIndex"><a class="py-0" href="@Url.Action("Index","Home")"><i class="fas fa-home mr-2"></i>首頁</a></li>
                         <li class="d-xl-none"><a href="@Url.Action("Login","Account")"><i class="fas fa-user mr-2"></i>登入/註冊</a></li>
                         <li class="d-xl-none"><a href="#"><i class="fas fa-comment-dots mr-2"></i>我的詢問</a></li>
                         <li class="d-xl-none imTalent">我是人才:</li>
@@ -48,9 +53,9 @@
                         <li class="d-xl-none imTalent">我是案主:</li>
                         <li class="d-xl-none"><a href="#"><i class="icon fas fa-pencil-alt mr-2"></i>立即發案</a></li>
                         <li class="d-xl-none"><a href="#"><i class="icon far fa-question-circle mr-2"></i>如何發案</a></li>
-                        <li class="has-children">
+                        <li class=" Quotation has-children">
                             <a href="#" class="py-0"><i class=" fas fa-search-dollar mr-2"></i>找報價</a>
-                            <ul class="dropdown">
+                            <ul class="dropdown ">
                                 <li class="py-1"><a href="/Quotation/Index?CategoryId=0">平面設計</a></li>
                                 <li class="py-1"><a href="/Quotation/Index?CategoryId=1">網頁設計</a></li>
                                 <li class="py-1"><a href="/Quotation/Index?CategoryId=2">程式開發</a></li>
@@ -77,7 +82,11 @@
                 <nav class="site-navigation">
                     <ul class="site-menu js-clone-nav d-none d-xl-block py-0">
                         <li><a href="@Url.Action("Index","Talent")" class="px-0"><i class="fas fa-user mr-2"></i>我的帳戶</a></li>
+                        @*<li class="CartList"><a href="@Url.Action("CartList","Cart")" class="px-0"><i class="fas fa-inbox  mr-2"></i>感興趣</a></li>*@
                     </ul>
+
+
+
                 </nav>
 
                 <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3">
@@ -89,7 +98,6 @@
 </header>
 @section topCSS{
     <style>
-
     </style>
 }
 

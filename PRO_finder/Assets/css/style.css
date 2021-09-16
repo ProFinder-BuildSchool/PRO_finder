@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito:200,300,400,700");
+
+
 .site-navbar {
   margin-bottom: 0px;
   z-index: 1999;
@@ -102,7 +104,10 @@
           background: #fff;
           -webkit-transition: 0.2s 0s;
           -o-transition: 0.2s 0s;
-          transition: 0.2s 0s; }
+          transition: 0.2s 0s; 
+          z-index:3000;
+
+        }
           .site-navbar .site-navigation .site-menu .has-children .dropdown.arrow-top {
             position: absolute; }
             .site-navbar .site-navigation .site-menu .has-children .dropdown.arrow-top:before {
@@ -1297,6 +1302,7 @@ h1, h2, h3, h4 {
 .site-footer {
   padding: 7rem 0;
   position: relative;
+
   background: #555; }
   @media (max-width: 991.98px) {
     .site-footer {
@@ -1687,7 +1693,7 @@ h1, h2, h3, h4 {
 .site-navbar {
     background-color: #89ba16;
     top: 0px !important;
-    position: sticky !important;
+    position: static ;
     
 }
 
@@ -1723,5 +1729,6 @@ h1, h2, h3, h4 {
     line-height: 1.7 !important;
     color: #89ba16 !important;
 }
+
 
 /* NAVBAR END */

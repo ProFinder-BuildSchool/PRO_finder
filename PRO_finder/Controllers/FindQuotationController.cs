@@ -1,4 +1,6 @@
-﻿using PRO_finder.Models.ViewModels;
+﻿using Microsoft.AspNet.Identity;
+using PRO_finder.Models.DBModel;
+using PRO_finder.Models.ViewModels;
 using PRO_finder.Service;
 using System;
 using System.Collections.Generic;
@@ -9,22 +11,25 @@ using System.Web.Script.Serialization;
 
 namespace PRO_finder.Controllers
 {
-    public class FindQuotationController : Controller
+    public class FindQuotationController : MyControllerBase
+    
     {
-
+        private readonly CategoryService _categoryService;
         private readonly CaseService _caseService;
+        private readonly MemberinfoService _memberinfoService;
+        private readonly CartService _cartService;
 
         public FindQuotationController()
         {
-           _caseService = new CaseService();
-
+            _caseService = new CaseService();
+            _categoryService = new CategoryService();
+            _memberinfoService = new MemberinfoService();
+            _cartService = new CartService();
         }
-
-
 
         [HttpGet]
         // GET: FindQuotation
-        public ActionResult Index(string id =null, string searchStr = null)
+        public ActionResult Index(string id = "0", string searchStr = null)
         {
 
             ViewBag.CateId = id;
@@ -32,14 +37,14 @@ namespace PRO_finder.Controllers
             if (string.IsNullOrEmpty(id))
             {
                 result = _caseService.GetCasesList().ToList();
-                ViewBag.CateId = 13;
+
             }
             else if (string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(searchStr))
             {
                 result = _caseService.GetCasesList().Where(x => x.Description.Contains(searchStr)).ToList();
-                ViewBag.CateId = 13;
+
             }
-            else if(!string.IsNullOrEmpty(id) && string.IsNullOrEmpty(searchStr))
+            else if (!string.IsNullOrEmpty(id) && string.IsNullOrEmpty(searchStr))
             {
                 result = _caseService.GetCasesList().Where(x => x.CategoryID == Int32.Parse(id)).ToList();
             }
@@ -47,7 +52,7 @@ namespace PRO_finder.Controllers
             {
                 result = _caseService.GetCasesList().Where(x => x.CategoryID == Int32.Parse(id) && x.Description.Contains(searchStr)).ToList();
             }
-         
+
 
             return View(result);
         }
@@ -57,21 +62,68 @@ namespace PRO_finder.Controllers
 
 
         [Authorize]
-        public ActionResult Detail(int id = 1)
+        public ActionResult Detail(int id = 1 )
         {
-            
+            string user = HttpContext.User.Identity.GetUserId();
+            int memberID = _memberinfoService.GetMemberID(user);
+
             ViewBag.CateId = id;
-            var result = _caseService.GetCaseDetail().FirstOrDefault(x => x.CaseId == id);
+            var result = _caseService.GetCaseDetail(id, memberID);
             return View(result);
 
         }
 
-        public ActionResult Othercase(string Cateid) 
+        public ActionResult Othercase(string Cateid)
         {
-            var result = _caseService.GetCaseDetail().Where(x => x.CategoryID == Int32.Parse(Cateid)).ToList
+            var result = _caseService.GetOtherCase().Where(x => x.CategoryID == Int32.Parse(Cateid)).ToList
                 ();
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        //會員中心-人才-提案紀錄
+        public ActionResult QTRecord()
+        {
+            string user = HttpContext.User.Identity.GetUserId();
+            int memberID = _memberinfoService.GetMemberID(user);
+
+            var QuotationCartViewModel = _cartService.GetAllQTRecords(memberID);
+            return View(QuotationCartViewModel);
+        }
+
+        public void DeleQTRecord(int? caseid)
+        {
+            string user = HttpContext.User.Identity.GetUserId();
+            int memberID = _memberinfoService.GetMemberID(user);
+
+
+            if (caseid != null)
+            {
+                _cartService.DeleOfQTRecord(caseid, memberID);
+            }
+
+        }
+
+        public ActionResult FindCategory(string categoryName)
+        {
+            ViewBag.CateId = "0";
+            List<CaseViewModel> result = new List<CaseViewModel>();
+            int id = _categoryService.GetCategoryID(categoryName);
+            if (id == -1)
+            {
+                result = _caseService.GetCasesList().Where(x => x.CategoryID == id).ToList();
+            }
+
+            result = _caseService.GetCasesList().Where(x => x.CategoryID == id).ToList();
+            return View("Index", result);
+        }
+        public ActionResult CaseSearch(string content)
+        {
+            ViewBag.CateId = "0";
+            List<CaseViewModel> result = new List<CaseViewModel>();
+            result = _caseService.GetCasesList().Where(x => x.Description.Contains(content)).ToList();
+            return View("Index", result);
+        }
+      
+
     }
 }

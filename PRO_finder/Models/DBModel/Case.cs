@@ -58,7 +58,5 @@ namespace PRO_finder.Models.DBModel
         public int? CompleteDate { get; set; }
 
         public virtual MemberInfo MemberInfo { get; set; }
-
-        public virtual MemberInfo MemberInfo1 { get; set; }
     }
 }

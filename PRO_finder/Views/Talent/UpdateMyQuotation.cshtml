@@ -1,0 +1,468 @@
+﻿@model PRO_finder.ViewModels.CreateQuotationViewModel
+
+@using PRO_finder.Service
+@using PRO_finder.Models
+
+
+@{
+    ViewBag.Title = "UpdateMyQuotation";
+    Layout = "~/Views/Shared/_LayoutMemberTalent.cshtml";
+
+
+}
+
+
+@using (Html.BeginForm("UpdateMyQuotation", "Talent"))
+{
+    @Html.AntiForgeryToken()
+    <div class="myContainer">
+        <div class="form-horizontal">
+            <h4>修改服務</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @*服務主類別選單*@
+            <div class="form-group">
+                <label for="Category" class="control-label col-md-12">服務類別</label>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            @Html.DropDownList("Catgeory", (List<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control", @id = "categoryDropdown" })
+                        </div>
+                        <div class="col-6">
+                            <select class="form-control" id="subcategorySelect" name="SubCategoryID">
+                                <option>選擇子類型</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*服務子類別選單*@
+
+            @*服務名稱*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.QuotationTitle, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.QuotationTitle, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.QuotationTitle, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            @*服務定價*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-8">
+                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-1" style="line-height:40px; padding:0px !important;"> 元&ensp;/&ensp;</div>
+                        <div class="col-3">
+                            @Html.EnumDropDownListFor(model => model.QuotationUnit, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.QuotationUnit, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*製作天數*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.ExecuteDate, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(model => model.ExecuteDate, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ExecuteDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*參考圖片*@
+            <div class="form-group mt-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="upload">
+                                <img src="https://image.flaticon.com/icons/png/512/568/568717.png"
+                                     alt=""><span class="uploadIcon">參考圖檔</span>
+                            </label>
+                        </div>
+                        <div class="col-6 d-none">
+                            <input type="file" id="upload" multiple="multiple" class="w-100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="displayUploadArea">
+                <div class="container">
+                    <p class="text-danger mb-0">&ensp;*拖曳交換順序</p>
+                    <div class="row" id="displayUpload">
+                        @foreach (var item in Model.OtherPicList)
+                        {
+                            <div class="col-12 col-md-6 col-lg-4 origin">
+                                <span class="btn btn-outline-danger"><i class='fas fa-trash-alt'></i></span>
+                                <img src="@item.OtherPictureLink" data-content="WorkPicture" class="origin uploadImg"/>
+                                @*<video src="" data-content="WorkPicture"/>*@
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            @*服務内容描述*@
+            <div class="form-group mt-5">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    <div id="editor">
+                        <div>
+                            @Html.Raw(Model.Description)
+                        </div>
+                    </div>
+                    <input type="hidden" name="Description" />
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-12 text-center">
+                    <input type="button" value="儲存" class="btn btn-primary mt-3" id="send" />
+                </div>
+            </div>
+        </div>
+    </div>
+    //hidden inputs
+    <input type="hidden" name="QuotationID" value="@Model.QuotationID"/> //請留著
+    <input type="hidden" name="MainPicture" id="MainPicture" />
+    <input type="hidden" name="OtherPictureList" id="OtherPictureList" />
+
+}
+@*picture template*@
+<template id="displayPictureTemplate">
+    <div class="col-12 col-md-6 col-lg-4">
+        <span class="btn btn-outline-danger"><i class='fas fa-trash-alt'></i></span>
+        @*<img src="" data-content="WorkPicture"/>*@
+        @*<video src="" data-content="WorkPicture"/>*@
+    </div>
+</template>
+
+@section topCSS{
+    <link href="~/Assets/css/quill.snow.css" rel="stylesheet" />
+    <style>
+        h4 {
+            color: #89ba16;
+            font-weight: 900;
+        }
+
+        .myContainer {
+            /* max-width: 510px; */
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            padding: 30px;
+        }
+
+        hr {
+            margin: 10px 0px !important;
+        }
+
+        label {
+            font-weight: 700;
+        }
+
+            label[for="upload"] {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 15vw;
+                height: 15vw;
+                background-color: #f2f2f2;
+                border: 2px #bebebe dashed;
+                margin: auto;
+            }
+
+                label[for="upload"] img {
+                    width: 30%;
+                }
+
+        span.uploadIcon {
+            font-size: 10px;
+        }
+
+        #displayUpload {
+            border: 2px #89ba16 dashed;
+            margin: 0px 15px;
+        }
+
+            #displayUpload img {
+                margin-top: auto auto;
+                width: 100%;
+                height: 100%;
+                /*max-height: 150px;*/
+                padding: 0px;
+            }
+
+            #displayUpload div {
+                position: relative;
+                width: 100%;
+                margin: 20px auto;
+            }
+
+                #displayUpload div::before {
+                    content: "";
+                    position: absolute;
+                    width: calc(100% - 30px);
+                    height: 100%;
+                    z-index: 100;
+                    background-color: rgba(0, 0, 0, 0.5);
+                }
+
+                #displayUpload div:first-child::before {
+                    content: "  *第一張為封面";
+                    color: yellow;
+                    font-size: 16px;
+                    font-weight: 700;
+                }
+
+                #displayUpload div span {
+                    position: absolute;
+                    z-index: 300;
+                    display: block;
+                    top: 0px;
+                    right: 15px;
+                    border: none !important;
+                }
+
+                    #displayUpload div span:hover {
+                        background-color: unset !important;
+                        cursor: pointer;
+                    }
+                    body.wait{
+                        cursor:wait;
+                    }
+
+        @@media screen and (min-width:768px) {
+            span.uploadIcon {
+                font-size: 16px;
+            }
+        }
+    </style>
+}
+
+@section endJS{
+    <script src="~/Assets/js/quill.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js" integrity="sha512-zYXldzJsDrNKV+odAwFYiDXV2Cy37cwizT+NkuiPGsa9X1dOz04eHvUWVuxaJ299GvcJT31ug2zO4itXBjFx4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>var originSubcateID = @Model.SubCategoryID; var originCateID = @Model.CategoryID</script>
+    <script>
+
+        //服務類別轉換
+        let selector = document.querySelector("#subcategorySelect");
+        var subCategoryList = [];
+
+        axios.get("/api/Talent/GetAllCategoryAndSubCategoryList").then(result => {
+            let data = JSON.parse(result.data.Result);
+            subCategoryList.push(...data);
+
+            //呈現subcatgory dropdown list
+            if (originSubcateID != null && originCateID != null) {
+                selector.innerHTML = "<option>選擇服務子類型</option>";
+                let originSubList = subCategoryList.filter(x => x.CategoryID == originCateID)[0].JsonSubCategoryList;
+                let allOriginSubList = JSON.parse(originSubList);
+                allOriginSubList.forEach(s => {
+                    let option = document.createElement("option");
+                    option.innerText = s.SubCateName;
+                    option.value = s.SubCateID;
+                    if (s.SubCateID == originSubcateID) { option.selected = true; }
+                    selector.append(option);
+                });
+            }
+        });
+        
+
+        document.querySelector("#categoryDropdown").addEventListener("change", function () {
+            selector.innerHTML = "<option>選擇服務子類型</option>";
+            let subJsonList = subCategoryList.filter(x => x.CategoryID == this.value)[0].JsonSubCategoryList;
+            let allSub = JSON.parse(subJsonList);
+            allSub.forEach(s => {
+                let option = document.createElement("option");
+                option.innerText = s.SubCateName;
+                option.value = s.SubCateID;
+                selector.append(option);
+            });
+        });
+
+        //quill 富文本編輯器
+        var toolbarOptions = [
+            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+            [{ 'direction': 'rtl' }],                         // text direction
+            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+            [{ 'align': [] }],
+            ['clean']                                         // remove formatting button
+        ];
+        var quill = new Quill('#editor', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+            theme: 'snow'
+        });
+        $g('.ql-toolbar.ql-snow').style.setProperty('border-radius', '.25rem .25rem 0 0');
+        $g('#editor').style.setProperty('border-radius', '0 0 .25rem .25rem');
+        $g('#editor').style.setProperty('min-height', '200px');
+
+        //上傳圖檔呈現
+        let countMedia = 0;
+        let displayUpload = $g("#displayUpload");
+        //原有圖片顯示的div顯示設定
+        let originImgDiv = document.querySelectorAll("div.origin");
+        if (originImgDiv != null) {
+            originImgDiv.forEach(div => {
+                div.setAttribute("id", `count${countMedia}`);
+                let span = div.querySelector("span");
+                span.dataset.count = countMedia;
+                //刪除設定
+                span.addEventListener("click", function () {
+                    let theCount = this.dataset.count
+                    let theDiv = $g(`div#count${theCount}`);
+                    displayUpload.removeChild(theDiv);
+                });
+                countMedia++;
+            })
+        }
+        $g("input#upload").addEventListener("change", function () {
+            let files = Array.from(this.files);
+            files.forEach(file => {
+                let clone = $g("#displayPictureTemplate").content.cloneNode(true);
+                let div = clone.querySelector("div");
+                let span = clone.querySelector("span");
+                span.dataset.count = countMedia;
+                div.setAttribute("id", `count${countMedia}`);
+
+                //刪除設定
+                span.addEventListener("click", function () {
+                    let theCount = this.dataset.count
+                    let theDiv = $g(`div#count${theCount}`);
+                    displayUpload.removeChild(theDiv);
+                });
+
+                //新增圖片影片預覽
+                let regexImg = "^image.+";
+                let regexVideo = "^video.+";
+                let fileType = file.type;
+                let img = document.createElement("img");
+                img.classList.add('uploadImg');
+                let video = document.createElement("video");
+                video.classList.add('uploadVideo');
+
+                if (fileType.match(regexImg)) {
+                    img.src = URL.createObjectURL(file);
+                    div.appendChild(img);
+                }
+                else if (fileType.match(regexVideo)) {
+                    video.src = URL.createObjectURL(file);
+                    div.appendChild(video);
+                }
+                displayUpload.appendChild(div);
+                countMedia++;
+            });
+        });
+        
+        //sortable
+        const displayArea = $g("#displayUpload");
+        new Sortable(displayArea, {
+            animation: 200
+        });
+
+        $g("input#send").addEventListener("click", function (e) {
+            e.preventDefault();
+            $g("body").classList.add("wait");
+            //富文本編輯器儲存
+            $g("input[name='Description']").value = $g("div.ql-editor").innerHTML;
+
+            //儲存參考圖檔
+            //let otherPictureArray = [];
+            let imgs = document.querySelectorAll(".uploadImg");
+            //上傳雲端
+            //const uploadImage_SendForm = async () => {
+            //    for (let i = 0; i < imgs.length; i++) {
+            //        const blobData = await getBlobData(imgs[i].src);
+            //        const fileObject = new File([blobData], imgs[i].src, { type: blobData.type });
+            //        const form = new FormData();
+            //        form.append("picture", fileObject);
+            //        let url_result = await axiosImageFile(form);
+            //        otherPictureArray.push({ OtherPictureLink: url_result, SortNumber: i });
+            //        $g("input#MainPicture").value = otherPictureArray[0].OtherPictureLink;
+            //        let otherPics = JSON.stringify(otherPictureArray);
+            //        $g("input#OtherPictureList").value = otherPics;
+            //        console.log(otherPics);
+
+            //    };
+            //    //document.querySelector("form[action='/Talent/UpdateMyQuotation']").submit();
+            //}
+            //uploadImage_SendForm();
+            let updateQ = new Object();
+            updateQ['QuotationTitle'] = $g("input[name='QuotationTitle']").value;
+            updateQ['Price'] = Number($g("input[name='Price']").value);
+            updateQ['QuotationUnit'] = Number($g("select[name='QuotationUnit']").value);
+            updateQ['ExecuteDate'] = Number($g("input[name='ExecuteDate']").value);
+            updateQ['Description'] = $g("div.ql-editor").innerHTML;
+            updateQ['SubCategoryID'] = Number($g("select[name='SubCategoryID']").value);
+            updateQ['QuotationID'] = Number($g("input[name='QuotationID']").value);
+            axios({
+                method: "post",
+                url: "/api/Talent/UpdateQuotation",
+                headers: { 'Content-Type': 'application/json;charset=utf-8', 'strict': false },
+                data: updateQ
+            }).then(res => {
+                const quotationID = Number($g("input[name='QuotationID']").value);
+                const uploadPics = async () => {
+                    for (let i = 0; i < imgs.length; i++) {
+                        console.log(quotationID);
+                        const blobData = await getBlobData(imgs[i].src);
+                        const fileObject = new File([blobData], imgs[i].src, { type: blobData.type });
+                        const form = new FormData();
+                        form.append("Picture", fileObject);
+                        form.append("SortNumber", i);
+                        form.append("QuotationID", quotationID);
+                        axios({
+                            method: "post",
+                            url: "/api/Talent/UPDATEOtherPics",
+                            headers: { 'Content-Type': 'application/json', 'strict': false },
+                            data: form
+                        }).then(res => console.log(res.data));
+                    };
+                    document.querySelector("form[action='/Talent/UpdateMyQuotation']").submit();
+                }
+                uploadPics();
+            });
+        });
+            
+
+        function $g(element) {
+            let temp = document.querySelectorAll(element);
+            return temp.length == 1 ? temp[0] : temp;
+        }
+        function getBlobData(img_src) {
+            return fetch(img_src).then(res => res.blob());
+        }
+        function axiosImageFile(picture) {
+            return axios({
+                method: 'post',
+                url: '/Talent/UploadCloudinary',
+                data: picture,
+                contentType: false,
+                processData: false,
+                enctype: "multipart/form-data"
+            }).then(res => res.data);
+        }
+    </script> 
+}
+

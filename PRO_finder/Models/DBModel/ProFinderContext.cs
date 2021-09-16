@@ -12,15 +12,18 @@ namespace PRO_finder.Models.DBModel
         {
         }
 
-        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<Banner> Banner { get; set; }
         public virtual DbSet<Case> Case { get; set; }
         public virtual DbSet<CaseNotification> CaseNotification { get; set; }
         public virtual DbSet<CaseReference> CaseReference { get; set; }
         public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<ClientCart> ClientCart { get; set; }
         public virtual DbSet<Experience> Experience { get; set; }
+        public virtual DbSet<FeaturedWork> FeaturedWork { get; set; }
         public virtual DbSet<HostingDetail> HostingDetail { get; set; }
         public virtual DbSet<Locations> Locations { get; set; }
         public virtual DbSet<MemberInfo> MemberInfo { get; set; }
@@ -47,11 +50,6 @@ namespace PRO_finder.Models.DBModel
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AspNetRoles>()
-                .HasMany(e => e.AspNetUsers)
-                .WithMany(e => e.AspNetRoles)
-                .Map(m => m.ToTable("AspNetUserRoles").MapLeftKey("RoleId").MapRightKey("UserId"));
-
             modelBuilder.Entity<AspNetUsers>()
                 .HasMany(e => e.AspNetUserClaims)
                 .WithRequired(e => e.AspNetUsers)
@@ -64,10 +62,20 @@ namespace PRO_finder.Models.DBModel
                 .HasForeignKey(e => e.UserId)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<AspNetUsers>()
+                .HasMany(e => e.AspNetUserRoles)
+                .WithRequired(e => e.AspNetUsers)
+                .HasForeignKey(e => e.UserId)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Category>()
                 .HasMany(e => e.SubCategory)
                 .WithRequired(e => e.Category)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ClientCart>()
+                .Property(e => e.Price)
+                .HasPrecision(18, 0);
 
             modelBuilder.Entity<HostingDetail>()
                 .Property(e => e.HostedAmount)
@@ -82,16 +90,6 @@ namespace PRO_finder.Models.DBModel
                 .HasPrecision(19, 4);
 
             modelBuilder.Entity<MemberInfo>()
-                .HasMany(e => e.Case)
-                .WithOptional(e => e.MemberInfo)
-                .HasForeignKey(e => e.MemberID);
-
-            modelBuilder.Entity<MemberInfo>()
-                .HasMany(e => e.Case1)
-                .WithOptional(e => e.MemberInfo1)
-                .HasForeignKey(e => e.MemberID);
-
-            modelBuilder.Entity<MemberInfo>()
                 .HasMany(e => e.Experience)
                 .WithRequired(e => e.MemberInfo)
                 .WillCascadeOnDelete(false);
@@ -100,10 +98,6 @@ namespace PRO_finder.Models.DBModel
                 .HasMany(e => e.HostingDetail)
                 .WithRequired(e => e.MemberInfo)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<MemberInfo>()
-                .HasOptional(e => e.Works)
-                .WithRequired(e => e.MemberInfo);
 
             modelBuilder.Entity<MemberInfo>()
                 .HasMany(e => e.Message)
@@ -115,12 +109,6 @@ namespace PRO_finder.Models.DBModel
                 .HasMany(e => e.Message1)
                 .WithRequired(e => e.MemberInfo1)
                 .HasForeignKey(e => e.SourceID)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<MemberInfo>()
-                .HasMany(e => e.Order)
-                .WithRequired(e => e.MemberInfo)
-                .HasForeignKey(e => e.DealedTalentMemberID)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<MemberInfo>()
@@ -141,10 +129,6 @@ namespace PRO_finder.Models.DBModel
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<MemberInfo>()
-                .HasOptional(e => e.Works1)
-                .WithRequired(e => e.MemberInfo1);
-
-            modelBuilder.Entity<MemberInfo>()
                 .HasMany(e => e.ProposalRecord)
                 .WithRequired(e => e.MemberInfo)
                 .WillCascadeOnDelete(false);
@@ -154,8 +138,10 @@ namespace PRO_finder.Models.DBModel
                 .WithRequired(e => e.MemberInfo);
 
             modelBuilder.Entity<MemberInfo>()
-                .HasOptional(e => e.QuotationDetail)
-                .WithRequired(e => e.MemberInfo);
+                .HasMany(e => e.QuotationDetail)
+                .WithRequired(e => e.MemberInfo)
+                .HasForeignKey(e => e.ProposerID)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Order>()
                 .Property(e => e.CaseReview)
@@ -163,7 +149,7 @@ namespace PRO_finder.Models.DBModel
 
             modelBuilder.Entity<Order>()
                 .Property(e => e.Price)
-                .HasPrecision(19, 4);
+                .HasPrecision(18, 0);
 
             modelBuilder.Entity<Quotation>()
                 .Property(e => e.Evaluation)
@@ -171,7 +157,11 @@ namespace PRO_finder.Models.DBModel
 
             modelBuilder.Entity<Quotation>()
                 .Property(e => e.Price)
-                .HasPrecision(5, 0);
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<QuotationDetail>()
+                .Property(e => e.ProposePrice)
+                .HasPrecision(18, 0);
 
             modelBuilder.Entity<ReplyFrequency>()
                 .Property(e => e.Degree)

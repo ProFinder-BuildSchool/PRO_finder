@@ -11,14 +11,23 @@ namespace PRO_finder.Models.DBModel
     {
         public int CaseID { get; set; }
 
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProposerID { get; set; }
 
         public int PredictDays { get; set; }
 
         [Required]
         public string ProposeDescription { get; set; }
+
+        public DateTime ProposeDate { get; set; }
+
+        public decimal ProposePrice { get; set; }
+
+        [Key]
+        public int QuotaionDetailID { get; set; }
+
+        public bool? Status { get; set; }
+
+        public int? Unit { get; set; }
 
         public virtual MemberInfo MemberInfo { get; set; }
     }

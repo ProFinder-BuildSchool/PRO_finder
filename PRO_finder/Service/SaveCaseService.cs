@@ -4,8 +4,11 @@ using PRO_finder.Models.ViewModels;
 using PRO_finder.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
+using HttpContext = System.Web.HttpContext;
+using HttpResponse = System.Web.HttpResponse;
 
 namespace PRO_finder.Service
 {
@@ -17,18 +20,16 @@ namespace PRO_finder.Service
             _ctx = new GeneralRepository(new ProFinderContext());
         }
 
-        
-
         public List<SaveCaseViewModel> GetSaveCaseData(int MemberID)
         {
             List<SaveCaseViewModel> saveCases = new List<SaveCaseViewModel>();
-            var saved = _ctx.GetAll<SaveCase>().Where(x => x.MemberID == MemberID).ToList();    
-            foreach(var item in saved)
+            var saved = _ctx.GetAll<SaveCase>().Where(x => x.MemberID == MemberID).ToList();
+            foreach (var item in saved)
             {
                 Case theCase = _ctx.GetAll<Case>().FirstOrDefault(x => x.CaseID == item.CaseID);
                 saveCases.Add(new SaveCaseViewModel
                 {
-                    CaseID = item.CaseID,
+                    CaseID = (int)item.CaseID,
                     SavedDate = item.SavedDate,
                     MemberID = MemberID,
                     title = theCase.CaseTitle,
@@ -40,20 +41,33 @@ namespace PRO_finder.Service
 
             return saveCases;
         }
-
-        public void AddItemToSaveCase(int CaseID, int MemberID)
+        public void AddOrDeleOfSaveCase(int? CaseID, int MemberID)
         {
-
-            DateTime now = DateTime.UtcNow;
-            SaveCase entity = new SaveCase()
+            var SaveCase = _ctx.GetAll<SaveCase>()
+                .SingleOrDefault(s => s.CaseID == CaseID && s.MemberID == MemberID);
+            
+            if (SaveCase == null)
             {
-                CaseID = CaseID,
+                DateTime now = DateTime.UtcNow;
+                SaveCase  = new SaveCase()
+                {
+                CaseID = (int)CaseID,
                 SavedDate = now,
                 MemberID = MemberID
-
-            };
-            _ctx.Create(entity);
-            _ctx.SaveChanges();
+                };
+                _ctx.Create(SaveCase);
+                _ctx.SaveChanges();
+            }
+            else
+            {
+                _ctx.Delete(SaveCase);
+                _ctx.SaveChanges();
+            }
         }
     }
+
 }
+
+
+        
+    

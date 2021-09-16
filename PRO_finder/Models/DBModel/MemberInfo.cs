@@ -13,7 +13,6 @@ namespace PRO_finder.Models.DBModel
         public MemberInfo()
         {
             Case = new HashSet<Case>();
-            Case1 = new HashSet<Case>();
             Experience = new HashSet<Experience>();
             HostingDetail = new HashSet<HostingDetail>();
             Message = new HashSet<Message>();
@@ -23,6 +22,7 @@ namespace PRO_finder.Models.DBModel
             SaveStaff1 = new HashSet<SaveStaff>();
             ServicePlus = new HashSet<ServicePlus>();
             ProposalRecord = new HashSet<ProposalRecord>();
+            QuotationDetail = new HashSet<QuotationDetail>();
         }
 
         [Key]
@@ -55,9 +55,6 @@ namespace PRO_finder.Models.DBModel
         [Column(TypeName = "money")]
         public decimal? Balance { get; set; }
 
-        [Column(TypeName = "image")]
-        public byte[] ProfilePicture { get; set; }
-
         public bool? Status { get; set; }
 
         [StringLength(50)]
@@ -83,19 +80,21 @@ namespace PRO_finder.Models.DBModel
 
         public bool? IsThirdLogin { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Case> Case { get; set; }
+        public string ProfilePicture { get; set; }
+
+        [StringLength(50)]
+        public string BankCode { get; set; }
+
+        public string BankAccount { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Case> Case1 { get; set; }
+        public virtual ICollection<Case> Case { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Experience> Experience { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HostingDetail> HostingDetail { get; set; }
-
-        public virtual Works Works { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Message { get; set; }
@@ -115,13 +114,12 @@ namespace PRO_finder.Models.DBModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServicePlus> ServicePlus { get; set; }
 
-        public virtual Works Works1 { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProposalRecord> ProposalRecord { get; set; }
 
         public virtual ReplyFrequency ReplyFrequency { get; set; }
 
-        public virtual QuotationDetail QuotationDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<QuotationDetail> QuotationDetail { get; set; }
     }
 }

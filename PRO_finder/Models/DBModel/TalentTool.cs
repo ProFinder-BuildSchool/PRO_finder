@@ -15,7 +15,9 @@ namespace PRO_finder.Models.DBModel
 
         public int ToolSubCategoryID { get; set; }
 
-        public int ToolSubCategoryName { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string ToolSubCategoryName { get; set; }
 
         public int ToolCategoryID { get; set; }
     }

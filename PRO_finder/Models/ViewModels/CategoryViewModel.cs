@@ -22,6 +22,7 @@ namespace PRO_finder.ViewModels
 
         public string JsonSubCategoryList;
         public List<SubCateData> SubCateData { get; set; }
+        public int TalentCounts { get; set; }
     }
 
     public class SubCateData

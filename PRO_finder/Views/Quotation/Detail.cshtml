@@ -13,10 +13,10 @@
             <!-- 右欄-報價細節 -->
             <div class="col-lg-8  blog-content position-relative">
                 <section id="primary" class="content-area">
-                    <header id="backwork" style="position:sticky;top:155px;z-index:2;background-color:#fff;">
-                        <h3>
-                            <a href="@Url.Action("StudioHome", new { TalentID = @Model.MemberID })" class="fas fa-angle-double-left mr-2">回到工作室 </a>
-                        </h3>
+                    <header id="backwork" style="position:sticky;top:0px;z-index:2;background-color:#fff;">
+                        <p class=" h-5 border-bottom">
+                            <a href="@Url.Action("StudioHome", new { TalentID = @Model.MemberID })" class="py-3 fas fa-angle-double-left mr-2">回到工作室 </a>
+                        </p>
                     </header>
                     <div class="container">
                         <div class="row align-items-center mb-5">
@@ -32,15 +32,15 @@
                                         <div class="left-down">
                                             <ul class="d-flex" style="overflow-y: auto;">
                                                 @*@if (Model.OtherPicture.Any())
-                                                {
-                                                    foreach (var pic in Model.OtherPicture)
-                                                    {<li>
-                                                        <figure id="otherpicture-@pic.SortNumber" class="mb-5">
-                                                            <img src="@Model.MainPicture" alt="Image" class="img-fluid rounded" sizes="(max-width: 710px) 25vw,178px" ;>
-                                                        </figure>
-                                                    </li>    
-                                                    }
-                                                }*@
+                                                    {
+                                                        foreach (var pic in Model.OtherPicture)
+                                                        {<li>
+                                                            <figure id="otherpicture-@pic.SortNumber" class="mb-5">
+                                                                <img src="@Model.MainPicture" alt="Image" class="img-fluid rounded" sizes="(max-width: 710px) 25vw,178px" ;>
+                                                            </figure>
+                                                        </li>
+                                                        }
+                                                    }*@
                                             </ul>
                                         </div>
                                     </div>
@@ -56,19 +56,21 @@
                                         <div class="mt-3">
                                             <h2>@Model.QuotationTitle</h2>
                                             <p>服務報價：@Model.Price</p>
-                                            <p>服務評分：
+                                            <p>
+                                                服務評分：
                                                 @{ if (Model.Evaluation == -1)
                                                     {
-                                                        @("無評價")   
+                                                        @("無評價")
                                                     }
-                                                    else 
+                                                    else
                                                     {
                                                         @Model.Evaluation
                                                     }
-                                                }</p>
+                                                }
+                                            </p>
                                             <p>執行時間：@Model.ExecuteDate 天</p>
                                             <p>服務地點：@Model.Location</p>
-                                            <a class="btn btn-danger" href="#">站內詢問</a>
+                                            <button class="btn bg-danger  text-white  modelBtn"><i class="fas fa-plus mr-2"></i>興趣清單</button>
                                         </div>
                                     </div>
                                 </div>
@@ -132,7 +134,7 @@
                                         foreach (var pic in Model.OtherPicture)
                                         {
                                             <figure id="otherpicture-@pic.SortNumber" class="mb-5">
-                                                <img src="@Model.MainPicture" alt="Image" class="img-fluid rounded" sizes="(max-width: 710px) 25vw,178px";>
+                                                <img src="@Model.MainPicture" alt="Image" class="img-fluid rounded" sizes="(max-width: 710px) 25vw,178px" ;>
                                             </figure>
                                         }
                                     }
@@ -140,7 +142,7 @@
                             </div>
                         </div>
                         <!-- 顯示評價 (如果評價太多要有分頁)-->
-                        <div class="comment-content" style="display:none;">
+                        @*<div class="comment-content" style="display:none;">
                             <h3 class="h5 d-flex align-items-center mb-4 text-primary">
                                 <span class="icon-turned_in mr-3"></span>服務評價 @Model.QuotationReview.Count() 則
                             </h3>
@@ -164,12 +166,13 @@
                                                         CaseMessage
                                                     </p>
                                                 </div>
-/                                            </li>
+                                                /
+                                            </li>
                                         </ul>
                                     }
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
                     </main>
                 </section>
             </div>
@@ -177,9 +180,105 @@
     </div>
 </section>
 
+
+<div class="row sidenav" id="Sidenav">
+    <div class=" col-12 d-flex align-content-center">
+        <button class="closefilter">X</button>
+    </div>
+
+    <div class="col-lg-6 col-12">
+        <div class="productdetail">
+            <h3>@Model.QuotationTitle</h3>
+            <span class="price">@Model.Price</span><span>/ @Model.Unit</span>
+            <p><a href="" class="studioName">@Model.NickName</a></p>
+            <p>執行時間：<span>@Model.ExecuteDate 天</span></p>
+            <div class="detailInf">
+                <p>
+                    服務內容：
+                    <br>
+                    <span>
+                        @Model.Description
+                    </span>
+                </p>
+            </div>
+            <button class="more">查看更多</button>
+        </div>
+    </div>
+    <div class="col-lg-6 col-12">
+        <div class="confirmProduct">
+            <div class="row justify-content-center">
+                <form class="col-12" id="form">
+                    <p class="h3">確認數量</p>
+                    <div>
+                        <button class="minuscount"><i class="fas fa-minus"></i></button>
+                        <span class="count"></span>
+                        <button class="pluscount"><i class="fas fa-plus"></i></button>
+                    </div>
+                    <h5 class="text-start text-dark pb-2 border-bottom">
+                        輸入訂購人資訊
+                    </h5>
+                    <div class="form-group text-start text-dark mb-2">
+                        <label class="" for="username ">收件人姓名</label>
+                        <input type="text" class="form-control" name="name" id="username"
+                               placeholder="輸入姓名" /> <span class="text-danger font-weight-bold namespan"></span>
+                    </div>
+                    <div class="form-group text-start text-dark mb-2">
+                        <label class="" for="useremail">Email</label>
+                        <input type="email" class="form-control" name="email" id="useremail"
+                               placeholder="請輸入 Email" /> <span class="text-danger font-weight-bold emailspan"></span>
+                    </div>
+                    <div class="form-group text-start text-dark mb-2">
+                        <label class="" for="usertel">收件人電話</label>
+                        <input type="tel" class="form-control" id="usertel"
+                               placeholder="請輸入電話" /> <span class="text-danger telspan font-weight-bold"></span>
+                    </div>
+                    <div class="form-group text-start text-dark mb-2">
+                        <label class=""
+                               for="useraddress">收件人LineID</label>
+                        <input type="text" class="form-control" name="line"
+                               id="userline" placeholder="請輸入LineID" />
+                    </div>
+                    <div>
+                        <label class="text-black"
+                               for="useraddress">可聯繫時段</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="morningtime" value="0">
+                        <label class="form-check-label" for="morningtime">上午 7-12</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="aternoontime" value="1">
+                        <label class="form-check-label" for="aternoontime">下午 12-18</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="eveningtime" value="2">
+                        <label class="form-check-label" for="eveningtime">晚上 18-22</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="unlimitedtime" value="3" checked>
+                        <label class="form-check-label" for="unlimitedtime">不限時段</label>
+                    </div>
+                    <div class="form-group text-start text-dark">
+                        <label for="memo">留言</label> <textarea name="" id="memo" class="form-control" cols="30" rows="5"></textarea>
+                    </div>
+                    <div class="mt-3 text-right">
+                        <button class="addProduct"> 加入購物車</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
 @section topCSS
     {
     <style>
+
+        .Quotation > a:first-child {
+            color: #89ba16 !important;
+            background-color: white
+        }
+
         .btn {
             border: none !important;
         }
@@ -249,10 +348,341 @@
             -webkit-box-shadow: 0 0px 10px 0px rgba(0, 0, 0, 0.1);
             box-shadow: 0 0px 10px 0px rgba(0, 0, 0, 0.1);
         }
+
+
+        /*---------CartModel---------------*/
+        .sidenav {
+            height: 0;
+            width: 100%;
+            position: fixed;
+            z-index: 10000;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            transition: .5s;
+            overflow: auto;
+            background-color: white;
+        }
+
+            .sidenav::-webkit-scrollbar {
+                background-color: transparent;
+            }
+
+
+        .closefilter {
+            background-color: transparent;
+            justify-content: left;
+            border: none;
+            font-size: 25px;
+            font-weight: bolder;
+        }
+
+        .productdetail {
+            padding: 0 20% 0 20%;
+            font-family: 'Noto Sans TC', sans-serif;
+            line-height: 2;
+        }
+
+        .price {
+            color: rgb(153, 56, 56);
+            font-size: 25px;
+        }
+
+        .studioName {
+            font-size: 20px;
+            color: black;
+            text-decoration: underline;
+        }
+
+        .detailInf {
+            width: 450px;
+            font-size: 15px;
+            height: 65px;
+            overflow: hidden;
+            transition: .5s;
+            border-top: 2px solid #efefef;
+            padding-top: 10px;
+        }
+
+        .more {
+            background-color: transparent;
+            border: none;
+            text-decoration: underline;
+            text-align: left;
+            font-size: 15px;
+            color: rgb(90, 72, 72);
+            margin-left: -5px;
+        }
+
+        .confirmProduct {
+            padding: 0 20% 0 20%;
+            font-family: 'Noto Sans TC', sans-serif;
+            font-size: 23px;
+        }
+
+        .minuscount,
+        .pluscount {
+            background-color: transparent;
+            /*            width: 30px;
+            height: 30px;*/
+            border-radius: 50%;
+            border: none;
+            font-size: 20px;
+            text-align: center;
+        }
+
+            .minuscount:hover,
+            .pluscount:hover {
+                transform: scale(1.2);
+            }
+
+        .count {
+            margin: 10px;
+            font-size: 20px;
+        }
+
+        .addProduct {
+            display: block;
+            width: 100%;
+            /* margin-top: 180px; */
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 20px;
+            padding: 8px;
+        }
+
+        form {
+            font-size: 15px;
+        }
+
+        .closefilter:focus,
+        .more:focus {
+            outline: none;
+        }
+
+        .minuscount:focus,
+        .pluscount:focus {
+            outline: none;
+            background: radial-gradient(circle at center,white,rgba(0,0,0,.05));
+        }
+
+        .site-navbar {
+            position: static !important;
+        }
+        .addProduct:disabled {
+            background: #808080;
+        }
     </style>
 }
 
 @section endJS{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
     <script src="~/Assets/js/QuotationDetail.js"></script>
     
+    <script>
+
+        let addProduct = document.querySelector('.addProduct');
+
+        let side = document.getElementById('Sidenav');
+        let detailInf = document.querySelector('.detailInf');
+        let more = document.querySelector('.more');
+        let ismore = true;
+        let countNumber = document.querySelector('.count');
+
+
+
+        function telValidation() {
+            let telReg = /^09[0-9]{8}$/;
+            let telInput = document.getElementById("usertel").value;
+            let telSpan = document.querySelector('.telspan');
+
+            if (telInput == '') {
+                telSpan.innerText = '電話欄位不得留空';
+                return false;
+            }
+            if (!telReg.test(telInput)) {
+                telSpan.innerText = '電話欄位格式錯誤'
+                return false;
+
+            } else {
+                telSpan.innerText = ''
+                return true;
+            }
+        }
+
+        function nameValidation() {
+            let nameReg = /^([\u4e00-\u9fa5]{1,20}|[a-zA-Z\s]{1,20})$/;
+            let nameInput = document.getElementById("username").value;
+            let nameSpan = document.querySelector('.namespan');
+
+            if (nameInput == '') {
+                nameSpan.innerText = '姓名欄位不得留空';
+                return false;
+            }
+            if (!nameReg.test(nameInput)) {
+                nameSpan.innerText = '姓名欄位格式錯誤(不包含數字及特殊符號)'
+                return false;
+
+            } else {
+                nameSpan.innerText = ''
+                return true;
+            }
+        }
+
+        function emailValidation() {
+            let emailReg =  /^[a-zA-Z0-9_.-]+@@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{0,4}$/;
+            let emailInput = document.getElementById("useremail").value;
+            let emailSpan = document.querySelector('.emailspan');
+
+            console.log(emailReg);
+            console.log(emailInput);
+
+            if (emailInput == '') {
+                emailSpan.innerText = 'Email欄位不得留空';
+                return false;
+            }
+            if (!emailReg.test(emailInput)) {
+                emailSpan.innerText = 'Email欄位格式錯誤'
+                return false;
+
+            } else {
+                emailSpan.innerText = ''
+                return true;
+            }
+        }
+
+        function validateAll() {
+            let tel = telValidation();
+            let name = nameValidation();
+            let email = emailValidation();
+            console.log(tel)
+            console.log(name)
+            console.log(email)
+            if (tel && name && email) {
+                console.log('true')
+                return true;
+            }
+            else {
+                console.log('false')
+                return false;
+            }
+        }
+
+
+        addProduct.addEventListener('click', function (e) {
+
+            let result = validateAll();
+            if (result == true) {
+                e.preventDefault()
+             let count = document.querySelector('.count').innerText;
+            let useremail = document.querySelector('#useremail').value;
+            let username = document.querySelector('#username').value;
+            let usertel = document.querySelector('#usertel').value;
+            let userline = document.querySelector('#userline').value;
+            let memo = document.querySelector('#memo').value;
+
+                let contacttime= '';
+                document.querySelectorAll('.form-check-input').forEach(function (item) {
+            if (item.checked == true) {
+
+                    contacttime = item.value
+                    
+                    }
+                })
+
+
+
+            let OrderInfo = {
+                Email: useremail, Name: username, Tel: usertel, LineID: userline, Memo: memo,
+                MemberID:@ViewBag.memberID , QuotationImg: "@Model.MainPicture", SubCategory: "@Model.QuotationTitle", StudioName: "@Model.NickName", Count: Number(count),
+                Price: @Model.Price , Unit: "@Model.Unit", ProposerID: @Model.MemberID, ContactTime: contacttime, QuotationID:@Model.QuotationId
+        }
+
+
+            axios.post('/api/Cart/AddCart?memberID=@ViewBag.memberID', OrderInfo)
+                .then(res => {
+                    side.style.height = "0px"
+                    if (res.data.Result == true) {
+
+                        axios.get(`/api/Cart/GetCart?id=@ViewBag.memberID`).then(res => {
+                            let counts = res.data.Result.length
+                            let CartCount = document.querySelector('.CartCount')
+                            CartCount.classList.remove('d-none')
+                            CartCount.innerHTML = counts
+                            console.log('測試', res.data.Result.length)
+                        })
+
+                        Swal.fire(
+                            '已加入清單',
+                            '點擊按鈕關閉',
+                            'success'
+                        )
+
+
+                    }
+                    else {
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: '系統發生錯誤!',
+                            text: '請喝杯咖啡再點選一次~ :)',
+                        })
+                    }
+                })
+            }
+            else {
+                e.preventDefault()
+            }
+
+            })
+
+        document.querySelector('.modelBtn').addEventListener('click', function () {
+            let height = 100
+            side.style.height = `${height}%`;
+
+
+        });
+        document.querySelector('.closefilter').addEventListener('click', function () {
+            side.style.height = "0px";
+        })
+
+
+        document.querySelector('.more').addEventListener('click', function () {
+            ismore = !ismore;
+            if (ismore) {
+                more.innerText = '查看更多'
+                detailInf.style.height = "65px";
+            }
+            else {
+                more.innerText = '收合內容'
+                detailInf.style.height = "auto";
+            }
+        })
+
+
+
+            let count = 1
+            document.querySelector('.minuscount').addEventListener('click', function (e) {
+                e.preventDefault();
+                if (count != 1) {
+                    count--
+                    countNumber.innerText = count;
+                    console.log(count)
+                }
+            })
+            document.querySelector('.pluscount').addEventListener('click', function (e) {
+                e.preventDefault();
+                count++
+                countNumber.innerText = count;
+                console.log(count)
+            })
+
+        countNumber.innerText = count;
+
+    </script>
 }

@@ -16,7 +16,6 @@ namespace PRO_finder.Models.DBModel
         [Column(TypeName = "date")]
         public DateTime SavedDate { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int SaveStaffID { get; set; }
 
         public virtual MemberInfo MemberInfo { get; set; }

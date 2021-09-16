@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
@@ -12,19 +13,24 @@ using PRO_finder.Models.ViewModels;
 using PRO_finder.Repositories;
 using PRO_finder.Service;
 using PRO_finder.ViewModels;
+using Newtonsoft.Json;
+using PRO_finder.Helper;
+using Newtonsoft.Json.Linq;
 
 namespace PRO_finder.Controllers
 {
-    //[Authorize]
-    public class TalentController : Controller
+    [Authorize]
+    public class TalentController : MyControllerBase
     {
         // GET: AccountCenter
         private readonly GeneralRepository _repo;
         private readonly CategoryService _cateService;
         private readonly WorksService _worksService;
         private readonly QuotationService _quotaService;
-        //private readonly CaseService _caseService;
         private readonly MemberinfoService _memberInfoService;
+        private readonly CloudinaryHelper _cloudinaryHelper;
+        private readonly OrderService _orderservice;
+
 
         public TalentController()
         {
@@ -32,55 +38,67 @@ namespace PRO_finder.Controllers
             _cateService = new CategoryService();
             _worksService = new WorksService();
             _quotaService = new QuotationService();
-            //_caseService = new CaseService();
             _memberInfoService = new MemberinfoService();
+            _cloudinaryHelper = new CloudinaryHelper();
+            _orderservice = new OrderService();
+
         }
 
+        [Authorize]
         public ActionResult Index()
         {
             return View();
         }
-
-        //[HttpGet]
         public ActionResult CreateQuotation()
         {
-            //var currentUserId = User.Identity.GetUserId();
             ViewBag.CategoryList = _cateService.GetCategorySelectList();
-
             return View();
         }
-        [HttpPost]
+        //[HttpPost]
         //[ValidateAntiForgeryToken]
+        //public ActionResult CreateQuotation([Bind(Include = "QuotationTitle,Price,QuotationUnit,ExecuteDate,Description,SubCategoryID,MainPicture,OtherPictureList")] CreateQuotationViewModel quotation)
+        //{
+        //    ViewBag.CategoryList = _cateService.GetCategorySelectList();
+        //    if (ModelState.IsValid)
+        //    {
+        //        string userID = HttpContext.User.Identity.GetUserId();
+        //        quotation.MemberID = _memberInfoService.GetMemberID(userID);
+
+        //        var newQ = _quotaService.CreateQuotation(quotation);
+        //        int quotationID = newQ.QuotationID;
+        //        //Response.Write(quotationID);
+        //        if (quotation.OtherPictureList != null)
+        //        {
+        //            _quotaService.CreateOtherPics(quotationID, quotation.OtherPictureList);
+        //        }
+
+        //        return RedirectToAction("MyQuotationIndex");
+        //    }
+        //    return View(quotation);
+        //}
+        [HttpPost]
         public ActionResult CreateQuotation([Bind(Include = "QuotationTitle,Price,QuotationUnit,ExecuteDate,Description,SubCategoryID,MainPicture,OtherPictureList")] CreateQuotationViewModel quotation)
         {
             ViewBag.CategoryList = _cateService.GetCategorySelectList();
             if (ModelState.IsValid)
             {
-                //string user = HttpContext.User.Identity.GetUserId();
-                string user = "64547da8-0789-42f7-a193-e001cec76873";
-                quotation.MemberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == user).MemberID;
-
-                var newQ = _quotaService.CreateQuotation(quotation);
-                int quotationID = newQ.QuotationID;
-
-                if (quotation.OtherPictureList != null)
+                var myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
+                while (myQuotation.Last().MainPicture == null)
                 {
-                    _quotaService.CreateOtherPics(quotationID, quotation.OtherPictureList);
+                    myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
                 }
-
-                return RedirectToAction("Index");
+                return RedirectToAction("MyQuotationIndex", myQuotation);
             }
             return View(quotation);
         }
 
 
-
-        [HttpGet]
         public ActionResult UploadMyWorks()
         {
             ViewBag.CategoryList = _cateService.GetCategorySelectList();
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UploadMyWorks([Bind(Include = "WorkName, SubCategoryID, Client, Role, YearStarted, WebsiteURL, WorkDescription, WorkAttachmentList, WorkPictureList, WorkAttachmentName, WorkAttachmentLink, Attachments, ")] UploadMyWorksViewModel newWorks)
@@ -89,55 +107,40 @@ namespace PRO_finder.Controllers
             ViewBag.CategoryList = _cateService.GetCategorySelectList();
 
             //取得memberID,並加至newWorks
-            //string userId = HttpContext.User.Identity.GetUserId();
-            string userId = "64547da8-0789-42f7-a193-e001cec76873";
-            newWorks.MemberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == userId).MemberID;
+            //string userID = HttpContext.User.Identity.GetUserId();
+            //newWorks.MemberID = _memberInfoService.GetMemberID(userID);
 
 
             if (ModelState.IsValid)
             {
                 //存入Works資料庫
-                var newEntity = _worksService.CreateWorks(newWorks);
-                int workID = newEntity.WorkID;
+                //var newEntity = _worksService.CreateWorks(newWorks);
+                //int workID = newEntity.WorkID;
 
-                //存入WorkAttachment資料庫
-                if (newWorks.WorkAttachmentList != null)
-                {
-                    _worksService.CreateWorkAttachment(workID, newWorks.WorkAttachmentList);
-                }
+                ////存入WorkAttachment資料庫
+                //if (newWorks.WorkAttachmentList != null)
+                //{
+                //    _worksService.CreateWorkAttachment(workID, newWorks.WorkAttachmentList);
+                //}
 
-                //存入WorkPictures資料庫
-                if (newWorks.WorkPictureList != null)
-                {
-                    _worksService.CreateWorkPictures(workID, newWorks.WorkPictureList);
-                }
+                ////存入WorkPictures資料庫
+                //if (newWorks.WorkPictureList != null)
+                //{
+                //    _worksService.CreateWorkPictures(workID, newWorks.WorkPictureList);
+                //}
 
                 return RedirectToAction("Index");
             }
 
             return View(newWorks);
         }
-        //[HttpPost] 
-        //public ActionResult UploadMyWorks(IEnumerable<HttpPostedFileBase> WorkAttachmentLink)
-        //{
-        //    foreach(var file in WorkAttachmentLink)
-        //    {
-        //        if(file != null && file.ContentLength > 0)
-        //        {
-        //            var fileName = Path.GetFileName(file.FileName);
-        //            var path = Path.Combine(Server.MapPath("~/WorkAttachments"), fileName);
-        //            file.SaveAs(path);
-        //        }
-        //    }
-        //    return Content("ok");
-        //}
 
         public ActionResult CaseSetting()
         {
-
-            
-            string userId = "64547da8-0789-42f7-a193-e001cec76873";
-            var memInfo = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == userId);
+            string userID = HttpContext.User.Identity.GetUserId();
+            int memberID = _memberInfoService.GetMemberID(userID);
+            var memInfo = _memberInfoService.GetMemberInfo(memberID);
+            //居住地
             if (memInfo.LiveCity != null)
             {
                 var liveCityList = _quotaService.GetLocationSelectList();
@@ -149,11 +152,11 @@ namespace PRO_finder.Controllers
             {
                 ViewBag.LocationDropdownListForLiveCity = _quotaService.GetLocationSelectList();
             }
-
-            if (memInfo.LocationID != null)
+            //理想接案城市
+            if (memInfo.LocationIDInt != null)
             {
                 var locaList = _quotaService.GetLocationSelectList();
-                var loca = (int)memInfo.LocationID;
+                var loca = (int)memInfo.LocationIDInt;
                 locaList.FirstOrDefault(x => Int32.Parse(x.Value) == loca).Selected = true;
                 ViewBag.LocationDropdownList = locaList;
             }
@@ -161,7 +164,7 @@ namespace PRO_finder.Controllers
             {
                 ViewBag.LocationDropdownList = _quotaService.GetLocationSelectList();
             }
-
+            //理想接案類別
             if(memInfo.SubCategoryID != null)
             {
                 var cateList = _cateService.GetCategorySelectList();
@@ -169,6 +172,7 @@ namespace PRO_finder.Controllers
                 cateList.FirstOrDefault(x => Int32.Parse(x.Value) == cateID).Selected = true;
                 ViewBag.IdealCaseCategoryList = cateList;
                 ViewBag.IdealSubCategoryID = memInfo.SubCategoryID;
+                ViewBag.IdealCategoryID = cateID;
             }
             else
             {
@@ -180,11 +184,13 @@ namespace PRO_finder.Controllers
             return View(memInfo);
         }
         [HttpPost]
-        public ActionResult CaseSetting([Bind(Include = "Status, NickName, Identity, LiveCity, Cellphone, Email, JsonToolList, LocationID, SubCategoryID, AllPieceworkExp, JsonExDList, Description")] MemberInfoViewModel caseSettings)
+        public ActionResult CaseSetting([Bind(Include = "Status, NickName, Identity, LiveCity, Cellphone, Email, JsonToolList, LocationIDInt, SubCategoryID, AllPieceworkExp, JsonExDList, Description")] MemberInfoViewModel caseSettings)
         {
             //view 畫面資料
+            //大類別CategoryDropDown
             ViewBag.CategoryList = _cateService.GetCategorySelectList();
             ViewBag.ToolList = _memberInfoService.GetToolSelectList();
+            //居住地
             if (caseSettings.LiveCity != null)
             {
                 var liveCityList = _quotaService.GetLocationSelectList();
@@ -196,11 +202,11 @@ namespace PRO_finder.Controllers
             {
                 ViewBag.LocationDropdownListForLiveCity = _quotaService.GetLocationSelectList();
             }
-            //
-            if (caseSettings.LocationID != null)
+            //理想接案城市
+            if (caseSettings.LocationIDInt != null)
             {
                 var locaList = _quotaService.GetLocationSelectList();
-                var loca = (int)caseSettings.LocationID;
+                var loca = (int)caseSettings.LocationIDInt;
                 locaList.FirstOrDefault(x => Int32.Parse(x.Value) == loca).Selected = true;
                 ViewBag.LocationDropdownList = locaList;
             }
@@ -208,7 +214,7 @@ namespace PRO_finder.Controllers
             {
                 ViewBag.LocationDropdownList = _quotaService.GetLocationSelectList();
             }
-            //
+            //理想接案類別
             if (caseSettings.SubCategoryID != null)
             {
                 var cateList = _cateService.GetCategorySelectList();
@@ -216,6 +222,7 @@ namespace PRO_finder.Controllers
                 cateList.FirstOrDefault(x => Int32.Parse(x.Value) == cateID).Selected = true;
                 ViewBag.IdealCaseCategoryList = cateList;
                 ViewBag.IdealSubCategoryID = caseSettings.SubCategoryID;
+                ViewBag.IdealCategoryID = cateID;
             }
             else
             {
@@ -224,42 +231,94 @@ namespace PRO_finder.Controllers
 
 
             //取得memberID,並加至newWorks
-            //string userId = HttpContext.User.Identity.GetUserId();
-            string userID = "64547da8-0789-42f7-a193-e001cec76873";
-            int memberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == userID).MemberID;
-
+            string userID = HttpContext.User.Identity.GetUserId();
+            int memberID = _memberInfoService.GetMemberID(userID);
 
             if (ModelState.IsValid)
             {
                 //更新MemberInfo資料庫
                 _memberInfoService.UpdateMemberInfo(memberID, caseSettings);
-                //if (caseSettings.JsonExDList != null)
-                //{
-                //    //更新Experience資料庫
-                //    //_memberInfoService.UpdateExD(memberID, caseSettings.JsonExDList);
-                //}
+                if (caseSettings.JsonExDList != null)
+                {
+                    //更新Experience資料庫
+                    _memberInfoService.UpdateExD(memberID, caseSettings.JsonExDList);
+                }
 
-                //if(caseSettings.JsonToolList != null)
-                //{
+                if (caseSettings.JsonToolList != null)
+                {
                     //更新擅長軟體資料庫
-                //}
+                    _memberInfoService.UpdateToolList(memberID, caseSettings.JsonToolList);
+                }
                 return RedirectToAction("Index");
             }
             return View(caseSettings);
         }
-
-
-        //Api 
-        public JsonResult GetAllCategoryAndSubCategoryList()
+        public ActionResult MyQuotationIndex()
         {
-            var subcategoryList = _cateService.GetAllCatAndSubCat();
-            return Json(subcategoryList, JsonRequestBehavior.AllowGet);
+            
+            string userID = HttpContext.User.Identity.GetUserId();
+            int memberID = _memberInfoService.GetMemberID(userID);
+            var myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
+            while (myQuotation.Last().MainPicture == null)
+            {
+                myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
+            }
+            return View(myQuotation);
         }
 
-        public JsonResult GetSubTool()
+        public ActionResult UpdateMyQuotation(int? id)
         {
-            var alltool = _memberInfoService.GetJsonSubTool();
-            return Json(alltool, JsonRequestBehavior.AllowGet);
+            if (id == null)
+            {
+                string userID = HttpContext.User.Identity.GetUserId();
+                int memberID = _memberInfoService.GetMemberID(userID);
+                var myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
+                return View("MyQuotationIndex", myQuotation);
+            }
+            var theQuotation = _quotaService.GetQuotation(id);
+            var cateList= _cateService.GetCategorySelectList();
+            cateList.FirstOrDefault(x => x.Value == theQuotation.CategoryID.ToString()).Selected = true;
+            ViewBag.CategoryList = cateList;
+            return View(theQuotation);
+        }
+        [HttpPost]
+        public ActionResult UpdateMyQuotation([Bind(Include = "QuotationID, QuotationTitle,Price,QuotationUnit,ExecuteDate,Description,SubCategoryID,MainPicture,OtherPictureList")] CreateQuotationViewModel quotation)
+        {
+            if (ModelState.IsValid)
+            {
+                //更新資料庫
+                //_quotaService.UpdateQuotation(quotation);
+
+                //重新導向至MyQuotationIndex
+                string userID = HttpContext.User.Identity.GetUserId();
+                int memberID = _memberInfoService.GetMemberID(userID);
+                var myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
+                while (myQuotation.FirstOrDefault(x => x.QuotationId == quotation.QuotationID).MainPicture == null)
+                {
+                    myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
+                }
+                return RedirectToAction("MyQuotationIndex", myQuotation);
+            }
+            return View();
+        }
+
+        public ActionResult DeleteQuotation(int? id)
+        {
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            _quotaService.DeleteQ(id);
+
+            string userID = HttpContext.User.Identity.GetUserId();
+            int memberID = _memberInfoService.GetMemberID(userID);
+            var remainQ = _quotaService.GetMyQuotations(memberID).ToList();
+            return View("MyQuotationIndex", remainQ);
+        }
+        
+        public ActionResult ApiTest()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -280,7 +339,55 @@ namespace PRO_finder.Controllers
             {
                 Response.Write("Oops");
             }
-           
+
         }
+        [HttpPost]
+        public void UploadCloudinary()
+        {
+            HttpPostedFileBase file = Request.Files["picture"];
+            var result = _cloudinaryHelper.UploadToCloudinaryBase(file);
+            Response.Write(result);
+        }
+
+        public ActionResult AccountSetting()
+        {
+            var UserId = HttpContext.User.Identity.GetUserId();
+            int currentUserId = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == UserId).MemberID;
+            ViewBag.userID = currentUserId;
+            BankAccountViewModel BankVM =_memberInfoService.GetBankAccount(currentUserId);
+            ViewBag.check = BankVM.BankAccount == null | BankVM.BankCode == null;
+            return View(BankVM);
+
+        }
+
+
+        public ActionResult ReviseBankAccount()
+        {
+            var UserId = HttpContext.User.Identity.GetUserId();
+            int currentUserId = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == UserId).MemberID;
+            ViewBag.userID = currentUserId;
+            return View();
+        }
+
+        public ActionResult TalentOrderDoing()
+        {
+
+            var MemberId = _orderservice.GetMemberID(HttpContext.User.Identity.GetUserId());
+            ViewBag.MemberId = MemberId;
+
+            return View();
+        }
+        public ActionResult TalentOrderFinished()
+        {
+
+            var MemberId = _orderservice.GetMemberID(HttpContext.User.Identity.GetUserId());
+            ViewBag.MemberId = MemberId;
+
+            return View();
+        }
+
+       
+
+
     }
 }

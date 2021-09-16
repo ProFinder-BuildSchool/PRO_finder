@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<PRO_finder.Models.ViewModels.SaveCaseViewModel>
 
+
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutMemberTalent.cshtml";
@@ -24,18 +26,21 @@
                         <th>發案人</th>
                         <th>案件狀態</th>
                         @*<th>刊登日期</th>*@
+
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="Savecase">
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td class="text-center">@item.title</td>
-                            <td class="text-center">@item.Price</td>
-                            <td class="text-center">@item.Contact</td>
-                            <td class="text-center">@item.CaseStatus</td>
-                            @*<td class="text-center">@item.UpdateDate</td>*@
-                        </tr>
+                    <tr>
+                        <td class="text-center"><a href="/FindQuotation/Detail?id=@item.CaseID">@item.title</a></td>
+                        <td class="text-center">@item.Price</td>
+                        <td class="text-center">@item.Contact</td>
+                        <td class="text-center">開啟中</td>
+                        @*<td class="text-center">@item.UpdateDate</td>*@
+                        <td class="text-center"><button class="text-center btnDele btn btn-primary " data-content="@item.CaseID">刪除</button></td>
+
+                    </tr>
                     }
                 </tbody>
 
@@ -44,8 +49,41 @@
     </div>
 
 
-    <div class="text-center mb-5">
-        <a class="btn btn-primary" asp-controller="SaveCase" asp-action="ClearCart">Clear</a>
-    </div>
+    @*<div class="text-center mb-5">
+        <button id="btnClear" class="btn btn-primary text-right" >Clear</button>
+    </div>*@
+
+
 </body>
 </html>
+
+@section topCSS{
+    <style>
+        .btnDele:hover {
+            cursor: pointer;
+        }
+    </style>
+}
+
+@section endJS{
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        let btnDele = document.querySelectorAll('.btnDele');
+        
+        btnDele.forEach(function (item) {
+
+            let caseid = item.getAttribute("data-content");
+            console.log(caseid);
+            item.addEventListener('click', function () {
+                item.disabled = true;
+
+                const asyncRun = async () => {
+                    await axios.post('/SaveCase/AddOrDeleSaveCase', { caseid: caseid }).then(res => console.log(res));
+                    window.location.reload();
+                }
+                asyncRun();
+            })
+        })
+    </script>
+
+}

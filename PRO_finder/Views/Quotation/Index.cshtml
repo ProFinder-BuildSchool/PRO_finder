@@ -303,7 +303,7 @@
                                     </div>
                                 </div>
                                 <div class="listing__item__text__info">
-                                    <a class="listing__item__text__info__right" href="@Url.Action("Detail", "Quotation")" target="_blank">服務詳情</a>
+                                    <a class="listing__item__text__info__right" href="" target="_blank">服務詳情</a>
                                 </div>
                             </div>
                         </div>
@@ -327,6 +327,10 @@
 
 @section topCSS{
 <style>
+    .Quotation >a:first-child{
+        color: #89ba16 !important;
+        background-color: white
+    }
     html.fixWindow {
         position: fixed;
         width: 100%;
@@ -1087,6 +1091,7 @@
                 cloneContent.querySelector('.test2').innerText = `sub${item.SubcategoryId}`;
                 cloneContent.querySelector('.test3').innerText = `location${item.Location}`;
                 cloneContent.querySelector('.test4').innerText = `QuotationId${item.QuotationId}`;
+                cloneContent.querySelector('.listing__item__text__info__right').href = `/Quotation/Detail/${item.MemberID}/${item.QuotationId}`;
                 itemZone.append(cloneContent);
             });
         }
@@ -1151,9 +1156,17 @@
 
             }
 
-            filterCard = OptionTwo;            IdArr = locatIdArr.concat(subcatIdArr);            console.log(IdArr);            if (IdArr.length == 0) {                window.history.replaceState({}, 0, "Index?");
-            }            else {                window.history.replaceState({}, 0, "Index?filter=" + `${IdArr}`);
-            }                        pagination(filterCard, 1)
+            filterCard = OptionTwo;
+            IdArr = locatIdArr.concat(subcatIdArr);
+            console.log(IdArr);
+            if (IdArr.length == 0) {
+                window.history.replaceState({}, 0, "Index?");
+            }
+            else {
+                window.history.replaceState({}, 0, "Index?filter=" + `${IdArr}`);
+            }
+            
+            pagination(filterCard, 1)
 
         }
 
@@ -1286,6 +1299,7 @@
 
         function switchPage(e,arr) {
             e.preventDefault();
+            console.log(e);
             if (e.target.nodeName !== 'A') return;
             const page = e.target.dataset.page;
             pagination(arr, page);

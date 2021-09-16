@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace PRO_finder.Controllers
 {
-    public class SaveCaseController : Controller
+    public class SaveCaseController : MyControllerBase
     {
         private readonly CaseService _caseService;
         private readonly SaveCaseService _savecaseService;
@@ -35,16 +35,15 @@ namespace PRO_finder.Controllers
             return View(SaveCaseViewModel);
         }
         [HttpPost]
-        public void AddToSaveCase(int caseid)
+        public void AddOrDeleSaveCase(int? caseid)
         {
-
             string user = HttpContext.User.Identity.GetUserId();
             int MemberID = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == user).MemberID;
-            
 
-            if (caseid != null)
+            
+            if (caseid != null )
             {
-                _savecaseService.AddItemToSaveCase(caseid, MemberID);
+                _savecaseService.AddOrDeleOfSaveCase(caseid, MemberID);
             }
             
         }

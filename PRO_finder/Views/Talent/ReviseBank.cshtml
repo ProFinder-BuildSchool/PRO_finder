@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "ReviseBank";
+    Layout = "~/Views/Shared/_LayoutMemberTalent.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <a href="@Url.Action("AccountSetting","Talent")">
+        <button type="submit" v-bind:disabled="!addVerify" v-on:click="AddBank" id="submit" class="btn btn-primary btn-group-sm">
+            確定修改
+        </button>
+    </a>
+
+    <div class="form-item">
+        <div class="col-md-6">
+            <a href="@Url.Action("AccountSetting","Talent")">
+                <button type="submit" v-bind:disabled="!addVerify" v-on:click="AddBank" id="submit" class="btn btn-primary btn-group-sm">
+                    確定修改
+                </button>
+            </a>
+        </div>
+    </div>
+    <div class="myContainer" id="inputinfo">
+        <h5>銀行帳戶修改</h5>
+        <hr>
+        <div class="card-body">
+          
+
+          
+
+                <div class="form-item">
+                    <div class="col-md-6">
+                        <a href="@Url.Action("AccountSetting","Talent")">
+                            <button type="submit" v-bind:disabled="!addVerify" v-on:click="AddBank" id="submit" class="btn btn-primary btn-group-sm">
+                                確定修改
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+            
+
+
+
+        </div>
+
+
+    </div>
+
+
+</body>
+</html>

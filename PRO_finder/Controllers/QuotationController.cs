@@ -13,19 +13,27 @@ using System.Data.SqlClient;
 using Dapper;
 using PRO_finder.Models.DBModel;
 using Microsoft.AspNet.Identity;
+using static PRO_finder.Enum.Enum;
+using PRO_finder.Models.ViewModels.APIModels.APIBase;
 
 namespace PRO_finder.Controllers
 {
+   
 
-    public class QuotationController : Controller
+    public class QuotationController : MyControllerBase
     {
         private readonly QuotationService _quotService;
         private readonly StudioService _studioService;
-
+        private readonly CartService _cartService;
+        private readonly GeneralRepository _repo;
+        private readonly CategoryService _categoryService;
         public QuotationController()
         {
             _quotService = new QuotationService();
             _studioService = new StudioService();
+            _cartService = new CartService();
+            _categoryService= new CategoryService();
+            _repo = new GeneralRepository(new ProFinderContext());
         }
         // GET: Quotation
         public ActionResult Index(int? CategoryId, string keyword,string[] filter)
@@ -54,21 +62,54 @@ namespace PRO_finder.Controllers
             return View();
 
         }
-        public ActionResult Detail(int Memberid=1,int Quotationid=2019)
+       [Authorize]
+        public ActionResult Detail(int Memberid,int Quotationid)
         {
+
+            
+           
+         
             QuotationDetailViewModel QuoDetailVM = _quotService.GetQuoDetailData(Memberid, Quotationid);
-            //ViewBag.QID = Quotationid;
+            var memberID = HttpContext.User.Identity.GetUserId();
+            int MemberID = _cartService.GetMemberID(memberID);
+            ViewBag.memberID = MemberID;
+            
+            
             return View(QuoDetailVM);
         }
 
-        public ActionResult StudioHome(int TalentID=20)//, int MemberID= 1)
+        
+        //[HttpPost]
+        //[Authorize]
+        //public APIResult Detail(ClientCartViewModel Cart)
+        //{
+
+        //    var memberID = HttpContext.User.Identity.GetUserId();
+      
+        //    if (_cartService.addCart(Cart, memberID))
+        //    {
+
+        //        return new APIResult(APIStatus.Success, string.Empty, null);
+        //    }
+            
+
+        //    return new APIResult(APIStatus.Fail, string.Empty, null);
+        //}
+
+
+
+
+        public ActionResult StudioHome(int TalentID=10)//, int MemberID= 1)
         {
-            int currentUserId;
-            var result = int.TryParse(System.Web.HttpContext.Current.User.Identity.GetUserId(),out currentUserId);
+            //int currentUserId=7;
+            var UserId = HttpContext.User.Identity.GetUserId();
+            int currentUserId = _repo.GetAll<MemberInfo>().FirstOrDefault(x => x.UserId == UserId).MemberID;
+            //var result = int.TryParse(System.Web.HttpContext.Current.User.Identity.GetUserId(),out currentUserId);
             StudioDetailViewModel StudioDetailVM = _studioService.GetStudioDetailData (TalentID);
-            IEnumerable<SaveStaff> favorlist = _studioService.GetFavorite(currentUserId, TalentID);
-            ViewBag.MemberID = TalentID;
-            //ViewBag.FavorExist = select SavedTalentID from favorlist where SavedTalentID == TalentID; //判斷talent是否存在member的list中
+            IEnumerable<SaveStaffViewModel> favorlist = _studioService.GetFavorite(currentUserId, TalentID);
+            ViewBag.TalentID = TalentID;
+            ViewBag.UserID = currentUserId;
+            ViewBag.FavorExist = favorlist.Count()!=0; //判斷talent是否存在member的list中
             return View(StudioDetailVM);
         
 
@@ -83,6 +124,13 @@ namespace PRO_finder.Controllers
             
         }
 
+        public ActionResult CASEPARITALtest()
+        {
+
+            return View();
+
+        }
+
 
         //public ActionResult AllcardData()
         //{
@@ -90,27 +138,60 @@ namespace PRO_finder.Controllers
         //    return Json(allCardData, JsonRequestBehavior.AllowGet);
         //}
 
-        static string connString = ConfigurationManager.ConnectionStrings["ProFinderContext"].ConnectionString;
-        public ActionResult FavorInsertorDelete(int MemberID, int TalentID, DateTime time, int StaffID, bool AddorRemove)
+        //static string connString = ConfigurationManager.ConnectionStrings["ProFinderContext"].ConnectionString;
+        //public ActionResult FavorInsertorDelete(int MemberID, int TalentID, DateTime time, int StaffID, bool AddorRemove)
+        //{
+        //    int affectedRow = 0; //
+
+        //    using (SqlConnection conn = new SqlConnection(connString))
+        //    {
+        //        if (AddorRemove)
+        //        {
+        //            string sql = "Insert into SaveStaff(MemberID, SavedTalentID, SavedDate, SaveStaffID)values( @MemberID, @TalentID, @time, @StaffID)";
+        //            affectedRow = conn.Execute(sql, new { MemberID, TalentID, time, StaffID });
+        //        }
+        //        else
+        //        {
+        //            string sql = "DELETE FROM SaveStaff WHERE MemberID = @MemberID and SavedTalentID = @SavedTalentID and SaveStaffID=@SaveStaffID";
+        //            affectedRow = conn.Execute(sql, new { MemberID = MemberID, SavedTalentID = TalentID, SaveStaffID = StaffID });
+
+        //            //remove from DB
+        //        }
+        //    }
+        //    return  RedirectToAction("StudioHome"); //new EmptyResult();
+        //}
+
+
+        public ActionResult FindQuotationCategory(string categoryName)
         {
-            int affectedRow = 0; //
-
-            using (SqlConnection conn = new SqlConnection(connString))
+            int categoryID = _categoryService.GetCategoryID(categoryName);
+            if(categoryID != -1)
             {
-                if (AddorRemove)
-                {
-                    string sql = "Insert into SaveStaff(MemberID, SavedTalentID, SavedDate, SaveStaffID)values( @MemberID, @TalentID, @time, @StaffID)";
-                    affectedRow = conn.Execute(sql, new { MemberID, TalentID, time, StaffID });
-                }
-                else
-                {
-                    string sql = "DELETE FROM SaveStaff WHERE MemberID = @MemberID and SavedTalentID = @SavedTalentID and SaveStaffID=@SaveStaffID";
-                    affectedRow = conn.Execute(sql, new { MemberID = MemberID, SavedTalentID = TalentID, SaveStaffID = StaffID });
+                ViewBag.pageData = _quotService.GetCategoryPageData(categoryID);
+                ViewBag.cateNameList = _quotService.GetsubcatrgotyName(categoryID);
 
-                    //remove from DB
-                }
             }
-            return  RedirectToAction("StudioHome"); //new EmptyResult();
+            else
+            {
+                ViewBag.pageData = _quotService.GetCategoryPageData(0);
+                ViewBag.cateNameList = _quotService.GetsubcatrgotyName(0);
+            }
+     
+
+
+            ViewBag.LocationList = _quotService.GetLocationName();
+            return View("Index");
         }
+
+       public ActionResult SearchQuotation(string content)
+        {
+
+            ViewBag.pageData = _quotService.GetKeyWordCardData(content);
+            ViewBag.cateNameList = _quotService.GetsubcatrgotyName(0);
+            ViewBag.LocationList = _quotService.GetLocationName();
+
+            return View("Index");
+        }
+
     }
 }

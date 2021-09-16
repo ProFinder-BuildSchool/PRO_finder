@@ -56,7 +56,7 @@
                             <div class="category-btn">
                                 <a class="mb-1" href="@Url.Action("Index",new { id = "4"} )">
                                     <i class="fas fa-camera-retro"></i>
-                                    <p class="d-none d-md-block">商社娛樂</p>
+                                    <p class="d-none d-md-block">商攝娛樂</p>
                                     <p class="cateCount">(373)筆</p>
                                 </a>
 
@@ -305,7 +305,7 @@
                                 </p>
                                 <div class="d-flex justify-content-between">
                                     <p class="update-time"></p>
-                                    <a class="btn btn-primary addCart">我要報價</a>
+                                    <a class="btn btn-primary addCart">查看案件</a>
                                 </div>
                             </div>
                         </div>
@@ -580,19 +580,13 @@
             color: #89ba16 !important;
         }
 
-        .FindQuotation a {
-            color: #89ba16 !important;
-            background-color: white
-        }
+      
 
-        .site-navbar {
-            position: static !important;
-        }
-
+  
         #home-section {
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 3;
             background-color: white !important;
             opacity: 1;
         }
@@ -600,6 +594,13 @@
         .border-btm {
             box-shadow: 0px 0px 4px 1px #89ba16;
         }
+
+        .FindQuotation a {
+            color: #89ba16 !important;
+            background-color: white
+        }
+      
+
     </style>
 }
 @section endJS
@@ -628,7 +629,8 @@
 
 
 
-            setCaseCount(AllCardArray);
+        setCaseCount(AllCardArray);
+        document.querySelector('.aaaaaaa').innerHTML = ''
             if (AllCardArray.length == 0 || AllCardArray == null || AllCardArray == undefined) {
                 document.querySelector('.aaaaaaa').innerHTML = '<p class="text-danger">查無資料!!!</p>'
                 document.querySelector('.priceOption').innerHTML = ' <option value="" disabled selected hidden>-請選擇價格-</option>';

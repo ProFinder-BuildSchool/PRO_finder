@@ -20,8 +20,8 @@ namespace PRO_finder.Models.ViewModels
         public PriceEnum Price { get; set; }
         public string Contact { get; set; }
         public int CaseStatus { get; set; }
+        public DateTime UpdateDate { get; set; }
 
-        //public DateTime UpdateDate { get; set; }
 
 
     }

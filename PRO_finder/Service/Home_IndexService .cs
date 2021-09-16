@@ -7,6 +7,9 @@ using PRO_finder.Models.DBModel;
 using PRO_finder.ViewModels;
 using PRO_finder.Repositories;
 using PRO_finder.Models.ViewModels;
+using Dapper;
+using Microsoft.SqlServer.Server;
+using System.Data.SqlClient;
 
 namespace PRO_finder.Service
 {
@@ -70,9 +73,27 @@ namespace PRO_finder.Service
             return Home_IndexViewModel;
         }
 
+        public List<T> Test()
+        {
+            var TalentCount = (from q in ctx_.GetAll<Quotation>()
+                               join s in ctx_.GetAll<SubCategory>() on q.SubCategoryID equals s.SubCategoryID
+                               group q by s.CategoryID into g
+                               select new T { category = g.Key, Count = g.Distinct().Count() }
+                               ).ToList();
+
+            return TalentCount;
+        }
+        
+        public class T
+        {
+            public int Count { get; set; }
+            public int category { get; set; }
+        }
 
 
 
-           
+
+
+
     }
 }

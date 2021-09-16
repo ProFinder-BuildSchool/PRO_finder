@@ -1,0 +1,149 @@
+﻿@model List<MemberInfoViewModel>
+@{
+    ViewBag.Title = "ReviseAccount";
+    Layout = "~/Views/Shared/_LayoutMemberClient.cshtml";
+}
+
+<div class="myContainer">
+    <h5>修改會籍帳戶</h5>
+    <hr>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="account" class="col-md-12 control-label">帳號</label>
+            <div class="col-md-12">
+                <p>@ViewBag.MemberList.Email</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Cellphone" class="col-md-12 control-label">行動電話</label>
+            <div class="col-md-12">
+                <input type="text" class="form-control" id="Cellphone" name="Cellphone" value="@ViewBag.MemberList.Cellphone"><span class="text-danger font-weight-bold telspan"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Email" class="col-md-12 control-label">Email</label>
+            <div class="col-md-12">
+                <input type="text" class="form-control" id="Email" name="Email" value="@ViewBag.MemberList.Email"><span class="text-danger font-weight-bold emailspan"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group mt-3">
+        <div class="col-md-offset-2 col-md-12 text-center">
+            <input value="儲存" class="btn btn-primary" id="send" type="button" />
+        </div>
+    </div>
+</div>
+
+@section topCSS{
+    <style>
+        .myContainer {
+            @*max-width: 510px;
+            *@ margin: auto;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            padding: 25px;
+            margin: 0 10px 0 10px;
+        }
+        h5 {
+            color: #89ba16;
+            font-weight: 900;
+            padding: 0 15px;
+        }
+        label{
+            font-weight:bolder;
+            color:black;
+        }
+    </style>
+}
+
+@section endJS{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script>
+            function telValidation() {
+                let telReg = /^09[0-9]{8}$/;
+                let telInput = document.getElementById("Cellphone").value;
+                let telSpan = document.querySelector('.telspan');
+
+                if (telInput == '') {
+                    telSpan.innerText = '電話欄位不得留空';
+                    return false;
+                }
+                if (!telReg.test(telInput)) {
+                    telSpan.innerText = '電話欄位格式錯誤'
+                    return false;
+
+                } else {
+                    telSpan.innerText = ''
+                    return true;
+                }
+            }
+
+            function emailValidation() {
+                let emailReg = /^[a-zA-Z0-9_.-]+@@[a-zA-Z0-9]+[a-zA-Z0-9.-]+[a-zA-Z0-9]+.[a-z]{0,4}$/;
+                let emailInput = document.getElementById("Email").value;
+                let emailSpan = document.querySelector('.emailspan');
+
+                console.log(emailReg);
+                console.log(emailInput);
+
+                if (emailInput == '') {
+                    emailSpan.innerText = 'Email欄位不得留空';
+                    return false;
+                }
+                if (!emailReg.test(emailInput)) {
+                    emailSpan.innerText = 'Email欄位格式錯誤'
+                    return false;
+
+                } else {
+                    emailSpan.innerText = ''
+                    return true;
+                }
+            }
+
+            function validateAll() {
+                let tel = telValidation();
+                let email = emailValidation();
+                console.log(tel)
+                console.log(email)
+                if (tel && email) {
+                    console.log('true')
+                    return true;
+                }
+                else {
+                    console.log('false')
+                    return false;
+                }
+            }
+
+
+            document.querySelector('#send').addEventListener('click', function (e) {
+                let result = validateAll();
+                if (result == true) {
+                    e.preventDefault()
+                    let useremail = document.querySelector('#Email').value;
+                    let usertel = document.querySelector('#Cellphone').value;
+
+                    let MemberInfo = {
+                        Email: useremail, Cellphone: usertel
+                    }
+
+                    axios.post('/api/Talent/UpdateMemberInfoData?memberId=@ViewBag.MemberId', MemberInfo)
+                        .then(res =>{
+                            console.log('aaaa')
+                            Swal.fire(
+                                '已更改成功',
+                                '點擊按鈕關閉',
+                                'success'
+                            )
+                        })
+                }
+
+
+            })
+
+    </script>
+
+}
+

@@ -9,19 +9,13 @@ namespace PRO_finder.Models.DBModel
     [Table("Order")]
     public partial class Order
     {
-        public int SourceID { get; set; }
+        public int? OrderType { get; set; }
 
-        public int OrderType { get; set; }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int OrderID { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime SubmitDate { get; set; }
+        public int? ProposerID { get; set; }
 
-        public int DealedTalentMemberID { get; set; }
-
-        public decimal CaseReview { get; set; }
+        public decimal? CaseReview { get; set; }
 
         [StringLength(50)]
         public string CaseMessage { get; set; }
@@ -32,15 +26,59 @@ namespace PRO_finder.Models.DBModel
         [StringLength(50)]
         public string CloseReason { get; set; }
 
-        public int OrderStatus { get; set; }
+        public int? OrderStatus { get; set; }
 
-        public int DepositStatus { get; set; }
+        public int? DepositStatus { get; set; }
 
-        [Column(TypeName = "money")]
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime DealedDate { get; set; }
+        public DateTime? DealedDate { get; set; }
+
+        public int? ClientID { get; set; }
+
+        public string QuotationImg { get; set; }
+
+        [StringLength(50)]
+        public string StudioName { get; set; }
+
+        public int? Count { get; set; }
+
+        public int? Unit { get; set; }
+
+        public string Email { get; set; }
+
+        [StringLength(50)]
+        public string Name { get; set; }
+
+        [StringLength(50)]
+        public string Tel { get; set; }
+
+        [StringLength(50)]
+        public string LineID { get; set; }
+
+        public string Memo { get; set; }
+
+        public int? ContactTime { get; set; }
+
+        public int? PredictDays { get; set; }
+
+        public int? MemberID { get; set; }
+
+        public DateTime? CompleteDate { get; set; }
+
+        [StringLength(50)]
+        public string PaymentCode { get; set; }
+
+        public int? QuotationID { get; set; }
+
+        public int? CaseID { get; set; }
+
+        public string Title { get; set; }
+
+        public string ProposerEmail { get; set; }
+
+        public string ProposerPhone { get; set; }
 
         public virtual MemberInfo MemberInfo { get; set; }
     }
