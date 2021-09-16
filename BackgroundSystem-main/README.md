@@ -1,2 +1,0 @@
-# BackgroundSystem
-ProFinder Background System
