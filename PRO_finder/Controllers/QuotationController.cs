@@ -99,7 +99,7 @@ namespace PRO_finder.Controllers
 
 
 
-        public ActionResult StudioHome(int TalentID=10)//, int MemberID= 1)
+        public ActionResult StudioHome(int TalentID=1)//, int MemberID= 1)
         {
             //int currentUserId=7;
             var UserId = HttpContext.User.Identity.GetUserId();
