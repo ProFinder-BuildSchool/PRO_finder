@@ -423,22 +423,21 @@
                 data: updateQ
             }).then(res => {
                 const quotationID = Number($g("input[name='QuotationID']").value);
+                const form = new FormData();
                 const uploadPics = async () => {
                     for (let i = 0; i < imgs.length; i++) {
                         console.log(quotationID);
                         const blobData = await getBlobData(imgs[i].src);
                         const fileObject = new File([blobData], imgs[i].src, { type: blobData.type });
-                        const form = new FormData();
-                        form.append("Picture", fileObject);
-                        form.append("SortNumber", i);
-                        form.append("QuotationID", quotationID);
-                        await axios({
-                            method: "post",
-                            url: "/api/Talent/UPDATEOtherPics",
-                            headers: { 'Content-Type': 'application/json', 'strict': false },
-                            data: form
-                        }).then(res => console.log(res.data));
+                        form.append(`Picture${i}`, fileObject);
                     };
+                    form.append("QuotationID", quotationID);
+                    axios({
+                        method: "post",
+                        url: "/api/Talent/UPDATEOtherPics",
+                        headers: { 'Content-Type': 'application/json', 'strict': false },
+                        data: form
+                    }).then(res => console.log(res.data));
                     document.querySelector("form[action='/Talent/UpdateMyQuotation']").submit();
                 }
                 uploadPics();

@@ -15,6 +15,7 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.Hosting;
 using System.Web.Http;
+using Newtonsoft.Json.Linq;
 
 namespace PRO_finder.APIControllers
 {
@@ -125,21 +126,26 @@ namespace PRO_finder.APIControllers
             }
             else
             {
+                int fileslen = request.Files.Count;
+                int quotationID = Int32.Parse(request["QuotationID"]);
                 try
                 {
                     //接收Picture File
-                    HttpPostedFile picture = request.Files["Picture"];
-                    //cloudinary上傳
-                    string link = _cloudinaryHelper.UploadToCloudinary(picture);
-                    //new entity
-                    UploadOtherPicture newPic = new UploadOtherPicture
+                    for(int i = 0; i < fileslen; i++)
                     {
-                        OtherPictureLink = link,
-                        QuotationID = Int32.Parse(request["QuotationID"]),
-                        SortNumber = Int32.Parse(request["SortNumber"])
+                        HttpPostedFile picture = request.Files[i];
+                        //cloudinary上傳
+                        string link = _cloudinaryHelper.UploadToCloudinary(picture);
+                        //new entity
+                        UploadOtherPicture newPic = new UploadOtherPicture
+                        {
+                            OtherPictureLink = link,
+                            QuotationID = quotationID,
+                            SortNumber = i
+                        };
+                        //儲存
+                        _quotationService.RevisedCreateOtherPics(newPic);
                     };
-                    //儲存
-                    _quotationService.RevisedCreateOtherPics(newPic);
                     //回傳
                     return Request.CreateResponse(HttpStatusCode.OK);
                 }
@@ -175,29 +181,33 @@ namespace PRO_finder.APIControllers
             }
             else
             {
+                int filelen = request.Files.Count;
+                int quoID = Int32.Parse(request["QuotationID"]);
                 try
                 {
-                    //接收Picture File及其他參數
-                    HttpPostedFile picture = request.Files["Picture"];
-                    int quoID = Int32.Parse(request["QuotationID"]);
-                    int sortNum = Int32.Parse(request["SortNumber"]);
+                    for(int i = 0; i < filelen; i++)
+                    {
+                        //接收Picture File及其他參數
+                        HttpPostedFile picture = request.Files[i];
 
-                    //cloudinary上傳
-                    string link = _cloudinaryHelper.UploadToCloudinary(picture);
-                    //new entity
-                    UploadOtherPicture newPic = new UploadOtherPicture
-                    {
-                        OtherPictureLink = link,
-                        QuotationID = quoID,
-                        SortNumber = sortNum
-                    };
-                    //刪除原先資料
-                    if (newPic.SortNumber == 0)
-                    {
-                        _quotationService.DeleteOriginPics(newPic.QuotationID);
+                        //cloudinary上傳
+                        string link = _cloudinaryHelper.UploadToCloudinary(picture);
+                        //new entity
+                        UploadOtherPicture newPic = new UploadOtherPicture
+                        {
+                            OtherPictureLink = link,
+                            QuotationID = quoID,
+                            SortNumber = i
+                        };
+                        //刪除原先資料
+                        if (newPic.SortNumber == 0)
+                        {
+                            _quotationService.DeleteOriginPics(newPic.QuotationID);
+                        }
+                        //儲存
+                        _quotationService.RevisedCreateOtherPics(newPic);
                     }
-                    //儲存
-                    _quotationService.RevisedCreateOtherPics(newPic);
+                    
                     //回傳
                     return Request.CreateResponse(HttpStatusCode.OK);
                 }
@@ -229,22 +239,31 @@ namespace PRO_finder.APIControllers
             {
                 try
                 {
-                    HttpPostedFile file = request.Files["File"];
-                    string workName = request["WorkAttachmentName"];
+                    //取得workNameList
+                    string worknames = request["FileNames"];
+                    JArray worknameArray = JArray.Parse(worknames);
+                    List<string> worknameList = worknameArray.ToObject<List<string>>();
+
                     int workID = Int32.Parse(request["WorkID"]);
 
-                    string fileSavePath = WebConfigurationManager.AppSettings["UploadPath"];
-                    string newFileName = string.Concat(Path.GetRandomFileName().Replace(".", ""), Path.GetExtension(file.FileName).ToLower());
-                    string fullFilePath = Path.Combine(HostingEnvironment.MapPath(fileSavePath), newFileName);
-                    file.SaveAs(fullFilePath);
-                    WorkAttachmentViewModel newWorkAttachment = new WorkAttachmentViewModel
+                    int filelen = request.Files.Count;
+                    for(int i = 0; i < filelen; i ++)
                     {
-                        WorkAttachmentLink = fullFilePath,
-                        WorkAttachmentName = workName,
-                        WorkID = workID
-                    };
-                    _worksService.RevisedCreateWorkAttachment(newWorkAttachment);
+                        HttpPostedFile file = request.Files[i];
+                        string fileSavePath = WebConfigurationManager.AppSettings["UploadPath"];
+                        string newFileName = string.Concat(Path.GetRandomFileName().Replace(".", ""), Path.GetExtension(file.FileName).ToLower());
+                        string fullFilePath = Path.Combine(HostingEnvironment.MapPath(fileSavePath), newFileName);
+                        file.SaveAs(fullFilePath);
 
+                        WorkAttachmentViewModel newWorkAttachment = new WorkAttachmentViewModel
+                        {
+                            WorkAttachmentLink = fullFilePath,
+                            WorkAttachmentName = worknameList[i],
+                            WorkID = workID
+                        };
+
+                        _worksService.RevisedCreateWorkAttachment(newWorkAttachment);
+                    }
                     return Request.CreateResponse(HttpStatusCode.OK);
 
                 }

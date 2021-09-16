@@ -383,20 +383,33 @@
                     let quotationID = res.data.Result;
                     if (quotationID == -1) { return;}
                     const uploadPics = async () => {
+                        //for (let i = 0; i < imgs.length; i++) {
+                        //    const blobData = await getBlobData(imgs[i].src);
+                        //    const fileObject = new File([blobData], imgs[i].src, { type: blobData.type });
+                        //    const form = new FormData();
+                        //    form.append("Picture", fileObject);
+                        //    form.append("SortNumber", i);
+                        //    form.append("QuotationID", quotationID);
+                        //    await axios({
+                        //        method: "post",
+                        //        url: "/api/Talent/UploadOtherPics",
+                        //        headers: { 'Content-Type': 'application/json;charset=utf-8', 'strict': false },
+                        //        data: form })
+                        //        .then(res => { console.log(res) });
+                        //}
+                        const form = new FormData();
                         for (let i = 0; i < imgs.length; i++) {
                             const blobData = await getBlobData(imgs[i].src);
                             const fileObject = new File([blobData], imgs[i].src, { type: blobData.type });
-                            const form = new FormData();
-                            form.append("Picture", fileObject);
-                            form.append("SortNumber", i);
-                            form.append("QuotationID", quotationID);
-                            await axios({
-                                method: "post",
-                                url: "/api/Talent/UploadOtherPics",
-                                headers: { 'Content-Type': 'application/json;charset=utf-8', 'strict': false },
-                                data: form })
-                                .then(res => { console.log(res) });
+                            form.append(`Picture${i}`, fileObject);
                         }
+                        form.append("QuotationID", quotationID);
+                        axios({
+                            method: "post",
+                            url: "/api/Talent/UploadOtherPics",
+                            headers: { 'Content-Type': 'application/json;charset=utf-8', 'strict': false },
+                            data: form
+                        }).then(res => { console.log(res) });
                         document.querySelector("form[action='/Talent/CreateQuotation']").submit();
                     };
                     uploadPics();
