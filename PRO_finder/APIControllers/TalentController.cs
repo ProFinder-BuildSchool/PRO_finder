@@ -285,18 +285,21 @@ namespace PRO_finder.APIControllers
             {
                 try
                 {
-                    HttpPostedFile file = request.Files["Picture"];
+                    int fileCount = request.Files.Count;
                     int workID = Int32.Parse(request["WorkID"]);
-                    int sortNum = Int32.Parse(request["SortNumber"]);
 
-                    string link = _cloudinaryHelper.UploadToCloudinary(file);
-                    WorkPicturesViewModel newPic = new WorkPicturesViewModel()
+                    for (int i = 0; i < fileCount; i++)
                     {
-                        WorkID = workID,
-                        SortNumber = sortNum,
-                        WorkPicture = link
-                    };
-                    _worksService.RevisedCreateWorkPictures(newPic);
+                        HttpPostedFile file = request.Files[i];
+                        string link = _cloudinaryHelper.UploadToCloudinary(file);
+                        WorkPicturesViewModel newPic = new WorkPicturesViewModel()
+                        {
+                            WorkID = workID,
+                            SortNumber = i,
+                            WorkPicture = link
+                        };
+                        _worksService.RevisedCreateWorkPictures(newPic);
+                    }
                     return Request.CreateResponse(HttpStatusCode.OK);
 
                 }

@@ -446,23 +446,24 @@
                     data: form
                 }).then(res => res.data.Result);
 
-                ////儲存作品圖例
-                //let imgs = document.querySelectorAll(".uploadImg");
-                ////上傳雲端
-                //for (let j = 0; j < imgs.length; j++) {
-                //    const blobData = await getBlobData(imgs[j].src);
-                //    const fileObject = new File([blobData], imgs[j].src, { type: blobData.type });
-                //    let form = new FormData();
-                //    form.append("Picture", fileObject);
-                //    form.append("WorkID", workID);
-                //    form.append("SortNumber", j);
-                //    await axios({
-                //        method: "post",
-                //        url: "/api/Talent/UploadWorkPics",
-                //        headers: { "Content-Type": "application/json;charset=utf-8", "strict": false },
-                //        data: form
-                //    }).then(res => res.data.Result);
-                //};
+                //儲存作品圖例
+                let imgs = document.querySelectorAll(".uploadImg");
+                
+                //上傳雲端
+                const imgForm = new FormData();
+                imgForm.append("WorkID", workID);
+                for (let j = 0; j < imgs.length; j++) {
+                    const blobData = await getBlobData(imgs[j].src);
+                    const fileObject = new File([blobData], imgs[j].src, { type: blobData.type });
+                    imgForm.append(`Picture${j}`, fileObject);                    
+                    
+                };
+                axios({
+                    method: "post",
+                    url: "/api/Talent/UploadWorkPics",
+                    headers: { "Content-Type": "application/json;charset=utf-8", "strict": false },
+                    data: imgForm
+                }).then(res => res.data.Result);
                 document.querySelector("form[action='/Talent/UploadMyWorks']").submit();
             }
             asyncRun();
