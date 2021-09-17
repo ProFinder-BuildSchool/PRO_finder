@@ -96,7 +96,8 @@ namespace PRO_finder.Service
                             Picture = workpic.WorkPicture,
                             SubCategoryName = S.SubCategoryName,
                             Info = work.WorkDescription,
-                            studio = work.Client
+                            studio = work.Client,
+                            MemberID = work.MemberID
                         }).ToList();
             var tempGroup = temp.GroupBy(x => x.WorkID).Select(x => new WorkViewModel
             {
@@ -104,7 +105,8 @@ namespace PRO_finder.Service
                 WorkPicture = x.Select(p => p.Picture).ToList(),
                 SubCategoryName = x.First().SubCategoryName,
                 Info = x.First().Info,
-                studio = x.First().studio
+                studio = x.First().studio,
+                MemberID = (int)x.First().MemberID
             }).OrderBy(x => x.WorkID).ToList();
 
 

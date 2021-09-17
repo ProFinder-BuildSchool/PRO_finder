@@ -288,5 +288,20 @@ namespace PRO_finder.APIControllers
                 }
             }
         }
+
+        [HttpPost]
+        public APIResult UpdateMemberInfoData(int memberId, MemberInfoViewModel memberdata)
+        {
+            try
+            {
+                var result = _memberInfoService.UpdateMemberInfoData( memberId,memberdata);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                string result = "";
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            }
+        } 
     }
 }

@@ -352,7 +352,7 @@
                                 <h5 class="font-weight-bold " >@item.studio</h5>
                                 <p class="text-success">專長:#@item.SubCategoryName</p> 
                                 <div class="text-right">
-                                    <a class="btn border" href="@Url.Action("Detail", "Quotation")" target="_blank">服務詳情</a>
+                                    <a class="btn border" href="@Url.Action("StudioHome", "Quotation",new {TalentID=item.MemberID })" target="_blank">服務詳情</a>
                                 </div>
                             </div>
                             

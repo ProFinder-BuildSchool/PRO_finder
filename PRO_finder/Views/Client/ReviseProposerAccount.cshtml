@@ -1,7 +1,7 @@
 ﻿@model List<MemberInfoViewModel>
 @{
     ViewBag.Title = "ReviseAccount";
-    Layout = "~/Views/Shared/_LayoutMemberClient.cshtml";
+    Layout = "~/Views/Shared/_LayoutMemberTalent.cshtml";
 }
 
 <div class="myContainer">
@@ -118,7 +118,7 @@
             }
 
 
-        document.querySelector('#send').addEventListener('click', function (e) {
+            document.querySelector('#send').addEventListener('click', function (e) {
                 let result = validateAll();
                 if (result == true) {
                     e.preventDefault()

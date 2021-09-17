@@ -1,4 +1,15 @@
-﻿<!DOCTYPE html>
+﻿@using PRO_finder.Controllers
+@{
+    MyControllerBase controller = ViewContext.Controller as MyControllerBase;
+    if (controller == null)
+    {
+        throw new ApplicationException("Controller 必須繼承自 MyControllerBase.");
+    }
+    var userId = controller.memberID;
+
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -16,6 +27,7 @@
         .container-fluid.list {
             background-color: #89ba16 !important;
         }
+
         .site-section#next-section {
             min-height: 200vh;
         }
@@ -28,6 +40,7 @@
             box-sizing: border-box;
             padding: 20px 10px;
         }
+
         .nav-item .card-header, .card-body {
             padding: 5px;
         }
@@ -35,30 +48,35 @@
         .myHeader {
             padding: 5px;
         }
-        #myTabContent nav ul{
+
+        #myTabContent nav ul {
             position: relative;
-            width:170px;
+            width: 170px;
         }
-        #navbarTogglerDemo.show #accordionExample2{
+
+        #navbarTogglerDemo.show #accordionExample2 {
             position: absolute;
             z-index: 20000;
             top: 0px;
-            width:100%;
+            width: 100%;
         }
+
         #navbarTogglerDemo.show ul::after {
             content: "";
             background-color: rgb(255 255 255);
-            opacity:0.6;
+            opacity: 0.6;
             position: absolute;
             top: -20px;
-            left:-500px;
+            left: -500px;
             width: 500vw;
             height: 1000vh;
-            z-index:1000;
+            z-index: 1000;
         }
+
         section {
-            overflow:hidden;
+            overflow: hidden;
         }
+
         @@media screen and (min-width: 768px) {
             .navbar-toggler {
                 display: none;
@@ -71,10 +89,10 @@
             .myHeader {
                 width: 180px !important;
             }
+
             #myTabContent nav {
                 position: unset;
             }
-
         }
     </style>
 </head>
@@ -217,7 +235,7 @@
                                                             <a class="nav-link" href="@Url.Action("AccountSetting","Talent")">金融帳戶管理</a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link" href="#v-pills-edit">修改會籍帳戶</a>
+                                                            <a class="nav-link" href="@Url.Action("ReviseProposerAccount", "Client", new{userId})">修改會籍帳戶</a>
                                                         </li>
                                                         <li class="nav-item">
                                                             <a class="nav-link" href="#ClientService.html">客服中心</a>
@@ -243,7 +261,7 @@
                 </div>
             </div>
         </section>
-        
+
 
         <footer class="site-footer">
             @Html.Partial("_FooterPartial")

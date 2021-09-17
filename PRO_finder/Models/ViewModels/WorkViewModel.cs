@@ -22,6 +22,7 @@ namespace PRO_finder.Models.ViewModels
 
 
         public string studio { get; set; }
+        public int MemberID { get; set; }
     }
 
  }
