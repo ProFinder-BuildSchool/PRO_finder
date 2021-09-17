@@ -120,13 +120,14 @@ namespace PRO_finder.APIControllers
         public HttpResponseMessage UploadOtherPics()
         {
             var request = HttpContext.Current.Request;
-            if (request.Files.Count <= 0)
+            int fileslen = request.Files.Count;
+            if (fileslen <= 0)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
             else
             {
-                int fileslen = request.Files.Count;
+                
                 int quotationID = Int32.Parse(request["QuotationID"]);
                 try
                 {
@@ -175,17 +176,18 @@ namespace PRO_finder.APIControllers
         public HttpResponseMessage UPDATEOtherPics()
         {
             var request = HttpContext.Current.Request;
-            if (request.Files.Count <= 0)
+            int fileslen = request.Files.Count;
+            if (fileslen <= 0)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
             else
             {
-                int filelen = request.Files.Count;
+                
                 int quoID = Int32.Parse(request["QuotationID"]);
                 try
                 {
-                    for(int i = 0; i < filelen; i++)
+                    for(int i = 0; i < fileslen; i++)
                     {
                         //接收Picture File及其他參數
                         HttpPostedFile picture = request.Files[i];
@@ -231,7 +233,8 @@ namespace PRO_finder.APIControllers
         public HttpResponseMessage UploadFile()
         {
             var request = HttpContext.Current.Request;
-            if (request.Files.Count <= 0)
+            int fileslen = request.Files.Count;
+            if (fileslen <= 0)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
@@ -246,8 +249,8 @@ namespace PRO_finder.APIControllers
 
                     int workID = Int32.Parse(request["WorkID"]);
 
-                    int filelen = request.Files.Count;
-                    for(int i = 0; i < filelen; i ++)
+                    
+                    for(int i = 0; i < fileslen; i ++)
                     {
                         HttpPostedFile file = request.Files[i];
                         string fileSavePath = WebConfigurationManager.AppSettings["UploadPath"];
@@ -277,7 +280,8 @@ namespace PRO_finder.APIControllers
         public HttpResponseMessage UploadWorkPics()
         {
             var request = HttpContext.Current.Request;
-            if(request.Files.Count <= 0)
+            int fileCount = request.Files.Count;
+            if (fileCount <= 0)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
@@ -285,7 +289,7 @@ namespace PRO_finder.APIControllers
             {
                 try
                 {
-                    int fileCount = request.Files.Count;
+                    
                     int workID = Int32.Parse(request["WorkID"]);
 
                     for (int i = 0; i < fileCount; i++)

@@ -18,8 +18,8 @@
                 <div class=" col-12 col-md-6 mt-3">
                     <div class="card">
                         <img src="@item.MainPicture" class="card-img-top" alt="">
-                        <div class="card-body">
-                            <h5 class="card-title">@item.QuotationTitle</h5>
+                        <div class="card-body p-3">
+                            <h5 class="card-title text-center">@item.QuotationTitle</h5>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">類別：<a href="/Quotation/Index?CategoryId=@item.CategoryId">@item.SubcategoryName</a></li>
@@ -30,16 +30,16 @@
                                     <div class="row">
                                         @if (item.Status)
                                         {
-                                            <div class="col-md-12 col-lg-6 control-label service-status-label">服務狀態：</div>
-                                            <select class="form-control col-md-12 col-lg-6 service-status-selector selector-open" data-content="@item.QuotationId">
+                                            <div class="col-md-12 col-lg-4 control-label service-status-label p-0">服務狀態：</div>
+                                            <select class="form-control col-md-12 col-lg-8 service-status-selector selector-open" data-content="@item.QuotationId">
                                                 <option class="status-open selector-open" value="true" selected>開啓</option>
                                                 <option class="status-close selector-close" value="false">關閉</option>
                                             </select>
                                         }
                                         else
                                         {
-                                            <div class="col-md-12 col-lg-6 control-label service-status-label">服務狀態：</div>
-                                            <select class="form-control col-md-12 col-lg-6 service-status-selector selector-close" data-content="@item.QuotationId">
+                                            <div class="col-md-12 col-lg-4 control-label service-status-label p-0">服務狀態：</div>
+                                            <select class="form-control col-md-12 col-lg-8 service-status-selector selector-close" data-content="@item.QuotationId">
                                                 <option class="status-open selector-open" value="true">開啓</option>
                                                 <option class="status-close selector-close" value="false" selected>關閉</option>
                                             </select>
@@ -70,7 +70,8 @@
             color: #89ba16;
             font-weight: 900;
             padding: 0px 15px;
-            /*margin: 0px !important;*/
+            /*line-height:100%;*/
+            margin: 0px !important;
         }
         .myContainer {
             @*max-width: 510px;
@@ -134,8 +135,6 @@
 
             function postNewStatus(id, TF) {
                 let newStatus = { QuotationId: id, Status: TF};
-                //axios({ method: "post", url: "/api/Talent/ChangeQuotationStatus", headers: { "Content-Type": "application/json" }, data: JSON.stringify(newStatus) })
-                //    .then(res => { console.log(res) })
                 fetch('/api/Talent/ChangeQuotationStatus', { method: 'post', headers: { "Content-Type": "application/json" }, body: JSON.stringify(newStatus) }).then(res => console.log(res));
             }
             

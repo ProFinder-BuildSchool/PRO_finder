@@ -349,24 +349,6 @@
             //儲存參考圖檔
             /*let otherPictureArray = [];*/
             let imgs = document.querySelectorAll(".uploadImg");
-            //上傳雲端
-            //const uploadImage_SendForm = async () => {
-            //    for (let i = 0; i < imgs.length; i++) {
-            //        const blobData = await getBlobData(imgs[i].src);
-            //        const fileObject = new File([blobData], imgs[i].src, { type: blobData.type });
-            //        const form = new FormData();
-            //        form.append("picture", fileObject);
-            //        let url_result = await axiosImageFile(form);
-                    
-            //        otherPictureArray.push({ OtherPictureLink: url_result, SortNumber: i });
-            //        $g("input#MainPicture").value = otherPictureArray[0].OtherPictureLink;
-            //        let otherPics = JSON.stringify(otherPictureArray);
-            //        $g("input#OtherPictureList").value = otherPics;
-            //    };
-            //    document.querySelector("form[action='/Talent/CreateQuotation']").submit();
-            //}
-            //uploadImage_SendForm();
-
             let newQ = new Object();
             newQ['QuotationTitle'] = $g("input[name='QuotationTitle']").value;
             newQ['Price'] = Number($g("input[name='Price']").value);
@@ -383,20 +365,6 @@
                     let quotationID = res.data.Result;
                     if (quotationID == -1) { return;}
                     const uploadPics = async () => {
-                        //for (let i = 0; i < imgs.length; i++) {
-                        //    const blobData = await getBlobData(imgs[i].src);
-                        //    const fileObject = new File([blobData], imgs[i].src, { type: blobData.type });
-                        //    const form = new FormData();
-                        //    form.append("Picture", fileObject);
-                        //    form.append("SortNumber", i);
-                        //    form.append("QuotationID", quotationID);
-                        //    await axios({
-                        //        method: "post",
-                        //        url: "/api/Talent/UploadOtherPics",
-                        //        headers: { 'Content-Type': 'application/json;charset=utf-8', 'strict': false },
-                        //        data: form })
-                        //        .then(res => { console.log(res) });
-                        //}
                         const form = new FormData();
                         for (let i = 0; i < imgs.length; i++) {
                             const blobData = await getBlobData(imgs[i].src);

@@ -27,6 +27,7 @@ namespace PRO_finder.Controllers
         private readonly CartService _cartService;
         private readonly GeneralRepository _repo;
         private readonly CategoryService _categoryService;
+        private readonly MemberinfoService _memberinfoService;
         public QuotationController()
         {
             _quotService = new QuotationService();
@@ -34,6 +35,7 @@ namespace PRO_finder.Controllers
             _cartService = new CartService();
             _categoryService= new CategoryService();
             _repo = new GeneralRepository(new ProFinderContext());
+            _memberinfoService = new MemberinfoService();
         }
         // GET: Quotation
         public ActionResult Index(int? CategoryId, string keyword,string[] filter)
@@ -191,6 +193,13 @@ namespace PRO_finder.Controllers
             ViewBag.LocationList = _quotService.GetLocationName();
 
             return View("Index");
+        }
+        public ActionResult MyStudioHome()
+        {
+            var UserId = HttpContext.User.Identity.GetUserId();
+            int memberID = _memberinfoService.GetMemberID(UserId);
+            return Redirect($"/Quotation/StudioHome?TalentID={memberID}");
+            
         }
 
     }
