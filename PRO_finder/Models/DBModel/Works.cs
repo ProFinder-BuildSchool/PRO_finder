@@ -43,6 +43,8 @@ namespace PRO_finder.Models.DBModel
 
         public int? Featured { get; set; }
 
+        public string Memo { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FeaturedWork> FeaturedWork { get; set; }
 

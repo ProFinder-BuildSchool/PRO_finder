@@ -35,9 +35,7 @@
 
                     </td>
                     <td>
-
                         <p class="mb-0">{{item.Title}}</p>
-
                     </td>
                     <td>
 
@@ -78,7 +76,7 @@
                         <div class="col-12  px-2 mb-3 border-bottom">
 
                             <h5 class="border-bottom text-black">訂單明細</h5>
-                            <p class="mb-0">訂購服務名稱:{{modal.ProposerQuotationTitle}}</p>
+                            <p class="mb-0">訂購服務名稱:{{modal.Title}}</p>
                             <div class="d-flex justify-content-between">
                                 <p class="mb-0">訂購數量: {{ modal.Count }} / {{ modal.Unit }}</p>
                                 <span class="mb-0 mr-1">訂購單價: {{ modal.Price }} / {{ modal.Unit }} </span>
@@ -278,7 +276,7 @@
             {
                 GetOrder() {
                     axios.get('/api/Order/TalentGetOrder?id=@ViewBag.MemberId&status=9').then(res => {
-                        this.OrderList = res.data.Result
+                        this.OrderList = res.data.Result;
                         console.log(this.OrderList)
                     })
                 },

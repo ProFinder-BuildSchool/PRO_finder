@@ -20,7 +20,7 @@ namespace PRO_finder.Models.ViewModels
         public string QuotationImg { get; set; }
         public string StudioName { get; set; }
         public int Count { get; set; }
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
         public string Unit { get; set; }
         public string Email { get; set; }
         public string Name { get; set; }
