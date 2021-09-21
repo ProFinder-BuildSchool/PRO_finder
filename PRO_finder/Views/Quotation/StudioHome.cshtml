@@ -36,7 +36,6 @@
 
                         <div class="contactp">
                             <p>
-                                
                                 <button class="heartp"><span id="farHeart" class="far fa-heart mr-2 text-danger"></span>收藏</button>
                                 @*@Html.ActionLink("收藏", "FavorInsertorDelete", new { MemberID = ViewBag.MemberID, TalentID = ViewBag.MemberID, time = DateTime.UtcNow, StaffID = ViewBag.MemberID, AddorRemove = ViewBag.FavorExist }, new { @class = "icon-heart-o" })*@
                                 <a href="#"><i class="icon-mail_outline"></i>直接連絡</a>
@@ -53,7 +52,7 @@
                     <li><a href="#01">關於</a></li>
                     <li><a href="#02">作品</a></li>
                     <li><a href="#03">報價</a></li>
-                    <li><a href="#04">評價</a></li>
+                    @*<li><a href="#04">評價</a></li>*@
                 </ul>
 
 
@@ -402,7 +401,7 @@
                 :target:before {
                     content: "";
                     display: block;
-                    height: 80px;
+                    height: 40px;
                 }
 
                 #posts {
@@ -790,12 +789,12 @@
                  button:focus {outline:0;}
 
 
-                @@media screen and (min-width:1024px) {
+                /*@@media screen and (min-width:1024px) {*/
 
-                    .studionav {
+               /*     .studionav {
                         top: 40px
-                    }
-                }
+                    }*/
+                /*}*/
 
                 @@media screen and (min-width:1025px) {
                     .contacts {
@@ -811,7 +810,7 @@
                     :target:before {
                         content: "";
                         display: block;
-                        height: 180px;
+                        height: 40px;
                     }
 
                     

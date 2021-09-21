@@ -313,5 +313,17 @@ namespace PRO_finder.APIControllers
                 }
             }
         }
+
+
+        [HttpPost]
+        public APIResult ChangeBankAccount([FromBody] BankAccountViewModel newStatus)
+        {
+            var op_result = _memberInfoService.UpdateBankAccount(newStatus);
+            if (op_result.IsSuccessful)
+                return new APIResult(APIStatus.Success, string.Empty, "");
+            else
+                return new APIResult(APIStatus.Fail, op_result.Exception.ToString(), "");
+
+        }
     }
 }

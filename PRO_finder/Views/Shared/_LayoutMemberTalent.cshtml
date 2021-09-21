@@ -1,4 +1,15 @@
-﻿<!DOCTYPE html>
+﻿@using PRO_finder.Controllers
+@{
+    MyControllerBase controller = ViewContext.Controller as MyControllerBase;
+    if (controller == null)
+    {
+        throw new ApplicationException("Controller 必須繼承自 MyControllerBase.");
+    }
+    var userId = controller.memberID;
+
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -13,9 +24,16 @@
     @RenderSection("topCSS", required: false)
     @RenderSection("topJS", required: false)
     <style>
+
+        .badge {
+            background-color: red !important;
+            border-radius: 60px;
+            color: white;
+        }
         .container-fluid.list {
             background-color: #89ba16 !important;
         }
+
         .site-section#next-section {
             min-height: 200vh;
         }
@@ -28,6 +46,7 @@
             box-sizing: border-box;
             padding: 20px 10px;
         }
+
         .nav-item .card-header, .card-body {
             padding: 5px;
         }
@@ -35,30 +54,35 @@
         .myHeader {
             padding: 5px;
         }
-        #myTabContent nav ul{
+
+        #myTabContent nav ul {
             position: relative;
-            width:170px;
+            width: 170px;
         }
-        #navbarTogglerDemo.show #accordionExample2{
+
+        #navbarTogglerDemo.show #accordionExample2 {
             position: absolute;
             z-index: 20000;
             top: 0px;
-            width:100%;
+            width: 100%;
         }
+
         #navbarTogglerDemo.show ul::after {
             content: "";
             background-color: rgb(255 255 255);
-            opacity:0.6;
+            opacity: 0.6;
             position: absolute;
             top: -20px;
-            left:-500px;
+            left: -500px;
             width: 500vw;
             height: 1000vh;
-            z-index:1000;
+            z-index: 1000;
         }
+
         section {
-            overflow:hidden;
+            overflow: hidden;
         }
+
         @@media screen and (min-width: 768px) {
             .navbar-toggler {
                 display: none;
@@ -71,10 +95,10 @@
             .myHeader {
                 width: 180px !important;
             }
+
             #myTabContent nav {
                 position: unset;
             }
-
         }
     </style>
 </head>
@@ -239,9 +263,9 @@
         </section>
         
 
-        <footer class="site-footer">
-            @Html.Partial("_FooterPartial")
-        </footer>
+    <footer class="site-footer">
+        @Html.Partial("_FooterPartial")
+    </footer>
 
     </div>
     @Scripts.Render("~/bundles/jquery")
@@ -250,6 +274,49 @@
     @RenderSection("scripts", required: false)
     @RenderSection("endCSS", required: false)
     @RenderSection("endJS", required: false)
+
+    <script>
+        OrderUnreadNumber();
+        let Status0 = '';
+        let Status1 = '';
+        let Status2 = '';
+        let Status3 = '';
+        let Status4 = '';
+
+        function OrderUnreadNumber() {
+            axios.get('/api/Order/UnreadCount?MemberId=@userId')
+                .then(res => {
+
+                    res.data.Result.forEach(function(item, index) {
+                        item.Status == 0 ? Status0 = item.Counts : item.Status == 1 ? Status1 = item.Counts : item.Status == 2 ? Status2 = item.Counts : item.Status == 3 ? Status3 = item.Counts : item.Status == 4 ? Status4 = item.Counts : Status4 = 0
+                        console.log("Status0" + Status0, "Status1"+Status1, "Status2"+Status2, "Status3"+Status3)
+                    })
+
+                    console.log(res.data.Result)
+                    console.log(Status3)
+                    console.log(Status4)
+
+                    let badge = document.querySelectorAll('.badge');
+                    badge[0].innerText = Status0;
+                    badge[1].innerText = Status1;
+                    badge[2].innerText = Status2;
+                    badge[3].innerText = Status3 + Status4;
+            })
+        }
+
+        document.querySelectorAll('.orderbadge').forEach(function (item,index) {
+            item.addEventListener('click', function () {
+                if (index == 3) {
+                    axios.post(`/api/Order/OrderUnreadNumber?Memberid=@userId&status=${index + 1}`).then(res => {
+                    })
+                }
+                   axios.post(`/api/Order/OrderUnreadNumber?Memberid=@userId&status=${index}`).then(res => {
+                   OrderUnreadNumber();
+                })
+
+            })
+        })
+    </script>
 </body>
 </html>
 
