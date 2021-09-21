@@ -447,12 +447,24 @@
     <Compile Include="Migrations\202109151359371_2021-09-15.Designer.cs">
       <DependentUpon>202109151359371_2021-09-15.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109210743303_2021-09-21 update database.cs" />
+    <Compile Include="Migrations\202109210743303_2021-09-21 update database.Designer.cs">
+      <DependentUpon>202109210743303_2021-09-21 update database.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DBModel\AspNetRoles.cs" />
     <Compile Include="Models\DBModel\AspNetUserClaims.cs" />
     <Compile Include="Models\DBModel\AspNetUserLogins.cs" />
-    <Compile Include="Models\DBModel\AspNetUserRoles.cs" />
     <Compile Include="Models\DBModel\AspNetUsers.cs" />
+    <Compile Include="Models\DBModel\BackAccount.cs" />
+    <Compile Include="Models\DBModel\BackRole.cs" />
+    <Compile Include="Models\DBModel\BackUserClaim.cs" />
+    <Compile Include="Models\DBModel\BackUserData.cs" />
+    <Compile Include="Models\DBModel\BackUserLogin.cs" />
+    <Compile Include="Models\DBModel\BackUserRole.cs" />
+    <Compile Include="Models\DBModel\BackUserRoleClaim.cs" />
+    <Compile Include="Models\DBModel\BackUserToken.cs" />
     <Compile Include="Models\DBModel\Banner.cs" />
     <Compile Include="Models\DBModel\Case.cs" />
     <Compile Include="Models\DBModel\CaseNotification.cs" />
@@ -958,6 +970,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109151359371_2021-09-15.resx">
       <DependentUpon>202109151359371_2021-09-15.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109210743303_2021-09-21 update database.resx">
+      <DependentUpon>202109210743303_2021-09-21 update database.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
