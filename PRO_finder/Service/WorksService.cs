@@ -97,7 +97,8 @@ namespace PRO_finder.Service
                             SubCategoryName = S.SubCategoryName,
                             Info = work.WorkDescription,
                             studio = work.Client,
-                            MemberID = work.MemberID
+                            MemberID = work.MemberID,
+                           
                         }).ToList();
             var tempGroup = temp.GroupBy(x => x.WorkID).Select(x => new WorkViewModel
             {

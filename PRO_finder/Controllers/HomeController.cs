@@ -21,10 +21,12 @@ namespace PRO_finder.Controllers
         private QuotationService _quotationService;
         private WorksService _worksService;
         private CaseService _caseService;
+        private BannerService _bannerService;
 
         public HomeController()
         {
             _ctx = new ProFinderContext();
+            _bannerService = new BannerService();
             _CategoryService = new CategoryService();
             _Home_IndexService = new Home_IndexService();
             _quotationService = new QuotationService();
@@ -33,6 +35,8 @@ namespace PRO_finder.Controllers
         }
         public ActionResult Index()                       
         {
+
+            var banner = _bannerService.GetBanner();
 
             var list = _CategoryService.Home_Index_GetCategoryItem();
 
@@ -46,6 +50,7 @@ namespace PRO_finder.Controllers
             ViewBag.QuotationList = QuotationList;
             ViewBag.workList = workList;
             ViewBag.caseList = caseList;
+            ViewBag.bannerList = banner;
 
 
 

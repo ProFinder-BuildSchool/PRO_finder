@@ -19,10 +19,8 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44375</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>
-    </IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>
-    </IISExpressWindowsAuthentication>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -489,6 +487,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\APIModels\APIBase\APIResult.cs" />
     <Compile Include="Models\ViewModels\BankAccountViewModel.cs" />
+    <Compile Include="Models\ViewModels\BannerViewModel.cs" />
     <Compile Include="Models\ViewModels\CaseViewModel.cs" />
     <Compile Include="Models\ViewModels\ClientCartViewModel.cs" />
     <Compile Include="Models\ViewModels\Home_IndexViewModel.cs" />
@@ -518,6 +517,7 @@
     <Compile Include="Repositories\SubCategoryRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Models\ViewModels\CaseDetailViewModel.cs" />
+    <Compile Include="Service\BannerService.cs" />
     <Compile Include="Service\CartService.cs" />
     <Compile Include="Service\CaseService.cs" />
     <Compile Include="Service\Home_IndexService .cs" />
