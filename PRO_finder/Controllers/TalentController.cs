@@ -259,10 +259,10 @@ namespace PRO_finder.Controllers
             string userID = HttpContext.User.Identity.GetUserId();
             int memberID = _memberInfoService.GetMemberID(userID);
             var myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
-            while (myQuotation.Last().MainPicture == null)
-            {
-                myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
-            }
+            //while (myQuotation.Last().MainPicture == null)
+            //{
+            //    myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
+            //}
             return View(myQuotation);
         }
 
