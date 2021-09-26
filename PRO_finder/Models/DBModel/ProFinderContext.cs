@@ -12,10 +12,11 @@ namespace PRO_finder.Models.DBModel
         {
         }
 
+        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<BackAccount> BackAccount { get; set; }
         public virtual DbSet<Banner> Banner { get; set; }
         public virtual DbSet<Case> Case { get; set; }
         public virtual DbSet<CaseNotification> CaseNotification { get; set; }
@@ -46,10 +47,22 @@ namespace PRO_finder.Models.DBModel
         public virtual DbSet<WorkAttachment> WorkAttachment { get; set; }
         public virtual DbSet<WorkPictures> WorkPictures { get; set; }
         public virtual DbSet<Works> Works { get; set; }
+        public virtual DbSet<BackRole> BackRole { get; set; }
+        public virtual DbSet<BackUserClaim> BackUserClaim { get; set; }
+        public virtual DbSet<BackUserData> BackUserData { get; set; }
+        public virtual DbSet<BackUserLogin> BackUserLogin { get; set; }
+        public virtual DbSet<BackUserRole> BackUserRole { get; set; }
+        public virtual DbSet<BackUserRoleClaim> BackUserRoleClaim { get; set; }
+        public virtual DbSet<BackUserToken> BackUserToken { get; set; }
         public virtual DbSet<SystemContent> SystemContent { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<AspNetRoles>()
+                .HasMany(e => e.AspNetUsers)
+                .WithMany(e => e.AspNetRoles)
+                .Map(m => m.ToTable("AspNetUserRoles").MapLeftKey("RoleId").MapRightKey("UserId"));
+
             modelBuilder.Entity<AspNetUsers>()
                 .HasMany(e => e.AspNetUserClaims)
                 .WithRequired(e => e.AspNetUsers)
@@ -58,12 +71,6 @@ namespace PRO_finder.Models.DBModel
 
             modelBuilder.Entity<AspNetUsers>()
                 .HasMany(e => e.AspNetUserLogins)
-                .WithRequired(e => e.AspNetUsers)
-                .HasForeignKey(e => e.UserId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<AspNetUsers>()
-                .HasMany(e => e.AspNetUserRoles)
                 .WithRequired(e => e.AspNetUsers)
                 .HasForeignKey(e => e.UserId)
                 .WillCascadeOnDelete(false);

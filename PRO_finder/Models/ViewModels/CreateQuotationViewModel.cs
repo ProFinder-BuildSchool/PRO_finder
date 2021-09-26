@@ -26,7 +26,7 @@ namespace PRO_finder.ViewModels
         public DateTime UpdateDate { get; set; }
 
         [Required]
-        [Display(Name = "服務訂價")]
+        [Display(Name = "服務定價")]
         public decimal Price { get; set; }
 
         public enum UnitEnum

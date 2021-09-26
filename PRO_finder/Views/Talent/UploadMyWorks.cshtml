@@ -405,8 +405,6 @@
             $g("input[name='WorkDescription']").value = $g("div.ql-editor").innerHTML;
 
             //上傳cloudinary及作品檔案
-            let workAttachmentArray = [];
-            let workPictureArray = [];
             const asyncRun = async () => {
                 //newWork
                 const newWork = new Object();
@@ -427,39 +425,45 @@
                 //WorkAttachment
                 let input_nameList = document.querySelectorAll("input[data-content='WorkAttachmentName']");
                 let input_linkList = document.querySelectorAll("input[data-content='WorkAttachmentLink']");
+                //取得所有fileName
+                const nameArray = [];
+                input_nameList.forEach(input_name => {
+                    nameArray.push(input_name.value);
+                })
+                const form = new FormData();
                 if (input_nameList != null && input_linkList != null) {
                     let len = input_nameList.length >= input_linkList.length ? input_linkList.length : input_nameList.length;
+                    form.append("FileNames", JSON.stringify(nameArray));
+                    form.append("WorkID", workID);
                     for (let i = 0; i < len; i++) {
-                        let form = new FormData();
-                        form.append("File", input_linkList[i].files[0]);
-                        form.append("WorkAttachmentName", input_nameList[i].value);
-                        form.append("WorkID", workID);
-                        axios({
-                            method: "post",
-                            url: "/api/Talent/UploadFile",
-                            headers: { 'Content-Type': "application/json;charset=utf-8", "strict": false },
-                            data: form
-                        }).then(res => res.data.Result);
+                        form.append(`File${i}`, input_linkList[i].files[0]); 
                     };
                 };
+                axios({
+                    method: "post",
+                    url: "/api/Talent/UploadFile",
+                    headers: { 'Content-Type': "application/json;charset=utf-8", "strict": false },
+                    data: form
+                }).then(res => res.data.Result);
 
                 //儲存作品圖例
                 let imgs = document.querySelectorAll(".uploadImg");
+                
                 //上傳雲端
+                const imgForm = new FormData();
+                imgForm.append("WorkID", workID);
                 for (let j = 0; j < imgs.length; j++) {
                     const blobData = await getBlobData(imgs[j].src);
                     const fileObject = new File([blobData], imgs[j].src, { type: blobData.type });
-                    let form = new FormData();
-                    form.append("Picture", fileObject);
-                    form.append("WorkID", workID);
-                    form.append("SortNumber", j);
-                    await axios({
-                        method: "post",
-                        url: "/api/Talent/UploadWorkPics",
-                        headers: { "Content-Type": "application/json;charset=utf-8", "strict": false },
-                        data: form
-                    }).then(res => res.data.Result);
+                    imgForm.append(`Picture${j}`, fileObject);                    
+                    
                 };
+                axios({
+                    method: "post",
+                    url: "/api/Talent/UploadWorkPics",
+                    headers: { "Content-Type": "application/json;charset=utf-8", "strict": false },
+                    data: imgForm
+                }).then(res => res.data.Result);
                 document.querySelector("form[action='/Talent/UploadMyWorks']").submit();
             }
             asyncRun();
