@@ -27,11 +27,11 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-6">
-                            @Html.DropDownList("Catgeory", (List<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control", @id = "categoryDropdown" })
+                            @Html.DropDownList("CatgeoryID", (List<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control", @id = "categoryDropdown" })
                         </div>
                         <div class="col-6">
                             <select class="form-control" id="subcategorySelect" name="SubCategoryID">
-                                <option>選擇子類型</option>
+                                <option value="-1">選擇服務子類型</option>
                             </select>
                             @Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })
                         </div>
@@ -98,17 +98,22 @@
                 <div class="container">
                     <p class="text-danger mb-0">&ensp;*拖曳交換順序</p>
                     <div class="row" id="displayUpload">
-                        @foreach (var item in Model.OtherPicList)
+                        @if (Model.OtherPicList != null)
                         {
-                            <div class="col-12 col-md-6 col-lg-4 origin">
-                                <span class="btn btn-outline-danger"><i class='fas fa-trash-alt'></i></span>
-                                <img src="@item.OtherPictureLink" data-content="WorkPicture" class="origin uploadImg"/>
-                                @*<video src="" data-content="WorkPicture"/>*@
-                            </div>
+                            foreach (var item in Model.OtherPicList)
+                            {
+                                <div class="col-12 col-md-6 col-lg-4 origin">
+                                    <span class="btn btn-outline-danger"><i class='fas fa-trash-alt'></i></span>
+                                    <img src="@item.OtherPictureLink" data-content="WorkPicture" class="origin uploadImg" />
+                                    @*<video src="" data-content="WorkPicture"/>*@
+                                </div>
+                            }
                         }
+
                     </div>
                 </div>
             </div>
+            @Html.ValidationMessageFor(model => model.MainPicture, "", new { @class = "text-danger" })
 
             @*服務内容描述*@
             <div class="form-group mt-5">
@@ -120,7 +125,8 @@
                         </div>
                     </div>
                     <input type="hidden" name="Description" />
-                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    <input type="hidden" name="DescriptionValidation" />
+                    @Html.ValidationMessageFor(model => model.DescriptionValidation, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -257,7 +263,7 @@
     <script src="~/Assets/js/quill.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js" integrity="sha512-zYXldzJsDrNKV+odAwFYiDXV2Cy37cwizT+NkuiPGsa9X1dOz04eHvUWVuxaJ299GvcJT31ug2zO4itXBjFx4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>var originSubcateID = @Model.SubCategoryID; var originCateID = @Model.CategoryID</script>
+    <script>var originSubcateID = @Model.SubCategoryID; var originCateID = @Model.CategoryID;</script>
     <script>
 
         //服務類別轉換
@@ -270,7 +276,7 @@
 
             //呈現subcatgory dropdown list
             if (originSubcateID != null && originCateID != null) {
-                selector.innerHTML = "<option>選擇服務子類型</option>";
+                selector.innerHTML = "<option value='-1'>選擇服務子類型</option>";
                 let originSubList = subCategoryList.filter(x => x.CategoryID == originCateID)[0].JsonSubCategoryList;
                 let allOriginSubList = JSON.parse(originSubList);
                 allOriginSubList.forEach(s => {
@@ -285,7 +291,7 @@
         
 
         document.querySelector("#categoryDropdown").addEventListener("change", function () {
-            selector.innerHTML = "<option>選擇服務子類型</option>";
+            selector.innerHTML = "<option value='-1'>選擇服務子類型</option>";
             let subJsonList = subCategoryList.filter(x => x.CategoryID == this.value)[0].JsonSubCategoryList;
             let allSub = JSON.parse(subJsonList);
             allSub.forEach(s => {
@@ -383,31 +389,15 @@
 
         $g("input#send").addEventListener("click", function (e) {
             e.preventDefault();
-            $g("body").classList.add("wait");
+            //$g("body").classList.add("wait");
             //富文本編輯器儲存
             $g("input[name='Description']").value = $g("div.ql-editor").innerHTML;
+            $g("input[name='DescriptionValidation']").value = $g("div.ql-editor").innerText;
 
             //儲存參考圖檔
             //let otherPictureArray = [];
             let imgs = document.querySelectorAll(".uploadImg");
-            //上傳雲端
-            //const uploadImage_SendForm = async () => {
-            //    for (let i = 0; i < imgs.length; i++) {
-            //        const blobData = await getBlobData(imgs[i].src);
-            //        const fileObject = new File([blobData], imgs[i].src, { type: blobData.type });
-            //        const form = new FormData();
-            //        form.append("picture", fileObject);
-            //        let url_result = await axiosImageFile(form);
-            //        otherPictureArray.push({ OtherPictureLink: url_result, SortNumber: i });
-            //        $g("input#MainPicture").value = otherPictureArray[0].OtherPictureLink;
-            //        let otherPics = JSON.stringify(otherPictureArray);
-            //        $g("input#OtherPictureList").value = otherPics;
-            //        console.log(otherPics);
-
-            //    };
-            //    //document.querySelector("form[action='/Talent/UpdateMyQuotation']").submit();
-            //}
-            //uploadImage_SendForm();
+            //上傳雲端圖檔 Cloudinary
             let updateQ = new Object();
             updateQ['QuotationTitle'] = $g("input[name='QuotationTitle']").value;
             updateQ['Price'] = Number($g("input[name='Price']").value);
@@ -416,6 +406,26 @@
             updateQ['Description'] = $g("div.ql-editor").innerHTML;
             updateQ['SubCategoryID'] = Number($g("select[name='SubCategoryID']").value);
             updateQ['QuotationID'] = Number($g("input[name='QuotationID']").value);
+            updateQ['DescriptionValidation'] = $g("div.ql-editor").innerText;
+
+            //前端驗證
+            let updateQ_values = Object.values(updateQ);
+            if (updateQ_values.includes("")) {
+                document.querySelector("form[action='/Talent/UpdateMyQuotation']").submit();
+                return;
+            } else if (updateQ_values.includes(-1)) {
+                document.querySelector("form[action='/Talent/UpdateMyQuotation']").submit();
+                return;
+            }
+
+            if (imgs.length < 1) {
+                document.querySelector("form[action='/Talent/UpdateMyQuotation']").submit();
+                return;
+            } else {
+                document.querySelector("input[name='MainPicture']").value = "thereIsAtLeastOnePicture";
+            }
+
+
             axios({
                 method: "post",
                 url: "/api/Talent/UpdateQuotation",

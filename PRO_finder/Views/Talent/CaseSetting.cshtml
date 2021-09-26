@@ -1100,7 +1100,11 @@
 
                     //取得Description
                     $g("input#Description").value = $g("div.ql-editor").innerHTML;
-                    document.querySelector("form[action='/Talent/CaseSetting']").submit();
+                    if ($g("div.ql-editor").innerText == "" || $g("div.ql-editor").innerText == "\n") {
+                        this.ValidationMsg.Description = "請簡單填寫您的接案描述，例如：您好，我是ProFinder!";
+                    } else {
+                        document.querySelector("form[action='/Talent/CaseSetting']").submit();
+                    }
                     
                 }
             }

@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-6">
                             <select class="form-control" id="subcategorySelect" name="SubCategoryID">
-                                <option>選擇子類型</option>
+                                <option value="-1">選擇服務子類型</option>
                             </select>
                             @Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })
                         </div>
@@ -99,21 +99,24 @@
                     <p class="text-danger mb-0">&ensp;*拖曳交換順序</p>
                     <div class="row" id="displayUpload">
                     </div>
+                    @Html.ValidationMessageFor(model => model.MainPicture, "", new { @class = "text-danger" })
                 </div>
             </div>
+            
             @*測試後端上傳圖片cloudinary*@
             @*<div class="form-group">
-                <div class="col-md-offset-2 col-md-12 text-center">
-                    <input type="button" value="上傳測試" class="btn btn-primary mt-3" id="test" />
-                </div>
-            </div>*@
+            <div class="col-md-offset-2 col-md-12 text-center">
+                <input type="button" value="上傳測試" class="btn btn-primary mt-3" id="test" />
+            </div>
+        </div>*@
             @*服務内容描述*@
             <div class="form-group mt-5">
                 @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-12" })
                 <div class="col-md-12">
                     <div id="editor"></div>
                     <input type="hidden" name="Description" />
-                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    <input type="hidden" name="DescriptionValidation" />
+                    @Html.ValidationMessageFor(model => model.DescriptionValidation, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -259,7 +262,7 @@
         });
 
         document.querySelector("#categoryDropdown").addEventListener("change", function () {
-            selector.innerHTML = "<option>選擇服務子類型</option>";
+            selector.innerHTML = "<option value='-1'>選擇服務子類型</option>";
             let allsub = JSON.parse(subCategoryList.filter(x => x.CategoryID == this.value)[0].JsonSubCategoryList);
             allsub.forEach(s => {
                 let option = document.createElement("option");
@@ -342,9 +345,10 @@
 
         $g("input#send").addEventListener("click", function (e) {
             e.preventDefault();
-            document.querySelector("body").classList.add("wait");
+            //document.querySelector("body").classList.add("wait");
             //富文本編輯器儲存
             $g("input[name='Description']").value = $g("div.ql-editor").innerHTML;
+            $g("input[name='DescriptionValidation']").value = $g("div.ql-editor").innerText;
 
             //儲存參考圖檔
             /*let otherPictureArray = [];*/
@@ -356,6 +360,25 @@
             newQ['ExecuteDate'] = Number($g("input[name='ExecuteDate']").value);
             newQ['Description'] = $g("div.ql-editor").innerHTML;
             newQ['SubCategoryID'] = Number($g("select[name='SubCategoryID']").value);
+            newQ['DecriptionValidation'] = $g("div.ql-editor").innerText;
+
+            //前端驗證
+            let newQ_values = Object.values(newQ);
+            if (newQ_values.includes("")) {
+                document.querySelector("form[action='/Talent/CreateQuotation']").submit();
+                return;
+            } else if (newQ_values.includes(-1)) {
+                document.querySelector("form[action='/Talent/CreateQuotation']").submit();
+                return;
+            }
+
+            if (imgs.length < 1) {
+                document.querySelector("form[action='/Talent/CreateQuotation']").submit();
+                return;
+            } else {
+                document.querySelector("input[name='MainPicture']").value = "thereIsAtLeastOnePicture";
+            }
+
             axios({
                 method: "post",
                 url: "/api/Talent/CreateQuotation",

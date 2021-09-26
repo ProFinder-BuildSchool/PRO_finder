@@ -54,30 +54,9 @@ namespace PRO_finder.Controllers
             ViewBag.CategoryList = _cateService.GetCategorySelectList();
             return View();
         }
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult CreateQuotation([Bind(Include = "QuotationTitle,Price,QuotationUnit,ExecuteDate,Description,SubCategoryID,MainPicture,OtherPictureList")] CreateQuotationViewModel quotation)
-        //{
-        //    ViewBag.CategoryList = _cateService.GetCategorySelectList();
-        //    if (ModelState.IsValid)
-        //    {
-        //        string userID = HttpContext.User.Identity.GetUserId();
-        //        quotation.MemberID = _memberInfoService.GetMemberID(userID);
-
-        //        var newQ = _quotaService.CreateQuotation(quotation);
-        //        int quotationID = newQ.QuotationID;
-        //        //Response.Write(quotationID);
-        //        if (quotation.OtherPictureList != null)
-        //        {
-        //            _quotaService.CreateOtherPics(quotationID, quotation.OtherPictureList);
-        //        }
-
-        //        return RedirectToAction("MyQuotationIndex");
-        //    }
-        //    return View(quotation);
-        //}
         [HttpPost]
-        public ActionResult CreateQuotation([Bind(Include = "QuotationTitle,Price,QuotationUnit,ExecuteDate,Description,SubCategoryID,MainPicture,OtherPictureList")] CreateQuotationViewModel quotation)
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateQuotation([Bind(Include = "QuotationTitle,Price,QuotationUnit,ExecuteDate,Description,DescriptionValidation,SubCategoryID,MainPicture,OtherPictureList")] CreateQuotationViewModel quotation)
         {
             ViewBag.CategoryList = _cateService.GetCategorySelectList();
             if (ModelState.IsValid)
@@ -105,30 +84,8 @@ namespace PRO_finder.Controllers
         {
             //頁面顯示
             ViewBag.CategoryList = _cateService.GetCategorySelectList();
-
-            //取得memberID,並加至newWorks
-            //string userID = HttpContext.User.Identity.GetUserId();
-            //newWorks.MemberID = _memberInfoService.GetMemberID(userID);
-
-
             if (ModelState.IsValid)
             {
-                //存入Works資料庫
-                //var newEntity = _worksService.CreateWorks(newWorks);
-                //int workID = newEntity.WorkID;
-
-                ////存入WorkAttachment資料庫
-                //if (newWorks.WorkAttachmentList != null)
-                //{
-                //    _worksService.CreateWorkAttachment(workID, newWorks.WorkAttachmentList);
-                //}
-
-                ////存入WorkPictures資料庫
-                //if (newWorks.WorkPictureList != null)
-                //{
-                //    _worksService.CreateWorkPictures(workID, newWorks.WorkPictureList);
-                //}
-
                 return RedirectToAction("Index");
             }
 
@@ -259,10 +216,6 @@ namespace PRO_finder.Controllers
             string userID = HttpContext.User.Identity.GetUserId();
             int memberID = _memberInfoService.GetMemberID(userID);
             var myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
-            //while (myQuotation.Last().MainPicture == null)
-            //{
-            //    myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
-            //}
             return View(myQuotation);
         }
 
@@ -282,7 +235,7 @@ namespace PRO_finder.Controllers
             return View(theQuotation);
         }
         [HttpPost]
-        public ActionResult UpdateMyQuotation([Bind(Include = "QuotationID, QuotationTitle,Price,QuotationUnit,ExecuteDate,Description,SubCategoryID,MainPicture,OtherPictureList")] CreateQuotationViewModel quotation)
+        public ActionResult UpdateMyQuotation([Bind(Include = "QuotationID, QuotationTitle,Price,QuotationUnit,ExecuteDate,Description, DescriptionValidation,CategoryID, SubCategoryID,MainPicture,OtherPictureList")] CreateQuotationViewModel quotation)
         {
             if (ModelState.IsValid)
             {
@@ -299,7 +252,10 @@ namespace PRO_finder.Controllers
                 }
                 return RedirectToAction("MyQuotationIndex", myQuotation);
             }
-            return View();
+            var cateList = _cateService.GetCategorySelectList();
+            cateList.FirstOrDefault(x => x.Value == quotation.CategoryID.ToString()).Selected = true;
+            ViewBag.CategoryList = cateList;
+            return View(quotation);
         }
 
         public ActionResult DeleteQuotation(int? id)
