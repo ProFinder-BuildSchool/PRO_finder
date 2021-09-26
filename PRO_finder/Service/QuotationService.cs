@@ -346,30 +346,6 @@ namespace PRO_finder.Service
             _repo.Update(entity);
             _repo.SaveChanges();
 
-            //if(quo.OtherPictureList != null)
-            //{
-            //    var oldPictures = _repo.GetAll<OtherPicture>().Where(x => x.QuotationID == quo.QuotationID).ToList();
-            //    foreach(var item in oldPictures)
-            //    {
-            //        _repo.Delete(item);
-            //        _repo.SaveChanges();
-            //    }
-            //    JArray temp = JArray.Parse(quo.OtherPictureList);
-            //    List<OtherPicture> newPictureList = temp.ToObject<List<OtherPicture>>();
-            //    foreach (var item in newPictureList)
-            //    {
-            //        OtherPicture p = new OtherPicture
-            //        {
-            //            QuotationID = quo.QuotationID,
-            //            OtherPictureLink = item.OtherPictureLink,
-            //            SortNumber = item.SortNumber
-            //        };
-            //        _repo.Create(p);
-            //        _repo.SaveChanges();
-            //    }
-
-            //}
-
         }
         public List<SelectListItem> GetLocationSelectList()
         {

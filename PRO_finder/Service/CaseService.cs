@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Services;
 using PRO_finder.Helper;
+using PRO_finder.ViewModels;
 
 namespace PRO_finder.Service
 {
@@ -185,7 +186,58 @@ namespace PRO_finder.Service
             長期合作, 急件, 一般案件
         }
 
-       
+        //Functions for CreateCase
+        public string GetAllCategory()
+        {
+            var allCategory = _ctx.GetAll<Category>();
+            var allSubCategory = _ctx.GetAll<SubCategory>();
+            var all = new List<CategoryViewModel>();
+            foreach (var item in allCategory)
+            {
+                var subList = new List<SubCateData>();
+                foreach (var sub in allSubCategory)
+                {
+                    if (sub.CategoryID == item.CategoryID)
+                    {
+                        subList.Add(new SubCateData { SubCateID = sub.SubCategoryID, SubCateName = sub.SubCategoryName });
+                    }
+                }
+                all.Add(new CategoryViewModel { CategoryID = item.CategoryID, CategoryName = item.CategoryName, JsonSubCategoryList = JsonConvert.SerializeObject(subList) });
+            }
+            return JsonConvert.SerializeObject(all);
+        }
         
+        public string GetLocationList()
+        {
+            var locations = _ctx.GetAll<Locations>().ToList();
+            return JsonConvert.SerializeObject(locations);
+        }
+        public int CreateNewCase(int userID, CaseDetailViewModel newCase) 
+        {
+            Case entity = new Case
+            {
+                SortNumber = 1,
+                CaseTitle = newCase.title,
+                SubCategoryID = newCase.SubCategoryID,
+                UpdateDate = DateTime.UtcNow.AddHours(8),
+                Price = newCase.PriceInt,
+                Location = newCase.LocationID,
+                Description = newCase.Description,
+                MemberID = userID,
+                Type = (int?)newCase.Type,
+                Contact = newCase.Contact,
+                LocalCalls = newCase.LocalCalls,
+                LocalCallsCode = newCase.LocalCallsCode,
+                LocalCallsExtension = newCase.LocalCallsExtension,
+                ContactTime = newCase.ContactTime,
+                ContactEmail = newCase.ContactEmail,
+                LineID = newCase.LineID,
+                CompleteDate = newCase.CompleteDate
+            };
+            _ctx.Create(entity);
+            _ctx.SaveChanges();
+
+            return entity.CaseID;
+        }
     }
 }

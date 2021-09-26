@@ -3,6 +3,719 @@
     ViewBag.Title = "立即發案";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="container myForm" id="app">
+    <div class="tab-content">
+        <!-- 第一步驟 0% -->
+        <div class="tab-pane ProFinderTab wrap active" id="first-section" role="tabpanel"
+             aria-labelledby="firstSection-tab">
+            <div class="title row my-5">
+                <div class="col-3">
+                    <p class="font-weight-bold mb-0 text-center launch-case">立即發案</p>
+                </div>
+                <div class="col-9 d-flex align-items-center">
+                    <div class="prog-wrap">
+                        <div class="prog"></div>
+                        <p class="mt-2"><span></span>0%</p>
+                    </div>
+                </div>
+            </div>
+            <div class="myContainer">
+                <h4 class="font-weight-bold text-center mt-3 mb-4">快速填寫需求，立即解決您的難題！</h4>
+                <div class="form-content justify-content-center">
+                    <label class="label-control mb-0">案件名稱：<span class="badge badge-danger">必填</span></label>
+                    <input type="text" name="title" class="form-control" v-model="newCase.title">
+                </div>
+                <p class="validation-msg text-md-center">{{validationMsg.title}}</p>
+                <div class="form-content justify-content-center">
+                    <label class="label-control mb-0">案件類別：<span class="badge badge-danger">必填</span></label>
+                    <select name="CategoryID" id="CategoryID" class="form-control my-1" v-model="newCase.CategoryID" @@change="changeSubCategorySelector(newCase.CategoryID)">
+                        <option value="-1">案件主類別</option>
+                    </select>
+                    <select name="SubCategoryID" id="SubCategoryID" class="form-control my-1" v-model="newCase.SubCategoryID">
+                        <option value="-1">案件子類別</option>
+                    </select>
+                </div>
+                <p class="validation-msg text-md-center">{{validationMsg.SubCategoryID}}</p>
+            </div>
+            <div class="row p-3">
+                <button class="btn btn-primary ml-auto" @@click="NextToSecond()">下一步</button>
+            </div>
+        </div>
 
-<h2>CreateCase</h2>
+        <!-- 第二步驟 25%-->
+        <div class="tab-pane wrap ProFinderTab" id="second-section" role="tabpanel"
+             aria-labelledby="secondSection-tab">
+            <div class="title row my-5">
+                <div class="col-3">
+                    <p class="font-weight-bold mb-0 text-center launch-case">立即發案</p>
+                </div>
+                <div class="col-9 d-flex align-items-center">
+                    <div class="prog-wrap">
+                        <div class="prog percent25"></div>
+                        <p class="mt-2"><span class="percent25 d-inline-block"></span>25%</p>
+                    </div>
+                </div>
+            </div>
+            <div class="myContainer">
+                <p class="font-weight-bold mx-3">請問您預計的完成日？<span class="badge badge-danger">必填</span></p>
+                <div class="form-content mb-4">
+                    <div class="union">
+                        <label class="label-control mb-0">成交後</label>
+                        <input type="text" name="CompleteDate" class="form-control" v-model="newCase.CompleteDate">
+                        <label class="label-control mb-0">天内完成</label>
+                    </div>
+                </div>
+                <p class="validation-msg">{{validationMsg.CompleteDate}}</p>
+                <p class="font-weight-bold mx-3">請問您的預算？<span class="badge badge-danger">必填</span></p>
+                <div class="form-content mb-4">
+                    <select name="Price" id="" class="form-control ml-0" v-model="newCase.PriceInt">
+                        <option value="-1">選擇預算</option>
+                        <option value="1">5000以下</option>
+                        <option value="2">5000~1萬</option>
+                        <option value="3">1萬~5萬</option>
+                        <option value="4">5萬~10萬</option>
+                        <option value="5">10萬~30萬</option>
+                        <option value="6">30萬~50萬</option>
+                        <option value="7">50萬~80萬</option>
+                        <option value="8">80萬~100萬</option>
+                        <option value="9">100萬~300萬</option>
+                        <option value="10">300萬以上</option>
+                    </select>
+                </div>
+                <p class="validation-msg">{{validationMsg.PriceInt}}</p>
+                <p class="font-weight-bold mx-3">請問人才是否需至指定地點執行？<span class="badge badge-danger">必填</span></p>
+                <div class="form-content mb-4">
+                    <div class="union my-1">
+                        <input type="radio" name="locationBool" v-model="newCase.LocationBool" value="true" id="location-true">
+                        <label for="location-true" class="mb-0">是</label>
+                        <select name="Location" id="Location" class="form-control" v-model="newCase.LocationID"></select>
+                    </div>
+                    <div class="union my-1">
+                        <input type="radio" name="locationBool" class="ml-2" v-model="newCase.LocationBool" value="false" id="location-false">
+                        <label for="location-false" class="mb-0">否</label>
+                    </div>
+                </div>
+                <p class="validation-msg">{{validationMsg.LocationID}}</p>
+                <p class="validation-msg">{{validationMsg.LocationBool}}</p>
+                <p class="font-weight-bold mx-3">請問您的需求類型？<span class="badge badge-danger">必填</span></p>
+                <div class="form-content mb-4">
+                    <div class="union">
+                        <input type="radio" name="Type" value="0" v-model="newCase.Type" id="type-0">
+                        <label for="type-0" class="mb-0">一般案件</label>
+                    </div>
+                    <div class="union">
+                        <input type="radio" name="Type" class=" ml-2" value="1" v-model="newCase.Type" id="type-1">
+                        <label for="type-1" class="mb-0">急件</label>
+                    </div>
+                    <div class="union">
+                        <input type="radio" name="Type" class=" ml-2" value="2" v-model="newCase.Type" id="type-2">
+                        <label for="type-2" class="mb-0">長期合作</label>
+                    </div>
+                </div>
+                <p class="validation-msg">{{validationMsg.Type}}</p>
+            </div>
+            <div class="row p-3 justify-content-between">
+                <button class="btn btn-secondary" @@click="BackToFirst()">上一步</button>
+                <button class="btn btn-primary" @@click="NextToThird()">下一步</button>
+            </div>
+        </div>
 
+        <!-- 第三步驟 50%-->
+        <div class="tab-pane wrap ProFinderTab" id="third-section" role="tabpanel"
+             aria-labelledby="thidSection-tab">
+            <div class="title row my-5">
+                <div class="col-3">
+                    <p class="font-weight-bold mb-0 text-center launch-case">立即發案</p>
+                </div>
+                <div class="col-9 d-flex align-items-center">
+                    <div class="prog-wrap">
+                        <div class="prog percent50"></div>
+                        <p class="mt-2"><span class="percent50 d-inline-block"></span>50%</p>
+                    </div>
+                </div>
+            </div>
+            <div class="myContainer">
+                <p class="font-weight-bold mx-3">詳細執行内容説明：<span class="badge badge-danger">必填</span></p>
+                <div class="form-content mb-4">
+                    <textarea name="Description" class="form-control" style="height:150px;"
+                              v-model="newCase.Description"></textarea>
+                </div>
+                <p class="validation-msg">{{validationMsg.Description}}</p>
+                <p class="font-weight-bold mx-3">有參考附件嗎？</p>
+                <div class="form-content mb-4">
+                    <label for="upload-file" class="px-5 text-center">上傳檔案</label>
+                    <input name="file" type="file" class="d-none" id="upload-file" multiple/>
+                </div>
+            </div>
+            <div class="row p-3 justify-content-between">
+                <button class="btn btn-secondary" @@click="BackToSecond()">上一步</button>
+                <button class="btn btn-primary" @@click="NextToForth()">下一步</button>
+            </div>
+        </div>
+
+        <!-- 第四步驟 75% -->
+        <div class="tab-pane wrap ProFinderTab" id="forth-section" role="tabpanel"
+             aria-labelledby="forthSection-tab">
+            <div class="title row my-5">
+                <div class="col-3">
+                    <p class="font-weight-bold mb-0 text-center launch-case">立即發案</p>
+                </div>
+                <div class="col-9 d-flex align-items-center">
+                    <div class="prog-wrap">
+                        <div class="prog percent75"></div>
+                        <p class="mt-2"><span class="percent75 d-inline-block"></span>75%</p>
+                    </div>
+                </div>
+            </div>
+            <div class="myContainer">
+                <p class="font-weight-bold mx-3 mb-5">人才如何與您聯繫？</p>
+                <div class="form-content">
+                    <label class="label-control mb-0">聯絡人：<span class="badge badge-danger">必填</span></label>
+                    <input type="text" class="form-control" v-model="newCase.Contact">
+                </div>
+                <p class="validation-msg">{{validationMsg.Contact}}</p>
+                <div class="form-content">
+                    <label class="label-control mb-0">手機：<span class="badge badge-danger">必填</span></label>
+                    <input type="text" name="Phone" class="form-control" v-model="newCase.CellPhone">
+                </div>
+                <p class="validation-msg">{{validationMsg.CellPhone}}</p>
+                <div class="form-content LocalCalls">
+
+                    <div class="union mb-2">
+                        <label class="label-control mb-0"
+                               style="min-width:unset !important; width:50px;">市話：</label>
+                        <input type="text" name="LocalCallsCode" class="form-control"
+                               v-model="newCase.LocalCallsCode">
+                        <p class="mb-0" style="line-height: 38px;">&ensp;-&ensp;</p>
+                        <input type="text" name="LocalCalls" class="form-control" v-model="newCase.LocalCalls">
+                    </div>
+                    <div class="union mb-2">
+                        <label for="" class="label-control mb-0 "
+                               style="min-width:unset !important; width:50px;">分機:</label>
+                        <input type="text" name="LocalCallsExtension" class="form-control"
+                               v-model="newCase.LocalCallsExtension">
+                    </div>
+                </div>
+                <p class="font-weight-bold mx-3">聯絡時段：<span class="badge badge-danger">必填</span></p>
+                <div class="form-content ContactTime row">
+                    <div class="col-12 col-md-3 d-flex pl-0">
+                        <input type="checkbox" value="09:00~12:00" name="ContactTime" v-model="newCase.ContactTime" id="time-0">
+                        <label class="label-control mb-0" for="time-0">09:00 ~ 12:00</label>
+                    </div>
+                    <div class="col-12 col-md-3 d-flex pl-0">
+                        <input type="checkbox" value="13:00~18:00" name="ContactTime" v-model="newCase.ContactTime" id="time-1">
+                        <label for="time-1" class="label-control mb-0">13:00 ~ 18:00</label>
+                    </div>
+                    <div class="col-12 col-md-3 d-flex pl-0">
+                        <input type="checkbox" value="19:00~21:00" name="ContactTime" v-model="newCase.ContactTime" id="time-2">
+                        <label for="time-2" class="label-control mb-0">19:00 ~ 21:00</label>
+                    </div>
+                    <div class="col-12 col-md-3 d-flex pl-0">
+                        <input type="checkbox" value="不接聽手機" name="ContactTime" v-model="newCase.ContactTime" id="time-3">
+                        <label for="time-3" class="label-control mb-0">不接聽手機</label>
+                    </div>
+                </div>
+                <p class="validation-msg">{{validationMsg.ContactTime}}</p>
+                <div class="form-content">
+                    <label class="label-control mb-0">聯絡Email：<span class="badge badge-danger">必填</span></label>
+                    <input type="text" name="ContactEmail" class="form-control" v-model="newCase.ContactEmail" />
+                </div>
+                <p class="validation-msg">{{validationMsg.ContactEmail}}</p>
+                <div class="form-content">
+                    <label class="label-control mb-0">LINE ID：</label>
+                    <input type="text" name="LineID" class="form-control" v-model="newCase.LineID">
+                </div>
+                <div class="form-content">
+                    <input type="checkbox" style="margin:15px auto auto;" v-model="Read" value="true" id="Read"/>
+                    <label for="Read" class="font-weight-normal ml-2">
+                        <span class="badge badge-danger">必填</span>
+                        &ensp; 我已仔細閱讀並明瞭「服務條款」、「刊登規則」、「隱私權聲明」等所載內容及其意義，茲同意該等條款規定，並願遵守網站現今、嗣後規範的各種規則。
+                    </label>
+                </div>
+                <p class="validation-msg">{{validationMsg.Read}}</p>
+            </div>
+            <div class="row p-3 justify-content-between">
+                <button class="btn btn-secondary" @@click="BackToThird()">上一步</button>
+                <button class="btn btn-primary" @@click="NextToLast()">下一步</button>
+            </div>
+        </div>
+
+        <!-- 第五步驟 100% -->
+        <div class="tab-pane wrap ProFinderTab" id="last-section" role="tabpanel" aria-labelledby="lastSection-tab">
+            <div class="myContainer my-5">
+                <div class="d-flex justify-content-center align-items-center">
+                    <img src="https://s1.tasker.com.tw/img/illustrate/finish.gif" alt="" class="w-50">
+                    <p class="w-50 font-weight-bold text-center mb-0 succeed">成功發佈案件!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section TopCss{
+    <style>
+        .wrap {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .myContainer {
+            /* max-width: 510px; */
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            padding: 30px;
+        }
+
+        .myForm button {
+            width: 150px;
+        }
+
+        .myForm {
+            margin: 80px auto;
+        }
+
+        .title p.launch-case {
+            font-size: 12px;
+            position: relative;
+        }
+
+            .title p.launch-case::before {
+                content: '';
+                position: absolute;
+                left: -5px;
+                width: 2px;
+                height: 110%;
+                background-color: #89ba16;
+            }
+
+        .prog-wrap {
+            height: 6px;
+            width: 100%;
+            background-color: #bebebe;
+            position: relative;
+        }
+
+        .prog {
+            height: 100%;
+            background-color: #89ba16;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .percent25 {
+            width: 25%;
+        }
+
+        .percent50 {
+            width: 50%;
+        }
+
+        .percent75 {
+            width: 75%;
+        }
+
+        .percent100 {
+            width: 100%;
+        }
+
+        .percentage-mark {
+            position: relative;
+        }
+
+        #app label {
+            display: block;
+        }
+
+        .form-content {
+            display: flex;
+            flex-direction: column;
+            padding: 0px 15px;
+            margin: 15px auto 5px;
+        }
+
+            .form-content label {
+                line-height: 38px;
+                font-weight: bold;
+            }
+
+        #forth-section label {
+            min-width: 90px;
+        }
+
+        .form-content input,
+        .form-content select {
+            flex-grow: 1;
+            flex-shrink: 2;
+            width: unset !important;
+            margin: auto 5px;
+        }
+
+        .form-content input {
+            max-width: 310px;
+        }
+
+        .form-content select {
+            max-width: 150px;
+        }
+
+        #second-section input,
+        #second-section select {
+            flex-grow: 0;
+        }
+
+        #second-section label {
+            font-weight: normal;
+        }
+
+        label[for="upload-file"] {
+            border: #bebebe solid 1px;
+            border-radius: 0.4rem;
+            max-width: 162px;
+        }
+
+        .LocalCalls input,
+        .LocalCalls label {
+            max-width: 120px;
+        }
+
+            .LocalCalls input[name="LocalCallsCode"] {
+                max-width: 40px;
+            }
+
+        .ContactTime label {
+            font-weight: normal;
+        }
+
+        .ContactTime input {
+            flex-grow: 0 !important;
+        }
+
+        p.validation-msg {
+            padding-left: 15px;
+            font-size: 8px;
+            color: red;
+        }
+
+        .union {
+            display: flex;
+            flex-direction: row;
+        }
+
+        input[name="CompleteDate"] {
+            width: 100px !important;
+        }
+
+        .succeed {
+            font-size: 18px;
+        }
+
+        @@media screen and (min-width:768px) {
+            .title p.launch-case {
+                font-size: 16px;
+            }
+
+                .title p.launch-case::before {
+                    width: 4px;
+                }
+
+            .prog-wrap {
+                height: 8px;
+            }
+
+            p.validation-msg {
+                font-size: 12px;
+            }
+
+            .form-content {
+                flex-direction: row;
+            }
+
+            .succeed {
+                font-size: 24px;
+            }
+        }
+    </style>
+}
+@section EndJS{
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                newCase: {
+                    title: "",
+                    CategoryID:-1,
+                    SubCategoryID: -1,
+                    CompleteDate: null,
+                    PriceInt: -1,
+                    LocationID: -1,
+                    LocationBool: -1,
+                    Type: -1,
+                    Description: "",
+                    Contact: "",
+                    ContactTime: [],
+                    CellPhone: "",
+                    LocalCallsCode: "",
+                    LocalCalls: "",
+                    LocalCallsExtension: "",
+                    ContactEmail: "",
+                    LineID: "",
+                },
+                validations: {
+                    title: false,
+                    SubCategoryID: false,
+                    CompleteDate: false,
+                    PriceInt: false,
+                    LocationID: false,
+                    LocationBool: false,
+                    Type: false,
+                    Description: false,
+                    Contact: false,
+                    ContactTime: false,
+                    CellPhone: false,
+                    ContactEmail: false,
+                    Read: false,
+                },
+                validationMsg: {
+                    title: "",
+                    SubCategoryID: "",
+                    CompleteDate: "",
+                    PriceInt: "",
+                    LocationID: "",
+                    LocationBool: "",
+                    Type: "",
+                    Description: "",
+                    Contact: "",
+                    ContactTime: "",
+                    CellPhone: "",
+                    ContactEmail: "",
+                    Read: "",
+                },
+                Read: null,
+                categoryList: [],
+                locationList:[]
+            },
+            methods: {
+                BackToFirst: function () {
+                    this.showTab("#first-section");
+                },
+                NextToSecond: function () {
+                    //CaseTitle
+                    if (this.newCase.title == "") {
+                        this.validationMsg.title = "請輸入案件名稱";
+                        this.validations.title = false;
+                    } else {
+                        this.validations.title = true;
+                        this.validationMsg.title = "";
+                    }
+                    //SubCategoryID
+                    if (this.newCase.SubCategoryID == "-1") {
+                        this.validationMsg.SubCategoryID = "請選擇案件類別";
+                        this.validations.SubCategoryID = false;
+                    } else {
+                        this.validations.SubCategoryID = true;
+                        this.validationMsg.SubCategoryID = "";
+                    }
+
+                    if (this.validations.title && this.validations.SubCategoryID) {
+                        this.showTab("#second-section");
+                    }
+                },
+                BackToSecond: function () {
+                    this.showTab("#second-section");
+                },
+                NextToThird: function () {
+                    //COmpleteDate
+                    let regex_d = new RegExp("[0-99999]");
+                    if (this.newCase.CompleteDate == "" || this.newCase.CompleteDate == null) {
+                        this.validationMsg.CompleteDate = "請輸入預計完成日";
+                        this.validations.CompleteDate = false;
+                    } else if (!(regex_d.test(this.newCase.CompleteDate))) {
+                        this.validationMsg.CompleteDate = "請輸入數值";
+                        this.validations.CompleteDate = false;
+                    }
+                    else {
+                        this.validations.CompleteDate = true;
+                        this.validationMsg.CompleteDate = "";
+                    }
+
+                    if (this.newCase.PriceInt == -1) {
+                        this.validationMsg.PriceInt = "請選擇預算範圍";
+                        this.validations.PriceInt = false;
+                    } else {
+                        this.validations.PriceInt = true;
+                        this.validationMsg.PriceInt = "";
+                    }
+
+                    if (this.newCase.LocationBool == -1) {
+                        this.validationMsg.LocationBool = "請選擇人才是否需至指定地點";
+                        this.validations.LocationBool = false;
+                    } else {
+                        this.validations.LocationBool = true;
+                        this.validationMsg.LocationBool = "";
+                    }
+
+                    if (this.newCase.LocationBool == 'true' && this.newCase.LocationID == -1) {
+                        this.validationMsg.LocationID = "請選擇指定地點";
+                        this.validations.LocationID = false;
+                    } else {
+                        this.validations.LocationID = true;
+                        this.validationMsg.LocationID = "";
+                    }
+
+                    if (this.newCase.Type == -1) {
+                        this.validationMsg.Type = "請選擇需求類型";
+                        this.validations.Type = false;
+                    } else {
+                        this.validations.Type = true;
+                        this.validationMsg.Type = "";
+                    }
+
+                    if (this.validations.CompleteDate && this.validations.PriceInt && this.validations.LocationBool && this.validations.LocationID && this.validations.Type) {
+                        this.showTab("#third-section");
+                    }
+                },
+                BackToThird: function () {
+                    this.showTab("#third-section");
+                },
+                NextToForth: function () {
+                    if (this.newCase.Description == "") {
+                        this.validations.Description = false;
+                        this.validationMsg.Description = "請敘述案件執行内容";
+                    }
+                    else {
+                        this.validations.Description = true;
+                        this.validationMsg.Description = "";
+                    }
+
+                    if (this.validations.Description) {
+                        this.showTab("#forth-section");
+                    }
+                },
+                BackToForth: function () {
+                    this.showTab("#forth-section");
+                },
+                NextToLast: function () {
+                    //Contact
+                    if (this.newCase.Contact == "") {
+                        this.validationMsg.Contact = "請輸入聯絡人姓名";
+                        this.validations.Contact = false;
+                    } else {
+                        this.validationMsg.Contact = "";
+                        this.validations.Contact = true;
+                    }
+
+                    //CellPhone
+                    let cellphone_regx = new RegExp("^09[0-9]{8}");
+                    if (this.newCase.CellPhone == "") {
+                        this.validationMsg.CellPhone = "請輸入聯絡手機";
+                        this.validations.CellPhone = false;
+                    } else if (!cellphone_regx.test(this.newCase.CellPhone)) {
+                        this.validationMsg.CellPhone = "請填寫正確手機號碼，09xxxxxxxx";
+                        this.validations.CellPhone = false;
+                    } else {
+                        this.validationMsg.CellPhone = "";
+                        this.validations.CellPhone = true;
+                    }
+
+                    //ContactTime
+                    if (this.newCase.ContactTime.length == 0) {
+                        this.validations.ContactTime = false;
+                        this.validationMsg.ContactTime = "請至少選擇一個聯絡時段";
+                    } else {
+                        this.validations.ContactTime = true;
+                        this.validationMsg.ContactTime = "";
+                    }
+
+                    //Email
+                    if (this.newCase.ContactEmail == "") {
+                        this.validations.ContactEmail = false;
+                        this.validationMsg.ContactEmail = "請輸入聯絡用Email";
+                    } else {
+                        this.validations.ContactEmail = true;
+                        this.validationMsg.ContactEmail = "";
+                    }
+                    //Read
+                    if (this.Read != true) {
+                        this.validationMsg.Read = "請閲讀並確認本網站各項規定。"
+                        this.validations.Read = false;
+                    } else {
+                        this.validationMsg.Read = "";
+                        this.validations.Read = true;
+                    }
+                    if (this.validations.Contact && this.validations.CellPhone
+                        && this.validations.ContactTime && this.validations.ContactEmail && this.validations.Read) {
+                        //post newCase
+                        delete this.newCase["LocationBool"];
+                        this.newCase.ContactTime = this.newCase.ContactTime.join("\n");
+                        axios({
+                            method: "post",
+                            url: "/api/Case/PostNewCase",
+                            data: this.newCase,
+                            headers: { "Content-Type": "application/json; charset=utf-8", "strict": false }
+                        }).then(res => {
+                            console.log(res.data);
+                            this.showTab("#last-section");
+                        });
+                    }
+                },
+                showTab(arg) {
+                    let theShowTab = document.querySelector("div.ProFinderTab.active");
+                    theShowTab.classList.remove('active');
+                    document.querySelector(arg).classList.add("active");
+                },
+                createOption(text, value) {
+                    let option = document.createElement("option");
+                    option.innerText = text;
+                    option.value = value;
+                    return option;
+                },
+                changeSubCategorySelector(arg) {
+                    let subcategorySelector = document.querySelector("select#SubCategoryID");
+                    subcategorySelector.innerHTML = "";
+                    let firstOption = this.createOption("案件子類別", -1);
+                    subcategorySelector.append(firstOption);
+                    this.newCase.SubCategoryID = -1;
+                    if (arg != -1) {
+                        let subcategories = JSON.parse(this.categoryList.filter(x => x.CategoryID == arg)[0].JsonSubCategoryList);
+                        subcategories.forEach(s => {
+                            let option = this.createOption(s.SubCateName, s.SubCateID);
+                            subcategorySelector.append(option);
+                        });
+                    }
+                    
+                }
+            },
+            created: function () {
+                //CategoryList
+                axios.get("/api/Case/GetCategoryList").then(res => {
+                    this.categoryList.push(...JSON.parse(res.data.Result));
+                    console.log(this.categoryList);
+                    //Category
+                    let categorySelector = document.querySelector("select#CategoryID");
+                    categorySelector.innerHTML = "";
+                    let firstOption = this.createOption("案件主類別", -1);
+                    categorySelector.append(firstOption);
+                    this.categoryList.forEach(c => {
+                        let option = this.createOption(c.CategoryName, c.CategoryID);
+                        categorySelector.append(option);
+                    });
+                }).catch(ex => console.log(ex));
+
+                //LocationList
+                axios.get("/api/Case/GetLocationList").then(res => {
+                    this.locationList.push(...JSON.parse(res.data.Result));
+                    let locationSelector = document.querySelector("select#Location");
+                    let firstOption = this.createOption("地點", -1);
+                    locationSelector.append(firstOption);
+                    this.locationList.forEach(l => {
+                        let option = this.createOption(l.LocationName, l.LocationName);
+                        locationSelector.append(option);
+                    });
+                }).catch(ex => console.log(ex));
+            }
+        })
+    </script>
+}
