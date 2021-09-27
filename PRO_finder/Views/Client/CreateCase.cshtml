@@ -144,7 +144,10 @@
                 <p class="font-weight-bold mx-3">有參考附件嗎？</p>
                 <div class="form-content mb-4">
                     <label for="upload-file" class="px-5 text-center">上傳檔案</label>
-                    <input name="file" type="file" class="d-none" id="upload-file" multiple/>
+                    <input name="file" type="file" class="d-none" id="upload-file" multiple @@change="showReferences"/>
+                </div>
+                <div v-for="(item, index) in references">
+                    <p class="text-black">{{item.fileName}} &ensp;<a @@click="removeRef(index)"><i class="fas fa-trash-alt"></i></a></p>
                 </div>
             </div>
             <div class="row p-3 justify-content-between">
@@ -251,6 +254,7 @@
         </div>
     </div>
 </div>
+
 
 @section TopCss{
     <style>
@@ -446,7 +450,7 @@
             data: {
                 newCase: {
                     title: "",
-                    CategoryID:-1,
+                    CategoryID: -1,
                     SubCategoryID: -1,
                     CompleteDate: null,
                     PriceInt: -1,
@@ -495,7 +499,8 @@
                 },
                 Read: null,
                 categoryList: [],
-                locationList:[]
+                locationList: [],
+                references: []
             },
             methods: {
                 BackToFirst: function () {
@@ -563,6 +568,10 @@
                     } else {
                         this.validations.LocationID = true;
                         this.validationMsg.LocationID = "";
+                    }
+
+                    if (this.newCase.LocationBool == 'false') {
+                        this.newCase.LocationID = 22;
                     }
 
                     if (this.newCase.Type == -1) {
@@ -650,15 +659,7 @@
                         //post newCase
                         delete this.newCase["LocationBool"];
                         this.newCase.ContactTime = this.newCase.ContactTime.join("\n");
-                        axios({
-                            method: "post",
-                            url: "/api/Case/PostNewCase",
-                            data: this.newCase,
-                            headers: { "Content-Type": "application/json; charset=utf-8", "strict": false }
-                        }).then(res => {
-                            console.log(res.data);
-                            this.showTab("#last-section");
-                        });
+                        this.postNewCase();
                     }
                 },
                 showTab(arg) {
@@ -685,7 +686,43 @@
                             subcategorySelector.append(option);
                         });
                     }
-                    
+
+                },
+                showReferences() {
+                    let ref = document.querySelector("input#upload-file").files;
+                    if (ref.length > 0) {
+                        for (let f = 0; f < ref.length; f++) {
+                            this.references.push({ "fileName": ref[f].name, "file": ref[f] });
+                        };
+                    }
+                },
+                removeRef(index) {
+                    this.references.splice(index, 1);
+                },
+                postNewCase() {
+                    axios({
+                        method: "post",
+                        url: "/api/Case/PostNewCase",
+                        data: this.newCase,
+                        headers: { "Content-Type": "application/json; charset=utf-8", "strict": false }
+                    }).then(res => {
+                        let caseID = Number(res.data.Result);
+
+                        //files
+                        if (this.references.length > 0) {
+                            const form = new FormData();
+                            form.append("CaseID", caseID);
+                            for (let j = 0; j < this.references.length; j++) { form.append(`File${j}`, this.references[j].file); }
+                            axios({
+                                method: "post",
+                                url: "/api/Case/PostNewCaseFile",
+                                headers: { "Content-Type": "application/json;charset=utf-8", "strict": false },
+                                data: form
+                            }).then(res => { this.showTab("#last-section"); });
+                        } else {
+                            this.showTab("#last-section");
+                        }
+                    });
                 }
             },
             created: function () {
@@ -711,7 +748,7 @@
                     let firstOption = this.createOption("地點", -1);
                     locationSelector.append(firstOption);
                     this.locationList.forEach(l => {
-                        let option = this.createOption(l.LocationName, l.LocationName);
+                        let option = this.createOption(l.LocationName, l.LocationID);
                         locationSelector.append(option);
                     });
                 }).catch(ex => console.log(ex));

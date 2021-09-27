@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using PRO_finder.Models.ViewModels;
 using PRO_finder.Helper;
-using PRO_finder.Models.ViewModels;
 using PRO_finder.Models.ViewModels.APIModels.APIBase;
 using PRO_finder.Service;
 using PRO_finder.ViewModels;

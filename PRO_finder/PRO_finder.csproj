@@ -455,6 +455,14 @@
     <Compile Include="Migrations\202109261129157_2021-09-26.Designer.cs">
       <DependentUpon>202109261129157_2021-09-26.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109261303176_test.cs" />
+    <Compile Include="Migrations\202109261303176_test.Designer.cs">
+      <DependentUpon>202109261303176_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109261316342_CaseRef.cs" />
+    <Compile Include="Migrations\202109261316342_CaseRef.Designer.cs">
+      <DependentUpon>202109261316342_CaseRef.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DBModel\AspNetRoles.cs" />
@@ -980,6 +988,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109261129157_2021-09-26.resx">
       <DependentUpon>202109261129157_2021-09-26.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109261303176_test.resx">
+      <DependentUpon>202109261303176_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109261316342_CaseRef.resx">
+      <DependentUpon>202109261316342_CaseRef.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

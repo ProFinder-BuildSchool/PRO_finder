@@ -10,7 +10,7 @@ namespace PRO_finder.Models.DBModel
     public partial class CaseReference
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CaseID { get; set; }
 
         public string CaseRefImg { get; set; }

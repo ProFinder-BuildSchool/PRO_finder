@@ -232,12 +232,19 @@ namespace PRO_finder.Service
                 ContactTime = newCase.ContactTime,
                 ContactEmail = newCase.ContactEmail,
                 LineID = newCase.LineID,
-                CompleteDate = newCase.CompleteDate
+                CompleteDate = newCase.CompleteDate,
+                CaseStatus = 4
             };
             _ctx.Create(entity);
             _ctx.SaveChanges();
 
             return entity.CaseID;
+        }
+
+        public void CreateNewCaseReference(CaseReference cr)
+        {
+            _ctx.Create(cr);
+            _ctx.SaveChanges();
         }
     }
 }
