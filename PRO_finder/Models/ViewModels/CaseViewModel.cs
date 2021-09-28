@@ -37,7 +37,7 @@ namespace PRO_finder.Models.ViewModels
 
         public string PriceToString { get; set; }
 
-
+        
 
     }
 

@@ -72,5 +72,11 @@ namespace PRO_finder.Controllers
 
             return View();
         }
+
+        [Authorize]
+        public ActionResult CreateCase()
+        {
+            return View();
+        }
     }
 }

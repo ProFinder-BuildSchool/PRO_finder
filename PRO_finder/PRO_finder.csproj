@@ -451,6 +451,10 @@
     <Compile Include="Migrations\202109210743303_2021-09-21 update database.Designer.cs">
       <DependentUpon>202109210743303_2021-09-21 update database.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109261129157_2021-09-26.cs" />
+    <Compile Include="Migrations\202109261129157_2021-09-26.Designer.cs">
+      <DependentUpon>202109261129157_2021-09-26.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DBModel\AspNetRoles.cs" />
@@ -859,6 +863,7 @@
     <Content Include="Views\Client\ReviseAccount.cshtml" />
     <Content Include="Views\Talent\TalentOrderDoing.cshtml" />
     <Content Include="Views\Talent\TalentOrderFinished.cshtml" />
+    <Content Include="Views\Client\CreateCase.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -972,6 +977,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109210743303_2021-09-21 update database.resx">
       <DependentUpon>202109210743303_2021-09-21 update database.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109261129157_2021-09-26.resx">
+      <DependentUpon>202109261129157_2021-09-26.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
