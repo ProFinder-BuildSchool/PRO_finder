@@ -36,6 +36,16 @@ namespace PRO_finder.Service
             return true;
         }
 
+        public bool AddFinishedDate(int Orderid, OrderViewModel CompleteDate) 
+        {
+            var completeDate = DateTime.UtcNow.AddHours(8);
+            _repo.GetAll<Order>().First(x => x.OrderID == Orderid).CompleteDate = completeDate;
+            _repo.GetAll<Order>().First(x => x.OrderID == Orderid).OrderType = 1;
+            _repo.SaveChanges();
+
+            return true;
+        }
+
         public bool UpdateOrderUnreadNumber(int Memberid,int status)
         {
 
@@ -138,7 +148,8 @@ namespace PRO_finder.Service
                         ProposerCellPhone = ProposerCellPhone,
                         OrderStatusNumber = (int)item.OrderStatus,
                         PaymentCode = item.PaymentCode,
-                        QuotationID = (int)item.QuotationID
+                        QuotationID = (int)item.QuotationID,
+                        OrderFinshedDay = ((DateTime)item.CompleteDate).ToString("yyyy-MM-dd")
                     });
                 }
                 else
@@ -171,7 +182,9 @@ namespace PRO_finder.Service
                         ProposerEmail = ProposerEmail,
                         ProposerCellPhone = ProposerCellPhone,
                         OrderStatusNumber = (int)item.OrderStatus,
-                        CaseID = (int)item.CaseID
+                        CaseID = (int)item.CaseID,
+                        OrderFinshedDay = ((DateTime)item.CompleteDate).ToString("yyyy-MM-dd")
+
                     });
                 }
                 
@@ -224,7 +237,10 @@ namespace PRO_finder.Service
                         ProposerEmail = item.ProposerEmail,
                         ProposerCellPhone = item.ProposerPhone,
                         OrderStatusNumber = (int)item.OrderStatus,
-                        CaseID = (int)item.CaseID
+                        CaseID = (int)item.CaseID,
+                        OrderFinshedDay = ((DateTime)item.CompleteDate).ToString("yyyy-MM-dd")
+
+
                     });
                 }
                 else
@@ -259,7 +275,10 @@ namespace PRO_finder.Service
                         ProposerCellPhone = ProposerCellPhone,
                         OrderStatusNumber = (int)item.OrderStatus,
                         PaymentCode = item.PaymentCode,
-                        QuotationID = (int)item.QuotationID
+                        QuotationID = (int)item.QuotationID,
+                        OrderFinshedDay = ((DateTime)item.CompleteDate).ToString("yyyy-MM-dd")
+
+
                     });
                 }
             }

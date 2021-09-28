@@ -10,6 +10,7 @@ namespace PRO_finder.Models.ViewModels
     {
         public decimal Schedule { get; set; }
         public string OrderSetupDay { get; set; }
+        public string OrderFinshedDay { get; set; }
         public string PredictDays { get; set; }
         public int Remaindays { get; set; }
         public int OrderID { get; set; }
@@ -45,6 +46,8 @@ namespace PRO_finder.Models.ViewModels
         public int CaseID { get; set; }
 
         public int OrderType { get; set; }
+
+        public DateTime? CompleteDate { get; set; }
 
     }
 
