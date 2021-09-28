@@ -90,6 +90,7 @@ namespace PRO_finder.Service
             var temp = (from work in _repo.GetAll<Works>()
                         join workpic in _repo.GetAll<WorkPictures>() on work.WorkID equals workpic.WorkID
                         join S in _repo.GetAll<SubCategory>() on work.SubCategoryID equals S.SubCategoryID
+                        where work.Featured == 1
                         select new
                         {
                             WorkID = work.WorkID,
@@ -98,7 +99,7 @@ namespace PRO_finder.Service
                             Info = work.WorkDescription,
                             studio = work.Client,
                             MemberID = work.MemberID,
-                           
+                            Memo = work.Memo
                         }).ToList();
             var tempGroup = temp.GroupBy(x => x.WorkID).Select(x => new WorkViewModel
             {
@@ -107,7 +108,9 @@ namespace PRO_finder.Service
                 SubCategoryName = x.First().SubCategoryName,
                 Info = x.First().Info,
                 studio = x.First().studio,
-                MemberID = (int)x.First().MemberID
+                MemberID = (int)x.First().MemberID,
+                Memo =x.First().Memo
+                
             }).OrderBy(x => x.WorkID).ToList();
 
 
