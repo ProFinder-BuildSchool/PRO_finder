@@ -44,7 +44,6 @@ namespace PRO_finder.Controllers
 
         }
 
-        [Authorize]
         public ActionResult Index()
         {
             string userID = HttpContext.User.Identity.GetUserId();
@@ -79,7 +78,6 @@ namespace PRO_finder.Controllers
             }
             return View(quotation);
         }
-
 
         public ActionResult UploadMyWorks()
         {
@@ -200,24 +198,21 @@ namespace PRO_finder.Controllers
             string userID = HttpContext.User.Identity.GetUserId();
             int memberID = _memberInfoService.GetMemberID(userID);
 
+            var result = new OperationResult();
             if (ModelState.IsValid)
             {
                 //更新MemberInfo資料庫
-                _memberInfoService.UpdateMemberInfo(memberID, caseSettings);
-                if (caseSettings.JsonExDList != null)
-                {
-                    //更新Experience資料庫
-                    _memberInfoService.UpdateExD(memberID, caseSettings.JsonExDList);
-                }
-
-                if (caseSettings.JsonToolList != null)
-                {
-                    //更新擅長軟體資料庫
-                    _memberInfoService.UpdateToolList(memberID, caseSettings.JsonToolList);
-                }
+                 result = _memberInfoService.UpdateMemberInfo(memberID, caseSettings);
+            }
+            if (result.IsSuccessful)
+            {
                 return RedirectToAction("Index");
             }
-            return View(caseSettings);
+            else
+            {
+                HttpContext.Response.Write(result);
+                return View(caseSettings);
+            }
         }
         public ActionResult MyQuotationIndex()
         {

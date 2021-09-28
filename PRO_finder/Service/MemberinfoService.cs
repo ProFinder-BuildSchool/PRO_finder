@@ -18,10 +18,10 @@ namespace PRO_finder.Service
 {
     public class MemberinfoService
     {
-        private readonly GeneralRepository _ctx;
+        private readonly MemberInfoRepository _ctx;
         public MemberinfoService()
         {
-            _ctx = new GeneralRepository(new ProFinderContext());
+            _ctx = new MemberInfoRepository(new ProFinderContext());
         }
 
         //public List<MemberInfo> getMemberInfoItem()
@@ -158,77 +158,12 @@ namespace PRO_finder.Service
             }
             return memberInfoVM;
         }
-        public MemberInfo UpdateMemberInfo(int memberID, MemberInfoViewModel newSettings)
+        public OperationResult UpdateMemberInfo(int memberID, MemberInfoViewModel newSettings)
         {
-            var entity = _ctx.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == memberID);
-            entity.Status = newSettings.Status;
-            entity.NickName = newSettings.NickName;
-            entity.Identity = (int)newSettings.Identity;
-            entity.LiveCity = newSettings.LiveCity;
-            entity.Cellphone = newSettings.Cellphone;
-            entity.Email = newSettings.Email;
-            entity.LocationID = (int)newSettings.LocationIDInt;
-            entity.AllPieceworkExp = newSettings.AllPieceworkExp;
-            entity.Description = newSettings.Description;
-            entity.SubCategoryID = newSettings.SubCategoryID;
-            _ctx.Update(entity);
-            _ctx.SaveChanges();
-            return entity;
+            var result = _ctx.CreateMemberInfo(memberID, newSettings);
+            return result;
         }
 
-        public void UpdateExD(int memberID, string jsonExDList)
-        {
-            //先刪除原有記錄
-            List<Experience> origin = _ctx.GetAll<Experience>().Where(x => x.MemberID == memberID).ToList();
-            foreach (var item in origin)
-            {
-                _ctx.Delete(item);
-                _ctx.SaveChanges();
-            }
-            //加入新記錄
-            JArray tempArray = JArray.Parse(jsonExDList);
-            List<Experience> expList = tempArray.ToObject<List<Experience>>();
-            foreach (var item in expList)
-            {
-                Experience e = new Experience
-                {
-                    MemberID = memberID,
-                    SubCategoryID = item.SubCategoryID,
-                    PieceworkExp = item.PieceworkExp,
-                    CategoryID = item.CategoryID
-                };
-                _ctx.Create(e);
-                _ctx.SaveChanges();
-            }
-        }
-
-        public void UpdateToolList(int memberID, string jsonToolList)
-        {
-            //刪除原有記錄
-            List<TalentTool> origin = _ctx.GetAll<TalentTool>().Where(x => x.MemberID == memberID).ToList();
-            foreach (var item in origin)
-            {
-                _ctx.Delete(item);
-                _ctx.SaveChanges();
-            }
-
-            //加入新紀錄
-            JArray tempArray = JArray.Parse(jsonToolList);
-            List<TalentTool> toolList = tempArray.ToObject<List<TalentTool>>();
-            foreach (var item in toolList)
-            {
-                TalentTool t = new TalentTool
-                {
-                    ToolCategoryID = item.ToolCategoryID,
-                    ToolSubCategoryID = item.ToolSubCategoryID,
-                    ToolSubCategoryName = item.ToolSubCategoryName,
-                    MemberID = memberID
-                };
-                _ctx.Create(t);
-                _ctx.SaveChanges();
-            }
-
-        }
         public string GetToolRecord(int memberID)
         {
             var record = _ctx.GetAll<TalentTool>().Where(x => x.MemberID == memberID).ToList();
