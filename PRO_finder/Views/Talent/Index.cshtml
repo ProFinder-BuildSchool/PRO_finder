@@ -21,21 +21,20 @@
                                     <div class="container">
                                         <div class="row justify-content-center">
                                             <div class="col-5 details">
-                                                @*<p>@Model.Balance</p>*@
-                                                <p>100,000</p>
+                                                <p>@ViewBag.Balance</p>
                                                 <p>帳戶餘額</p>
                                             </div>
                                             <div class="col-5 details">
-                                                <p>73</p>
-                                                <p>待回復訊息</p>
+                                                <p>@ViewBag.OrderDoingCount</p>
+                                                <p>進行中案件數</p>
                                             </div>
                                             <div class="col-5 details">
-                                                <p>35,000</p>
-                                                <p>等待案主付款</p>
+                                                <p>@ViewBag.Revenue</p>
+                                                <p>總成交金額</p>
                                             </div>
                                             <div class="col-5 details">
-                                                <p>8</p>
-                                                <p>邀請報價通知</p>
+                                                <p>@ViewBag.OrderCompleteCount</p>
+                                                <p>已完成案件數</p>
                                             </div>
                                         </div>
                                     </div>

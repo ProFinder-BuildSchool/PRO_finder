@@ -804,6 +804,13 @@
     <Content Include="Assets\cloudinary-core\cloudinary-core.js.map" />
     <Content Include="Assets\cloudinary-core\package.json" />
     <Content Include="Assets\cloudinary-core\README.md" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - FTP1.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - ReadOnly - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - ReadOnly - FTP1.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - ReadOnly - FTP2.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - Web Deploy1.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

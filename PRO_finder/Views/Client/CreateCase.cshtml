@@ -144,7 +144,7 @@
                 <p class="font-weight-bold mx-3">有參考附件嗎？</p>
                 <div class="form-content mb-4">
                     <label for="upload-file" class="px-5 text-center">上傳檔案</label>
-                    <input name="file" type="file" class="d-none" id="upload-file" multiple @@change="showReferences"/>
+                    <input name="file" type="file" class="d-none" id="upload-file" multiple @@change="showReferences" />
                 </div>
                 <div v-for="(item, index) in references">
                     <p class="text-black">{{item.fileName}} &ensp;<a @@click="removeRef(index)"><i class="fas fa-trash-alt"></i></a></p>
@@ -229,7 +229,7 @@
                     <input type="text" name="LineID" class="form-control" v-model="newCase.LineID">
                 </div>
                 <div class="form-content">
-                    <input type="checkbox" style="margin:15px auto auto;" v-model="Read" value="true" id="Read"/>
+                    <input type="checkbox" style="margin:15px auto auto;" v-model="Read" value="true" id="Read" />
                     <label for="Read" class="font-weight-normal ml-2">
                         <span class="badge badge-danger">必填</span>
                         &ensp; 我已仔細閱讀並明瞭「服務條款」、「刊登規則」、「隱私權聲明」等所載內容及其意義，茲同意該等條款規定，並願遵守網站現今、嗣後規範的各種規則。
@@ -468,19 +468,19 @@
                     LineID: "",
                 },
                 validations: {
-                    title: false,
-                    SubCategoryID: false,
-                    CompleteDate: false,
-                    PriceInt: false,
-                    LocationID: false,
-                    LocationBool: false,
-                    Type: false,
-                    Description: false,
-                    Contact: false,
-                    ContactTime: false,
-                    CellPhone: false,
-                    ContactEmail: false,
-                    Read: false,
+                    title: true,
+                    SubCategoryID: true,
+                    CompleteDate: true,
+                    PriceInt: true,
+                    LocationID: true,
+                    LocationBool: true,
+                    Type: true,
+                    Description: true,
+                    Contact: true,
+                    ContactTime: true,
+                    CellPhone: true,
+                    ContactEmail: true,
+                    Read: true,
                 },
                 validationMsg: {
                     title: "",
@@ -503,10 +503,10 @@
                 references: []
             },
             methods: {
-                BackToFirst: function () {
+                BackToFirst() {
                     this.showTab("#first-section");
                 },
-                NextToSecond: function () {
+                NextToSecond() {
                     //CaseTitle
                     if (this.newCase.title == "") {
                         this.validationMsg.title = "請輸入案件名稱";
@@ -528,11 +528,11 @@
                         this.showTab("#second-section");
                     }
                 },
-                BackToSecond: function () {
+                BackToSecond() {
                     this.showTab("#second-section");
                 },
-                NextToThird: function () {
-                    //COmpleteDate
+                NextToThird() {
+                    //CompleteDate
                     let regex_d = new RegExp("[0-99999]");
                     if (this.newCase.CompleteDate == "" || this.newCase.CompleteDate == null) {
                         this.validationMsg.CompleteDate = "請輸入預計完成日";
@@ -545,7 +545,7 @@
                         this.validations.CompleteDate = true;
                         this.validationMsg.CompleteDate = "";
                     }
-
+                    //PriceInt
                     if (this.newCase.PriceInt == -1) {
                         this.validationMsg.PriceInt = "請選擇預算範圍";
                         this.validations.PriceInt = false;
@@ -553,7 +553,7 @@
                         this.validations.PriceInt = true;
                         this.validationMsg.PriceInt = "";
                     }
-
+                    //LocationBool
                     if (this.newCase.LocationBool == -1) {
                         this.validationMsg.LocationBool = "請選擇人才是否需至指定地點";
                         this.validations.LocationBool = false;
@@ -561,7 +561,7 @@
                         this.validations.LocationBool = true;
                         this.validationMsg.LocationBool = "";
                     }
-
+                    //LocationID
                     if (this.newCase.LocationBool == 'true' && this.newCase.LocationID == -1) {
                         this.validationMsg.LocationID = "請選擇指定地點";
                         this.validations.LocationID = false;
@@ -573,7 +573,7 @@
                     if (this.newCase.LocationBool == 'false') {
                         this.newCase.LocationID = 22;
                     }
-
+                    //Type
                     if (this.newCase.Type == -1) {
                         this.validationMsg.Type = "請選擇需求類型";
                         this.validations.Type = false;
@@ -586,10 +586,10 @@
                         this.showTab("#third-section");
                     }
                 },
-                BackToThird: function () {
+                BackToThird() {
                     this.showTab("#third-section");
                 },
-                NextToForth: function () {
+                NextToForth() {
                     if (this.newCase.Description == "") {
                         this.validations.Description = false;
                         this.validationMsg.Description = "請敘述案件執行内容";
@@ -603,10 +603,10 @@
                         this.showTab("#forth-section");
                     }
                 },
-                BackToForth: function () {
+                BackToForth() {
                     this.showTab("#forth-section");
                 },
-                NextToLast: function () {
+                NextToLast() {
                     //Contact
                     if (this.newCase.Contact == "") {
                         this.validationMsg.Contact = "請輸入聯絡人姓名";
@@ -752,7 +752,7 @@
                         locationSelector.append(option);
                     });
                 }).catch(ex => console.log(ex));
-            }
-        })
+            },
+        });
     </script>
 }

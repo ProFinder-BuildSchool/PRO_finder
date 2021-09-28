@@ -305,7 +305,13 @@ namespace PRO_finder.Service
             }
             
         }
-
+        public void UpdateQTime(int? id)
+        {
+            var theQuotation = _repo.GetAll<Quotation>().FirstOrDefault(x => x.QuotationID == id);
+            theQuotation.UpdateDate = DateTime.UtcNow.AddHours(8);
+            _repo.Update(theQuotation);
+            _repo.SaveChanges();
+        }
         public CreateQuotationViewModel GetQuotation(int? id)
         {
             var found = _repo.GetAll<Quotation>().FirstOrDefault(x => x.QuotationID == id);

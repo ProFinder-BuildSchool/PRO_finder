@@ -12,6 +12,7 @@ using PRO_finder.Repositories;
 using PRO_finder.Models.ViewModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Globalization;
 
 namespace PRO_finder.Service
 {
@@ -290,6 +291,36 @@ namespace PRO_finder.Service
             _ctx.SaveChanges();
 
             return true;
+        }
+
+        //取得會員帳戶餘額
+        public string getBalance(int memberID)
+        {
+            var member = _ctx.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == memberID);
+            NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
+            decimal balance = member.Balance != null ? (decimal)member.Balance : 0;
+            return balance.ToString("C", nfi);
+        }
+        //取得會員總成交金額
+        public string getTotalRevenue(int memberID)
+        {
+            var orderList = _ctx.GetAll<Order>().Where(x => x.ProposerID == memberID).ToList();
+            var total = orderList.Select(x => x.Count * x.Price).Sum();
+            decimal totalRevenue = total != null ? (decimal)total : 0;
+            NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
+            return totalRevenue.ToString("C", nfi);
+        }
+        //取得會員進行中案件數量
+        public int getOrderDoingCount(int memberID)
+        {
+            var orderList = _ctx.GetAll<Order>().Where(x => x.ProposerID == memberID && x.OrderStatus == 1).ToList();
+            return orderList != null ? orderList.Count : 0;
+        }
+        //取得會員已完成案件數量
+        public int getOrderCompleteCount(int memberID)
+        {
+            var orderList = _ctx.GetAll<Order>().Where(x => x.ProposerID == memberID && x.OrderStatus >= 2).ToList();
+            return orderList != null ? orderList.Count : 0;
         }
     }
 
