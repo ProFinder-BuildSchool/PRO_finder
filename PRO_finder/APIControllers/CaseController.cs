@@ -145,8 +145,8 @@ namespace PRO_finder.APIControllers
 
                         CaseReference cr = new CaseReference
                         {
-                            CaseCase = caseID,
-                            CaseRefImg = fullFilePath
+                            CaseRefID = caseID,
+                            CaseRef = fullFilePath
                         };
                         _caseService.CreateNewCaseReference(cr);
                         

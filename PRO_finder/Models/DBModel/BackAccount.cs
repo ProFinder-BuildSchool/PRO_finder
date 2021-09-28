@@ -25,5 +25,7 @@ namespace PRO_finder.Models.DBModel
         public string Account { get; set; }
 
         public int? Authority { get; set; }
+
+        public int? Deactivated { get; set; }
     }
 }
