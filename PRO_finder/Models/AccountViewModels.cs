@@ -58,7 +58,7 @@ namespace PRO_finder.Models
         [Display(Name = "密碼")]
         public string Password { get; set; }
 
-        [Display(Name = "記住我?")]
+        [Display(Name = "記住我")]
         public bool RememberMe { get; set; }
     }
 
