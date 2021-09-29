@@ -191,7 +191,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-6">
-                            @Html.DropDownList("Catgeory", (List<SelectListItem>)ViewBag.IdealCaseCategoryList, new { @class = "form-control", @id = "categoryDropdown", @v_model="Settings.CategoryID" })
+                            @Html.DropDownList("Catgeory", (List<SelectListItem>)ViewBag.IdealCaseCategoryList, new { @class = "form-control", @id = "categoryDropdown", @v_model = "Settings.CategoryID" })
                         </div>
                         <div class="col-6">
                             <select class="form-control" id="subcategorySelect" name="SubCategoryID" v-model="Settings.SubCategoryID">
@@ -499,13 +499,13 @@
         </div>
         <div class="form-group mt-3">
             <div class="col-md-offset-2 col-md-12 text-center">
-                <input value="儲存設定" class="btn btn-primary" id="send" type="button" :disabled="!allValidation" @@click="sendForm"/>
+                <input value="儲存設定" class="btn btn-primary" id="send" type="button" @@click="checkDescription(event)" />
             </div>
         </div>
     </div>
     <input type="hidden" name="JsonToolList" id="JsonToolList">
     <input type="hidden" name="JsonExDList" id="JsonExDList">
-    <input type="hidden" name="Description" id="Description" v-model="Settings.Description"/>
+    <input type="hidden" name="Description" id="Description" />
     <template id="toolCheckBox">
         <div class="form-check col-12">
             <input type="checkbox" name="talentTool" id="" class="form-check-input">&ensp;<label class="form-check-label mb-0"></label>
@@ -644,10 +644,225 @@
     </style>
 }
 @section endJS{
-    <script src="~/Assets/js/quill.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <script src="~/Assets/js/quill.min.js"></script>
     <script> var model = @Html.Raw(Json.Encode(Model));</script>
+    <script>
+        //Vue前端驗證
+        var ideal_categoryID = @Html.Raw(Json.Encode(ViewBag.IdealCategoryID)) != null ? @Html.Raw(Json.Encode(ViewBag.IdealCategoryID)) : -1;
+        var app = new Vue({
+            el: "#app",
+            data: {
+                Settings: {
+                    Status: model.Status,
+                    NickName: model.NickName,
+                    Identity: model.Identity,
+                    LiveCity: model.LiveCity,
+                    CellPhone: model.Cellphone,
+                    Email: model.Email,
+                    LocationIDInt: model.LocationIDInt,
+                    SubCategoryID: model.SubCategoryID,
+                    AllPieceworkExp: model.AllPieceworkExp,
+                    Description: model.Description,
+                    CategoryID: ideal_categoryID,
+                },
+                Validation:{
+                    Status: true,
+                    NickName: true,
+                    Identity: true,
+                    LiveCity: true,
+                    CellPhone: true,
+                    Email: true,
+                    LocationIDInt: true,
+                    SubCategoryID: true,
+                    AllPieceworkExp: true,
+                    Description:true
+                },
+                ValidationMsg: {
+                    Status: "",
+                    NickName: "",
+                    Identity: "",
+                    LiveCity: "",
+                    CellPhone: "",
+                    Email: "",
+                    LocationIDInt: "",
+                    SubCategoryID: "",
+                    AllPieceworkExp: "",
+                    Description:""
+                },
+                allValidation: true
+            },
+            watch: {
+                "Settings.Status": function () {
+                    if (this.Settings.Status == null) {
+                        this.Validation.Status = false;
+                        this.ValidationMsg.Status = "請選擇接案狀態";
+                    } else {
+                        this.Validation.Status = true;
+                        this.ValidationMsg.Status = "";
+                    };
+                    this.checkValidation();
+                },
+                "Settings.NickName": function () {
+                    if (this.Settings.NickName == "") {
+                        this.Validation.NickName = false;
+                        this.ValidationMsg.NickName = "請輸入接案暱稱";
+                    } else {
+                        this.Validation.NickName = true;
+                        this.ValidationMsg.NickName = "";
+                    };
+                    this.checkValidation();
+
+                },
+                "Settings.Identity": function () {
+                    if (this.Settings.Identity == null) {
+                        this.Validation.Identity = false;
+                        this.ValidationMsg.Identity = "請選擇接案身份";
+                    } else {
+                        this.Validation.Identity = true;
+                        this.ValidationMsg.Identity = "";
+                    };
+                    this.checkValidation();
+                },
+                "Settings.LiveCity": function () {
+                    if (this.Settings.LiveCity == -1) {
+                        this.Validation.LiveCity = false;
+                        this.ValidationMsg.LiveCity = "請選擇居住城市";
+                    } else {
+                        this.Validation.LiveCity = true;
+                        this.ValidationMsg.LiveCity = "";
+                    };
+                    this.checkValidation();
+                },
+                "Settings.CellPhone": function () {
+                    let regx = new RegExp("^09[0-9]{8}");
+                    console.log();
+                    if (this.Settings.CellPhone == "") {
+                        this.Validation.CellPhone  = false;
+                        this.ValidationMsg.CellPhone  = "請輸入電話號碼";
+                    } else if (!regx.test(this.Settings.CellPhone)) {
+                        this.Validation.CellPhone  = false;
+                        this.ValidationMsg.CellPhone  = "請使用正確的手機號碼格式，09xxxxxxxx";
+                    }
+                    else{
+                        this.Validation.CellPhone  = true;
+                        this.ValidationMsg.CellPhone  = "";
+                    };
+                    this.checkValidation();
+                },
+                "Settings.Email": function () {
+                    if (this.Settings.Email == "") {
+                        this.Validation.Email = false;
+                        this.ValidationMsg.Email = "請輸入您的Email";
+                    } else {
+                        this.Validation.Email = true;
+                        this.ValidationMsg.Email = "";
+                    };
+                    this.checkValidation();
+                },
+                "Settings.LocationIDInt": function () {
+                    if (thisSettings.LocationIDInt == -1) {
+                        this.Validation.LocationIDInt = false;
+                        this.ValidationMsg.LocationIDInt = "請選擇理想接案地點";
+                    } else {
+                        this.Validation.LocationIDInt = true;
+                        this.ValidationMsg.LocationIDInt = "";
+                    };
+                    this.checkValidation();
+                },
+                "Settings.CategoryID": function () {
+                    this.Settings.SubCategoryID = -1;
+                    if (this.Settings.CategoryID == -1) {
+                        this.Settings.SubCategoryID = -1;
+                    }
+                },
+                "Settings.SubCategoryID": function () {
+                    if (this.Settings.SubCategoryID == -1) {
+                        this.Validation.SubCategoryID = false;
+                        this.ValidationMsg.SubCategoryID = "請選擇理想接案類別";
+                    } else {
+                        this.Validation.SubCategoryID = true;
+                        this.ValidationMsg.SubCategoryID = "";
+                    };
+                    this.checkValidation();
+                },
+                "Settings.AllPieceworkExp": function () {
+                    if (this.Settings.AllPieceworkExp == -1) {
+                        this.Validation.AllPieceworkExp = false;
+                        this.ValidationMsg.AllPieceworkExp = "請選擇累積接案年資";
+                    } else {
+                        this.Validation.AllPieceworkExp = true;
+                        this.ValidationMsg.AllPieceworkExp = "";
+                    };
+                    this.checkValidation();
+                }
+            },
+            methods: {
+                checkValidation() {
+                    if (this.Validation.Status && this.Validation.NickName && this.Validation.Identity && this.Validation.LiveCity &&
+                        this.Validation.CellPhone && this.Validation.Email && this.Validation.LocationIDInt && this.Validation.SubCategoryID &&
+                        this.Validation.AllPieceworkExp && this.Validation.Description) {
+                        this.allValidation = true;
+                    }
+                    else {
+                        this.allValidation = false;
+                    }
+                },
+                checkDescription(event) {
+                    event.preventDefault();
+
+                    //取得Description
+                    let description = document.querySelector("div.ql-editor").innerText;
+                    if (description == "" || description == "\n") {
+                        this.ValidationMsg.Description = "請簡單填寫您的接案描述，例如：您好，我是ProFinder!";
+                        this.Validation.Description = false;
+                        this.checkValidation();
+                    } else {
+                        this.sendForm();
+                    }
+                },
+                sendForm() {
+                    //取得擅長軟體
+                    let tools = subToolArray.filter(x => x.IsChecked == true);
+                    let toolArray = [];
+                    tools.forEach(t => {
+                        let obj = new Object();
+                        obj.ToolSubCategoryID = t.SubTalentCategoryID;
+                        obj.ToolSubCategoryName = t.SubTalentCategoryName;
+                        obj.ToolCategoryID = t.TalentCategoryID;
+                        toolArray.push(obj);
+                    });
+                    //console.log(toolArray)
+                    $g("input#JsonToolList").value = JSON.stringify(toolArray);
+
+                    //取得接案經歷
+                    let ExDCateId = document.querySelectorAll("select[name='ExDCategoryID']");
+                    let ExDSubId = document.querySelectorAll("select[name='ExDSubCategoryID']");
+                    let ExDPieceworkExp = document.querySelectorAll("select[name='ExDPieceworkExp']");
+                    let ExDArray = [];
+                    let len = ExDSubId.length >= ExDPieceworkExp.length ? ExDPieceworkExp.length : ExDSubId.length;
+                    for (let i = 0; i < len; i++) {
+                        if ((Number(ExDSubId[i].value) != "-1") && (ExDPieceworkExp[i].value != "-1")) {
+                            let obj = new Object();
+                            obj.CategoryID = Number(ExDCateId[i].value);
+                            obj.SubCategoryID = Number(ExDSubId[i].value);
+                            obj.PieceworkExp = ExDPieceworkExp[i].value;
+                            ExDArray.push(obj);
+                        }
+
+                    }
+                    //console.log(ExDArray);
+                    $g("input#JsonExDList").value = JSON.stringify(ExDArray);
+
+                    //取得Description
+                    $g("input#Description").value = $g("div.ql-editor").innerHTML;
+                    document.querySelector("form[action='/Talent/CaseSetting']").submit();
+                }
+            }
+        });
+    </script>
     <script>
         //理想接案類別
         let selector = document.querySelector("#subcategorySelect");
@@ -892,223 +1107,7 @@
             return temp.length == 1 ? temp[0] : temp;
         }
 
-        //Vue前端驗證
-        var ideal_categoryID = @Html.Raw(Json.Encode(ViewBag.IdealCategoryID)) != null ? @Html.Raw(Json.Encode(ViewBag.IdealCategoryID)) : -1;
-        var app = new Vue({
-            el: "#app",
-            data: {
-                Settings: {
-                    Status: model.Status,
-                    NickName: model.NickName,
-                    Identity: model.Identity,
-                    LiveCity: model.LiveCity,
-                    CellPhone: model.Cellphone,
-                    Email: model.Email,
-                    LocationIDInt: model.LocationIDInt,
-                    SubCategoryID: model.SubCategoryID,
-                    AllPieceworkExp: model.AllPieceworkExp,
-                    Description: model.Description,
-                    CategoryID: ideal_categoryID,
-                },
-                Validation:{
-                    Status: true,
-                    NickName: true,
-                    Identity: true,
-                    LiveCity: true,
-                    CellPhone: true,
-                    Email: true,
-                    LocationIDInt: true,
-                    SubCategoryID: true,
-                    AllPieceworkExp: true,
-                    Description:true
-                },
-                ValidationMsg: {
-                    Status: "",
-                    NickName: "",
-                    Identity: "",
-                    LiveCity: "",
-                    CellPhone: "",
-                    Email: "",
-                    LocationIDInt: "",
-                    SubCategoryID: "",
-                    AllPieceworkExp: "",
-                    Description:""
-                },
-                allValidation: true
-            },
-            watch: {
-                "Settings.Status": function () {
-                    if (this.Settings.Status == null) {
-                        this.Validation.Status = false;
-                        this.ValidationMsg.Status = "請選擇接案狀態";
-                    } else {
-                        this.Validation.Status = true;
-                        this.ValidationMsg.Status = "";
-                    };
-                    this.checkValidation();
-                },
-                "Settings.NickName": function () {
-                    if (this.Settings.NickName == "") {
-                        this.Validation.NickName = false;
-                        this.ValidationMsg.NickName = "請輸入接案暱稱";
-                    } else {
-                        this.Validation.NickName = true;
-                        this.ValidationMsg.NickName = "";
-                    };
-                    this.checkValidation();
 
-                },
-                "Settings.Identity": function () {
-                    if (this.Settings.Identity == null) {
-                        this.Validation.Identity = false;
-                        this.ValidationMsg.Identity = "請選擇接案身份";
-                    } else {
-                        this.Validation.Identity = true;
-                        this.ValidationMsg.Identity = "";
-                    };
-                    this.checkValidation();
-                },
-                "Settings.LiveCity": function () {
-                    if (this.Settings.LiveCity == -1) {
-                        this.Validation.LiveCity = false;
-                        this.ValidationMsg.LiveCity = "請選擇居住城市";
-                    } else {
-                        this.Validation.LiveCity = true;
-                        this.ValidationMsg.LiveCity = "";
-                    };
-                    this.checkValidation();
-                },
-                "Settings.CellPhone": function () {
-                    let regx = new RegExp("^09[0-9]{8}");
-                    console.log();
-                    if (this.Settings.CellPhone == "") {
-                        this.Validation.CellPhone  = false;
-                        this.ValidationMsg.CellPhone  = "請輸入電話號碼";
-                    } else if (!regx.test(this.Settings.CellPhone)) {
-                        this.Validation.CellPhone  = false;
-                        this.ValidationMsg.CellPhone  = "請使用正確的手機號碼格式，09xxxxxxxx";
-                    }
-                    else{
-                        this.Validation.CellPhone  = true;
-                        this.ValidationMsg.CellPhone  = "";
-                    };
-                    this.checkValidation();
-                },
-                "Settings.Email": function () {
-                    if (this.Settings.Email == "") {
-                        this.Validation.Email = false;
-                        this.ValidationMsg.Email = "請輸入您的Email";
-                    } else {
-                        this.Validation.Email = true;
-                        this.ValidationMsg.Email = "";
-                    };
-                    this.checkValidation();
-                },
-                "Settings.LocationIDInt": function () {
-                    if (thisSettings.LocationIDInt == -1) {
-                        this.Validation.LocationIDInt = false;
-                        this.ValidationMsg.LocationIDInt = "請選擇理想接案地點";
-                    } else {
-                        this.Validation.LocationIDInt = true;
-                        this.ValidationMsg.LocationIDInt = "";
-                    };
-                    this.checkValidation();
-                },
-                "Settings.CategoryID": function () {
-                    this.Settings.SubCategoryID = -1;
-                    if (this.Settings.CategoryID == -1) {
-                        this.Settings.SubCategoryID = -1;
-                    }
-                },
-                "Settings.SubCategoryID": function () {
-                    if (this.Settings.SubCategoryID == -1) {
-                        this.Validation.SubCategoryID = false;
-                        this.ValidationMsg.SubCategoryID = "請選擇理想接案類別";
-                    } else {
-                        this.Validation.SubCategoryID = true;
-                        this.ValidationMsg.SubCategoryID = "";
-                    };
-                    this.checkValidation();
-                },
-                "Settings.AllPieceworkExp": function () {
-                    if (this.Settings.AllPieceworkExp == -1) {
-                        this.Validation.AllPieceworkExp = false;
-                        this.ValidationMsg.AllPieceworkExp = "請選擇累積接案年資";
-                    } else {
-                        this.Validation.AllPieceworkExp = true;
-                        this.ValidationMsg.AllPieceworkExp = "";
-                    };
-                    this.checkValidation();
-                },
-                "Settings.Description": function () {
-                    if (this.Settings.Description == "") {
-                        this.Validation.Description = false;
-                        this.ValidationMsg.Description = "請簡單填寫您的接案描述，例如：您好，我是ProFinder!";
-                    } else {
-                        this.Validation.Description = true;
-                        this.ValidationMsg.Description = "";
-                    };
-                    this.checkValidation();
-                }
-            },
-            methods: {
-                checkValidation() {
-                    if (this.Validation.Status && this.Validation.NickName && this.Validation.Identity && this.Validation.LiveCity &&
-                        this.Validation.CellPhone && this.Validation.Email && this.Validation.LocationIDInt && this.Validation.SubCategoryID &&
-                        this.Validation.AllPieceworkExp && this.Validation.Description) {
-                        this.allValidation = true;
-                    }
-                    else {
-                        this.allValidation = false;
-                    }
-                },
-                sendForm(event) {
-                    console.log("in");
-                    event.preventDefault();
-
-                    //取得擅長軟體
-                    let tools = subToolArray.filter(x => x.IsChecked == true);
-                    let toolArray = [];
-                    tools.forEach(t => {
-                        let obj = new Object();
-                        obj.ToolSubCategoryID = t.SubTalentCategoryID;
-                        obj.ToolSubCategoryName = t.SubTalentCategoryName;
-                        obj.ToolCategoryID = t.TalentCategoryID;
-                        toolArray.push(obj);
-                    });
-                    console.log(toolArray)
-                    $g("input#JsonToolList").value = JSON.stringify(toolArray);
-
-                    //取得接案經歷
-                    let ExDCateId = document.querySelectorAll("select[name='ExDCategoryID']");
-                    let ExDSubId = document.querySelectorAll("select[name='ExDSubCategoryID']");
-                    let ExDPieceworkExp = document.querySelectorAll("select[name='ExDPieceworkExp']");
-                    let ExDArray = [];
-                    let len = ExDSubId.length >= ExDPieceworkExp.length ? ExDPieceworkExp.length : ExDSubId.length;
-                    for (let i = 0; i < len; i++) {
-                        if ((Number(ExDSubId[i].value) != "-1") && (ExDPieceworkExp[i].value != "-1")) {
-                            let obj = new Object();
-                            obj.CategoryID = Number(ExDCateId[i].value);
-                            obj.SubCategoryID = Number(ExDSubId[i].value);
-                            obj.PieceworkExp = ExDPieceworkExp[i].value;
-                            ExDArray.push(obj);
-                        }
-
-                    }
-                    console.log(ExDArray);
-                    $g("input#JsonExDList").value = JSON.stringify(ExDArray);
-
-                    //取得Description
-                    $g("input#Description").value = $g("div.ql-editor").innerHTML;
-                    if ($g("div.ql-editor").innerText == "" || $g("div.ql-editor").innerText == "\n") {
-                        this.ValidationMsg.Description = "請簡單填寫您的接案描述，例如：您好，我是ProFinder!";
-                    } else {
-                        document.querySelector("form[action='/Talent/CaseSetting']").submit();
-                    }
-                    
-                }
-            }
-        });
 
     </script>
 

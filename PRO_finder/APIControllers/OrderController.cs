@@ -115,7 +115,21 @@ namespace PRO_finder.APIControllers
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             }
         }
-
+        [HttpPost]
+        public APIResult AddFinishedDate(int Orderid, OrderViewModel data)
+        {
+            var result = false;
+            try
+            {
+                result = _orderService.AddFinishedDate(Orderid, data);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            }
+        }
 
         [HttpDelete]
         public APIResult DelOrder(int MemberId,int OrderId)

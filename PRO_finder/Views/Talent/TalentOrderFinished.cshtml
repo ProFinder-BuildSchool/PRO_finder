@@ -10,7 +10,7 @@
                 <tr>
                     <th scope="col" class="p-1 ">產品</th>
                     <th scope="col" class="p-1 ">付款日期</th>
-                    <th scope="col" class="p-1 ">案件預計完成日</th>
+                    <th scope="col" class="p-1 ">案件完成日</th>
                     <th scope="col" class="p-1 m-0">案件標題</th>
                     <th scope="col" class="p-1 m-0">訂單金額</th>
                     <th scope="col" class="p-1 m-0">訂單狀態</th>
@@ -31,7 +31,7 @@
                     </td>
                     <td>
 
-                        <p class="mb-0">{{item.PredictDays}}</p>
+                        <p class="mb-0">{{item.OrderFinshedDay}}</p>
 
                     </td>
                     <td>
@@ -237,6 +237,13 @@
         img {
             width: 150px;
             height: 150px;
+        }
+
+        .deal {
+            color: white !important;
+            background-color: #89ba16 !important;
+            border-radius: 6px;
+            font-weight: bolder;
         }
     </style>
 }

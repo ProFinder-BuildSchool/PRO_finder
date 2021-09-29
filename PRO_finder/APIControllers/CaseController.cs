@@ -1,13 +1,17 @@
 ﻿using Microsoft.AspNet.Identity;
+using PRO_finder.Models.DBModel;
 using PRO_finder.Models.ViewModels;
 using PRO_finder.Models.ViewModels.APIModels.APIBase;
 using PRO_finder.Service;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
+using System.Web.Configuration;
+using System.Web.Hosting;
 using System.Web.Http;
 
 namespace PRO_finder.APIControllers
@@ -117,18 +121,44 @@ namespace PRO_finder.APIControllers
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             }
         }
-        //[HttpPost]
-        //public APIResult PostNewCaseFile(int caseID)
-        //{
-        //    string result = "";
-        //    try
-        //    {
-        //        HttpPostedFile file = 
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        return new APIResult(APIStatus.Success, ex.Message, result);
-        //    }
-        //}
+        [HttpPost]
+        public HttpResponseMessage PostNewCaseFile()
+        {
+            var request = HttpContext.Current.Request;
+            int fileslen = request.Files.Count;
+            if (fileslen <= 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                try
+                {
+                    for(int i = 0; i < fileslen; i++)
+                    {
+                        int caseID = Int32.Parse(request["CaseID"]);
+                        HttpPostedFile file = request.Files[i];
+                        string fileSavePath = WebConfigurationManager.AppSettings["UploadPath"];
+                        string newFileName = string.Concat(Path.GetRandomFileName().Replace(".", ""), Path.GetExtension(file.FileName).ToLower());
+                        string fullFilePath = Path.Combine(HostingEnvironment.MapPath(fileSavePath), newFileName);
+                        file.SaveAs(fullFilePath);
+
+                        CaseReference cr = new CaseReference
+                        {
+                            CaseRefID = caseID,
+                            CaseRef = fullFilePath
+                        };
+                        _caseService.CreateNewCaseReference(cr);
+                        
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK);
+                }
+                catch (Exception ex)
+                {
+                    return Request.CreateResponse(ex.Message);
+                }
+            }
+            
+        }
     }
 }

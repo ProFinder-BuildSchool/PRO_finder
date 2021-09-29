@@ -97,6 +97,9 @@
             .myHeader {
                 width: 180px !important;
             }
+            #myTabContent nav {
+                position: unset;
+            }
         }
     </style>
 </head>
@@ -153,7 +156,7 @@
                                             <li class="nav-item">
                                                 <div class="card">
                                                     <div class="card-header myHeader">
-                                                        <a class="nav-link" href="post-job.html">
+                                                        <a class="nav-link" href="/Client/CreateCase">
                                                             <i class="fas fa-plus"
                                                                style="font-size: 10px !important; line-height: 16px !important;"></i> 刊登新案件
                                                         </a>
@@ -240,9 +243,6 @@
                                                         </li>
                                                         <li class="nav-item">
                                                             <a class="nav-link" href="@Url.Action("ReviseAccount", "Client", new{userId})">修改會籍帳戶</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#clientService.html">客服中心</a>
                                                         </li>
                                                     </div>
                                                 </div>

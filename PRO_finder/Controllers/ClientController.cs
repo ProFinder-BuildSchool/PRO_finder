@@ -73,6 +73,14 @@ namespace PRO_finder.Controllers
             return View();
         }
 
+        public ActionResult ReviseProposerAccount(int userId)
+        {
+            ViewBag.MemberId = _orderservice.GetMemberID(HttpContext.User.Identity.GetUserId());
+            ViewBag.MemberList = _memberservice.GetAccountInfo(userId);
+
+            return View();
+        }
+
         [Authorize]
         public ActionResult CreateCase()
         {

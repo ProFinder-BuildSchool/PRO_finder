@@ -30,9 +30,7 @@
 
                     </td>
                     <td>
-
                         <p class="mb-0">{{item.PredictDays}}</p>
-
                     </td>
                     <td>
                         <p class="mb-0">{{item.Title}}</p>
@@ -151,7 +149,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary">取消訂單</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" v-on:click="Finished">製作完成</button>
+                    <button type="button" class="btn btn-danger" v-on:click="Finished();AddFinishedDate();">製作完成</button>
                 </div>
             </div>
         </div>
@@ -236,6 +234,13 @@
             width: 150px;
             height: 150px;
         }
+
+        .doing {
+            color: white !important;
+            background-color: #89ba16 !important;
+            border-radius: 6px;
+            font-weight: bolder;
+        }
     </style>
 }
 
@@ -317,6 +322,13 @@
 
                 Finished() {
                     axios.post(`/api/Order/UpdateOrderStatus?Orderid=${this.modal.OrderID}`, { OrderStatusNumber: this.modal.OrderStatusNumber + 1 }).then(res => {
+                        this.GetOrder();
+                        console.log(res.data.Result);
+                    })
+                },
+
+                AddFinishedDate() {
+                    axios.post(`/api/Order/AddFinishedDate?Orderid=${this.modal.OrderID}`, { CompleteDate: this.CompleteDate }).then(res => {
                         this.GetOrder();
                         window.location.replace(`/Talent/TalentOrderDoing/${res.data.Result}`);
                     })

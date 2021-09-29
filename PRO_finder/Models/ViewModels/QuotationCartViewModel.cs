@@ -24,8 +24,10 @@ namespace PRO_finder.Models.ViewModels
         public int QuotationDetailID { get; set; }
         public bool Status { get; set; }
 
-        //public enum statusEnum { 已成交,未成交 }
+        //public enum statusEnum { 已成交, 未成交 }
         //public statusEnum Status { get; set; }
+
+
 
     }
 

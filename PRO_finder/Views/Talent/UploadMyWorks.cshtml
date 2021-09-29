@@ -10,126 +10,134 @@
 @using (Html.BeginForm("UploadMyWorks", "Talent"))
 {
     @Html.AntiForgeryToken()
-    <div class="myContainer col">
-        <div class="form-horizontal">
-            <h4>新增作品集</h4>
-            <hr>
-            <div class="form-group">
-                <label for="WorkName" class="col-md-12 control-label">作品集名稱</label>
-                <div class="col-md-12">
-                    <input type="text" id="WorkName" name="WorkName" class="form-control text-box single-line">
+<div class="myContainer col" id="app">
+    <div class="form-horizontal">
+        <h4>新增作品集</h4>
+        <hr>
+        <div class="form-group">
+            <label for="WorkName" class="col-md-12 control-label">作品集名稱 &ensp;<span class="badge badge-danger">必填</span></label>
+            <div class="col-md-12">
+                <input type="text" id="WorkName" name="WorkName" class="form-control text-box single-line" v-model="work.WorkName">
+            </div>
+            <p class="text-danger pl-3">{{validationMsg.WorkName}}</p>
+        </div>
+        <div class="form-group">
+            <label for="Category" class="control-label col-md-12">作品類別&ensp;<span class="badge badge-danger">必填</span></label>
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        @Html.DropDownList("Catgeory", (List<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control", @id = "categoryDropdown" })
+                    </div>
+                    <div class="col-6">
+                        <select class="form-control" id="subcategorySelect" name="SubCategoryID" v-model="work.SubCategoryID">
+                            <option value="-1">選擇子類型</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="Category" class="control-label col-md-12">作品類別</label>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-6">
-                            @Html.DropDownList("Catgeory", (List<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control", @id = "categoryDropdown" })
+            <p class="text-danger pl-3">{{validationMsg.SubCategoryID}}</p>
+        </div>
+        <div class="form-group">
+            <label for="Client" class="col-md-12 control-label">客戶名稱&ensp;<span class="badge badge-danger">必填</span></label>
+            <div class="col-md-12">
+                <input type="text" id="Client" name="Client" class="form-control text-box single-line" v-model="work.Client">
+            </div>
+            <p class="text-danger pl-3">{{validationMsg.Client}}</p>
+        </div>
+        <div class="form-group">
+            <label for="Role" class="col-md-12 control-label">工作職責&ensp;<span class="badge badge-danger">必填</span></label>
+            <div class="col-md-12">
+                <input type="text" id="Role" name="Role" class="form-control text-box single-line" v-model="work.Role">
+            </div>
+            <p class="text-danger pl-3">{{validationMsg.Role}}</p>
+        </div>
+        <div class="form-group">
+            <label for="YearStarted" class="col-md-12 control-label">作品年份&ensp;<span class="badge badge-danger">必填</span></label>
+            <div class="col-md-12">
+                <input type="text" id="YearStarted" name="YearStarted" class="form-control text-box single-line" v-model="work.YearStarted">
+            </div>
+            <p class="text-danger pl-3">{{validationMsg.YearStarted}}</p>
+        </div>
+        <div class="form-group">
+            <label for="WebsiteURL" class="col-md-12 control-label">作品網站連結</label>
+            <div class="col-md-12">
+                <input type="text" id="WebsiteURL" name="WebsiteURL" class="form-control text-box single-line" />
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <p class="col-md-12 control-label text-black font-weight-bold">作品附件檔案</p>
+            <div class="container">
+                <div class="row workAttachmentRow">
+                    <div class="col-md-12 my-2 workAttachmentWrap" id="wrap0">
+                        @*<a class="btn removeAttachment" data-count="0"><i class="far fa-trash-alt"></i></a>*@
+                        <p class="col-md-12 mb-0 text-black">附件檔案名稱</p>
+                        <div class="col-md-12 mt-2">
+                            <input type="text" data-content="WorkAttachmentName" name="WorkAttachmentName" class="form-control text-box single-line">
                         </div>
-                        <div class="col-6">
-                            <select class="form-control" id="subcategorySelect" name="SubCategoryID">
-                                <option>選擇子類型</option>
-                            </select>
-                            @Html.ValidationMessageFor(model => model.SubCategoryID, "", new { @class = "text-danger" })
+                        <div class="col-md-12 mt-2">
+                            <input type="file" data-content="WorkAttachmentLink" name="WorkAttachmentLink" class="">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="Client" class="col-md-12 control-label">客戶名稱</label>
-                <div class="col-md-12">
-                    <input type="text" id="Client" name="Client" class="form-control text-box single-line">
-                </div>
+            <div class="col-md-12 mt-3 text-right">
+                <span class="btn btn-light" id="addFile"><i class="fas fa-plus"></i>&ensp;新增作品附件</span>
             </div>
-            <div class="form-group">
-                <label for="Role" class="col-md-12 control-label">工作職責</label>
-                <div class="col-md-12">
-                    <input type="text" id="Role" name="Role" class="form-control text-box single-line">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="YearStarted" class="col-md-12 control-label">作品年份</label>
-                <div class="col-md-12">
-                    <input type="text" id="YearStarted" name="YearStarted" class="form-control text-box single-line">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="WebsiteURL" class="col-md-12 control-label">作品網站連結</label>
-                <div class="col-md-12">
-                    <input type="text" id="WebsiteURL" name="WebsiteURL" class="form-control text-box single-line">
-                </div>
-            </div>
-            <hr>
-            <div class="form-group">
-                <p class="col-md-12 control-label text-black font-weight-bold">作品附件檔案</p>
-                <div class="container">
-                    <div class="row workAttachmentRow">
-                        <div class="col-md-12 my-2 workAttachmentWrap" id="wrap0">
-                            @*<a class="btn removeAttachment" data-count="0"><i class="far fa-trash-alt"></i></a>*@
-                            <p class="col-md-12 mb-0 text-black">附件檔案名稱</p>
-                            <div class="col-md-12 mt-2">
-                                <input type="text" data-content="WorkAttachmentName" name="WorkAttachmentName" class="form-control text-box single-line">
-                            </div>
-                            <div class="col-md-12 mt-2">
-                                <input type="file" data-content="WorkAttachmentLink" name="WorkAttachmentLink" class="">
-                            </div>
-                        </div>
+            @*<div>
+                <button id="test">test</button>
+            </div>*@
+        </div>
+        <hr>
+        <div class="form-group">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <label class="col-md-12 control-label">影音圖檔上傳&ensp;<span class="badge badge-danger">請至少上傳一張圖片</span></label>
+                        <label for="newWorks" class="mt-2 ml-3">
+                            <img src="https://image.flaticon.com/icons/png/512/568/568717.png"
+                                 alt=""><span class="uploadIcon">上傳作品</span>
+                        </label>
                     </div>
-                </div>
-                <div class="col-md-12 mt-3 text-right">
-                    <span class="btn btn-light" id="addFile"><i class="fas fa-plus"></i>&ensp;新增作品附件</span>
-                </div>
-                @*<div>
-                        <button id="test">test</button>
+                    <div class="col-6 d-none">
+                        <input type="file" id="newWorks" multiple="multiple" class="w-100" name="">
+                    </div>
+                    @*<div class="col-12">
+                        <input type="button" class="btn btn-primary ml-3" value="test-upload-cloudinary" id="test" />
                     </div>*@
-            </div>
-            <hr>
-            <div class="form-group">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <label class="col-md-12 control-label">影音圖檔上傳</label>
-                            <label for="newWorks" class="mt-2 ml-3">
-                                <img src="https://image.flaticon.com/icons/png/512/568/568717.png"
-                                     alt=""><span class="uploadIcon">上傳作品</span>
-                            </label>
-                        </div>
-                        <div class="col-6 d-none">
-                            <input type="file" id="newWorks" multiple="multiple" class="w-100" name="">
-                        </div>
-                        @*<div class="col-12">
-                                <input type="button" class="btn btn-primary ml-3" value="test-upload-cloudinary" id="test" />
-                            </div>*@
-                    </div>
                 </div>
             </div>
-            <div class="displayUploadArea">
-                <div class="container">
-                    <p class="text-danger mb-0">&ensp;*拖曳交換順序</p>
-                    <div class="row" id="displayUpload">
-                    </div>
+        </div>
+        <div class="displayUploadArea">
+            <div class="container">
+                <p class="text-danger mb-0">&ensp;*拖曳交換順序</p>
+                <div class="row" id="displayUpload">
                 </div>
             </div>
-            <hr />
-            <div class="form-group">
-                <label for="editor" class="col-md-12 control-label">作品描述</label>
-                <div class="col-md-12">
-                    <div id="editor"></div>
-                    <input type="hidden" name="WorkDescription">
-                </div>
+        </div>
+        <p class="text-danger pl-3">{{validationMsg.WorkPicture}}</p>
+        <hr />
+        <div class="form-group">
+            <label for="editor" class="col-md-12 control-label">作品描述</label>
+            <div class="col-md-12">
+                <div id="editor"></div>
+                <input type="hidden" name="WorkDescription">
             </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-12 text-center">
-                    <input type="submit" value="儲存作品" class="btn btn-primary" id="submitBtn" />
-                </div>
+            <p class="text-danger pl-3">{{validationMsg.WorkDescription}}</p>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-12 text-center">
+                <input type="submit" value="儲存作品" class="btn btn-primary" id="submitBtn" @@click="checkAllValidations(event)"/>
             </div>
         </div>
     </div>
 
-    //hiddenInputs
+    @*hidden input*@
     <input type="hidden" name="WorkAttachmentList" id="WorkAttachmentList" />
     <input type="hidden" name="WorkPictureList" id="WorkPictureList" />
+</div>
+   
 }
 @*file template*@
 <template id="addFileTemplate">
@@ -288,7 +296,212 @@
 
     <script src="~/Assets/js/quill.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js" integrity="sha512-zYXldzJsDrNKV+odAwFYiDXV2Cy37cwizT+NkuiPGsa9X1dOz04eHvUWVuxaJ299GvcJT31ug2zO4itXBjFx4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        //前端驗證
+        var app = new Vue({
+            el: "#app",
+            data: {
+                work: {
+                    WorkName: "",
+                    SubCategoryID: -1,
+                    Client: "",
+                    Role: "",
+                    YearStarted: ""
+                },
+                validations: {
+                    WorkName: false,
+                    SubCategoryID: false,
+                    Client: false,
+                    Role: false,
+                    YearStarted: false,
+                    WorkDescription: false,
+                    WorkPicture: false
+                },
+                validationMsg: {
+                    WorkName: "",
+                    SubCategoryID: "",
+                    Client: "",
+                    Role: "",
+                    YearStarted: "",
+                    WorkDescription: "",
+                    WorkPicture: ""
+                },
+                allvalidated: false
+            },
+            watch: {
+                "work.WorkName": function () {
+                    if (this.work.WorkName == "") {
+                        this.validations.WorkName = false;
+                        this.validationMsg.WorkName = "請輸入作品集名稱"
+                        this.checkPartialValidation();
+                    }
+                    else {
+                        this.validations.WorkName = true;
+                        this.validationMsg.WorkName = "";
+                        this.checkPartialValidation();
+                    }
+                },
+                "work.SubCategoryID": function () {
+                    if (this.work.SubCategoryID == -1) {
+                        this.validations.SubCategoryID = false;
+                        this.validationMsg.SubCategoryID = "請選擇作品子類別";
+                        this.checkPartialValidation();
+                    }
+                    else {
+                        this.validations.SubCategoryID = true;
+                        this.validationMsg.SubCategoryID = "";
+                        this.checkPartialValidation();
+                    }
+                },
+                "work.Client": function () {
+                    if (this.work.Client == "") {
+                        this.validations.Client = false;
+                        this.validationMsg.Client = "請輸入客戶名稱";
+                        this.checkPartialValidation();
+                    }
+                    else {
+                        this.validations.Client = true;
+                        this.validationMsg.Client = "";
+                        this.checkPartialValidation();
+                    }
+                },
+                "work.Role": function () {
+                    if (this.work.Role == "") {
+                        this.validations.Role = false;
+                        this.validationMsg.Role = "請輸入工作職責";
+                        this.checkPartialValidation();
+                    }
+                    else {
+                        this.validations.Role = true;
+                        this.validationMsg.Role = "";
+                        this.checkPartialValidation();
+                    }
+                },
+                "work.YearStarted": function () {
+                    if (this.work.YearStarted == "") {
+                        this.validations.YearStarted = false;
+                        this.validationMsg.YearStarted = "請填寫作品集年份";
+                        this.checkPartialValidation();
+                    } else {
+                        this.validations.YearStarted = true;
+                        this.validationMsg.YearStarted = "";
+                        this.checkPartialValidation();
+                    }
+                }
+            },
+            methods: {
+                checkPartialValidation() {
+                    if (this.work.WorkName && this.work.SubCategoryID && this.work.Client && this.work.Role
+                        && this.work.YearStarted) {
+                        this.allvalidated = true;
+                    } else {
+                        this.allvalidated = false;
+                    }
+                },
+                checkAllValidations(event) {
+                    event.preventDefault();
+                    this.checkPartialValidation();
+                    console.log(this.validations);
+                    console.log(this.validationMsg)
+                    if (document.querySelectorAll(".uploadImg").length == 0) {
+                        this.validationMsg.WorkPicture = "請至少上傳一張作品圖片";
+                        this.validations.WorkPicture = false;
+                        this.checkPartialValidation();
+                    } else {
+                        this.validationMsg.WorkPicture = "";
+                        this.validations.WorkPicture = true;
+                        this.checkPartialValidation();
+                    }
+                    
+                    let description = document.querySelector("div.ql-editor").innerText;
+                    if (description == "" || description == "\n") {
+                        this.validationMsg.WorkDescription = "請填寫作品描述";
+                        this.validations.WorkDescription = false;
+                        this.checkPartialValidation();
+                    } else {
+                        this.validationMsg.WorkDescription = "";
+                        this.validations.WorkDescription = true;
+                        this.checkPartialValidation();
+                    }
+
+                    if (this.allvalidated) {
+                        this.submitForm();
+                    }
+                },
+                submitForm() {
+                    //富文本編輯器儲存
+                    $g("input[name='WorkDescription']").value = $g("div.ql-editor").innerHTML;
+
+                    //上傳cloudinary及作品檔案
+                    const asyncRun = async () => {
+                        //newWork
+                        const newWork = new Object();
+                        newWork["WorkName"] = $g("input[name='WorkName']").value;
+                        newWork["SubCategoryID"] = Number($g("select[name='SubCategoryID']").value);
+                        newWork["Client"] = $g("input[name='Client']").value;
+                        newWork["Role"] = $g("input[name='Role']").value;
+                        newWork["YearStarted"] = Number($g("input[name='YearStarted']").value);
+                        newWork["WebsiteURL"] = $g("input[name='WebsiteURL']").value;
+                        newWork["WorkDescription"] = $g("input[name='WorkDescription']").value;
+                        let workID = await axios({
+                            method: "post",
+                            url: "/api/Talent/UploadMyWork",
+                            headers: { 'Content-Type': "application/json;charset=utf-8", "strict": false },
+                            data: newWork
+                        }).then(res => { return res.data.Result });
+
+                        //WorkAttachment
+                        let input_nameList = document.querySelectorAll("input[data-content='WorkAttachmentName']");
+                        let input_linkList = document.querySelectorAll("input[data-content='WorkAttachmentLink']");
+                        //取得所有fileName
+                        const nameArray = [];
+                        input_nameList.forEach(input_name => {
+                            nameArray.push(input_name.value);
+                        })
+                        const form = new FormData();
+                        if (input_nameList != null && input_linkList != null) {
+                            let len = input_nameList.length >= input_linkList.length ? input_linkList.length : input_nameList.length;
+                            form.append("FileNames", JSON.stringify(nameArray));
+                            form.append("WorkID", workID);
+                            for (let i = 0; i < len; i++) {
+                                form.append(`File${i}`, input_linkList[i].files[0]);
+                            };
+                        };
+                        axios({
+                            method: "post",
+                            url: "/api/Talent/UploadFile",
+                            headers: { 'Content-Type': "application/json;charset=utf-8", "strict": false },
+                            data: form
+                        }).then(res => res.data.Result);
+
+                        //儲存作品圖例
+                        let imgs = document.querySelectorAll(".uploadImg");
+
+                        //上傳雲端
+                        const imgForm = new FormData();
+                        imgForm.append("WorkID", workID);
+                        for (let j = 0; j < imgs.length; j++) {
+                            const blobData = await getBlobData(imgs[j].src);
+                            const fileObject = new File([blobData], imgs[j].src, { type: blobData.type });
+                            imgForm.append(`Picture${j}`, fileObject);
+
+                        };
+                        axios({
+                            method: "post",
+                            url: "/api/Talent/UploadWorkPics",
+                            headers: { "Content-Type": "application/json;charset=utf-8", "strict": false },
+                            data: imgForm
+                        }).then(res => res.data.Result);
+                        document.querySelector("form[action='/Talent/UploadMyWorks']").submit();
+                    }
+                    asyncRun();
+                }
+            }
+           
+        });
+    </script>
     <script>
 
         //服務類別轉換
@@ -301,12 +514,10 @@
         });
 
         $g("#categoryDropdown").addEventListener("change", function () {
-            selector.innerHTML = "<option class='text - center'>選擇服務子類型</option>";
+            selector.innerHTML = "<option value='-1'>選擇子類型</option>";
             let allsub = JSON.parse(subCategoryList.filter(x => x.CategoryID == this.value)[0].JsonSubCategoryList);
             allsub.forEach(s => {
-                let option = document.createElement("option");
-                option.innerText = s.SubCateName;
-                option.value = s.SubCateID;
+                let option = createOption(s.SubCateID, s.SubCateName);
                 selector.append(option);
             });
         });
@@ -397,106 +608,88 @@
         $g('#editor').style.setProperty('min-height', '200px');
 
         $g("input[type='submit']").addEventListener("click", function (e) {
-            e.preventDefault();
+            //e.preventDefault();
 
-            //富文本編輯器儲存
-            $g("input[name='WorkDescription']").value = $g("div.ql-editor").innerHTML;
+            ////富文本編輯器儲存
+            //$g("input[name='WorkDescription']").value = $g("div.ql-editor").innerHTML;
 
-            //上傳cloudinary及作品檔案
-            const asyncRun = async () => {
-                //newWork
-                const newWork = new Object();
-                newWork["WorkName"] = $g("input[name='WorkName']").value;
-                newWork["SubCategoryID"] = Number($g("select[name='SubCategoryID']").value);
-                newWork["Client"] = $g("input[name='Client']").value;
-                newWork["Role"] = $g("input[name='Role']").value;
-                newWork["YearStarted"] = Number($g("input[name='YearStarted']").value);
-                newWork["WebsiteURL"] = $g("input[name='WebsiteURL']").value;
-                newWork["WorkDescription"] = $g("input[name='WorkDescription']").value;
-                let workID = await axios({
-                    method: "post",
-                    url: "/api/Talent/UploadMyWork",
-                    headers: { 'Content-Type': "application/json;charset=utf-8", "strict": false },
-                    data: newWork
-                }).then(res => { return res.data.Result });
+            ////上傳cloudinary及作品檔案
+            //const asyncRun = async () => {
+            //    //newWork
+            //    const newWork = new Object();
+            //    newWork["WorkName"] = $g("input[name='WorkName']").value;
+            //    newWork["SubCategoryID"] = Number($g("select[name='SubCategoryID']").value);
+            //    newWork["Client"] = $g("input[name='Client']").value;
+            //    newWork["Role"] = $g("input[name='Role']").value;
+            //    newWork["YearStarted"] = Number($g("input[name='YearStarted']").value);
+            //    newWork["WebsiteURL"] = $g("input[name='WebsiteURL']").value;
+            //    newWork["WorkDescription"] = $g("input[name='WorkDescription']").value;
+            //    let workID = await axios({
+            //        method: "post",
+            //        url: "/api/Talent/UploadMyWork",
+            //        headers: { 'Content-Type': "application/json;charset=utf-8", "strict": false },
+            //        data: newWork
+            //    }).then(res => { return res.data.Result });
 
-                //WorkAttachment
-                let input_nameList = document.querySelectorAll("input[data-content='WorkAttachmentName']");
-                let input_linkList = document.querySelectorAll("input[data-content='WorkAttachmentLink']");
-                //取得所有fileName
-                const nameArray = [];
-                input_nameList.forEach(input_name => {
-                    nameArray.push(input_name.value);
-                })
-                const form = new FormData();
-                if (input_nameList != null && input_linkList != null) {
-                    let len = input_nameList.length >= input_linkList.length ? input_linkList.length : input_nameList.length;
-                    form.append("FileNames", JSON.stringify(nameArray));
-                    form.append("WorkID", workID);
-                    for (let i = 0; i < len; i++) {
-                        form.append(`File${i}`, input_linkList[i].files[0]); 
-                    };
-                };
-                axios({
-                    method: "post",
-                    url: "/api/Talent/UploadFile",
-                    headers: { 'Content-Type': "application/json;charset=utf-8", "strict": false },
-                    data: form
-                }).then(res => res.data.Result);
+            //    //WorkAttachment
+            //    let input_nameList = document.querySelectorAll("input[data-content='WorkAttachmentName']");
+            //    let input_linkList = document.querySelectorAll("input[data-content='WorkAttachmentLink']");
+            //    //取得所有fileName
+            //    const nameArray = [];
+            //    input_nameList.forEach(input_name => {
+            //        nameArray.push(input_name.value);
+            //    })
+            //    const form = new FormData();
+            //    if (input_nameList != null && input_linkList != null) {
+            //        let len = input_nameList.length >= input_linkList.length ? input_linkList.length : input_nameList.length;
+            //        form.append("FileNames", JSON.stringify(nameArray));
+            //        form.append("WorkID", workID);
+            //        for (let i = 0; i < len; i++) {
+            //            form.append(`File${i}`, input_linkList[i].files[0]);
+            //        };
+            //    };
+            //    axios({
+            //        method: "post",
+            //        url: "/api/Talent/UploadFile",
+            //        headers: { 'Content-Type': "application/json;charset=utf-8", "strict": false },
+            //        data: form
+            //    }).then(res => res.data.Result);
 
-                //儲存作品圖例
-                let imgs = document.querySelectorAll(".uploadImg");
-                
-                //上傳雲端
-                const imgForm = new FormData();
-                imgForm.append("WorkID", workID);
-                for (let j = 0; j < imgs.length; j++) {
-                    const blobData = await getBlobData(imgs[j].src);
-                    const fileObject = new File([blobData], imgs[j].src, { type: blobData.type });
-                    imgForm.append(`Picture${j}`, fileObject);                    
-                    
-                };
-                axios({
-                    method: "post",
-                    url: "/api/Talent/UploadWorkPics",
-                    headers: { "Content-Type": "application/json;charset=utf-8", "strict": false },
-                    data: imgForm
-                }).then(res => res.data.Result);
-                document.querySelector("form[action='/Talent/UploadMyWorks']").submit();
-            }
-            asyncRun();
+            //    //儲存作品圖例
+            //    let imgs = document.querySelectorAll(".uploadImg");
+
+            //    //上傳雲端
+            //    const imgForm = new FormData();
+            //    imgForm.append("WorkID", workID);
+            //    for (let j = 0; j < imgs.length; j++) {
+            //        const blobData = await getBlobData(imgs[j].src);
+            //        const fileObject = new File([blobData], imgs[j].src, { type: blobData.type });
+            //        imgForm.append(`Picture${j}`, fileObject);
+
+            //    };
+            //    axios({
+            //        method: "post",
+            //        url: "/api/Talent/UploadWorkPics",
+            //        headers: { "Content-Type": "application/json;charset=utf-8", "strict": false },
+            //        data: imgForm
+            //    }).then(res => res.data.Result);
+            //    document.querySelector("form[action='/Talent/UploadMyWorks']").submit();
+            //}
+            //asyncRun();
         })
 
         function $g(element) {
             let temp = document.querySelectorAll(element);
             return temp.length == 1 ? temp[0] : temp;
         }
-        function fetchCloudinary(form_data) {
-            return fetch(CLOUDINARY_URL, {
-                method: "POST",
-                body: form_data
-            })
-                .then((response) => {
-                    return response.json();
-                })
-                .then(data => data.url);
-        }
-        function axiosFiles(file) {
-            return axios({ method: "post", data: file, url: "/Talent/UploadFile", contentType: false, processData: false, enctype: "multipart/form-data" })
-                .then(res => res.data)
+        function createOption(value, text) {
+            let option = document.createElement("option");
+            option.value = value;
+            option.innerText = text;
+            return option;
         }
         function getBlobData(img_src) {
             return fetch(img_src).then(res => res.blob());
-        }
-        function axiosImageFile(picture) {
-            return axios({
-                method: 'post',
-                url: '/Talent/UploadCloudinary',
-                data: picture,
-                contentType: false,
-                processData: false,
-                enctype: "multipart/form-data"
-            }).then(res => res.data);
         }
     </script>
 

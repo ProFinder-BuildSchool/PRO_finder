@@ -455,6 +455,18 @@
     <Compile Include="Migrations\202109261129157_2021-09-26.Designer.cs">
       <DependentUpon>202109261129157_2021-09-26.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202109261303176_test.cs" />
+    <Compile Include="Migrations\202109261303176_test.Designer.cs">
+      <DependentUpon>202109261303176_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109261316342_CaseRef.cs" />
+    <Compile Include="Migrations\202109261316342_CaseRef.Designer.cs">
+      <DependentUpon>202109261316342_CaseRef.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109281318546_2021-09-28.cs" />
+    <Compile Include="Migrations\202109281318546_2021-09-28.Designer.cs">
+      <DependentUpon>202109281318546_2021-09-28.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DBModel\AspNetRoles.cs" />
@@ -505,6 +517,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\APIModels\APIBase\APIResult.cs" />
     <Compile Include="Models\ViewModels\BankAccountViewModel.cs" />
+    <Compile Include="Models\ViewModels\BannerViewModel.cs" />
     <Compile Include="Models\ViewModels\CaseViewModel.cs" />
     <Compile Include="Models\ViewModels\ClientCartViewModel.cs" />
     <Compile Include="Models\ViewModels\Home_IndexViewModel.cs" />
@@ -531,9 +544,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CaseRepository.cs" />
     <Compile Include="Repositories\GeneralRepository.cs" />
+    <Compile Include="Repositories\MemberInfoRepository.cs" />
     <Compile Include="Repositories\SubCategoryRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Models\ViewModels\CaseDetailViewModel.cs" />
+    <Compile Include="Service\BannerService.cs" />
     <Compile Include="Service\CartService.cs" />
     <Compile Include="Service\CaseService.cs" />
     <Compile Include="Service\Home_IndexService .cs" />
@@ -796,6 +811,13 @@
     <Content Include="Assets\cloudinary-core\cloudinary-core.js.map" />
     <Content Include="Assets\cloudinary-core\package.json" />
     <Content Include="Assets\cloudinary-core\README.md" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - FTP1.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - ReadOnly - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - ReadOnly - FTP1.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - ReadOnly - FTP2.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\BuildSchoolProFinder - Web Deploy1.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -863,6 +885,7 @@
     <Content Include="Views\Client\ReviseAccount.cshtml" />
     <Content Include="Views\Talent\TalentOrderDoing.cshtml" />
     <Content Include="Views\Talent\TalentOrderFinished.cshtml" />
+    <Content Include="Views\Client\ReviseProposerAccount.cshtml" />
     <Content Include="Views\Client\CreateCase.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -980,6 +1003,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109261129157_2021-09-26.resx">
       <DependentUpon>202109261129157_2021-09-26.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109261303176_test.resx">
+      <DependentUpon>202109261303176_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109261316342_CaseRef.resx">
+      <DependentUpon>202109261316342_CaseRef.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109281318546_2021-09-28.resx">
+      <DependentUpon>202109281318546_2021-09-28.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

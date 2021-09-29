@@ -44,9 +44,14 @@ namespace PRO_finder.Controllers
 
         }
 
-        [Authorize]
         public ActionResult Index()
         {
+            string userID = HttpContext.User.Identity.GetUserId();
+            int memberID = _memberInfoService.GetMemberID(userID);
+            ViewBag.Balance = _memberInfoService.getBalance(memberID);
+            ViewBag.Revenue = _memberInfoService.getTotalRevenue(memberID);
+            ViewBag.OrderDoingCount = _memberInfoService.getOrderDoingCount(memberID);
+            ViewBag.OrderCompleteCount = _memberInfoService.getOrderCompleteCount(memberID);
             return View();
         }
         public ActionResult CreateQuotation()
@@ -54,11 +59,14 @@ namespace PRO_finder.Controllers
             ViewBag.CategoryList = _cateService.GetCategorySelectList();
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateQuotation([Bind(Include = "QuotationTitle,Price,QuotationUnit,ExecuteDate,Description,DescriptionValidation,SubCategoryID,MainPicture,OtherPictureList")] CreateQuotationViewModel quotation)
         {
             ViewBag.CategoryList = _cateService.GetCategorySelectList();
+            string userID = HttpContext.User.Identity.GetUserId();
+            int memberID = _memberInfoService.GetMemberID(userID);
             if (ModelState.IsValid)
             {
                 var myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
@@ -70,7 +78,6 @@ namespace PRO_finder.Controllers
             }
             return View(quotation);
         }
-
 
         public ActionResult UploadMyWorks()
         {
@@ -191,24 +198,21 @@ namespace PRO_finder.Controllers
             string userID = HttpContext.User.Identity.GetUserId();
             int memberID = _memberInfoService.GetMemberID(userID);
 
+            var result = new OperationResult();
             if (ModelState.IsValid)
             {
                 //更新MemberInfo資料庫
-                _memberInfoService.UpdateMemberInfo(memberID, caseSettings);
-                if (caseSettings.JsonExDList != null)
-                {
-                    //更新Experience資料庫
-                    _memberInfoService.UpdateExD(memberID, caseSettings.JsonExDList);
-                }
-
-                if (caseSettings.JsonToolList != null)
-                {
-                    //更新擅長軟體資料庫
-                    _memberInfoService.UpdateToolList(memberID, caseSettings.JsonToolList);
-                }
+                 result = _memberInfoService.UpdateMemberInfo(memberID, caseSettings);
+            }
+            if (result.IsSuccessful)
+            {
                 return RedirectToAction("Index");
             }
-            return View(caseSettings);
+            else
+            {
+                HttpContext.Response.Write(result);
+                return View(caseSettings);
+            }
         }
         public ActionResult MyQuotationIndex()
         {
@@ -266,6 +270,19 @@ namespace PRO_finder.Controllers
             }
             _quotaService.DeleteQ(id);
 
+            string userID = HttpContext.User.Identity.GetUserId();
+            int memberID = _memberInfoService.GetMemberID(userID);
+            var remainQ = _quotaService.GetMyQuotations(memberID).ToList();
+            return View("MyQuotationIndex", remainQ);
+        }
+
+        public ActionResult UpdateTime(int? id)
+        {
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            _quotaService.UpdateQTime(id);
             string userID = HttpContext.User.Identity.GetUserId();
             int memberID = _memberInfoService.GetMemberID(userID);
             var remainQ = _quotaService.GetMyQuotations(memberID).ToList();
