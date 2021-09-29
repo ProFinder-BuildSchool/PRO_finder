@@ -198,8 +198,15 @@ namespace PRO_finder.Controllers
         {
             var UserId = HttpContext.User.Identity.GetUserId();
             int memberID = _memberinfoService.GetMemberID(UserId);
-            return Redirect($"/Quotation/StudioHome?TalentID={memberID}");
-            
+            bool hasInfo = _memberinfoService.HasMemInfo(memberID);
+            if (hasInfo)
+            {
+                return Redirect($"/Quotation/StudioHome?TalentID={memberID}");
+            }
+            else
+            {
+                return Redirect("/Talent/MemInfoRequest");
+            }
         }
 
     }

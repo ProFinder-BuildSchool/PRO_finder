@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "系統訊息";
+}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-8 m-auto">
+            <div class="myContainer">
+                <h5><i class="fas fa-exclamation-circle"></i>&ensp;系統訊息</h5>
+                <hr>
+                <div class="row">
+                    <div class="col-md-3 img-wrap">
+                        <img src="https://cdn-icons-png.flaticon.com/512/5691/5691777.png">
+                    </div>
+                    <div class="col-12 col-md-9 text-center text-danger text-wrap">
+                        <p class="w-100 mb-1">您須先建立您的接案資料，方能刊登服務，並查看您的工作室</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <a href="/Talent/CaseSetting" class="btn btn-primary mx-auto mt-5">前往【接案設定】</a>
+    </div>
+</div>
+
+@section topCSS
+{
+    <style>
+        h5 {
+            color: #89ba16;
+            font-weight: 900;
+            padding: 0 15px;
+            font-size:18px;
+        }
+        .myContainer {
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            padding: 25px;
+        }
+        .img-wrap{
+            text-align:center;
+            display:none;
+        }
+        .myContainer img
+        {
+            width:88.888888%;
+            margin-left:auto;
+        }
+        .text-wrap{
+            font-size:12px;
+            display:flex;
+            align-items:center;
+        }
+        
+        @@media screen and (min-width:768px){
+            h5{
+                font-size:24px;
+            }
+            .text-wrap{
+                font-size:16px;
+            }
+            .img-wrap {
+                display: flex;
+                align-items: center;
+            }
+        }
+    </style>
+}
+@section endJS
+    {
+}
+

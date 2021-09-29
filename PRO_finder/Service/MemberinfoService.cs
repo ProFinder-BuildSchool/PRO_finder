@@ -257,7 +257,7 @@ namespace PRO_finder.Service
         }
 
         //取得會員帳戶餘額
-        public string getBalance(int memberID)
+        public string GetBalance(int memberID)
         {
             var member = _ctx.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == memberID);
             NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
@@ -265,7 +265,7 @@ namespace PRO_finder.Service
             return balance.ToString("C", nfi);
         }
         //取得會員總成交金額
-        public string getTotalRevenue(int memberID)
+        public string GetTotalRevenue(int memberID)
         {
             var orderList = _ctx.GetAll<Order>().Where(x => x.ProposerID == memberID).ToList();
             var total = orderList.Select(x => x.Count * x.Price).Sum();
@@ -274,16 +274,28 @@ namespace PRO_finder.Service
             return totalRevenue.ToString("C", nfi);
         }
         //取得會員進行中案件數量
-        public int getOrderDoingCount(int memberID)
+        public int GetOrderDoingCount(int memberID)
         {
             var orderList = _ctx.GetAll<Order>().Where(x => x.ProposerID == memberID && x.OrderStatus == 1).ToList();
             return orderList != null ? orderList.Count : 0;
         }
         //取得會員已完成案件數量
-        public int getOrderCompleteCount(int memberID)
+        public int GetOrderCompleteCount(int memberID)
         {
             var orderList = _ctx.GetAll<Order>().Where(x => x.ProposerID == memberID && x.OrderStatus >= 2).ToList();
             return orderList != null ? orderList.Count : 0;
+        }
+
+        //驗證會員是否已經填寫資料
+        public bool HasMemInfo(int memberID)
+        {
+            bool result = false;
+            MemberInfo memInfo = _ctx.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == memberID);
+            if(memInfo.NickName != null && memInfo.NickName != "")
+            {
+                result = true;
+            }
+            return result;
         }
     }
 
