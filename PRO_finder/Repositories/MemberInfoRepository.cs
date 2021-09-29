@@ -17,29 +17,19 @@ namespace PRO_finder.Repositories
         {
             _context = context;
         }
-        public OperationResult CreateMemberInfo(int memberID, MemberInfoViewModel newSettings)
+        public OperationResult CreateMemberInfo(MemberInfo entity, List<Experience> expList, List<TalentTool> toolList)
         {
             OperationResult result = new OperationResult();
             using(var transaction = _context.Database.BeginTransaction())
             {
                 try
                 {
-                    var entity = GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == memberID);
-                    entity.Status = newSettings.Status;
-                    entity.NickName = newSettings.NickName;
-                    entity.Identity = (int)newSettings.Identity;
-                    entity.LiveCity = newSettings.LiveCity;
-                    entity.Cellphone = newSettings.Cellphone;
-                    entity.Email = newSettings.Email;
-                    entity.LocationID = (int)newSettings.LocationIDInt;
-                    entity.AllPieceworkExp = newSettings.AllPieceworkExp;
-                    entity.Description = newSettings.Description;
-                    entity.SubCategoryID = newSettings.SubCategoryID;
                     Update(entity);
                     SaveChanges();
 
+                    int memberID = entity.MemberID;
                     //接案經驗
-                    if (newSettings.JsonExDList != null)
+                    if (expList != null)
                     {
                         //先刪除原有記錄
                         List<Experience> origin = GetAll<Experience>().Where(x => x.MemberID == memberID).ToList();
@@ -49,8 +39,7 @@ namespace PRO_finder.Repositories
                             SaveChanges();
                         }
                         //加入新記錄
-                        JArray tempArray = JArray.Parse(newSettings.JsonExDList);
-                        List<Experience> expList = tempArray.ToObject<List<Experience>>();
+                        
                         foreach (var item in expList)
                         {
                             Experience e = new Experience
@@ -66,7 +55,7 @@ namespace PRO_finder.Repositories
                     }
 
                     //擅長工具
-                    if (newSettings.JsonToolList != null)
+                    if (toolList != null)
                     {
                         //刪除原有記錄
                         List<TalentTool> origin = GetAll<TalentTool>().Where(x => x.MemberID == memberID).ToList();
@@ -76,9 +65,7 @@ namespace PRO_finder.Repositories
                             SaveChanges();
                         }
 
-                        //加入新紀錄
-                        JArray tempArray = JArray.Parse(newSettings.JsonToolList);
-                        List<TalentTool> toolList = tempArray.ToObject<List<TalentTool>>();
+                        //加入新記錄
                         foreach (var item in toolList)
                         {
                             TalentTool t = new TalentTool

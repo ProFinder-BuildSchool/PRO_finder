@@ -160,7 +160,35 @@ namespace PRO_finder.Service
         }
         public OperationResult UpdateMemberInfo(int memberID, MemberInfoViewModel newSettings)
         {
-            var result = _ctx.CreateMemberInfo(memberID, newSettings);
+            var entity = _ctx.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == memberID);
+            entity.Status = newSettings.Status;
+            entity.NickName = newSettings.NickName;
+            entity.Identity = (int)newSettings.Identity;
+            entity.LiveCity = newSettings.LiveCity;
+            entity.Cellphone = newSettings.Cellphone;
+            entity.Email = newSettings.Email;
+            entity.LocationID = (int)newSettings.LocationIDInt;
+            entity.AllPieceworkExp = newSettings.AllPieceworkExp;
+            entity.Description = newSettings.Description;
+            entity.SubCategoryID = newSettings.SubCategoryID;
+
+            //接案經驗vm to dm
+            List<Experience> expList = new List<Experience>();
+            if (newSettings.JsonExDList != null)
+            {
+                JArray tempArray = JArray.Parse(newSettings.JsonExDList);
+                expList = tempArray.ToObject<List<Experience>>();
+            }
+
+            //擅長工具 vm to dm
+            List<TalentTool> toolList = new List<TalentTool>();
+            if (newSettings.JsonToolList != null)
+            {
+                JArray tempArray = JArray.Parse(newSettings.JsonToolList);
+                toolList = tempArray.ToObject<List<TalentTool>>();
+                
+            }
+            var result = _ctx.CreateMemberInfo(entity, expList, toolList);
             return result;
         }
 
@@ -178,7 +206,7 @@ namespace PRO_finder.Service
                                      MemberID = m.MemberID,
                                      BankCode = m.BankCode,
                                      BankAccount = m.BankAccount
-                    
+
                                  });
             return BankAccountVM.FirstOrDefault();
         }
@@ -259,5 +287,5 @@ namespace PRO_finder.Service
         }
     }
 
-    
+
 }
