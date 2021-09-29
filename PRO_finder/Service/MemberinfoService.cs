@@ -163,11 +163,11 @@ namespace PRO_finder.Service
             var entity = _ctx.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == memberID);
             entity.Status = newSettings.Status;
             entity.NickName = newSettings.NickName;
-            entity.Identity = (int)newSettings.Identity;
+            entity.Identity = (int?)newSettings.Identity;
             entity.LiveCity = newSettings.LiveCity;
             entity.Cellphone = newSettings.Cellphone;
             entity.Email = newSettings.Email;
-            entity.LocationID = (int)newSettings.LocationIDInt;
+            entity.LocationID = (int?)newSettings.LocationIDInt;
             entity.AllPieceworkExp = newSettings.AllPieceworkExp;
             entity.Description = newSettings.Description;
             entity.SubCategoryID = newSettings.SubCategoryID;

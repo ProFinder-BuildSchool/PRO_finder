@@ -15,7 +15,7 @@
         <h4>新增作品集</h4>
         <hr>
         <div class="form-group">
-            <label for="WorkName" class="col-md-12 control-label">作品集名稱 &ensp;<span class="badge badge-danger">必填</span></label>
+            <label for="WorkName" class="col-md-12 control-label">作品集名稱&ensp;<span class="badge badge-danger">必填</span></label>
             <div class="col-md-12">
                 <input type="text" id="WorkName" name="WorkName" class="form-control text-box single-line" v-model="work.WorkName">
             </div>
@@ -222,15 +222,11 @@
         #displayUpload img {
             margin-top: auto auto;
             width: 100%;
-            height: 100%;
-            /*max-height: 150px;*/
             padding: 0px;
         }
         #displayUpload video {
             margin-top: auto auto;
             width: 100%;
-            height: 100%;
-            /*max-height: 150px;*/
             padding: 0px;
         }
 
@@ -238,6 +234,11 @@
             position: relative;
             width: 100%;
             margin: 20px auto;
+            overflow:hidden;
+            object-fit:contain;
+            display:flex;
+            justify-content:center;
+            align-items:center;
         }
 
         #displayUpload div::before {
@@ -606,77 +607,6 @@
         $g('.ql-toolbar.ql-snow').style.setProperty('border-radius', '.25rem .25rem 0 0');
         $g('#editor').style.setProperty('border-radius', '0 0 .25rem .25rem');
         $g('#editor').style.setProperty('min-height', '200px');
-
-        $g("input[type='submit']").addEventListener("click", function (e) {
-            //e.preventDefault();
-
-            ////富文本編輯器儲存
-            //$g("input[name='WorkDescription']").value = $g("div.ql-editor").innerHTML;
-
-            ////上傳cloudinary及作品檔案
-            //const asyncRun = async () => {
-            //    //newWork
-            //    const newWork = new Object();
-            //    newWork["WorkName"] = $g("input[name='WorkName']").value;
-            //    newWork["SubCategoryID"] = Number($g("select[name='SubCategoryID']").value);
-            //    newWork["Client"] = $g("input[name='Client']").value;
-            //    newWork["Role"] = $g("input[name='Role']").value;
-            //    newWork["YearStarted"] = Number($g("input[name='YearStarted']").value);
-            //    newWork["WebsiteURL"] = $g("input[name='WebsiteURL']").value;
-            //    newWork["WorkDescription"] = $g("input[name='WorkDescription']").value;
-            //    let workID = await axios({
-            //        method: "post",
-            //        url: "/api/Talent/UploadMyWork",
-            //        headers: { 'Content-Type': "application/json;charset=utf-8", "strict": false },
-            //        data: newWork
-            //    }).then(res => { return res.data.Result });
-
-            //    //WorkAttachment
-            //    let input_nameList = document.querySelectorAll("input[data-content='WorkAttachmentName']");
-            //    let input_linkList = document.querySelectorAll("input[data-content='WorkAttachmentLink']");
-            //    //取得所有fileName
-            //    const nameArray = [];
-            //    input_nameList.forEach(input_name => {
-            //        nameArray.push(input_name.value);
-            //    })
-            //    const form = new FormData();
-            //    if (input_nameList != null && input_linkList != null) {
-            //        let len = input_nameList.length >= input_linkList.length ? input_linkList.length : input_nameList.length;
-            //        form.append("FileNames", JSON.stringify(nameArray));
-            //        form.append("WorkID", workID);
-            //        for (let i = 0; i < len; i++) {
-            //            form.append(`File${i}`, input_linkList[i].files[0]);
-            //        };
-            //    };
-            //    axios({
-            //        method: "post",
-            //        url: "/api/Talent/UploadFile",
-            //        headers: { 'Content-Type': "application/json;charset=utf-8", "strict": false },
-            //        data: form
-            //    }).then(res => res.data.Result);
-
-            //    //儲存作品圖例
-            //    let imgs = document.querySelectorAll(".uploadImg");
-
-            //    //上傳雲端
-            //    const imgForm = new FormData();
-            //    imgForm.append("WorkID", workID);
-            //    for (let j = 0; j < imgs.length; j++) {
-            //        const blobData = await getBlobData(imgs[j].src);
-            //        const fileObject = new File([blobData], imgs[j].src, { type: blobData.type });
-            //        imgForm.append(`Picture${j}`, fileObject);
-
-            //    };
-            //    axios({
-            //        method: "post",
-            //        url: "/api/Talent/UploadWorkPics",
-            //        headers: { "Content-Type": "application/json;charset=utf-8", "strict": false },
-            //        data: imgForm
-            //    }).then(res => res.data.Result);
-            //    document.querySelector("form[action='/Talent/UploadMyWorks']").submit();
-            //}
-            //asyncRun();
-        })
 
         function $g(element) {
             let temp = document.querySelectorAll(element);

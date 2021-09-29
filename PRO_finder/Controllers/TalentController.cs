@@ -358,7 +358,11 @@ namespace PRO_finder.Controllers
 
             return View();
         }
-
+        
+        public ActionResult MemInfoRequest()
+        {
+            return View();
+        }
        
 
 

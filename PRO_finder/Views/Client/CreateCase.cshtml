@@ -502,6 +502,194 @@
                 locationList: [],
                 references: []
             },
+            watch: {
+                "newCase.title": {
+                    immediate: false,
+                    handler: function () {
+                        //CaseTitle
+                        if (this.newCase.title == "") {
+                            this.validationMsg.title = "請輸入案件名稱";
+                            this.validations.title = false;
+                        } else {
+                            this.validations.title = true;
+                            this.validationMsg.title = "";
+                        }
+                    }
+                },
+                "newCase.CategoryID": {
+                    immediate: false,
+                    handler: function () {
+                        if (this.newCase.SubCategoryID == "-1") {
+                            this.validationMsg.SubCategoryID = "請選擇案件子類別";
+                            this.validations.SubCategoryID = false;
+                        } else {
+                            this.validations.SubCategoryID = true;
+                            this.validationMsg.SubCategoryID = "";
+                        }
+                    }
+                },
+                "newCase.SubCategoryID": {
+                    immediate: false,
+                    handler: function () {
+                        //SubCategoryID
+                        if (this.newCase.SubCategoryID == "-1") {
+                            this.validationMsg.SubCategoryID = "請選擇案件子類別";
+                            this.validations.SubCategoryID = false;
+                        } else {
+                            this.validations.SubCategoryID = true;
+                            this.validationMsg.SubCategoryID = "";
+                        }
+                    }
+                },
+                "newCase.CompleteDate": {
+                    immediate: false,
+                    handler: function () {
+                        let regex_d = new RegExp("[0-99999]");
+                        if (this.newCase.CompleteDate == "" || this.newCase.CompleteDate == null) {
+                            this.validationMsg.CompleteDate = "請輸入預計完成日";
+                            this.validations.CompleteDate = false;
+                        } else if (!(regex_d.test(this.newCase.CompleteDate))) {
+                            this.validationMsg.CompleteDate = "請輸入數值";
+                            this.validations.CompleteDate = false;
+                        }
+                        else {
+                            this.validations.CompleteDate = true;
+                            this.validationMsg.CompleteDate = "";
+                        }
+                    }
+                },
+                "newCase.PriceInt": {
+                    immediate: false,
+                    handler: function () {
+                        if (this.newCase.PriceInt == -1) {
+                            this.validationMsg.PriceInt = "請選擇預算範圍";
+                            this.validations.PriceInt = false;
+                        } else {
+                            this.validations.PriceInt = true;
+                            this.validationMsg.PriceInt = "";
+                        }
+                    }
+                },
+                "newCase.LocationID": {
+                    immediate: false,
+                    handler: function () {
+                        //LocationID
+                        if (this.newCase.LocationBool == 'true' && this.newCase.LocationID == -1) {
+                            this.validationMsg.LocationID = "請選擇指定地點";
+                            this.validations.LocationID = false;
+                        } else {
+                            this.validations.LocationID = true;
+                            this.validationMsg.LocationID = "";
+                        }
+                    }
+                },
+                "newCase.LocationBool": {
+                    immediate: false,
+                    handler: function () {
+                        //LocationBool
+                        if (this.newCase.LocationBool == -1) {
+                            this.validationMsg.LocationBool = "請選擇人才是否需至指定地點";
+                            this.validations.LocationBool = false;
+                        } else {
+                            this.validations.LocationBool = true;
+                            this.validationMsg.LocationBool = "";
+                        }
+                    }
+                },
+                "newCase.Type": {
+                    immediate: false,
+                    handler: function () {
+                        //Type
+                        if (this.newCase.Type == -1) {
+                            this.validationMsg.Type = "請選擇需求類型";
+                            this.validations.Type = false;
+                        } else {
+                            this.validations.Type = true;
+                            this.validationMsg.Type = "";
+                        }
+                    }
+                },
+                "newCase.Description": {
+                    immediate: false,
+                    handler: function () {
+                        if (this.newCase.Description == "") {
+                            this.validations.Description = false;
+                            this.validationMsg.Description = "請敘述案件執行内容";
+                        }
+                        else {
+                            this.validations.Description = true;
+                            this.validationMsg.Description = "";
+                        }
+                    }
+                },
+                "newCase.Contact": {
+                    immediate: false,
+                    handler: function () {
+                        //Contact
+                        if (this.newCase.Contact == "") {
+                            this.validationMsg.Contact = "請輸入聯絡人姓名";
+                            this.validations.Contact = false;
+                        } else {
+                            this.validationMsg.Contact = "";
+                            this.validations.Contact = true;
+                        }
+                    }
+                },
+                "newCase.CellPhone": {
+                    immediate: false,
+                    handler: function () {
+                        //CellPhone
+                        let cellphone_regx = new RegExp("^09[0-9]{8}");
+                        if (this.newCase.CellPhone == "") {
+                            this.validationMsg.CellPhone = "請輸入聯絡手機";
+                            this.validations.CellPhone = false;
+                        } else if (!cellphone_regx.test(this.newCase.CellPhone)) {
+                            this.validationMsg.CellPhone = "請填寫正確手機號碼，09xxxxxxxx";
+                            this.validations.CellPhone = false;
+                        } else {
+                            this.validationMsg.CellPhone = "";
+                            this.validations.CellPhone = true;
+                        }
+                    }
+                },
+                "newCase.ContactTime": {
+                    immediate: false,
+                    handler: function () {
+                        if (this.newCase.ContactTime.length == 0) {
+                            this.validations.ContactTime = false;
+                            this.validationMsg.ContactTime = "請至少選擇一個聯絡時段";
+                        } else {
+                            this.validations.ContactTime = true;
+                            this.validationMsg.ContactTime = "";
+                        }
+                    }
+                },
+                "newCase.ContactEmail": {
+                    immediate: false,
+                    handler: function () {
+                        //Email
+                        if (this.newCase.ContactEmail == "") {
+                            this.validations.ContactEmail = false;
+                            this.validationMsg.ContactEmail = "請輸入聯絡用Email";
+                        } else {
+                            this.validations.ContactEmail = true;
+                            this.validationMsg.ContactEmail = "";
+                        }Z
+                    }
+                },
+                "Read": {
+                    immdidate: false,
+                    handler: function () {
+                        if (this.Read != true) {
+                            this.validationMsg.Read = "請閲讀並確認本網站各項規定。"
+                            this.validations.Read = false;
+                        } else {
+                            this.validationMsg.Read = "";
+                            this.validations.Read = true;
+                        }
+                    }
+                }
+            },
             methods: {
                 BackToFirst() {
                     this.showTab("#first-section");
@@ -517,7 +705,7 @@
                     }
                     //SubCategoryID
                     if (this.newCase.SubCategoryID == "-1") {
-                        this.validationMsg.SubCategoryID = "請選擇案件類別";
+                        this.validationMsg.SubCategoryID = "請選擇案件主類別與子類別";
                         this.validations.SubCategoryID = false;
                     } else {
                         this.validations.SubCategoryID = true;
@@ -654,11 +842,10 @@
                         this.validationMsg.Read = "";
                         this.validations.Read = true;
                     }
+
                     if (this.validations.Contact && this.validations.CellPhone
                         && this.validations.ContactTime && this.validations.ContactEmail && this.validations.Read) {
-                        //post newCase
-                        delete this.newCase["LocationBool"];
-                        this.newCase.ContactTime = this.newCase.ContactTime.join("\n");
+                        
                         this.postNewCase();
                     }
                 },
@@ -700,6 +887,10 @@
                     this.references.splice(index, 1);
                 },
                 postNewCase() {
+                    //資料處理
+                    delete this.newCase["LocationBool"];
+                    this.newCase.ContactTime = this.newCase.ContactTime.join("\n");
+                    //axios
                     axios({
                         method: "post",
                         url: "/api/Case/PostNewCase",
@@ -729,7 +920,7 @@
                 //CategoryList
                 axios.get("/api/Case/GetCategoryList").then(res => {
                     this.categoryList.push(...JSON.parse(res.data.Result));
-                    console.log(this.categoryList);
+                    //console.log(this.categoryList);
                     //Category
                     let categorySelector = document.querySelector("select#CategoryID");
                     categorySelector.innerHTML = "";

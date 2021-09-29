@@ -17,7 +17,9 @@
             {
                 <div class=" col-12 col-md-6 mt-3">
                     <div class="card">
-                        <img src="@item.MainPicture" class="card-img-top main-picture" alt="">
+                        <div class="img-wrap w-100 h-100">
+                            <img src="@item.MainPicture" class="card-img-top main-picture" alt="">
+                        </div>
                         <div class="card-body p-3">
                             <h5 class="card-title text-center">@item.QuotationTitle</h5>
                         </div>
@@ -106,7 +108,23 @@
         .selector-close {
             color: #DC3545;
         }
-        
+        .img-wrap {
+            width: 100%;
+            padding-bottom: 100%;
+            position: relative;
+            border-bottom: 1px solid #f5f5f5;
+            overflow: hidden;
+            object-fit: contain;
+            background-color:#f5f5f5;
+        }
+        .img-wrap img{
+            position:absolute;
+            top:0;
+            bottom:0;
+            right:0;
+            left:0;
+            margin:auto;
+        }
     </style>
 }
 @section endJS
