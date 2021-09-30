@@ -886,6 +886,7 @@
     <Content Include="Views\Talent\TalentOrderFinished.cshtml" />
     <Content Include="Views\Client\ReviseProposerAccount.cshtml" />
     <Content Include="Views\Client\CreateCase.cshtml" />
+    <Content Include="Views\Cart\CartList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
