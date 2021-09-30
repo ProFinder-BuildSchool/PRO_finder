@@ -6,6 +6,7 @@ using System.Web;
 
 namespace PRO_finder.Models.ViewModels
 {
+    [Serializable]
     public class CaseDetailViewModel
     {
         public string title { get; set; }
