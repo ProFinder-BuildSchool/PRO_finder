@@ -61,7 +61,7 @@
             <div class="col-md-12 text-center">
                 <div class="title d-flex justify-content-between ">
                     <h2 class="section-title mb-2">精選成交作品</h2>
-                    <a class="d-flex align-items-end" href="#">看更多作品 → </a>
+                    <a class="d-flex align-items-end" href="#"></a>
                 </div>
             </div>
         </div>
@@ -98,9 +98,10 @@
                                     <a href="#">#@item.SubCategoryName</a>
 
                                     <p>@Html.Raw(item.Memo)</p>
-                                    <div class="site-show d-flex justify-content-between">
+                                    <div class="site-show">
                                         <a href="#">by <span>@item.studio</span> </a>
-                                        <button class="border btn">更多作品</button>
+                                        <br />
+                                        <a class="mt-5 morework" href="/Quotation/WorksPage?WorkID=@item.WorkID">更多作品</a>
                                     </div>
                                 </div>
                             </div>
@@ -159,7 +160,7 @@
                     <div class="col-lg-12 mb-5">
                         <div id="slides" class="   slide carousel-vertical" data-ride="carousel">
                             <div class="carousel-inner ">
-                                <div class="carousel-item active py-3">
+                                <div class="carousel-item active py-5">
 
                                     @foreach (var item in ViewBag.caseList)
                                     {
@@ -167,7 +168,7 @@
                                         {
 
 
-                                            <div class="end mb-2">
+                                            <div class="end mb-3">
                                                 <h4 class="text-left mr-2">
                                                     <span class="border border-success mr-2">已成交</span>
                                                     @item.title
@@ -188,7 +189,7 @@
                                         if (item.SortNum == 2)
                                         {
 
-                                            <div class="end mb-2">
+                                            <div class="end mb-3">
                                                 <h4 class="text-left mr-2">
                                                     <span class="border border-success mr-2">已成交</span>
                                                     @item.title
@@ -208,7 +209,7 @@
                                     {
                                         if (item.SortNum == 3)
                                         {
-                                            <div class="end mb-2">
+                                            <div class="end mb-3">
                                                 <h4 class="text-left mr-2">
                                                     <span class="border border-success mr-2">已成交</span>
                                                     @item.title
@@ -237,7 +238,7 @@
             <div class="col-md-12 text-center">
                 <div class="title d-flex justify-content-between ">
                     <h2 class="section-title mb-2">最新報價</h2>
-                    <a class="d-flex align-items-end" href="#">看更多報價 → </a>
+                    <a class="d-flex align-items-end" href="/Quotation/Index?CategoryId=0">看更多報價 → </a>
                 </div>
             </div>
         </div>
@@ -265,7 +266,7 @@
                                             <p class="card-text">
                                                 <span class="text-danger font-weight-bold">$@item.Price</span> / @item.UnitToString
                                             </p>
-                                            <a href=/Quotation/Detail?id =@item.QuotationId class="btn btn-primary">服務詳情</a>
+                                            <a href="/Quotation/Detail/@item.MemberID/@item.QuotationId" class="btn btn-primary">服務詳情</a>
                                         </div>
                                     </div>
                                 </div>
@@ -291,7 +292,7 @@
                                             <p class="card-text">
                                                 <span class="text-danger font-weight-bold">$@item.Price</span> / @item.UnitToString
                                             </p>
-                                            <a href="@Url.Action("Index","FindQuotation")" class="btn btn-primary">服務詳情</a>
+                                            <a href="/Quotation/Detail/@item.MemberID/@item.QuotationId" class="btn btn-primary">服務詳情</a>
                                         </div>
                                     </div>
                                 </div>
@@ -317,7 +318,7 @@
                                             <p class="card-text">
                                                 <span class="text-danger font-weight-bold">$@item.Price</span> / @item.UnitToString
                                             </p>
-                                            <a href="" class="btn btn-primary">服務詳情</a>
+                                            <a href="/Quotation/Detail/@item.MemberID/@item.QuotationId" class="btn btn-primary">服務詳情</a>
                                         </div>
                                     </div>
                                 </div>
@@ -336,12 +337,12 @@
         <div class="row mb-5 justify-content-center">
             <div class="col-md-12 text-center">
                 <div class="title d-flex justify-content-between ">
-                    <h2 class="section-title mb-2">PRO Finder精選作品</h2><a class="d-flex align-items-end" href="#">看更多作品 → </a>
+                    <h2 class="section-title mb-2">PRO Finder精選作品</h2><a class="d-flex align-items-end" href="#"></a>
                 </div>
             </div>
         </div>
         <div class="row mb-5 justify-content-center">
-            @foreach (var item in ViewBag.workList)
+            @foreach (var item in ViewBag.workallList)
             {
                 <div class="col-md-3 text-center mb-3">
                     <div class="card">
@@ -569,6 +570,9 @@
             width: 100%;
             object-fit: cover;
             overflow: hidden;
+        }
+        .morework{
+            color:#635b5b;
         }
     </style>
 }

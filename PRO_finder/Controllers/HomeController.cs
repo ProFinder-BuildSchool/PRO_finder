@@ -45,13 +45,14 @@ namespace PRO_finder.Controllers
             var workList = _worksService.GetWorks_HomeIndex();
 
             var caseList = _caseService.GetFinishCases();
+            var workAllList = _worksService.Getallworks_HomeIndex();
 
 
             ViewBag.QuotationList = QuotationList;
             ViewBag.workList = workList;
             ViewBag.caseList = caseList;
             ViewBag.bannerList = banner;
-
+            ViewBag.workallList = workAllList;
 
 
 
