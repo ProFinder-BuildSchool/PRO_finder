@@ -901,7 +901,6 @@
     <Content Include="Views\FindQuotation\Othercase.cshtml" />
     <Content Include="Views\SaveCase\SaveCase.cshtml" />
     <Content Include="Views\SaveCase\AddToSaveCase.cshtml" />
-    <None Include="Views\Cart\CartList.cshtml" />
     <Content Include="Views\Talent\MyQuotationIndex.cshtml" />
     <Content Include="Views\Talent\UpdateMyQuotation.cshtml" />
     <Content Include="Views\Shared\_QuotationforCasePartial.cshtml" />
