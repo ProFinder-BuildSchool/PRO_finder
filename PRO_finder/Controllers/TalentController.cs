@@ -66,7 +66,7 @@ namespace PRO_finder.Controllers
             }
             else
             {
-                return Redirect("/Talent/MemInfoRequest");
+                return View("MemInfoRequest");
             }
             
         }

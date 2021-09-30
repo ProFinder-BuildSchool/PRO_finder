@@ -18,14 +18,13 @@ namespace PRO_finder.Service
 {
     public class QuotationService
     {
-        private readonly GeneralRepository _ctx;
-        private readonly GeneralRepository _repo;
+        private readonly QuotationRepository _ctx;
+       
 
 
         public QuotationService()
         {
-            _repo = new GeneralRepository(new ProFinderContext());
-            _ctx = new GeneralRepository(new ProFinderContext());
+            _ctx = new QuotationRepository(new ProFinderContext());
         }
 
         public List<QuotationViewModel> GetAllCardDataGroupByIndex()
@@ -206,7 +205,7 @@ namespace PRO_finder.Service
         
 
         //刊登新服務 CreateQuotation
-        public Quotation CreateQuotation(CreateQuotationViewModel newQ)
+        public OperationResult CreateQuotation(CreateQuotationViewModel newQ)
         {
             Quotation entity = new Quotation
             {
@@ -218,51 +217,22 @@ namespace PRO_finder.Service
                 Description = newQ.Description,
                 SubCategoryID = newQ.SubCategoryID,
                 Price = newQ.Price,
-                //MainPicture = newQ.MainPicture,
+                MainPicture = newQ.OtherPicList[0].OtherPictureLink,
                 Status = true
             };
-            _repo.Create(entity);
-            _repo.SaveChanges();
-            return entity;
-        }
 
-        public void CreateOtherPics(int quotationID, string picList)
-        {
-            JArray tempArray = JArray.Parse(picList);
-            List<OtherPicture> pics = tempArray.ToObject<List<OtherPicture>>();
-            foreach(var item in pics)
+            List<OtherPicture> otherPics = new List<OtherPicture>();
+            foreach(var item in newQ.OtherPicList)
             {
-                OtherPicture p = new OtherPicture
+                otherPics.Add(new OtherPicture
                 {
-                    QuotationID = quotationID,
                     OtherPictureLink = item.OtherPictureLink,
                     SortNumber = item.SortNumber
-                };
-                _repo.Create(p);
-                _repo.SaveChanges();
+                });
             }
+            OperationResult result = _ctx.CreateNewQuotation(entity, otherPics);
+            return result;
         }
-        public void RevisedCreateOtherPics(UploadOtherPicture newPic)
-        {
-            if (newPic.SortNumber == 0)
-            {
-                var theQuotation = _repo.GetAll<Quotation>().FirstOrDefault(x => x.QuotationID == newPic.QuotationID);
-                theQuotation.MainPicture = newPic.OtherPictureLink;
-                _repo.Update(theQuotation);
-                _repo.SaveChanges();
-            }
-
-            OtherPicture entity = new OtherPicture
-            {
-                OtherPictureLink = newPic.OtherPictureLink,
-                SortNumber = newPic.SortNumber,
-                QuotationID = newPic.QuotationID
-            };
-            _repo.Create(entity);
-            _repo.SaveChanges();
-            
-        }
-
 
         public IEnumerable<QuotationDetailViewModel> GetMyQuotations(int memberID)
         {
@@ -293,29 +263,29 @@ namespace PRO_finder.Service
 
         public void DeleteQ(int? id)
         {
-            var theQuotation = _repo.GetAll<Quotation>().FirstOrDefault(x => x.QuotationID == id);
-            var pictures = _repo.GetAll<OtherPicture>().Where(x => x.QuotationID == id).ToList();
-            _repo.Delete(theQuotation);
-            _repo.SaveChanges();
+            var theQuotation = _ctx.GetAll<Quotation>().FirstOrDefault(x => x.QuotationID == id);
+            var pictures = _ctx.GetAll<OtherPicture>().Where(x => x.QuotationID == id).ToList();
+            _ctx.Delete(theQuotation);
+            _ctx.SaveChanges();
 
             foreach(var item in pictures)
             {
-                _repo.Delete(item);
-                _repo.SaveChanges();
+                _ctx.Delete(item);
+                _ctx.SaveChanges();
             }
             
         }
         public void UpdateQTime(int? id)
         {
-            var theQuotation = _repo.GetAll<Quotation>().FirstOrDefault(x => x.QuotationID == id);
+            var theQuotation = _ctx.GetAll<Quotation>().FirstOrDefault(x => x.QuotationID == id);
             theQuotation.UpdateDate = DateTime.UtcNow.AddHours(8);
-            _repo.Update(theQuotation);
-            _repo.SaveChanges();
+            _ctx.Update(theQuotation);
+            _ctx.SaveChanges();
         }
         public CreateQuotationViewModel GetQuotation(int? id)
         {
-            var found = _repo.GetAll<Quotation>().FirstOrDefault(x => x.QuotationID == id);
-            string pictures = JsonConvert.SerializeObject(_repo.GetAll<OtherPicture>().Where(x => x.QuotationID == id).ToList());
+            var found = _ctx.GetAll<Quotation>().FirstOrDefault(x => x.QuotationID == id);
+            string pictures = JsonConvert.SerializeObject(_ctx.GetAll<OtherPicture>().Where(x => x.QuotationID == id).ToList());
             var result = new CreateQuotationViewModel
             {
                 QuotationID = found.QuotationID,
@@ -325,9 +295,9 @@ namespace PRO_finder.Service
                 ExecuteDate = found.ExecuteDate,
                 SubCategoryID = found.SubCategoryID,
                 OtherPictureList = pictures,
-                CategoryID = _repo.GetAll<SubCategory>().FirstOrDefault(x => x.SubCategoryID == found.SubCategoryID).CategoryID,
+                CategoryID = _ctx.GetAll<SubCategory>().FirstOrDefault(x => x.SubCategoryID == found.SubCategoryID).CategoryID,
                 Description = found.Description,
-                OtherPicList = _repo.GetAll<OtherPicture>().Where(x => x.QuotationID == id).Select(x => new OtherPictureViewModel
+                OtherPicList = _ctx.GetAll<OtherPicture>().Where(x => x.QuotationID == id).Select(x => new OtherPictureViewModel
                 {
                     QuotationID = x.QuotationID,
                     SortNumber = x.SortNumber,
@@ -339,7 +309,7 @@ namespace PRO_finder.Service
 
         public void UpdateQuotation(CreateQuotationViewModel quo)
         {
-            var entity = _repo.GetAll<Quotation>().FirstOrDefault(x => x.QuotationID == quo.QuotationID);
+            var entity = _ctx.GetAll<Quotation>().FirstOrDefault(x => x.QuotationID == quo.QuotationID);
             entity.QuotationTitle = quo.QuotationTitle;
             entity.UpdateDate = DateTime.UtcNow.AddHours(8);
             entity.Price = Math.Round(quo.Price);
@@ -347,15 +317,24 @@ namespace PRO_finder.Service
             entity.ExecuteDate = quo.ExecuteDate;
             entity.Description = quo.Description;
             entity.SubCategoryID = quo.SubCategoryID;
-            //entity.MainPicture = quo.MainPicture;
-            entity.MainPicture = null;
-            _repo.Update(entity);
-            _repo.SaveChanges();
+            entity.MainPicture = quo.OtherPicList[0].OtherPictureLink;
 
+            var newPics = new List<OtherPicture>();
+            foreach(var item in quo.OtherPicList)
+            {
+                newPics.Add(new OtherPicture
+                {
+                    QuotationID = item.QuotationID,
+                    OtherPictureLink = item.OtherPictureLink,
+                    SortNumber = item.SortNumber
+                });
+            }
+
+            _ctx.UpdateQuotation(entity, newPics);
         }
         public List<SelectListItem> GetLocationSelectList()
         {
-            List<Locations> locationDB = _repo.GetAll<Locations>().ToList();
+            List<Locations> locationDB = _ctx.GetAll<Locations>().ToList();
             List<SelectListItem> locationlist = new List<SelectListItem>();
             locationlist.Add(new SelectListItem { Text = "地區", Value = "-1" });
             foreach (var item in locationDB)
@@ -375,15 +354,5 @@ namespace PRO_finder.Service
             return "";
         }
 
-        public void DeleteOriginPics(int quotationID)
-        {
-            var pics = _ctx.GetAll<OtherPicture>().Where(x => x.QuotationID == quotationID).ToList();
-            foreach(var item in pics)
-            {
-                _ctx.Delete(item);
-                _ctx.SaveChanges();
-            }
-
-        }
     }
 }

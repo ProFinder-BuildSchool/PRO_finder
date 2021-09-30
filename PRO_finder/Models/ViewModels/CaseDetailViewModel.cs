@@ -41,6 +41,7 @@ namespace PRO_finder.Models.ViewModels
         //public string LogInTime { get; set; }
         public bool SavedOrNot { get; set; }
         public string CellPhone { get; set; }
+        public int MemberID { get; set; }
 
 
         //案主積極度

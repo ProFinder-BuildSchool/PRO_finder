@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using PRO_finder.Models.DBModel;
 using PRO_finder.Models.ViewModels;
 using PRO_finder.Models.ViewModels.APIModels.APIBase;
@@ -105,28 +106,30 @@ namespace PRO_finder.APIControllers
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             }
         }
+        //[HttpPost]
+        //public APIResult PostNewCase([FromBody]CaseDetailViewModel newCase)
+        //{
+        //    int result = 0;
+        //    string userID = User.Identity.GetUserId();
+        //    int memberID = _memberService.GetMemberID(userID);
+        //    try
+        //    {
+        //        result = _caseService.CreateNewCase(memberID, newCase);
+        //        return new APIResult(APIStatus.Success, "", result);
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        return new APIResult(APIStatus.Fail, ex.Message, result);
+        //    }
+        //}
         [HttpPost]
-        public APIResult PostNewCase([FromBody]CaseDetailViewModel newCase)
-        {
-            int result = 0;
-            string userID = User.Identity.GetUserId();
-            int memberID = _memberService.GetMemberID(userID);
-            try
-            {
-                result = _caseService.CreateNewCase(memberID, newCase);
-                return new APIResult(APIStatus.Success, "", result);
-            }
-            catch(Exception ex)
-            {
-                return new APIResult(APIStatus.Fail, ex.Message, result);
-            }
-        }
-        [HttpPost]
-        public HttpResponseMessage PostNewCaseFile()
+        public HttpResponseMessage PostNewCase()
         {
             var request = HttpContext.Current.Request;
             int fileslen = request.Files.Count;
-            if (fileslen <= 0)
+            CaseDetailViewModel newCase = JsonConvert.DeserializeObject<CaseDetailViewModel>(request["newCase"]);
+
+            if (newCase == null)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
@@ -134,23 +137,27 @@ namespace PRO_finder.APIControllers
             {
                 try
                 {
+                    string userID = User.Identity.GetUserId();
+                    int memberID = _memberService.GetMemberID(userID);
+                    newCase.MemberID = memberID;
+
+                    List<CaseReference> refList = new List<CaseReference>(); 
                     for(int i = 0; i < fileslen; i++)
                     {
-                        int caseID = Int32.Parse(request["CaseID"]);
                         HttpPostedFile file = request.Files[i];
                         string fileSavePath = WebConfigurationManager.AppSettings["UploadPath"];
                         string newFileName = string.Concat(Path.GetRandomFileName().Replace(".", ""), Path.GetExtension(file.FileName).ToLower());
                         string fullFilePath = Path.Combine(HostingEnvironment.MapPath(fileSavePath), newFileName);
                         file.SaveAs(fullFilePath);
 
-                        CaseReference cr = new CaseReference
+                        refList.Add( new CaseReference
                         {
-                            CaseRefID = caseID,
                             CaseRef = fullFilePath
-                        };
-                        _caseService.CreateNewCaseReference(cr);
+                        });
+                        
                         
                     }
+                    _caseService.CreateNewCase(memberID, newCase, refList);
                     return Request.CreateResponse(HttpStatusCode.OK);
                 }
                 catch (Exception ex)

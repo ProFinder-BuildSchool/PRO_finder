@@ -201,11 +201,16 @@ namespace PRO_finder.Controllers
             bool hasInfo = _memberinfoService.HasMemInfo(memberID);
             if (hasInfo)
             {
-                return Redirect($"/Quotation/StudioHome?TalentID={memberID}");
+                StudioDetailViewModel StudioDetailVM = _studioService.GetStudioDetailData(memberID);
+                IEnumerable<SaveStaffViewModel> favorlist = _studioService.GetFavorite(memberID, memberID);
+                ViewBag.TalentID = memberID;
+                ViewBag.UserID = memberID;
+                ViewBag.FavorExist = favorlist.Count() != 0; //判斷talent是否存在member的list中
+                return View("StudioHome", StudioDetailVM);
             }
             else
             {
-                return Redirect("/Talent/MemInfoRequest");
+                return View("../Talent/MemInfoRequest");
             }
         }
 

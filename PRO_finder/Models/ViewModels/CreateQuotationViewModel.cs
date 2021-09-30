@@ -13,6 +13,7 @@ using PRO_finder.Enum;
 
 namespace PRO_finder.ViewModels
 {
+
     public class CreateQuotationViewModel
     {
         [Key]

@@ -674,7 +674,7 @@
                         } else {
                             this.validations.ContactEmail = true;
                             this.validationMsg.ContactEmail = "";
-                        }Z
+                        }
                     }
                 },
                 "Read": {
@@ -845,7 +845,7 @@
 
                     if (this.validations.Contact && this.validations.CellPhone
                         && this.validations.ContactTime && this.validations.ContactEmail && this.validations.Read) {
-                        
+
                         this.postNewCase();
                     }
                 },
@@ -890,30 +890,46 @@
                     //資料處理
                     delete this.newCase["LocationBool"];
                     this.newCase.ContactTime = this.newCase.ContactTime.join("\n");
+                    ////axios
+                    //axios({
+                    //    method: "post",
+                    //    url: "/api/Case/PostNewCase",
+                    //    data: this.newCase,
+                    //    headers: { "Content-Type": "application/json; charset=utf-8", "strict": false }
+                    //}).then(res => {
+                    //    let caseID = Number(res.data.Result);
+
+                    //    //files
+                    //    if (this.references.length > 0) {
+                    //        const form = new FormData();
+                    //        form.append("CaseID", caseID);
+                    //        for (let j = 0; j < this.references.length; j++) { form.append(`File${j}`, this.references[j].file); }
+                    //        axios({
+                    //            method: "post",
+                    //            url: "/api/Case/PostNewCaseFile",
+                    //            headers: { "Content-Type": "application/json;charset=utf-8", "strict": false },
+                    //            data: form
+                    //        }).then(res => { this.showTab("#last-section"); });
+                    //    } else {
+                    //        this.showTab("#last-section");
+                    //    }
+                    //});
+                    const form = new FormData();
+                    form.append("newCase", JSON.stringify(this.newCase));
+                    if (this.references.length > 0) {
+                        for (let j = 0; j < this.references.length; j++) {
+                            form.append(`File${j}`, this.references[j].file);
+                        };
+                    }
                     //axios
                     axios({
                         method: "post",
                         url: "/api/Case/PostNewCase",
-                        data: this.newCase,
-                        headers: { "Content-Type": "application/json; charset=utf-8", "strict": false }
-                    }).then(res => {
-                        let caseID = Number(res.data.Result);
+                        headers: { "Content-Type": "application/json; charset=utf-8", "strict": false },
+                        data: form
+                    }).then();
 
-                        //files
-                        if (this.references.length > 0) {
-                            const form = new FormData();
-                            form.append("CaseID", caseID);
-                            for (let j = 0; j < this.references.length; j++) { form.append(`File${j}`, this.references[j].file); }
-                            axios({
-                                method: "post",
-                                url: "/api/Case/PostNewCaseFile",
-                                headers: { "Content-Type": "application/json;charset=utf-8", "strict": false },
-                                data: form
-                            }).then(res => { this.showTab("#last-section"); });
-                        } else {
-                            this.showTab("#last-section");
-                        }
-                    });
+                    this.showTab("#last-section");
                 }
             },
             created: function () {

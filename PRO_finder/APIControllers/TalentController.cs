@@ -15,6 +15,8 @@ using System.Web.Configuration;
 using System.Web.Hosting;
 using System.Web.Http;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using PRO_finder.Models.ViewModel;
 
 namespace PRO_finder.APIControllers
 {
@@ -97,55 +99,41 @@ namespace PRO_finder.APIControllers
             }
         }
 
+       
         [HttpPost]
-        public APIResult CreateQuotation([FromBody] CreateQuotationViewModel newQ)
-        {
-            int result = 0;
-            try
-            {
-                string userID = User.Identity.GetUserId();
-                newQ.MemberID = _memberInfoService.GetMemberID(userID);
-                var newQ_entity = _quotationService.CreateQuotation(newQ);
-                result = newQ_entity.QuotationID;
-                return new APIResult(APIStatus.Success, string.Empty, result);
-            }
-            catch (Exception ex)
-            {
-                result = -1;
-                return new APIResult(APIStatus.Fail, ex.Message, result);
-            }
-        }
-        [HttpPost]
-        public HttpResponseMessage UploadOtherPics()
+        [System.Web.Mvc.ValidateInput(false)]
+        public HttpResponseMessage CreateQuotation()
         {
             var request = HttpContext.Current.Request;
+            var newQ = JsonConvert.DeserializeObject<CreateQuotationViewModel>(request["newQ"]);
             int fileslen = request.Files.Count;
-            if (fileslen <= 0)
+            if (fileslen <= 0 || newQ == null)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
             else
             {
-                
-                int quotationID = Int32.Parse(request["QuotationID"]);
                 try
                 {
+                    string userID = User.Identity.GetUserId();
+                    newQ.MemberID = _memberInfoService.GetMemberID(userID);
+
+                    List<OtherPictureViewModel> otherPicList = new List<OtherPictureViewModel>();
                     //接收Picture File
-                    for(int i = 0; i < fileslen; i++)
+                    for (int i = 0; i < fileslen; i++)
                     {
                         HttpPostedFile picture = request.Files[i];
                         //cloudinary上傳
                         string link = _cloudinaryHelper.UploadToCloudinary(picture);
-                        //new entity
-                        UploadOtherPicture newPic = new UploadOtherPicture
+                        //加入OtherPicList
+                        otherPicList.Add(new OtherPictureViewModel
                         {
                             OtherPictureLink = link,
-                            QuotationID = quotationID,
                             SortNumber = i
-                        };
-                        //儲存
-                        _quotationService.RevisedCreateOtherPics(newPic);
+                        });
                     };
+                    newQ.OtherPicList = otherPicList;
+                    _quotationService.CreateQuotation(newQ);
                     //回傳
                     return Request.CreateResponse(HttpStatusCode.OK);
                 }
@@ -155,38 +143,24 @@ namespace PRO_finder.APIControllers
                 }
             }
         }
-        public APIResult UpdateQuotation([FromBody] CreateQuotationViewModel updateQ)
-        {
-            string result = "";
-            try
-            {
-                _quotationService.UpdateQuotation(updateQ);
-                result = "成功更新";
-                return new APIResult(APIStatus.Success, string.Empty, result);
-            }
-            catch (Exception ex)
-            {
-                result = "更新失敗";
-                return new APIResult(APIStatus.Fail, ex.Message, result);
-            }
-        }
 
         [HttpPost]
-        public HttpResponseMessage UPDATEOtherPics()
+        [System.Web.Mvc.ValidateInput(false)]
+        public HttpResponseMessage UpdateQuotation()
         {
             var request = HttpContext.Current.Request;
+            var updateQ = JsonConvert.DeserializeObject<CreateQuotationViewModel>(request["updateQ"]);
             int fileslen = request.Files.Count;
-            if (fileslen <= 0)
+            if (fileslen <= 0 || updateQ == null)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
             else
             {
-                
-                int quoID = Int32.Parse(request["QuotationID"]);
                 try
                 {
-                    for(int i = 0; i < fileslen; i++)
+                    List<OtherPictureViewModel> otherPicList = new List<OtherPictureViewModel>();
+                    for (int i = 0; i < fileslen; i++)
                     {
                         //接收Picture File及其他參數
                         HttpPostedFile picture = request.Files[i];
@@ -194,21 +168,16 @@ namespace PRO_finder.APIControllers
                         //cloudinary上傳
                         string link = _cloudinaryHelper.UploadToCloudinary(picture);
                         //new entity
-                        UploadOtherPicture newPic = new UploadOtherPicture
+                        otherPicList.Add(new OtherPictureViewModel 
                         {
                             OtherPictureLink = link,
-                            QuotationID = quoID,
+                            QuotationID = updateQ.QuotationID,
                             SortNumber = i
-                        };
-                        //刪除原先資料
-                        if (newPic.SortNumber == 0)
-                        {
-                            _quotationService.DeleteOriginPics(newPic.QuotationID);
-                        }
-                        //儲存
-                        _quotationService.RevisedCreateOtherPics(newPic);
+                        });
                     }
-                    
+                    updateQ.OtherPicList = otherPicList;
+                    _quotationService.UpdateQuotation(updateQ);
+
                     //回傳
                     return Request.CreateResponse(HttpStatusCode.OK);
                 }
@@ -312,7 +281,6 @@ namespace PRO_finder.APIControllers
                 }
             }
         }
-
 
         [HttpPost]
         public APIResult ChangeBankAccount([FromBody] BankAccountViewModel newStatus)

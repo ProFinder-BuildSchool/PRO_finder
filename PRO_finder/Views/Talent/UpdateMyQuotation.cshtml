@@ -141,7 +141,8 @@
         </div>
     </div>
     //hidden inputs
-    <input type="hidden" name="QuotationID" value="@Model.QuotationID"/> //請留著
+    <input type="hidden" name="QuotationID" value="@Model.QuotationID" />
+ //請留著
     <input type="hidden" name="MainPicture" id="MainPicture" />
     <input type="hidden" name="OtherPictureList" id="OtherPictureList" />
 
@@ -249,9 +250,10 @@
                         background-color: unset !important;
                         cursor: pointer;
                     }
-                    body.wait{
-                        cursor:wait;
-                    }
+
+        body.wait {
+            cursor: wait;
+        }
 
         @@media screen and (min-width:768px) {
             span.uploadIcon {
@@ -290,7 +292,7 @@
                 });
             }
         });
-        
+
 
         document.querySelector("#categoryDropdown").addEventListener("change", function () {
             selector.innerHTML = "<option value='-1'>選擇服務子類型</option>";
@@ -382,7 +384,7 @@
                 countMedia++;
             });
         });
-        
+
         //sortable
         const displayArea = $g("#displayUpload");
         new Sortable(displayArea, {
@@ -427,35 +429,26 @@
                 document.querySelector("input[name='MainPicture']").value = "thereIsAtLeastOnePicture";
             }
 
-
-            axios({
-                method: "post",
-                url: "/api/Talent/UpdateQuotation",
-                headers: { 'Content-Type': 'application/json;charset=utf-8', 'strict': false },
-                data: updateQ
-            }).then(res => {
-                const quotationID = Number($g("input[name='QuotationID']").value);
+            const update = async () => {
                 const form = new FormData();
-                const uploadPics = async () => {
-                    for (let i = 0; i < imgs.length; i++) {
-                        console.log(quotationID);
-                        const blobData = await getBlobData(imgs[i].src);
-                        const fileObject = new File([blobData], imgs[i].src, { type: blobData.type });
-                        form.append(`Picture${i}`, fileObject);
-                    };
-                    form.append("QuotationID", quotationID);
-                    axios({
-                        method: "post",
-                        url: "/api/Talent/UPDATEOtherPics",
-                        headers: { 'Content-Type': 'application/json', 'strict': false },
-                        data: form
-                    }).then(res => console.log(res.data));
+                form.append("updateQ", JSON.stringify(updateQ));
+                for (let i = 0; i < imgs.length; i++) {
+                    const blobData = await getBlobData(imgs[i].src);
+                    const fileObject = new File([blobData], imgs[i].src, { type: blobData.type });
+                    form.append(`Picture${i}`, fileObject);
+                };
+                axios({
+                    method: "post",
+                    url: "/api/Talent/UpdateQuotation",
+                    headers: { 'Content-Type': 'application/json;charset=utf-8', 'strict': false },
+                    data: form
+                }).then(res => {
                     document.querySelector("form[action='/Talent/UpdateMyQuotation']").submit();
-                }
-                uploadPics();
-            });
+                });               
+            };
+            update();
         });
-            
+
 
         function $g(element) {
             let temp = document.querySelectorAll(element);
@@ -474,6 +467,6 @@
                 enctype: "multipart/form-data"
             }).then(res => res.data);
         }
-    </script> 
+    </script>
 }
 
