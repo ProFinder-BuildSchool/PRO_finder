@@ -67,7 +67,41 @@ namespace PRO_finder.Service
             }
             _repo.CreateNewWork(entity, pictures, attachments);
         }
-        
+        public List<WorkViewModel> Getallworks_HomeIndex()
+        {
+            WorkViewModel WorkVM = new WorkViewModel();
+
+            var temp = (from work in _repo.GetAll<Works>()
+                        join workpic in _repo.GetAll<WorkPictures>() on work.WorkID equals workpic.WorkID
+                        join S in _repo.GetAll<SubCategory>() on work.SubCategoryID equals S.SubCategoryID
+
+                        select new
+                        {
+                            WorkID = work.WorkID,
+                            Picture = workpic.WorkPicture,
+                            SubCategoryName = S.SubCategoryName,
+                            Info = work.WorkDescription,
+                            studio = work.Client,
+                            MemberID = work.MemberID,
+                            Memo = work.Memo
+                        }).ToList();
+            var tempGroup = temp.GroupBy(x => x.WorkID).Take(8).Select(x => new WorkViewModel
+            {
+                WorkID = x.First().WorkID,
+                WorkPicture = x.Select(p => p.Picture).ToList(),
+                SubCategoryName = x.First().SubCategoryName,
+                Info = x.First().Info,
+                studio = x.First().studio,
+                MemberID = (int)x.First().MemberID,
+                Memo = x.First().Memo
+
+            }).OrderBy(x => x.WorkID).ToList();
+
+
+
+            return tempGroup;
+
+        }
         public List<WorkViewModel> GetWorks_HomeIndex()
         {
 
