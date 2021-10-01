@@ -13,7 +13,7 @@
             <hr>
             <div class="form-horizontal">
                 <div class="form-group">
-                    <p for="CaseStatus" class="col-md-12 text-black font-weight-bold">接案狀態</p>
+                    <p for="CaseStatus" class="col-md-12 text-black font-weight-bold">接案狀態&ensp;<span class="badge badge-danger">必填</span></p>
                     <div class="container">
                         <div class="row caseStatus">
                             @if (Model.Status == true)
@@ -56,7 +56,7 @@
                 <p class="validationMsg">{{ValidationMsg.Status}}</p>
                 <hr />
                 <div class="form-group">
-                    <label for="NickName" class="col-md-12 control-label">接案暱稱</label>
+                    <label for="NickName" class="col-md-12 control-label">接案暱稱&ensp;<span class="badge badge-danger">必填</span></label>
                     <div class="col-md-12">
                         <input type="text" class="form-control text-box single-line" id="NickName" name="NickName" value="@Model.NickName" v-model="Settings.NickName">
                     </div>
@@ -64,7 +64,7 @@
                 <p class="validationMsg col-12">{{ValidationMsg.NickName}}</p>
                 <hr />
                 <div class="form-group">
-                    <p class="col-md-12 text-black font-weight-bold" for="Identity">接案身份</p>
+                    <p class="col-md-12 text-black font-weight-bold" for="Identity">接案身份&ensp;<span class="badge badge-danger">必填</span></p>
                     <div class="container">
                         <div class="row">
                             <div class="col-12 col-md-auto">
@@ -139,7 +139,7 @@
                 <p class="validationMsg col-12">{{ValidationMsg.Identity}}</p>
                 <hr />
                 <div class="form-group">
-                    <label for="job-location" class="col-md-12 control-label">居住地</label>
+                    <label for="job-location" class="col-md-12 control-label">居住地&ensp;<span class="badge badge-danger">必填</span></label>
                     <div class="col-md-6">
                         @Html.DropDownList("LiveCity", (List<SelectListItem>)ViewBag.LocationDropdownListForLiveCity, new { @class = "form-control", @name = "LiveCity", @v_model = "Settings.LiveCity" })
                     </div>
@@ -147,14 +147,14 @@
                 <p class="validationMsg">{{ValidationMsg.LiveCity}}</p>
                 <hr />
                 <div class="form-group">
-                    <label for="Cellphone" class="col-md-12 control-label">行動電話</label>
+                    <label for="Cellphone" class="col-md-12 control-label">行動電話&ensp;<span class="badge badge-danger">必填</span></label>
                     <div class="col-md-12">
                         <input type="text" class="form-control" id="Cellphone" name="Cellphone" value="@Model.Cellphone" v-model="Settings.CellPhone">
                     </div>
                 </div>
                 <p class="validationMsg">{{ValidationMsg.CellPhone}}</p>
                 <div class="form-group">
-                    <label for="Email" class="col-md-12 control-label">Email</label>
+                    <label for="Email" class="col-md-12 control-label">Email&ensp;<span class="badge badge-danger">必填</span></label>
                     <div class="col-md-12">
                         <input type="text" class="form-control" id="Email" placeholder="you@yourdomain.com" name="Email" value="@Model.Email" v-model="Settings.Email">
                     </div>
@@ -180,14 +180,14 @@
             <h5>理想接案條件</h5>
             <hr />
             <div class="form-group">
-                <label for="LocationID" class="col-md-12 control-label">理想接案城市</label>
+                <label for="LocationID" class="col-md-12 control-label">理想接案城市&ensp;<span class="badge badge-danger">必填</span></label>
                 <div class="col-md-6">
                     @Html.DropDownList("LocationIDInt", (List<SelectListItem>)ViewBag.LocationDropdownList, new { @class = "form-control", @id = "toolDropdown", @v_model = "Settings.LocationIDInt" })
                 </div>
             </div>
             <p class="validationMsg">{{ValidationMsg.LocationIDInt}}</p>
             <div class="form-group">
-                <label for="SubCategoryID" class="col-md-12 control-label">理想接案類別</label>
+                <label for="SubCategoryID" class="col-md-12 control-label">理想接案類別&ensp;<span class="badge badge-danger">必填</span></label>
                 <div class="container">
                     <div class="row">
                         <div class="col-6">
@@ -207,7 +207,7 @@
             <h5>接案經歷</h5>
             <hr />
             <div class="form-group">
-                <label for="AllPieceworkExp" class="col-md-12 control-label">累計接案經驗</label>
+                <label for="AllPieceworkExp" class="col-md-12 control-label">累計接案經驗&ensp;<span class="badge badge-danger">必填</span></label>
                 <div class="col-md-6">
                     <select id="AllPieceworkExp" class="form-control" name="AllPieceworkExp" v-model="Settings.AllPieceworkExp">
                         @switch ((string)Model.AllPieceworkExp)
@@ -486,7 +486,7 @@
             </div>
         </div>
         <div class="myContainer mt-3">
-            <h5>接案描述</h5>
+            <div class="d-flex"><h5>接案描述</h5>&ensp;<p class="mb-0"><span class="badge badge-danger">必填</span></p></div>
             <hr />
             <div class="form-group">
                 <div id="editor">
@@ -668,17 +668,17 @@
                     Description: model.Description,
                     CategoryID: ideal_categoryID,
                 },
-                Validation:{
-                    Status: true,
-                    NickName: true,
-                    Identity: true,
-                    LiveCity: true,
-                    CellPhone: true,
-                    Email: true,
-                    LocationIDInt: true,
-                    SubCategoryID: true,
-                    AllPieceworkExp: true,
-                    Description:true
+                Validation: {
+                    Status: false,
+                    NickName: false,
+                    Identity: false,
+                    LiveCity: false,
+                    CellPhone: false,
+                    Email: false,
+                    LocationIDInt: false,
+                    SubCategoryID: false,
+                    AllPieceworkExp: false,
+                    Description:false
                 },
                 ValidationMsg: {
                     Status: "",
@@ -695,108 +695,138 @@
                 allValidation: true
             },
             watch: {
-                "Settings.Status": function () {
-                    if (this.Settings.Status == null) {
-                        this.Validation.Status = false;
-                        this.ValidationMsg.Status = "請選擇接案狀態";
-                    } else {
-                        this.Validation.Status = true;
-                        this.ValidationMsg.Status = "";
-                    };
-                    this.checkValidation();
+                "Settings.Status": {
+                    immediate: true,
+                    handler: function () {
+                        if (this.Settings.Status == null) {
+                            this.Validation.Status = false;
+                            this.ValidationMsg.Status = "請選擇接案狀態";
+                        } else {
+                            this.Validation.Status = true;
+                            this.ValidationMsg.Status = "";
+                        };
+                        this.checkValidation();
+                    }
                 },
-                "Settings.NickName": function () {
-                    if (this.Settings.NickName == "") {
-                        this.Validation.NickName = false;
-                        this.ValidationMsg.NickName = "請輸入接案暱稱";
-                    } else {
-                        this.Validation.NickName = true;
-                        this.ValidationMsg.NickName = "";
-                    };
-                    this.checkValidation();
+                "Settings.NickName": {
+                    immediate: true,
+                    handler: function () {
+                        if (this.Settings.NickName == "" || this.Settings.NickName == null) {
+                            this.Validation.NickName = false;
+                            this.ValidationMsg.NickName = "請輸入接案暱稱";
+                        } else {
+                            this.Validation.NickName = true;
+                            this.ValidationMsg.NickName = "";
+                        };
+                        this.checkValidation();
 
-                },
-                "Settings.Identity": function () {
-                    if (this.Settings.Identity == null) {
-                        this.Validation.Identity = false;
-                        this.ValidationMsg.Identity = "請選擇接案身份";
-                    } else {
-                        this.Validation.Identity = true;
-                        this.ValidationMsg.Identity = "";
-                    };
-                    this.checkValidation();
-                },
-                "Settings.LiveCity": function () {
-                    if (this.Settings.LiveCity == -1) {
-                        this.Validation.LiveCity = false;
-                        this.ValidationMsg.LiveCity = "請選擇居住城市";
-                    } else {
-                        this.Validation.LiveCity = true;
-                        this.ValidationMsg.LiveCity = "";
-                    };
-                    this.checkValidation();
-                },
-                "Settings.CellPhone": function () {
-                    let regx = new RegExp("^09[0-9]{8}");
-                    console.log();
-                    if (this.Settings.CellPhone == "") {
-                        this.Validation.CellPhone  = false;
-                        this.ValidationMsg.CellPhone  = "請輸入電話號碼";
-                    } else if (!regx.test(this.Settings.CellPhone)) {
-                        this.Validation.CellPhone  = false;
-                        this.ValidationMsg.CellPhone  = "請使用正確的手機號碼格式，09xxxxxxxx";
                     }
-                    else{
-                        this.Validation.CellPhone  = true;
-                        this.ValidationMsg.CellPhone  = "";
-                    };
-                    this.checkValidation();
                 },
-                "Settings.Email": function () {
-                    if (this.Settings.Email == "") {
-                        this.Validation.Email = false;
-                        this.ValidationMsg.Email = "請輸入您的Email";
-                    } else {
-                        this.Validation.Email = true;
-                        this.ValidationMsg.Email = "";
-                    };
-                    this.checkValidation();
+                "Settings.Identity": {
+                    immediate: true,
+                    handler: function () {
+                        if (this.Settings.Identity == null || this.Settings.Identity == -1) {
+                            this.Validation.Identity = false;
+                            this.ValidationMsg.Identity = "請選擇接案身份";
+                        } else {
+                            this.Validation.Identity = true;
+                            this.ValidationMsg.Identity = "";
+                        };
+                        this.checkValidation();
+                    }
                 },
-                "Settings.LocationIDInt": function () {
-                    if (thisSettings.LocationIDInt == -1) {
-                        this.Validation.LocationIDInt = false;
-                        this.ValidationMsg.LocationIDInt = "請選擇理想接案地點";
-                    } else {
-                        this.Validation.LocationIDInt = true;
-                        this.ValidationMsg.LocationIDInt = "";
-                    };
-                    this.checkValidation();
+                "Settings.LiveCity": {
+                    immediate: true,
+                    handler: function () {
+                        if (this.Settings.LiveCity == -1 || this.Settings.LiveCity == null) {
+                            this.Validation.LiveCity = false;
+                            this.ValidationMsg.LiveCity = "請選擇居住城市";
+                        } else {
+                            this.Validation.LiveCity = true;
+                            this.ValidationMsg.LiveCity = "";
+                        };
+                        this.checkValidation();
+                    }
                 },
-                "Settings.CategoryID": function () {
-                    this.Settings.SubCategoryID = -1;
-                    if (this.Settings.CategoryID == -1) {
+                "Settings.CellPhone": {
+                    immediate: true,
+                    handler: function () {
+                        let regx = new RegExp("^09[0-9]{8}");
+                        console.log();
+                        if (this.Settings.CellPhone == "" || this.Settings.CellPhone == null) {
+                            this.Validation.CellPhone = false;
+                            this.ValidationMsg.CellPhone = "請輸入電話號碼";
+                        } else if (!regx.test(this.Settings.CellPhone)) {
+                            this.Validation.CellPhone = false;
+                            this.ValidationMsg.CellPhone = "請使用正確的手機號碼格式，09xxxxxxxx";
+                        }
+                        else {
+                            this.Validation.CellPhone = true;
+                            this.ValidationMsg.CellPhone = "";
+                        };
+                        this.checkValidation();
+                    }
+                },
+                "Settings.Email": {
+                    immediate: true,
+                    handler: function () {
+                        if (this.Settings.Email == "" || this.Settings.Email == null) {
+                            this.Validation.Email = false;
+                            this.ValidationMsg.Email = "請輸入您的Email";
+                        } else {
+                            this.Validation.Email = true;
+                            this.ValidationMsg.Email = "";
+                        };
+                        this.checkValidation();
+                    }
+                },
+                "Settings.LocationIDInt": {
+                    immediate: true,
+                    handler: function () {
+                        if (this.Settings.LocationIDInt == -1 || this.Settings.LocationIDInt == null) {
+                            this.Validation.LocationIDInt = false;
+                            this.ValidationMsg.LocationIDInt = "請選擇理想接案地點";
+                        } else {
+                            this.Validation.LocationIDInt = true;
+                            this.ValidationMsg.LocationIDInt = "";
+                        };
+                        this.checkValidation();
+                    }
+                },
+                "Settings.CategoryID": {
+                    immediate: false,
+                    handler: function () {
                         this.Settings.SubCategoryID = -1;
+                        if (this.Settings.CategoryID == -1) {
+                            this.Settings.SubCategoryID = -1;
+                        }
                     }
                 },
-                "Settings.SubCategoryID": function () {
-                    if (this.Settings.SubCategoryID == -1) {
-                        this.Validation.SubCategoryID = false;
-                        this.ValidationMsg.SubCategoryID = "請選擇理想接案類別";
-                    } else {
-                        this.Validation.SubCategoryID = true;
-                        this.ValidationMsg.SubCategoryID = "";
-                    };
-                    this.checkValidation();
+                "Settings.SubCategoryID": {
+                    immediate: true,
+                    handler: function () {
+                        if (this.Settings.SubCategoryID == -1 || this.Settings.SubCategoryID == null) {
+                            this.Validation.SubCategoryID = false;
+                            this.ValidationMsg.SubCategoryID = "請選擇理想接案類別";
+                        } else {
+                            this.Validation.SubCategoryID = true;
+                            this.ValidationMsg.SubCategoryID = "";
+                        };
+                        this.checkValidation();
+                    }
                 },
-                "Settings.AllPieceworkExp": function () {
-                    if (this.Settings.AllPieceworkExp == -1) {
-                        this.Validation.AllPieceworkExp = false;
-                        this.ValidationMsg.AllPieceworkExp = "請選擇累積接案年資";
-                    } else {
-                        this.Validation.AllPieceworkExp = true;
-                        this.ValidationMsg.AllPieceworkExp = "";
-                    };
-                    this.checkValidation();
+                "Settings.AllPieceworkExp": {
+                    immediate: true,
+                    handler: function () {
+                        if (this.Settings.AllPieceworkExp == -1 || this.Settings.AllPieceworkExp == null) {
+                            this.Validation.AllPieceworkExp = false;
+                            this.ValidationMsg.AllPieceworkExp = "請選擇累積接案年資";
+                        } else {
+                            this.Validation.AllPieceworkExp = true;
+                            this.ValidationMsg.AllPieceworkExp = "";
+                        };
+                        this.checkValidation();
+                    }
                 }
             },
             methods: {
@@ -820,6 +850,12 @@
                         this.Validation.Description = false;
                         this.checkValidation();
                     } else {
+                        this.ValidationMsg.Description = ""
+                        this.Validation.Description = true;
+                        this.checkValidation();
+                    }
+
+                    if (this.allValidation) {
                         this.sendForm();
                     }
                 },

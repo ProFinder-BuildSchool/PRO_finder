@@ -13,13 +13,13 @@ namespace PRO_finder.Service
 
     public class WorksService
     {
-        private readonly GeneralRepository _repo;
+        private readonly WorkRepository _repo;
         
         public WorksService()
         {
-            _repo = new GeneralRepository(new ProFinderContext());
+            _repo = new WorkRepository(new ProFinderContext());
         }
-        public Works CreateWorks(UploadMyWorksViewModel input)
+        public void CreateWorks(UploadMyWorksViewModel input)
         {
             int lastworkID = _repo.GetAll<Works>().OrderBy(x => x.WorkID).ToList().Last().WorkID;
             int newID = lastworkID + 1;
@@ -35,53 +35,73 @@ namespace PRO_finder.Service
                 SubCategoryID = input.SubCategoryID,
                 MemberID = input.MemberID
             };
-            _repo.Create(entity);
-            _repo.SaveChanges();
-            return entity;
-        }
-        public void CreateWorkAttachment(int workID, string attachmentList)
-        {
-            JArray tempArray = JArray.Parse(attachmentList);
-            var parseAttachmentList = tempArray.ToObject<List<WorkAttachment>>();
-            foreach (var item in parseAttachmentList)
+
+            List<WorkPictures> pictures = new List<WorkPictures>();
+            int lastPicID = _repo.GetAll<WorkPictures>().OrderBy(x => x.WorkPictureID).ToList().Last().WorkPictureID;
+            int newPicID = lastPicID + 1;
+            for (int i = 0; i < input.WorkPictureList.Count; i++)
             {
-                int lastAttachmentID = _repo.GetAll<WorkAttachment>().OrderBy(x => x.WorkAttachmentID).ToList().Last().WorkAttachmentID;
-                int newID = lastAttachmentID + 1;
-                WorkAttachment entity = new WorkAttachment
+                pictures.Add(new WorkPictures
                 {
-                    WorkAttachmentID = newID,
-                    WorkID = workID,
-                    WorkAttachmentName = item.WorkAttachmentName,
-                    WorkAttachmentLink = item.WorkAttachmentLink
-                };
-                _repo.Create(entity);
-                _repo.SaveChanges();
+                    WorkPictureID = newPicID,
+                    WorkID = newID,
+                    SortNumber = i,
+                    WorkPicture = input.WorkPictureList[i].WorkPicture
+                });
+                newPicID++;
             }
-        }
 
-        public void CreateWorkPictures(int workID, string pictureList)
-        {
-
-            JArray tempArray = JArray.Parse(pictureList);
-            var parsePictureList = tempArray.ToObject<List<WorkPictures>>();
-            foreach (var item in parsePictureList)
+            List<WorkAttachment> attachments = new List<WorkAttachment>();
+            int lastAttachmentID = _repo.GetAll<WorkAttachment>().OrderBy(x => x.WorkAttachmentID).ToList().Last().WorkAttachmentID;
+            int newAttID = lastAttachmentID + 1;
+            for(int j = 0; j < input.WorkAttachmentList.Count; j++)
             {
-                int lastPicID = _repo.GetAll<WorkPictures>().OrderBy(x => x.WorkPictureID).ToList().Last().WorkPictureID;
-                int newID = lastPicID + 1;
-                WorkPictures entity = new WorkPictures
+                attachments.Add(new WorkAttachment
                 {
-                    WorkPictureID = newID,
-                    WorkID = workID,
-                    WorkPicture = item.WorkPicture,
-                    SortNumber = item.SortNumber
-                };
-                _repo.Create(entity);
-                _repo.SaveChanges();
+                    WorkAttachmentID = newAttID,
+                    WorkID = newID,
+                    WorkAttachmentName = input.WorkAttachmentList[j].WorkAttachmentName,
+                    WorkAttachmentLink = input.WorkAttachmentList[j].WorkAttachmentLink
+                });
+                newAttID++;
             }
+            _repo.CreateNewWork(entity, pictures, attachments);
         }
+        public List<WorkViewModel> Getallworks_HomeIndex()
+        {
+            WorkViewModel WorkVM = new WorkViewModel();
+
+            var temp = (from work in _repo.GetAll<Works>()
+                        join workpic in _repo.GetAll<WorkPictures>() on work.WorkID equals workpic.WorkID
+                        join S in _repo.GetAll<SubCategory>() on work.SubCategoryID equals S.SubCategoryID
+
+                        select new
+                        {
+                            WorkID = work.WorkID,
+                            Picture = workpic.WorkPicture,
+                            SubCategoryName = S.SubCategoryName,
+                            Info = work.WorkDescription,
+                            studio = work.Client,
+                            MemberID = work.MemberID,
+                            Memo = work.Memo
+                        }).ToList();
+            var tempGroup = temp.GroupBy(x => x.WorkID).Take(8).Select(x => new WorkViewModel
+            {
+                WorkID = x.First().WorkID,
+                WorkPicture = x.Select(p => p.Picture).ToList(),
+                SubCategoryName = x.First().SubCategoryName,
+                Info = x.First().Info,
+                studio = x.First().studio,
+                MemberID = (int)x.First().MemberID,
+                Memo = x.First().Memo
+
+            }).OrderBy(x => x.WorkID).ToList();
 
 
 
+            return tempGroup;
+
+        }
         public List<WorkViewModel> GetWorks_HomeIndex()
         {
 
@@ -119,34 +139,6 @@ namespace PRO_finder.Service
 
         }
 
-        public void RevisedCreateWorkAttachment(WorkAttachmentViewModel newWorkAttachment)
-        {
-            int lastAttachmentID = _repo.GetAll<WorkAttachment>().OrderBy(x => x.WorkAttachmentID).ToList().Last().WorkAttachmentID;
-            int newID = lastAttachmentID + 1;
-            WorkAttachment entity = new WorkAttachment
-            {
-                WorkAttachmentID = newID,
-                WorkID = newWorkAttachment.WorkID,
-                WorkAttachmentLink = newWorkAttachment.WorkAttachmentLink,
-                WorkAttachmentName = newWorkAttachment.WorkAttachmentName
-            };
-            _repo.Create(entity);
-            _repo.SaveChanges();
-        }
-
-        public void RevisedCreateWorkPictures(WorkPicturesViewModel newPic)
-        {
-            int lastPicID = _repo.GetAll<WorkPictures>().OrderBy(x => x.WorkPictureID).ToList().Last().WorkPictureID;
-            int newID = lastPicID + 1;
-            WorkPictures entity = new WorkPictures
-            {
-                WorkPictureID = newID,
-                WorkID = newPic.WorkID,
-                WorkPicture = newPic.WorkPicture,
-                SortNumber = newPic.SortNumber
-            };
-            _repo.Create(entity);
-            _repo.SaveChanges();
-        }
+       
     }
 }

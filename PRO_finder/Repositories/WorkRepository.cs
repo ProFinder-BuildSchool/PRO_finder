@@ -8,14 +8,15 @@ using System.Web;
 
 namespace PRO_finder.Repositories
 {
-    public class CaseRepository : GeneralRepository
+    public class WorkRepository:GeneralRepository
     {
         private DbContext _context;
-        public CaseRepository(DbContext context) : base(context)
+        public WorkRepository(DbContext context):base(context)
         {
             _context = context;
         }
-        public OperationResult CreateNewCase(Case entity, List<CaseReference> refList)
+
+        public OperationResult CreateNewWork(Works entity, List<WorkPictures> pictures, List<WorkAttachment> attachments)
         {
             OperationResult result = new OperationResult();
             using(var transaction = _context.Database.BeginTransaction())
@@ -24,20 +25,24 @@ namespace PRO_finder.Repositories
                 {
                     Create(entity);
                     SaveChanges();
-                    foreach(var item in refList)
+                    foreach(var item in pictures)
                     {
-                        item.CaseID = entity.CaseID;
                         Create(item);
                         SaveChanges();
                     }
-                    transaction.Commit();
+                    foreach(var item in attachments)
+                    {
+                        Create(item);
+                        SaveChanges();
+                    }
                     result.IsSuccessful = true;
+                    transaction.Commit();
                 }
                 catch(Exception ex)
                 {
-                    transaction.Rollback();
                     result.IsSuccessful = false;
                     result.Exception = ex;
+                    transaction.Rollback();
                 }
             }
             return result;

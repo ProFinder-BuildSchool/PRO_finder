@@ -15,13 +15,13 @@ namespace PRO_finder.Service
 {
     public class CaseService
     {
-        private readonly GeneralRepository _ctx;
+        private readonly CaseRepository _ctx;
         
 
         public CaseService()
         {
 
-            _ctx = new GeneralRepository(new ProFinderContext());
+            _ctx = new CaseRepository(new ProFinderContext());
 
            
         }
@@ -110,12 +110,6 @@ namespace PRO_finder.Service
                     return "查無資料";
             }
         }
-
-
-
-
-
-
 
 
         public CaseDetailViewModel GetCaseDetail(int caseID,int memberID)
@@ -212,7 +206,7 @@ namespace PRO_finder.Service
             var locations = _ctx.GetAll<Locations>().ToList();
             return JsonConvert.SerializeObject(locations);
         }
-        public int CreateNewCase(int userID, CaseDetailViewModel newCase) 
+        public void CreateNewCase(int userID, CaseDetailViewModel newCase, List<CaseReference> refList) 
         {
             Case entity = new Case
             {
@@ -235,16 +229,7 @@ namespace PRO_finder.Service
                 CompleteDate = newCase.CompleteDate,
                 CaseStatus = 4
             };
-            _ctx.Create(entity);
-            _ctx.SaveChanges();
-
-            return entity.CaseID;
-        }
-
-        public void CreateNewCaseReference(CaseReference cr)
-        {
-            _ctx.Create(cr);
-            _ctx.SaveChanges();
+            _ctx.CreateNewCase(entity, refList);
         }
     }
 }

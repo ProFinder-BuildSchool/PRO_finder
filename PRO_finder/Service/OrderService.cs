@@ -36,7 +36,7 @@ namespace PRO_finder.Service
             return true;
         }
 
-        public bool AddFinishedDate(int Orderid, OrderViewModel CompleteDate) 
+        public bool AddFinishedDate(int Orderid, OrderViewModel CompleteDate)
         {
             var completeDate = DateTime.UtcNow.AddHours(8);
             _repo.GetAll<Order>().First(x => x.OrderID == Orderid).CompleteDate = completeDate;
@@ -46,7 +46,7 @@ namespace PRO_finder.Service
             return true;
         }
 
-        public bool UpdateOrderUnreadNumber(int Memberid,int status)
+        public bool UpdateOrderUnreadNumber(int Memberid, int status)
         {
 
             var order = _repo.GetAll<Order>().Where(x => x.ClientID == Memberid && x.OrderStatus == status && x.OrderType == 0).ToList();
@@ -124,14 +124,10 @@ namespace PRO_finder.Service
             {
                 OrderDB = _repo.GetAll<Order>().Where(x => x.ClientID == memberId && x.OrderStatus == status || x.ClientID == memberId && x.OrderStatus == 4).ToList();
             }
-
-
-
             List<OrderViewModel> OrderList = new List<OrderViewModel>();
-
             foreach (var item in OrderDB)
             {
-                if(item.CaseID == null)
+                if (item.CaseID == null)
                 {
                     var QuotationID = item.QuotationID;
                     var ProposerID = item.ProposerID;
@@ -173,7 +169,6 @@ namespace PRO_finder.Service
                     var ProposerID = item.ProposerID;
                     var ProposerEmail = _repo.GetAll<MemberInfo>().First(x => x.MemberID == ProposerID).Email;
                     var ProposerCellPhone = _repo.GetAll<MemberInfo>().First(x => x.MemberID == ProposerID).Cellphone;
-
                     OrderList.Add(new OrderViewModel
                     {
                         OrderID = item.OrderID,
@@ -203,24 +198,24 @@ namespace PRO_finder.Service
 
                     });
                 }
-                
             }
             return OrderList;
         }
 
-        public List<OrderViewModel> TalentGetOrderList(int memberId,int status)
+
+        public List<OrderViewModel> TalentGetOrderList(int memberId, int status)
         {
             List<Order> OrderDB = new List<Order>();
 
-            
+
             if (status == 9)
             {
-                OrderDB = _repo.GetAll<Order>().Where(x => (x.ProposerID == memberId && x.OrderStatus == 1)|| (x.ProposerID == memberId && x.OrderStatus == 2) ).ToList();
+                OrderDB = _repo.GetAll<Order>().Where(x => (x.ProposerID == memberId && x.OrderStatus == 1) || (x.ProposerID == memberId && x.OrderStatus == 2)).ToList();
 
             }
             else if (status == 3)
             {
-                OrderDB = _repo.GetAll<Order>().Where(x => x.ProposerID == memberId && x.OrderStatus == 3 ).ToList();
+                OrderDB = _repo.GetAll<Order>().Where(x => x.ProposerID == memberId && x.OrderStatus == 3).ToList();
             }
             else if(status == 0)
             {
@@ -303,7 +298,7 @@ namespace PRO_finder.Service
             return OrderList;
         }
 
-        public static string CalcLastDate(DateTime? dateTime,int days)
+        public static string CalcLastDate(DateTime? dateTime, int days)
         {
             var one = (DateTime)dateTime;
             return (one.AddDays(days).Date).ToString("yyyy-MM-dd");

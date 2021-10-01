@@ -19,14 +19,15 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
           integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
     <title>@ViewBag.Title - ProFinder</title>
+    <link rel="shortcut icon" href="~/Assets/images/Logo_icon.ico" />
 
     @Styles.Render("~/bundles/css")
 
     <style>
-        .badge{
-            background-color:red!important;
-            border-radius:60px;
-            color:white;
+        .badge {
+            background-color: red !important;
+            border-radius: 60px;
+            color: white;
         }
     </style>
     @RenderSection("topCSS", required: false)
@@ -97,6 +98,7 @@
             .myHeader {
                 width: 180px !important;
             }
+
             #myTabContent nav {
                 position: unset;
             }

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace PRO_finder.Models.ViewModels
 {
+    [Serializable]
     public class UploadMyWorksViewModel
     {
         public int MemberID { get; set; }
@@ -21,15 +22,8 @@ namespace PRO_finder.Models.ViewModels
         public string WebsiteURL { get; set; }
         public int SubCategoryID { get; set; }
 
-        public string WorkAttachmentList { get; set; }
-        public string WorkPictureList { get; set; }
+        public List<WorkAttachmentViewModel> WorkAttachmentList { get; set; }
+        public List<WorkPicturesViewModel> WorkPictureList { get; set; }
 
-        public List<WorkAttachmentData> Attachments { get; set; }
-    }
-
-    public class WorkAttachmentData
-    {
-        public string WorkAttachmentName { get; set; }
-        public string WorkAttachmentLink { get; set; }
     }
 }
