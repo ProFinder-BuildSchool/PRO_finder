@@ -19,7 +19,7 @@ namespace PRO_finder.Service
     public class QuotationService
     {
         private readonly QuotationRepository _ctx;
-       
+
 
 
         public QuotationService()
@@ -31,20 +31,20 @@ namespace PRO_finder.Service
         {
             var list = GetAllCardData();
 
-            foreach(var item in list)
+            foreach (var item in list)
             {
 
                 item.UnitToString = (UnitEnum)item.Unit;
 
-                if (list.IndexOf(item)<= 3 )
+                if (list.IndexOf(item) <= 3)
                 {
                     item.SortNum = 1;
                 }
-                else if ( list.IndexOf(item) > 3 && list.IndexOf(item) <= 7)
+                else if (list.IndexOf(item) > 3 && list.IndexOf(item) <= 7)
                 {
                     item.SortNum = 2;
                 }
-                else if (list.IndexOf(item) > 7 && list.IndexOf(item) <= 11 )
+                else if (list.IndexOf(item) > 7 && list.IndexOf(item) <= 11)
                 {
                     item.SortNum = 3;
                 }
@@ -65,7 +65,7 @@ namespace PRO_finder.Service
                                join c in _ctx.GetAll<Category>() on s.CategoryID equals c.CategoryID
                                select new QuotationViewModel
                                {
-                                   MemberID =m.MemberID,
+                                   MemberID = m.MemberID,
                                    QuotationId = q.QuotationID,
                                    CategoryName = c.CategoryName,
                                    Price = (q.Price).ToString(),
@@ -89,7 +89,7 @@ namespace PRO_finder.Service
 
         }
 
-        
+
 
         public List<QuotationViewModel> GetCategoryPageData(int categoryId)
         {
@@ -124,7 +124,7 @@ namespace PRO_finder.Service
         {
             List<Locations> LocationList = _ctx.GetAll<Locations>().ToList();
 
-            
+
 
             if (LocationList.Count() == 0)
             {
@@ -202,7 +202,7 @@ namespace PRO_finder.Service
             return QuoDetailVM;
         }
 
-        
+
 
         //刊登新服務 CreateQuotation
         public OperationResult CreateQuotation(CreateQuotationViewModel newQ)
@@ -222,7 +222,7 @@ namespace PRO_finder.Service
             };
 
             List<OtherPicture> otherPics = new List<OtherPicture>();
-            foreach(var item in newQ.OtherPicList)
+            foreach (var item in newQ.OtherPicList)
             {
                 otherPics.Add(new OtherPicture
                 {
@@ -236,24 +236,24 @@ namespace PRO_finder.Service
 
         public IEnumerable<QuotationDetailViewModel> GetMyQuotations(int memberID)
         {
-            var temp =  from q in _ctx.GetAll<Quotation>()
-                   join s in _ctx.GetAll<SubCategory>() on q.SubCategoryID equals s.SubCategoryID
-                   where q.MemberID == memberID
-                   select new QuotationDetailViewModel
-                   {
-                       QuotationId = q.QuotationID,
-                       MainPicture = q.MainPicture,
-                       SubcategoryId = q.SubCategoryID,
-                       SubcategoryName = s.SubCategoryName,
-                       CategoryId = s.CategoryID,
-                       Price = ((int)q.Price).ToString(),
-                       Unit = (QuotationDetailViewModel.UnitEnum)q.QuotationUnit,
-                       UpdateDateOrigin = q.UpdateDate,
-                       QuotationTitle = q.QuotationTitle,
-                       Status = (bool)q.Status
-                   };
+            var temp = from q in _ctx.GetAll<Quotation>()
+                       join s in _ctx.GetAll<SubCategory>() on q.SubCategoryID equals s.SubCategoryID
+                       where q.MemberID == memberID
+                       select new QuotationDetailViewModel
+                       {
+                           QuotationId = q.QuotationID,
+                           MainPicture = q.MainPicture,
+                           SubcategoryId = q.SubCategoryID,
+                           SubcategoryName = s.SubCategoryName,
+                           CategoryId = s.CategoryID,
+                           Price = ((int)q.Price).ToString(),
+                           Unit = (QuotationDetailViewModel.UnitEnum)q.QuotationUnit,
+                           UpdateDateOrigin = q.UpdateDate,
+                           QuotationTitle = q.QuotationTitle,
+                           Status = (bool)q.Status
+                       };
             var result = temp.ToList();
-            for(int i = 0; i < result.Count(); i++)
+            for (int i = 0; i < result.Count(); i++)
             {
                 string date = result[i].UpdateDateOrigin.ToString("yyyy-MM-dd");
                 result[i].UpdateDate = date;
@@ -261,19 +261,9 @@ namespace PRO_finder.Service
             return result;
         }
 
-        public void DeleteQ(int? id)
+        public void DeleteQ(int id)
         {
-            var theQuotation = _ctx.GetAll<Quotation>().FirstOrDefault(x => x.QuotationID == id);
-            var pictures = _ctx.GetAll<OtherPicture>().Where(x => x.QuotationID == id).ToList();
-            _ctx.Delete(theQuotation);
-            _ctx.SaveChanges();
-
-            foreach(var item in pictures)
-            {
-                _ctx.Delete(item);
-                _ctx.SaveChanges();
-            }
-            
+            _ctx.DeleteQuotation((int)id);
         }
         public void UpdateQTime(int? id)
         {
@@ -320,7 +310,7 @@ namespace PRO_finder.Service
             entity.MainPicture = quo.OtherPicList[0].OtherPictureLink;
 
             var newPics = new List<OtherPicture>();
-            foreach(var item in quo.OtherPicList)
+            foreach (var item in quo.OtherPicList)
             {
                 newPics.Add(new OtherPicture
                 {

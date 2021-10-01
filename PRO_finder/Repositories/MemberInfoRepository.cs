@@ -13,14 +13,14 @@ namespace PRO_finder.Repositories
     public class MemberInfoRepository : GeneralRepository
     {
         private DbContext _context;
-       public MemberInfoRepository(DbContext context) : base(context)
+        public MemberInfoRepository(DbContext context) : base(context)
         {
             _context = context;
         }
         public OperationResult CreateMemberInfo(MemberInfo entity, List<Experience> expList, List<TalentTool> toolList)
         {
             OperationResult result = new OperationResult();
-            using(var transaction = _context.Database.BeginTransaction())
+            using (var transaction = _context.Database.BeginTransaction())
             {
                 try
                 {
@@ -39,7 +39,7 @@ namespace PRO_finder.Repositories
                             SaveChanges();
                         }
                         //加入新記錄
-                        
+
                         foreach (var item in expList)
                         {
                             Experience e = new Experience
@@ -82,7 +82,7 @@ namespace PRO_finder.Repositories
                     transaction.Commit();
                     result.IsSuccessful = true;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     transaction.Rollback();
                     result.IsSuccessful = false;

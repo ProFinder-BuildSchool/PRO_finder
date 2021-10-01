@@ -396,9 +396,9 @@
                     url: "/api/Talent/CreateQuotation",
                     headers: { 'Content-Type': 'application/json;charset=utf-8', 'strict': false },
                     data: form
-                }).then(res => {
-                    document.querySelector("form[action='/Talent/CreateQuotation']").submit();
-                });
+                })
+                document.querySelector("form[action='/Talent/CreateQuotation']").submit();
+                
             };
             sendQuotation();
         });

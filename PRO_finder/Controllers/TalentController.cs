@@ -279,7 +279,7 @@ namespace PRO_finder.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            _quotaService.DeleteQ(id);
+            _quotaService.DeleteQ((int)id);
 
             string userID = HttpContext.User.Identity.GetUserId();
             int memberID = _memberInfoService.GetMemberID(userID);

@@ -442,9 +442,9 @@
                     url: "/api/Talent/UpdateQuotation",
                     headers: { 'Content-Type': 'application/json;charset=utf-8', 'strict': false },
                     data: form
-                }).then(res => {
-                    document.querySelector("form[action='/Talent/UpdateMyQuotation']").submit();
-                });               
+                })
+                document.querySelector("form[action='/Talent/UpdateMyQuotation']").submit();
+                             
             };
             update();
         });

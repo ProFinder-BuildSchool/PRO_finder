@@ -593,6 +593,7 @@
     <Compile Include="Repositories\MemberInfoRepository.cs" />
     <Compile Include="Models\ViewModels\CaseDetailViewModel.cs" />
     <Compile Include="Repositories\QuotationRepository.cs" />
+    <Compile Include="Repositories\WorkRepository.cs" />
     <Compile Include="Service\BannerService.cs" />
     <Compile Include="Service\CartService.cs" />
     <Compile Include="Service\CaseService.cs" />

@@ -77,5 +77,34 @@ namespace PRO_finder.Repositories
             }
             return result;
         }
+        public OperationResult DeleteQuotation(int quotationID)
+        {
+            OperationResult result = new OperationResult();
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    Quotation quotation = GetAll<Quotation>().FirstOrDefault(x => x.QuotationID == quotationID);
+                    List<OtherPicture> otherPics = GetAll<OtherPicture>().Where(x => x.QuotationID == quotationID).ToList();
+                    Delete(quotation);
+                    SaveChanges();
+                    foreach (var item in otherPics)
+                    {
+                        Delete(item);
+                        SaveChanges();
+                    }
+                    result.IsSuccessful = true;
+                    transaction.Commit();
+
+                }
+                catch(Exception ex)
+                {
+                    result.IsSuccessful = false;
+                    result.Exception = ex;
+                    transaction.Rollback();
+                }
+            }         
+            return result;
+        }
     }
 }

@@ -106,22 +106,7 @@ namespace PRO_finder.APIControllers
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             }
         }
-        //[HttpPost]
-        //public APIResult PostNewCase([FromBody]CaseDetailViewModel newCase)
-        //{
-        //    int result = 0;
-        //    string userID = User.Identity.GetUserId();
-        //    int memberID = _memberService.GetMemberID(userID);
-        //    try
-        //    {
-        //        result = _caseService.CreateNewCase(memberID, newCase);
-        //        return new APIResult(APIStatus.Success, "", result);
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        return new APIResult(APIStatus.Fail, ex.Message, result);
-        //    }
-        //}
+        
         [HttpPost]
         public HttpResponseMessage PostNewCase()
         {

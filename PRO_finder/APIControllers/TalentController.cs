@@ -101,7 +101,6 @@ namespace PRO_finder.APIControllers
 
        
         [HttpPost]
-        [System.Web.Mvc.ValidateInput(false)]
         public HttpResponseMessage CreateQuotation()
         {
             var request = HttpContext.Current.Request;
@@ -145,7 +144,6 @@ namespace PRO_finder.APIControllers
         }
 
         [HttpPost]
-        [System.Web.Mvc.ValidateInput(false)]
         public HttpResponseMessage UpdateQuotation()
         {
             var request = HttpContext.Current.Request;
@@ -188,21 +186,17 @@ namespace PRO_finder.APIControllers
             }
         }
         [HttpPost]
-        public APIResult UploadMyWork([FromBody] UploadMyWorksViewModel newWorks)
-        {
-            //取得memberID,並加至newWorks
-            string userID = User.Identity.GetUserId();
-            newWorks.MemberID = _memberInfoService.GetMemberID(userID);
-            var newEntity = _worksService.CreateWorks(newWorks);
-            int workID = newEntity.WorkID;
-            return new APIResult(APIStatus.Success, string.Empty, workID);
-        }
-        [HttpPost]
-        public HttpResponseMessage UploadFile()
+        public HttpResponseMessage UploadMyWork()
         {
             var request = HttpContext.Current.Request;
             int fileslen = request.Files.Count;
-            if (fileslen <= 0)
+            UploadMyWorksViewModel newWork = JsonConvert.DeserializeObject<UploadMyWorksViewModel>(request["newWork"]);
+            List<string> worknameList = JsonConvert.DeserializeObject<List<string>>(request["FileNames"]);
+            //string worknames = request["FileNames"];
+            //JArray worknameArray = JArray.Parse(worknames);
+            //List<string> worknameList = worknameArray.ToObject<List<string>>();
+
+            if (fileslen == 0 || newWork == null)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
@@ -210,70 +204,48 @@ namespace PRO_finder.APIControllers
             {
                 try
                 {
-                    //取得workNameList
-                    string worknames = request["FileNames"];
-                    JArray worknameArray = JArray.Parse(worknames);
-                    List<string> worknameList = worknameArray.ToObject<List<string>>();
+                    //newWork資料處理
+                    //加入MemberID
+                    string userID = User.Identity.GetUserId();
+                    newWork.MemberID = _memberInfoService.GetMemberID(userID);
 
-                    int workID = Int32.Parse(request["WorkID"]);
+                    //WorkPictures, WorkAttachments資料處理
+                    List<WorkPicturesViewModel> picList = new List<WorkPicturesViewModel>();
+                    List<WorkAttachmentViewModel> attList = new List<WorkAttachmentViewModel>();
 
-                    
-                    for(int i = 0; i < fileslen; i ++)
+                    for (int i = 0; i < fileslen; i++)
                     {
+                        string key = request.Files.GetKey(i);
                         HttpPostedFile file = request.Files[i];
-                        string fileSavePath = WebConfigurationManager.AppSettings["UploadPath"];
-                        string newFileName = string.Concat(Path.GetRandomFileName().Replace(".", ""), Path.GetExtension(file.FileName).ToLower());
-                        string fullFilePath = Path.Combine(HostingEnvironment.MapPath(fileSavePath), newFileName);
-                        file.SaveAs(fullFilePath);
-
-                        WorkAttachmentViewModel newWorkAttachment = new WorkAttachmentViewModel
+                        if (key == "WorkPicture")
                         {
-                            WorkAttachmentLink = fullFilePath,
-                            WorkAttachmentName = worknameList[i],
-                            WorkID = workID
-                        };
-
-                        _worksService.RevisedCreateWorkAttachment(newWorkAttachment);
-                    }
-                    return Request.CreateResponse(HttpStatusCode.OK);
-
-                }
-                catch (Exception ex)
-                {
-                    return Request.CreateResponse(ex.Message);
-                }
-            }
-        }
-        [HttpPost]
-        public HttpResponseMessage UploadWorkPics()
-        {
-            var request = HttpContext.Current.Request;
-            int fileCount = request.Files.Count;
-            if (fileCount <= 0)
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
-            else
-            {
-                try
-                {
-                    
-                    int workID = Int32.Parse(request["WorkID"]);
-
-                    for (int i = 0; i < fileCount; i++)
-                    {
-                        HttpPostedFile file = request.Files[i];
-                        string link = _cloudinaryHelper.UploadToCloudinary(file);
-                        WorkPicturesViewModel newPic = new WorkPicturesViewModel()
+                            string link = _cloudinaryHelper.UploadToCloudinary(file);
+                            picList.Add( new WorkPicturesViewModel()
+                            {
+                                SortNumber = i,
+                                WorkPicture = link
+                            });
+                        }
+                        else if(key == "WorkAttachment")
                         {
-                            WorkID = workID,
-                            SortNumber = i,
-                            WorkPicture = link
-                        };
-                        _worksService.RevisedCreateWorkPictures(newPic);
+                            int nameIndex = 0;
+                            string fileSavePath = WebConfigurationManager.AppSettings["UploadPath"];
+                            string newFileName = string.Concat(Path.GetRandomFileName().Replace(".", ""), Path.GetExtension(file.FileName).ToLower());
+                            string fullFilePath = Path.Combine(HostingEnvironment.MapPath(fileSavePath), newFileName);
+                            file.SaveAs(fullFilePath);
+                            attList.Add(new WorkAttachmentViewModel
+                            {
+                                WorkAttachmentLink = fullFilePath,
+                                WorkAttachmentName = worknameList[nameIndex]
+                            });
+                            nameIndex++;
+                        }
+                        
                     }
+                    newWork.WorkPictureList = picList;
+                    newWork.WorkAttachmentList = attList;
+                    _worksService.CreateWorks(newWork);
                     return Request.CreateResponse(HttpStatusCode.OK);
-
                 }
                 catch(Exception ex)
                 {
@@ -281,7 +253,6 @@ namespace PRO_finder.APIControllers
                 }
             }
         }
-
         [HttpPost]
         public APIResult ChangeBankAccount([FromBody] BankAccountViewModel newStatus)
         {
