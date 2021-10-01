@@ -341,7 +341,6 @@ namespace PRO_finder.Controllers
             BankAccountViewModel BankVM =_memberInfoService.GetBankAccount(currentUserId);
             ViewBag.check = BankVM.BankAccount == null | BankVM.BankCode == null;
             return View(BankVM);
-
         }
 
 
