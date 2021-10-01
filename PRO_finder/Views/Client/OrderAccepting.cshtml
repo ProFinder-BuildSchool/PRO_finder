@@ -343,7 +343,7 @@
                 AddNewMemo() {
 
                     axios.post(`/api/Order/UpdateOrderMemo?Orderid=${this.modal.OrderID}`, { Memo: this.Memo }).then(res => {
-                        if (res.data.Result) {
+                        if (res.data.result) {
                             $('#collapseExample').collapse('hide')
                         }
 
@@ -379,7 +379,7 @@
                     axios.get('/api/Order/UnreadCount?MemberId=@ViewBag.MemberId')
                         .then(res => {
 
-                    res.data.Result.forEach(function(item, index) {
+                    res.data.result.forEach(function(item, index) {
                         item.Status == 0 ? Status0 = item.Counts : item.Status == 1 ? Status1 = item.Counts : item.Status == 2 ? Status2 = item.Counts : item.Status == 3 ? Status3 = item.Counts : item.Status == 4 ? Status4 = item.Counts : Status4 = 0
                         console.log("Status0" + Status0, "Status1"+Status1, "Status2"+Status2, "Status3"+Status3)
                     })

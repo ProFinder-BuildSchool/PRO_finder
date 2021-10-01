@@ -692,6 +692,7 @@
     <Content Include="Assets\images\logo.png" />
     <Content Include="Assets\images\logo_airbnb.svg" />
     <Content Include="Assets\images\logo_apple.svg" />
+    <Content Include="Assets\images\Logo_icon.ico" />
     <Content Include="Assets\images\logo_mailchimp.svg" />
     <Content Include="Assets\images\logo_paypal.svg" />
     <Content Include="Assets\images\logo_sony.svg" />
