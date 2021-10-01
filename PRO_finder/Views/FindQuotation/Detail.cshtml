@@ -36,15 +36,20 @@
                 <div class="col-lg-4">
                     <div class="row">
                         <div class="col-6">
+                            @*<a href="#" class="btn btn-block btn-primary btn-md mt-2 ">我要報價</a>*@
+                            @Html.Partial("_QuotationforCasePartial")
+                        </div>
+                        <div class="col-6">
                             <button id="btnSaveCase" href="#" class="btn btn-block btn-light btn-md border">
                                 <span id="farHeart" class="far fa-heart mr-2 text-danger"></span>收藏
                             </button>
                         </div>
+
                         @*<div class="col-6">
-                            <a href="#" class="btn btn-block btn-light btn-md border">
-                                <span class="fas fa-info-circle text-secondary mr-2"></span>檢舉
-                            </a>
-                        </div>*@
+            <a href="#" class="btn btn-block btn-light btn-md border">
+                <span class="fas fa-info-circle text-secondary mr-2"></span>檢舉
+            </a>
+        </div>*@
                     </div>
                 </div>
             </div>
@@ -88,10 +93,7 @@
                                 2.接案如需赴約請注意安全，若遇行為不軌，請立即離開，並向執法單位備案。
                             </p>
                         </div>
-                        <div class="col-4">
-                            @*<a href="#" class="btn btn-block btn-primary btn-md mt-2 ">我要報價</a>*@
-                            @Html.Partial("_QuotationforCasePartial")
-                        </div>
+                        
                     </div>
 
                     <div class="othercaseMore">
@@ -117,11 +119,7 @@
                             <a href="@Url.Action("Index",new { id=Model.CategoryID})" class="border rounded ">看更多</a>
                         </div>
                     </div>
-                    <div class="mt-4 mb-3">
-                        <p class=" h4 text-black">報價會員</p>
-                        <!-- 缺小頭貼 -->
-                        <p class=" text-black">2人參與報價</p>
-                    </div>
+                    
 
 
 

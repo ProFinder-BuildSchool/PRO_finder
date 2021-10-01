@@ -109,6 +109,8 @@
 @section endJS{
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
+        document.querySelector('#collapseFour').classList.remove('show');
+        document.querySelector('#collapseFive').classList.add('show')
         let btnDele = document.querySelectorAll('.btnDele');
         
         btnDele.forEach(function (item) {

@@ -5,8 +5,8 @@
 
 
 <div id="inputinfo">
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="modalbtn">
-        我要報價
+    <button type="button" class="btn btn-primary btn-md btn-block"  data-toggle="modal" data-target="#myModal" id="modalbtn">
+        <span  class="far fa-lightbulb mr-2 text-warning"></span>我要報價
     </button>
 
 
@@ -162,6 +162,7 @@
                     if (res.data.Result) {
                         let modalbtn = document.querySelector("#modalbtn");
                         modalbtn.innerHTML = '已報價';
+
                             modalbtn.disabled = true;
                     } 
                 });

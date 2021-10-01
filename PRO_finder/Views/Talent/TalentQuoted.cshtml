@@ -106,6 +106,9 @@
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script>
+        document.querySelector('#collapseFour').classList.remove('show');
+        document.querySelector('#collapseFive').classList.add('show')
+
         let app = new Vue({
             el: '#Order',
             data: {
