@@ -15,6 +15,8 @@ using System.Web.Configuration;
 using System.Web.Hosting;
 using System.Web.Http;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using PRO_finder.Models.ViewModel;
 
 namespace PRO_finder.APIControllers
 {
@@ -97,55 +99,40 @@ namespace PRO_finder.APIControllers
             }
         }
 
+       
         [HttpPost]
-        public APIResult CreateQuotation([FromBody] CreateQuotationViewModel newQ)
-        {
-            int result = 0;
-            try
-            {
-                string userID = User.Identity.GetUserId();
-                newQ.MemberID = _memberInfoService.GetMemberID(userID);
-                var newQ_entity = _quotationService.CreateQuotation(newQ);
-                result = newQ_entity.QuotationID;
-                return new APIResult(APIStatus.Success, string.Empty, result);
-            }
-            catch (Exception ex)
-            {
-                result = -1;
-                return new APIResult(APIStatus.Fail, ex.Message, result);
-            }
-        }
-        [HttpPost]
-        public HttpResponseMessage UploadOtherPics()
+        public HttpResponseMessage CreateQuotation()
         {
             var request = HttpContext.Current.Request;
+            var newQ = JsonConvert.DeserializeObject<CreateQuotationViewModel>(request["newQ"]);
             int fileslen = request.Files.Count;
-            if (fileslen <= 0)
+            if (fileslen <= 0 || newQ == null)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
             else
             {
-                
-                int quotationID = Int32.Parse(request["QuotationID"]);
                 try
                 {
+                    string userID = User.Identity.GetUserId();
+                    newQ.MemberID = _memberInfoService.GetMemberID(userID);
+
+                    List<OtherPictureViewModel> otherPicList = new List<OtherPictureViewModel>();
                     //接收Picture File
-                    for(int i = 0; i < fileslen; i++)
+                    for (int i = 0; i < fileslen; i++)
                     {
                         HttpPostedFile picture = request.Files[i];
                         //cloudinary上傳
                         string link = _cloudinaryHelper.UploadToCloudinary(picture);
-                        //new entity
-                        UploadOtherPicture newPic = new UploadOtherPicture
+                        //加入OtherPicList
+                        otherPicList.Add(new OtherPictureViewModel
                         {
                             OtherPictureLink = link,
-                            QuotationID = quotationID,
                             SortNumber = i
-                        };
-                        //儲存
-                        _quotationService.RevisedCreateOtherPics(newPic);
+                        });
                     };
+                    newQ.OtherPicList = otherPicList;
+                    _quotationService.CreateQuotation(newQ);
                     //回傳
                     return Request.CreateResponse(HttpStatusCode.OK);
                 }
@@ -155,38 +142,23 @@ namespace PRO_finder.APIControllers
                 }
             }
         }
-        public APIResult UpdateQuotation([FromBody] CreateQuotationViewModel updateQ)
-        {
-            string result = "";
-            try
-            {
-                _quotationService.UpdateQuotation(updateQ);
-                result = "成功更新";
-                return new APIResult(APIStatus.Success, string.Empty, result);
-            }
-            catch (Exception ex)
-            {
-                result = "更新失敗";
-                return new APIResult(APIStatus.Fail, ex.Message, result);
-            }
-        }
 
         [HttpPost]
-        public HttpResponseMessage UPDATEOtherPics()
+        public HttpResponseMessage UpdateQuotation()
         {
             var request = HttpContext.Current.Request;
+            var updateQ = JsonConvert.DeserializeObject<CreateQuotationViewModel>(request["updateQ"]);
             int fileslen = request.Files.Count;
-            if (fileslen <= 0)
+            if (fileslen <= 0 || updateQ == null)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
             else
             {
-                
-                int quoID = Int32.Parse(request["QuotationID"]);
                 try
                 {
-                    for(int i = 0; i < fileslen; i++)
+                    List<OtherPictureViewModel> otherPicList = new List<OtherPictureViewModel>();
+                    for (int i = 0; i < fileslen; i++)
                     {
                         //接收Picture File及其他參數
                         HttpPostedFile picture = request.Files[i];
@@ -194,21 +166,16 @@ namespace PRO_finder.APIControllers
                         //cloudinary上傳
                         string link = _cloudinaryHelper.UploadToCloudinary(picture);
                         //new entity
-                        UploadOtherPicture newPic = new UploadOtherPicture
+                        otherPicList.Add(new OtherPictureViewModel 
                         {
                             OtherPictureLink = link,
-                            QuotationID = quoID,
+                            QuotationID = updateQ.QuotationID,
                             SortNumber = i
-                        };
-                        //刪除原先資料
-                        if (newPic.SortNumber == 0)
-                        {
-                            _quotationService.DeleteOriginPics(newPic.QuotationID);
-                        }
-                        //儲存
-                        _quotationService.RevisedCreateOtherPics(newPic);
+                        });
                     }
-                    
+                    updateQ.OtherPicList = otherPicList;
+                    _quotationService.UpdateQuotation(updateQ);
+
                     //回傳
                     return Request.CreateResponse(HttpStatusCode.OK);
                 }
@@ -219,21 +186,17 @@ namespace PRO_finder.APIControllers
             }
         }
         [HttpPost]
-        public APIResult UploadMyWork([FromBody] UploadMyWorksViewModel newWorks)
-        {
-            //取得memberID,並加至newWorks
-            string userID = User.Identity.GetUserId();
-            newWorks.MemberID = _memberInfoService.GetMemberID(userID);
-            var newEntity = _worksService.CreateWorks(newWorks);
-            int workID = newEntity.WorkID;
-            return new APIResult(APIStatus.Success, string.Empty, workID);
-        }
-        [HttpPost]
-        public HttpResponseMessage UploadFile()
+        public HttpResponseMessage UploadMyWork()
         {
             var request = HttpContext.Current.Request;
             int fileslen = request.Files.Count;
-            if (fileslen <= 0)
+            UploadMyWorksViewModel newWork = JsonConvert.DeserializeObject<UploadMyWorksViewModel>(request["newWork"]);
+            List<string> worknameList = JsonConvert.DeserializeObject<List<string>>(request["FileNames"]);
+            //string worknames = request["FileNames"];
+            //JArray worknameArray = JArray.Parse(worknames);
+            //List<string> worknameList = worknameArray.ToObject<List<string>>();
+
+            if (fileslen == 0 || newWork == null)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
@@ -241,70 +204,48 @@ namespace PRO_finder.APIControllers
             {
                 try
                 {
-                    //取得workNameList
-                    string worknames = request["FileNames"];
-                    JArray worknameArray = JArray.Parse(worknames);
-                    List<string> worknameList = worknameArray.ToObject<List<string>>();
+                    //newWork資料處理
+                    //加入MemberID
+                    string userID = User.Identity.GetUserId();
+                    newWork.MemberID = _memberInfoService.GetMemberID(userID);
 
-                    int workID = Int32.Parse(request["WorkID"]);
+                    //WorkPictures, WorkAttachments資料處理
+                    List<WorkPicturesViewModel> picList = new List<WorkPicturesViewModel>();
+                    List<WorkAttachmentViewModel> attList = new List<WorkAttachmentViewModel>();
 
-                    
-                    for(int i = 0; i < fileslen; i ++)
+                    for (int i = 0; i < fileslen; i++)
                     {
+                        string key = request.Files.GetKey(i);
                         HttpPostedFile file = request.Files[i];
-                        string fileSavePath = WebConfigurationManager.AppSettings["UploadPath"];
-                        string newFileName = string.Concat(Path.GetRandomFileName().Replace(".", ""), Path.GetExtension(file.FileName).ToLower());
-                        string fullFilePath = Path.Combine(HostingEnvironment.MapPath(fileSavePath), newFileName);
-                        file.SaveAs(fullFilePath);
-
-                        WorkAttachmentViewModel newWorkAttachment = new WorkAttachmentViewModel
+                        if (key == "WorkPicture")
                         {
-                            WorkAttachmentLink = fullFilePath,
-                            WorkAttachmentName = worknameList[i],
-                            WorkID = workID
-                        };
-
-                        _worksService.RevisedCreateWorkAttachment(newWorkAttachment);
-                    }
-                    return Request.CreateResponse(HttpStatusCode.OK);
-
-                }
-                catch (Exception ex)
-                {
-                    return Request.CreateResponse(ex.Message);
-                }
-            }
-        }
-        [HttpPost]
-        public HttpResponseMessage UploadWorkPics()
-        {
-            var request = HttpContext.Current.Request;
-            int fileCount = request.Files.Count;
-            if (fileCount <= 0)
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
-            else
-            {
-                try
-                {
-                    
-                    int workID = Int32.Parse(request["WorkID"]);
-
-                    for (int i = 0; i < fileCount; i++)
-                    {
-                        HttpPostedFile file = request.Files[i];
-                        string link = _cloudinaryHelper.UploadToCloudinary(file);
-                        WorkPicturesViewModel newPic = new WorkPicturesViewModel()
+                            string link = _cloudinaryHelper.UploadToCloudinary(file);
+                            picList.Add( new WorkPicturesViewModel()
+                            {
+                                SortNumber = i,
+                                WorkPicture = link
+                            });
+                        }
+                        else if(key == "WorkAttachment")
                         {
-                            WorkID = workID,
-                            SortNumber = i,
-                            WorkPicture = link
-                        };
-                        _worksService.RevisedCreateWorkPictures(newPic);
+                            int nameIndex = 0;
+                            string fileSavePath = WebConfigurationManager.AppSettings["UploadPath"];
+                            string newFileName = string.Concat(Path.GetRandomFileName().Replace(".", ""), Path.GetExtension(file.FileName).ToLower());
+                            string fullFilePath = Path.Combine(HostingEnvironment.MapPath(fileSavePath), newFileName);
+                            file.SaveAs(fullFilePath);
+                            attList.Add(new WorkAttachmentViewModel
+                            {
+                                WorkAttachmentLink = fullFilePath,
+                                WorkAttachmentName = worknameList[nameIndex]
+                            });
+                            nameIndex++;
+                        }
+                        
                     }
+                    newWork.WorkPictureList = picList;
+                    newWork.WorkAttachmentList = attList;
+                    _worksService.CreateWorks(newWork);
                     return Request.CreateResponse(HttpStatusCode.OK);
-
                 }
                 catch(Exception ex)
                 {
@@ -312,8 +253,6 @@ namespace PRO_finder.APIControllers
                 }
             }
         }
-
-
         [HttpPost]
         public APIResult ChangeBankAccount([FromBody] BankAccountViewModel newStatus)
         {

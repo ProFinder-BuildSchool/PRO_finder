@@ -198,8 +198,20 @@ namespace PRO_finder.Controllers
         {
             var UserId = HttpContext.User.Identity.GetUserId();
             int memberID = _memberinfoService.GetMemberID(UserId);
-            return Redirect($"/Quotation/StudioHome?TalentID={memberID}");
-            
+            bool hasInfo = _memberinfoService.HasMemInfo(memberID);
+            if (hasInfo)
+            {
+                StudioDetailViewModel StudioDetailVM = _studioService.GetStudioDetailData(memberID);
+                IEnumerable<SaveStaffViewModel> favorlist = _studioService.GetFavorite(memberID, memberID);
+                ViewBag.TalentID = memberID;
+                ViewBag.UserID = memberID;
+                ViewBag.FavorExist = favorlist.Count() != 0; //判斷talent是否存在member的list中
+                return View("StudioHome", StudioDetailVM);
+            }
+            else
+            {
+                return View("../Talent/MemInfoRequest");
+            }
         }
 
     }

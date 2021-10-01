@@ -31,8 +31,6 @@
     @RenderSection("topCSS", required: false)
     @RenderSection("topJS", required: false)
     <style>
-
-
         .container-fluid.list {
             background-color: #89ba16 !important;
         }
@@ -300,11 +298,11 @@
                     console.log(Status3)
                     console.log(Status4)
 
-                    let badge = document.querySelectorAll('.badge');
+                    let badge = document.querySelectorAll('.nav-link .badge');
                     badge[0].innerText = Status0;
                     badge[1].innerText = Status1;
-                    badge[2].innerText = Status2;
-                    badge[3].innerText = Status3 + Status4;
+                    //badge[2].innerText = Status2;
+                    //badge[3].innerText = Status3 + Status4;
             })
         }
 

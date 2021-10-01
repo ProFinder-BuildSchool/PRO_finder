@@ -160,7 +160,35 @@ namespace PRO_finder.Service
         }
         public OperationResult UpdateMemberInfo(int memberID, MemberInfoViewModel newSettings)
         {
-            var result = _ctx.CreateMemberInfo(memberID, newSettings);
+            var entity = _ctx.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == memberID);
+            entity.Status = newSettings.Status;
+            entity.NickName = newSettings.NickName;
+            entity.Identity = (int?)newSettings.Identity;
+            entity.LiveCity = newSettings.LiveCity;
+            entity.Cellphone = newSettings.Cellphone;
+            entity.Email = newSettings.Email;
+            entity.LocationID = (int?)newSettings.LocationIDInt;
+            entity.AllPieceworkExp = newSettings.AllPieceworkExp;
+            entity.Description = newSettings.Description;
+            entity.SubCategoryID = newSettings.SubCategoryID;
+
+            //接案經驗vm to dm
+            List<Experience> expList = new List<Experience>();
+            if (newSettings.JsonExDList != null)
+            {
+                JArray tempArray = JArray.Parse(newSettings.JsonExDList);
+                expList = tempArray.ToObject<List<Experience>>();
+            }
+
+            //擅長工具 vm to dm
+            List<TalentTool> toolList = new List<TalentTool>();
+            if (newSettings.JsonToolList != null)
+            {
+                JArray tempArray = JArray.Parse(newSettings.JsonToolList);
+                toolList = tempArray.ToObject<List<TalentTool>>();
+                
+            }
+            var result = _ctx.CreateMemberInfo(entity, expList, toolList);
             return result;
         }
 
@@ -178,7 +206,7 @@ namespace PRO_finder.Service
                                      MemberID = m.MemberID,
                                      BankCode = m.BankCode,
                                      BankAccount = m.BankAccount
-                    
+
                                  });
             return BankAccountVM.FirstOrDefault();
         }
@@ -229,7 +257,7 @@ namespace PRO_finder.Service
         }
 
         //取得會員帳戶餘額
-        public string getBalance(int memberID)
+        public string GetBalance(int memberID)
         {
             var member = _ctx.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == memberID);
             NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
@@ -237,7 +265,7 @@ namespace PRO_finder.Service
             return balance.ToString("C", nfi);
         }
         //取得會員總成交金額
-        public string getTotalRevenue(int memberID)
+        public string GetTotalRevenue(int memberID)
         {
             var orderList = _ctx.GetAll<Order>().Where(x => x.ProposerID == memberID).ToList();
             var total = orderList.Select(x => x.Count * x.Price).Sum();
@@ -246,18 +274,30 @@ namespace PRO_finder.Service
             return totalRevenue.ToString("C", nfi);
         }
         //取得會員進行中案件數量
-        public int getOrderDoingCount(int memberID)
+        public int GetOrderDoingCount(int memberID)
         {
             var orderList = _ctx.GetAll<Order>().Where(x => x.ProposerID == memberID && x.OrderStatus == 1).ToList();
             return orderList != null ? orderList.Count : 0;
         }
         //取得會員已完成案件數量
-        public int getOrderCompleteCount(int memberID)
+        public int GetOrderCompleteCount(int memberID)
         {
             var orderList = _ctx.GetAll<Order>().Where(x => x.ProposerID == memberID && x.OrderStatus >= 2).ToList();
             return orderList != null ? orderList.Count : 0;
         }
+
+        //驗證會員是否已經填寫資料
+        public bool HasMemInfo(int memberID)
+        {
+            bool result = false;
+            MemberInfo memInfo = _ctx.GetAll<MemberInfo>().FirstOrDefault(x => x.MemberID == memberID);
+            if(memInfo.NickName != null && memInfo.NickName != "")
+            {
+                result = true;
+            }
+            return result;
+        }
     }
 
-    
+
 }

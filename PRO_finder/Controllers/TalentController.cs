@@ -48,16 +48,27 @@ namespace PRO_finder.Controllers
         {
             string userID = HttpContext.User.Identity.GetUserId();
             int memberID = _memberInfoService.GetMemberID(userID);
-            ViewBag.Balance = _memberInfoService.getBalance(memberID);
-            ViewBag.Revenue = _memberInfoService.getTotalRevenue(memberID);
-            ViewBag.OrderDoingCount = _memberInfoService.getOrderDoingCount(memberID);
-            ViewBag.OrderCompleteCount = _memberInfoService.getOrderCompleteCount(memberID);
+            ViewBag.Balance = _memberInfoService.GetBalance(memberID);
+            ViewBag.Revenue = _memberInfoService.GetTotalRevenue(memberID);
+            ViewBag.OrderDoingCount = _memberInfoService.GetOrderDoingCount(memberID);
+            ViewBag.OrderCompleteCount = _memberInfoService.GetOrderCompleteCount(memberID);
             return View();
         }
         public ActionResult CreateQuotation()
         {
-            ViewBag.CategoryList = _cateService.GetCategorySelectList();
-            return View();
+            var UserId = HttpContext.User.Identity.GetUserId();
+            int memberID = _memberInfoService.GetMemberID(UserId);
+            bool hasInfo = _memberInfoService.HasMemInfo(memberID);
+            if (hasInfo)
+            {
+                ViewBag.CategoryList = _cateService.GetCategorySelectList();
+                return View();
+            }
+            else
+            {
+                return View("MemInfoRequest");
+            }
+            
         }
 
         [HttpPost]
@@ -268,7 +279,7 @@ namespace PRO_finder.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            _quotaService.DeleteQ(id);
+            _quotaService.DeleteQ((int)id);
 
             string userID = HttpContext.User.Identity.GetUserId();
             int memberID = _memberInfoService.GetMemberID(userID);
@@ -358,7 +369,11 @@ namespace PRO_finder.Controllers
 
             return View();
         }
-
+        
+        public ActionResult MemInfoRequest()
+        {
+            return View();
+        }
        
 
 
