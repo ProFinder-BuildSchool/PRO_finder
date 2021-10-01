@@ -62,6 +62,22 @@ namespace PRO_finder.Service
             return true;
         }
 
+        public bool TalentUpdateOrderUnreadNumber(int Memberid, int status)
+        {
+
+            var order = _repo.GetAll<Order>().Where(x => x.ProposerID == Memberid && x.OrderStatus == status && x.OrderType == 0).ToList();
+
+            foreach (var item in order)
+            {
+                _repo.GetAll<Order>().First(x => x.OrderID == item.OrderID).OrderType = 1;
+                _repo.Update(item);
+
+            }
+
+            _repo.SaveChanges();
+            return true;
+        }
+
 
         public int GetMemberID(string userID)
         {
@@ -149,7 +165,7 @@ namespace PRO_finder.Service
                         OrderStatusNumber = (int)item.OrderStatus,
                         PaymentCode = item.PaymentCode,
                         QuotationID = (int)item.QuotationID,
-                        OrderFinshedDay = ((DateTime)item.CompleteDate).ToString("yyyy-MM-dd")
+                        //OrderFinshedDay = ((DateTime)item.CompleteDate).ToString("yyyy-MM-dd")
                     });
                 }
                 else
@@ -178,12 +194,12 @@ namespace PRO_finder.Service
                         LineID = item.LineID,
                         Memo = item.Memo,
                         OrderStatus = System.Enum.GetName(typeof(OrderStatus), item.OrderStatus),
-                        Title = item.Title,
+                        ProposerQuotationTitle = item.Title,
                         ProposerEmail = ProposerEmail,
                         ProposerCellPhone = ProposerCellPhone,
                         OrderStatusNumber = (int)item.OrderStatus,
                         CaseID = (int)item.CaseID,
-                        OrderFinshedDay = ((DateTime)item.CompleteDate).ToString("yyyy-MM-dd")
+                        //OrderFinshedDay = ((DateTime)item.CompleteDate).ToString("yyyy-MM-dd")
 
                     });
                 }
@@ -205,6 +221,10 @@ namespace PRO_finder.Service
             else if (status == 3)
             {
                 OrderDB = _repo.GetAll<Order>().Where(x => x.ProposerID == memberId && x.OrderStatus == 3 ).ToList();
+            }
+            else if(status == 0)
+            {
+                OrderDB = _repo.GetAll<Order>().Where(x => x.ProposerID == memberId && x.OrderStatus == 0).ToList();
             }
 
             List<OrderViewModel> OrderList = new List<OrderViewModel>();
@@ -238,8 +258,7 @@ namespace PRO_finder.Service
                         ProposerCellPhone = item.ProposerPhone,
                         OrderStatusNumber = (int)item.OrderStatus,
                         CaseID = (int)item.CaseID,
-                        OrderFinshedDay = ((DateTime)item.CompleteDate).ToString("yyyy-MM-dd")
-
+                        //OrderFinshedDay = ((DateTime)item.CompleteDate).ToString("yyyy-MM-dd")
 
                     });
                 }
@@ -270,14 +289,13 @@ namespace PRO_finder.Service
                         LineID = item.LineID,
                         Memo = item.Memo,
                         OrderStatus = System.Enum.GetName(typeof(OrderStatus), item.OrderStatus),
-                        ProposerQuotationTitle = ProposerQuotationTitle,
+                        Title = ProposerQuotationTitle,
                         ProposerEmail = ProposerEmail,
                         ProposerCellPhone = ProposerCellPhone,
                         OrderStatusNumber = (int)item.OrderStatus,
                         PaymentCode = item.PaymentCode,
                         QuotationID = (int)item.QuotationID,
-                        OrderFinshedDay = ((DateTime)item.CompleteDate).ToString("yyyy-MM-dd")
-
+                        //OrderFinshedDay = ((DateTime)item.CompleteDate).ToString("yyyy-MM-dd")
 
                     });
                 }
@@ -365,6 +383,11 @@ namespace PRO_finder.Service
         public List<OrderUnreadCount> UnreadCount(int MemberId)
         {
             return _repo.GetAll<Order>().Where(g => g.ClientID == MemberId && g.OrderType == 0).GroupBy(x => x.OrderStatus).Select(y => new OrderUnreadCount { Status = (int)y.Key, Counts = y.Count() }).ToList();
+        }
+
+        public List<OrderUnreadCount> TalentUnreadCount(int MemberId)
+        {
+            return _repo.GetAll<Order>().Where(g => g.ProposerID == MemberId && g.OrderType == 0).GroupBy(x => x.OrderStatus).Select(y => new OrderUnreadCount { Status = (int)y.Key, Counts = y.Count() }).ToList();
         }
 
     }

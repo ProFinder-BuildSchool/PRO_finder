@@ -148,40 +148,40 @@
                                 <div class="collapse navbar-collapse align-items-start" id="navbarTogglerDemo">
                                     <ul class="nav flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                         <div class="accordion" id="accordionExample2">
-                                            <li class="nav-item">
-                                                <div class="card">
-                                                    <div class="card-header myHeader">
-                                                        <a class="nav-link" href="@Url.Action("Index", "Talent")"><i class="fas fa-house-user"></i> 人才主頁</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="nav-item">
-                                                <div class="card">
-                                                    <div class="card-header myHeader">
-                                                        <a class="nav-link" href="@Url.Action("MyStudioHome","Quotation")">
-                                                            <i class="fas fa-tools"
-                                                               style="font-size: 14px !important; line-height: 16px !important;"></i> 我的工作室
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                        <li class="nav-item">
                                             <div class="card">
-                                                <div class="card-header myHeader" id="headingFour">
-                                                    <h2 class="mb-0">
-                                                        <button class="btn btn-link btn-block text-center" type="button" data-toggle="collapse"
-                                                                data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
-                                                            <i class="fas fa-angle-down"></i> 工作室設定
-                                                        </button>
-                                                    </h2>
+                                                <div class="card-header myHeader">
+                                                    <a class="nav-link" href="@Url.Action("Index", "Talent")"><i class="fas fa-house-user"></i> 人才主頁</a>
                                                 </div>
-                                                <div id="collapseFour" class="collapse show" aria-labelledby="headingFour"
-                                                     data-parent="#accordionExample2">
-                                                    <div class="card-body">
+                                            </div>
+                                        </li>
+                                        <li class="nav-item">
+                                            <div class="card">
+                                                <div class="card-header myHeader">
+                                                    <a class="nav-link" href="@Url.Action("MyStudioHome","Quotation")">
+                                                        <i class="fas fa-tools"
+                                                           style="font-size: 14px !important; line-height: 16px !important;"></i> 我的工作室
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <div class="card">
+                                            <div class="card-header myHeader" id="headingFour">
+                                                <h2 class="mb-0">
+                                                    <button class="btn btn-link btn-block text-center" type="button" data-toggle="collapse"
+                                                            data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                                        <i class="fas fa-angle-down"></i> 工作室設定
+                                                    </button>
+                                                </h2>
+                                            </div>
+                                            <div id="collapseFour" class="collapse show" aria-labelledby="headingFour"
+                                                 data-parent="#accordionExample2">
+                                                <div class="card-body">
 
                                         <li class="nav-item">
                                             <a class="nav-link" href="@Url.Action("CaseSetting", "Talent")">接案設定</a>
                                         </li>
-                                        
+
                                         <li class="nav-item">
                                             <a class="nav-link" href="@Url.Action("UploadMyWorks", "Talent")">新增作品集</a>
                                         </li>
@@ -191,7 +191,7 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="@Url.Action("MyQuotationIndex", "Talent")">我的服務</a>
                                         </li>
-                                        
+
                                 </div>
                         </div>
                     </div>
@@ -208,18 +208,17 @@
                         <div id="collapseFive" class="collapse" aria-labelledby="headingFive"
                              data-parent="#accordionExample2">
                             <div class="card-body">
-
-                                <li class="nav-item">
-                                    <a class="nav-link doing " href="@Url.Action("TalentOrderDoing","Talent")"><span class="badge"></span>進行中的服務</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link deal " href="@Url.Action("TalentOrderFinished","Talent")"><span class="badge"></span>已完成的服務</a>
-                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link savecase" href="@Url.Action("SaveCase","SaveCase")">已收藏案件</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link qtrecord" href="@Url.Action("QTRecord","FindQuotation")">提案記錄</a>
+                                    <a class="nav-link qting  " href="@Url.Action("TalentQuoted","Talent")">已提交報價</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link doing orderbadge " href="@Url.Action("TalentOrderDoing","Talent")"><span class="badge"></span>進行中的服務</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link deal orderbadge " href="@Url.Action("TalentOrderFinished","Talent")"><span class="badge"></span>已完成的服務</a>
                                 </li>
                             </div>
                         </div>
@@ -243,7 +242,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="@Url.Action("ReviseAccount", "Client", new{userId})">修改會籍帳戶</a>
                                 </li>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -279,16 +278,19 @@
     @RenderSection("endCSS", required: false)
     @RenderSection("endJS", required: false)
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+            integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        OrderUnreadNumber();
+        TalentOrderUnreadNumber();
         let Status0 = '';
         let Status1 = '';
         let Status2 = '';
         let Status3 = '';
         let Status4 = '';
 
-        function OrderUnreadNumber() {
-            axios.get('/api/Order/UnreadCount?MemberId=@userId')
+        function TalentOrderUnreadNumber() {
+            axios.get('/api/Order/TalentUnreadCount?MemberId=@userId')
                 .then(res => {
 
                     res.data.Result.forEach(function(item, index) {
@@ -301,21 +303,19 @@
                     console.log(Status4)
 
                     let badge = document.querySelectorAll('.badge');
-                    badge[0].innerText = Status0;
-                    badge[1].innerText = Status1;
-                    badge[2].innerText = Status2;
-                    badge[3].innerText = Status3 + Status4;
+                    badge[0].innerText = Status1 + Status2;
+                    badge[1].innerText = Status3 + Status4;
             })
         }
 
         document.querySelectorAll('.orderbadge').forEach(function (item,index) {
             item.addEventListener('click', function () {
-                if (index == 3) {
-                    axios.post(`/api/Order/OrderUnreadNumber?Memberid=@userId&status=${index + 1}`).then(res => {
+                if (index == 1) {
+                    axios.post(`/api/Order/TalentOrderUnreadNumber?Memberid=@userId&status=${index + 1}`).then(res => {
                     })
                 }
-                   axios.post(`/api/Order/OrderUnreadNumber?Memberid=@userId&status=${index}`).then(res => {
-                   OrderUnreadNumber();
+                axios.post(`/api/Order/TalentOrderUnreadNumber?Memberid=@userId&status=${index}`).then(res => {
+                   TalentOrderUnreadNumber();
                 })
 
             })

@@ -1,0 +1,156 @@
+﻿
+@{
+    ViewBag.Title = "TalentQuoted";
+    Layout = "~/Views/Shared/_LayoutMemberTalent.cshtml";
+}
+<div id="Order">
+    <div class="table-responsive p-2">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" class="p-1 ">案件編號</th>
+                    <th scope="col" class="p-1 m-0">案件標題</th>
+                    <th scope="col" class="p-1 m-0">報價日期</th>
+                    <th scope="col" class="p-1 m-0">報價金額</th>
+                    <th scope="col" class="p-1 m-0">報價狀態</th>
+                    <th scope="col" class="p-1 m-0">取消報價</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item,index) in QTList">
+                    <td>
+                        <p class="mb-0">{{item.CaseID}}</p>
+
+                    </td>
+                    <td>
+                        <p class="mb-0"><a :href="`/FindQuotation/Detail?id=${item.CaseID}`">{{item.CaseTitle}}</a></p>
+                    </td>
+                    <td>
+                        <p class="mb-0">{{item.ProposeDate}}</p>
+                    </td>
+                    <td>
+                        <p class="mb-0">{{item.ProposePrice}}</p>
+                    </td>
+                    <td>
+                        <div class="QTStatus">
+                            <span class="OrderStatus text-danger">案主尚未回覆</span>
+                        </div>
+                    </td>
+                    <td>
+                        <a class="delete text-primary" v-on:click.prevent="confirmDelete(index)">
+                            <i class="far fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+
+
+@section topCSS{
+    <style>
+        h2{margin-bottom:20px}
+        .table thead th {
+            border-bottom: 1px solid #f0eded !important;
+        }
+
+        .table th {
+            border-top: none !important;
+            color: #524545;
+        }
+
+        .table td {
+            border-top: 1px solid #f0eded !important;
+            display: table-cell;
+            vertical-align: middle !important;
+            border-bottom: 1px solid #f0eded !important;
+            color: #000;
+        }
+
+
+        tr {
+            color: rgb(170, 165, 165);
+            text-align: center;
+        }
+
+
+        img {
+            width: 150px;
+            height: 150px;
+        }
+
+        .qting {
+            color: white !important;
+            background-color: #89ba16 !important;
+            border-radius: 6px;
+            font-weight: bolder;
+        }
+    </style>
+}
+
+
+
+
+
+
+
+@section endJS{
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+            integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script>
+        let app = new Vue({
+            el: '#Order',
+            data: {
+                QTList: [],
+
+            },
+            methods:
+            {
+                GetQT() {
+                    axios.get('/api/Cart/GetQuotationDetail').then(res => {
+                        this.QTList = res.data.Result;
+                        console.log(this.QTList)
+                    })
+                },
+                confirmDelete(index) {
+                    Swal.fire({
+                        title: '確定要取消此報價嗎?',
+                        text: "您將無法還原此提報!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            let id =@ViewBag.MemberID
+                                axios.delete(`/api/Cart/DelQT?id=${id}&QuotaionDetailID=${this.QTList[index].QuotationDetailID}`).then(res => {
+                            if (res.data.Result == true) {
+                            Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                            )
+                                this.GetQT()
+                            }
+                           })
+                          }
+                        })
+                },
+                
+            },
+            created() {
+                this.GetQT();
+            }
+        })
+    </script>
+}
+

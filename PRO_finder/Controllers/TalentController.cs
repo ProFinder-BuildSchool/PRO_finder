@@ -341,7 +341,14 @@ namespace PRO_finder.Controllers
             ViewBag.userID = currentUserId;
             return View();
         }
+        public ActionResult TalentQuoted()
+        {
 
+            var MemberId = _orderservice.GetMemberID(HttpContext.User.Identity.GetUserId());
+            ViewBag.MemberId = MemberId;
+
+            return View();
+        }
         public ActionResult TalentOrderDoing()
         {
 

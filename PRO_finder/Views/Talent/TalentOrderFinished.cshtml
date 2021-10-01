@@ -85,8 +85,8 @@
                                 <span class="mb-0 font-weight-bolder">訂購總金額:NTD {{ modal.Price * modal.Count }} </span>
                             </div>
                             <p class="mb-0">剩餘天數: {{modal.Remaindays}} 天</p>
-                            <div class="linediv mx-auto  w-100 mb-1">
-                                <div class="line" :style="{ width:Scheduleline + '%' }"></div>
+                            <div class="linediv mx-auto text-center  w-100 mb-1">
+                                <p class="line-txt font-weight-bolder">Finish</p>
                             </div>
                             <p class="mb-0 text-danger">
                                 訂單狀態：{{modal.OrderStatus}}
@@ -174,16 +174,20 @@
     <style>
 
         .linediv {
-            background: linear-gradient(90deg,#aed8fc,#0587f7 100%);
+            background: linear-gradient(90deg,red,yellow,red);
             border: 1px rgba(0,0,0,.5) solid;
             border-radius: 10px;
             overflow: hidden;
+            max-height: 15px;
         }
 
-        .line {
-            margin-left: auto;
-            background-color: white;
-            height: 15px;
+        .line-txt {
+            margin: 0;
+            font-size: 4px;
+            line-height: 1;
+            letter-spacing: 10px;
+            color: transparent;
+            -webkit-text-stroke: 1px #000;
         }
 
         .modal-dialog {
@@ -199,15 +203,6 @@
             width: 150px;
             height: 150px;
         }
-
-
-
-        /*
-        //cart*/
-
-
-
-
 
 
         .table thead th {

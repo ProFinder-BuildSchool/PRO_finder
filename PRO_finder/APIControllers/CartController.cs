@@ -74,7 +74,6 @@ namespace PRO_finder.APIControllers
 
         }
 
-
         [HttpPost]
         [Authorize]
         public APIResult AddCart(ClientCartViewModel Cart, int memberID)
@@ -131,6 +130,33 @@ namespace PRO_finder.APIControllers
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             }
         }
+
+        public APIResult GetQuotationDetail()
+        {
+                string userID = User.Identity.GetUserId();
+                int memberID = _memInfoService.GetMemberID(userID);
+                var result = _cartService.GetAllQTD(memberID);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+        }
+
+        [HttpDelete]
+        public APIResult DelQT(int id, int QuotaionDetailID)
+        {
+            bool result;
+            try
+            {
+                result = _cartservice.DelQTD(id, QuotaionDetailID);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            };
+
+        }
+
         [HttpPost]
         public APIResult RefuseQuotation([FromBody]int qdID)
         {

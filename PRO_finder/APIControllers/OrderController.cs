@@ -168,6 +168,24 @@ namespace PRO_finder.APIControllers
 
         }
 
+        [HttpPost]
+        public APIResult TalentOrderUnreadNumber(int Memberid, int status)
+        {
+            bool result;
+            try
+            {
+                result = _orderService.TalentUpdateOrderUnreadNumber(Memberid, status);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            };
+
+        }
+
 
         [HttpGet]
         public APIResult UnreadCount(int MemberId)
@@ -175,6 +193,21 @@ namespace PRO_finder.APIControllers
             try
             {
                 var result = _orderService.UnreadCount(MemberId);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+
+            }
+            catch (Exception ex)
+            {
+                var result = "";
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            };
+        }
+        [HttpGet]
+        public APIResult TalentUnreadCount(int MemberId)
+        {
+            try
+            {
+                var result = _orderService.TalentUnreadCount(MemberId);
                 return new APIResult(APIStatus.Success, string.Empty, result);
 
             }

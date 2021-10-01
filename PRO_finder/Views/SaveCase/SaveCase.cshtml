@@ -16,16 +16,15 @@
 </head>
 <body>
     <div class="container">
-        <div class="col-12 mt-5 mb-4">
-            <h2>已收藏案件</h2>
-            <table class="table table-bordered table-striped">
+        <div class="table-responsive p-2">
+            <table class="table">
                 <thead>
                     <tr>
-                        <th>案件標題</th>
-                        <th>預算金額</th>
-                        <th>發案人</th>
-                        <th>案件狀態</th>
-                        @*<th>刊登日期</th>*@
+                        <th scope="col" class="p-1 ">案件編號</th>
+                        <th scope="col" class="p-1 m-0">案件標題</th>
+                        <th scope="col" class="p-1 m-0">預算金額</th>
+                        <th scope="col" class="p-1 m-0">發案人</th>
+                        <th scope="col" class="p-1 m-0">取消收藏</th>
 
                     </tr>
                 </thead>
@@ -33,13 +32,24 @@
                     @foreach (var item in Model)
                     {
                     <tr>
-                        <td class="text-center"><a href="/FindQuotation/Detail?id=@item.CaseID">@item.title</a></td>
-                        <td class="text-center">@item.Price</td>
-                        <td class="text-center">@item.Contact</td>
-                        <td class="text-center">開啟中</td>
-                        @*<td class="text-center">@item.UpdateDate</td>*@
-                        <td class="text-center"><button class="text-center btnDele btn btn-primary " data-content="@item.CaseID">刪除</button></td>
-
+                        <td>
+                            <p class="mb-0">@item.CaseID</p>
+                        </td>
+                        <td>
+                            <a href="/FindQuotation/Detail?id=@item.CaseID"><p class="mb-0">@item.title</p></a>
+                        </td>
+                        <td>
+                            <p class="mb-0">@item.Price</p>
+                        </td>
+                        <td>
+                            <p class="mb-0">@item.Contact</p>
+                        </td>
+                        <td>
+                            <a class="btnDele text-primary" data-content="@item.CaseID">
+                                <i class="far fa-trash-alt"></i>
+                            </a>
+                            @*<button class="text-center btnDele btn btn-primary " data-content="@item.CaseID"><i class="far fa-trash-alt"></i></button>*@
+                        </td>
                     </tr>
                     }
                 </tbody>
@@ -59,6 +69,7 @@
 
 @section topCSS{
     <style>
+        h2{margin-bottom:20px}
         .btnDele:hover {
             cursor: pointer;
         }
@@ -67,6 +78,30 @@
             background-color: #89ba16 !important;
             border-radius: 6px;
             font-weight: bolder;
+        }
+        <style >
+
+        .table thead th {
+            border-bottom: 1px solid #f0eded !important;
+        }
+
+        .table th {
+            border-top: none !important;
+            color: #524545;
+        }
+
+        .table td {
+            border-top: 1px solid #f0eded !important;
+            display: table-cell;
+            vertical-align: middle !important;
+            border-bottom: 1px solid #f0eded !important;
+            color: #000;
+        }
+
+
+        tr {
+            color: rgb(170, 165, 165);
+            text-align: center;
         }
     </style>
 }

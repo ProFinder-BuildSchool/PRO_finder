@@ -868,7 +868,6 @@
     <Content Include="Views\Shared\_QuotationforCasePartial.cshtml" />
     <Content Include="Views\Quotation\CASEPARITALtest.cshtml" />
     <Content Include="Views\Talent\ApiTest.cshtml" />
-    <Content Include="Views\FindQuotation\QTRecord.cshtml" />
     <Content Include="Views\Cart\PaymentTest.cshtml" />
     <Content Include="Views\Cart\ConfirmPayment.cshtml" />
     <Content Include="Views\Cart\ECPaymentResult.cshtml" />
@@ -887,6 +886,7 @@
     <Content Include="Views\Talent\TalentOrderFinished.cshtml" />
     <Content Include="Views\Client\ReviseProposerAccount.cshtml" />
     <Content Include="Views\Client\CreateCase.cshtml" />
+    <Content Include="Views\Talent\TalentQuoted.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

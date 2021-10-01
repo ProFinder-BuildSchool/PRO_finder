@@ -54,6 +54,7 @@ namespace PRO_finder.Service
             return true;
         }
 
+        
 
         public List<ClientCartViewModel> GetCart(int memberId)
         {
@@ -165,14 +166,7 @@ namespace PRO_finder.Service
             return result;
         }
 
-        //人才提案紀錄刪除 //取消提案
-        public void DeleOfQTRecord(int? caseID, int memberID)
-        {
-            var QTRecordDB = _repo.GetAll<QuotationDetail>().FirstOrDefault(q => q.CaseID == caseID && q.ProposerID == memberID);
-            _repo.Delete<QuotationDetail>(QTRecordDB);
-            _repo.SaveChanges();
-        }
-
+        
         public string GetAllQuotationCart(int clientID)
         {
             //取得quotationCart
@@ -239,29 +233,42 @@ namespace PRO_finder.Service
             return JsonConvert.SerializeObject(allInfoInCart);
         }
 
+        
 
-        public List<QuotationCartViewModel> GetAllQTRecords(int memberID)
+        public List<QuotationCartViewModel> GetAllQTD(int memberID)
         {
             List<QuotationCartViewModel> allInfoInQTR = new List<QuotationCartViewModel>();
             var quoRecord = _repo.GetAll<QuotationDetail>()
                 .Where(x => x.ProposerID == memberID).ToList();
-
             foreach (var item in quoRecord)
             {
-                string date = item.ProposeDate.ToString("yyyy-MM-dd");
-                Case theCase = _repo.GetAll<Case>().FirstOrDefault(x => x.CaseID == item.CaseID);
-                allInfoInQTR.Add(new QuotationCartViewModel
+                if (item.Status == null)
                 {
-                    ProposeDate = date,
-                    ProposePrice = item.ProposePrice,
-                    CaseTitle = theCase.CaseTitle,
-                    CaseID = item.CaseID,
-                    //Status = (bool)item.Status
-                });
+                    string date = item.ProposeDate.ToString("yyyy-MM-dd");
+                    Case theCase = _repo.GetAll<Case>().FirstOrDefault(x => x.CaseID == item.CaseID);
+                    allInfoInQTR.Add(new QuotationCartViewModel
+                    {
+                        ProposeDate = date,
+                        ProposePrice = item.ProposePrice,
+                        CaseTitle = theCase.CaseTitle,
+                        CaseID = item.CaseID,
+                        //Status = (bool)item.Status,
+                        QuotationDetailID = item.QuotaionDetailID,
+                        
+
+                    });
+                }
+                
             }
             return allInfoInQTR;
         }
-
+        public bool DelQTD(int Id, int quotationDetailID)
+        {
+            var QDDBList = _repo.GetAll<QuotationDetail>().FirstOrDefault(x => (int)x.ProposerID == Id && x.QuotaionDetailID == quotationDetailID);
+            _repo.Delete<QuotationDetail>(QDDBList);
+            _repo.SaveChanges();
+            return true;
+        }
 
         public string QdToOrder(int qdID)
         {
@@ -292,7 +299,8 @@ namespace PRO_finder.Service
                 CaseID = qdCart.CaseID,
                 Title = caseInfo.CaseTitle,
                 ProposerEmail = proposerInfo.Email,
-                CloseReason = qdCart.QuotaionDetailID.ToString()
+                CloseReason = qdCart.QuotaionDetailID.ToString(),
+                OrderType = 0
             };
             //案主接案名稱 Order Name
             newOrder.Name = clientInfo.NickName == null ? "無接案名稱" : clientInfo.NickName;
