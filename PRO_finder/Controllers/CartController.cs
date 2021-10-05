@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace PRO_finder.Controllers
 {
-    
+    [Authorize]
     public class CartController : MyControllerBase
     {
         private readonly CartService _cartservice;
@@ -69,6 +69,7 @@ namespace PRO_finder.Controllers
             return Redirect("/ECPay/AioCheckOut.aspx");
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult ECPaymentResult(ECPaymentRtnViewModel result)
         {
