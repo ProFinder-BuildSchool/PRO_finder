@@ -770,10 +770,15 @@
                 "Settings.Email": {
                     immediate: true,
                     handler: function () {
+                        let email_regx = new RegExp("/^\w+((-\w+)|(\.\w+))*\@@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/");
                         if (this.Settings.Email == "" || this.Settings.Email == null) {
                             this.Validation.Email = false;
                             this.ValidationMsg.Email = "請輸入您的Email";
-                        } else {
+                        } else if (email_regx.test(this.Settings.Email)) {
+                            this.Validation.Email = false;
+                            this.ValidationMsg.Email = "請填寫正確的Email格式";
+                        }
+                        else {
                             this.Validation.Email = true;
                             this.ValidationMsg.Email = "";
                         };
