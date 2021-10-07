@@ -2854,7 +2854,7 @@
   content: "\e86d";
 }
 .icon-close2:before {
-  content: "\e5cd";
+    content: "\10102";
 }
 .icon-clear_all:before {
   content: "\e0b8";
@@ -3616,7 +3616,7 @@
   content: "\e312";
 }
 .icon-keyboard_arrow_down:before {
-  content: "\e313";
+    content: "";
 }
 .icon-keyboard_arrow_left:before {
   content: "\e314";
@@ -3625,7 +3625,7 @@
   content: "\e315";
 }
 .icon-keyboard_arrow_up:before {
-    content: "\e316";
+    content: "\005E";
 }
 .icon-keyboard_backspace:before {
   content: "\e317";
@@ -3850,7 +3850,7 @@
   content: "\e322";
 }
 .icon-menu:before {
-  content: "\e5d2";
+    content: "\02EC";
 }
 .icon-message:before {
   content: "\e0c9";
