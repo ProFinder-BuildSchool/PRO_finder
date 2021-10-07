@@ -255,7 +255,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js" integrity="sha512-zYXldzJsDrNKV+odAwFYiDXV2Cy37cwizT+NkuiPGsa9X1dOz04eHvUWVuxaJ299GvcJT31ug2zO4itXBjFx4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
 
-        //服務類別轉換
+        //服務類別雙層連動下拉式選單轉換
         let selector = document.querySelector("#subcategorySelect");
         var subCategoryList = [];
 
@@ -410,16 +410,16 @@
         function getBlobData(img_src) {
             return fetch(img_src).then(res => res.blob());
         }
-        function axiosImageFile(picture) {
-            return axios({
-                method: 'post',
-                url: '/Talent/UploadCloudinary',
-                data: picture,
-                contentType: false,
-                processData: false,
-                enctype: "multipart/form-data"
-            }).then(res => res.data);
-        }
+        //function axiosImageFile(picture) {
+        //    return axios({
+        //        method: 'post',
+        //        url: '/Talent/UploadCloudinary',
+        //        data: picture,
+        //        contentType: false,
+        //        processData: false,
+        //        enctype: "multipart/form-data"
+        //    }).then(res => res.data);
+        //}
     </script>
 
 }

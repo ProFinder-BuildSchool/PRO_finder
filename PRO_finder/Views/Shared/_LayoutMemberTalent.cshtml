@@ -177,98 +177,98 @@
                                                      data-parent="#accordionExample2">
                                                     <div class="card-body">
 
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="@Url.Action("CaseSetting", "Talent")">接案設定</a>
-                                        </li>
-                                        
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="@Url.Action("UploadMyWorks", "Talent")">新增作品集</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="@Url.Action("CreateQuotation", "Talent")">刊登新服務</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="@Url.Action("MyQuotationIndex", "Talent")">我的服務</a>
-                                        </li>
-                                        
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="@Url.Action("CaseSetting", "Talent")">接案設定</a>
+                                                        </li>
+
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="@Url.Action("UploadMyWorks", "Talent")">新增作品集</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="@Url.Action("CreateQuotation", "Talent")">刊登新服務</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="@Url.Action("MyQuotationIndex", "Talent")">我的服務</a>
+                                                        </li>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-header myHeader" id="headingFive">
+                                                    <h2 class="mb-0">
+                                                        <button class="btn btn-link btn-block text-center collapsed" type="button"
+                                                                data-toggle="collapse" data-target="#collapseFive" aria-expanded="false"
+                                                                aria-controls="collapseFive">
+                                                            <i class="fas fa-angle-down"></i> 服務記錄
+                                                        </button>
+                                                    </h2>
+                                                </div>
+                                                <div id="collapseFive" class="collapse" aria-labelledby="headingFive"
+                                                     data-parent="#accordionExample2">
+                                                    <div class="card-body">
+
+                                                        <li class="nav-item">
+                                                            <a class="nav-link doing " href="@Url.Action("TalentOrderDoing","Talent")"><span class="badge"></span>進行中的服務</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link deal " href="@Url.Action("TalentOrderFinished","Talent")"><span class="badge"></span>已完成的服務</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link savecase" href="@Url.Action("SaveCase","SaveCase")">已收藏案件</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link qtrecord" href="@Url.Action("QTRecord","FindQuotation")">提案記錄</a>
+                                                        </li>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-header myHeader" id="headingSix">
+                                                    <h2 class="mb-0">
+                                                        <button class="btn btn-link btn-block text-center collapsed" type="button"
+                                                                data-toggle="collapse" data-target="#collapseSix" aria-expanded="false"
+                                                                aria-controls="collapseSix">
+                                                            <i class="fas fa-angle-down"></i> 帳戶管理
+                                                        </button>
+                                                    </h2>
+                                                </div>
+                                                <div id="collapseSix" class="collapse" aria-labelledby="headingSix"
+                                                     data-parent="#accordionExample2">
+                                                    <div class="card-body">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="@Url.Action("AccountSetting","Talent")">金融帳戶管理</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="@Url.Action("ReviseAccount", "Client", new{userId})">修改會籍帳戶</a>
+                                                        </li>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ul>
                                 </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header myHeader" id="headingFive">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-center collapsed" type="button"
-                                        data-toggle="collapse" data-target="#collapseFive" aria-expanded="false"
-                                        aria-controls="collapseFive">
-                                    <i class="fas fa-angle-down"></i> 服務記錄
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="collapseFive" class="collapse" aria-labelledby="headingFive"
-                             data-parent="#accordionExample2">
-                            <div class="card-body">
-
-                                <li class="nav-item">
-                                    <a class="nav-link doing " href="@Url.Action("TalentOrderDoing","Talent")"><span class="badge"></span>進行中的服務</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link deal " href="@Url.Action("TalentOrderFinished","Talent")"><span class="badge"></span>已完成的服務</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link savecase" href="@Url.Action("SaveCase","SaveCase")">已收藏案件</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link qtrecord" href="@Url.Action("QTRecord","FindQuotation")">提案記錄</a>
-                                </li>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header myHeader" id="headingSix">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-center collapsed" type="button"
-                                        data-toggle="collapse" data-target="#collapseSix" aria-expanded="false"
-                                        aria-controls="collapseSix">
-                                    <i class="fas fa-angle-down"></i> 帳戶管理
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="collapseSix" class="collapse" aria-labelledby="headingSix"
-                             data-parent="#accordionExample2">
-                            <div class="card-body">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="@Url.Action("AccountSetting","Talent")">金融帳戶管理</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="@Url.Action("ReviseAccount", "Client", new{userId})">修改會籍帳戶</a>
-                                </li>
-                                
+                            </nav>
+                            <div class="col">
+                                <div class="tab-content pt-0" id="v-pills-tabContent">
+                                    <div class="tab-pane fade show active" id="v-pills-homeLancer" role="tabpanel"
+                                         aria-labelledby="v-pills-homeLancer-tab">
+                                        <!-- 我是人才主頁 -->
+                                        @RenderBody()
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                </ul>
             </div>
-            </nav>
-            <div class="col">
-                <div class="tab-content pt-0" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-homeLancer" role="tabpanel"
-                         aria-labelledby="v-pills-homeLancer-tab">
-                        <!-- 我是人才主頁 -->
-                        @RenderBody()
-                    </div>
-                </div>
-            </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </section>
+        </section>
 
 
-    <footer class="site-footer">
-        @Html.Partial("_FooterPartial")
-    </footer>
+        <footer class="site-footer">
+            @Html.Partial("_FooterPartial")
+        </footer>
 
     </div>
     @Scripts.Render("~/bundles/jquery")
@@ -277,7 +277,7 @@
     @RenderSection("scripts", required: false)
     @RenderSection("endCSS", required: false)
     @RenderSection("endJS", required: false)
-
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         OrderUnreadNumber();
         let Status0 = '';

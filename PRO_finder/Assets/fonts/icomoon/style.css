@@ -3625,7 +3625,7 @@
   content: "\e315";
 }
 .icon-keyboard_arrow_up:before {
-  content: "\e316";
+    content: "\e316";
 }
 .icon-keyboard_backspace:before {
   content: "\e317";

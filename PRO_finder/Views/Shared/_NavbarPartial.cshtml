@@ -45,16 +45,14 @@
                 <nav class="site-navigation">
                     <ul class="site-menu js-clone-nav d-none d-xl-block pl-0 py-0">
                         <li class="HomeIndex"><a class="py-0" href="@Url.Action("Index","Home")"><i class="fas fa-home mr-2"></i>首頁</a></li>
-                        <li class="d-xl-none"><a href="@Url.Action("Login","Account")"><i class="fas fa-user mr-2"></i>登入/註冊</a></li>
-                        <li class="d-xl-none"><a href="#"><i class="fas fa-comment-dots mr-2"></i>我的詢問</a></li>
+                        <li class="d-xl-none"><a href="@Url.Action("Login","Account")"><i class="fas fa-sign-in-alt"></i>&ensp;登入/註冊</a></li>
+                        <li class="d-xl-none"><a href="/Talent/Index"><i class="fas fa-user-circle"></i>&ensp;我的帳戶</a></li>
                         <li class="d-xl-none imTalent">我是人才:</li>
                         <li class="FindQuotation"><a href="@Url.Action("Index","FindQuotation")" class="py-0"><i class="far fa-file-word mr-2"></i>我要接案</a></li>
-                        <li class="d-xl-none"><a href="#"><i class="icon far fa-question-circle mr-2"></i>如何接案</a></li>
                         <li class="d-xl-none imTalent">我是案主:</li>
-                        <li class="d-xl-none"><a href="#"><i class="icon fas fa-pencil-alt mr-2"></i>立即發案</a></li>
-                        <li class="d-xl-none"><a href="#"><i class="icon far fa-question-circle mr-2"></i>如何發案</a></li>
+                        <li class="d-xl-none"><a href="/Client/CreateCase"><i class="icon fas fa-pencil-alt mr-2"></i>立即發案</a></li>
                         <li class=" Quotation has-children">
-                            <a href="#" class="py-0"><i class=" fas fa-search-dollar mr-2"></i>找報價</a>
+                            <a href="/Quotation/Index?CategoryId=0" class="py-0"><i class=" fas fa-search-dollar mr-2"></i>找報價</a>
                             <ul class="dropdown ">
                                 <li class="py-1"><a href="/Quotation/Index?CategoryId=0">平面設計</a></li>
                                 <li class="py-1"><a href="/Quotation/Index?CategoryId=1">網頁設計</a></li>
@@ -69,8 +67,8 @@
                                 <li class="py-1"><a href="/Quotation/Index?CategoryId=10">資訊工程</a></li>
                             </ul>
                         </li>
-                        <li class="d-xl-none imTalent">　</li>
-                        <li class="d-xl-none"><a href="#"><i class="fas fa-question-circle mr-2"></i>我有建議</a></li>
+                        @*<li class="d-xl-none imTalent">　</li>*@
+                        @*<li class="d-xl-none"><a href="#"><i class="fas fa-question-circle mr-2"></i>我有建議</a></li>*@
                     </ul>
                 </nav>
             </div>
@@ -81,8 +79,8 @@
             <div class=" text-right  col-6">
                 <nav class="site-navigation">
                     <ul class="site-menu js-clone-nav d-none d-xl-block py-0">
-                        <li><a href="@Url.Action("Index","Talent")" class="px-0"><i class="fas fa-user mr-2"></i>我的帳戶</a></li>
-                        @*<li class="CartList"><a href="@Url.Action("CartList","Cart")" class="px-0"><i class="fas fa-inbox  mr-2"></i>感興趣</a></li>*@
+                        @*<li><a href="@Url.Action("Index","Talent")" class="px-0"><i class="fas fa-user mr-2"></i>我的帳戶</a></li>
+                        <li class="CartList"><a href="@Url.Action("CartList","Cart")" class="px-0"><i class="fas fa-inbox  mr-2"></i>感興趣</a></li>*@
                     </ul>
 
 
