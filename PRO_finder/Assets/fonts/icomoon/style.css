@@ -2854,7 +2854,7 @@
   content: "\e86d";
 }
 .icon-close2:before {
-    content: "\10102";
+    content: "";
 }
 .icon-clear_all:before {
   content: "\e0b8";

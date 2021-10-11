@@ -48,12 +48,13 @@
                         <li class="d-xl-none"><a href="@Url.Action("Login","Account")"><i class="fas fa-sign-in-alt"></i>&ensp;登入/註冊</a></li>
                         <li class="d-xl-none"><a href="/Talent/Index"><i class="fas fa-user-circle"></i>&ensp;我的帳戶</a></li>
                         <li class="d-xl-none imTalent">我是人才:</li>
-                        <li class="FindQuotation"><a href="@Url.Action("Index","FindQuotation")" class="py-0"><i class="far fa-file-word mr-2"></i>我要接案</a></li>
+                        <li class="FindQuotation"><a href="@Url.Action("Index","FindQuotation")" class="py-2"><i class="far fa-file-word mr-2"></i>我要接案</a></li>
                         <li class="d-xl-none imTalent">我是案主:</li>
                         <li class="d-xl-none"><a href="/Client/CreateCase"><i class="icon fas fa-pencil-alt mr-2"></i>立即發案</a></li>
                         <li class=" Quotation has-children">
-                            <a href="/Quotation/Index?CategoryId=0" class="py-0"><i class=" fas fa-search-dollar mr-2"></i>找報價<i class="fas fa-chevron-down p-2"></i></a>
-                            <ul class="dropdown ">
+                            <a href="/Quotation/Index?CategoryId=0" class="py-0"><i class=" fas fa-search-dollar mr-2"></i>找報價</a>
+                            @*<a href="/Quotation/Index?CategoryId=0" class="py-0"><i class=" fas fa-search-dollar mr-2"></i>找報價<i class="fas fa-chevron-down p-2"></i></a>*@
+                            <ul class="dropdown">
                                 <li class="py-1"><a href="/Quotation/Index?CategoryId=0">平面設計</a></li>
                                 <li class="py-1"><a href="/Quotation/Index?CategoryId=1">網頁設計</a></li>
                                 <li class="py-1"><a href="/Quotation/Index?CategoryId=2">程式開發</a></li>
