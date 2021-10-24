@@ -250,10 +250,10 @@
                                         </div>
                                         <div class="mb-2">
                                             <a class="studioName" href="@Url.Action("Detail", "Quotation")" target="_blank">@item.StudioName</a> <br>
-                                            <span class="pic_tag">CategoryId： @item.CategoryId</span>
+                                            @*<span class="pic_tag">CategoryId： @item.CategoryId</span>
                                             <span class="pic_tag">SubcategoryId： @item.SubcategoryId</span>
                                             <span class="pic_tag">Location： @item.Location</span>
-                                            <span class="pic_tag">QuotationId： @item.QuotationId</span>
+                                            <span class="pic_tag">QuotationId： @item.QuotationId</span>*@
                                         </div>
                                     </div>
                                     <div class="listing__item__text__info">
@@ -288,10 +288,10 @@
                                     </div>
                                     <div class="mb-2">
                                         <a class="studioName" href="" target="_blank"></a> <br>
-                                        <span class="pic_tag test1"></span>
+                                        @*<span class="pic_tag test1"></span>
                                         <span class="pic_tag test2"></span>
                                         <span class="pic_tag test3"></span>
-                                        <span class="pic_tag test4"></span>
+                                        <span class="pic_tag test4"></span>*@
                                     </div>
                                 </div>
                                 <div class="listing__item__text__info">
@@ -1079,10 +1079,10 @@
                 cloneContent.querySelector('img').src = item.Img;
                 cloneContent.querySelector('.studioName').innerText = item.StudioName;
                 cloneContent.querySelector('.price').innerText = item.Price;
-                cloneContent.querySelector('.test1').innerText = `cate${item.CategoryId}`;
-                cloneContent.querySelector('.test2').innerText = `sub${item.SubcategoryId}`;
-                cloneContent.querySelector('.test3').innerText = `location${item.Location}`;
-                cloneContent.querySelector('.test4').innerText = `QuotationId${item.QuotationId}`;
+                //cloneContent.querySelector('.test1').innerText = `cate${item.CategoryId}`;
+                //cloneContent.querySelector('.test2').innerText = `sub${item.SubcategoryId}`;
+                //cloneContent.querySelector('.test3').innerText = `location${item.Location}`;
+                //cloneContent.querySelector('.test4').innerText = `QuotationId${item.QuotationId}`;
                 cloneContent.querySelector('.listing__item__text__info__right').href = `/Quotation/Detail/${item.MemberID}/${item.QuotationId}`;
                 itemZone.append(cloneContent);
             });
@@ -1123,7 +1123,7 @@
             })
         }
 
-        //all conditions filter
+        //All Conditions Filter
         function filterByAll(price, subcategory, loction) {
             if (price.length == 0) { price = AllCardArray }
             let OptionOne = [];
@@ -1136,7 +1136,6 @@
                     OptionOne = OptionOne.concat(price.filter(item => item.SubcategoryName == subcategory[i]));
                 }
             }
-
 
             if (loction.length == 0) {
                 OptionTwo = OptionOne
