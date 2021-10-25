@@ -62,6 +62,7 @@ namespace PRO_finder.Controllers
             if (hasInfo)
             {
                 ViewBag.CategoryList = _cateService.GetCategorySelectList();
+                ViewBag.NewQuotationCount = _quotaService.GetMyQuotations(memberID).ToList().Count + 1;
                 return View();
             }
             else
@@ -73,7 +74,7 @@ namespace PRO_finder.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateQuotation([Bind(Include = "QuotationTitle,Price,QuotationUnit,ExecuteDate,Description,DescriptionValidation,SubCategoryID,MainPicture,OtherPictureList")] CreateQuotationViewModel quotation)
+        public ActionResult CreateQuotation([Bind(Include = "QuotationTitle,Price,QuotationUnit,ExecuteDate,Description,DescriptionValidation,SubCategoryID,MainPicture,OtherPictureList, NewQuotationCount")] CreateQuotationViewModel quotation)
         {
             ViewBag.CategoryList = _cateService.GetCategorySelectList();
             string userID = HttpContext.User.Identity.GetUserId();
@@ -81,10 +82,14 @@ namespace PRO_finder.Controllers
             if (ModelState.IsValid)
             {
                 var myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
-                while (myQuotation.Last().MainPicture == null)
+                int myQuotationCount = myQuotation.Count();
+                
+                while(myQuotationCount == 0 || myQuotationCount != quotation.NewQuotationCount)
                 {
                     myQuotation = _quotaService.GetMyQuotations(memberID).ToList();
+                    myQuotationCount = myQuotation.Count();
                 }
+                
                 return RedirectToAction("MyQuotationIndex", myQuotation);
             }
             return View(quotation);

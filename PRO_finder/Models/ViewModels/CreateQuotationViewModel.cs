@@ -65,6 +65,8 @@ namespace PRO_finder.ViewModels
         public List<OtherPictureViewModel> OtherPicList {get;set;}
 
         public int CategoryID { get; set; }
+
+        public int NewQuotationCount { get; set; }
     }
     public class UploadOtherPicture
     {
